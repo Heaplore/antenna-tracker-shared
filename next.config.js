@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // 暂时移除 static export，保留开发模式
+  // output: 'export',
   images: {
     unoptimized: true
   }

@@ -1,62 +1,270 @@
-[
-  {
-    "name": "Qorvo",
-    "country": "美国",
-    "products": ["射频前端", "天线模块"],
-    "description": "全球领先的射频解决方案供应商"
-  },
-  {
-    "name": "Murata",
-    "country": "日本",
-    "products": ["片式天线", "射频器件"],
-    "description": "电子元器件龙头企业"
-  },
-  {
-    "name": "Skyworks",
-    "country": "美国",
-    "products": ["射频芯片", "天线开关"],
-    "description": "无线通信射频前端解决方案"
-  },
-  {
-    "name": "Infineon",
-    "country": "德国",
-    "products": ["射频器件", "天线控制器"],
-    "description": "半导体解决方案领导者"
-  },
-  {
-    "name": "中信科移动",
-    "country": "中国",
-    "products": ["基站天线", "室内分布天线"],
-    "description": "国内通信设备主力厂商"
-  },
-  {
-    "name": "盛路通信",
-    "country": "中国",
-    "products": ["微波天线", "基站天线"],
-    "description": "国内天线制造龙头企业"
-  },
-  {
-    "name": "亨鑫科技",
-    "country": "中国",
-    "products": ["通信天线", "射频器件"],
-    "description": "天线及射频器件制造商"
-  },
-  {
-    "name": "三维通信",
-    "country": "中国",
-    "products": ["基站天线", "微波天线"],
-    "description": "通信设备解决方案提供商"
-  },
-  {
-    "name": "国人通信",
-    "country": "中国",
-    "products": ["射频器件", "天线系统"],
-    "description": "射频技术及产品供应商"
-  },
-  {
-    "name": "中兴通讯",
-    "country": "中国",
-    "products": ["基站天线", "终端天线"],
-    "description": "全球通信设备巨头"
+{
+  "lastUpdate": "2026-05-29",
+  "summary": "中国天线产业已形成完整供应链体系。上游关键材料仍由海外主导，PTFE板材国产化加速；中游制造格局稳定，华为占据绝对领先地位；下游运营商集采主导需求侧。2026年行业整体呈现需求强劲、竞争加剧的态势。",
+  "supplyChain": {
+    "upstream": {
+      "name": "上游：材料与元器件",
+      "description": "天线产业最上游环节，提供生产所需的基础材料和电子元器件。",
+      "companies": [
+        {
+          "id": "c001",
+          "name": "生益科技",
+          "nameEn": "Shengyi",
+          "role": "高频覆铜板",
+          "position": "国内最大覆铜板厂商，PTFE高频材料产能国内第一",
+          "customers": ["华为", "中兴", "爱立信"],
+          "highlights": ["PTFE高频覆铜板产能国内第一", "华为认证通过", "5G毫米波材料布局"],
+          "location": "东莞"
+        },
+        {
+          "id": "c002",
+          "name": "华正新材",
+          "nameEn": "Walsin",
+          "role": "高频覆铜板",
+          "position": "覆铜板专业厂商，高频材料产能持续扩张",
+          "customers": ["中兴", "诺基亚"],
+          "highlights": ["高频PTFE材料已通过主流设备商认证", "产能利用率持续满载"],
+          "location": "杭州"
+        },
+        {
+          "id": "c003",
+          "name": "博恩电子",
+          "nameEn": "Boen",
+          "role": "LCP薄膜/软板",
+          "position": "LCP软板国内领先，5G毫米波AiP模组供应商",
+          "customers": ["信维通信", "硕贝德", "苹果供应链"],
+          "highlights": ["LCP材料国产化替代领先", "毫米波AiP模组小批量供货"],
+          "location": "深圳"
+        },
+        {
+          "id": "c004",
+          "name": "村田制作所",
+          "nameEn": "Murata",
+          "role": "被动元器件/模组",
+          "position": "全球最大被动元器件厂商，AiP模组核心供应商",
+          "customers": ["苹果", "三星"],
+          "highlights": ["超小型5G毫米波AiP模组", "LTCC工艺全球领先"],
+          "location": "日本"
+        },
+        {
+          "id": "c005",
+          "name": "Taiyo Yuden",
+          "nameEn": "Taiyo Yuden",
+          "role": "电感/被动器件",
+          "position": "高频电感核心供应商，5G射频前端重要供应商",
+          "customers": ["华为", "苹果"],
+          "highlights": ["高频电感全球前三", "5G射频前端核心供应链"],
+          "location": "日本"
+        }
+      ]
+    },
+    "midstream": {
+      "name": "中游：天线设计与制造",
+      "description": "天线产业核心环节，涵盖基站天线、终端天线、微波天线等各类产品的设计与制造。",
+      "companies": [
+        {
+          "id": "c006",
+          "name": "华为技术有限公司",
+          "nameEn": "Huawei",
+          "role": "系统设备/基站天线",
+          "position": "全球基站天线市场领导者，5G-A技术引领者",
+          "customers": ["中国移动", "中国电信", "中国联通"],
+          "highlights": ["5G-A 128T128R AAU商用", "全球基站天线市场份额第一", "massive MIMO技术领先"],
+          "location": "深圳",
+          "isKey": true
+        },
+        {
+          "id": "c007",
+          "name": "中兴通讯",
+          "nameEn": "ZTE",
+          "role": "系统设备/基站天线",
+          "position": "国内第二大通信设备商，A+天线品牌战略启动",
+          "customers": ["中国电信", "中国移动"],
+          "highlights": ["A+天线品牌战略", "5G-A产品线完整", "国内运营商核心供应商"],
+          "location": "深圳"
+        },
+        {
+          "id": "c008",
+          "name": "盛路通信",
+          "nameEn": "Shenglu",
+          "role": "基站天线/微波天线",
+          "position": "国内基站天线龙头企业，微波天线出口领先",
+          "customers": ["中国移动", "中国电信", "东南亚运营商", "欧洲运营商"],
+          "highlights": ["5G基站天线出口增长超40%", "微波天线出口领先", "年营收28亿元"],
+          "location": "佛山"
+        },
+        {
+          "id": "c009",
+          "name": "亨鑫科技",
+          "nameEn": " Hengxin",
+          "role": "基站天线",
+          "position": "国内知名基站天线厂商，运营商集采核心供应商",
+          "customers": ["中国移动", "中国联通"],
+          "highlights": ["运营商集采核心供应商", "4G/5G天线产品线完整"],
+          "location": "无锡"
+        },
+        {
+          "id": "c010",
+          "name": "通宇通讯",
+          "nameEn": "Tongyu",
+          "role": "基站天线/微波天线",
+          "position": "基站天线专业厂商，微波通信领域有优势",
+          "customers": ["中国电信", "中东运营商"],
+          "highlights": ["微波天线技术领先", "海外市场持续拓展"],
+          "location": "中山"
+        },
+        {
+          "id": "c011",
+          "name": "京信通信",
+          "nameEn": "Comba",
+          "role": "基站天线/小基站",
+          "position": "亚太领先基站天线厂商，小基站产品线丰富",
+          "customers": ["中国移动", "日本软银", "印度运营商"],
+          "highlights": ["小基站天线产品线完整", "亚太市场领先", "室内覆盖解决方案"],
+          "location": "广州"
+        },
+        {
+          "id": "c012",
+          "name": "东山精密",
+          "nameEn": "DSBJ",
+          "role": "AAU金属腔体",
+          "position": "华为AAU腔体独家供应商，月产能200万套",
+          "customers": ["华为"],
+          "highlights": ["华为AAU腔体独家供应商", "月产能突破200万套", "供货占比65%"],
+          "location": "苏州"
+        },
+        {
+          "id": "c013",
+          "name": "信维通信",
+          "nameEn": "Sinwa",
+          "role": "终端天线/LCP模组",
+          "position": "终端天线领先厂商，LCP天线产能扩张中",
+          "customers": ["苹果", "三星", "华为"],
+          "highlights": ["LCP天线模组产能提升40%", "苹果供应商", "5G终端天线领先"],
+          "location": "深圳"
+        },
+        {
+          "id": "c014",
+          "name": "硕贝德",
+          "nameEn": "Speagle",
+          "role": "终端天线",
+          "position": "终端天线专业厂商，5G手机天线主要供应商",
+          "customers": ["华为", "小米", "OPPO"],
+          "highlights": ["5G手机天线主要供应商", "终端天线产能扩张", "A股上市公司"],
+          "location": "惠州"
+        },
+        {
+          "id": "c015",
+          "name": "成都天锐星空",
+          "nameEn": "Tianrui",
+          "role": "卫星终端天线",
+          "position": "相控阵卫星终端厂商，雄安产业园入驻",
+          "customers": ["SpaceX", "中国星网"],
+          "highlights": ["相控阵卫星终端批量生产", "雄安产业园入驻", "卫星互联网终端"],
+          "location": "成都"
+        },
+        {
+          "id": "c016",
+          "name": "爱立信",
+          "nameEn": "Ericsson",
+          "role": "系统设备",
+          "position": "全球第二大三信设备商，中国市场持续运营",
+          "customers": ["中国联通"],
+          "highlights": ["全球5G设备第二", "毫米波基站设备认证", "中国联通核心供应商"],
+          "location": "瑞典"
+        },
+        {
+          "id": "c017",
+          "name": "诺基亚",
+          "nameEn": "Nokia",
+          "role": "系统设备",
+          "position": "全球第三大通信设备商，中国市场稳定供应",
+          "customers": ["中国电信"],
+          "highlights": ["全球5G设备第三", "5G毫米波设备认证", "中国电信集采中标"],
+          "location": "芬兰"
+        },
+        {
+          "id": "c018",
+          "name": "乐依互联",
+          "nameEn": "Loye",
+          "role": "网通天线",
+          "position": "Wi-Fi路由器天线领先厂商，Wi-Fi 7 MIMO方案推出",
+          "customers": ["TP-Link", "小米", "华为"],
+          "highlights": ["Wi-Fi 7 MIMO天线方案", "路由器天线市场份额领先", "多频段MIMO技术"],
+          "location": "深圳"
+        },
+        {
+          "id": "c019",
+          "name": "普莱斯科技",
+          "nameEn": "Pulse",
+          "role": "网通天线",
+          "position": "网通天线专业厂商，多频段方案领先",
+          "customers": ["华硕", "Netgear"],
+          "highlights": ["多频段MIMO天线方案", "海外网通品牌主要供应商"],
+          "location": "深圳"
+        },
+        {
+          "id": "c020",
+          "name": "莱尔德科技",
+          "nameEn": "Laird",
+          "role": "网通天线/车载天线",
+          "position": "全球领先天线系统供应商，车载V2X天线布局",
+          "customers": ["特斯拉", "宝马"],
+          "highlights": ["Wi-Fi 7 MIMO方案", "车载V2X天线", "全球天线系统供应商"],
+          "location": "美国"
+        }
+      ]
+    },
+    "downstream": {
+      "name": "下游：运营商与集成商",
+      "description": "天线产业下游，决定需求方向和应用场景。",
+      "companies": [
+        {
+          "id": "c021",
+          "name": "中国移动",
+          "nameEn": "China Mobile",
+          "role": "运营商",
+          "position": "全球最大移动通信运营商，天线采购量国内第一",
+          "highlights": ["2026年第二批集采超2000万面", "基站规模全球第一", "5G-A建设领跑"],
+          "location": "北京"
+        },
+        {
+          "id": "c022",
+          "name": "中国电信",
+          "nameEn": "China Telecom",
+          "role": "运营商",
+          "position": "国内第二大运营商，5G建设快速推进",
+          "highlights": ["2026年集采约1200万面", "5G毫米波商用领先", "与中国联通共建共享"],
+          "location": "北京"
+        },
+        {
+          "id": "c023",
+          "name": "中国联通",
+          "nameEn": "China Unicom",
+          "role": "运营商",
+          "position": "国内第三大运营商，6G技术研究活跃",
+          "highlights": ["6G天线技术愿景白皮书", "与电信共建共享5G", "毫米波频谱试验"],
+          "location": "北京"
+        },
+        {
+          "id": "c024",
+          "name": "中国铁塔",
+          "nameEn": "China Tower",
+          "role": "通信基础设施",
+          "position": "国内最大通信塔桅运营商，统筹运营商站址",
+          "highlights": ["承接运营商塔桅建设需求", "天线挂载方案优化", "存量站址改造"],
+          "location": "北京"
+        },
+        {
+          "id": "c025",
+          "name": "中国星网",
+          "nameEn": "China SatNet",
+          "role": "卫星运营商",
+          "position": "国家卫星互联网运营商，终端需求快速增长",
+          "highlights": ["卫星互联网建设主体", "相控阵终端批量采购", "低轨卫星星座建设"],
+          "location": "雄安新区"
+        }
+      ]
+    }
   }
-]
+}

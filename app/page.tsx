@@ -5,62 +5,54 @@ import newsData from '../data/news.json'
 import companiesData from '../data/companies.json'
 import pricesData from '../data/prices.json'
 import standardsData from '../data/standards.json'
-import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, 
+import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
          XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('overview')
   const [searchKeyword, setSearchKeyword] = useState('')
-  const [newsFilter, setNewsFilter] = useState('全部')
-  const [companyFilter, setCompanyFilter] = useState('全部')
-  
-  // 筛选后的新闻
-  const filteredNews = useMemo(() => {
-    let result = newsData
-    if (searchKeyword) {
-      const kw = searchKeyword.toLowerCase()
-      result = result.filter(n => 
-        n.title.toLowerCase().includes(kw) || 
-        n.summary.toLowerCase().includes(kw) ||
-        n.tags.some(t => t.toLowerCase().includes(kw))
-      )
-    }
-    if (newsFilter !== '全部') {
-      result = result.filter(n => n.tags.includes(newsFilter))
-    }
-    return result
-  }, [searchKeyword, newsFilter])
 
-  // 筛选后的企业
+  // companiesData 新结构：{ supplyChain: { upstream/midstream/downstream: { companies } } }
+  const allCompanies = useMemo(() => {
+    const chain = (companiesData as any).supplyChain || {}
+    const sections = [chain.upstream, chain.midstream, chain.downstream].filter(Boolean)
+    return sections.flatMap((sec: any) => sec.companies || [])
+  }, [])
+
   const filteredCompanies = useMemo(() => {
-    let result = companiesData
-    if (searchKeyword) {
-      const kw = searchKeyword.toLowerCase()
-      result = result.filter(c => 
-        c.name.toLowerCase().includes(kw) || 
-        c.description.toLowerCase().includes(kw) ||
-        c.products.some(p => p.toLowerCase().includes(kw))
-      )
-    }
-    if (companyFilter !== '全部') {
-      result = result.filter(c => c.country === companyFilter)
-    }
-    return result
-  }, [searchKeyword, companyFilter])
+    if (!searchKeyword) return allCompanies
+    const kw = searchKeyword.toLowerCase()
+    return allCompanies.filter((c: any) =>
+      c.name.toLowerCase().includes(kw) ||
+      c.description.toLowerCase().includes(kw) ||
+      (c.products || []).some((p: string) => p.toLowerCase().includes(kw))
+    )
+  }, [allCompanies, searchKeyword])
 
-  // 获取所有新闻标签
-  const allNewsTags = useMemo(() => {
-    const tags = new Set<string>()
-    newsData.forEach(n => n.tags.forEach(t => tags.add(t)))
-    return ['全部', ...Array.from(tags)]
+  // pricesData 新结构：{ categories: [{ name, materials: [...] }] }
+  const allMaterials = useMemo(() => {
+    return (pricesData as any).categories?.flatMap((cat: any) => cat.materials || []) || []
   }, [])
 
-  // 获取所有国家
-  const allCountries = useMemo(() => {
-    const countries = new Set<string>()
-    companiesData.forEach(c => countries.add(c.country))
-    return ['全部', ...Array.from(countries)]
+  const filteredPrices = useMemo(() => {
+    if (!searchKeyword) return allMaterials
+    const kw = searchKeyword.toLowerCase()
+    return allMaterials.filter((m: any) => m.name.toLowerCase().includes(kw))
+  }, [allMaterials, searchKeyword])
+
+  // standardsData 新结构：{ categories: [{ name, standards: [...] }] }
+  const allStandards = useMemo(() => {
+    return (standardsData as any).categories?.flatMap((cat: any) => cat.standards || []) || []
   }, [])
+
+  const filteredStandards = useMemo(() => {
+    if (!searchKeyword) return allStandards
+    const kw = searchKeyword.toLowerCase()
+    return allStandards.filter((s: any) =>
+      s.name.toLowerCase().includes(kw) ||
+      s.title.toLowerCase().includes(kw)
+    )
+  }, [allStandards, searchKeyword])
 
   return (
     <div className="container">
@@ -91,26 +83,29 @@ export default function Home() {
 
       {/* Tab Navigation */}
       <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
-        {['overview', 'market', 'news', 'companies', 'prices', 'standards', 'technology'].map(tab => (
+        {[
+          { key: 'overview', label: '📊 概览' },
+          { key: 'market', label: '📈 市场' },
+          { key: 'news', label: '📰 动态' },
+          { key: 'companies', label: '🏭 企业' },
+          { key: 'prices', label: '💰 价格' },
+          { key: 'standards', label: '📋 标准' },
+          { key: 'technology', label: '🔬 技术' },
+        ].map(tab => (
           <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
+            key={tab.key}
+            onClick={() => setActiveTab(tab.key)}
             style={{
               padding: '8px 16px',
               border: 'none',
               borderRadius: '6px',
-              background: activeTab === tab ? '#667eea' : '#f0f0f0',
-              color: activeTab === tab ? 'white' : '#666',
+              background: activeTab === tab.key ? '#667eea' : '#f0f0f0',
+              color: activeTab === tab.key ? 'white' : '#666',
               cursor: 'pointer',
               fontSize: '0.9rem'
             }}
           >
-            {tab === 'overview' ? '📊 概览' : 
-             tab === 'market' ? '📈 市场' :
-             tab === 'news' ? '📰 动态' :
-             tab === 'companies' ? '🏭 企业' :
-             tab === 'prices' ? '💰 价格' :
-             tab === 'standards' ? '📋 标准' : '🔬 技术'}
+            {tab.label}
           </button>
         ))}
       </div>
@@ -138,8 +133,8 @@ export default function Home() {
                 <div className="stat-label">年复合增长率</div>
               </div>
             </div>
-            <h3>🚀 增长驱动因素</h3>
-            <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px'}}>
+            <h3 style={{ marginTop: '24px' }}>🚀 增长驱动因素</h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {marketData.keyDrivers.map((driver, i) => (
                 <span key={i} className="tag">{driver}</span>
               ))}
@@ -175,8 +170,8 @@ export default function Home() {
                 <YAxis />
                 <Tooltip formatter={(value) => `${value}亿元`} />
                 <Legend />
-                <Line type="monotone" dataKey="global" name="全球市场" stroke="#0088FE" strokeWidth={2} dot={{r:4}} />
-                <Line type="monotone" dataKey="china" name="中国市场" stroke="#00C49F" strokeWidth={2} dot={{r:4}} />
+                <Line type="monotone" dataKey="global" name="全球市场" stroke="#0088FE" strokeWidth={2} dot={{ r: 4 }} />
+                <Line type="monotone" dataKey="china" name="中国市场" stroke="#00C49F" strokeWidth={2} dot={{ r: 4 }} />
               </LineChart>
             </ResponsiveContainer>
           </section>
@@ -191,7 +186,7 @@ export default function Home() {
                   cy="50%"
                   outerRadius={120}
                   dataKey="value"
-                  label={({name, percent}) => `${name} ${(percent*100).toFixed(0)}%`}
+                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                 >
                   {marketData.segmentData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
@@ -220,18 +215,28 @@ export default function Home() {
                       <span>{seg.chinaSize}</span>
                     </div>
                   )}
-                  {seg.growth && (
+                  {seg.cagr && (
                     <div className="segment-stat">
-                      <span>增长率</span>
-                      <span>{seg.growth}</span>
+                      <span>年复合增长率</span>
+                      <span>{seg.cagr}</span>
                     </div>
                   )}
-                  {seg.types && (
-                    <div style={{marginTop: '12px'}}>
-                      <span style={{fontSize: '12px', color: '#999'}}>主要类型：</span>
-                      <div style={{display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '6px'}}>
+                  {seg.drivers && seg.drivers.length > 0 && (
+                    <div style={{ marginTop: '12px' }}>
+                      <span style={{ fontSize: '12px', color: '#999' }}>驱动因素：</span>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '4px' }}>
+                        {seg.drivers.map((d, j) => (
+                          <span key={j} className="tag" style={{ fontSize: '0.75rem' }}>{d}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {seg.types && seg.types.length > 0 && (
+                    <div style={{ marginTop: '12px' }}>
+                      <span style={{ fontSize: '12px', color: '#999' }}>主要类型：</span>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '4px' }}>
                         {seg.types.map((t, j) => (
-                          <span key={j} className="tag">{t}</span>
+                          <span key={j} className="tag" style={{ fontSize: '0.75rem' }}>{t}</span>
                         ))}
                       </div>
                     </div>
@@ -245,112 +250,66 @@ export default function Home() {
 
       {/* News Tab */}
       {activeTab === 'news' && (
-        <>
-          {/* News Filters */}
-          <div style={{ marginBottom: '16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-            <span style={{color: '#666', lineHeight: '32px'}}>标签筛选：</span>
-            {allNewsTags.map(tag => (
-              <button
-                key={tag}
-                onClick={() => setNewsFilter(tag)}
-                style={{
-                  padding: '4px 12px',
-                  border: 'none',
-                  borderRadius: '16px',
-                  background: newsFilter === tag ? '#667eea' : '#f0f0f0',
-                  color: newsFilter === tag ? 'white' : '#666',
-                  cursor: 'pointer',
-                  fontSize: '0.85rem'
-                }}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
-          
-          <section className="card">
-            <h2>📰 行业动态 <span style={{fontSize: '0.9rem', color: '#999'}}>({filteredNews.length}条)</span></h2>
-            {filteredNews.length === 0 ? (
-              <p style={{color: '#999', textAlign: 'center', padding: '40px'}}>暂无匹配结果</p>
-            ) : (
-              <ul className="news-list">
-                {filteredNews.map((news) => (
-                  <li key={news.id} className="news-item">
-                    <div className="news-date">{news.date} · {news.source}</div>
-                    <div className="news-title">
-                      <a href={news.url} target="_blank" rel="noopener noreferrer">
-                        {news.title}
-                      </a>
-                    </div>
-                    <div className="news-summary">{news.summary}</div>
+        <section className="card">
+          <h2>📰 行业动态 <span style={{ fontSize: '0.9rem', color: '#999' }}>({newsData.length}条)</span></h2>
+          {newsData.length === 0 ? (
+            <p style={{ color: '#999', textAlign: 'center', padding: '40px' }}>暂无数据</p>
+          ) : (
+            <ul className="news-list">
+              {newsData.map((news: any) => (
+                <li key={news.id} className="news-item">
+                  <div className="news-date">{news.date} · {news.source}</div>
+                  <div className="news-title">
+                    <a href={news.url} target="_blank" rel="noopener noreferrer">
+                      {news.title}
+                    </a>
+                  </div>
+                  <div className="news-summary">{news.summary}</div>
+                  {news.tags && news.tags.length > 0 && (
                     <div className="news-tags">
-                      {news.tags.map((tag, j) => (
+                      {news.tags.map((tag: string, j: number) => (
                         <span key={j} className="tag">{tag}</span>
                       ))}
                     </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-        </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
       )}
 
       {/* Companies Tab */}
       {activeTab === 'companies' && (
-        <>
-          {/* Company Filters */}
-          <div style={{ marginBottom: '16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-            <span style={{color: '#666', lineHeight: '32px'}}>国家筛选：</span>
-            {allCountries.map(country => (
-              <button
-                key={country}
-                onClick={() => setCompanyFilter(country)}
-                style={{
-                  padding: '4px 12px',
-                  border: 'none',
-                  borderRadius: '16px',
-                  background: companyFilter === country ? '#667eea' : '#f0f0f0',
-                  color: companyFilter === country ? 'white' : '#666',
-                  cursor: 'pointer',
-                  fontSize: '0.85rem'
-                }}
-              >
-                {country}
-              </button>
-            ))}
-          </div>
-          
-          <section className="card">
-            <h2>🏭 重点企业 <span style={{fontSize: '0.9rem', color: '#999'}}>({filteredCompanies.length}家)</span></h2>
-            {filteredCompanies.length === 0 ? (
-              <p style={{color: '#999', textAlign: 'center', padding: '40px'}}>暂无匹配结果</p>
-            ) : (
-              <div className="company-grid">
-                {filteredCompanies.map((company, i) => (
-                  <div key={i} className="company-card">
-                    <div className="company-name">{company.name}</div>
-                    <div className="company-country">{company.country}</div>
-                    <div style={{fontSize: '13px', color: '#666', marginTop: '8px'}}>
-                      {company.description}
-                    </div>
-                    <div className="company-products">
-                      {company.products.map((p, j) => (
-                        <span key={j} className="product-tag">{p}</span>
-                      ))}
-                    </div>
+        <section className="card">
+          <h2>🏭 重点企业 <span style={{ fontSize: '0.9rem', color: '#999' }}>({filteredCompanies.length}家)</span></h2>
+          {filteredCompanies.length === 0 ? (
+            <p style={{ color: '#999', textAlign: 'center', padding: '40px' }}>暂无匹配结果</p>
+          ) : (
+            <div className="company-grid">
+              {filteredCompanies.map((company: any, i: number) => (
+                <div key={i} className="company-card">
+                  <div className="company-name">{company.name}</div>
+                  <div className="company-country">{company.country}</div>
+                  <div style={{ fontSize: '13px', color: '#666', marginTop: '8px' }}>
+                    {company.description}
                   </div>
-                ))}
-              </div>
-            )}
-          </section>
-        </>
+                  <div className="company-products">
+                    {(company.products || []).map((p: string, j: number) => (
+                      <span key={j} className="product-tag">{p}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
       )}
 
       {/* Prices Tab */}
       {activeTab === 'prices' && (
         <section className="card">
-          <h2>💰 原材料价格</h2>
+          <h2>💰 原材料价格 <span style={{ fontSize: '0.9rem', color: '#999' }}>({filteredPrices.length}种)</span></h2>
           <table className="price-table">
             <thead>
               <tr>
@@ -362,23 +321,17 @@ export default function Home() {
               </tr>
             </thead>
             <tbody>
-              {pricesData.filter(p => !searchKeyword || p.name.toLowerCase().includes(searchKeyword.toLowerCase())).map((price, i) => (
+              {filteredPrices.map((price: any, i: number) => (
                 <tr key={i}>
-                  <td>{price.name}</td>
-                  <td>{price.currentPrice} {price.unit}</td>
-                  <td className={
-                    price.trend === '上涨' ? 'price-up' :
-                    price.trend === '下跌' ? 'price-down' : 'price-stable'
-                  }>
+                  <td style={{ fontWeight: 600 }}>{price.name}</td>
+                  <td>{price.currentPrice.toLocaleString()} {price.unit}</td>
+                  <td className={price.trend === '上涨' ? 'price-up' : price.trend === '下跌' ? 'price-down' : 'price-stable'}>
                     {price.change}
                   </td>
-                  <td className={
-                    price.trend === '上涨' ? 'price-up' :
-                    price.trend === '下跌' ? 'price-down' : 'price-stable'
-                  }>
+                  <td className={price.trend === '上涨' ? 'price-up' : price.trend === '下跌' ? 'price-down' : 'price-stable'}>
                     {price.trend}
                   </td>
-                  <td style={{fontSize: '12px', color: '#999'}}>{price.impact}</td>
+                  <td style={{ fontSize: '12px', color: '#999' }}>{price.impact}</td>
                 </tr>
               ))}
             </tbody>
@@ -389,16 +342,16 @@ export default function Home() {
       {/* Standards Tab */}
       {activeTab === 'standards' && (
         <section className="card">
-          <h2>📋 行业标准</h2>
+          <h2>📋 行业标准 <span style={{ fontSize: '0.9rem', color: '#999' }}>({filteredStandards.length}条)</span></h2>
           <ul className="standards-list">
-            {standardsData.filter(s => !searchKeyword || s.name.toLowerCase().includes(searchKeyword.toLowerCase()) || s.title.toLowerCase().includes(searchKeyword.toLowerCase())).map((std, i) => (
+            {filteredStandards.map((std: any, i: number) => (
               <li key={i} className="standard-item">
                 <div className="standard-name">{std.name}</div>
                 <div className="standard-title">{std.title}</div>
                 <div className="standard-meta">
                   {std.organization} · {std.publishDate} · 状态：{std.status}
                 </div>
-                <div style={{fontSize: '13px', color: '#666', marginTop: '8px'}}>
+                <div style={{ fontSize: '13px', color: '#666', marginTop: '8px' }}>
                   {std.description}
                 </div>
               </li>
@@ -409,35 +362,17 @@ export default function Home() {
 
       {/* Technology Tab */}
       {activeTab === 'technology' && (
-        <>
-          {[
-            { name: '基站天线 (AAS)', desc: '有源天线系统 Massive MIMO', mainstream: ['Massive MIMO', 'AAU集成', '64T64R'], research: ['RIS智能超表面', '毫米波AAU', '太赫兹通信'], progress: '5G基站规模部署' },
-            { name: '微波天线', desc: '微波传输设备', mainstream: ['高频段(70-80GHz)', '超疏水表面'], research: ['介质透镜天线', 'OTA测试技术'], progress: '5G承载网建设' },
-            { name: '网通天线', desc: '网络通信天线', mainstream: ['Wi-Fi 7', 'MIMO增强', '相控阵'], research: ['AI波束赋形', '低轨卫星通信'], progress: 'Wi-Fi 7终端商用' },
-            { name: '手机AIP', desc: '封装天线模组', mainstream: ['AiP封装', '毫米波模组', 'LCP/LDS'], research: ['封装新材料', '柔性天线'], progress: '5G手机商用' }
-          ].filter(cat => !searchKeyword || cat.name.toLowerCase().includes(searchKeyword.toLowerCase()) || cat.desc.toLowerCase().includes(searchKeyword.toLowerCase())).map((cat, i) => (
-            <section key={i} className="card">
-              <h2>{cat.name}</h2>
-              <p style={{color: '#666', marginBottom: '16px'}}>{cat.desc}</p>
-              <div style={{marginBottom: '16px'}}>
-                <h3 style={{fontSize: '1rem', color: '#00cc66', marginBottom: '8px'}}>✅ 主流技术</h3>
-                <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px'}}>
-                  {cat.mainstream.map((t, j) => <span key={j} className="tag" style={{background: '#e8f5e9', color: '#2e7d32'}}>{t}</span>)}
-                </div>
-              </div>
-              <div style={{marginBottom: '16px'}}>
-                <h3 style={{fontSize: '1rem', color: '#ff9800', marginBottom: '8px'}}>🔬 预研技术</h3>
-                <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px'}}>
-                  {cat.research.map((t, j) => <span key={j} className="tag" style={{background: '#fff3e0', color: '#e65100'}}>{t}</span>)}
-                </div>
-              </div>
-              <div>
-                <h3 style={{fontSize: '1rem', color: '#2196f3', marginBottom: '8px'}}>📈 应用进展</h3>
-                <p style={{color: '#666', fontSize: '0.95rem'}}>{cat.progress}</p>
-              </div>
-            </section>
-          ))}
-        </>
+        <section className="card">
+          <h2>🔬 技术概览</h2>
+          <p style={{ color: '#666', marginBottom: '20px' }}>
+            天线行业技术成熟度曲线及详细分析，请访问技术页面查看完整内容。
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            {['Massive MIMO', 'AAU', '5G毫米波', '相控阵天线', 'LCP天线', 'RIS智能超表面', 'AI波束赋形'].map((tech, i) => (
+              <span key={i} className="tag">{tech}</span>
+            ))}
+          </div>
+        </section>
       )}
 
       {/* Footer */}

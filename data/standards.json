@@ -1,34 +1,315 @@
-[
-  {
-    "name": "GB/T 9410-2008",
-    "title": "移动通信天线通用技术条件",
-    "status": "现行",
-    "publishDate": "2008",
-    "organization": "国家标准",
-    "description": "规定了移动通信天线的技术要求、试验方法"
-  },
-  {
-    "name": "YD/T 1059-2004",
-    "title": "移动通信系统基站天线技术条件",
-    "status": "现行",
-    "publishDate": "2004",
-    "organization": "通信行业标准",
-    "description": "基站天线的电气性能、机械性能要求"
-  },
-  {
-    "name": "3GPP TS 36.104",
-    "title": "LTE基站射频要求",
-    "status": "持续更新",
-    "publishDate": "持续修订",
-    "organization": "3GPP国际标准",
-    "description": "LTE基站射频性能标准，含天线相关要求"
-  },
-  {
-    "name": "3GPP TS 38.104",
-    "title": "5G NR基站射频要求",
-    "status": "持续更新",
-    "publishDate": "持续修订",
-    "organization": "3GPP国际标准",
-    "description": "5G新空口基站射频标准，含Massive MIMO天线要求"
-  }
-]
+{
+  "lastUpdate": "2026-04-18",
+  "categories": [
+    {
+      "name": "技术标准",
+      "code": "tech",
+      "description": "天线电气性能、射频指标、电磁兼容等技术要求",
+      "standards": [
+        {
+          "name": "GB/T 9410-2008",
+          "title": "移动通信天线通用技术条件",
+          "category": "技术标准",
+          "status": "现行",
+          "publishDate": "2008",
+          "organization": "国家标准",
+          "scope": "移动通信基站天线和终端天线的通用技术要求",
+          "description": "规定了移动通信天线的工作频段、增益、驻波比、交叉极化比、波束宽度等电气性能指标，以及环境试验方法",
+          "url": "https://openstd.samr.gov.cn/bzgk/gb/"
+        },
+        {
+          "name": "GB/T 34928-2017",
+          "title": "基站天线第1部分：阵列天线技术条件",
+          "category": "技术标准",
+          "status": "现行",
+          "publishDate": "2017",
+          "organization": "国家标准",
+          "scope": "移动通信基站阵列天线详细技术要求",
+          "description": "规定了大规模天线阵列（Massive MIMO）阵列天线的技术要求、测试方法",
+          "url": "https://openstd.samr.gov.cn/bzgk/gb/"
+        },
+        {
+          "name": "YD/T 1059-2004",
+          "title": "移动通信系统基站天线技术条件",
+          "category": "技术标准",
+          "status": "现行",
+          "publishDate": "2004",
+          "organization": "通信行业标准",
+          "scope": "移动通信基站天线技术条件",
+          "description": "基站天线的电气性能、机械性能要求，含2G/3G基站天线规范",
+          "url": "https://www.ccc188.com/"
+        },
+        {
+          "name": "YD/T 2866-2015",
+          "title": "LTE基站天线技术条件",
+          "category": "技术标准",
+          "status": "现行",
+          "publishDate": "2015",
+          "organization": "通信行业标准",
+          "scope": "4G LTE基站天线",
+          "description": "LTE基站天线专项技术条件，含FDD/TDD天线要求",
+          "url": "https://www.ccc188.com/"
+        },
+        {
+          "name": "YD/T 3764-2020",
+          "title": "5G基站天线技术条件",
+          "category": "技术标准",
+          "status": "现行",
+          "publishDate": "2020",
+          "organization": "通信行业标准",
+          "scope": "5G NR基站AAU天线",
+          "description": "规定5G NR基站天线（含AAU）的电气性能、机械性能、环境适应性要求",
+          "url": "https://www.ccc188.com/"
+        },
+        {
+          "name": "YD/T 3973-2021",
+          "title": "5G大规模天线阵列天线技术要求",
+          "category": "技术标准",
+          "status": "现行",
+          "publishDate": "2021",
+          "organization": "通信行业标准",
+          "scope": "64T64R及以下Massive MIMO天线",
+          "description": "针对64T64R、32T32R等Massive MIMO天线的详细技术指标和测试方法",
+          "url": "https://www.ccc188.com/"
+        },
+        {
+          "name": "ETSI EN 302 217系列",
+          "title": "固定无线电系统天线设备标准",
+          "category": "技术标准",
+          "status": "现行",
+          "publishDate": "持续修订",
+          "organization": "ETSI欧洲电信标准",
+          "scope": "微波传输天线、点对点天线",
+          "description": "欧洲微波传输系统天线设备合规标准，含电气性能、机械接口、环境要求",
+          "url": "https://www.etsi.org/"
+        }
+      ]
+    },
+    {
+      "name": "可靠性标准",
+      "code": "reliability",
+      "description": "天线环境可靠性、机械可靠性、寿命测试要求",
+      "standards": [
+        {
+          "name": "GB/T 2423-2008",
+          "title": "电工电子产品环境试验",
+          "category": "可靠性标准",
+          "status": "现行",
+          "publishDate": "2008",
+          "organization": "国家标准",
+          "scope": "电子产品的环境试验方法",
+          "description": "含高温、低温、湿度、振动、冲击、盐雾等环境试验方法，天线可靠性测试基础标准",
+          "url": "https://openstd.samr.gov.cn/bzgk/gb/"
+        },
+        {
+          "name": "YD/T 2854-2015",
+          "title": "通信设备可靠性试验方法",
+          "category": "可靠性标准",
+          "status": "现行",
+          "publishDate": "2015",
+          "organization": "通信行业标准",
+          "scope": "通信设备可靠性验证",
+          "description": "通信设备（含基站天线）的可靠性试验方法，含MTBF验证方法",
+          "url": "https://www.ccc188.com/"
+        },
+        {
+          "name": "IEC 60068",
+          "title": "环境试验-电工电子产品",
+          "category": "可靠性标准",
+          "status": "现行",
+          "publishDate": "持续修订",
+          "organization": "IEC国际电工委员会",
+          "scope": "电子电气产品环境试验",
+          "description": "国际通用的电子产品环境试验标准，天线出口认证必要标准",
+          "url": "https://www.iec.ch/"
+        },
+        {
+          "name": "MIL-STD-810G",
+          "title": "环境工程考虑和实验室测试",
+          "category": "可靠性标准",
+          "status": "现行",
+          "publishDate": "2008",
+          "organization": "美国军用标准",
+          "scope": "军工及户外恶劣环境电子设备",
+          "description": "美军标环境可靠性测试，天线军工应用必备认证，含温度、湿度、振动、沙尘、盐雾测试方法",
+          "url": "https://www.standardsinstitutions.org/"
+        }
+      ]
+    },
+    {
+      "name": "测试标准",
+      "code": "testing",
+      "description": "天线测试方法、OTA测试、方向图测量等",
+      "standards": [
+        {
+          "name": "YD/T 1484-2012",
+          "title": "无线通信设备天线性能测试方法",
+          "category": "测试标准",
+          "status": "现行",
+          "publishDate": "2012",
+          "organization": "通信行业标准",
+          "scope": "基站天线及终端天线性能测试",
+          "description": "天线增益、方向图、驻波比、隔离度等关键指标的测试方法",
+          "url": "https://www.ccc188.com/"
+        },
+        {
+          "name": "3GPP TS 37.145-1",
+          "title": "Active Antenna System (AAS) - Base Station Conformance Testing",
+          "category": "测试标准",
+          "status": "现行",
+          "publishDate": "持续修订",
+          "organization": "3GPP国际标准",
+          "scope": "5G AAU基站一致性测试",
+          "description": "3GPP AAS基站射频一致性测试规范，含OTA测试要求",
+          "url": "https://www.3gpp.org/ftp/Specs/archive/37_series/37.145-1/"
+        },
+        {
+          "name": "3GPP TS 38.141-1",
+          "title": "NR; Base Station (BS) conformance testing",
+          "category": "测试标准",
+          "status": "现行",
+          "publishDate": "持续修订",
+          "organization": "3GPP国际标准",
+          "scope": "5G NR基站射频测试",
+          "description": "5G NR基站射频性能一致性测试规范，含天线端口特性要求",
+          "url": "https://www.3gpp.org/ftp/Specs/archive/38_series/38.141-1/"
+        },
+        {
+          "name": "CTIAatest Book",
+          "title": "Test Plan for Mobile Station Over The Air Performance",
+          "category": "测试标准",
+          "status": "现行",
+          "publishDate": "持续更新",
+          "organization": "CTIA美国无线通信行业协会",
+          "scope": "移动终端天线OTA性能测试",
+          "description": "全球最权威的手机天线OTA测试标准，被3GPP/GCF广泛引用",
+          "url": "https://www.ctia.org/"
+        },
+        {
+          "name": "IEC 61196系列",
+          "title": "射频连接器测试标准",
+          "category": "测试标准",
+          "status": "现行",
+          "publishDate": "持续修订",
+          "organization": "IEC国际电工委员会",
+          "scope": "射频同轴连接器测试方法",
+          "description": "天线馈线接口连接器的测试方法，是天线馈电系统测试基础",
+          "url": "https://www.iec.ch/"
+        }
+      ]
+    },
+    {
+      "name": "国际标准",
+      "code": "international",
+      "description": "3GPP/ETSI/IEC等国际组织发布的天线相关协议",
+      "standards": [
+        {
+          "name": "3GPP TS 36.104",
+          "title": "Evolved Universal Terrestrial Radio Access (E-UTRA); Base Station (BS) radio transmission and reception",
+          "category": "国际标准",
+          "status": "持续更新",
+          "publishDate": "持续修订",
+          "organization": "3GPP国际标准",
+          "scope": "LTE基站射频要求",
+          "description": "LTE基站射频性能标准，含基站天线端口特性、发射功率、接收灵敏度要求",
+          "url": "https://www.3gpp.org/ftp/Specs/archive/36_series/36.104/"
+        },
+        {
+          "name": "3GPP TS 38.104",
+          "title": "NR; Base Station (BS) radio transmission and reception",
+          "category": "国际标准",
+          "status": "持续更新",
+          "publishDate": "持续修订",
+          "organization": "3GPP国际标准",
+          "scope": "5G NR基站射频要求",
+          "description": "5G NR基站射频标准，含Massive MIMO天线要求、毫米波频段要求",
+          "url": "https://www.3gpp.org/ftp/Specs/archive/38_series/38.104/"
+        },
+        {
+          "name": "3GPP TS 38.802",
+          "title": "NR; User Equipment (UE) radio access capabilities",
+          "category": "国际标准",
+          "status": "现行",
+          "publishDate": "持续修订",
+          "organization": "3GPP国际标准",
+          "scope": "5G终端天线能力",
+          "description": "5G终端天线能力定义，含终端射频天线配置要求",
+          "url": "https://www.3gpp.org/ftp/Specs/archive/38_series/38.802/"
+        },
+        {
+          "name": "ETSI EN 302 217-2",
+          "title": "Fixed Radio Systems - Characteristics and requirements for point-to-point equipment - Antenna",
+          "category": "国际标准",
+          "status": "现行",
+          "publishDate": "持续修订",
+          "organization": "ETSI欧洲电信标准",
+          "scope": "微波点对点天线",
+          "description": "欧洲微波点对点天线标准，含天线类别、接口、性能指标",
+          "url": "https://www.etsi.org/deliver/etsi_en/302200_302299/30221702/"
+        },
+        {
+          "name": "ITU-R F.1101",
+          "title": "Definitions of point-to-point radio relay system parameters",
+          "category": "国际标准",
+          "status": "现行",
+          "publishDate": "持续修订",
+          "organization": "ITU-R国际电信联盟",
+          "scope": "微波传输系统参数定义",
+          "description": "ITU微波传输系统参数定义，含天线增益、波束宽度等关键指标定义",
+          "url": "https://www.itu.int/rec/R-REC-F/"
+        },
+        {
+          "name": "IEEE 145-2018",
+          "title": "Definitions of Terms for Antennas",
+          "category": "国际标准",
+          "status": "现行",
+          "publishDate": "2018",
+          "organization": "IEEE电气电子工程师协会",
+          "scope": "天线术语定义",
+          "description": "天线领域最权威的术语标准，所有天线技术文档的基础参考文献",
+          "url": "https://standards.ieee.org/"
+        }
+      ]
+    },
+    {
+      "name": "安全标准",
+      "code": "safety",
+      "description": "电气安全、防雷、电磁辐射安全等",
+      "standards": [
+        {
+          "name": "GB 8702-2014",
+          "title": "电磁环境控制限值",
+          "category": "安全标准",
+          "status": "现行",
+          "publishDate": "2014",
+          "organization": "国家标准",
+          "scope": "电磁辐射环境控制",
+          "description": "规定了电磁场（频率范围100kHz-300GHz）的公众暴露控制限值，是基站天线电磁辐射评估依据",
+          "url": "https://openstd.samr.gov.cn/bzgk/gb/"
+        },
+        {
+          "name": "GB/T 17626-2012",
+          "title": "电磁兼容-试验和测量技术",
+          "category": "安全标准",
+          "status": "现行",
+          "publishDate": "2012",
+          "organization": "国家标准",
+          "scope": "电磁兼容测试",
+          "description": "电磁兼容通用测试标准，含静电放电、射频辐射、浪涌、传导等抗扰度测试方法",
+          "url": "https://openstd.samr.gov.cn/bzgk/gb/"
+        },
+        {
+          "name": "YD/T 3005-2016",
+          "title": "基站天线电磁辐射安全测试方法",
+          "category": "安全标准",
+          "status": "现行",
+          "publishDate": "2016",
+          "organization": "通信行业标准",
+          "scope": "基站天线电磁辐射评估",
+          "description": "通信基站天线电磁辐射的现场测试和评估方法",
+          "url": "https://www.ccc188.com/"
+        }
+      ]
+    }
+  ]
+}
