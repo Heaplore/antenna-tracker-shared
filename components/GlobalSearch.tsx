@@ -162,8 +162,8 @@ function parseModuleData(data: unknown, moduleKey: string, moduleName: string, m
           cat.materials.forEach((mat, idx) => {
             items.push({
               id: `${moduleKey}-${idx}`,
-              title: mat.name,
-              summary: mat.impact,
+              title: mat.name ?? '',
+              summary: mat.impact ?? '',
               extra: mat.trend,
               module: moduleKey,
               moduleName,
@@ -181,9 +181,9 @@ function parseModuleData(data: unknown, moduleKey: string, moduleName: string, m
           cat.standards.forEach((std, idx) => {
             items.push({
               id: `${moduleKey}-${idx}`,
-              title: std.name,
-              summary: std.title,
-              content: std.description,
+              title: std.name ?? '',
+              summary: std.title ?? '',
+              content: std.description ?? '',
               module: moduleKey,
               moduleName,
               path: modulePath
