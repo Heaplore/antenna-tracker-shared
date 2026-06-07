@@ -12,6 +12,9 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('overview')
   const [searchKeyword, setSearchKeyword] = useState('')
 
+  // 将 news.json (object) 转换为数组
+  const newsArray = Object.values(newsData) as any[]
+
   // companiesData 新结构：{ supplyChain: { upstream/midstream/downstream: { companies } } }
   const allCompanies = useMemo(() => {
     const chain = (companiesData as any).supplyChain || {}
@@ -251,12 +254,12 @@ export default function Home() {
       {/* News Tab */}
       {activeTab === 'news' && (
         <section className="card">
-          <h2>📰 行业动态 <span style={{ fontSize: '0.9rem', color: '#999' }}>({newsData.length}条)</span></h2>
-          {newsData.length === 0 ? (
+          <h2>📰 行业动态 <span style={{ fontSize: '0.9rem', color: '#999' }}>({newsArray.length}条)</span></h2>
+          {newsArray.length === 0 ? (
             <p style={{ color: '#999', textAlign: 'center', padding: '40px' }}>暂无数据</p>
           ) : (
             <ul className="news-list">
-              {newsData.map((news: any) => (
+              {newsArray.map((news: any) => (
                 <li key={news.id} className="news-item">
                   <div className="news-date">{news.date} · {news.source}</div>
                   <div className="news-title">
