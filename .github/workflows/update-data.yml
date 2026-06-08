@@ -11,6 +11,9 @@ env:
   NODE_VERSION: '18'
   FETCH_TIMEOUT: '300'
 
+permissions:
+  contents: write
+
 jobs:
   update-data:
     runs-on: ubuntu-latest
