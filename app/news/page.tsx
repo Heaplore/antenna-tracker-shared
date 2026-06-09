@@ -2,9 +2,23 @@
 import { useState } from 'react'
 import newsData from '@/app/_data/news.json'
 
+type NewsItem = {
+  id: number
+  date: string
+  title: string
+  source: string
+  summary: string
+  tags: string[]
+  url: string
+}
+
 export default function NewsPage() {
   // 将 news.json (object) 转换为数组
-const newsArray = Object.values(newsData)
+  // 注意：newsData 里可能含非 object 值（比如 lastUpdate 字符串），
+  // 必须过滤掉，否则下面 n.source / n.title 访问会被 TS 拒掉，build 会失败。
+  const newsArray = (Object.values(newsData) as NewsItem[]).filter(
+    (n) => n && typeof n === 'object' && 'title' in n
+  )
 const [activeFilter, setActiveFilter] = useState('全部')
 const [showTimeline, setShowTimeline] = useState(false)
 
