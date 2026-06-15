@@ -764,8 +764,11 @@ async function updateNews() {
   });
 
   // 写入news.json（兼容 array / object 两种结构）
+  // ⚠️ 老大拍板：news 页面只显示天线相关内容——existingArr 也要过滤，
+  // 否则老的工信部动态会被 merge 回来污染页面
   const newsFile = path.join(DATA_DIR, 'news.json');
-  const existingArr = loadAsArray(newsFile).filter(n => n && n.title);
+  const existingArr = loadAsArray(newsFile)
+    .filter(n => n && n.title && isAntennaRelated(n));
   const merged = [...uniqueNews, ...existingArr].slice(0, 50);
 
   // ⚠️ 关键迁移：清掉所有旧 baidu 兜底 URL
