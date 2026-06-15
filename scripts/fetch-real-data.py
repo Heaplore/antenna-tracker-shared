@@ -318,6 +318,40 @@ NEWS_SOURCES: dict[str, Callable[[], list[dict]]] = {
 }
 
 
+# ---------------------------------------------------------------------------
+# 天线相关性白名单 (与 fetch-data.js 的 ANTENNA_KEYWORDS 保持一致)
+# ---------------------------------------------------------------------------
+ANTENNA_KEYWORDS = [
+    # 强相关: 核心天线技术
+    "天线", "AAU", "aau", "RIS", "ris", "MIMO", "mimo", "相控阵", "毫米波", "AiP", "aip", "LCP", "lcp",
+    "智能超表面", "波束赋形", "波束管理", "波束扫描", "可重构电磁表面", "可重构智能表面",
+    "massive", "Massive",
+    "微波", "射频", "RRU", "rru", "BBU", "bbu", "塔顶放大器", "塔放", "滤波器", "双工器", "合路器",
+    "PTFE", "ptfe", "高频PCB", "高频覆铜板", "介电常数",
+    # 频段/制式
+    "5G", "5g", "6G", "6g", "5G-A", "5G Advanced", "5.5G", "n258", "n260", "n257", "n261", "n262",
+    "E-band", "V-band", "sub-6",
+    # 终端/卫星
+    "Starlink", "starlink", "SpaceX", "spacex", "FWA", "fwa", "CPE", "cpe", "Mesh", "mesh",
+    # 业务/采购
+    "集采", "运营商集采", "运营商招标",
+    # 设备商 + 运营商
+    "基站",
+    "华为", "中兴", "盛路", "通宇", "亨鑫", "京信", "世嘉", "信维", "硕贝德", "摩比", "三维通信",
+    "中国电信", "中国移动", "中国联通", "中国广电",
+    "村田", "Rogers", "Taconic", "苹果供应链", "iPhone", "LCP软板",
+]
+
+
+def is_antenna_related(item: dict) -> bool:
+    """老大拍板: news 页面只显示天线相关内容. 与 fetch-data.js isAntennaRelated 等价."""
+    if not isinstance(item, dict):
+        return False
+    tags = " ".join(item.get("tags") or []) if isinstance(item.get("tags"), list) else ""
+    text = f"{item.get('title','')} {item.get('summary','')} {tags}".lower()
+    return any(kw.lower() in text for kw in ANTENNA_KEYWORDS)
+
+
 def update_news(verbose: bool = False) -> int:
     """并发抓取所有新闻源, 合并去重写入 news.json. 返回新增条数."""
     log("section", "更新新闻数据")
@@ -354,16 +388,22 @@ def update_news(verbose: bool = False) -> int:
     next_id = next_id_from_news(news)
     existing = _existing_titles(news)
     added = 0
+    skipped_irrelevant = 0
     for it in unique:
         if not it.get("title"):
             continue
         if it["title"] in existing:
+            continue
+        if not is_antenna_related(it):
+            skipped_irrelevant += 1
             continue
         it["id"] = next_id
         news[str(next_id)] = it
         next_id += 1
         existing.add(it["title"])
         added += 1
+    if skipped_irrelevant:
+        log("ok", f"过滤掉非天线相关新闻 {skipped_irrelevant} 条 (白名单 is_antenna_related)")
 
     write_json(news_path, news)
     log("ok", f"news.json 新增 {added} 条 (总计 {len(news)} 条)")
