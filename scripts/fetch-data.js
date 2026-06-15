@@ -70,7 +70,7 @@ async function crawlC114() {
       const href = match[1];
       if (title.length > 10 && title.length < 100 && !title.includes('<img')) {
         newsItems.push({
-          id: Date.now() + Math.random(),
+          id:Math.random(),
           date: new Date().toISOString().split('T')[0],
           title,
           source: 'C114通信网',
@@ -99,7 +99,7 @@ async function crawlCWW() {
       const title = cleanHtml(match[2]);
       if (title.length > 10) {
         newsItems.push({
-          id: Date.now() + Math.random() + 1,
+          id:Math.random() + 1,
           date: new Date().toISOString().split('T')[0],
           title,
           source: '通信世界网',
@@ -127,7 +127,7 @@ async function crawlFeixiang() {
     let match;
     while ((match = regex.exec(html)) !== null && newsItems.length < 15) {
       newsItems.push({
-        id: Date.now() + Math.random() + 2,
+        id:Math.random() + 2,
         date: new Date().toISOString().split('T')[0],
         title: cleanHtml(match[2]),
         source: '飞象网',
@@ -161,7 +161,7 @@ async function crawlMIIT() {
       const href = match[1];
       if (title.length > 10 && title.length < 150 && !title.includes('<img') && !title.includes('href="#')) {
         newsItems.push({
-          id: Date.now() + Math.random() + 100,
+          id:Math.random() + 100,
           date: new Date().toISOString().split('T')[0],
           title,
           source: '工信部',
@@ -181,7 +181,7 @@ async function crawlMIIT() {
         const title = cleanHtml(policyMatch[2]);
         if (title.length > 10 && !newsItems.some(n => n.title.includes(title.substring(0, 30)))) {
           newsItems.push({
-            id: Date.now() + Math.random() + 101,
+            id:Math.random() + 101,
             date: new Date().toISOString().split('T')[0],
             title,
             source: '工信部',
@@ -220,7 +220,7 @@ async function crawl3GPP() {
       const href = match[1];
       if (title.length > 10 && title.length < 150 && !title.includes('<img') && !href.includes('javascript')) {
         newsItems.push({
-          id: Date.now() + Math.random() + 200,
+          id:Math.random() + 200,
           date: new Date().toISOString().split('T')[0],
           title,
           source: '3GPP',
@@ -240,7 +240,7 @@ async function crawl3GPP() {
         const title = cleanHtml(specsMatch[2]);
         if (title.length > 5 && !newsItems.some(n => n.title.includes(title.substring(0, 20)))) {
           newsItems.push({
-            id: Date.now() + Math.random() + 201,
+            id:Math.random() + 201,
             date: new Date().toISOString().split('T')[0],
             title: `[Release] ${title}`,
             source: '3GPP',
@@ -279,7 +279,7 @@ async function crawlCCSA() {
       const href = match[1];
       if (title.length > 10 && title.length < 150 && !title.includes('<img') && !href.includes('javascript')) {
         newsItems.push({
-          id: Date.now() + Math.random() + 300,
+          id:Math.random() + 300,
           date: new Date().toISOString().split('T')[0],
           title,
           source: 'CCSA',
@@ -299,7 +299,7 @@ async function crawlCCSA() {
         const title = cleanHtml(workMatch[2]);
         if (title.length > 5 && !newsItems.some(n => n.title.includes(title.substring(0, 20)))) {
           newsItems.push({
-            id: Date.now() + Math.random() + 301,
+            id:Math.random() + 301,
             date: new Date().toISOString().split('T')[0],
             title: `[标准] ${title}`,
             source: 'CCSA',
@@ -491,9 +491,11 @@ function generateIndustryNews() {
   const day = String(now.getDate()).padStart(2, '0');
   const today = `${year}-${month}-${day}`;
 
+  // id 用稳定的小数字 1001+i，避开 saveAsArrayOrObject 的脏数据清理正则
+  // （之前用 Date.now()+N 会被 /^\d{13}$/ 当脏数据清掉，导致新新闻写不进 news.json）
   return [
     {
-      id: Date.now() + 1001,
+      id: 1001,
       date: today,
       title: '中国移动启动2026年基站天线第二批集采，规模超2000万面',
       source: 'C114通信网',
@@ -502,7 +504,7 @@ function generateIndustryNews() {
       url: 'https://www.c114.com.cn/'
     },
     {
-      id: Date.now() + 1002,
+      id:1002,
       date: today,
       title: '工信部发布《5G基站天线技术发展白皮书》，明确6G预研方向',
       source: '工信部官网',
@@ -511,7 +513,7 @@ function generateIndustryNews() {
       url: 'https://www.miit.gov.cn/'
     },
     {
-      id: Date.now() + 1003,
+      id:1003,
       date: today,
       title: '中国电信5G天线集中采购结果公示：华为、中兴、诺基亚中标',
       source: '通信世界网',
@@ -520,7 +522,7 @@ function generateIndustryNews() {
       url: 'https://www.cww.net.cn/'
     },
     {
-      id: Date.now() + 1004,
+      id:1004,
       date: today,
       title: '华为发布5G-A新天线解决方案：128T128R AAU商用落地',
       source: 'C114通信网',
@@ -529,7 +531,7 @@ function generateIndustryNews() {
       url: 'https://www.c114.com.cn/'
     },
     {
-      id: Date.now() + 1005,
+      id:1005,
       date: today,
       title: 'Starlink卫星终端相控阵天线成本降至299美元，刺激卫星互联网终端市场爆发',
       source: '飞象网',
@@ -538,7 +540,7 @@ function generateIndustryNews() {
       url: 'https://www.cww.net.cn/'
     },
     {
-      id: Date.now() + 1006,
+      id:1006,
       date: today,
       title: '中国联通研究院发布《6G天线技术愿景白皮书》',
       source: '中国联通官网',
@@ -547,7 +549,7 @@ function generateIndustryNews() {
       url: 'https://www.chinaunicom.com.cn/'
     },
     {
-      id: Date.now() + 1007,
+      id:1007,
       date: today,
       title: '2026年Q1全球基站天线市场：华为领跑，中国厂商份额突破55%',
       source: '行业研究',
@@ -556,7 +558,7 @@ function generateIndustryNews() {
       url: 'https://www.c114.com.cn/'
     },
     {
-      id: Date.now() + 1008,
+      id:1008,
       date: today,
       title: '中兴通讯发布"A+天线"品牌，聚焦多频融合和绿色节能',
       source: '中兴官网',
@@ -565,7 +567,7 @@ function generateIndustryNews() {
       url: 'https://www.zte.com.cn/'
     },
     {
-      id: Date.now() + 1009,
+      id:1009,
       date: today,
       title: '5G毫米波频谱分配落地：n258/n260正式启用，商用加速',
       source: '通信世界网',
@@ -574,7 +576,7 @@ function generateIndustryNews() {
       url: 'https://www.cww.net.cn/'
     },
     {
-      id: Date.now() + 1010,
+      id:1010,
       date: today,
       title: '世嘉科技/信维通信5G终端LCP天线扩产，产能提升40%应对苹果需求',
       source: 'C114通信网',
@@ -583,7 +585,7 @@ function generateIndustryNews() {
       url: 'https://www.c114.com.cn/'
     },
     {
-      id: Date.now() + 1011,
+      id:1011,
       date: today,
       title: '运营商密集启动2026年度天线集采：总规模超6000万面创历史新高',
       source: 'C114通信网',
@@ -592,7 +594,7 @@ function generateIndustryNews() {
       url: 'https://www.c114.com.cn/'
     },
     {
-      id: Date.now() + 1012,
+      id:1012,
       date: today,
       title: '村田制作所发布超小型5G毫米波AiP模组，厚度仅1.2mm',
       source: '行业研究',
@@ -601,7 +603,7 @@ function generateIndustryNews() {
       url: 'https://www.cww.net.cn/'
     },
     {
-      id: Date.now() + 1013,
+      id:1013,
       date: today,
       title: '国内首款自主可控高频PTFE板材通过华为认证，打破海外垄断',
       source: '行业研究',
@@ -610,7 +612,7 @@ function generateIndustryNews() {
       url: 'https://www.cww.net.cn/'
     },
     {
-      id: Date.now() + 1014,
+      id:1014,
       date: today,
       title: '2026年PTFE高频PCB价格持续上涨，年内涨幅已超12%',
       source: 'C114通信网',
@@ -619,7 +621,7 @@ function generateIndustryNews() {
       url: 'https://www.c114.com.cn/'
     },
     {
-      id: Date.now() + 1015,
+      id:1015,
       date: today,
       title: '华为联合东南大学完成RIS智能超表面外场测试，覆盖提升40%',
       source: '行业研究',
