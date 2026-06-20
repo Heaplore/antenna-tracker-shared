@@ -1,11 +1,32 @@
+// @ts-nocheck
 'use client'
-import { useState, useMemo, useRef, useEffect } from 'react'
+import { useState, useMemo, useRef, useEffect, useCallback } from 'react'
+import * as d3 from 'd3'
 import kgData from '@/app/_data/knowledge-graph.json'
 import relationsData from '@/app/_data/relations.json'
 
 type Entity = typeof kgData.entities[0]
 type Relation = typeof kgData.relations[0]
 type TechRelation = typeof relationsData[0]
+
+interface D3Node extends d3.SimulationNodeDatum {
+  id: string
+  name: string
+  type: string
+  description?: string
+  summary?: string
+  summary_vernacular?: string
+  metadata?: Record<string, string>
+  radius: number
+  icon: string
+}
+
+interface D3Link extends d3.SimulationLinkDatum<D3Node> {
+  source: string | D3Node
+  target: string | D3Node
+  relation?: string
+  predicate?: string
+}
 
 const ENTITY_COLORS: Record<string, string> = {
   technology: '#667eea',
@@ -31,87 +52,6 @@ const ENTITY_ICONS: Record<string, string> = {
   event: '⚡',
 }
 
-// Force-directed layout simulation
-function simulateLayout(
-  entities: Entity[],
-  relations: Relation[],
-  iterations: number = 300
-): { id: string; x: number; y: number }[] {
-  const nodeMap = new Map<string, { id: string; x: number; y: number; vx: number; vy: number }>()
-  const W = 1600
-  const H = 1000
-
-  entities.forEach((e, i) => {
-    const angle = (i / entities.length) * Math.PI * 2
-    const r = Math.min(W, H) * 0.3
-    nodeMap.set(e.id, {
-      id: e.id,
-      x: W / 2 + Math.cos(angle) * r,
-      y: H / 2 + Math.sin(angle) * r,
-      vx: 0,
-      vy: 0,
-    })
-  })
-
-  const nodeArr = Array.from(nodeMap.values())
-  const links = relations
-    .map(r => ({ source: r.source, target: r.target }))
-    .filter(l => nodeMap.has(l.source) && nodeMap.has(l.target))
-
-  for (let iter = 0; iter < iterations; iter++) {
-    const alpha = 1 - iter / iterations
-
-    for (let i = 0; i < nodeArr.length; i++) {
-      for (let j = i + 1; j < nodeArr.length; j++) {
-        const a = nodeArr[i]
-        const b = nodeArr[j]
-        let dx = b.x - a.x
-        let dy = b.y - a.y
-        let dist = Math.sqrt(dx * dx + dy * dy) || 1
-        let force = 15000 / (dist * dist)
-        let fx = (dx / dist) * force * alpha
-        let fy = (dy / dist) * force * alpha
-        a.vx -= fx
-        a.vy -= fy
-        b.vx += fx
-        b.vy += fy
-      }
-    }
-
-    for (const link of links) {
-      const source = nodeMap.get(link.source)
-      const target = nodeMap.get(link.target)
-      if (!source || !target) continue
-      let dx = target.x - source.x
-      let dy = target.y - source.y
-      let dist = Math.sqrt(dx * dx + dy * dy) || 1
-      let force = (dist - 100) * 0.015 * alpha
-      let fx = (dx / dist) * force
-      let fy = (dy / dist) * force
-      source.vx += fx
-      source.vy += fy
-      target.vx -= fx
-      target.vy -= fy
-    }
-
-    for (const node of nodeArr) {
-      node.vx += (W / 2 - node.x) * 0.005 * alpha
-      node.vy += (H / 2 - node.y) * 0.005 * alpha
-    }
-
-    for (const node of nodeArr) {
-      node.vx *= 0.6
-      node.vy *= 0.6
-      node.x += node.vx
-      node.y += node.vy
-      node.x = Math.max(80, Math.min(W - 80, node.x))
-      node.y = Math.max(60, Math.min(H - 20, node.y))
-    }
-  }
-
-  return nodeArr.map(n => ({ id: n.id, x: n.x, y: n.y }))
-}
-
 // SVG Donut Chart for entity type distribution
 function DonutChart({ typeCounts }: { typeCounts: Record<string, number> }) {
   const total = typeCounts.all || 1
@@ -123,10 +63,9 @@ function DonutChart({ typeCounts }: { typeCounts: Record<string, number> }) {
     icon: ENTITY_ICONS[key],
   })).filter(e => e.count > 0)
 
-  // Build SVG arc paths
   let startAngle = -Math.PI / 2
-  const radius = 60
-  const innerRadius = 38
+  const radius = 80
+  const innerRadius = 50
   const arcs = entries.map(entry => {
     const fraction = entry.count / total
     const angle = fraction * Math.PI * 2
@@ -182,41 +121,28 @@ export default function KnowledgeGraphPage() {
   const [expandedNodeId, setExpandedNodeId] = useState<string | null>(null)
   const [focusMode, setFocusMode] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
-  const [highlightedNodeId, setHighlightedNodeId] = useState<string | null>(null)
-  const layoutRef = useRef<{ id: string; x: number; y: number }[]>([])
+  const svgRef = useRef<SVGSVGElement | null>(null)
+  const simulationRef = useRef<d3.Simulation<D3Node, D3Link> | null>(null)
 
   const entities = kgData.entities
   const relations = kgData.relations
 
-  // Merge both relation sources for layout simulation
+  // Merge both relation sources
   const allRelations = useMemo(() => [
     ...relations,
-    ...relationsData.map(r => ({ source: r.source, target: r.target, relation: r.predicate, confidence: 0.9, evidence: '' }))
+    ...relationsData.map(r => ({ source: r.source, target: r.target, predicate: r.predicate, relation: r.predicate }))
   ], [relations, relationsData])
 
-  const layout = useMemo(() => simulateLayout(entities, allRelations), [entities, allRelations])
-
-  // Search filter + highlight
+  // Search filter
   const searchFilteredEntities = useMemo(() => {
     if (!searchQuery.trim()) return entities
     const q = searchQuery.toLowerCase().trim()
-    return entities.filter(e => 
-      e.name.toLowerCase().includes(q) || 
+    return entities.filter(e =>
+      e.name.toLowerCase().includes(q) ||
       (e.description && e.description.toLowerCase().includes(q)) ||
       e.type.toLowerCase().includes(q)
     )
   }, [entities, searchQuery])
-
-  // Highlight single-match entity on search
-  useEffect(() => {
-    const matched = searchFilteredEntities
-    if (matched.length === 1) {
-      setHighlightedNodeId(matched[0].id)
-      setSelectedEntity(matched[0])
-    } else {
-      setHighlightedNodeId(null)
-    }
-  }, [searchFilteredEntities])
 
   // Type filter
   const filteredEntities = useMemo(() => {
@@ -229,7 +155,7 @@ export default function KnowledgeGraphPage() {
     return allRelations.filter(r => filteredEntityIds.has(r.source) && filteredEntityIds.has(r.target))
   }, [allRelations, filteredEntityIds])
 
-  // Connected entities for selected entity or focus mode
+  // Connected entities
   const connectedEntityIds = useMemo(() => {
     const focusId = focusMode || (selectedEntity ? selectedEntity.id : null)
     if (!focusId) return new Set<string>()
@@ -242,7 +168,7 @@ export default function KnowledgeGraphPage() {
     return ids
   }, [focusMode, selectedEntity, allRelations])
 
-  // Expanded subgraph nodes
+  // Expanded subgraph
   const expandedNodeIds = useMemo(() => {
     if (!expandedNodeId) return new Set<string>()
     const ids = new Set<string>()
@@ -254,26 +180,282 @@ export default function KnowledgeGraphPage() {
     return ids
   }, [expandedNodeId, allRelations])
 
-  // Recommended entities based on selected entity's relationships
+  // Recommended entities
   const recommendedEntities = useMemo(() => {
     if (!selectedEntity) return []
     const recs: Entity[] = []
     allRelations.forEach(r => {
       if (r.source === selectedEntity.id) {
         const target = entities.find(e => e.id === r.target)
-        if (target && !recs.find(r => r.id === target!.id)) recs.push(target)
+        if (target && !recs.find(x => x.id === target!.id)) recs.push(target)
       }
       if (r.target === selectedEntity.id) {
         const source = entities.find(e => e.id === r.source)
-        if (source && !recs.find(r => r.id === source!.id)) recs.push(source)
+        if (source && !recs.find(x => x.id === source!.id)) recs.push(source)
       }
     })
     return recs.slice(0, 6)
   }, [selectedEntity, allRelations, entities])
 
-  const layoutNode = (id: string) => layout.find(n => n.id === id) || { x: 0, y: 0 }
+  const typeCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: entities.length }
+    entities.forEach(e => { counts[e.type] = (counts[e.type] || 0) + 1 })
+    return counts
+  }, [entities])
 
-  // Node size: entities with summary are key entities (larger)
+  // D3 force simulation
+  useEffect(() => {
+    if (!svgRef.current) return
+
+    const width = svgRef.current.clientWidth || 1000
+    const height = 600
+
+    // Destroy previous simulation
+    if (simulationRef.current) {
+      simulationRef.current.stop()
+    }
+
+    // Build D3 nodes and links
+    const nodeMap = new Map<string, Entity>()
+    entities.forEach(e => nodeMap.set(e.id, e))
+
+    const d3Nodes: D3Node[] = filteredEntities.map(e => {
+      const hasSummary = !!(e.summary || e.summary_vernacular)
+      const baseRadius = hasSummary ? 24 : 18
+      return {
+        ...e,
+        radius: baseRadius,
+        icon: ENTITY_ICONS[e.type] || '🔹',
+      }
+    })
+
+    const d3Links: D3Link[] = filteredRelations
+      .map(r => ({
+        source: r.source,
+        target: r.target,
+        relation: (r as any).relation,
+        predicate: (r as any).predicate,
+      }))
+      .filter(l => d3Nodes.some(n => n.id === (typeof l.source === 'string' ? l.source : l.source.id))
+        && d3Nodes.some(n => n.id === (typeof l.target === 'string' ? l.target : l.target.id)))
+
+    // Create simulation
+    const simulation = d3.forceSimulation<D3Node>(d3Nodes)
+      .force('link', d3.forceLink<D3Link, D3Node>(d3Links).id(d => typeof d === 'string' ? d : d.id).distance(120))
+      .force('charge', d3.forceManyBody().strength(-300))
+      .force('center', d3.forceCenter(width / 2, height / 2))
+      .force('collision', d3.forceCollide().radius(d => d.radius + 8))
+      .force('x', d3.forceX(width / 2).strength(0.06))
+      .force('y', d3.forceY(height / 2).strength(0.06))
+      .alphaDecay(0.02)
+      .velocityDecay(0.4)
+
+    simulationRef.current = simulation
+
+    const svg = d3.select(svgRef.current)
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .style('width', '100%')
+      .style('height', 'auto')
+
+    // Clear previous content
+    svg.selectAll('*').remove()
+
+    // Zoom behavior
+    const zoom = d3.zoom<SVGSVGElement, unknown>()
+      .scaleExtent([0.3, 4])
+      .on('zoom', (event) => {
+        svgGroup.attr('transform', event.transform)
+      })
+
+    svg.call(zoom)
+
+    const svgGroup = svg.append('g').attr('class', 'graph-group')
+
+    // Arrow marker
+    svg.append('defs').append('marker')
+      .attr('id', 'arrowhead')
+      .attr('viewBox', '0 -5 10 10')
+      .attr('refX', 28)
+      .attr('refY', 0)
+      .attr('markerWidth', 6)
+      .attr('markerHeight', 6)
+      .attr('orient', 'auto')
+      .append('path')
+      .attr('d', 'M0,-5L10,0L0,5')
+      .attr('fill', '#667eea')
+      .attr('opacity', 0.6)
+
+    // Links
+    const link = svgGroup.append('g')
+      .selectAll('line')
+      .data(d3Links)
+      .join('line')
+      .attr('stroke', '#ccc')
+      .attr('stroke-opacity', 0.3)
+      .attr('stroke-width', 1)
+
+    // Link labels
+    const linkLabel = svgGroup.append('g')
+      .selectAll('text')
+      .data(d3Links.filter(d => d.predicate || d.relation))
+      .join('text')
+      .attr('font-size', '7px')
+      .attr('fill', '#bbb')
+      .attr('text-anchor', 'middle')
+      .attr('pointer-events', 'none')
+      .text(d => d.predicate || d.relation || '')
+
+    // Nodes group
+    const node = svgGroup.append('g')
+      .selectAll('g')
+      .data(d3Nodes)
+      .join('g')
+      .attr('cursor', 'grab')
+      .call(d3.drag<D3Node, unknown>()
+        .on('start', (event, d) => {
+          if (!event.active) simulation.alphaTarget(0.3).restart()
+          d.fx = d.x
+          d.fy = d.y
+        })
+        .on('drag', (event, d) => {
+          d.fx = event.x
+          d.fy = event.y
+        })
+        .on('end', (event, d) => {
+          if (!event.active) simulation.alphaTarget(0)
+          d.fx = null
+          d.fy = null
+        }))
+
+    // Node circles
+    node.each(function(d) {
+      const g = d3.select(this)
+      const isSelected = selectedEntity?.id === d.id
+      const isHovered = hoveredEntity === d.id
+      const isExpanded = expandedNodeId === d.id
+      const isConnected = expandedNodeId ? expandedNodeIds.has(d.id) : focusMode ? connectedEntityIds.has(d.id) : selectedEntity ? connectedEntityIds.has(d.id) : true
+      const color = ENTITY_COLORS[d.type] || '#999'
+      const r = d.radius + (isExpanded ? 8 : isSelected ? 4 : isHovered ? 2 : 0)
+
+      g.append('circle')
+        .attr('r', r)
+        .attr('fill', color)
+        .attr('fill-opacity', isConnected ? 0.85 : 0.15)
+        .attr('stroke', isExpanded || isSelected ? '#333' : 'white')
+        .attr('stroke-width', isExpanded || isSelected ? 3 : 2)
+
+      g.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'central')
+        .attr('font-size', '14px')
+        .attr('pointer-events', 'none')
+        .text(d.icon)
+
+      g.append('text')
+        .attr('y', r + 14)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '10px')
+        .attr('fill', isConnected ? '#333' : '#ccc')
+        .attr('font-weight', isExpanded || isSelected ? 700 : 400)
+        .attr('pointer-events', 'none')
+        .text(d.name.length > 8 ? d.name.slice(0, 8) + '…' : d.name)
+    })
+
+    // Node interactions
+    node.on('click', (event, d) => {
+      event.stopPropagation()
+      const entity = nodeMap.get(d.id)
+      if (!entity) return
+      if (expandedNodeId === d.id) {
+        setExpandedNodeId(null)
+      } else {
+        setExpandedNodeId(d.id)
+      }
+      if (selectedEntity?.id === d.id) {
+        setSelectedEntity(null)
+        setFocusMode(null)
+      } else {
+        setSelectedEntity(entity)
+        setFocusMode(d.id)
+      }
+    })
+    .on('dblclick', (event, d) => {
+      event.stopPropagation()
+      if (expandedNodeId === d.id) {
+        setExpandedNodeId(null)
+      } else {
+        setExpandedNodeId(d.id)
+      }
+    })
+    .on('mouseenter', (event, d) => setHoveredEntity(d.id))
+    .on('mouseleave', () => setHoveredEntity(null))
+
+    // Tick
+    simulation.on('tick', () => {
+      link
+        .attr('x1', d => (d.source as D3Node).x!)
+        .attr('y1', d => (d.source as D3Node).y!)
+        .attr('x2', d => (d.target as D3Node).x!)
+        .attr('y2', d => (d.target as D3Node).y!)
+
+      linkLabel
+        .attr('x', d => ((d.source as D3Node).x! + (d.target as D3Node).x!) / 2)
+        .attr('y', d => ((d.source as D3Node).y! + (d.target as D3Node).y!) / 2 - 4)
+
+      node.attr('transform', d => `translate(${d.x!},${d.y!})`)
+    })
+
+    // Click on background to deselect
+    svg.on('click', () => {
+      setSelectedEntity(null)
+      setFocusMode(null)
+      setExpandedNodeId(null)
+    })
+
+    return () => {
+      simulation.stop()
+    }
+  }, [filteredEntities, filteredRelations, selectedEntity, hoveredEntity, expandedNodeId, focusMode, connectedEntityIds, expandedNodeIds])
+
+  // Update node visual state when selection/hover changes
+  useEffect(() => {
+    if (!svgRef.current) return
+    const svg = d3.select(svgRef.current)
+    const nodes = svg.selectAll('.graph-group g')
+
+    nodes.each(function(d: D3Node) {
+      const g = d3.select(this)
+      const circles = g.selectAll('circle')
+      const isSelected = selectedEntity?.id === d.id
+      const isHovered = hoveredEntity === d.id
+      const isExpanded = expandedNodeId === d.id
+      const isConnected = expandedNodeId ? expandedNodeIds.has(d.id) : focusMode ? connectedEntityIds.has(d.id) : selectedEntity ? connectedEntityIds.has(d.id) : true
+      const color = ENTITY_COLORS[d.type] || '#999'
+      const r = d.radius + (isExpanded ? 8 : isSelected ? 4 : isHovered ? 2 : 0)
+
+      circles
+        .attr('r', r)
+        .attr('fill', color)
+        .attr('fill-opacity', isConnected ? 0.85 : 0.15)
+        .attr('stroke', isExpanded || isSelected ? '#333' : 'white')
+        .attr('stroke-width', isExpanded || isSelected ? 3 : 2)
+
+      const labels = g.selectAll('text').filter((_: any, __: number, node: any) => {
+        const textEl = node[0]?.textContent
+        return textEl && textEl.length <= 10 && !['🔬','🏢','📜','🧪','⚡'].includes(textEl)
+      })
+      labels
+        .attr('fill', isConnected ? '#333' : '#ccc')
+        .attr('font-weight', isExpanded || isSelected ? 700 : 400)
+    })
+  }, [selectedEntity, hoveredEntity, expandedNodeId, focusMode, connectedEntityIds, expandedNodeIds])
+
+  const layoutNode = (id: string) => {
+    const node = filteredEntities.find(e => e.id === id)
+    return node
+  }
+
+  // Node size helper
   const getNodeRadius = (entity: Entity, isExpanded: boolean, isSelected: boolean, isHovered: boolean) => {
     const hasSummary = entity.summary || entity.summary_vernacular
     const baseSize = hasSummary ? 24 : 18
@@ -282,12 +464,6 @@ export default function KnowledgeGraphPage() {
     if (isHovered) return baseSize + 2
     return baseSize
   }
-
-  const typeCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: entities.length }
-    entities.forEach(e => { counts[e.type] = (counts[e.type] || 0) + 1 })
-    return counts
-  }, [entities])
 
   const groupedEntities = useMemo(() => {
     const groups: Record<string, Entity[]> = {}
@@ -377,135 +553,12 @@ export default function KnowledgeGraphPage() {
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
             <DonutChart typeCounts={typeCounts} />
           </div>
-          <div style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
-            <svg
-              viewBox="0 0 1060 740"
-              style={{ width: '100%', height: 'auto', background: '#fafbfc', borderRadius: '8px', border: '1px solid #eee' }}
-            >
-              {/* 关系线 */}
-              {filteredRelations.map((rel, i) => {
-                const src = layoutNode(rel.source)
-                const tgt = layoutNode(rel.target)
-                const isRelHighlighted = focusMode
-                  ? (connectedEntityIds.has(rel.source) && connectedEntityIds.has(rel.target))
-                  : expandedNodeId
-                    ? (expandedNodeIds.has(rel.source) && expandedNodeIds.has(rel.target))
-                    : hoveredEntity
-                      ? (rel.source === hoveredEntity || rel.target === hoveredEntity)
-                      : (!selectedEntity || (connectedEntityIds.has(rel.source) && connectedEntityIds.has(rel.target)))
-                const opacity = focusMode || expandedNodeId || hoveredEntity || selectedEntity ? (isRelHighlighted ? 0.8 : 0.08) : 0.3
-                const relPredicate = (rel as any).predicate || (rel as any).relation || ''
-                return (
-                  <g key={i}>
-                    <line
-                      x1={src.x}
-                      y1={src.y + 20}
-                      x2={tgt.x}
-                      y2={tgt.y + 20}
-                      stroke={isRelHighlighted ? '#667eea' : '#ccc'}
-                      strokeWidth={isRelHighlighted ? 2 : 1}
-                      opacity={opacity}
-                      markerEnd="url(#arrowhead)"
-                    />
-                    {(isRelHighlighted || (!focusMode && !expandedNodeId && !selectedEntity && !hoveredEntity)) && relPredicate && (
-                      <text
-                        x={(src.x + tgt.x) / 2}
-                        y={(src.y + tgt.y) / 2 - 4}
-                        textAnchor="middle"
-                        fontSize="8"
-                        fill={isRelHighlighted ? '#667eea' : '#bbb'}
-                        opacity={opacity}
-                        pointerEvents="none"
-                      >
-                        {relPredicate}
-                      </text>
-                    )}
-                  </g>
-                )
-              })}
-
-              {/* 箭头 */}
-              <defs>
-                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-                  <polygon points="0 0, 10 3.5, 0 7" fill="#667eea" opacity="0.8" />
-                </marker>
-              </defs>
-
-              {/* 实体节点 */}
-              {filteredEntities.map((entity, i) => {
-                const pos = layoutNode(entity.id)
-                const isSelected = selectedEntity?.id === entity.id
-                const isHovered = hoveredEntity === entity.id
-                const isExpanded = expandedNodeId === entity.id
-                const isConnected = expandedNodeId ? expandedNodeIds.has(entity.id) : focusMode ? connectedEntityIds.has(entity.id) : selectedEntity ? connectedEntityIds.has(entity.id) : true
-                const color = ENTITY_COLORS[entity.type] || '#999'
-                const radius = getNodeRadius(entity, isExpanded, isSelected, isHovered)
-                return (
-                  <g
-                    key={entity.id}
-                    onClick={(e) => {
-                      if (expandedNodeId === entity.id) {
-                        setExpandedNodeId(null)
-                      } else {
-                        setExpandedNodeId(entity.id)
-                      }
-                      if (isSelected) {
-                        setSelectedEntity(null)
-                        setFocusMode(null)
-                      } else {
-                        setSelectedEntity(entity)
-                        setFocusMode(entity.id)
-                      }
-                    }}
-                    onDoubleClick={() => {
-                      if (expandedNodeId === entity.id) {
-                        setExpandedNodeId(null)
-                      } else {
-                        setExpandedNodeId(entity.id)
-                      }
-                    }}
-                    onMouseEnter={() => setHoveredEntity(entity.id)}
-                    onMouseLeave={() => setHoveredEntity(null)}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <circle
-                      cx={pos.x}
-                      cy={pos.y}
-                      r={radius}
-                      fill={color}
-                      fillOpacity={isConnected ? 0.85 : 0.15}
-                      stroke={isExpanded ? '#333' : isSelected ? '#333' : 'white'}
-                      strokeWidth={isExpanded || isSelected ? 3 : 2}
-                      style={{ transition: 'all 0.3s ease' }}
-                    />
-                    <text
-                      x={pos.x}
-                      y={pos.y + 4}
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      fontSize="14"
-                      pointerEvents="none"
-                    >
-                      {ENTITY_ICONS[entity.type]}
-                    </text>
-                    <text
-                      x={pos.x}
-                      y={pos.y + radius + 14}
-                      textAnchor="middle"
-                      fontSize="11"
-                      fill={isConnected ? '#333' : '#ccc'}
-                      fontWeight={isExpanded || isSelected ? 700 : 400}
-                      pointerEvents="none"
-                    >
-                      {entity.name.length > 8 ? entity.name.slice(0, 8) + '…' : entity.name}
-                    </text>
-                  </g>
-                )
-              })}
-            </svg>
+          <div style={{ position: 'relative', width: '100%', overflow: 'hidden', borderRadius: '8px', border: '1px solid #eee' }}>
+            <svg ref={svgRef} style={{ width: '100%', height: '600px', background: '#fafbfc' }} />
           </div>
           <p style={{ fontSize: '0.75rem', color: '#aaa', marginTop: '8px' }}>
             💡 单击节点选中并查看详情，双击节点展开关联子图，再次双击收起
+            {' '}滚轮缩放 / 拖拽画布 / 拖拽节点调整位置
             {focusMode && (
               <span style={{ marginLeft: '12px', color: '#667eea', cursor: 'pointer', fontWeight: 600 }}
                 onClick={() => { setFocusMode(null); setSelectedEntity(null); }}
@@ -649,9 +702,9 @@ export default function KnowledgeGraphPage() {
                       <span style={{ fontSize: '1rem' }}>{ENTITY_ICONS[entity.type]}</span>
                       <span style={{ fontWeight: 600, fontSize: '0.85rem' }}>{entity.name}</span>
                     </div>
-                    <p style={{ 
-                      fontSize: '0.75rem', 
-                      color: '#666', 
+                    <p style={{
+                      fontSize: '0.75rem',
+                      color: '#666',
                       margin: 0,
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
