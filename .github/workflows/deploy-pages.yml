@@ -47,7 +47,7 @@ jobs:
           echo "Running generate-analysis.py..."
           python scripts/generate-analysis.py
           echo "Running next build..."
-          npm run build
+          npm run export
           echo "Build complete!"
           ls -la out/
         env:
