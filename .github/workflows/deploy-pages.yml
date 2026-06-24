@@ -53,6 +53,12 @@ jobs:
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
 
+      - name: Verify output
+        run: |
+          echo "Checking out/ directory..."
+          ls -la out/ || echo "out/ not found!"
+          ls -la out/*.html | head -20
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
