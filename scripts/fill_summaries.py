@@ -3,7 +3,7 @@
 """
 fill_summaries.py
 =================
-给 news.json 中 summary == title 或空的条目补全摘要。
+给 news.json 中 summary == title 或太短的条目补全摘要。
 策略：从新闻 URL 抓取正文，提取前 100 字作为摘要。
 纯 Python 标准库，不调用任何外部 API。
 """
@@ -11,10 +11,16 @@ import json
 import re
 import urllib.request
 import html
+import time
+import os
 from pathlib import Path
+
+# GitHub Actions CI 超时更短，限制每批最多 20 条
+MAX_BATCH = int(os.environ.get("SUMMARY_MAX_BATCH", "20"))
 
 DATA_DIR = Path(__file__).parent.parent / "app" / "_data"
 NEWS_JSON = DATA_DIR / "news.json"
+
 
 
 def fetch_url_text(url: str, timeout: int = 10) -> str:
@@ -81,13 +87,17 @@ def main():
             need_fix.append(item)
 
     print(f"Total: {len(news)}, Need fix: {len(need_fix)}")
+    if not need_fix:
+        print("No summaries to fix.")
+        return
 
     fixed = 0
-    for i, item in enumerate(need_fix):
+    max_try = min(len(need_fix), MAX_BATCH)
+    for i, item in enumerate(need_fix[:max_try]):
         url = item.get("url", "")
         if not url:
             continue
-        print(f"[{i+1}/{len(need_fix)}] {item['title'][:50]}...")
+        print(f"[{i+1}/{max_try}] {item['title'][:50]}...")
         text = fetch_url_text(url)
         if text:
             item["summary"] = text
@@ -97,11 +107,13 @@ def main():
             print(f"  -> FAILED to fetch from {url}")
         
         # Rate limit
-        import time
         time.sleep(0.5)
 
+    if len(need_fix) > max_try:
+        print(f"Note: only processed {max_try}/{len(need_fix)} (controlled by SUMMARY_MAX_BATCH)")
+
     NEWS_JSON.write_text(json.dumps(news, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"\nDone! Fixed {fixed}/{len(need_fix)} items.")
+    print(f"\nDone! Fixed {fixed}/{min(len(need_fix), MAX_BATCH)} items.")
 
 
 if __name__ == "__main__":
