@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-06-23",
+  "lastUpdate": "2026-06-28",
   "version": "2.0",
   "description": "天线行业知识图谱 - 自动从各板块数据抽取生成",
   "entities": [
@@ -2896,6 +2896,50 @@
         "date": "2026-06-19",
         "source": "C114通信网"
       }
+    },
+    {
+      "id": "company_test001",
+      "type": "company",
+      "name": "测试公司A",
+      "description": "这是一个用于验证 kg_import 脚本的测试公司",
+      "source_sectors": [
+        "enterprise"
+      ],
+      "metadata": {
+        "stock_code": "000000.TEST",
+        "location": "深圳",
+        "is_key": "false"
+      }
+    },
+    {
+      "id": "technology_test001",
+      "type": "technology",
+      "name": "测试技术A",
+      "description": "6G 太赫兹通信测试条目",
+      "source_sectors": [
+        "technology"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "standard_test001",
+      "type": "standard",
+      "name": "GB/T 99999-2026",
+      "description": "测试用国标条目",
+      "source_sectors": [
+        "enterprise"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "material_test001",
+      "type": "material",
+      "name": "测试材料A",
+      "description": "低损耗高频 PCB 材料测试",
+      "source_sectors": [
+        "technology"
+      ],
+      "metadata": {}
     }
   ],
   "relations": [
@@ -4442,6 +4486,34 @@
       "relation": "specifies",
       "confidence": 0.5,
       "evidence": "标准 6G频谱规划研究 涉及 6G 技术要求"
+    },
+    {
+      "source": "company_test001",
+      "target": "technology_test001",
+      "relation": "develops",
+      "confidence": 0.8,
+      "evidence": "测试公司A 研发 6G 太赫兹通信"
+    },
+    {
+      "source": "company_test001",
+      "target": "standard_test001",
+      "relation": "complies_with",
+      "confidence": 0.7,
+      "evidence": "测试公司A 遵循国标条目"
+    },
+    {
+      "source": "technology_test001",
+      "target": "material_test001",
+      "relation": "requires",
+      "confidence": 0.9,
+      "evidence": "6G 技术需要低损耗材料"
+    },
+    {
+      "source": "company_test001",
+      "target": "company_op001",
+      "relation": "supplies_to",
+      "confidence": 0.6,
+      "evidence": "测试公司A 向中国移动供货"
     }
   ]
 }

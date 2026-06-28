@@ -1,0 +1,5 @@
+source,target,relation,confidence,evidence
+company_test001,technology_test001,develops,0.8,测试公司A 研发 6G 太赫兹通信
+company_test001,standard_test001,complies_with,0.7,测试公司A 遵循国标条目
+technology_test001,material_test001,requires,0.9,6G 技术需要低损耗材料
+company_test001,company_op001,supplies_to,0.6,测试公司A 向中国移动供货

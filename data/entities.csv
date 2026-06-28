@@ -1,0 +1,5 @@
+id,type,name,description,source_sectors,stock_code,location,is_key
+company_test001,company,测试公司A,这是一个用于验证 kg_import 脚本的测试公司,enterprise,000000.TEST,深圳,false
+technology_test001,technology,测试技术A,6G 太赫兹通信测试条目,technology,,,
+standard_test001,standard,GB/T 99999-2026,测试用国标条目,enterprise,,,
+material_test001,material,测试材料A,低损耗高频 PCB 材料测试,technology,,,
