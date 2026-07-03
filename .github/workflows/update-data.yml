@@ -74,6 +74,57 @@ jobs:
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
 
+      - name: Check if today is Monday (CST)
+        id: dow-check
+        run: |
+          DOW_CST=$(TZ='Asia/Shanghai' date +%u)
+          echo "dow_cst=$DOW_CST" >> $GITHUB_OUTPUT
+          if [ "$DOW_CST" = "1" ]; then
+            echo "is_monday=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_monday=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run auto_fetch_standards.py (dry-run, 仅周一)
+        # 仅 Asia/Shanghai 周一执行, 其他天跳过 (零开销)
+        if: steps.dow-check.outputs.is_monday == 'true'
+        run: |
+          echo "==[standards dry-run, 周一自动]$(date -u +'%Y-%m-%dT%H:%M:%SZ')=="
+          timeout 600 python scripts/auto_fetch_standards.py --write || echo "auto_fetch_standards failed, continue"
+          if [ -f scripts/standards_candidates.json ]; then
+            COUNT=$(python3 -c "import json; print(len(json.load(open('scripts/standards_candidates.json'))))" 2>/dev/null || echo "0")
+            echo "candidates_count=$COUNT" >> $GITHUB_OUTPUT
+          else
+            echo "candidates_count=0" >> $GITHUB_OUTPUT
+          fi
+        id: standards-dry-run
+        shell: bash
+
+      - name: Notify on new standards candidates
+        if: |
+          steps.standards-dry-run.outputs.candidates_count != '0' &&
+          steps.standards-dry-run.outputs.candidates_count != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const data = JSON.parse(fs.readFileSync('scripts/standards_candidates.json', 'utf8'));
+            const lines = ['### 天线行业标准 · 自动抓取候选项', '', `**抓取时间**: ${new Date().toISOString()}`, `**候选数量**: ${data.length}`, ''];
+            for (const r of data) {
+              lines.push(`- **${r.name}** · ${r.organization} · ${r.publishDate || r.frozenDate || '-'}`);
+              lines.push(`  - URL: ${r.url}`);
+              if (r.description) lines.push(`  - desc: ${r.description}`);
+            }
+            lines.push('', '---', '', '> Review / merge: 见 `scripts/_apply_candidates.py` (手动 dry-run + apply)');
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'standards: 新增候选 ' + data.length + ' 条待 review',
+              body: lines.join('\n'),
+              labels: ['standards-candidates', 'auto-fetch'],
+            });
+            core.info('已创建 Issue 通知 review');
+
       - name: Check for changes
         id: git-status
         run: |
@@ -97,3 +148,12 @@ jobs:
           git push origin HEAD:main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload standards candidates artifact (周一)
+        if: steps.dow-check.outputs.is_monday == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: standards-candidates
+          path: scripts/standards_candidates.json
+          if-no-files-found: warn
+          retention-days: 90
