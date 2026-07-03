@@ -11,6 +11,11 @@ env:
   NODE_VERSION: '20'
   PYTHON_VERSION: '3.11'
   FETCH_TIMEOUT: '600'
+  # enrich_kg_metadata.py 用 MMX CLI; GH Actions 装 node 20 默认路径
+  # 注意: 实际路径取决于 mmx-cli 包安装位置, 这里用常见的 npm global path
+  # enrich 失败时 daily 软失败 (echo continue), 不阻塞数据流
+  NODE_EXE: '/usr/bin/node'
+  MMX_MJS: '/usr/lib/node_modules/mmx-cli/dist/mmx.mjs'
 
 permissions:
   contents: write
@@ -73,12 +78,6 @@ jobs:
         run: timeout ${{ env.FETCH_TIMEOUT }} python scripts/fetch-real-data.py || echo "fetch-real-data failed, continue"
         shell: bash
 
-      - name: Run summarize_news.py (LLM 摘要补全)
-        run: python scripts/summarize_news.py || echo "summarize_news failed, continue"
-        shell: bash
-        env:
-          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
-
       - name: Run update_prices_metals.py (27 种 BOM 材料价格)
         run: python scripts/update_prices_metals.py || echo "update_prices_metals failed, continue"
         shell: bash
@@ -87,13 +86,20 @@ jobs:
         run: python scripts/bump_technology.py || echo "bump_technology failed, continue"
         shell: bash
 
-      - name: Run update_companies.py (企业数据)
-        run: python scripts/update_companies.py || echo "update_companies failed, continue"
-        shell: bash
+      # update_companies.py 已从 daily 必跑移出:
+      #   1) 是手工数据补全工具 (一次性加 tier3/4/5/7 entries), 写死 lastUpdate=2026-05-31
+      #   2) 不该 cron 化 — 跑一次内容就完, 重复跑浪费 LLM token
+      #   3) 手工执行: python scripts/update_companies.py (已改相对路径)
 
-      - name: Run enrich_kg_metadata.py (知识图谱元数据)
-        run: python scripts/enrich_kg_metadata.py || echo "enrich_kg_metadata failed, continue"
+      - name: Run enrich_kg_metadata.py (知识图谱元数据, 软失败)
+        run: python scripts/enrich_kg_metadata.py || echo "enrich_kg_metadata failed (likely missing MMX CLI), continue"
         shell: bash
+        env:
+          NODE_EXE: ${{ env.NODE_EXE }}
+          MMX_MJS: ${{ env.MMX_MJS }}
+
+      - name: Install openai for generate-analysis (四维分析)
+        run: pip install openai
 
       - name: Run generate-analysis.py (四维交叉分析)
         run: |

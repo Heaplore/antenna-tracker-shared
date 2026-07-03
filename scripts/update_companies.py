@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
-"""Update companies.json with new entries for tiers 3, 4, 5, 7"""
+"""Update companies.json with new entries for tiers 3, 4, 5, 7
+
+原始是 dev 环境一次性脚本, 改用相对路径以便 GH Actions 也能跑.
+但这是手工数据补全工具, 不该 daily 必跑 — 如要 cron 化请另外拆.
+"""
 
 import json
+import os
 
-PATH = r"C:\Users\Administrator\antenna-tracker-dev\data\companies.json"
+# 相对路径: scripts/update_companies.py -> ../public/data/companies.json
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PATH = os.path.join(SCRIPT_DIR, '..', 'public', 'data', 'companies.json')
 
 with open(PATH, "r", encoding="utf-8") as f:
     data = json.load(f)
