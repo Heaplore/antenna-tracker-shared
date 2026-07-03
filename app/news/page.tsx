@@ -151,10 +151,10 @@ export default function NewsPage() {
         </div>
       </section>
 
-      {/* 原子卡片网格（两列） */}
+      {/* 原子卡片网格（三列，浏览器窄时自动降到两列/单列） */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(480px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
         gap: '16px',
       }}>
         {filtered.map((news) => {

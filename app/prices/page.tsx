@@ -412,14 +412,22 @@ function tabStyle(active: boolean): React.CSSProperties {
 }
 
 function MaterialCard({ mat, fmtYAxis }: { mat: any; fmtYAxis: (v: number, u?: string) => string }) {
-  // 历史趋势窗口 -12 月 (覆盖 2026-08 数据点)
-  const hist = (mat.historical || []).slice(-12).map((h: any) => ({
-    month: h.month,
-    price: h.price,
-  }))
+  // 历史趋势窗口: 始终显示近 6 个月 (≤ lastUpdate 月份), 剔除 forecast 月
+  // pricesData dataSpan = 2025-12 ~ 2026-08 (含 forecast 8月), chart 只画到 2026-07
+  // 用 pricesData.lastUpdate 算 currentMonth, 再 slice
+  const currentMonth = (pricesData && pricesData.lastUpdate) ? String(pricesData.lastUpdate).slice(0, 7) : ''
+  function getRecent6(historical: any[]) {
+    if (!historical || historical.length === 0) return []
+    // 找出所有 ≤ currentMonth 的历史 (剔 forecast)
+    const realHist = currentMonth
+      ? historical.filter((h: any) => String(h.month || '').slice(0, 7) <= currentMonth)
+      : historical
+    return realHist.slice(-6).map((h: any) => ({ month: h.month, price: h.price }))
+  }
   const trendColor = mat.trend === '上涨' ? '#e74c3c' : mat.trend === '下跌' ? '#27ae60' : '#888'
 
   // Y轴动态范围
+  const hist = getRecent6(mat.historical || [])
   const prices = hist.map((d: any) => d.price)
   const yDomain: [number, number] = useMemo(() => {
     if (prices.length === 0) return [0, 100]
