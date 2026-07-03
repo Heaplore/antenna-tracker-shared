@@ -1,12 +1,15 @@
 name: Deploy to GitHub Pages
 
+# 统一时间: 每天 14:30 (Asia/Shanghai) = 06:30 UTC
+# 触发路径: daily-data-update.yml 跑完数据更新后, 在最后一步 'Trigger GitHub Pages deploy'
+#           通过 gh workflow run deploy-pages.yml 触发本 workflow
+# 不再监听 push main hook (避免双部署)
+# 不再设独立 schedule (统一在 daily 14:30 一次完成)
 on:
-  push:
-    branches: [main]
-  schedule:
-    # 每天 23:00 (Asia/Shanghai) = 15:00 UTC 运行，生成最新版四维分析
-    - cron: '0 15 * * *'
   workflow_dispatch:
+    # 手动触发, 由 daily-data-update.yml 在 data 更新后调用
+  workflow_call:
+    # 支持被其他 workflow 调用
 
 permissions:
   contents: read
@@ -34,25 +37,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Setup Python
+      - name: Setup Python (no deps, daily-data-update already ran analysis)
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-
-      - name: Install Python dependencies
-        run: pip install openai
+          python-version: "3.11"
 
       - name: Build
         run: |
           set -e
-          echo "Running generate-analysis.py..."
-          python scripts/generate-analysis.py
-          echo "Running next build..."
+          echo "Running next build (analysis already done by daily-data-update)..."
           npm run build
           echo "Build complete!"
           ls -la out/
-        env:
-          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
 
       - name: Verify output
         run: |
