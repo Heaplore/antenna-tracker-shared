@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-06-15",
+  "lastUpdate": "2026-07-03",
   "categories": [
     {
       "name": "3GPP国际标准",
@@ -236,6 +236,17 @@
           "scope": "3GPP统一信道模型（0.5~100GHz），基于TR 38.900的修正版，定义了3GPP 5G系统统一信道模型，被业界广泛引用用于系统仿真和测试",
           "description": "3GPP统一信道模型（0.5~100GHz），基于TR 38.900的修正版，定义了3GPP 5G系统统一信道模型，被业界广泛引用用于系统仿真和测试",
           "url": "https://portal.3gpp.org/specspecific?id=3055"
+        },
+        {
+          "name": "3GPP Release 21",
+          "title": "5G-Advanced Phase 4 / 6G 演进起点",
+          "category": "3GPP国际标准",
+          "status": "现行",
+          "publishDate": "2025年9月",
+          "organization": "3GPP",
+          "scope": "面向 5G-Advanced 收尾与 6G 早期研究的并行 Release, 涵盖 AI/ML 数据驱动空口增强、XR/沉浸式通信优化、天地一体化网络 (NTN) 增强、网络节能、传感通信融合 (ISAC) 概念验证 ...",
+          "description": "3GPP 首个在 5G 框架内并行启动 6G 研究的 Release。包含 5G-Advanced Phase 4 的优化收尾 (AI/ML 空口、XR、上行增强、覆盖增强、ELAA 演进) 和面向 6G 的早期 SI/WI (Study/Work Item) 立项, 为 IMT-2030 6G 规范做准备。预计冻结时间 2025 年 9 月, 与 ITU IMT-2030 时间表对齐。",
+          "url": "https://www.3gpp.org/specifications/releases/21"
         }
       ]
     },
@@ -320,6 +331,17 @@
           "scope": "天线测试标准程序，定义天线增益、方向图、效率、极化、阻抗等参数的测量方法和测试程序，被CTIA等组织引用为天线测量的基础方法",
           "description": "天线测试标准程序，定义天线增益、方向图、效率、极化、阻抗等参数的测量方法和测试程序，被CTIA等组织引用为天线测量的基础方法",
           "url": "https://standards.ieee.org/ieee/149/1072/"
+        },
+        {
+          "name": "IEEE 802.11bn",
+          "title": "Wi-Fi 8 (Ultra High Reliability, UHR)",
+          "category": "IEEE标准",
+          "status": "草案",
+          "publishDate": "预计 2028 年",
+          "organization": "IEEE 802.11",
+          "scope": "面向超高可靠性 (UHR) 与多 AP 协同的下一代 Wi-Fi, 重点提升工业 IoT、医疗、AR/VR 等场景的确定性时延与可靠性 ...",
+          "description": "IEEE 802.11 下一代 WLAN 项目, 代号 UHR (Ultra High Reliability)。2024 年 9 月 TGbn 任务组正式成立 (PAR 批准), 引入多 AP 协同调度、增强 MU-MIMO、320MHz 信道扩展、低时延确定性传输等关键技术。预计 2028 年发布正式标准, 商用于 2028-2029 年。",
+          "url": "https://www.ieee802.org/11/"
         }
       ]
     },
