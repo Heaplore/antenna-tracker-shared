@@ -8,7 +8,7 @@ on:
     # 支持手动触发
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: '24'
   PYTHON_VERSION: '3.11'
   FETCH_TIMEOUT: '600'
   # enrich_kg_metadata.py 用 MMX CLI; GH Actions 装 node 20 默认路径
