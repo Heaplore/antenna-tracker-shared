@@ -1111,6 +1111,99 @@
           "stock52Low": null,
           "stock52High": null,
           "rank": 17
+        },
+        {
+          "id": "ao014",
+          "name": "佛山市粤海信通讯有限公司",
+          "nameEn": "Eahison (Foshan)",
+          "stockCode": "未上市",
+          "exchange": "—",
+          "role": "天线整机厂商",
+          "position": "龙勃透镜天线技术领导者，国内首家实现5G-A龙勃透镜天线万级规模出货；48端口多频多波束龙勃透镜天线已在中国移动/电信/联通规模应用，覆盖30省48地市；应用于高铁/大桥/校园/海域等场景",
+          "marketCap": "未上市",
+          "revenue": "约5亿元（估计）",
+          "netProfit": "约0.5亿元（估计）",
+          "profitYoY": "+20%",
+          "customers": [
+            "中国移动",
+            "中国电信",
+            "中国联通"
+          ],
+          "highlights": [
+            "国内首家5G-A龙勃透镜天线规模出货",
+            "龙勃透镜天线覆盖30省48地市",
+            "超密组网解决方案提供商"
+          ],
+          "location": "佛山",
+          "isKey": true,
+          "stockPrices": [],
+          "stockCurrent": null,
+          "stock52Low": null,
+          "stock52High": null,
+          "rank": 18
+        },
+        {
+          "id": "ao015",
+          "name": "广东博纬通信科技有限公司",
+          "nameEn": "BroadRadio (Guangdong)",
+          "stockCode": "非上市（飞荣达曾控股，已出售部分股权）",
+          "exchange": "—",
+          "role": "天线整机厂商",
+          "position": "国家级专精特新小巨人企业，专注4G/5G移动通信天线研发生产；持有天线/射频领域2位IEEE Fellow及3位国家万人计划领军人才；多波束天线/Massive MIMO天线技术领先；已通过华为/中兴/诺基亚/凯瑟琳认证；产品应用于鸟巢/大兴机场/世界杯场馆等全球知名项目",
+          "marketCap": "非上市",
+          "revenue": "约6亿元（估计）",
+          "netProfit": "约0.4亿元（估计）",
+          "profitYoY": "+5%",
+          "customers": [
+            "华为",
+            "中兴",
+            "诺基亚",
+            "中国移动",
+            "全球运营商"
+          ],
+          "highlights": [
+            "专精特新小巨人天线厂商",
+            "Massive MIMO天线技术领先",
+            "全球30余国运营商长期合作"
+          ],
+          "location": "深圳",
+          "isKey": true,
+          "stockPrices": [],
+          "stockCurrent": null,
+          "stock52Low": null,
+          "stock52High": null,
+          "rank": 19
+        },
+        {
+          "id": "ao016",
+          "name": "博迅通信",
+          "nameEn": "Boxun Communication",
+          "stockCode": "非上市",
+          "exchange": "—",
+          "role": "塑料振子/OEM天线",
+          "position": "5G基站塑料天线振子专业制造商，POP（塑料金属化）工艺已成5G基站塑料振子主流方案；产品用于华为/中兴等主流5G Massive MIMO天线；PPS材料振子重量低、一致性好、良品率高；终端天线合作小米/OPPO等",
+          "marketCap": "非上市",
+          "revenue": "约3亿元（估计）",
+          "netProfit": "约0.3亿元（估计）",
+          "profitYoY": "+15%",
+          "customers": [
+            "华为",
+            "中兴",
+            "OPPO",
+            "小米"
+          ],
+          "highlights": [
+            "POP塑料金属化振子主流方案",
+            "5G Massive MIMO振子核心供应商",
+            "终端天线/手机天线覆盖"
+          ],
+          "location": "深圳",
+          "isKey": true,
+          "stockPrices": [],
+          "stockCurrent": null,
+          "stock52Low": null,
+          "stock52High": null,
+          "rank": 20
         }
       ]
     },
@@ -1938,6 +2031,150 @@
           "stock52Low": 58.8,
           "stock52High": 97.67,
           "rank": 16
+        },
+        {
+          "id": "ap013",
+          "name": "深圳鹏宇达微波",
+          "nameEn": "Pengyuda Microwave",
+          "stockCode": "未上市",
+          "exchange": "—",
+          "role": "环形器/隔离器",
+          "position": "专注射频环形器/隔离器研发生产，产品覆盖通信基站/雷达/军工应用；频率范围DC-40GHz；为国内基站天线厂商提供环形器配套",
+          "marketCap": "未上市",
+          "revenue": "约1亿元（估计）",
+          "netProfit": "约0.1亿元（估计）",
+          "profitYoY": "稳健",
+          "customers": [
+            "天线整机厂商",
+            "主设备商"
+          ],
+          "highlights": [
+            "环形器/隔离器专业制造商",
+            "基站射频配套"
+          ],
+          "location": "深圳",
+          "isKey": false,
+          "stockPrices": [],
+          "stockCurrent": null,
+          "stock52Low": null,
+          "stock52High": null,
+          "rank": 17
+        },
+        {
+          "id": "ap014",
+          "name": "太阳鸟微波",
+          "nameEn": "Sunbird Microwave",
+          "stockCode": "未上市",
+          "exchange": "—",
+          "role": "环形器/隔离器（军工级）",
+          "position": "专注高端环形器/隔离器研发，产品用于军工/航空航天/卫星通信；铁氧体技术领先；高端射频无源器件专业厂商",
+          "marketCap": "未上市",
+          "revenue": "约1.5亿元（估计）",
+          "netProfit": "约0.2亿元（估计）",
+          "profitYoY": "稳健",
+          "customers": [
+            "军工单位",
+            "卫星通信厂商"
+          ],
+          "highlights": [
+            "高端环形器隔离器军工级",
+            "铁氧体核心技术"
+          ],
+          "location": "成都",
+          "isKey": false,
+          "stockPrices": [],
+          "stockCurrent": null,
+          "stock52Low": null,
+          "stock52High": null,
+          "rank": 18
+        },
+        {
+          "id": "ap015",
+          "name": "博迅通信（振子线）",
+          "nameEn": "Boxun (Antenna Element)",
+          "stockCode": "非上市",
+          "exchange": "—",
+          "role": "塑料振子/金属化天线部件",
+          "position": "5G Massive MIMO塑料振子核心供应商，POP工艺生产5G基站天线振子；PPS材料金属化；低PIM值；直接供货给华为/中兴等天线整机厂",
+          "marketCap": "非上市",
+          "revenue": "约3亿元（估计）",
+          "netProfit": "约0.3亿元（估计）",
+          "profitYoY": "+15%",
+          "customers": [
+            "华为",
+            "中兴",
+            "天线整机厂商"
+          ],
+          "highlights": [
+            "5G塑料振子POP工艺主流方案",
+            "PPS材料低重量一致性高"
+          ],
+          "location": "深圳",
+          "isKey": true,
+          "stockPrices": [],
+          "stockCurrent": null,
+          "stock52Low": null,
+          "stock52High": null,
+          "rank": 19
+        },
+        {
+          "id": "ap016",
+          "name": "中材科技（天线罩）",
+          "nameEn": "Sinoma (Radome)",
+          "stockCode": "002080.SZ",
+          "exchange": "深交所A股",
+          "role": "玻璃钢天线罩/复合材料",
+          "position": "风电叶片全球第一，玻璃钢复合材料技术积累深厚；玻璃钢天线罩用于基站天线保护；复合材料技术可用于天线振子支架/结构件",
+          "marketCap": "约200亿元",
+          "revenue": "约302亿元",
+          "netProfit": "约22亿元",
+          "profitYoY": "+25%",
+          "customers": [
+            "风电客户",
+            "通信设备商（天线罩）"
+          ],
+          "highlights": [
+            "玻璃钢复合材料龙头",
+            "天线罩材料可用于通信基站"
+          ],
+          "location": "南京",
+          "isKey": false,
+          "stockPrices": [
+            70.846,
+            74.446,
+            73.806,
+            70.316,
+            76.076,
+            71.15,
+            64.04,
+            65.43,
+            63.62,
+            63.8,
+            62.73,
+            58.8,
+            64.68,
+            62.8,
+            63.88,
+            61.92,
+            68.11,
+            74.92,
+            82.41,
+            80.55,
+            84.32,
+            76.8,
+            84.48,
+            92.93,
+            97.67,
+            90.5,
+            90.0,
+            88.7,
+            82.22,
+            85.09
+          ],
+          "stockCurrent": 85.09,
+          "stock52Low": 58.8,
+          "stock52High": 97.67,
+          "rank": 20
         }
       ]
     },
@@ -2899,6 +3136,65 @@
           "stock52Low": null,
           "stock52High": null,
           "rank": 19
+        },
+        {
+          "id": "rf018",
+          "name": "波发特（世嘉科技子公司）",
+          "nameEn": "Bofate (Shijia subsidiary)",
+          "stockCode": "002796.SZ（并入世嘉科技）",
+          "exchange": "深交所A股",
+          "role": "金属滤波器/双工器",
+          "position": "世嘉科技(002796)旗下子公司，主营金属滤波器/双工器；是中兴通讯/爱立信金属滤波器核心供应商；5G金属腔体滤波器技术领先",
+          "marketCap": "并入世嘉科技（约40亿元）",
+          "revenue": "含于世嘉科技通信板块",
+          "netProfit": "—",
+          "profitYoY": "—",
+          "customers": [
+            "中兴通讯",
+            "爱立信",
+            "日本电业"
+          ],
+          "highlights": [
+            "金属滤波器核心供应商",
+            "中兴/爱立信主力供应商"
+          ],
+          "location": "苏州",
+          "isKey": true,
+          "stockPrices": [],
+          "stockCurrent": null,
+          "stock52Low": null,
+          "stock52High": null,
+          "rank": 20
+        },
+        {
+          "id": "rf019",
+          "name": "科美特（雅克科技子公司）",
+          "nameEn": "Comat (Yake subsidiary)",
+          "stockCode": "002409.SZ（并入雅克科技）",
+          "exchange": "深交所A股",
+          "role": "电子特种气体（清洗用途）",
+          "position": "国内最大六氟化硫生产商，年产能8500吨；四氟化碳年产能1200吨，已进入台积电供应链；六氟化硫/四氟化碳用于滤波器腔体清洗工艺；是覆铜板/滤波器制造的关键工艺材料供应商",
+          "marketCap": "并入雅克科技（约200亿元）",
+          "revenue": "含于雅克科技电子材料板块",
+          "netProfit": "—",
+          "profitYoY": "—",
+          "customers": [
+            "华为",
+            "台积电",
+            "电力设备商"
+          ],
+          "highlights": [
+            "六氟化硫国产最大产能",
+            "四氟化碳已进入台积电",
+            "滤波器腔体清洗气体"
+          ],
+          "location": "成都",
+          "isKey": false,
+          "stockPrices": [],
+          "stockCurrent": null,
+          "stock52Low": null,
+          "stock52High": null,
+          "rank": 21
         }
       ]
     },

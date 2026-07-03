@@ -1,51 +1,52 @@
 {
-  "generatedAt": "2026-06-23T08:40:46+08:00",
+  "generatedAt": "2026-07-03T15:45:27+08:00",
+  "configVersion": "1.0",
   "dimensions": {
     "technology": {
       "cards": [
         {
           "type": "技术演进",
           "severity": "high",
-          "title": "5G-A与AI波束赋形加速落地",
-          "summary": "3GPP R19冻结明确AI波束赋形，128T128R占比突破30%，Massive MIMO深化至5G-Advanced阶段。",
-          "recommendation": "加大AI算法在射频前端集成投入，优化大规模天线阵列能效，抢占5G-A标准红利期。",
+          "title": "AI波束赋形标准化加速",
+          "summary": "3GPP R19冻结明确AI波束赋形标准，推动算法与射频深度融合，提升网络能效。",
+          "recommendation": "布局AI驱动的智能天线研发，关注R19后续Release 20标准演进路径。",
           "data_sources": [
-            "2026 H1 增量",
-            "技术成熟度"
-          ]
+            "2026 H1 增量"
+          ],
+          "priorityScore": 4
         },
         {
-          "type": "市场机会",
+          "type": "应用场景",
           "severity": "high",
-          "title": "低轨卫星相控阵终端爆发",
-          "summary": "中国星网与千帆星座招标完成，卫星平板相控阵终端需求下半年集中释放，技术处于成长斜坡期。",
-          "recommendation": "快速扩产卫星通信平板相控阵产能，强化LCP材料应用，构建天地一体化天线解决方案能力。",
+          "title": "卫星平板相控阵需求爆发",
+          "summary": "中国星网与千帆星座招标完成，卫星平板相控阵终端下半年起集中释放需求。",
+          "recommendation": "提前锁定卫星通信产业链产能，重点突破低成本平板相控阵制造工艺。",
           "data_sources": [
-            "2026 H1 增量",
-            "技术成熟度"
-          ]
+            "2026 H1 增量"
+          ],
+          "priorityScore": 4
+        },
+        {
+          "type": "技术演进",
+          "severity": "medium",
+          "title": "128T128R Massive MIMO普及",
+          "summary": "中国移动集采中128T128R占比首破30%，三频融合天线成为5G-A主流配置。",
+          "recommendation": "优化大规模天线阵列散热与集成设计，适应高频段多频段融合需求。",
+          "data_sources": [
+            "2026 H1 增量"
+          ],
+          "priorityScore": 3
         },
         {
           "type": "应用场景",
           "severity": "medium",
-          "title": "车载毫米波雷达集成方案上量",
-          "summary": "鸿蒙智行等高端车型推动车载毫米波雷达与5G-V2X车顶天线集成，LCP/LDS技术趋于成熟。",
-          "recommendation": "开发高集成度车载天线模组，提升LDS工艺良率，绑定头部车企供应链，拓展第二增长曲线。",
+          "title": "车载天线集成化规模上量",
+          "summary": "鸿蒙智行等车型推动车载毫米波雷达与5G-V2X车顶天线集成方案规模化应用。",
+          "recommendation": "开发车规级高集成度天线模组，加强与主机厂在V2X场景下的联合创新。",
           "data_sources": [
-            "2026 H1 增量",
-            "技术成熟度"
-          ]
-        },
-        {
-          "type": "前沿探索",
-          "severity": "low",
-          "title": "RIS智能超表面外场验证推进",
-          "summary": "RIS技术从实验室走向外场验证，虽未达峰值但为6G关键方向，需关注其材料创新与部署成本。",
-          "recommendation": "布局RIS相关专利储备，联合运营商开展小规模试点，探索低成本智能反射面材料与应用场景。",
-          "data_sources": [
-            "行业概述",
-            "技术成熟度"
-          ]
+            "2026 H1 增量"
+          ],
+          "priorityScore": 3
         }
       ],
       "summary": "technology维度共生成 4 条分析卡片"
@@ -55,78 +56,78 @@
         {
           "type": "standard_evolution",
           "severity": "high",
-          "title": "3GPP R17轻量化5G标准发布",
-          "summary": "R17引入NR-Light替代eMTC/NB-IOT，扩展毫米波上行能力，推动5G向更广场景渗透。",
-          "recommendation": "评估现有NB-IoT设备替换计划，优先在广覆盖低功耗场景部署NR-Light终端以降低成本。",
+          "title": "R18 ELAA与高阶MIMO标准落地",
+          "summary": "R18引入ELAA及256天线单元，需关注大规模天线阵列的OTA测试与EMC合规性。",
+          "recommendation": "提前布局ELAA天线设计，完善TS 38.551等OTA测试能力，确保电磁兼容达标。",
           "data_sources": [
-            "3GPP Release 17"
-          ]
+            "3GPP Release 18"
+          ],
+          "priorityScore": 4
         },
         {
           "type": "tech_trend",
-          "severity": "high",
-          "title": "6G真实信道建模与仿真技术",
-          "summary": "是德科技联合NTT推进6G真实信道建模，旨在提升无线仿真精度，加速下一代标准预研。",
-          "recommendation": "关注6G信道模型进展，提前布局高精度仿真测试平台，为未来6G协议栈研发储备技术能力。",
+          "severity": "medium",
+          "title": "AI驱动空口与通感融合技术演进",
+          "summary": "R18/R19聚焦AI for NR及ISAC，天线需支持智能波束赋形及雷达感知功能集成。",
+          "recommendation": "研发具备AI算法适配的智能天线系统，验证通感一体化场景下的射频性能与干扰抑制。",
           "data_sources": [
-            "近期动态"
-          ]
+            "3GPP Release 18",
+            "3GPP Release 19"
+          ],
+          "priorityScore": 4
         },
         {
           "type": "policy_regulation",
-          "severity": "medium",
-          "title": "工信部筹建量子信息标准化",
-          "summary": "工信部筹建量子信息标准化技术委员会，加快制造业中试建设，布局量子科技等关键领域。",
-          "recommendation": "跟踪量子通信标准化进程，探索量子加密技术在核心网安全传输中的潜在应用价值。",
+          "severity": "high",
+          "title": "工业5G专网建设加速与标准适配",
+          "summary": "工信部规划2030年建成5万张工业专网，对低时延、高可靠及特定频段EMC提出新要求。",
+          "recommendation": "针对工业场景优化天线增益与隔离度，强化设备在复杂电磁环境下的鲁棒性与认证准备。",
           "data_sources": [
-            "近期动态"
-          ]
-        },
-        {
-          "type": "standard_evolution",
-          "severity": "medium",
-          "title": "5G-Advanced增强特性落地",
-          "summary": "R16/R17持续增强URLLC、V2X及工业物联网能力，推动5G向5G-Advanced平滑演进。",
-          "recommendation": "针对垂直行业客户推广R16/R17增强功能，如高精度定位和低时延通信，挖掘行业应用潜力。",
-          "data_sources": [
-            "3GPP Release 16",
-            "3GPP Release 17"
-          ]
+            "工信部等八部门政策"
+          ],
+          "priorityScore": 4
         }
       ],
-      "summary": "quality维度共生成 4 条分析卡片"
+      "summary": "quality维度共生成 3 条分析卡片"
     },
     "cost": {
       "cards": [
         {
           "type": "cost_analysis",
           "severity": "high",
-          "title": "电解铜价高位震荡",
-          "summary": "电解铜现价108771元/吨，近期波动加剧，作为核心原材料，其价格上涨将直接推高线缆及基站设备制造成本。",
-          "recommendation": "建议锁定长期采购协议或采用期货套期保值，分散价格波动风险，优化供应链库存管理。",
+          "title": "铜铝原材料价格高位震荡",
+          "summary": "电解铜107769元/吨，铝锭24254元/吨，近期呈上涨趋势，BOM成本承压明显。",
+          "recommendation": "锁定长期铜铝采购合同，优化线缆设计减少贵金属用量，对冲价格波动风险。",
           "data_sources": [
-            "原材料价格"
-          ]
+            "电解铜价格数据",
+            "铝锭价格数据"
+          ],
+          "priorityScore": 5
         },
         {
           "type": "market_trend",
           "severity": "medium",
-          "title": "市场规模稳健增长",
-          "summary": "预计2030年全球市场规模达484.26亿元，CAGR为7.12%，行业处于上升通道，需求持续扩大。",
-          "recommendation": "把握市场增长机遇，加大研发投入与产能布局，提升市场份额，应对未来竞争压力。",
+          "title": "通信市场规模稳健增长",
+          "summary": "2024年全球市场320.53亿元，预计2030年达484.26亿元，CAGR为7.12%。",
+          "recommendation": "把握5G深化与数字化机遇，扩大产能规模以获取规模经济效应，降低单位成本。",
           "data_sources": [
-            "市场规模"
-          ]
+            "全球市场规模数据",
+            "中国市场预测数据"
+          ],
+          "priorityScore": 4
         },
         {
           "type": "competitor_profit",
           "severity": "low",
           "title": "运营商利润稳步提升",
-          "summary": "三大运营商净利润均实现正增长，联通增速最快达10.1%，显示下游客户支付能力增强，行业景气度向好。",
-          "recommendation": "加强与头部运营商战略合作，拓展高附加值产品与服务，利用客户盈利改善契机提升议价能力。",
+          "summary": "中国移动净利1384亿(+5%)，电信330亿(+8.4%)，联通90.3亿(+10.1%)。",
+          "recommendation": "跟随运营商资本开支节奏，提供高性价比解决方案，利用其数字化增长需求拓展业务。",
           "data_sources": [
-            "企业利润"
-          ]
+            "中国移动财报",
+            "中国电信财报",
+            "中国联通财报"
+          ],
+          "priorityScore": 4
         }
       ],
       "summary": "cost维度共生成 3 条分析卡片"
@@ -134,39 +135,43 @@
     "delivery": {
       "cards": [
         {
-          "type": "delivery_risk",
-          "severity": "high",
-          "title": "中游厂商盈利承压交付风险",
-          "summary": "京信摩比竞争压力大，通宇亨鑫亏损，原材料价格波动挤压利润，可能影响产能稳定性与交付质量。",
-          "recommendation": "建议加强成本管控，优化供应商结构，对亏损厂商进行交付能力专项评估，确保关键物料供应安全。",
-          "data_sources": [
-            "供应链概况"
-          ]
-        },
-        {
           "type": "market_trend",
           "severity": "medium",
-          "title": "上游集采主导需求强劲增长",
-          "summary": "运营商集采主导需求，2026年行业需求强劲，但竞争加剧。主设备商整合天线射频一体化趋势明显。",
-          "recommendation": "密切关注运营商集采动向，强化与主设备商协同，提升天线射频一体化解决方案竞争力以应对市场变化。",
+          "title": "运营商集采主导需求强劲",
+          "summary": "三大运营商资本开支稳定，5G建设及专网政策推动天线需求，但主设备商整合带来竞争加剧。",
+          "recommendation": "紧跟运营商集采节奏，强化与主设备商的一体化合作，提升在5G专网市场的份额。",
           "data_sources": [
             "供应链概况",
-            "重点企业财务"
-          ]
+            "重点企业财务",
+            "近期新闻"
+          ],
+          "priorityScore": 5
+        },
+        {
+          "type": "delivery_risk",
+          "severity": "high",
+          "title": "上游原材料价格波动风险",
+          "summary": "覆铜板及玻纤价格随期货波动，挤压天线整机及部件厂商利润空间，交付成本不确定性增加。",
+          "recommendation": "建立原材料价格联动机制，锁定核心物料长协，优化库存周转以对冲成本上涨压力。",
+          "data_sources": [
+            "供应链概况"
+          ],
+          "priorityScore": 4
         },
         {
           "type": "tech_innovation",
           "severity": "low",
-          "title": "6G仿真与量子技术布局加速",
-          "summary": "是德科技携手NTT推进6G真实信道建模，工信部加快中试及量子标准化建设，预示未来技术演进方向。",
-          "recommendation": "提前布局6G测试仿真能力及量子通信相关供应链资源，参与行业标准制定，抢占未来技术制高点。",
+          "title": "5G专网建设带来新机遇",
+          "summary": "工信部规划2030年建成5万张工业5G专网，为天线及射频一体化方案提供增量市场空间。",
+          "recommendation": "加大面向垂直行业的定制化天线研发投入，拓展工业5G专网应用场景的市场渗透率。",
           "data_sources": [
-            "近期动态"
-          ]
+            "近期新闻"
+          ],
+          "priorityScore": 2
         }
       ],
       "summary": "delivery维度共生成 3 条分析卡片"
     }
   },
-  "crossDimensionSummary": "5G-A与卫星相控阵驱动高增长，铜价上涨挤压利润。建议：1. 锁定铜材长协避险；2. 扩产卫星相控阵产能；3. 强化射频一体化研发，应对集采竞争。"
+  "crossDimensionSummary": "⚠️ 重点：成本：锁定长期铜铝采购合同，优化线缆设计减少贵金属用量，对冲价格波动风险；交付：建立原材料价格联动机制，锁定核心物料长协，优化库存周转以对冲成本上涨压力；技术：布局AI驱动的智能天线研发，关注R19后续Release 20标准演进路径。"
 }
