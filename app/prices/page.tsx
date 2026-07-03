@@ -412,7 +412,8 @@ function tabStyle(active: boolean): React.CSSProperties {
 }
 
 function MaterialCard({ mat, fmtYAxis }: { mat: any; fmtYAxis: (v: number, u?: string) => string }) {
-  const hist = (mat.historical || []).slice(-6).map((h: any) => ({
+  // 历史趋势窗口 -12 月 (覆盖 2026-08 数据点)
+  const hist = (mat.historical || []).slice(-12).map((h: any) => ({
     month: h.month,
     price: h.price,
   }))
