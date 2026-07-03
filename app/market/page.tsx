@@ -1,6 +1,17 @@
 'use client'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
-import marketData from '@/app/_data/market.json'
+import marketDataRaw from '@/app/_data/market.json'
+
+// Type: weekly_banner 可选 (周报由 generate_banner_report.py 周一生成, 其他天不存在)
+type WeeklyBanner = {
+  period_label: string;
+  generated_at: string;
+  highlight: string;
+  top_segment?: string;
+  top_segment_cagr?: string;
+}
+type MarketData = typeof marketDataRaw & { weekly_banner?: WeeklyBanner }
+const marketData = marketDataRaw as MarketData
 
 export default function MarketPage() {
   const trendChartData = marketData.trendData.map(d => ({
