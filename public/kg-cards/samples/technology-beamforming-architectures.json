@@ -1,0 +1,116 @@
+{
+  "node_id": "technology-波束赋形架构dbf-abf-hbf混合对比",
+  "type": "technology",
+  "name": "波束赋形架构对比 (DBF / ABF / HBF)",
+  "english_name": "Beamforming Architectures: Digital / Analog / Hybrid",
+  "updated": "2026-07-03",
+  "one_liner": "波束赋形三大架构 — 模拟(ABF)只有一条射频链路、便宜但只能形成一个波束;数字(DBF)每根天线一条链路、最灵活但最贵;混合(HBF)折中,5G 基站主流方案用 64 通道配 12-64 条射频链路。",
+  "analogy": "波束赋形就像 \"手电筒阵列\" — ABF 是 64 个小灯泡共用一个电池,一起亮一起灭,只能控制方向不能控制每个灯的亮度;DBF 是 64 个小灯泡各有一个独立开关,可以精确控制每个灯的亮度和开关;HBF 是把 64 个灯分成 16 组,每组一个开关。",
+  "tags": ["波束赋形", "DBF", "ABF", "HBF", "5G Massive MIMO", "模拟波束赋形", "数字波束赋形"],
+  "metrics_row": [
+    {"label": "类型", "value": "技术概念"},
+    {"label": "节点 ID", "value": "technology-波束赋形架构dbf-abf-hbf混合对比"},
+    {"label": "笔记更新", "value": "2026-07-03"}
+  ],
+  "sections": [
+    {
+      "order": 1, "type": "timeline",
+      "title": "波束赋形架构三代演进 (ABF → DBF → HBF)",
+      "entries": [
+        {"title": "模拟波束赋形 ABF", "tag": "移相器网络", "body": "1 条射频链路 + N 个移相器(2-6 bit,步进 90°-5.6°)。波束切换 μs 级,功耗极低,只能形成单波束。毫米波初始接入 / 卫星通信 / 4G 传统天线使用。"},
+        {"title": "数字波束赋形 DBF", "tag": "每根天线独立 RF 链路", "body": "N 条射频链路,数字域做预编码矩阵 W ∈ C^(N×K)。波束切换 ns 级,频谱效率 100%,功耗/成本最高。Sub-6GHz 基站 / 实验室验证使用。"},
+        {"title": "混合波束赋形 HBF", "tag": "5G 基站主流", "body": "K 条射频链路(K<<N) + K×N 或 N 个移相器。频谱效率 85-95%,功耗 60-70%,成本 50-60%。5G 64T64R 配 32-64 RF 链路使用。"}
+      ]
+    },
+    {
+      "order": 2, "type": "list", "subtitle": "移相器与 RF 链路核心组件",
+      "list_class": "components",
+      "title": "波束赋形硬件关键组件",
+      "entries": [
+        {"name": "数字移相器 LUT", "en": "Digital Phase Shifter", "desc": "相位步进 360°/2^n。4 bit → 22.5° 步进,6 bit → 5.6° 步进。最常见,适合 5G AAU。"},
+        {"name": "模拟移相器", "en": "Analog Phase Shifter", "desc": "PLL/RC 网络,连续可调。相位精度受温度影响,精度要求高的场景慎用。"},
+        {"name": "介质移相器", "en": "Dielectric Phase Shifter", "desc": "基于高 Dk 陶瓷,体积小。适合 5G AAU 集成,成本中等。"},
+        {"name": "MEMS 移相器", "en": "MEMS Phase Shifter", "desc": "微机电系统,超低损耗。6G 候选,但可靠性待长期验证。"},
+        {"name": "DAC / ADC 阵列", "en": "Data Converter Array", "desc": "DBF 每根天线独立 RF 链路,需要 N 个 DAC/ADC。64T64R AAU 用 64 个,128T128R 用 128 个。"},
+        {"name": "数字预编码矩阵 W", "en": "Precoding Matrix", "desc": "DBF 在数字域做波束权重 W ∈ C^(N×K)。算法:ZF / MMSE / WMMSE / SVD 分解,逼近信道容量。"}
+      ]
+    },
+    {
+      "order": 3, "type": "list", "subtitle": "三大驱动", "list_class": "drivers",
+      "title": "波束赋形架构的三大现实驱动",
+      "entries": [
+        {"title": "驱动 1 · 大规模阵列必须分时/分用户", "body": "5G Massive MIMO 64T64R 用 DBF 会导致 N=64 条射频链路,功耗 ~500-600W。HBF 用 12-64 条链路降 30-40% 功耗,是工程现实折中。"},
+        {"title": "驱动 2 · 毫米波必须窄波束", "body": "28 GHz 毫米波相对带宽大,需要 TTD 真时延或子带划分,普通 ABF 移相器扛不住宽带(>100MHz)Beam Squint。"},
+        {"title": "驱动 3 · 多用户同时服务", "body": "ABF 只能形成单波束,单用户;DBF 可以服务 N 个用户同时;HBF 子阵架构可以服务 K(K=12-64)个用户,平衡性能。"}
+      ]
+    },
+    {
+      "order": 4, "type": "list", "subtitle": "HBF 三种连接架构", "list_class": "variants",
+      "title": "HBF 内部架构选择 (全连接 / 子阵 / 动态子阵)",
+      "entries": [
+        {"name": "全连接架构", "tag": "Fully Connected", "desc": "每条 RF 链路连接所有天线单元。移相器数量 K×N,性能逼近 DBF,功耗高,复杂度最高。"},
+        {"name": "部分连接架构", "tag": "Partially Connected / Subarray", "desc": "每条 RF 链路连接一组天线(子阵)。移相器数量 N,功耗中。5G 基站主流方案。"},
+        {"name": "动态子阵架构", "tag": "Dynamic Subarray", "desc": "射频链路可以动态分配到不同子阵。灵活性最高,需要 RF 开关网络。6G 候选方案。"}
+      ]
+    },
+    {
+      "order": 5, "type": "table",
+      "title": "5G 厂商 HBF 主流配置 (子阵架构)",
+      "table_headers": ["厂商", "产品", "天线数", "RF 链路数", "架构"],
+      "table_rows": [
+        ["华为", "AAU 64T64R", "192 (64 端口双极化)", "64", "子阵"],
+        ["爱立信", "AIR 6488", "128 (64 端口)", "64", "子阵"],
+        ["中兴", "64T64R AAU", "384 (64 端口)", "32-64", "子阵"],
+        ["三星", "MMB-H13 (28GHz)", "128", "32", "子阵"]
+      ],
+      "table_footer": "5G 64T64R AAU 功耗 ~500-600W(含功放),128T128R ~800-1000W,功耗随天线数线性增长,散热压力大。"
+    },
+    {
+      "order": 6, "type": "comparison",
+      "title": "ABF / HBF / DBF 全特性对比 (5G 选型速查)",
+      "table_headers": ["特性", "ABF", "HBF (子阵)", "DBF"],
+      "highlight_col": 2,
+      "table_rows": [
+        ["射频链路数", "1", "K (12-64)", "N (64-128)"],
+        ["空间流数", "1", "K", "N"],
+        ["频谱效率", "基准", "85-95%", "100%"],
+        ["功耗", "基准", "60-70%", "100%"],
+        ["成本", "基准", "50-60%", "100%"],
+        ["波束灵活性", "低", "中", "高"],
+        ["5G 主流", "❌", "✅", "实验室"],
+        ["适用场景", "毫米波初始接入 / 卫星通信", "5G 基站主流", "Sub-6GHz 基站 / 实验室"]
+      ],
+      "table_footer": "5G 基站主流用子阵架构(64T64R 配 32-64 RF 链路),频谱效率损失 5-15%,功耗降低 30-40%。"
+    },
+    {
+      "order": 7, "type": "list", "subtitle": "工程三大挑战", "list_class": "challenges",
+      "title": "波束赋形工程挑战",
+      "entries": [
+        {"title": "挑战 1 · 模拟 ABF 单波束局限", "body": "只能形成单波束 → 无法多用户复用;波束倾斜 → 宽带信号下不同频率波束指向不同;移相器量化误差 → 波束指向精度受限;无法自适应零陷 → 干扰抑制能力弱。"},
+        {"title": "挑战 2 · Beam Squint 波束倾斜", "body": "模拟/混合波束赋形使用相位移相器,相位权重与频率相关。宽带系统(>100MHz)性能下降,毫米波更严重。公式 Δφ = 2πd·f·sin(θ)/c,f 变 θ 也变。"},
+        {"title": "挑战 3 · DBF 功耗/成本", "body": "功耗随天线数线性增长,128T128R ~800-1000W。散热压力大,每多一条 RF 链路 = 多一套 RF 器件,O-RAN 多厂商兼容更难。"}
+      ]
+    },
+    {
+      "order": 8, "type": "list", "subtitle": "5 个演进方向", "list_class": "trends",
+      "title": "波束赋形未来演进趋势",
+      "entries": [
+        {"name": "趋势 1 · 6G 时代回归 DBF", "detail": "GaN/SiGe 工艺进步降低单链路功耗,6G 可能从 HBF 回到 DBF,频谱效率回到 100%。"},
+        {"name": "趋势 2 · TTD 混合架构", "detail": "真时延(True Time Delay)代替移相器,所有频率相位一致,彻底解决 Beam Squint。成本高、体积大,毫米波首选。"},
+        {"name": "趋势 3 · 动态子阵", "detail": "射频链路动态分配到不同子阵,灵活性最高。6G 候选,需要 RF 开关网络支撑。"},
+        {"name": "趋势 4 · AI 驱动预编码", "detail": "深度学习优化 W 矩阵,逼近 WMMSE 容量上限,降低实时计算延迟。"},
+        {"name": "趋势 5 · 通感一体化", "detail": "波束赋形不只服务通信,还兼雷达感知。6G 通感一体化场景中,波束扫描轨迹可同时感知环境。"}
+      ]
+    }
+  ],
+  "related": [
+    "技术概念-波束赋形Beamforming深度解读",
+    "技术概念-近场波束赋形Near-Field-Beamforming",
+    "技术概念-极化波束赋形Polarization-Beamforming",
+    "技术概念-相控阵天线Phased-Array-Antenna",
+    "技术概念-AAU有源天线单元深度解读",
+    "指标术语-波束宽度Beam-Width",
+    "指标术语-波束指向精度Beam-Pointing-Accuracy",
+    "零部件-移相器Phase-Shifter"
+  ]
+}

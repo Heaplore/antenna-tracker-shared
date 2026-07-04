@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>AAU 有源天线单元深度解读 — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 100%;
+    height: 1080px;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 36px 28px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 12px;
+    align-items: stretch;
+  }
+  .row.full-width { grid-template-columns: 1fr; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 11px; font-weight: 800; color: var(--fg-muted);
+    text-transform: uppercase; letter-spacing: 1.2px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord {
+    font-family: monospace;
+    background: var(--bg); color: var(--primary);
+    padding: 2px 6px; border-radius: 4px; font-size: 10px;
+  }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+  .block.section-code .block-title .ord { background: #374151; color: #67e8f9; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ord {
+    position: absolute; top: 6px; right: 8px;
+    font-size: 18px; font-weight: 900;
+    color: var(--primary); opacity: 0.6;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-06-29</div>
+    </div>
+    <div class="hero-title">
+      AAU 有源天线单元深度解读
+      <span class="hero-en">Active Antenna Unit</span>
+    </div>
+    
+    <div class="hero-tags">
+      <span>AAU</span><span>5G NR</span><span>大规模天线阵列</span><span>Massive MIMO</span><span>波束赋形</span><span>射频远端化</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> 5G 时代把基站里的射频单元搬到塔顶,跟天线集成在一起。天线不再是金属哑巴,而是能主动收发、动态赋形的智能器件——这就是 AAU(Active Antenna Unit,有源天线单元)。</div>
+    
+    
+    
+    <div class="hero-metrics">
+      
+      <div>类型<b>技术概念</b></div>
+      
+      <div>节点 ID<b>technology-aau有源天线单元深度解读</b></div>
+      
+      <div>笔记更新<b>2026-06-29</b></div>
+      
+    </div>
+    
+  </div>
+
+  
+  
+    
+    
+    
+
+    
+  <div class="row full-width">
+    <div class="block section-timeline">
+      <div class="block-title">
+        <span class="ord">#1</span>
+        射频天线架构演进 (BBU+无源 → AAU 有源)
+      </div>
+      <div class="timeline-items">
+        
+        <div class="timeline-item">
+          <span class="ord">1</span>
+          <div class="ttl">第一代 · BBU + 无源天线</div>
+          <div class="ttl" style="color:var(--primary);font-size:10px;">2G / 3G 时代</div>
+          <div class="body">馈线长度 30-100 米,损耗大(3 dB 等于 50% 功率浪费在电缆上),效率仅约 50%。射频全在机房,塔顶只有无源金属天线。</div>
+        </div>
+        
+        <div class="timeline-item">
+          <span class="ord">2</span>
+          <div class="ttl">第二代 · BBU + RRU + 无源天线</div>
+          <div class="ttl" style="color:var(--primary);font-size:10px;">4G 时代</div>
+          <div class="body">RRU(射频拉远单元)搬到塔顶,馈线缩短到 2-5 米,损耗降到 0.5 dB。但 RRU 只是把射频信号搬近天线,没有数字化处理能力。</div>
+        </div>
+        
+        <div class="timeline-item">
+          <span class="ord">3</span>
+          <div class="ttl">第三代 · BBU + AAU (5G 标配)</div>
+          <div class="ttl" style="color:var(--primary);font-size:10px;">5G NR 时代</div>
+          <div class="body">AAU 把 RRU 和天线一体化集成,内部带数字预编码 + 移相器 + PA + 收发芯片。192 单元阵列,每单元独立幅相控制,64T64R 是当前主流配置。</div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+    
+  
+    
+    
+    
+
+    
+  <div class="row">
+    <div class="block section-list components">
+      <div class="block-title">
+        <span class="ord">#2</span>
+        AAU 的内部解剖 (一个盒子里装了什么)
+        <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· 六大核心组件</span>
+      </div>
+      <div class="list-items cols-3">
+        
+        <div class="list-item">
+          
+          <div class="name">收发芯片 Transceiver</div>
+          
+          
+          
+          
+          
+          <div class="desc">负责射频信号上下变频、ADC/DAC,64T64R AAU 通常用 64 个收发芯片(AD9371 等)</div>
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          <div class="name">功放 PA Power Amplifier</div>
+          
+          
+          
+          
+          
+          <div class="desc">信号功率放大,AAU 输出功率 ~50dBm / 天线。GaN PA 是当前主流(华为 GaN PA 占 70% 面积)</div>
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          <div class="name">移相器网络 Phase Shifter</div>
+          
+          
+          
+          
+          
+          <div class="desc">6 bit 数字移相器,步进 5.625°,192 单元阵列每单元独立控制</div>
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          <div class="name">天线阵列 (192 单元)</div>
+          
+          
+          
+          
+          
+          <div class="desc">64 列双极化(V+H) = 128 个端口,实际是 192 个物理振子。谐振频率 3.5GHz(5G NR n78)</div>
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          <div class="name">散热系统 Thermal</div>
+          
+          
+          
+          
+          
+          <div class="desc">自然散热 / 风冷 / 液冷(高端),AAU 内部温差 5-10°C 即可保证性能</div>
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          <div class="name">校准与控制 Calibration</div>
+          
+          
+          
+          
+          
+          <div class="desc">出厂校准每通道幅相一致性,192 单元校准误差控制在 0.5 dB / 5° 以内</div>
+          
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+    
+  
+    
+    
+    
+
+    
+  <div class="row">
+    <div class="block section-list drivers">
+      <div class="block-title">
+        <span class="ord">#3</span>
+        为什么 5G 非要用 AAU
+        <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· 三大原因</span>
+      </div>
+      <div class="list-items ">
+        
+        <div class="list-item">
+          
+          
+          <div class="ttl">原因 1 · 高频段信号衰减快</div>
+          
+          
+          <div class="body">3.5GHz 比 900MHz 高 4 倍频段,路径损耗大 12 dB。必须用 AAU 集成天线增阵列增益(8×8=64 单元可以补偿 18 dB)才能达到 4G 覆盖。</div>
+          
+          
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          
+          <div class="ttl">原因 2 · 用户密度高 (热点容量)</div>
+          
+          
+          <div class="body">5G 热点(CBD / 体育馆)容量需求是 4G 的 10-100 倍,必须 Massive MIMO 多用户同时同频服务。AAU 才能每用户独立数字波束。</div>
+          
+          
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          
+          <div class="ttl">原因 3 · 能耗压力 (节能需求)</div>
+          
+          
+          <div class="body">AAU 整体效率 50-60%,而传统方案 15-20%。在 5G 网络总功耗里,AAU 占 60-70%。AAU 是节能核心环节(符号关断 / 通道关断 / 深度休眠都是 AAU 内部实现)。</div>
+          
+          
+          
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+    
+  
+    
+    
+    
+
+    
+  <div class="row">
+    <div class="block section-list variants">
+      <div class="block-title">
+        <span class="ord">#4</span>
+        AAU 硬件架构演进 (传统 → SDIF → UWB)
+        <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· 三种部署架构</span>
+      </div>
+      <div class="list-items ">
+        
+        <div class="list-item">
+          
+          <div class="name">传统馈线架构</div>
+          
+          
+          
+          
+          
+          <div class="desc">BBU 在机房,RRU + 天线分离,馈线 30-100 米。损耗大,仅支持窄频段</div>
+          
+          
+          <div style="margin-top:4px;font-size:10px;color:var(--primary);font-weight:600;">2G/3G</div>
+          
+        </div>
+        
+        <div class="list-item">
+          
+          <div class="name">SDIF 架构</div>
+          
+          
+          
+          
+          
+          <div class="desc">Sub-Digital Intermediate Frequency。BBU + RRU + 无源天线,馈线 2-5 米,效率 ~70%</div>
+          
+          
+          <div style="margin-top:4px;font-size:10px;color:var(--primary);font-weight:600;">4G 主流</div>
+          
+        </div>
+        
+        <div class="list-item">
+          
+          <div class="name">UWB 架构</div>
+          
+          
+          
+          
+          
+          <div class="desc">Ultra-Wideband。AAU 集成射频 + 天线,3.4-3.6 GHz 频段内任意带宽信号可处理,功耗密度 60 kW/m³</div>
+          
+          
+          <div style="margin-top:4px;font-size:10px;color:var(--primary);font-weight:600;">5G 标配</div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+    
+  
+    
+    
+    
+
+    
+  <div class="row">
+    <div class="block section-list features">
+      <div class="block-title">
+        <span class="ord">#5</span>
+        AAU 新物种 PanoAAU (5G 覆盖扩展方案)
+        <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· PanoAAU</span>
+      </div>
+      <div class="list-items ">
+        
+        <div class="list-item">
+          
+          
+          <div class="ttl">形态升级:广角覆盖</div>
+          
+          
+          <div class="body">传统 AAU 水平波束宽度 65°,PanoAAU 扩展到 90° + 90° + 90° (三扇区 270°),减少天线数量 30%。</div>
+          
+          
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          
+          <div class="ttl">功耗优化:智能休眠</div>
+          
+          
+          <div class="body">PanoAAU 集成符号关断(Symbol Shutdown) + 通道关断(Channel Shutdown) + 深度休眠(Deep Sleep),闲时功耗降到 30%。</div>
+          
+          
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          
+          <div class="ttl">运维简化:远程升级</div>
+          
+          
+          <div class="body">PanoAAU 支持 OTAP(空中参数调整) + 远程波束优化,站点的运维上门次数降低 40%。</div>
+          
+          
+          
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+    
+  
+    
+    
+    
+
+    
+  <div class="row full-width">
+    <div class="block section-comparison">
+      <div class="block-title">
+        <span class="ord">#6</span>
+        AAU vs RRU vs BBU (五件套分工)
+      </div>
+      <table class="tbl">
+        <thead>
+          <tr>
+            
+            <th>组件</th>
+            
+            <th>全称</th>
+            
+            <th>功能</th>
+            
+            <th>位置</th>
+            
+            <th>功耗</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            
+            <td class="tbl-td-highlight">BBU</td>
+            
+            <td>Base Band Unit</td>
+            
+            <td>基带处理(编码解码 / 调制解调)</td>
+            
+            <td>机房</td>
+            
+            <td>200-500W</td>
+            
+          </tr>
+          
+          <tr>
+            
+            <td class="tbl-td-highlight">DU</td>
+            
+            <td>Distributed Unit</td>
+            
+            <td>实时调度 / PHY-MAC-RLC 层</td>
+            
+            <td>机房 / 塔下</td>
+            
+            <td>300-800W</td>
+            
+          </tr>
+          
+          <tr>
+            
+            <td class="tbl-td-highlight">CU</td>
+            
+            <td>Centralized Unit</td>
+            
+            <td>非实时功能 / PDCP-RRC 层</td>
+            
+            <td>中心机房</td>
+            
+            <td>500-1500W</td>
+            
+          </tr>
+          
+          <tr>
+            
+            <td class="tbl-td-highlight">RRU</td>
+            
+            <td>Remote Radio Unit</td>
+            
+            <td>射频信号处理(上下变频 / PA)</td>
+            
+            <td>塔顶 / 抱杆</td>
+            
+            <td>300-500W</td>
+            
+          </tr>
+          
+          <tr>
+            
+            <td class="tbl-td-highlight">AAU</td>
+            
+            <td>Active Antenna Unit</td>
+            
+            <td>RRU + 天线集成,含数字预编码 + 移相器</td>
+            
+            <td>塔顶集成</td>
+            
+            <td>1000-1400W</td>
+            
+          </tr>
+          
+        </tbody>
+        
+        <tfoot>
+          <tr>
+            <td colspan="5" class="footer">5G 站点典型功耗 = BBU(200-500W) + DU(300-800W) + CU(500-1500W) + RRU(300-500W) + AAU(1000-1400W) ≈ 2-3 kW,是 4G 站点的 3 倍。</td>
+          </tr>
+        </tfoot>
+        
+      </table>
+    </div>
+  </div>
+
+    
+  
+    
+    
+    
+
+    
+  <div class="row">
+    <div class="block section-list challenges">
+      <div class="block-title">
+        <span class="ord">#7</span>
+        AAU 工程挑战
+        <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· 工程三大坑</span>
+      </div>
+      <div class="list-items ">
+        
+        <div class="list-item">
+          
+          
+          <div class="ttl">坑 1 · 散热</div>
+          
+          
+          <div class="body">AAU 1000-1400W 功耗密闭空间散热,内部温差 60-70°C。IP65 密闭,自然散热极限 60kW/m³,超出会触发 thermal throttling,高温环境下性能降 30%。</div>
+          
+          
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          
+          <div class="ttl">坑 2 · 供电</div>
+          
+          
+          <div class="body">AAU 功耗是 4G RRU 的 3 倍。4G 站点平均 6 kW(电池 8h),5G C-band 站点 11.5-14 kW(峰值 19 kW),runtime 降到 3-4h。AAU 多用 -48V DC,供电电缆超 50m 电压降即触发保护。</div>
+          
+          
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          
+          <div class="ttl">坑 3 · O-RAN 互操作</div>
+          
+          
+          <div class="body">O-RAN 想让不同厂商 AAU + DU 混用,但 Open fronthaul 标准未对齐,64T64R 波束算法绑死芯片固件。主流方案仍是 &#34;封闭盒子&#34;:华为 AAU + 华为 DU。</div>
+          
+          
+          
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+    
+  
+    
+    
+    
+
+    
+  <div class="row">
+    <div class="block section-list trends">
+      <div class="block-title">
+        <span class="ord">#8</span>
+        AAU 未来演进趋势
+        <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· 5 个演进方向</span>
+      </div>
+      <div class="list-items cols-2">
+        
+        <div class="list-item">
+          
+          <div class="name">趋势 1 · 超大规模阵列</div>
+          
+          
+          
+          
+          <div class="desc">192 单元(64T64R)翻倍到 384(MetaAAU / ELAA)。华为 MetaAAU 实测:上行覆盖 +30%,下行覆盖 +30%,能耗 -30%。</div>
+          
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          <div class="name">趋势 2 · 超宽带多频集成</div>
+          
+          
+          
+          
+          <div class="desc">UWB AAU,3.5GHz + 4.9GHz 同面板集成。全球 150+ 运营商已部署。</div>
+          
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          <div class="name">趋势 3 · 广角覆盖 (PanoAAU)</div>
+          
+          
+          
+          
+          <div class="desc">三扇区 270° 覆盖,减天线数 30%。5G 密集城区试点。</div>
+          
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          <div class="name">趋势 4 · AI 节能</div>
+          
+          
+          
+          
+          <div class="desc">智能休眠 + 业务预测 + 异常检测。中国联通智能运维机器人已部署 10 万站。</div>
+          
+          
+          
+        </div>
+        
+        <div class="list-item">
+          
+          <div class="name">趋势 5 · 6G 通感一体化 ISAC</div>
+          
+          
+          
+          
+          <div class="desc">AAU 不只发射通信,还兼雷达感知(环境监测 / 移动目标追踪 / 天气感知)。一根天线两份能力,赋能自动驾驶、低空经济。</div>
+          
+          
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+    
+  
+
+  
+  <div class="row full-width">
+    <div class="block related-block">
+      <div class="block-title">
+        <span class="ord">#9</span>
+        关联笔记 (8 个)
+      </div>
+      <div class="related-grid">
+        
+        <a href="#">RRU 射频拉远单元</a>
+        
+        <a href="#">BBU 基带处理单元</a>
+        
+        <a href="#">Massive MIMO 大规模天线</a>
+        
+        <a href="#">波束赋形 Beamforming</a>
+        
+        <a href="#">5G NR 新空口</a>
+        
+        <a href="#">Sub-6GHz 天线技术</a>
+        
+        <a href="#">PanoAAU 广角覆盖</a>
+        
+        <a href="#">O-RAN 开放架构</a>
+        
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-aau有源天线单元深度解读</span>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+{
+  "node_id": "technology-aau有源天线单元深度解读",
+  "type": "technology",
+  "name": "AAU 有源天线单元深度解读",
+  "english_name": "Active Antenna Unit",
+  "updated": "2026-06-29",
+  "one_liner": "5G 时代把基站里的射频单元搬到塔顶,跟天线集成在一起。天线不再是金属哑巴,而是能主动收发、动态赋形的智能器件——这就是 AAU(Active Antenna Unit,有源天线单元)。",
+  "tags": ["AAU", "5G NR", "大规模天线阵列", "Massive MIMO", "波束赋形", "射频远端化"],
+  "metrics_row": [
+    {"label": "类型", "value": "技术概念"},
+    {"label": "节点 ID", "value": "technology-aau有源天线单元深度解读"},
+    {"label": "笔记更新", "value": "2026-06-29"}
+  ],
+  "sections": [
+    {
+      "order": 1, "type": "timeline",
+      "title": "射频天线架构演进 (BBU+无源 → AAU 有源)",
+      "entries": [
+        {"title": "第一代 · BBU + 无源天线", "tag": "2G / 3G 时代", "body": "馈线长度 30-100 米,损耗大(3 dB 等于 50% 功率浪费在电缆上),效率仅约 50%。射频全在机房,塔顶只有无源金属天线。"},
+        {"title": "第二代 · BBU + RRU + 无源天线", "tag": "4G 时代", "body": "RRU(射频拉远单元)搬到塔顶,馈线缩短到 2-5 米,损耗降到 0.5 dB。但 RRU 只是把射频信号搬近天线,没有数字化处理能力。"},
+        {"title": "第三代 · BBU + AAU (5G 标配)", "tag": "5G NR 时代", "body": "AAU 把 RRU 和天线一体化集成,内部带数字预编码 + 移相器 + PA + 收发芯片。192 单元阵列,每单元独立幅相控制,64T64R 是当前主流配置。"}
+      ]
+    },
+    {
+      "order": 2, "type": "list", "subtitle": "六大核心组件",
+      "list_class": "components",
+      "title": "AAU 的内部解剖 (一个盒子里装了什么)",
+      "entries": [
+        {"name": "收发芯片 Transceiver", "desc": "负责射频信号上下变频、ADC/DAC,64T64R AAU 通常用 64 个收发芯片(AD9371 等)"},
+        {"name": "功放 PA Power Amplifier", "desc": "信号功率放大,AAU 输出功率 ~50dBm / 天线。GaN PA 是当前主流(华为 GaN PA 占 70% 面积)"},
+        {"name": "移相器网络 Phase Shifter", "desc": "6 bit 数字移相器,步进 5.625°,192 单元阵列每单元独立控制"},
+        {"name": "天线阵列 (192 单元)", "desc": "64 列双极化(V+H) = 128 个端口,实际是 192 个物理振子。谐振频率 3.5GHz(5G NR n78)"},
+        {"name": "散热系统 Thermal", "desc": "自然散热 / 风冷 / 液冷(高端),AAU 内部温差 5-10°C 即可保证性能"},
+        {"name": "校准与控制 Calibration", "desc": "出厂校准每通道幅相一致性,192 单元校准误差控制在 0.5 dB / 5° 以内"}
+      ]
+    },
+    {
+      "order": 3, "type": "list", "subtitle": "三大原因", "list_class": "drivers",
+      "title": "为什么 5G 非要用 AAU",
+      "entries": [
+        {"title": "原因 1 · 高频段信号衰减快", "body": "3.5GHz 比 900MHz 高 4 倍频段,路径损耗大 12 dB。必须用 AAU 集成天线增阵列增益(8×8=64 单元可以补偿 18 dB)才能达到 4G 覆盖。"},
+        {"title": "原因 2 · 用户密度高 (热点容量)", "body": "5G 热点(CBD / 体育馆)容量需求是 4G 的 10-100 倍,必须 Massive MIMO 多用户同时同频服务。AAU 才能每用户独立数字波束。"},
+        {"title": "原因 3 · 能耗压力 (节能需求)", "body": "AAU 整体效率 50-60%,而传统方案 15-20%。在 5G 网络总功耗里,AAU 占 60-70%。AAU 是节能核心环节(符号关断 / 通道关断 / 深度休眠都是 AAU 内部实现)。"}
+      ]
+    },
+    {
+      "order": 4, "type": "list", "subtitle": "三种部署架构", "list_class": "variants",
+      "title": "AAU 硬件架构演进 (传统 → SDIF → UWB)",
+      "entries": [
+        {"name": "传统馈线架构", "tag": "2G/3G", "desc": "BBU 在机房,RRU + 天线分离,馈线 30-100 米。损耗大,仅支持窄频段"},
+        {"name": "SDIF 架构", "tag": "4G 主流", "desc": "Sub-Digital Intermediate Frequency。BBU + RRU + 无源天线,馈线 2-5 米,效率 ~70%"},
+        {"name": "UWB 架构", "tag": "5G 标配", "desc": "Ultra-Wideband。AAU 集成射频 + 天线,3.4-3.6 GHz 频段内任意带宽信号可处理,功耗密度 60 kW/m³"}
+      ]
+    },
+    {
+      "order": 5, "type": "list", "subtitle": "PanoAAU", "list_class": "features",
+      "title": "AAU 新物种 PanoAAU (5G 覆盖扩展方案)",
+      "entries": [
+        {"title": "形态升级:广角覆盖", "body": "传统 AAU 水平波束宽度 65°,PanoAAU 扩展到 90° + 90° + 90° (三扇区 270°),减少天线数量 30%。"},
+        {"title": "功耗优化:智能休眠", "body": "PanoAAU 集成符号关断(Symbol Shutdown) + 通道关断(Channel Shutdown) + 深度休眠(Deep Sleep),闲时功耗降到 30%。"},
+        {"title": "运维简化:远程升级", "body": "PanoAAU 支持 OTAP(空中参数调整) + 远程波束优化,站点的运维上门次数降低 40%。"}
+      ]
+    },
+    {
+      "order": 6, "type": "comparison",
+      "title": "AAU vs RRU vs BBU (五件套分工)",
+      "table_headers": ["组件", "全称", "功能", "位置", "功耗"],
+      "highlight_col": 0,
+      "table_rows": [
+        ["BBU", "Base Band Unit", "基带处理(编码解码 / 调制解调)", "机房", "200-500W"],
+        ["DU", "Distributed Unit", "实时调度 / PHY-MAC-RLC 层", "机房 / 塔下", "300-800W"],
+        ["CU", "Centralized Unit", "非实时功能 / PDCP-RRC 层", "中心机房", "500-1500W"],
+        ["RRU", "Remote Radio Unit", "射频信号处理(上下变频 / PA)", "塔顶 / 抱杆", "300-500W"],
+        ["AAU", "Active Antenna Unit", "RRU + 天线集成,含数字预编码 + 移相器", "塔顶集成", "1000-1400W"]
+      ],
+      "table_footer": "5G 站点典型功耗 = BBU(200-500W) + DU(300-800W) + CU(500-1500W) + RRU(300-500W) + AAU(1000-1400W) ≈ 2-3 kW,是 4G 站点的 3 倍。"
+    },
+    {
+      "order": 7, "type": "list", "subtitle": "工程三大坑", "list_class": "challenges",
+      "title": "AAU 工程挑战",
+      "entries": [
+        {"title": "坑 1 · 散热", "body": "AAU 1000-1400W 功耗密闭空间散热,内部温差 60-70°C。IP65 密闭,自然散热极限 60kW/m³,超出会触发 thermal throttling,高温环境下性能降 30%。"},
+        {"title": "坑 2 · 供电", "body": "AAU 功耗是 4G RRU 的 3 倍。4G 站点平均 6 kW(电池 8h),5G C-band 站点 11.5-14 kW(峰值 19 kW),runtime 降到 3-4h。AAU 多用 -48V DC,供电电缆超 50m 电压降即触发保护。"},
+        {"title": "坑 3 · O-RAN 互操作", "body": "O-RAN 想让不同厂商 AAU + DU 混用,但 Open fronthaul 标准未对齐,64T64R 波束算法绑死芯片固件。主流方案仍是 \"封闭盒子\":华为 AAU + 华为 DU。"}
+      ]
+    },
+    {
+      "order": 8, "type": "list", "subtitle": "5 个演进方向", "list_class": "trends",
+      "title": "AAU 未来演进趋势",
+      "entries": [
+        {"name": "趋势 1 · 超大规模阵列", "detail": "192 单元(64T64R)翻倍到 384(MetaAAU / ELAA)。华为 MetaAAU 实测:上行覆盖 +30%,下行覆盖 +30%,能耗 -30%。"},
+        {"name": "趋势 2 · 超宽带多频集成", "detail": "UWB AAU,3.5GHz + 4.9GHz 同面板集成。全球 150+ 运营商已部署。"},
+        {"name": "趋势 3 · 广角覆盖 (PanoAAU)", "detail": "三扇区 270° 覆盖,减天线数 30%。5G 密集城区试点。"},
+        {"name": "趋势 4 · AI 节能", "detail": "智能休眠 + 业务预测 + 异常检测。中国联通智能运维机器人已部署 10 万站。"},
+        {"name": "趋势 5 · 6G 通感一体化 ISAC", "detail": "AAU 不只发射通信,还兼雷达感知(环境监测 / 移动目标追踪 / 天气感知)。一根天线两份能力,赋能自动驾驶、低空经济。"}
+      ]
+    }
+  ],
+  "related": [
+    "RRU 射频拉远单元", "BBU 基带处理单元", "Massive MIMO 大规模天线",
+    "波束赋形 Beamforming", "5G NR 新空口", "Sub-6GHz 天线技术",
+    "PanoAAU 广角覆盖", "O-RAN 开放架构"
+  ]
+}
