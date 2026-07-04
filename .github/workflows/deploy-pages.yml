@@ -53,10 +53,10 @@ jobs:
       - name: Copy static assets to out/
         run: |
           set -e
-          echo "Copying public/kg-cards/rendered/ to public/kg-cards-rendered/..."
-          mkdir -p public/kg-cards-rendered
-          cp -r public/kg-cards/rendered/* public/kg-cards-rendered/
-          ls public/kg-cards-rendered/ | wc -l
+          echo "Copying public/kg-cards/rendered/ to out/kg-cards-rendered/..."
+          mkdir -p out/kg-cards-rendered
+          cp -r public/kg-cards/rendered/* out/kg-cards-rendered/
+          ls out/kg-cards-rendered/ | wc -l
           echo "Done."
 
       - name: Verify output
