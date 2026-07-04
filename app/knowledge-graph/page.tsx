@@ -664,7 +664,7 @@ function Modal({
 
           {/* HTML 卡片 iframe */}
           <iframe
-            src={`../kg-cards/rendered/${encodeURIComponent(node.id)}.html`}
+            src={`../kg-cards-rendered/${encodeURIComponent(node.id)}.html`}
             title={`${node.name} 科普卡片`}
             style={{
               flex: 1,
