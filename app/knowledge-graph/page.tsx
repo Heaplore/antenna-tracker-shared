@@ -749,29 +749,21 @@ function Drawer({
           </Section>
         )}
 
-        {/* 查看 HTML 科普卡片 */}
+        {/* HTML 科普卡片 — 内嵌 iframe */}
         {node.type === 'technology' && (
           <Section title="科普卡片">
-            <a
-              href={`/kg-cards/rendered/${encodeURIComponent(node.id)}.html`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <iframe
+              src={`/kg-cards/rendered/${encodeURIComponent(node.id)}.html`}
+              title={`${node.name} 科普卡片`}
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                fontSize: 13,
-                color: '#6366f1',
-                textDecoration: 'none',
-                padding: '6px 12px',
-                background: '#eef2ff',
-                borderRadius: 6,
-                border: '1px solid #c7d2fe',
-                fontWeight: 600,
+                width: '100%',
+                height: 600,
+                border: '1px solid #e5e7eb',
+                borderRadius: 8,
+                background: '#fff',
               }}
-            >
-              📄 查看 HTML 科普卡片 ↗
-            </a>
+              sandbox="allow-same-origin"
+            />
           </Section>
         )}
 
