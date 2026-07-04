@@ -1,889 +1,814 @@
 'use client'
+
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react'
 import * as d3 from 'd3'
-import kgData from '@/app/_data/knowledge-graph.json'
-import relationsData from '@/app/_data/relations.json'
+import kgDataRaw from '@/app/_data/knowledge-graph.json'
 
-type Entity = typeof kgData.entities[0]
-type Relation = typeof kgData.relations[0]
-type TechRelation = typeof relationsData[0]
+// ===== 类型定义 =====
 
-interface D3Node extends d3.SimulationNodeDatum {
+type NodeType = 'technology' | 'metric' | 'component' | 'material'
+
+interface KGNode {
   id: string
   name: string
+  nameEn: string
+  type: NodeType
+  filename: string
+  tags: string[]
+  createdAt: string
+  updatedAt: string
+  oneLiner: string
+  analogy: string
+  outgoing: { targetId: string; label: string }[]
+}
+
+interface KGLink {
+  source: string
+  target: string
   type: string
-  description?: string
-  summary?: string
-  summary_vernacular?: string
-  metadata?: Record<string, any>
-  radius: number
-  icon: string
 }
 
-interface D3Link extends d3.SimulationLinkDatum<D3Node> {
-  source: string | D3Node
-  target: string | D3Node
-  relation?: string
-  predicate?: string
+interface SimNode extends d3.SimulationNodeDatum {
+  id: string
+  name: string
+  type: NodeType
+  oneLiner: string
 }
 
-const ENTITY_COLORS: Record<string, string> = {
-  technology: '#667eea',
-  company: '#f093fb',
-  material: '#43e97b',
+interface SimLink extends d3.SimulationLinkDatum<SimNode> {
+  source: string | SimNode
+  target: string | SimNode
 }
 
-const ENTITY_LABELS: Record<string, string> = {
-  technology: '技术',
-  company: '企业',
+const kgData = kgDataRaw as {
+  lastUpdate: string
+  totalNotes: number
+  stats: Record<NodeType, number>
+  nodes: KGNode[]
+  links: KGLink[]
+}
+
+// ===== 视觉配置 =====
+
+const TYPE_COLORS: Record<NodeType, string> = {
+  technology: '#6366f1',   // 靛蓝
+  metric: '#10b981',       // 翠绿
+  component: '#f59e0b',    // 琥珀
+  material: '#ef4444',     // 朱红
+}
+
+const TYPE_LABELS: Record<NodeType, string> = {
+  technology: '技术概念',
+  metric: '指标术语',
+  component: '零部件',
   material: '材料',
 }
 
-const ENTITY_ICONS: Record<string, string> = {
-  technology: '🔬',
-  company: '🏢',
-  material: '🧪',
+const TYPE_ICONS: Record<NodeType, string> = {
+  technology: '◆',
+  metric: '○',
+  component: '▣',
+  material: '⬡',
 }
 
-// SVG Donut Chart for entity type distribution
-function DonutChart({ typeCounts }: { typeCounts: Record<string, number> }) {
-  const total = typeCounts.all || 1
-  const entries = Object.entries(ENTITY_LABELS).map(([key, label]) => ({
-    key,
-    label,
-    count: typeCounts[key] || 0,
-    color: ENTITY_COLORS[key],
-    icon: ENTITY_ICONS[key],
-  })).filter(e => e.count > 0)
+const NODE_RADIUS = 18
 
-  let startAngle = -Math.PI / 2
-  const radius = 80
-  const innerRadius = 50
-  const arcs = entries.map(entry => {
-    const fraction = entry.count / total
-    const angle = fraction * Math.PI * 2
-    const endAngle = startAngle + angle
-    const largeArc = angle > Math.PI ? 1 : 0
-
-    const x1Outer = Math.cos(startAngle) * radius
-    const y1Outer = Math.sin(startAngle) * radius
-    const x2Outer = Math.cos(endAngle) * radius
-    const y2Outer = Math.sin(endAngle) * radius
-    const x1Inner = Math.cos(endAngle) * innerRadius
-    const y1Inner = Math.sin(endAngle) * innerRadius
-    const x2Inner = Math.cos(startAngle) * innerRadius
-    const y2Inner = Math.sin(startAngle) * innerRadius
-
-    const d = [
-      `M ${x1Outer} ${y1Outer}`,
-      `A ${radius} ${radius} 0 ${largeArc} 1 ${x2Outer} ${y2Outer}`,
-      `L ${x1Inner} ${y1Inner}`,
-      `A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${x2Inner} ${y2Inner}`,
-      'Z',
-    ].join(' ')
-
-    const midAngle = startAngle + angle / 2
-    const labelR = (radius + innerRadius) / 2
-    const lx = Math.cos(midAngle) * labelR
-    const ly = Math.sin(midAngle) * labelR
-
-    startAngle = endAngle
-    return { ...entry, d, lx, ly }
-  })
-
-  return (
-    <svg width="160" height="160" viewBox="-80 -80 160 160">
-      {arcs.map((arc, i) => (
-        <path key={i} d={arc.d} fill={arc.color} opacity="0.85" />
-      ))}
-      <text x="0" y="-6" textAnchor="middle" fontSize="14" fontWeight="700" fill="#333">{total}</text>
-      <text x="0" y="10" textAnchor="middle" fontSize="8" fill="#999">总计</text>
-      {arcs.map((arc, i) => (
-        <text key={i} x={arc.lx} y={arc.ly} textAnchor="middle" dominantBaseline="middle" fontSize="7" fill="white" fontWeight="600" pointerEvents="none">
-          {arc.icon} {arc.count}
-        </text>
-      ))}
-    </svg>
-  )
-}
+// ===== 页面 =====
 
 export default function KnowledgeGraphPage() {
-  const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null)
-  const [filterType, setFilterType] = useState<string>('all')
-  const [expandedNodeId, setExpandedNodeId] = useState<string | null>(null)
-  const [focusMode, setFocusMode] = useState<string | null>(null)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
-  const [graphError, setGraphError] = useState<string | null>(null)
+  const [activeTypes, setActiveTypes] = useState<Set<NodeType>>(
+    new Set<NodeType>(['technology', 'metric', 'component', 'material']),
+  )
   const svgRef = useRef<SVGSVGElement | null>(null)
-  const simulationRef = useRef<d3.Simulation<D3Node, D3Link> | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const simulationRef = useRef<d3.Simulation<SimNode, SimLink> | null>(null)
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null)
+  const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const [containerSize, setContainerSize] = useState({ w: 1200, h: 800 })
 
-  const entities = useMemo(() => kgData.entities.filter(e => e.type !== 'event' && e.type !== 'standard'), [])
-  const relations = kgData.relations
+  // ===== 过滤后数据 =====
 
-  // Merge both relation sources
-  const allRelations = useMemo(() => [
-    ...relations,
-    ...relationsData.map(r => ({ source: r.source, target: r.target, predicate: r.predicate, relation: r.predicate }))
-  ], [relations, relationsData])
-
-  // Search filter
-  const searchFilteredEntities = useMemo(() => {
-    if (!searchQuery.trim()) return entities
-    const q = searchQuery.toLowerCase().trim()
-    return entities.filter(e =>
-      e.name.toLowerCase().includes(q) ||
-      (e.description && e.description.toLowerCase().includes(q)) ||
-      e.type.toLowerCase().includes(q)
-    )
-  }, [entities, searchQuery])
-
-  // Type filter
-  const filteredEntities = useMemo(() => {
-    if (filterType === 'all') return searchFilteredEntities
-    return searchFilteredEntities.filter(e => e.type === filterType)
-  }, [searchFilteredEntities, filterType])
-
-  const filteredEntityIds = new Set(filteredEntities.map(e => e.id))
-  const filteredRelations = useMemo(() => {
-    return allRelations.filter(r => filteredEntityIds.has(r.source) && filteredEntityIds.has(r.target))
-  }, [allRelations, filteredEntityIds])
-
-  // Connected entities
-  const connectedEntityIds = useMemo(() => {
-    const focusId = focusMode || (selectedEntity ? selectedEntity.id : null)
-    if (!focusId) return new Set<string>()
-    const ids = new Set<string>()
-    ids.add(focusId)
-    allRelations.forEach(r => {
-      if (r.source === focusId) ids.add(r.target)
-      if (r.target === focusId) ids.add(r.source)
-    })
-    return ids
-  }, [focusMode, selectedEntity, allRelations])
-
-  // Expanded subgraph
-  const expandedNodeIds = useMemo(() => {
-    if (!expandedNodeId) return new Set<string>()
-    const ids = new Set<string>()
-    ids.add(expandedNodeId)
-    allRelations.forEach(r => {
-      if (r.source === expandedNodeId) ids.add(r.target)
-      if (r.target === expandedNodeId) ids.add(r.source)
-    })
-    return ids
-  }, [expandedNodeId, allRelations])
-
-  // Recommended entities
-  const recommendedEntities = useMemo(() => {
-    if (!selectedEntity) return []
-    const recs: Entity[] = []
-    allRelations.forEach(r => {
-      if (r.source === selectedEntity.id) {
-        const target = entities.find(e => e.id === r.target)
-        if (target && !recs.find(x => x.id === target!.id)) recs.push(target)
-      }
-      if (r.target === selectedEntity.id) {
-        const source = entities.find(e => e.id === r.source)
-        if (source && !recs.find(x => x.id === source!.id)) recs.push(source)
-      }
-    })
-    return recs.slice(0, 6)
-  }, [selectedEntity, allRelations, entities])
-
-  const typeCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: entities.length }
-    entities.forEach(e => { counts[e.type] = (counts[e.type] || 0) + 1 })
-    return counts
-  }, [entities])
-
-  // D3 force simulation
-  useEffect(() => {
-    if (!svgRef.current) return
-
-    try {
-      const width = svgRef.current.clientWidth || 1000
-      const height = 600
-
-      // Destroy previous simulation
-      if (simulationRef.current) {
-        simulationRef.current.stop()
-      }
-
-      // Build D3 nodes and links
-      const nodeMap = new Map<string, Entity>()
-      entities.forEach(e => nodeMap.set(e.id, e))
-
-      if (filteredEntities.length === 0) {
-        setGraphError('没有可显示的实体')
-        return
-      }
-
-      const d3Nodes: D3Node[] = filteredEntities.map(e => {
-      const hasSummary = !!(e.summary || e.summary_vernacular)
-      const baseRadius = hasSummary ? 24 : 18
-      return {
-        ...e,
-        radius: baseRadius,
-        icon: ENTITY_ICONS[e.type] || '🔹',
-      }
-    })
-
-    const d3Links: D3Link[] = filteredRelations
-      .map(r => ({
-        source: r.source as string,
-        target: r.target as string,
-        relation: (r as any).relation,
-        predicate: (r as any).predicate,
-      }))
-      .filter(l => d3Nodes.some(n => n.id === l.source)
-        && d3Nodes.some(n => n.id === l.target))
-
-    // Create simulation
-    const simulation = d3.forceSimulation<D3Node>(d3Nodes)
-      .force('link', d3.forceLink<D3Node, D3Link>(d3Links).id((d: any) => typeof d === 'string' ? d : d.id).distance(80) as any)
-      .force('charge', d3.forceManyBody().strength(-180).distanceMax(250).theta(0.9))
-      .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('collision', d3.forceCollide<D3Node>().radius((d: any) => (d.radius || 18) + 4).iterations(1) as any)
-      .force('x', d3.forceX(width / 2).strength(0.04))
-      .force('y', d3.forceY(height / 2).strength(0.04))
-      .alphaDecay(0.03)
-      .velocityDecay(0.35)
-
-    simulationRef.current = simulation
-
-    const svg = d3.select(svgRef.current)
-      .attr('viewBox', `0 0 ${width} ${height}`)
-      .style('width', '100%')
-      .style('height', 'auto')
-
-    // Clear previous content
-    svg.selectAll('*').remove()
-
-    // Zoom behavior
-    const zoom = d3.zoom<SVGSVGElement, unknown>()
-      .scaleExtent([0.3, 4])
-      .on('zoom', (event) => {
-        svgGroup.attr('transform', event.transform)
+  const filtered = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase()
+    const nodes = kgData.nodes
+      .filter((n) => activeTypes.has(n.type))
+      .filter((n) => {
+        if (!q) return true
+        return (
+          n.name.toLowerCase().includes(q) ||
+          (n.nameEn && n.nameEn.toLowerCase().includes(q)) ||
+          n.tags.some((t) => t.toLowerCase().includes(q)) ||
+          n.oneLiner.toLowerCase().includes(q)
+        )
       })
+    const ids = new Set(nodes.map((n) => n.id))
+    const links = kgData.links.filter(
+      (l) => ids.has(l.source) && ids.has(l.target),
+    )
+    return { nodes, links }
+  }, [searchQuery, activeTypes])
 
+  // ===== 选中节点 =====
+  const selectedNode = useMemo(
+    () => kgData.nodes.find((n) => n.id === selectedId) || null,
+    [selectedId],
+  )
+
+  // ===== 邻居计算 =====
+  const neighbors = useMemo(() => {
+    if (!selectedId) return { incoming: new Set<string>(), outgoing: new Set<string>() }
+    const incoming = new Set<string>()
+    const outgoing = new Set<string>()
+    for (const l of kgData.links) {
+      if (l.source === selectedId) outgoing.add(l.target)
+      if (l.target === selectedId) incoming.add(l.source)
+    }
+    return { incoming, outgoing }
+  }, [selectedId])
+
+  // ===== D3 力导向图渲染 =====
+  useEffect(() => {
+    const svg = svgRef.current
+    const container = containerRef.current
+    if (!svg || !container) return
+
+    const rect = container.getBoundingClientRect()
+    const W = rect.width || 1200
+    const H = rect.height || 800
+    setContainerSize({ w: W, h: H })
+
+    // 清理旧图层
+    d3.select(svg).selectAll('*').remove()
+    const g = d3
+      .select(svg)
+      .attr('viewBox', `0 0 ${W} ${H}`)
+      .append('g')
+
+    // zoom/pan
+    const zoom = d3
+      .zoom<SVGSVGElement, unknown>()
+      .scaleExtent([0.2, 5])
+      .on('zoom', (event) => {
+        g.attr('transform', event.transform.toString())
+      })
     zoomRef.current = zoom
-    svg.call(zoom)
+    d3.select(svg).call(zoom)
 
-    const svgGroup = svg.append('g').attr('class', 'graph-group')
+    // 复制数据 (避免 d3 内部改 frozen JSON)
+    const nodes: SimNode[] = filtered.nodes.map((n) => ({
+      id: n.id,
+      name: n.name,
+      type: n.type,
+      oneLiner: n.oneLiner,
+    }))
+    const links: SimLink[] = filtered.links.map((l) => ({
+      source: l.source,
+      target: l.target,
+    }))
 
-    // Arrow marker
-    svg.append('defs').append('marker')
-      .attr('id', 'arrowhead')
+    if (nodes.length === 0) return
+
+    // simulation
+    const sim = d3
+      .forceSimulation<SimNode, SimLink>(nodes)
+      .force(
+        'link',
+        d3
+          .forceLink<SimNode, SimLink>(links)
+          .id((d) => d.id)
+          .distance(110)
+          .strength(0.6),
+      )
+      .force('charge', d3.forceManyBody<SimNode>().strength(-280))
+      .force('center', d3.forceCenter(W / 2, H / 2))
+      .force(
+        'collide',
+        d3.forceCollide<SimNode>().radius(NODE_RADIUS + 6),
+      )
+      .alpha(1)
+      .alphaDecay(0.025)
+    simulationRef.current = sim
+
+    // 连线 (箭头)
+    const defs = d3.select(svg).append('defs')
+    defs
+      .append('marker')
+      .attr('id', 'arrow')
       .attr('viewBox', '0 -5 10 10')
-      .attr('refX', 28)
+      .attr('refX', 22)
       .attr('refY', 0)
       .attr('markerWidth', 6)
       .attr('markerHeight', 6)
       .attr('orient', 'auto')
       .append('path')
       .attr('d', 'M0,-5L10,0L0,5')
-      .attr('fill', '#667eea')
-      .attr('opacity', 0.6)
+      .attr('fill', '#cbd5e1')
 
-    // Links
-    const link = svgGroup.append('g')
+    const linkSel = g
+      .append('g')
+      .attr('class', 'links')
       .selectAll('line')
-      .data(d3Links)
+      .data(links)
       .join('line')
-      .attr('class', 'link-line')
-      .attr('stroke', '#ccc')
-      .attr('stroke-opacity', 0.3)
+      .attr('stroke', '#cbd5e1')
       .attr('stroke-width', 1)
+      .attr('stroke-opacity', 0.5)
+      .attr('marker-end', 'url(#arrow)')
 
-    // Link labels
-    const linkLabel = svgGroup.append('g')
-      .selectAll('text')
-      .data(d3Links.filter(d => d.predicate || d.relation))
-      .join('text')
-      .attr('class', 'link-label')
-      .attr('font-size', '7px')
-      .attr('fill', '#bbb')
-      .attr('text-anchor', 'middle')
-      .attr('pointer-events', 'none')
-      .text(d => d.predicate || d.relation || '')
-
-    // Nodes group
-    const node = svgGroup.append('g').attr('class', 'nodes-group')
-      .selectAll('g')
-      .data(d3Nodes)
+    // 节点组 (圆 + 文字)
+    const nodeSel = g
+      .append('g')
+      .attr('class', 'nodes')
+      .selectAll<SVGGElement, SimNode>('g')
+      .data(nodes, (d: any) => d.id)
       .join('g')
-      .attr('class', 'node-item')
-      .attr('cursor', 'grab')
-      .call(d3.drag<SVGGElement, D3Node>()
-        .on('start', (event: any, d: D3Node) => {
-          if (!event.active) simulation.alphaTarget(0.3).restart()
-          d.fx = d.x
-          d.fy = d.y
-        })
-        .on('drag', (event: any, d: D3Node) => {
-          d.fx = event.x
-          d.fy = event.y
-        })
-        .on('end', (event: any, d: D3Node) => {
-          if (!event.active) simulation.alphaTarget(0)
-          d.fx = null
-          d.fy = null
-        }) as any)
-
-    // Node circles + halo for hover/select/expand feedback
-    node.each(function(d) {
-      const g = d3.select(this)
-      const color = ENTITY_COLORS[d.type] || '#999'
-      const r = d.radius
-
-      g.append('circle')
-        .attr('class', 'node-base')
-        .attr('r', r)
-        .attr('fill', color)
-        .attr('fill-opacity', 0.85)
-        .attr('stroke', 'white')
-        .attr('stroke-width', 2)
-
-      g.append('circle')
-        .attr('class', 'node-halo')
-        .attr('r', 0)
-        .attr('fill', 'none')
-        .attr('stroke', color)
-        .attr('stroke-width', 2)
-        .attr('opacity', 0)
-
-      g.append('text')
-        .attr('text-anchor', 'middle')
-        .attr('dominant-baseline', 'central')
-        .attr('font-size', '14px')
-        .attr('pointer-events', 'none')
-        .text(d.icon)
-
-      g.append('text')
-        .attr('y', r + 14)
-        .attr('text-anchor', 'middle')
-        .attr('font-size', '10px')
-        .attr('fill', '#333')
-        .attr('font-weight', 400)
-        .attr('pointer-events', 'none')
-        .text(d.name.length > 8 ? d.name.slice(0, 8) + '…' : d.name)
-    })
-
-    // Node interactions
-    node.on('click', (event, d) => {
-      event.stopPropagation()
-      const entity = nodeMap.get(d.id)
-      if (!entity) return
-      if (expandedNodeId === d.id) {
-        setExpandedNodeId(null)
-      } else {
-        setExpandedNodeId(d.id)
-      }
-      if (selectedEntity?.id === d.id) {
-        setSelectedEntity(null)
-        setFocusMode(null)
-      } else {
-        setSelectedEntity(entity)
-        setFocusMode(d.id)
-      }
-    })
-    .on('dblclick', (event, d) => {
-      event.stopPropagation()
-      if (expandedNodeId === d.id) {
-        setExpandedNodeId(null)
-      } else {
-        setExpandedNodeId(d.id)
-      }
-    })
-
-    // Tick
-    simulation.on('tick', () => {
-      link
-        .attr('x1', d => (d.source as D3Node).x!)
-        .attr('y1', d => (d.source as D3Node).y!)
-        .attr('x2', d => (d.target as D3Node).x!)
-        .attr('y2', d => (d.target as D3Node).y!)
-
-      linkLabel
-        .attr('x', d => ((d.source as D3Node).x! + (d.target as D3Node).x!) / 2)
-        .attr('y', d => ((d.source as D3Node).y! + (d.target as D3Node).y!) / 2 - 4)
-
-      node.attr('transform', d => `translate(${d.x!},${d.y!})`)
-    })
-
-    // Auto-fit all nodes into view once simulation cools (only on initial load)
-    let initialFitDone = false
-    simulation.on('end', () => {
-      if (initialFitDone || !svgRef.current) return
-      const bounds = svgGroup.node()?.getBBox()
-      if (!bounds || bounds.width === 0 || bounds.height === 0) return
-      initialFitDone = true
-      const fullWidth = svgRef.current.clientWidth || 1000
-      const fullHeight = 600
-      const padding = 40
-      const scale = Math.min(
-        fullWidth / (bounds.width + padding),
-        fullHeight / (bounds.height + padding),
-        1
-      )
-      const midX = bounds.x + bounds.width / 2
-      const midY = bounds.y + bounds.height / 2
-      const tx = fullWidth / 2 - scale * midX
-      const ty = fullHeight / 2 - scale * midY
-      svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale))
-    })
-
-    // Click on background to deselect
-    svg.on('click', () => {
-      setSelectedEntity(null)
-      setFocusMode(null)
-      setExpandedNodeId(null)
-    })
-
-    return () => {
-      simulation.stop()
-    }
-    } catch (err: any) {
-      console.error('Knowledge graph error:', err)
-      setGraphError(err.message || '图谱渲染出错')
-    }
-  }, [filteredEntities, filteredRelations])
-
-  // Update node + link visual state when selection/expand changes (no hover updates)
-  useEffect(() => {
-    if (!svgRef.current) return
-    try {
-      const svg = d3.select(svgRef.current)
-      const nodes = svg.selectAll('.node-item')
-
-      if (nodes.empty()) return
-
-      const focusId = expandedNodeId || selectedEntity?.id || focusMode
-      const connectedIds = expandedNodeId
-        ? expandedNodeIds
-        : (focusMode || selectedEntity ? connectedEntityIds : new Set<string>())
-      const hasFocus = !!focusId
-
-      // Update links
-      svg.selectAll('.link-line')
-        .transition().duration(250)
-        .attr('stroke', (d: any) => {
-          if (!hasFocus) return '#ccc'
-          const s = typeof d.source === 'string' ? d.source : d.source.id
-          const t = typeof d.target === 'string' ? d.target : d.target.id
-          return connectedIds.has(s) && connectedIds.has(t) ? '#667eea' : '#ccc'
-        })
-        .attr('stroke-opacity', (d: any) => {
-          if (!hasFocus) return 0.3
-          const s = typeof d.source === 'string' ? d.source : d.source.id
-          const t = typeof d.target === 'string' ? d.target : d.target.id
-          return connectedIds.has(s) && connectedIds.has(t) ? 0.8 : 0.15
-        })
-        .attr('stroke-width', (d: any) => {
-          if (!hasFocus) return 1
-          const s = typeof d.source === 'string' ? d.source : d.source.id
-          const t = typeof d.target === 'string' ? d.target : d.target.id
-          return connectedIds.has(s) && connectedIds.has(t) ? 2 : 1
-        })
-
-      // Update link labels
-      svg.selectAll('.link-label')
-        .transition().duration(250)
-        .attr('fill', (d: any) => {
-          if (!hasFocus) return '#bbb'
-          const s = typeof d.source === 'string' ? d.source : d.source.id
-          const t = typeof d.target === 'string' ? d.target : d.target.id
-          return connectedIds.has(s) && connectedIds.has(t) ? '#667eea' : '#ddd'
-        })
-        .attr('opacity', (d: any) => {
-          if (!hasFocus) return 1
-          const s = typeof d.source === 'string' ? d.source : d.source.id
-          const t = typeof d.target === 'string' ? d.target : d.target.id
-          return connectedIds.has(s) && connectedIds.has(t) ? 1 : 0.35
-        })
-
-      nodes.each(function(d: any) {
-        if (!d) return
-        const g = d3.select(this)
-        const isSelected = selectedEntity?.id === d.id
-        const isExpanded = expandedNodeId === d.id
-        const isConnected = expandedNodeId ? expandedNodeIds.has(d.id) : focusMode ? connectedEntityIds.has(d.id) : selectedEntity ? connectedEntityIds.has(d.id) : true
-        const color = ENTITY_COLORS[d.type] || '#999'
-        const baseR = d.radius
-        const renderedR = isSelected ? baseR * 1.15 : isConnected ? baseR : baseR * 0.85
-        const haloR = isSelected ? baseR * 1.4 : isConnected ? baseR * 1.15 : 0
-
-        g.select('.node-base')
-          .transition().duration(250)
-          .attr('r', renderedR)
-          .attr('fill', color)
-          .attr('fill-opacity', isSelected ? 1 : isConnected ? 0.9 : 0.45)
-          .attr('stroke', isSelected ? '#333' : isExpanded ? '#333' : 'white')
-          .attr('stroke-width', isSelected ? 4 : isExpanded ? 3 : 2)
-          .style('filter', isConnected ? 'none' : 'grayscale(50%)')
-
-        g.select('.node-halo')
-          .transition().duration(250)
-          .attr('r', haloR)
-          .attr('stroke', isSelected ? '#333' : color)
-          .attr('opacity', haloR > 0 ? (isSelected ? 0.8 : 0.4) : 0)
-
-        const labels = g.selectAll('text').filter((_: any, __: number, node: any) => {
-          const textEl = node[0]?.textContent
-          return textEl && textEl.length <= 10 && !['🔬','🏢','📜','🧪','⚡'].includes(textEl)
-        })
-        labels
-          .transition().duration(250)
-          .attr('fill', isConnected ? '#333' : '#999')
-          .attr('font-weight', isSelected || isExpanded ? 700 : 400)
-      })
-    } catch (err: any) {
-      console.error('Knowledge graph update error:', err)
-      setGraphError(err.message || '图谱更新出错')
-    }
-  }, [selectedEntity, expandedNodeId, focusMode, connectedEntityIds, expandedNodeIds])
-
-  // Focus radial layout: pull selected/expanded node to center, neighbors around it, unrelated to periphery
-  useEffect(() => {
-    if (!svgRef.current || !simulationRef.current) return
-    try {
-      const simulation = simulationRef.current
-      const width = svgRef.current.clientWidth || 1000
-      const height = 600
-      const focusId = expandedNodeId || selectedEntity?.id || focusMode
-      const connectedIds = expandedNodeId
-        ? expandedNodeIds
-        : (focusMode || selectedEntity ? connectedEntityIds : new Set<string>())
-
-      const linkForce = simulation.force('link') as any
-      if (focusId) {
-        simulation.force('radial', d3.forceRadial(
-          (d: any) => d.id === focusId ? 0 : connectedIds.has(d.id) ? 150 : 340,
-          width / 2,
-          height / 2
-        ).strength((d: any) => d.id === focusId ? 0.9 : connectedIds.has(d.id) ? 0.5 : 0.15))
-        if (linkForce) {
-          linkForce.distance((d: any) => {
-            const s = typeof d.source === 'string' ? d.source : d.source.id
-            const t = typeof d.target === 'string' ? d.target : d.target.id
-            if (s === focusId || t === focusId) return 100
-            if (connectedIds.has(s) && connectedIds.has(t)) return 60
-            return 220
+      .attr('class', 'node')
+      .style('cursor', 'pointer')
+      .on('click', (_, d) => setSelectedId(d.id))
+      .on('mouseover', (_, d) => setHoveredId(d.id))
+      .on('mouseout', () => setHoveredId(null))
+      .call(
+        d3
+          .drag<SVGGElement, SimNode>()
+          .on('start', (event, d) => {
+            if (!event.active) sim.alphaTarget(0.3).restart()
+            d.fx = d.x
+            d.fy = d.y
           })
-        }
-      } else {
-        simulation.force('radial', null)
-        if (linkForce) linkForce.distance(80)
+          .on('drag', (event, d) => {
+            d.fx = event.x
+            d.fy = event.y
+          })
+          .on('end', (event, d) => {
+            if (!event.active) sim.alphaTarget(0)
+            d.fx = null
+            d.fy = null
+          }) as any,
+      )
+
+    nodeSel
+      .append('circle')
+      .attr('r', NODE_RADIUS)
+      .attr('fill', (d) => TYPE_COLORS[d.type])
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 2)
+
+    nodeSel
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '0.35em')
+      .attr('font-size', 14)
+      .attr('font-weight', 700)
+      .attr('fill', '#fff')
+      .attr('pointer-events', 'none')
+      .text((d) => TYPE_ICONS[d.type])
+
+    nodeSel
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', NODE_RADIUS + 16)
+      .attr('font-size', 11)
+      .attr('fill', '#1f2937')
+      .attr('pointer-events', 'none')
+      .text((d) => (d.name.length > 12 ? d.name.slice(0, 12) + '…' : d.name))
+
+    // 选中节点高亮
+    function updateHighlight() {
+      const sel = selectedId
+      const hov = hoveredId
+      const focusId = sel || hov
+      if (!focusId) {
+        nodeSel.attr('opacity', 1)
+        linkSel.attr('opacity', 0.5)
+        return
       }
-
-      simulation.alpha(0.7).restart()
-    } catch (err: any) {
-      console.error('Knowledge graph focus layout error:', err)
+      const neighborSet = new Set<string>([focusId])
+      for (const l of links) {
+        const s = typeof l.source === 'string' ? l.source : (l.source as SimNode).id
+        const t = typeof l.target === 'string' ? l.target : (l.target as SimNode).id
+        if (s === focusId) neighborSet.add(t)
+        if (t === focusId) neighborSet.add(s)
+      }
+      nodeSel.attr('opacity', (d) => (neighborSet.has(d.id) ? 1 : 0.2))
+      linkSel
+        .attr('opacity', (l: any) => {
+          const s = typeof l.source === 'string' ? l.source : l.source.id
+          const t = typeof l.target === 'string' ? l.target : l.target.id
+          return s === focusId || t === focusId ? 0.9 : 0.05
+        })
+        .attr('stroke', (l: any) => {
+          const s = typeof l.source === 'string' ? l.source : l.source.id
+          const t = typeof l.target === 'string' ? l.target : l.target.id
+          return s === focusId || t === focusId ? '#6366f1' : '#cbd5e1'
+        })
+        .attr('stroke-width', (l: any) => {
+          const s = typeof l.source === 'string' ? l.source : l.source.id
+          const t = typeof l.target === 'string' ? l.target : l.target.id
+          return s === focusId || t === focusId ? 2 : 1
+        })
     }
-  }, [focusMode, expandedNodeId, selectedEntity, connectedEntityIds, expandedNodeIds])
+    updateHighlight()
 
-  const layoutNode = (id: string) => {
-    const node = filteredEntities.find(e => e.id === id)
-    return node
-  }
-
-  // Node size helper
-  const getNodeRadius = (entity: Entity, isExpanded: boolean, isSelected: boolean, isHovered: boolean) => {
-    const hasSummary = entity.summary || entity.summary_vernacular
-    const baseSize = hasSummary ? 24 : 18
-    if (isExpanded) return baseSize + 8
-    if (isSelected) return baseSize + 4
-    if (isHovered) return baseSize + 2
-    return baseSize
-  }
-
-  const groupedEntities = useMemo(() => {
-    const groups: Record<string, Entity[]> = {}
-    entities.forEach(e => {
-      if (!groups[e.type]) groups[e.type] = []
-      groups[e.type].push(e)
+    // tick
+    sim.on('tick', () => {
+      linkSel
+        .attr('x1', (d: any) => (typeof d.source === 'object' ? d.source.x : 0))
+        .attr('y1', (d: any) => (typeof d.source === 'object' ? d.source.y : 0))
+        .attr('x2', (d: any) => (typeof d.target === 'object' ? d.target.x : 0))
+        .attr('y2', (d: any) => (typeof d.target === 'object' ? d.target.y : 0))
+      nodeSel.attr('transform', (d) => `translate(${d.x ?? 0},${d.y ?? 0})`)
     })
-    return groups
-  }, [entities])
+
+    // 上一次 highlight 同步
+    const id = setInterval(updateHighlight, 60)
+    return () => {
+      clearInterval(id)
+      sim.stop()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filtered])
+
+  // ===== 选中/hover 联动 =====
+  useEffect(() => {
+    // 触发一次重绘更新 highlight
+    const svg = svgRef.current
+    if (!svg) return
+    const sel = d3.select(svg).selectAll<SVGGElement, SimNode>('g.node')
+    const lnk = d3.select(svg).selectAll<SVGLineElement, SimLink>('line')
+    const sel_id = selectedId
+    const hov = hoveredId
+    const focus = sel_id || hov
+    if (!focus) {
+      sel.attr('opacity', 1)
+      lnk.attr('opacity', 0.5)
+      return
+    }
+    const neighborSet = new Set([focus])
+    kgData.links.forEach((l) => {
+      if (l.source === focus) neighborSet.add(l.target)
+      if (l.target === focus) neighborSet.add(l.source)
+    })
+    sel.attr('opacity', (d: any) => (neighborSet.has(d.id) ? 1 : 0.2))
+    lnk
+      .attr('opacity', (l: any) => {
+        const s = typeof l.source === 'object' ? l.source.id : l.source
+        const t = typeof l.target === 'object' ? l.target.id : l.target
+        return s === focus || t === focus ? 0.9 : 0.05
+      })
+      .attr('stroke', (l: any) => {
+        const s = typeof l.source === 'object' ? l.source.id : l.source
+        const t = typeof l.target === 'object' ? l.target.id : l.target
+        return s === focus || t === focus ? '#6366f1' : '#cbd5e1'
+      })
+      .attr('stroke-width', (l: any) => {
+        const s = typeof l.source === 'object' ? l.source.id : l.source
+        const t = typeof l.target === 'object' ? l.target.id : l.target
+        return s === focus || t === focus ? 2 : 1
+      })
+  }, [selectedId, hoveredId])
+
+  // ===== 容器尺寸响应 =====
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+    const ro = new ResizeObserver(() => {
+      const r = container.getBoundingClientRect()
+      if (r.width > 0 && r.height > 0) {
+        setContainerSize({ w: r.width, h: r.height })
+      }
+    })
+    ro.observe(container)
+    return () => ro.disconnect()
+  }, [])
+
+  // ===== 抽屉关闭 ESC =====
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedId(null)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  const toggleType = (t: NodeType) => {
+    const next = new Set(activeTypes)
+    if (next.has(t)) next.delete(t)
+    else next.add(t)
+    if (next.size === 0) return // 至少保留 1 类
+    setActiveTypes(next)
+  }
+
+  const fitView = () => {
+    const svg = svgRef.current
+    const zoom = zoomRef.current
+    if (!svg || !zoom) return
+    d3.select(svg).transition().duration(500).call(zoom.transform, d3.zoomIdentity)
+  }
 
   return (
-    <div>
-      <header className="header">
-        <h1>🕸️ 知识图谱</h1>
-        <p>天线行业知识网络 — 实体关系可视化 · 数据来源：各板块结构化数据 + 小月技术解读笔记</p>
-        <p className="update-info">数据更新：{kgData.lastUpdate} · {entities.length} 个实体 · {allRelations.filter(r => filteredEntityIds.has(r.source) && filteredEntityIds.has(r.target)).length} 条关系</p>
-      </header>
-
-      {/* 类型筛选 */}
-      <section className="card" style={{ marginBottom: '24px' }}>
-        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#fafafa' }}>
+      {/* ===== 顶部工具栏 ===== */}
+      <header
+        style={{
+          padding: '12px 20px',
+          background: '#fff',
+          borderBottom: '1px solid #e5e7eb',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 16,
+          flexWrap: 'wrap',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <h1 style={{ fontSize: 18, fontWeight: 700, color: '#111827', margin: 0 }}>
+            天线知识图谱
+          </h1>
+          <span style={{ fontSize: 12, color: '#6b7280' }}>
+            {filtered.nodes.length} 节点 / {filtered.links.length} 关系 · 更新于 {kgData.lastUpdate}
+          </span>
+        </div>
+        {/* 搜索框 */}
+        <input
+          type="text"
+          placeholder="搜索节点 (名称 / 标签 / 内容)"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={{
+            flex: 1,
+            minWidth: 220,
+            padding: '6px 12px',
+            border: '1px solid #d1d5db',
+            borderRadius: 6,
+            fontSize: 13,
+            outline: 'none',
+          }}
+        />
+        {/* 类型筛选 */}
+        <div style={{ display: 'flex', gap: 6 }}>
+          {(Object.keys(TYPE_LABELS) as NodeType[]).map((t) => {
+            const on = activeTypes.has(t)
+            return (
+              <button
+                key={t}
+                onClick={() => toggleType(t)}
+                style={{
+                  padding: '4px 10px',
+                  fontSize: 12,
+                  border: `1px solid ${on ? TYPE_COLORS[t] : '#e5e7eb'}`,
+                  background: on ? TYPE_COLORS[t] : '#fff',
+                  color: on ? '#fff' : '#6b7280',
+                  borderRadius: 14,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 4,
+                }}
+              >
+                <span>{TYPE_ICONS[t]}</span>
+                {TYPE_LABELS[t]}({kgData.stats[t]})
+              </button>
+            )
+          })}
           <button
-            onClick={() => setFilterType('all')}
+            onClick={fitView}
             style={{
-              padding: '8px 18px',
-              borderRadius: '20px',
-              border: filterType === 'all' ? '2px solid #667eea' : '2px solid #e0e0e0',
-              background: filterType === 'all' ? '#667eea' : 'white',
-              color: filterType === 'all' ? 'white' : '#333',
+              padding: '4px 10px',
+              fontSize: 12,
+              border: '1px solid #e5e7eb',
+              background: '#fff',
+              color: '#374151',
+              borderRadius: 14,
               cursor: 'pointer',
-              fontSize: '0.9rem',
-              fontWeight: 600,
             }}
           >
-            全部 ({typeCounts.all})
+            ↺ 复位
           </button>
-          {Object.entries(ENTITY_LABELS).map(([key, label]) => (
-            <button
-              key={key}
-              onClick={() => setFilterType(key)}
-              style={{
-                padding: '8px 18px',
-                borderRadius: '20px',
-                border: filterType === key ? `2px solid ${ENTITY_COLORS[key]}` : '2px solid #e0e0e0',
-                background: filterType === key ? ENTITY_COLORS[key] : 'white',
-                color: filterType === key ? 'white' : '#333',
-                cursor: 'pointer',
-                fontSize: '0.9rem',
-                fontWeight: 600,
-              }}
-            >
-              {ENTITY_ICONS[key]} {label} ({typeCounts[key] || 0})
-            </button>
-          ))}
         </div>
-      </section>
+      </header>
 
-      <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-        {/* 图谱可视化 */}
-        <div className="card" style={{ flex: '1 1 600px', minWidth: '0' }}>
-          <h3 style={{ marginBottom: '16px' }}>📊 知识图谱关系图</h3>
+      {/* ===== 图谱区 ===== */}
+      <div
+        ref={containerRef}
+        style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
+      >
+        <svg
+          ref={svgRef}
+          width={containerSize.w}
+          height={containerSize.h}
+          style={{ display: 'block', background: '#fff' }}
+        />
 
-          {/* 环形图 + 图例 */}
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px', marginBottom: '16px', flexWrap: 'wrap' }}>
-            <DonutChart typeCounts={typeCounts} />
-            <div style={{ minWidth: '140px' }}>
-              <h4 style={{ marginBottom: '10px', fontSize: '0.85rem' }}>📌 图例</h4>
-              {Object.entries(ENTITY_LABELS).map(([key, label]) => (
-                <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                  <span style={{ width: '16px', height: '16px', borderRadius: '50%', background: ENTITY_COLORS[key], display: 'inline-block' }} />
-                  <span style={{ fontSize: '0.85rem' }}>{ENTITY_ICONS[key]} {label}</span>
-                  <span style={{ fontSize: '0.75rem', color: '#999', marginLeft: 'auto' }}>{typeCounts[key] || 0}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div style={{ position: 'relative', width: '100%', overflow: 'hidden', borderRadius: '8px', border: '1px solid #eee' }}>
-            {graphError ? (
-              <div style={{ width: '100%', height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', background: '#fafbfc', color: '#999' }}>
-                <div style={{ fontSize: '2rem', marginBottom: '12px' }}>⚠️</div>
-                <div style={{ marginBottom: '8px' }}>图谱加载失败</div>
-                <div style={{ fontSize: '0.82rem', maxWidth: '400px', textAlign: 'center' }}>{graphError}</div>
-                <button
-                  onClick={() => setGraphError(null)}
-                  style={{ marginTop: '16px', padding: '6px 20px', borderRadius: '6px', border: '1px solid #667eea', background: '#667eea', color: 'white', cursor: 'pointer', fontSize: '0.85rem' }}
-                >
-                  重试
-                </button>
-              </div>
-            ) : (
-              <svg ref={svgRef} style={{ width: '100%', height: '600px', background: '#fafbfc' }} />
-            )}
-          </div>
-          <p style={{ fontSize: '0.75rem', color: '#aaa', marginTop: '8px' }}>
-            💡 单击节点选中并查看详情，双击节点展开关联子图，再次双击收起
-            {' '}滚轮缩放 / 拖拽画布 / 拖拽节点调整位置
-            {focusMode && (
-              <span style={{ marginLeft: '12px', color: '#667eea', cursor: 'pointer', fontWeight: 600 }}
-                onClick={() => { setFocusMode(null); setSelectedEntity(null); }}
-              >
-                [退出聚焦]
-              </span>
-            )}
-          </p>
-        </div>
-
-        {/* 详情面板 */}
-        <div style={{ flex: '0 0 320px', minWidth: '280px' }}>
-          {/* 搜索框 */}
-          <div className="card" style={{ marginBottom: '24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <input
-                type="text"
-                placeholder="搜索实体名称、描述或类型..."
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
+        {/* 图例 */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 12,
+            left: 12,
+            background: 'rgba(255,255,255,0.95)',
+            border: '1px solid #e5e7eb',
+            borderRadius: 8,
+            padding: '10px 14px',
+            fontSize: 11,
+            color: '#4b5563',
+            pointerEvents: 'none',
+          }}
+        >
+          <div style={{ fontWeight: 700, marginBottom: 6, color: '#111827' }}>图例</div>
+          {(Object.keys(TYPE_LABELS) as NodeType[]).map((t) => (
+            <div key={t} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+              <span
                 style={{
-                  flex: 1,
-                  padding: '10px 16px',
-                  borderRadius: '8px',
-                  border: '1px solid #e0e0e0',
-                  fontSize: '0.95rem',
-                  outline: 'none',
+                  display: 'inline-block',
+                  width: 12,
+                  height: 12,
+                  borderRadius: '50%',
+                  background: TYPE_COLORS[t],
                 }}
               />
-              <span style={{ fontSize: '0.85rem', color: '#999' }}>
-                {searchFilteredEntities.length}
-              </span>
+              <span>{TYPE_LABELS[t]}</span>
+              <span style={{ color: '#9ca3af' }}>·</span>
+              <span style={{ color: '#9ca3af' }}>{kgData.stats[t]} 节点</span>
             </div>
-          </div>
+          ))}
+        </div>
 
-          {selectedEntity ? (
-            <div className="card">
-              <h3 style={{ marginBottom: '16px' }}>📋 实体详情</h3>
-              <div style={{
-                display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px',
-                padding: '12px', background: `${ENTITY_COLORS[selectedEntity.type]}15`, borderRadius: '8px'
-              }}>
-                <span style={{ fontSize: '2rem' }}>{ENTITY_ICONS[selectedEntity.type]}</span>
-                <div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: '#333' }}>{selectedEntity.name}</div>
-                  <span className="tag" style={{ background: ENTITY_COLORS[selectedEntity.type], color: 'white' }}>
-                    {ENTITY_LABELS[selectedEntity.type]}
-                  </span>
-                </div>
-              </div>
-              {/* 专业介绍 */}
-              <div style={{ marginBottom: '16px' }}>
-                <h4 style={{ fontSize: '0.75rem', color: '#999', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                  专业介绍
-                </h4>
-                <p style={{ color: '#444', lineHeight: 1.7, fontSize: '0.85rem', margin: 0 }}>
-                  {selectedEntity.summary || selectedEntity.description}
-                </p>
-              </div>
-
-              {selectedEntity.metadata && (
-                <div style={{ marginBottom: '16px' }}>
-                  <h4 style={{ fontSize: '0.85rem', color: '#999', marginBottom: '8px' }}>属性</h4>
-                  <table style={{ width: '100%', fontSize: '0.85rem' }}>
-                    <tbody>
-                      {Object.entries(selectedEntity.metadata).map(([key, val]) => (
-                        <tr key={key}>
-                          <td style={{ color: '#999', padding: '4px 0', width: '100px' }}>{key}</td>
-                          <td style={{ color: '#333', fontWeight: 500 }}>{String(val)}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-              {/* 通俗解读 */}
-              {selectedEntity.summary_vernacular && (
-                <div style={{ marginBottom: '16px' }}>
-                  <h4 style={{ fontSize: '0.75rem', color: '#999', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                    📝 通俗解读
-                  </h4>
-                  <p style={{ color: '#555', lineHeight: 1.7, fontSize: '0.85rem', margin: 0, fontStyle: 'italic' }}>
-                    {selectedEntity.summary_vernacular}
-                  </p>
-                </div>
-              )}
-              {/* 关联关系 */}
-              <div>
-                <h4 style={{ fontSize: '0.85rem', color: '#999', marginBottom: '8px' }}>
-                  🔗 关联关系 ({connectedEntityIds.size - 1} 条)
-                </h4>
-                <div style={{
-                  maxHeight: '280px',
-                  overflowY: 'auto',
-                  paddingRight: '6px',
-                  scrollbarWidth: 'thin',
-                  scrollbarColor: '#c0c0c0 transparent',
-                } as any}>
-                  {allRelations
-                    .filter(r => r.source === selectedEntity.id || r.target === selectedEntity.id)
-                    .map((rel, i) => {
-                      const isSource = rel.source === selectedEntity.id
-                      const otherId = isSource ? rel.target : rel.source
-                      const otherEntity = entities.find(e => e.id === otherId)
-                      if (!otherEntity) return null
-                      return (
-                        <div
-                          key={i}
-                          style={{
-                            padding: '8px 12px',
-                            marginBottom: '8px',
-                            background: '#f8f9fa',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            border: `1px solid #eee`,
-                          }}
-                          onClick={() => setSelectedEntity(otherEntity)}
-                        >
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                            <span>{ENTITY_ICONS[otherEntity.type]}</span>
-                            <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>{otherEntity.name}</span>
-                            <span style={{
-                              fontSize: '0.75rem',
-                              padding: '2px 8px',
-                              borderRadius: '10px',
-                              background: '#667eea',
-                              color: 'white',
-                            }}>
-                              {isSource ? rel.relation + '→' : '←' + rel.relation}
-                            </span>
-                          </div>
-                          <div style={{ fontSize: '0.78rem', color: '#999' }}>{(rel as any).evidence || ''}</div>
-                        </div>
-                      )
-                    })
-                  }
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="card" style={{ textAlign: 'center', padding: '40px', color: '#999' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🔍</div>
-              <p>点击图谱中的节点查看实体详情</p>
-              <p style={{ fontSize: '0.85rem', marginTop: '8px' }}>
-                共 {entities.length} 个实体，{allRelations.filter(r => filteredEntityIds.has(r.source) && filteredEntityIds.has(r.target)).length} 条关系
-              </p>
-            </div>
-          )}
-
-          {/* 推荐关联 */}
-          {selectedEntity && recommendedEntities.length > 0 && (
-            <div className="card" style={{ marginTop: '24px' }}>
-              <h4 style={{ marginBottom: '12px' }}>💡 推荐关联</h4>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                {recommendedEntities.map(entity => (
-                  <div
-                    key={entity.id}
-                    onClick={() => setSelectedEntity(entity)}
-                    style={{
-                      padding: '10px',
-                      borderRadius: '8px',
-                      border: `1px solid ${ENTITY_COLORS[entity.type]}30`,
-                      background: `${ENTITY_COLORS[entity.type]}08`,
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                      <span style={{ fontSize: '1rem' }}>{ENTITY_ICONS[entity.type]}</span>
-                      <span style={{ fontWeight: 600, fontSize: '0.85rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{entity.name}</span>
-                    </div>
-                    <p style={{
-                      fontSize: '0.75rem',
-                      color: '#666',
-                      margin: 0,
-                      lineHeight: 1.4,
-                      display: '-webkit-box',
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden',
-                    } as any}>
-                      {entity.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+        {/* 提示 */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 12,
+            right: 12,
+            background: 'rgba(255,255,255,0.85)',
+            padding: '6px 10px',
+            border: '1px solid #e5e7eb',
+            borderRadius: 6,
+            fontSize: 11,
+            color: '#6b7280',
+            pointerEvents: 'none',
+          }}
+        >
+          点击节点查看详情 · 拖动节点调整位置 · 滚轮缩放
         </div>
       </div>
+
+      {/* ===== 节点详情抽屉 ===== */}
+      {selectedNode && (
+        <Drawer
+          node={selectedNode}
+          inNeighborIds={neighbors.incoming}
+          outNeighborIds={neighbors.outgoing}
+          onClose={() => setSelectedId(null)}
+          onNodeClick={(id) => setSelectedId(id)}
+        />
+      )}
     </div>
+  )
+}
+
+// ===== 抽屉卡片 =====
+
+function Drawer({
+  node,
+  inNeighborIds,
+  outNeighborIds,
+  onClose,
+  onNodeClick,
+}: {
+  node: KGNode
+  inNeighborIds: Set<string>
+  outNeighborIds: Set<string>
+  onClose: () => void
+  onNodeClick: (id: string) => void
+}) {
+  const allNodesById = useMemo(() => {
+    const m = new Map<string, KGNode>()
+    for (const n of kgData.nodes) m.set(n.id, n)
+    return m
+  }, [])
+
+  return (
+    <>
+      <div
+        onClick={onClose}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(0,0,0,0.15)',
+          zIndex: 40,
+        }}
+      />
+      <aside
+        style={{
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          width: 460,
+          maxWidth: '95vw',
+          height: '100vh',
+          background: '#fff',
+          boxShadow: '-4px 0 16px rgba(0,0,0,0.08)',
+          zIndex: 50,
+          overflowY: 'auto',
+          animation: 'slideIn 0.25s ease-out',
+        }}
+      >
+        {/* 头部 */}
+        <div
+          style={{
+            padding: '20px 24px 16px',
+            borderBottom: `3px solid ${TYPE_COLORS[node.type]}`,
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <span
+              style={{
+                display: 'inline-block',
+                padding: '2px 8px',
+                fontSize: 11,
+                background: TYPE_COLORS[node.type],
+                color: '#fff',
+                borderRadius: 10,
+                marginBottom: 8,
+              }}
+            >
+              {TYPE_ICONS[node.type]} {TYPE_LABELS[node.type]}
+            </span>
+            <button
+              onClick={onClose}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                fontSize: 22,
+                color: '#9ca3af',
+                cursor: 'pointer',
+                padding: 0,
+                lineHeight: 1,
+              }}
+            >
+              ×
+            </button>
+          </div>
+          <h2 style={{ fontSize: 20, fontWeight: 700, color: '#111827', margin: '4px 0 6px' }}>
+            {node.name}
+          </h2>
+          {node.nameEn && (
+            <div style={{ fontSize: 13, color: '#6b7280', marginBottom: 4 }}>
+              {node.nameEn}
+            </div>
+          )}
+          <div style={{ fontSize: 11, color: '#9ca3af' }}>
+            更新于 {node.updatedAt || node.createdAt}
+          </div>
+        </div>
+
+        {/* 一句话版本 */}
+        {node.oneLiner && (
+          <Section title="一句话版本">
+            <p style={{ margin: 0, fontSize: 14, color: '#374151', lineHeight: 1.7 }}>
+              {node.oneLiner}
+            </p>
+          </Section>
+        )}
+
+        {/* 类比入口 */}
+        {node.analogy && (
+          <Section title="类比入门" tint="#fef3c7">
+            <p style={{ margin: 0, fontSize: 14, color: '#78350f', lineHeight: 1.7 }}>
+              {node.analogy}
+            </p>
+          </Section>
+        )}
+
+        {/* 标签 */}
+        {node.tags.length > 0 && (
+          <Section title="标签">
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+              {node.tags.map((t) => (
+                <span
+                  key={t}
+                  style={{
+                    fontSize: 11,
+                    padding: '2px 8px',
+                    background: '#f3f4f6',
+                    color: '#4b5563',
+                    borderRadius: 10,
+                  }}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </Section>
+        )}
+
+        {/* 出向关联 */}
+        {node.outgoing.length > 0 && (
+          <Section title={`关联笔记 (${inNeighborIds.size + outNeighborIds.size})`}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {node.outgoing.map((o) => {
+                const n = allNodesById.get(o.targetId)
+                if (!n) return null
+                return (
+                  <button
+                    key={o.targetId}
+                    onClick={() => onNodeClick(o.targetId)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      padding: '8px 10px',
+                      background: '#f9fafb',
+                      border: '1px solid #e5e7eb',
+                      borderRadius: 6,
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                    }}
+                  >
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        width: 8,
+                        height: 8,
+                        borderRadius: '50%',
+                        background: TYPE_COLORS[n.type],
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span style={{ fontSize: 13, color: '#1f2937', flex: 1 }}>
+                      {n.name}
+                    </span>
+                    <span style={{ fontSize: 11, color: '#9ca3af' }}>
+                      → {TYPE_LABELS[n.type]}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          </Section>
+        )}
+
+        {/* 源文件 */}
+        <Section title="源文件">
+          <div
+            style={{
+              fontSize: 12,
+              color: '#6b7280',
+              fontFamily: 'monospace',
+              padding: '6px 10px',
+              background: '#f9fafb',
+              borderRadius: 4,
+            }}
+          >
+            {node.filename}
+          </div>
+        </Section>
+
+        {/* 底部留空 */}
+        <div style={{ height: 24 }} />
+      </aside>
+
+      <style>{`
+        @keyframes slideIn {
+          from { transform: translateX(100%); }
+          to   { transform: translateX(0); }
+        }
+      `}</style>
+    </>
+  )
+}
+
+function Section({
+  title,
+  children,
+  tint,
+}: {
+  title: string
+  children: React.ReactNode
+  tint?: string
+}) {
+  return (
+    <section
+      style={{
+        padding: '16px 24px',
+        borderTop: '1px solid #f3f4f6',
+        background: tint,
+      }}
+    >
+      <h3
+        style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: '#6b7280',
+          letterSpacing: 0.5,
+          textTransform: 'uppercase',
+          margin: '0 0 8px',
+        }}
+      >
+        {title}
+      </h3>
+      {children}
+    </section>
   )
 }
