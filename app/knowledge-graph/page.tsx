@@ -749,6 +749,32 @@ function Drawer({
           </Section>
         )}
 
+        {/* 查看 HTML 科普卡片 */}
+        {node.type === 'technology' && (
+          <Section title="科普卡片">
+            <a
+              href={`/kg-cards/rendered/${encodeURIComponent(node.id)}.html`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                fontSize: 13,
+                color: '#6366f1',
+                textDecoration: 'none',
+                padding: '6px 12px',
+                background: '#eef2ff',
+                borderRadius: 6,
+                border: '1px solid #c7d2fe',
+                fontWeight: 600,
+              }}
+            >
+              📄 查看 HTML 科普卡片 ↗
+            </a>
+          </Section>
+        )}
+
         {/* 源文件 */}
         <Section title="源文件">
           <div
