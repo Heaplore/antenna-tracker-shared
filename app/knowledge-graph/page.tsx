@@ -553,9 +553,9 @@ export default function KnowledgeGraphPage() {
         </div>
       </div>
 
-      {/* ===== 节点详情抽屉 ===== */}
+      {/* ===== 节点详情弹窗（居中） ===== */}
       {selectedNode && (
-        <Drawer
+        <Modal
           node={selectedNode}
           inNeighborIds={neighbors.incoming}
           outNeighborIds={neighbors.outgoing}
@@ -567,9 +567,9 @@ export default function KnowledgeGraphPage() {
   )
 }
 
-// ===== 抽屉卡片 =====
+// ===== 居中弹窗 =====
 
-function Drawer({
+function Modal({
   node,
   inNeighborIds,
   outNeighborIds,
@@ -588,6 +588,8 @@ function Drawer({
     return m
   }, [])
 
+  const htmlCardSrc = `/antenna-tracker/kg-cards/rendered/${encodeURIComponent(node.id)}.html`
+
   return (
     <>
       <div
@@ -595,46 +597,57 @@ function Drawer({
         style={{
           position: 'fixed',
           inset: 0,
-          background: 'rgba(0,0,0,0.15)',
+          background: 'rgba(0,0,0,0.5)',
           zIndex: 40,
-        }}
-      />
-      <aside
-        style={{
-          position: 'fixed',
-          top: 0,
-          right: 0,
-          width: 460,
-          maxWidth: '95vw',
-          height: '100vh',
-          background: '#fff',
-          boxShadow: '-4px 0 16px rgba(0,0,0,0.08)',
-          zIndex: 50,
-          overflowY: 'auto',
-          animation: 'slideIn 0.25s ease-out',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          animation: 'fadeIn 0.2s ease-out',
         }}
       >
-        {/* 头部 */}
         <div
+          onClick={(e) => e.stopPropagation()}
           style={{
-            padding: '20px 24px 16px',
-            borderBottom: `3px solid ${TYPE_COLORS[node.type]}`,
+            background: '#fff',
+            borderRadius: 12,
+            boxShadow: '0 24px 80px rgba(0,0,0,0.25)',
+            width: '90vw',
+            maxWidth: 1200,
+            maxHeight: '90vh',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            animation: 'scaleIn 0.2s ease-out',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-            <span
-              style={{
-                display: 'inline-block',
-                padding: '2px 8px',
-                fontSize: 11,
-                background: TYPE_COLORS[node.type],
-                color: '#fff',
-                borderRadius: 10,
-                marginBottom: 8,
-              }}
-            >
-              {TYPE_ICONS[node.type]} {TYPE_LABELS[node.type]}
-            </span>
+          {/* 顶部栏 */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '12px 20px',
+              borderBottom: `2px solid ${TYPE_COLORS[node.type]}`,
+              flexShrink: 0,
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span
+                style={{
+                  display: 'inline-block',
+                  padding: '2px 8px',
+                  fontSize: 11,
+                  background: TYPE_COLORS[node.type],
+                  color: '#fff',
+                  borderRadius: 10,
+                }}
+              >
+                {TYPE_ICONS[node.type]} {TYPE_LABELS[node.type]}
+              </span>
+              <span style={{ fontSize: 16, fontWeight: 700, color: '#111827' }}>
+                {node.name}
+              </span>
+            </div>
             <button
               onClick={onClose}
               style={{
@@ -643,190 +656,78 @@ function Drawer({
                 fontSize: 22,
                 color: '#9ca3af',
                 cursor: 'pointer',
-                padding: 0,
+                padding: '4px 8px',
                 lineHeight: 1,
               }}
             >
               ×
             </button>
           </div>
-          <h2 style={{ fontSize: 20, fontWeight: 700, color: '#111827', margin: '4px 0 6px' }}>
-            {node.name}
-          </h2>
-          {node.nameEn && (
-            <div style={{ fontSize: 13, color: '#6b7280', marginBottom: 4 }}>
-              {node.nameEn}
-            </div>
-          )}
-          <div style={{ fontSize: 11, color: '#9ca3af' }}>
-            更新于 {node.updatedAt || node.createdAt}
-          </div>
-        </div>
 
-        {/* 一句话版本 */}
-        {node.oneLiner && (
-          <Section title="一句话版本">
-            <p style={{ margin: 0, fontSize: 14, color: '#374151', lineHeight: 1.7 }}>
-              {node.oneLiner}
-            </p>
-          </Section>
-        )}
+          {/* HTML 卡片 iframe */}
+          <iframe
+            src={htmlCardSrc}
+            title={`${node.name} 科普卡片`}
+            style={{
+              flex: 1,
+              width: '100%',
+              border: 'none',
+              minHeight: 400,
+            }}
+            sandbox="allow-same-origin"
+          />
 
-        {/* 类比入口 */}
-        {node.analogy && (
-          <Section title="类比入门" tint="#fef3c7">
-            <p style={{ margin: 0, fontSize: 14, color: '#78350f', lineHeight: 1.7 }}>
-              {node.analogy}
-            </p>
-          </Section>
-        )}
-
-        {/* 标签 */}
-        {node.tags.length > 0 && (
-          <Section title="标签">
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-              {node.tags.map((t) => (
-                <span
-                  key={t}
-                  style={{
-                    fontSize: 11,
-                    padding: '2px 8px',
-                    background: '#f3f4f6',
-                    color: '#4b5563',
-                    borderRadius: 10,
-                  }}
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-          </Section>
-        )}
-
-        {/* 出向关联 */}
-        {node.outgoing.length > 0 && (
-          <Section title={`关联笔记 (${inNeighborIds.size + outNeighborIds.size})`}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              {node.outgoing.map((o) => {
-                const n = allNodesById.get(o.targetId)
-                if (!n) return null
-                return (
+          {/* 底部关联信息 */}
+          {(node.outgoing.length > 0 || inNeighborIds.size > 0) && (
+            <div
+              style={{
+                padding: '10px 20px',
+                borderTop: '1px solid #f3f4f6',
+                background: '#fafafa',
+                flexShrink: 0,
+              }}
+            >
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#6b7280', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                关联笔记 ({inNeighborIds.size + outNeighborIds.size})
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {[...node.outgoing.map(o => allNodesById.get(o.targetId)).filter(Boolean) as KGNode[], ...Array.from(inNeighborIds).map(id => allNodesById.get(id)).filter(Boolean) as KGNode[]].slice(0, 12).map(n => (
                   <button
-                    key={o.targetId}
-                    onClick={() => onNodeClick(o.targetId)}
+                    key={n.id}
+                    onClick={() => onNodeClick(n.id)}
                     style={{
-                      display: 'flex',
+                      display: 'inline-flex',
                       alignItems: 'center',
-                      gap: 8,
-                      padding: '8px 10px',
-                      background: '#f9fafb',
+                      gap: 4,
+                      padding: '3px 8px',
+                      fontSize: 11,
+                      background: '#fff',
                       border: '1px solid #e5e7eb',
                       borderRadius: 6,
                       cursor: 'pointer',
-                      textAlign: 'left',
+                      color: '#374151',
                     }}
                   >
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        width: 8,
-                        height: 8,
-                        borderRadius: '50%',
-                        background: TYPE_COLORS[n.type],
-                        flexShrink: 0,
-                      }}
-                    />
-                    <span style={{ fontSize: 13, color: '#1f2937', flex: 1 }}>
-                      {n.name}
-                    </span>
-                    <span style={{ fontSize: 11, color: '#9ca3af' }}>
-                      → {TYPE_LABELS[n.type]}
-                    </span>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: TYPE_COLORS[n.type], flexShrink: 0 }} />
+                    {n.name}
                   </button>
-                )
-              })}
+                ))}
+              </div>
             </div>
-          </Section>
-        )}
-
-        {/* HTML 科普卡片 — 内嵌 iframe */}
-        {node.type === 'technology' && (
-          <Section title="科普卡片">
-            <iframe
-              src={`/kg-cards/rendered/${encodeURIComponent(node.id)}.html`}
-              title={`${node.name} 科普卡片`}
-              style={{
-                width: '100%',
-                height: 600,
-                border: '1px solid #e5e7eb',
-                borderRadius: 8,
-                background: '#fff',
-              }}
-              sandbox="allow-same-origin"
-            />
-          </Section>
-        )}
-
-        {/* 源文件 */}
-        <Section title="源文件">
-          <div
-            style={{
-              fontSize: 12,
-              color: '#6b7280',
-              fontFamily: 'monospace',
-              padding: '6px 10px',
-              background: '#f9fafb',
-              borderRadius: 4,
-            }}
-          >
-            {node.filename}
-          </div>
-        </Section>
-
-        {/* 底部留空 */}
-        <div style={{ height: 24 }} />
-      </aside>
+          )}
+        </div>
+      </div>
 
       <style>{`
-        @keyframes slideIn {
-          from { transform: translateX(100%); }
-          to   { transform: translateX(0); }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+          from { transform: scale(0.95); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
         }
       `}</style>
     </>
-  )
-}
-
-function Section({
-  title,
-  children,
-  tint,
-}: {
-  title: string
-  children: React.ReactNode
-  tint?: string
-}) {
-  return (
-    <section
-      style={{
-        padding: '16px 24px',
-        borderTop: '1px solid #f3f4f6',
-        background: tint,
-      }}
-    >
-      <h3
-        style={{
-          fontSize: 11,
-          fontWeight: 700,
-          color: '#6b7280',
-          letterSpacing: 0.5,
-          textTransform: 'uppercase',
-          margin: '0 0 8px',
-        }}
-      >
-        {title}
-      </h3>
-      {children}
-    </section>
   )
 }
