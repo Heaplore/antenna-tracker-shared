@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>波束赋形架构DBF-ABF-HBF混合对比 — KG 卡片</title>
+<title>拓扑THz漏波天线-芯片级全空间覆盖 — KG 卡片</title>
 <style>
   :root {
     --primary: #0e7490;
@@ -245,22 +245,18 @@
   <div class="hero">
     <div class="hero-header">
       <div class="hero-type">technology · KG 卡片</div>
-      <div class="hero-updated">UPDATED 2026-07-03</div>
+      <div class="hero-updated">UPDATED 2026-07-01</div>
     </div>
     <div class="hero-title">
-      波束赋形架构DBF-ABF-HBF混合对比
+      拓扑THz漏波天线-芯片级全空间覆盖
       
     </div>
     
     <div class="hero-tags">
-      <span>天线技术/技术概念</span><span>波束赋形</span><span>DBF</span><span>ABF</span><span>HBF</span><span>数字波束赋形</span><span>模拟波束赋形</span><span>混合波束赋形</span><span>5G</span><span>Massive</span><span>MIMO</span>
+      <span>[天线技术</span><span>太赫兹</span><span>拓扑光子学</span><span>漏波天线</span><span>6G</span><span>芯片集成</span>
     </div>
     
     
-    <div class="hero-liner"><b>一句话:</b> 波束赋形三大架构——模拟（ABF）只有一条射频链路、便宜但只能形成一个波束；数字（DBF）每根天线一条链路、最灵活但最贵；混合（HBF）折中，5G 基站主流方案用 64 通道配 12-64 条射频链路，在性能和成本之间找平衡。</div>
-    
-    
-    <div class="hero-analogy"><b>类比:</b> 波束赋形就像&#34;手电筒阵列&#34;——</div>
     
     
   </div>
@@ -269,14 +265,15 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路（1条）→ 移相器网络 → 天线阵列（N 个单元）
-                      │
-                  衰减器网络
-      
-每个天线单元前有一个移相器（Phase Shifter）
-和/或衰减器（Attenuator）</code></pre>
+  <div class="block section-text">
+    <div class="block-title">1. 核心突破</div>
+    <div class="text-body">Notre Dame大学 Ranjan Singh 教授团队（第一作者 Wenhao Wang）在 **Nature Photonics** 发表了一项开创性工作：**芯片级拓扑漏波天线（Topological Leaky-Wave Antenna）**，实现了太赫兹频段的全空间（full-space）无线连接。
+
+**关键数据：**
+- 数据传输速率：**72 Gbps**
+- 三维空间覆盖：**约 75%**（传统天线几乎为零）
+- 辐射效率：**90%-100%**
+- 同时支持：无损高清视频流 + 24 Gbps 并行数据链路</div>
   </div>
 
     
@@ -285,245 +282,18 @@
 
     
   <div class="block section-list ">
-    <div class="block-title">1.2 特点</div>
+    <div class="block-title">2.1 什么是拓扑保护？</div>
     <div class="list-items ">
       
       <div class="list-item">
         
-        <div class="name">1.2 特点</div>
+        <div class="name">2.1 什么是拓扑保护？</div>
         
         
         
         
         
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | 1 |
-| 空间流数 | 1（单用户） |
-| 移相器位数 | 2-6 bit（步进 90°-5.6°） |
-| 波束切换速度 | μs 级（模拟域） |
-| 功耗 | 极低（1 条 RF 链路） |
-| 成本 | 最低 |
-| 灵活性 | 低（只能形成预置波束） |
-| 适用场景 | 毫米波初始接入、卫星通信、4G 传统天线 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">1.3 核心组件 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>移相器类型：
-  1. 数字移相器（LUT 查找表）
-     - 相位步进：360°/2^n（n=位数）
-     - 4 bit → 22.5° 步进
-     - 6 bit → 5.6° 步进
-     
-  2. 模拟移相器（PLL/RC 网络）
-     - 连续可调
-     - 相位精度受温度影响
-     
-  3. 介质移相器
-     - 基于高 Dk 陶瓷
-     - 体积小，适合 5G AAU
-     
-  4. MEMS 移相器
-     - 微机电系统
-     - 超低损耗，但可靠性待验证</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">1.4 局限性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 只能形成单波束 → 无法多用户复用
-2. 波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
-3. 移相器相位量化误差 → 波束指向精度受限
-4. 无法自适应零陷 → 干扰抑制能力弱</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路 1 → DAC → 上变频器 → PA → 天线单元 1
-射频链路 2 → DAC → 上变频器 → PA → 天线单元 2
-...
-射频链路 N → DAC → 上变频器 → PA → 天线单元 N
-
-每根天线都有独立的 RF 链路 → 数字域做波束权重</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">2.2 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | N（等于天线数） |
-| 空间流数 | 最多 N 流 |
-| 波束形成 | 数字域预编码矩阵 W ∈ C^(N×K) |
-| 波束切换速度 | ns 级（数字信号处理） |
-| 功耗 | 高（N 条 RF 链路） |
-| 成本 | 最高 |
-| 灵活性 | 最高（每根天线独立控制） |
-| 适用场景 | Sub-6GHz 基站、实验室验证 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.3 预编码算法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>全数字预编码：
-  y = Ws + n
-  
-  其中：
-  y: 接收信号
-  W: 预编码矩阵（N_t × N_s）
-  s: 发送符号
-  n: 噪声
-  
-主流算法：
-  1. 迫零 ZF（Zero-Forcing）
-     W = H^H(HH^H)^(-1)
-     简单但噪声增强
-     
-  2. MMSE（最小均方误差）
-     W = H^H(HH^H + σ²I)^(-1)
-     考虑噪声
-     
-  3. WMMSE（加权 MMSE）
-     迭代优化，逼近容量
-     
-  4. SVD 分解
-     H = UΣV^H
-     最优但计算量大</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.4 在 5G 中的实际应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>64T64R AAU：
-  - 64 条射频链路
-  - 64 个 DAC/ADC
-  - 64 个 PA/LNA
-  - 功耗：~500W-600W（含功放）
-  
-128T128R AAU：
-  - 128 条射频链路
-  - 功耗：~800W-1000W
-  
-挑战：
-  - 功耗随天线数线性增长
-  - 成本高昂（每多一条链路 = 多一套 RF 器件）
-  - 散热压力大</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>数字域（基带）：
-  K 条射频链路 → K 个 DAC → 模拟预编码矩阵 F_RF
-  
-模拟域（射频）：
-  F_RF → 移相器网络 → N 根天线
-  
-K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.2 三种连接架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 全连接架构（Fully Connected）
-   每条 RF 链路连接所有天线单元
-   - 性能好（逼近 DBF）
-   - 移相器数量：K × N
-   - 功耗高
-   - 复杂度最高
-   
-2. 部分连接架构（Partially Connected / Subarray）
-   每条 RF 链路连接一组天线（子阵）
-   - 移相器数量：N
-   - 功耗中
-   - 5G 基站主流方案
-   
-3. 动态子阵架构（Dynamic Subarray）
-   射频链路可以动态分配到不同子阵
-   - 灵活性最高
-   - 需要 RF 开关网络
-   - 6G 候选方案</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">3.3 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | ABF | HBF（子阵） | DBF |
-|------|-----|------------|-----|
-| 射频链路数 | 1 | K（12-64） | N（64-128） |
-| 空间流数 | 1 | K | N |
-| 频谱效率 | 基准 | 85-95% | 100% |
-| 功耗 | 基准 | 60-70% | 100% |
-| 成本 | 基准 | 50-60% | 100% |
-| 波束灵活性 | 低 | 中 | 高 |
-| 5G 主流 | ❌ | ✅ | 实验室 |</div>
+        <div class="desc">拓扑光子学借鉴了凝聚态物理中的拓扑绝缘体概念。在 specially structured 材料中，光可以沿着&#34;受保护的路径&#34;传播，**抵抗散射和缺陷**。即使芯片上有制造瑕疵或弯曲，信号也不会丢失。</div>
         
         
       </div>
@@ -536,23 +306,135 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
     
   <div class="block section-list ">
-    <div class="block-title">3.4 5G 基站 HBF 典型配置</div>
+    <div class="block-title">2.2 &#34;故意泄漏&#34;的设计哲学</div>
     <div class="list-items ">
       
       <div class="list-item">
         
-        <div class="name">3.4 5G 基站 HBF 典型配置</div>
+        <div class="name">2.2 &#34;故意泄漏&#34;的设计哲学</div>
         
         
         
         
         
-        <div class="desc">| 厂商 | 产品 | 天线数 | RF 链路数 | 架构 |
-|------|------|--------|----------|------|
-| 华为 | AAU 64T64R | 192（64 端口双极化） | 64 | 子阵 |
-| 爱立信 | AIR 6488 | 128（64 端口） | 64 | 子阵 |
-| 中兴 | 64T64R AAU | 384（64 端口） | 32-64 | 子阵 |
-| 三星 | MMB-H13（28GHz） | 128 | 32 | 子阵 |</div>
+        <div class="desc">传统太赫兹天线的设计思路是**抑制泄漏**——把信号约束在芯片内部波导中传输。而这个突破性工作的核心反转了思路：
+
+&gt; **故意让信号从芯片中&#34;泄漏&#34;出来**，但通过拓扑保护确保泄漏是可控的、无损失的。
+
+就像设计一个&#34;有控制的裂缝&#34;，让光从芯片中以锥形辐射出去，同时保持信号的完整性和方向性。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.3 漏波天线（Leaky-Wave Antenna）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.3 漏波天线（Leaky-Wave Antenna）</div>
+        
+        
+        
+        
+        
+        <div class="desc">漏波天线是一种连续波导结构，信号沿波导传播时逐渐&#34;泄漏&#34;到自由空间。与传统天线不同：
+- **无离散辐射单元**：整个波导本身就是天线
+- **频率扫描特性**：不同频率的信号在不同角度辐射
+- **拓扑增强**：加入拓扑保护后，泄漏方向可控、效率极高</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.1 太赫兹频段的固有挑战</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.1 太赫兹频段的固有挑战</div>
+        
+        
+        
+        
+        
+        <div class="desc">6G计划使用的太赫兹频段（0.1-10 THz）面临两大难题：
+1. **传播距离极短**：大气吸收严重，毫米级精度要求
+2. **波束极窄**：传统天线在THz频段产生高度定向的窄波束，覆盖面积小</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.2 拓扑天线的解决方案</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.2 拓扑天线的解决方案</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 维度 | 传统THz天线 | 拓扑漏波天线 |
+|------|------------|-------------|
+| 覆盖范围 | 窄波束，几乎零三维覆盖 | 锥形辐射，覆盖75%三维空间 |
+| 数据速率 | 受限于波束对准精度 | 72 Gbps（实测） |
+| 制造容差 | 敏感，缺陷导致性能骤降 | 拓扑保护，抗缺陷 |
+| 集成度 | 分立元件，体积大 | 芯片级单片集成 |
+| 双向能力 | 收发分离 | 可同时收发 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.3 与中兴GigaMIMO的关系</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.3 与中兴GigaMIMO的关系</div>
+        
+        
+        
+        
+        
+        <div class="desc">中兴的GigaMIMO（今天已学）聚焦的是**U6G亚毫米波频段**（6.425-7.125 GHz），通过超大天线阵列（2000+单元）和AI调度提升容量。
+
+而拓扑THz天线走的是**完全不同的技术路线**：
+- GigaMIMO = 阵列天线 + AI（地面基站侧）
+- 拓扑THz = 光子芯片 + 拓扑物理（芯片级/短距高速连接）
+
+两者互补：GigaMIMO解决广域容量，拓扑THz解决局域超高带宽（如工厂内设备互联、终端间直连）。</div>
         
         
       </div>
@@ -565,56 +447,59 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
     
   <div class="block section-text">
-    <div class="block-title">四、波束倾斜（Beam Squint）问题</div>
-    <div class="text-body">```
-问题：
-  模拟/混合波束赋形使用相位移相器
-  → 相位权重与频率相关
-  → 宽带信号下不同频率波束指向不同
+    <div class="block-title">4. 产业链动态</div>
+    <div class="text-body">- **学术机构**：Notre Dame大学（主导）+ 法国里尔大学（Guillaume Ducournau团队，THz器件专长）
+- **应用前景**：
+  - TeraFi（太赫兹WiFi）：工厂/数据中心内设备互联
+  - 具身智能机器人：低延迟高清视频+数据双链路
+  - 6G终端芯片：手机/AR眼镜内的高频收发模块
+- **时间线**：Nature Photonics 2026年1月正式发表，IEEE Spectrum 2月报道</div>
+  </div>
+
+    
   
-公式：
-  Δφ = 2πd·sin(θ)/λ = 2πd·f·sin(θ)/c
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">5. 趋势判断</div>
+    <div class="text-body">1. **拓扑光子学将从学术研究走向6G芯片量产**。拓扑保护的核心价值是&#34;制造容差&#34;——这对芯片级量产极其关键。THz频段对制造精度要求极高，拓扑结构可以容忍一定偏差。
+
+2. **与GigaMIMO构成6G天线技术的&#34;双引擎&#34;**。GigaMIMO解决宏观尺度的覆盖和容量，拓扑THz解决微观尺度的芯片级高频集成。两者在6G时代将并存。
+
+3. **中国厂商需要关注**。虽然这项工作是美法团队完成的，但中国在THz频段器件（如太赫兹雷达、成像）已有积累。华为、中兴若在THz芯片天线方向布局，可参考此拓扑思路。</div>
+  </div>
+
+    
   
-当 f 变化时，θ 也变化 → 波束倾斜
-  
-影响：
-  - 宽带系统（&gt; 100MHz）性能下降
-  - 毫米波更严重（相对带宽更大）
-  
-解决方案：
-  1. 真时延（True Time Delay, TTD）
-     - 使用时延线代替移相器
-     - 所有频率相位一致
-     - 成本高、体积大
-     
-  2. 子带划分
-     - 将宽带分成多个子带
-     - 每个子带独立波束赋形
-     - 折中方案
-     
-  3. 数字波束赋形
-     - 数字域补偿
-     - 最彻底但最贵
-```</div>
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6. 与老大的关联</div>
+    <div class="text-body">- 老大在中兴，GigaMIMO正是中兴在MWC 2026上发布的6G旗舰天线方案。拓扑THz天线提供了另一个维度的技术参照——当GigaMIMO还在做&#34;更大阵列&#34;时，拓扑天线做的是&#34;更小芯片&#34;。
+- 如果中兴在6G终端芯片方向有布局，这个拓扑光子学思路可能成为差异化竞争点。
+- 太赫兹频段的芯片级集成是6G终端 miniaturization 的关键瓶颈之一。
+
+---
+
+参考资料：
+- W. Wang et al., &#34;On-chip topological leaky-wave antenna for full-space terahertz wireless connectivity,&#34; *Nature Photonics* (2026). DOI: 10.1038/s41566-025-01825-8
+- Charles Q. Choi, &#34;Leaky 6G Chip Tech Beats Narrow Terahertz Beam Constraints,&#34; *IEEE Spectrum*, Feb 2026
+- Ranjan Singh, Terahertz Lab, University of Notre Dame
+- phys.org coverage, Feb 2026</div>
   </div>
 
     
   
 
   
-  <div class="block related-block">
-    <div class="block-title">关联笔记 (4)</div>
-    <div class="related-grid">
-      <a href="#">technology-波束赋形beamforming深度解读</a><a href="#">technology-近场波束赋形near-field-beamforming</a><a href="#">technology-极化波束赋形polarization-beamforming</a><a href="#">technology-相控阵天线phased-array-antenna</a>
-    </div>
-  </div>
-  
 
 </div>
 
 <div class="footer">
   <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-波束赋形架构dbf-abf-hbf混合对比</span>
+  <span>node: technology-拓扑thz漏波天线-芯片级全空间覆盖</span>
 </div>
 
 </div>

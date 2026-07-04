@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>波束赋形架构DBF-ABF-HBF混合对比 — KG 卡片</title>
+<title>天线AI设计预测-三星LG电子工程实践 — KG 卡片</title>
 <style>
   :root {
     --primary: #0e7490;
@@ -245,314 +245,39 @@
   <div class="hero">
     <div class="hero-header">
       <div class="hero-type">technology · KG 卡片</div>
-      <div class="hero-updated">UPDATED 2026-07-03</div>
+      <div class="hero-updated">UPDATED 2026-06-19</div>
     </div>
     <div class="hero-title">
-      波束赋形架构DBF-ABF-HBF混合对比
+      天线AI设计预测-三星LG电子工程实践
       
     </div>
     
     <div class="hero-tags">
-      <span>天线技术/技术概念</span><span>波束赋形</span><span>DBF</span><span>ABF</span><span>HBF</span><span>数字波束赋形</span><span>模拟波束赋形</span><span>混合波束赋形</span><span>5G</span><span>Massive</span><span>MIMO</span>
+      <span>天线</span><span>AI设计</span><span>三星电子</span><span>LG电子</span><span>Dassault</span><span>CST</span><span>预测模型</span>
     </div>
     
     
-    <div class="hero-liner"><b>一句话:</b> 波束赋形三大架构——模拟（ABF）只有一条射频链路、便宜但只能形成一个波束；数字（DBF）每根天线一条链路、最灵活但最贵；混合（HBF）折中，5G 基站主流方案用 64 通道配 12-64 条射频链路，在性能和成本之间找平衡。</div>
-    
-    
-    <div class="hero-analogy"><b>类比:</b> 波束赋形就像&#34;手电筒阵列&#34;——</div>
     
     
   </div>
 
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">1.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路（1条）→ 移相器网络 → 天线阵列（N 个单元）
-                      │
-                  衰减器网络
-      
-每个天线单元前有一个移相器（Phase Shifter）
-和/或衰减器（Attenuator）</code></pre>
-  </div>
-
-    
   
     
 
     
   <div class="block section-list ">
-    <div class="block-title">1.2 特点</div>
+    <div class="block-title">背景</div>
     <div class="list-items ">
       
       <div class="list-item">
         
-        <div class="name">1.2 特点</div>
+        <div class="name">背景</div>
         
         
         
         
         
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | 1 |
-| 空间流数 | 1（单用户） |
-| 移相器位数 | 2-6 bit（步进 90°-5.6°） |
-| 波束切换速度 | μs 级（模拟域） |
-| 功耗 | 极低（1 条 RF 链路） |
-| 成本 | 最低 |
-| 灵活性 | 低（只能形成预置波束） |
-| 适用场景 | 毫米波初始接入、卫星通信、4G 传统天线 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">1.3 核心组件 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>移相器类型：
-  1. 数字移相器（LUT 查找表）
-     - 相位步进：360°/2^n（n=位数）
-     - 4 bit → 22.5° 步进
-     - 6 bit → 5.6° 步进
-     
-  2. 模拟移相器（PLL/RC 网络）
-     - 连续可调
-     - 相位精度受温度影响
-     
-  3. 介质移相器
-     - 基于高 Dk 陶瓷
-     - 体积小，适合 5G AAU
-     
-  4. MEMS 移相器
-     - 微机电系统
-     - 超低损耗，但可靠性待验证</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">1.4 局限性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 只能形成单波束 → 无法多用户复用
-2. 波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
-3. 移相器相位量化误差 → 波束指向精度受限
-4. 无法自适应零陷 → 干扰抑制能力弱</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路 1 → DAC → 上变频器 → PA → 天线单元 1
-射频链路 2 → DAC → 上变频器 → PA → 天线单元 2
-...
-射频链路 N → DAC → 上变频器 → PA → 天线单元 N
-
-每根天线都有独立的 RF 链路 → 数字域做波束权重</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">2.2 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | N（等于天线数） |
-| 空间流数 | 最多 N 流 |
-| 波束形成 | 数字域预编码矩阵 W ∈ C^(N×K) |
-| 波束切换速度 | ns 级（数字信号处理） |
-| 功耗 | 高（N 条 RF 链路） |
-| 成本 | 最高 |
-| 灵活性 | 最高（每根天线独立控制） |
-| 适用场景 | Sub-6GHz 基站、实验室验证 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.3 预编码算法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>全数字预编码：
-  y = Ws + n
-  
-  其中：
-  y: 接收信号
-  W: 预编码矩阵（N_t × N_s）
-  s: 发送符号
-  n: 噪声
-  
-主流算法：
-  1. 迫零 ZF（Zero-Forcing）
-     W = H^H(HH^H)^(-1)
-     简单但噪声增强
-     
-  2. MMSE（最小均方误差）
-     W = H^H(HH^H + σ²I)^(-1)
-     考虑噪声
-     
-  3. WMMSE（加权 MMSE）
-     迭代优化，逼近容量
-     
-  4. SVD 分解
-     H = UΣV^H
-     最优但计算量大</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.4 在 5G 中的实际应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>64T64R AAU：
-  - 64 条射频链路
-  - 64 个 DAC/ADC
-  - 64 个 PA/LNA
-  - 功耗：~500W-600W（含功放）
-  
-128T128R AAU：
-  - 128 条射频链路
-  - 功耗：~800W-1000W
-  
-挑战：
-  - 功耗随天线数线性增长
-  - 成本高昂（每多一条链路 = 多一套 RF 器件）
-  - 散热压力大</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>数字域（基带）：
-  K 条射频链路 → K 个 DAC → 模拟预编码矩阵 F_RF
-  
-模拟域（射频）：
-  F_RF → 移相器网络 → N 根天线
-  
-K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.2 三种连接架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 全连接架构（Fully Connected）
-   每条 RF 链路连接所有天线单元
-   - 性能好（逼近 DBF）
-   - 移相器数量：K × N
-   - 功耗高
-   - 复杂度最高
-   
-2. 部分连接架构（Partially Connected / Subarray）
-   每条 RF 链路连接一组天线（子阵）
-   - 移相器数量：N
-   - 功耗中
-   - 5G 基站主流方案
-   
-3. 动态子阵架构（Dynamic Subarray）
-   射频链路可以动态分配到不同子阵
-   - 灵活性最高
-   - 需要 RF 开关网络
-   - 6G 候选方案</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">3.3 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | ABF | HBF（子阵） | DBF |
-|------|-----|------------|-----|
-| 射频链路数 | 1 | K（12-64） | N（64-128） |
-| 空间流数 | 1 | K | N |
-| 频谱效率 | 基准 | 85-95% | 100% |
-| 功耗 | 基准 | 60-70% | 100% |
-| 成本 | 基准 | 50-60% | 100% |
-| 波束灵活性 | 低 | 中 | 高 |
-| 5G 主流 | ❌ | ✅ | 实验室 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">3.4 5G 基站 HBF 典型配置</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.4 5G 基站 HBF 典型配置</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 厂商 | 产品 | 天线数 | RF 链路数 | 架构 |
-|------|------|--------|----------|------|
-| 华为 | AAU 64T64R | 192（64 端口双极化） | 64 | 子阵 |
-| 爱立信 | AIR 6488 | 128（64 端口） | 64 | 子阵 |
-| 中兴 | 64T64R AAU | 384（64 端口） | 32-64 | 子阵 |
-| 三星 | MMB-H13（28GHz） | 128 | 32 | 子阵 |</div>
+        <div class="desc">2026年6月11日，达索系统韩国分公司举办Simulia User Day大会，三星电子和LG电子工程师分享了AI在工程领域的实际应用案例。这两个案例对天线行业有直接的借鉴意义。</div>
         
         
       </div>
@@ -565,56 +290,224 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
     
   <div class="block section-text">
-    <div class="block-title">四、波束倾斜（Beam Squint）问题</div>
-    <div class="text-body">```
-问题：
-  模拟/混合波束赋形使用相位移相器
-  → 相位权重与频率相关
-  → 宽带信号下不同频率波束指向不同
-  
-公式：
-  Δφ = 2πd·sin(θ)/λ = 2πd·f·sin(θ)/c
-  
-当 f 变化时，θ 也变化 → 波束倾斜
-  
-影响：
-  - 宽带系统（&gt; 100MHz）性能下降
-  - 毫米波更严重（相对带宽更大）
-  
-解决方案：
-  1. 真时延（True Time Delay, TTD）
-     - 使用时延线代替移相器
-     - 所有频率相位一致
-     - 成本高、体积大
-     
-  2. 子带划分
-     - 将宽带分成多个子带
-     - 每个子带独立波束赋形
-     - 折中方案
-     
-  3. 数字波束赋形
-     - 数字域补偿
-     - 最彻底但最贵
-```</div>
+    <div class="block-title">项目概述</div>
+    <div class="text-body">三星电子产业合作团队的申容善（Yong-seon Shin）工程师，从事天线开发超过20年。他在大会上分享了天线性能预测技术的机器学习算法应用案例。</div>
   </div>
 
     
   
+    
 
+    
+  <div class="block section-text">
+    <div class="block-title">核心痛点</div>
+    <div class="text-body">申工最初对AI在天线设计中的应用持怀疑态度，原因有三：
+
+1. **天线性能受环境影响极大**：不仅取决于天线自身结构，还受设备安装载体（车辆/手机等）周围结构和介质变化的影响
+2. **缺乏训练大数据**：天线领域没有像计算机视觉那样海量的标注数据
+3. **非线性映射复杂**：即使通过有限元方法（FEM）求解器获得仿真数据，输入设计变量与输出结果之间呈现高维非线性关系，传统数学建模难以拟合</div>
+  </div>
+
+    
   
-  <div class="block related-block">
-    <div class="block-title">关联笔记 (4)</div>
-    <div class="related-grid">
-      <a href="#">technology-波束赋形beamforming深度解读</a><a href="#">technology-近场波束赋形near-field-beamforming</a><a href="#">technology-极化波束赋形polarization-beamforming</a><a href="#">technology-相控阵天线phased-array-antenna</a>
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">突破路径</div>
+    <div class="text-body">2025年3月，申工在达索系统协助下启动PoC项目，构建了虚拟空间中的分析自动化流程，直接验证AI在天线开发中的可行性。</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">关键成果</div>
+    <div class="text-body">- **效率提升**：大幅减少了需要反复运行数百次的CST分析流程
+- **候选设计筛选**：在初始设计阶段即可筛选出高概率满足规格的设计候选方案
+- **开发周期缩短**：将开发lead time缩短了数十倍
+- **小数据集可行性**：证明了即使在有限数据集条件下，也能构建可靠的预测元模型（predictive metamodel）</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">未来规划</div>
+    <div class="text-body">申工计划将应用范围从单一天线模块扩展到LTE和Wi-Fi复杂多频天线，并构建覆盖车身结构、玻璃、支架位置等形状变量的公司级标准设计验证基础设施。
+
+&gt; &#34;如果工程师能用清晰的设计目标和领域知识来控制AI流水线，它就能成为消除重复调谐和分析时间的战略性工程工具，加速关键设计决策。&#34;</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">项目背景</div>
+    <div class="text-body">LG电子自2019年底试点基于达索系统的SPDM（仿真流程与数据管理）平台，2022年4月完成总部部署。前2-3年面临的主要问题是各事业部的CAE组织分散，一线工程师不愿使用系统。</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">核心创新</div>
+    <div class="text-body">将传统的&#34;数据湖&#34;（仅存放报告文件）升级为定量数值数据库，且不改变工程师的工作方式：
+
+- 工程师只需上传现有的PPT报告
+- 系统自动提取图表数据并转化为结构化数据库
+- 引入视觉语言模型 **Qwen3-VL** 处理PPT中复杂的表格和对象数据</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">四阶段数据提取流程</div>
+    <div class="text-body">1. PPT报告上传（工程师零额外操作）
+2. Qwen3-VL视觉分析提取表格和数值
+3. 数据清洗与结构化
+4. 存入定量数据库</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">应用场景</div>
+    <div class="text-body">- 异常值分析（outlier analysis）
+- 设计模式分析（design pattern analysis）
+- 趋势分析（trend analysis）</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">关键成就</div>
+    <div class="text-body">构建了不改变一线工程师工作方式的前提下，将非结构化报告数据自动转化为结构化资产的系统，为AI模型提供了高质量的数据管道基础。</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">1. 预测模型可以弥补小数据短板</div>
+    <div class="text-body">三星案例证明，即使在天线这种数据稀缺领域，通过仿真数据（CST/FEM）生成训练集，配合合适的ML算法，也能构建可靠的预测元模型。这对我们QMS-BI系统的来料检验数据不足场景有直接参考价值。</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2. 仿真自动化是AI落地的第一步</div>
+    <div class="text-body">申工的PoC项目核心是先构建&#34;分析自动化流程&#34;，再用AI加速。这意味着我们不需要一步到位做端到端的AI系统，可以从仿真脚本自动化开始，逐步引入预测模型。</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">3. 数据管道比模型本身更重要</div>
+    <div class="text-body">LG电子的案例表明，最大的瓶颈往往不是算法，而是数据获取。将非结构化报告（PPT/Excel）自动转化为结构化数据库，这一步的价值可能比最终的AI模型更大。</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4. 工程师主导的AI pipeline是可持续的</div>
+    <div class="text-body">两个案例都强调&#34;工程师控制AI流水线&#34;而非&#34;AI取代工程师&#34;。这与我们&#34;QMS-BI辅助决策而非替代质检员&#34;的理念一致。</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">技术栈总结</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">技术栈总结</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 组件 | 三星电子 | LG电子 |
+|------|----------|--------|
+| 仿真工具 | CST Studio (达索) | Simulia (达索) |
+| AI框架 | 达索协助搭建 | 达索SPDM平台 |
+| 核心算法 | ML回归模型(ANN最优) | Qwen3-VL视觉语言模型 |
+| 数据源 | FEM仿真数据 | PPT报告图表 |
+| 关键指标 | 开发周期缩短数十倍 | 100%自主数据提取 |</div>
+        
+        
+      </div>
+      
     </div>
   </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">参考资料</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">参考资料</div>
+        
+        
+        
+        
+        
+        <div class="desc">- [DigitalToday: Engineering AI applications spread from antenna design to CAE database building](https://www.digitaltoday.co.kr/en/view/64576/engineering-ai-applications-spread-from-antenna-design-to-cae-db-building) (2026-06-11)
+- [TEKsystems: Top Manufacturing Trends in 2026](https://www.teksystems.com/en/insights/article/manufacturing-trends-2026) (2026-05-08)
+- TU Delft: Machine Learning in Pre- and Post-Manufacturing Stages of Active Array Antennas</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+
   
 
 </div>
 
 <div class="footer">
   <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-波束赋形架构dbf-abf-hbf混合对比</span>
+  <span>node: technology-天线ai设计预测-三星lg电子工程实践</span>
 </div>
 
 </div>

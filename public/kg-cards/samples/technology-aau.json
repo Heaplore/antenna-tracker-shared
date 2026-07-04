@@ -56,9 +56,9 @@
       "order": 5, "type": "list", "subtitle": "PanoAAU", "list_class": "features",
       "title": "AAU 新物种 PanoAAU (5G 覆盖扩展方案)",
       "entries": [
-        {"title": "形态升级:广角覆盖", "body": "传统 AAU 水平波束宽度 65°,PanoAAU 扩展到 90° + 90° + 90° (三扇区 270°),减少天线数量 30%。"},
-        {"title": "功耗优化:智能休眠", "body": "PanoAAU 集成符号关断(Symbol Shutdown) + 通道关断(Channel Shutdown) + 深度休眠(Deep Sleep),闲时功耗降到 30%。"},
-        {"title": "运维简化:远程升级", "body": "PanoAAU 支持 OTAP(空中参数调整) + 远程波束优化,站点的运维上门次数降低 40%。"}
+        {"title": "形态升级:广角覆盖", "desc": "水平 65°→90°+90°+90°(270°三扇区),减少天线 30%"},
+        {"title": "功耗优化:智能休眠", "desc": "符号关断 + 通道关断 + 深度休眠,闲时功耗降至 30%"},
+        {"title": "运维简化:远程升级", "desc": "OTAP 空中参数调整 + 远程波束优化,上门次数降 40%"}
       ]
     },
     {

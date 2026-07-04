@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>波束赋形架构DBF-ABF-HBF混合对比 — KG 卡片</title>
+<title>天线滤波器一体化AFU — KG 卡片</title>
 <style>
   :root {
     --primary: #0e7490;
@@ -248,19 +248,19 @@
       <div class="hero-updated">UPDATED 2026-07-03</div>
     </div>
     <div class="hero-title">
-      波束赋形架构DBF-ABF-HBF混合对比
+      天线滤波器一体化AFU
       
     </div>
     
     <div class="hero-tags">
-      <span>天线技术/技术概念</span><span>波束赋形</span><span>DBF</span><span>ABF</span><span>HBF</span><span>数字波束赋形</span><span>模拟波束赋形</span><span>混合波束赋形</span><span>5G</span><span>Massive</span><span>MIMO</span>
+      <span>天线技术/技术概念</span><span>AFU</span><span>天线滤波器一体化</span><span>滤波器天线集成</span><span>5G基站</span><span>无源互调</span>
     </div>
     
     
-    <div class="hero-liner"><b>一句话:</b> 波束赋形三大架构——模拟（ABF）只有一条射频链路、便宜但只能形成一个波束；数字（DBF）每根天线一条链路、最灵活但最贵；混合（HBF）折中，5G 基站主流方案用 64 通道配 12-64 条射频链路，在性能和成本之间找平衡。</div>
+    <div class="hero-liner"><b>一句话:</b> AFU（Antenna Filter Unit）= 滤波器直接集成在天线腔体内，省去馈线连接——少一根电缆 = 少两个连接器 = 少两个 PIM 源 + 少 1dB 损耗。5G 多频段基站标配。</div>
     
     
-    <div class="hero-analogy"><b>类比:</b> 波束赋形就像&#34;手电筒阵列&#34;——</div>
+    <div class="hero-analogy"><b>类比:</b> 传统方案：天线 → 馈线 → 滤波器 → 馈线 → 基站（4 个连接器，3 段馈线）。</div>
     
     
   </div>
@@ -270,342 +270,214 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路（1条）→ 移相器网络 → 天线阵列（N 个单元）
-                      │
-                  衰减器网络
-      
-每个天线单元前有一个移相器（Phase Shifter）
-和/或衰减器（Attenuator）</code></pre>
-  </div>
-
+    <div class="block-title">1.1 传统方案的痛点 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>传统基站架构：
+  天线阵列
+    │
+    ├─→ 馈线（1/2&#34; 低损电缆）
+    │     ↓
+    │   滤波器（双工器/双频滤波器）
+    │     ↓
+    │   馈线
+    │     ↓
+    │   RRU/AAU
     
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">1.2 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | 1 |
-| 空间流数 | 1（单用户） |
-| 移相器位数 | 2-6 bit（步进 90°-5.6°） |
-| 波束切换速度 | μs 级（模拟域） |
-| 功耗 | 极低（1 条 RF 链路） |
-| 成本 | 最低 |
-| 灵活性 | 低（只能形成预置波束） |
-| 适用场景 | 毫米波初始接入、卫星通信、4G 传统天线 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">1.3 核心组件 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>移相器类型：
-  1. 数字移相器（LUT 查找表）
-     - 相位步进：360°/2^n（n=位数）
-     - 4 bit → 22.5° 步进
-     - 6 bit → 5.6° 步进
-     
-  2. 模拟移相器（PLL/RC 网络）
-     - 连续可调
-     - 相位精度受温度影响
-     
-  3. 介质移相器
-     - 基于高 Dk 陶瓷
-     - 体积小，适合 5G AAU
-     
-  4. MEMS 移相器
-     - 微机电系统
-     - 超低损耗，但可靠性待验证</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">1.4 局限性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 只能形成单波束 → 无法多用户复用
-2. 波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
-3. 移相器相位量化误差 → 波束指向精度受限
-4. 无法自适应零陷 → 干扰抑制能力弱</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路 1 → DAC → 上变频器 → PA → 天线单元 1
-射频链路 2 → DAC → 上变频器 → PA → 天线单元 2
-...
-射频链路 N → DAC → 上变频器 → PA → 天线单元 N
-
-每根天线都有独立的 RF 链路 → 数字域做波束权重</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">2.2 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | N（等于天线数） |
-| 空间流数 | 最多 N 流 |
-| 波束形成 | 数字域预编码矩阵 W ∈ C^(N×K) |
-| 波束切换速度 | ns 级（数字信号处理） |
-| 功耗 | 高（N 条 RF 链路） |
-| 成本 | 最高 |
-| 灵活性 | 最高（每根天线独立控制） |
-| 适用场景 | Sub-6GHz 基站、实验室验证 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.3 预编码算法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>全数字预编码：
-  y = Ws + n
-  
-  其中：
-  y: 接收信号
-  W: 预编码矩阵（N_t × N_s）
-  s: 发送符号
-  n: 噪声
-  
-主流算法：
-  1. 迫零 ZF（Zero-Forcing）
-     W = H^H(HH^H)^(-1)
-     简单但噪声增强
-     
-  2. MMSE（最小均方误差）
-     W = H^H(HH^H + σ²I)^(-1)
-     考虑噪声
-     
-  3. WMMSE（加权 MMSE）
-     迭代优化，逼近容量
-     
-  4. SVD 分解
-     H = UΣV^H
-     最优但计算量大</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.4 在 5G 中的实际应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>64T64R AAU：
-  - 64 条射频链路
-  - 64 个 DAC/ADC
-  - 64 个 PA/LNA
-  - 功耗：~500W-600W（含功放）
-  
-128T128R AAU：
-  - 128 条射频链路
-  - 功耗：~800W-1000W
-  
-挑战：
-  - 功耗随天线数线性增长
-  - 成本高昂（每多一条链路 = 多一套 RF 器件）
-  - 散热压力大</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>数字域（基带）：
-  K 条射频链路 → K 个 DAC → 模拟预编码矩阵 F_RF
-  
-模拟域（射频）：
-  F_RF → 移相器网络 → N 根天线
-  
-K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.2 三种连接架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 全连接架构（Fully Connected）
-   每条 RF 链路连接所有天线单元
-   - 性能好（逼近 DBF）
-   - 移相器数量：K × N
-   - 功耗高
-   - 复杂度最高
-   
-2. 部分连接架构（Partially Connected / Subarray）
-   每条 RF 链路连接一组天线（子阵）
-   - 移相器数量：N
-   - 功耗中
-   - 5G 基站主流方案
-   
-3. 动态子阵架构（Dynamic Subarray）
-   射频链路可以动态分配到不同子阵
-   - 灵活性最高
-   - 需要 RF 开关网络
-   - 6G 候选方案</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">3.3 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | ABF | HBF（子阵） | DBF |
-|------|-----|------------|-----|
-| 射频链路数 | 1 | K（12-64） | N（64-128） |
-| 空间流数 | 1 | K | N |
-| 频谱效率 | 基准 | 85-95% | 100% |
-| 功耗 | 基准 | 60-70% | 100% |
-| 成本 | 基准 | 50-60% | 100% |
-| 波束灵活性 | 低 | 中 | 高 |
-| 5G 主流 | ❌ | ✅ | 实验室 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">3.4 5G 基站 HBF 典型配置</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.4 5G 基站 HBF 典型配置</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 厂商 | 产品 | 天线数 | RF 链路数 | 架构 |
-|------|------|--------|----------|------|
-| 华为 | AAU 64T64R | 192（64 端口双极化） | 64 | 子阵 |
-| 爱立信 | AIR 6488 | 128（64 端口） | 64 | 子阵 |
-| 中兴 | 64T64R AAU | 384（64 端口） | 32-64 | 子阵 |
-| 三星 | MMB-H13（28GHz） | 128 | 32 | 子阵 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-text">
-    <div class="block-title">四、波束倾斜（Beam Squint）问题</div>
-    <div class="text-body">```
 问题：
-  模拟/混合波束赋形使用相位移相器
-  → 相位权重与频率相关
-  → 宽带信号下不同频率波束指向不同
-  
-公式：
-  Δφ = 2πd·sin(θ)/λ = 2πd·f·sin(θ)/c
-  
-当 f 变化时，θ 也变化 → 波束倾斜
-  
-影响：
-  - 宽带系统（&gt; 100MHz）性能下降
-  - 毫米波更严重（相对带宽更大）
-  
-解决方案：
-  1. 真时延（True Time Delay, TTD）
-     - 使用时延线代替移相器
-     - 所有频率相位一致
-     - 成本高、体积大
+  1. 连接器 PIM：每个连接器 = PIM 源
+     - 2 个连接器 → 2 个 PIM 源
+     - 双三载波 PIM 累积可能超标
      
-  2. 子带划分
-     - 将宽带分成多个子带
-     - 每个子带独立波束赋形
-     - 折中方案
+  2. 馈线损耗：10m 馈线 @3.5GHz ≈ 2dB
+     - 2 段馈线 = 4dB 损耗
+     - 4dB = 发射功率降低 60%!
      
-  3. 数字波束赋形
-     - 数字域补偿
-     - 最彻底但最贵
-```</div>
+  3. 安装复杂度：2 段馈线 + 4 个连接器
+     - 安装时间长
+     - 安装质量不一致
+     
+  4. 重量：馈线 + 连接器 ≈ 5-10kg
+     - 塔装风载增加</code></pre>
   </div>
 
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">1.2 AFU 的解决方案 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>AFU 架构：
+  天线阵列
+    │
+    └─→ 滤波器（集成在天线腔体内）
+          │
+          └─→ 短跳线（&lt; 0.5m）
+                │
+                └─→ RRU/AAU
+  
+优势：
+  1. 连接器减少 2 个 → PIM 源减半
+  2. 馈线减少 2 段 → 损耗减少 ~3dB
+  3. 重量减轻 5-10kg → 风载降低
+  4. 安装简化 → 一致性提高</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.1 滤波器类型 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>AFU 中常用的滤波器：
+
+1. 双频滤波器（Dual-Band Filter）
+   用途：同一天线支持两个频段
+   例如：700MHz + 2.6GHz 合一
+   结构：两个谐振腔并联
+   
+2. 双工器（Duplexer）
+   用途：Tx/Rx 频率分离
+   例如：FDD 模式，Tx 和 Rx 不同频段
+   结构：Tx 滤波器 + Rx 滤波器 + 环形器
+   
+3. 多频滤波器（Multi-Band Filter）
+   用途：支持 3-4 个频段
+   例如：700/900/1800/2600MHz 合一
+   结构：多个谐振腔 + 耦合网络
+   
+4. 带通滤波器（Band-Pass Filter）
+   用途：带外干扰抑制
+   例如：抑制邻频干扰</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.2 集成方式 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>方式 1：腔体集成（主流）
+  天线腔体 + 滤波器腔体 = 同一个金属壳
+  内部用隔板分隔
+  优点：屏蔽好，PIM 低
+  缺点：体积大
+  
+方式 2：PCB 集成
+  滤波器做在 PCB 上（LTCC/SAW）
+  贴在天线馈电网络旁边
+  优点：体积小，成本低
+  缺点：功率容量低，只适合小功率
+  
+方式 3：SiP 集成
+  滤波器 + 天线 + 馈电网络 = 一个封装
+  优点：极致小型化
+  缺点：设计复杂，只适合 Small Cell/AiP</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.3 AFU 内部结构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>典型 64T64R AFU（双频 700+2600MHz）：
+
+┌─────────────────────────────────────────┐
+│  天线罩（Radome）                         │
+│  ┌───────────────────────────────────┐   │
+│  │  天线阵列（双频振子）               │   │
+│  │   700MHz 振子（底部）               │   │
+│  │   2600MHz 振子（中部）              │   │
+│  │   3500MHz 振子（顶部）              │   │
+│  └───────────────────────────────────┘   │
+│  ┌───────────────────────────────────┐   │
+│  │  滤波器腔体（集成）                  │   │
+│  │   700MHz 滤波器                    │   │
+│  │   2600MHz 滤波器                    │   │
+│  │   3500MHz 滤波器                    │   │
+│  └───────────────────────────────────┘   │
+│  ┌───────────────────────────────────┐   │
+│  │  T/R 模块 + 馈电网络                │   │
+│  └───────────────────────────────────┘   │
+└─────────────────────────────────────────┘
+
+关键设计：
+  - 天线腔体与滤波器腔体之间：电磁隔离
+  - 滤波器输入到天线振子：&lt; 0.1m 短距离
+  - 滤波器输出到 RRU：1 根 7/16&#34; 电缆</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.1 滤波器指标</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.1 滤波器指标</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 参数 | 要求 | 说明 |
+|------|------|------|
+| 插入损耗 | &lt; 0.3dB | 越低越好 |
+| 带外抑制 | &gt; 60dB | 抑制邻频干扰 |
+| PIM | &lt; -155dBc | 双三载波 |
+| 功率容量 | &gt; 50W | 每通道 |
+| 温度稳定性 | ±5MHz（-40~85°C） | 频偏控制 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.2 AFU 整体指标</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.2 AFU 整体指标</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 参数 | 传统方案 | AFU | 改善 |
+|------|---------|-----|------|
+| 馈线损耗 | 3-4dB | &lt; 1dB | -70% |
+| 连接器数 | 6-8 个 | 2-4 个 | -50% |
+| PIM 源 | 6-8 个 | 2-4 个 | -50% |
+| 重量 | +5-10kg | 基准 | -50% |
+| 安装时间 | 30min | 15min | -50% |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
     
   
 
   
   <div class="block related-block">
-    <div class="block-title">关联笔记 (4)</div>
+    <div class="block-title">关联笔记 (3)</div>
     <div class="related-grid">
-      <a href="#">technology-波束赋形beamforming深度解读</a><a href="#">technology-近场波束赋形near-field-beamforming</a><a href="#">technology-极化波束赋形polarization-beamforming</a><a href="#">technology-相控阵天线phased-array-antenna</a>
+      <a href="#">component-滤波器filter</a><a href="#">component-天线振子dipole-element</a><a href="#">technology-天线馈电网络feed-network-power-divider</a>
     </div>
   </div>
   
@@ -614,7 +486,7 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
 <div class="footer">
   <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-波束赋形架构dbf-abf-hbf混合对比</span>
+  <span>node: technology-天线滤波器一体化afu</span>
 </div>
 
 </div>

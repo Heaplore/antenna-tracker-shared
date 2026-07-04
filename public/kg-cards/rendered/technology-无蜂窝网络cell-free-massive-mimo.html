@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>波束赋形架构DBF-ABF-HBF混合对比 — KG 卡片</title>
+<title>无蜂窝网络Cell-Free-Massive-MIMO — KG 卡片</title>
 <style>
   :root {
     --primary: #0e7490;
@@ -248,19 +248,19 @@
       <div class="hero-updated">UPDATED 2026-07-03</div>
     </div>
     <div class="hero-title">
-      波束赋形架构DBF-ABF-HBF混合对比
+      无蜂窝网络Cell-Free-Massive-MIMO
       
     </div>
     
     <div class="hero-tags">
-      <span>天线技术/技术概念</span><span>波束赋形</span><span>DBF</span><span>ABF</span><span>HBF</span><span>数字波束赋形</span><span>模拟波束赋形</span><span>混合波束赋形</span><span>5G</span><span>Massive</span><span>MIMO</span>
+      <span>天线技术/技术概念</span><span>无蜂窝网络</span><span>Cell-Free-Massive-MIMO</span><span>6G</span><span>分布式天线</span><span>协同波束赋形</span>
     </div>
     
     
-    <div class="hero-liner"><b>一句话:</b> 波束赋形三大架构——模拟（ABF）只有一条射频链路、便宜但只能形成一个波束；数字（DBF）每根天线一条链路、最灵活但最贵；混合（HBF）折中，5G 基站主流方案用 64 通道配 12-64 条射频链路，在性能和成本之间找平衡。</div>
+    <div class="hero-liner"><b>一句话:</b> 无蜂窝网络是 6G 的&#34;去基站化&#34;架构——没有传统的小区边界，每个用户被附近的所有接入点（AP）同时服务，消除小区边缘用户的高延迟和低速率问题。</div>
     
     
-    <div class="hero-analogy"><b>类比:</b> 波束赋形就像&#34;手电筒阵列&#34;——</div>
+    <div class="hero-analogy"><b>类比:</b> 传统蜂窝网络就像&#34;广场舞&#34;——每个大妈（用户）只听一个音响（基站）的音乐，站在音响旁边的人听得清楚，站在远处的人听不清。</div>
     
     
   </div>
@@ -270,13 +270,33 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路（1条）→ 移相器网络 → 天线阵列（N 个单元）
-                      │
-                  衰减器网络
-      
-每个天线单元前有一个移相器（Phase Shifter）
-和/或衰减器（Attenuator）</code></pre>
+    <div class="block-title">1.1 与传统蜂窝对比 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>传统蜂窝网络：
+  - 用户归属于一个基站（小区）
+  - 小区边缘用户：信号弱、干扰大
+  - 频率复用：相邻小区用不同频率
+  
+Cell-Free Massive MIMO：
+  - 用户被所有 AP 服务（无小区边界）
+  - 所有 AP 协同服务每个用户
+  - 无频率复用问题（所有 AP 用同一频率）</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">1.2 系统架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>中央处理单元（CPU）
+  ├── AP 1（16 天线）── 用户 A, B
+  ├── AP 2（16 天线）── 用户 A, C
+  ├── AP 3（16 天线）── 用户 B, C
+  ├── AP 4（16 天线）── 用户 A, B, C
+  └── ...
+  
+前传链路：光纤连接 CPU 和 AP</code></pre>
   </div>
 
     
@@ -285,27 +305,23 @@
 
     
   <div class="block section-list ">
-    <div class="block-title">1.2 特点</div>
+    <div class="block-title">1.3 关键组件</div>
     <div class="list-items ">
       
       <div class="list-item">
         
-        <div class="name">1.2 特点</div>
+        <div class="name">1.3 关键组件</div>
         
         
         
         
         
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | 1 |
-| 空间流数 | 1（单用户） |
-| 移相器位数 | 2-6 bit（步进 90°-5.6°） |
-| 波束切换速度 | μs 级（模拟域） |
-| 功耗 | 极低（1 条 RF 链路） |
-| 成本 | 最低 |
-| 灵活性 | 低（只能形成预置波束） |
-| 适用场景 | 毫米波初始接入、卫星通信、4G 传统天线 |</div>
+        <div class="desc">| 组件 | 功能 |
+|------|------|
+| AP（Access Point） | 分布式天线单元（4-16 天线） |
+| CPU（Central Processing Unit） | 集中处理波束赋形和信号合并 |
+| 前传链路 | 连接 AP 和 CPU（光纤） |
+| 用户设备 | 普通手机/终端 |</div>
         
         
       </div>
@@ -318,24 +334,15 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.3 核心组件 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>移相器类型：
-  1. 数字移相器（LUT 查找表）
-     - 相位步进：360°/2^n（n=位数）
-     - 4 bit → 22.5° 步进
-     - 6 bit → 5.6° 步进
-     
-  2. 模拟移相器（PLL/RC 网络）
-     - 连续可调
-     - 相位精度受温度影响
-     
-  3. 介质移相器
-     - 基于高 Dk 陶瓷
-     - 体积小，适合 5G AAU
-     
-  4. MEMS 移相器
-     - 微机电系统
-     - 超低损耗，但可靠性待验证</code></pre>
+    <div class="block-title">2.1 协同波束赋形 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>每个用户的数据流被所有 AP 同时发送：
+  y_k = Σ_m w_m,k · x_m + n_k
+  
+w_m,k = AP m 对用户 k 的波束赋形向量
+x_m = AP m 发送的信号
+n_k = 噪声
+
+目标：最大化 SINR（信干噪比）</code></pre>
   </div>
 
     
@@ -344,11 +351,14 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.4 局限性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 只能形成单波束 → 无法多用户复用
-2. 波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
-3. 移相器相位量化误差 → 波束指向精度受限
-4. 无法自适应零陷 → 干扰抑制能力弱</code></pre>
+    <div class="block-title">2.2 最大比率传输（MRT） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>最简单的波束赋形：
+  w_m,k = h_m,k^H
+  
+h_m,k = AP m 到用户 k 的信道
+  
+优点：实现简单
+缺点：不考虑相邻用户的干扰</code></pre>
   </div>
 
     
@@ -357,79 +367,15 @@
 
     
   <div class="block section-code">
-    <div class="block-title">2.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路 1 → DAC → 上变频器 → PA → 天线单元 1
-射频链路 2 → DAC → 上变频器 → PA → 天线单元 2
-...
-射频链路 N → DAC → 上变频器 → PA → 天线单元 N
-
-每根天线都有独立的 RF 链路 → 数字域做波束权重</code></pre>
-  </div>
-
-    
+    <div class="block-title">2.3 正则化最大比率传输（RMR-T） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>考虑干扰的波束赋形：
+  w_m,k = h_m,k^H · (Σ_j h_m,j·h_m,j^H + αI)^(-1)
   
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">2.2 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | N（等于天线数） |
-| 空间流数 | 最多 N 流 |
-| 波束形成 | 数字域预编码矩阵 W ∈ C^(N×K) |
-| 波束切换速度 | ns 级（数字信号处理） |
-| 功耗 | 高（N 条 RF 链路） |
-| 成本 | 最高 |
-| 灵活性 | 最高（每根天线独立控制） |
-| 适用场景 | Sub-6GHz 基站、实验室验证 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
+α = 正则化参数
+I = 单位矩阵
   
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.3 预编码算法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>全数字预编码：
-  y = Ws + n
-  
-  其中：
-  y: 接收信号
-  W: 预编码矩阵（N_t × N_s）
-  s: 发送符号
-  n: 噪声
-  
-主流算法：
-  1. 迫零 ZF（Zero-Forcing）
-     W = H^H(HH^H)^(-1)
-     简单但噪声增强
-     
-  2. MMSE（最小均方误差）
-     W = H^H(HH^H + σ²I)^(-1)
-     考虑噪声
-     
-  3. WMMSE（加权 MMSE）
-     迭代优化，逼近容量
-     
-  4. SVD 分解
-     H = UΣV^H
-     最优但计算量大</code></pre>
+优点：抑制干扰
+缺点：计算复杂度高</code></pre>
   </div>
 
     
@@ -438,21 +384,17 @@
 
     
   <div class="block section-code">
-    <div class="block-title">2.4 在 5G 中的实际应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>64T64R AAU：
-  - 64 条射频链路
-  - 64 个 DAC/ADC
-  - 64 个 PA/LNA
-  - 功耗：~500W-600W（含功放）
+    <div class="block-title">3.1 频谱效率 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>传统 Massive MIMO：
+  小区平均频谱效率：10-20 bps/Hz
+  小区边缘频谱效率：1-5 bps/Hz
   
-128T128R AAU：
-  - 128 条射频链路
-  - 功耗：~800W-1000W
+Cell-Free Massive MIMO：
+  小区平均频谱效率：20-40 bps/Hz
+  小区边缘频谱效率：10-20 bps/Hz
   
-挑战：
-  - 功耗随天线数线性增长
-  - 成本高昂（每多一条链路 = 多一套 RF 器件）
-  - 散热压力大</code></pre>
+提升：
+  95%-用户频谱效率：提升 3-5 倍</code></pre>
   </div>
 
     
@@ -461,14 +403,15 @@
 
     
   <div class="block section-code">
-    <div class="block-title">3.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>数字域（基带）：
-  K 条射频链路 → K 个 DAC → 模拟预编码矩阵 F_RF
+    <div class="block-title">3.2 覆盖均匀性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>传统蜂窝：
+  中心用户：SINR = 30dB
+  边缘用户：SINR = 5dB
   
-模拟域（射频）：
-  F_RF → 移相器网络 → N 根天线
+Cell-Free：
+  所有用户：SINR = 15-25dB（均匀）
   
-K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
+优势：消除小区边缘用户</code></pre>
   </div>
 
     
@@ -477,25 +420,13 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
     
   <div class="block section-code">
-    <div class="block-title">3.2 三种连接架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 全连接架构（Fully Connected）
-   每条 RF 链路连接所有天线单元
-   - 性能好（逼近 DBF）
-   - 移相器数量：K × N
-   - 功耗高
-   - 复杂度最高
-   
-2. 部分连接架构（Partially Connected / Subarray）
-   每条 RF 链路连接一组天线（子阵）
-   - 移相器数量：N
-   - 功耗中
-   - 5G 基站主流方案
-   
-3. 动态子阵架构（Dynamic Subarray）
-   射频链路可以动态分配到不同子阵
-   - 灵活性最高
-   - 需要 RF 开关网络
-   - 6G 候选方案</code></pre>
+    <div class="block-title">3.3 可靠性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>传统蜂窝：
+  切换失败率：0.1-1%
+  
+Cell-Free：
+  无需切换
+  可靠性：99.999%</code></pre>
   </div>
 
     
@@ -503,99 +434,87 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
     
 
     
-  <div class="block section-list ">
-    <div class="block-title">3.3 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | ABF | HBF（子阵） | DBF |
-|------|-----|------------|-----|
-| 射频链路数 | 1 | K（12-64） | N（64-128） |
-| 空间流数 | 1 | K | N |
-| 频谱效率 | 基准 | 85-95% | 100% |
-| 功耗 | 基准 | 60-70% | 100% |
-| 成本 | 基准 | 50-60% | 100% |
-| 波束灵活性 | 低 | 中 | 高 |
-| 5G 主流 | ❌ | ✅ | 实验室 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
+  <div class="block section-code">
+    <div class="block-title">4.1 前传容量 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>每个 AP 需要上传/下载 IQ 数据：
 
-    
-  <div class="block section-list ">
-    <div class="block-title">3.4 5G 基站 HBF 典型配置</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.4 5G 基站 HBF 典型配置</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 厂商 | 产品 | 天线数 | RF 链路数 | 架构 |
-|------|------|--------|----------|------|
-| 华为 | AAU 64T64R | 192（64 端口双极化） | 64 | 子阵 |
-| 爱立信 | AIR 6488 | 128（64 端口） | 64 | 子阵 |
-| 中兴 | 64T64R AAU | 384（64 端口） | 32-64 | 子阵 |
-| 三星 | MMB-H13（28GHz） | 128 | 32 | 子阵 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
+64 天线 AP @ 100MHz 带宽：
+  上行：64 × 100MHz × 12bit × 2 = 15.36Gbps
+  下行：64 × 100MHz × 12bit × 2 = 15.36Gbps
   
-    
-
-    
-  <div class="block section-text">
-    <div class="block-title">四、波束倾斜（Beam Squint）问题</div>
-    <div class="text-body">```
-问题：
-  模拟/混合波束赋形使用相位移相器
-  → 相位权重与频率相关
-  → 宽带信号下不同频率波束指向不同
-  
-公式：
-  Δφ = 2πd·sin(θ)/λ = 2πd·f·sin(θ)/c
-  
-当 f 变化时，θ 也变化 → 波束倾斜
-  
-影响：
-  - 宽带系统（&gt; 100MHz）性能下降
-  - 毫米波更严重（相对带宽更大）
+前传总容量（100 个 AP）：
+  1.5Tbps（上行 + 下行）
   
 解决方案：
-  1. 真时延（True Time Delay, TTD）
-     - 使用时延线代替移相器
-     - 所有频率相位一致
-     - 成本高、体积大
-     
-  2. 子带划分
-     - 将宽带分成多个子带
-     - 每个子带独立波束赋形
-     - 折中方案
-     
-  3. 数字波束赋形
-     - 数字域补偿
-     - 最彻底但最贵
-```</div>
+  1. 压缩感知（减少 IQ 数据量）
+  2. 分布式处理（AP 本地预计算）
+  3. 分层前传（局部 CPU + 全局 CPU）</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">4.2 信道估计 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>信道估计开销：
+  传统 Massive MIMO：N_users × N_AP
+  Cell-Free：N_users × N_AP_total
+  
+N_users = 用户数
+N_AP_total = 所有 AP 数
+  
+解决方案：
+  1. 局部信道估计（每个 AP 只估计附近用户）
+  2. 信道硬化（大数定律降低估计精度要求）</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">4.3 同步要求 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>所有 AP 需要严格同步：
+  时间同步：&lt; 100ns
+  频率同步：&lt; 0.1ppb
+  
+解决方案：
+  1. GPSDO（全球定位系统 disciplined oscillator）
+  2. 白鹤协议（White Rabbit）
+  3. IEEE 1588 PTP</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">5.1 6G 关键使能技术 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>Cell-Free 是 6G 的三大支柱之一：
+  1. 全息 MIMO（CAPA）
+  2. Cell-Free Massive MIMO
+  3. 太赫兹通信</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">5.2 O-RAN Cell-Free <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>O-RAN 联盟正在定义 Cell-Free 架构：
+  - Non-RT RIC：全局波束赋形优化
+  - Near-RT RIC：局部资源分配
+  - RU（AP）：射频处理
+  - DU（CPU）：基带处理
+  
+标准进展：
+  O-RAN.WG4 Cell-Free Profile（进行中）</code></pre>
   </div>
 
     
@@ -603,9 +522,9 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
   
   <div class="block related-block">
-    <div class="block-title">关联笔记 (4)</div>
+    <div class="block-title">关联笔记 (3)</div>
     <div class="related-grid">
-      <a href="#">technology-波束赋形beamforming深度解读</a><a href="#">technology-近场波束赋形near-field-beamforming</a><a href="#">technology-极化波束赋形polarization-beamforming</a><a href="#">technology-相控阵天线phased-array-antenna</a>
+      <a href="#">technology-mimo天线技术解读</a><a href="#">technology-波束赋形beamforming深度解读</a><a href="#">technology-全息mimo连续孔径capa</a>
     </div>
   </div>
   
@@ -614,7 +533,7 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
 <div class="footer">
   <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-波束赋形架构dbf-abf-hbf混合对比</span>
+  <span>node: technology-无蜂窝网络cell-free-massive-mimo</span>
 </div>
 
 </div>

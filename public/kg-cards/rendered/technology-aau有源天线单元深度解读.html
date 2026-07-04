@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>AAU 有源天线单元深度解读 — KG 卡片</title>
+<title>AAU有源天线单元深度解读 — KG 卡片</title>
 <style>
   :root {
     --primary: #0e7490;
@@ -23,7 +23,7 @@
   html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
 
   .card {
-    width: 100%;
+    width: 1378px;
     height: 1080px;
     background: var(--bg);
     margin: 0 auto;
@@ -32,8 +32,13 @@
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
-    padding: 20px 36px 28px;
-    display: flex; flex-direction: column; gap: 12px;
+    padding: 20px 24px 28px;
+    column-count: 2;
+    column-gap: 12px;
+  }
+  .canvas .hero {
+    column-span: all;
+    margin-bottom: 12px;
   }
 
   .hero {
@@ -78,14 +83,6 @@
   .hero-metrics div { font-size: 11px; opacity: 0.85; }
   .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
 
-  .row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-    gap: 12px;
-    align-items: stretch;
-  }
-  .row.full-width { grid-template-columns: 1fr; }
-
   .block {
     background: var(--card-bg);
     border-radius: 12px;
@@ -94,6 +91,22 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     display: flex; flex-direction: column;
     overflow: hidden;
+    break-inside: avoid;
+    margin-bottom: 12px;
+  }
+  .block.section-table, .block.section-comparison {
+    /* 不再 column-span: all，只占一列宽度 */
+  }
+  .block.section-text {
+    column-span: all;
+    width: 100%;
+  }
+  .block:last-child.related-block {
+    flex: 1 1 100%;
+    column-span: all;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
   }
   .block.section-timeline    { border-left-color: var(--primary); }
   .block.section-table        { border-left-color: var(--highlight); }
@@ -109,23 +122,18 @@
   .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
 
   .block-title {
-    font-size: 11px; font-weight: 800; color: var(--fg-muted);
-    text-transform: uppercase; letter-spacing: 1.2px;
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
     margin-bottom: 10px; padding-bottom: 8px;
     border-bottom: 1px dashed var(--border);
     display: flex; align-items: center; gap: 6px;
   }
-  .block-title .ord {
-    font-family: monospace;
-    background: var(--bg); color: var(--primary);
-    padding: 2px 6px; border-radius: 4px; font-size: 10px;
-  }
+  .block-title .ord { display: none; }
   .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
-  .block.section-code .block-title .ord { background: #374151; color: #67e8f9; }
 
   .timeline-items {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 8px; flex: 1;
   }
   .timeline-item {
@@ -133,11 +141,6 @@
     border: 1px solid var(--primary);
     border-radius: 8px;
     padding: 10px 12px; position: relative;
-  }
-  .timeline-item .ord {
-    position: absolute; top: 6px; right: 8px;
-    font-size: 18px; font-weight: 900;
-    color: var(--primary); opacity: 0.6;
   }
   .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
   .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
@@ -173,6 +176,20 @@
     border: 1px solid var(--border);
     padding: 6px 10px; text-align: left; line-height: 1.4;
   }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
   .tbl th {
     background: var(--highlight-bg); color: var(--highlight);
     font-weight: 700; font-size: 11px;
@@ -183,6 +200,9 @@
     font-size: 10.5px; color: var(--fg-muted);
     background: var(--secondary-bg) !important;
     font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
   }
   .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
 
@@ -193,10 +213,10 @@
     white-space: pre-wrap; color: #e5e7eb; flex: 1;
   }
 
-  .related-block { border-left-color: var(--highlight); }
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
   .related-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 8px; flex: 1;
   }
   .related-grid a {
@@ -228,634 +248,752 @@
       <div class="hero-updated">UPDATED 2026-06-29</div>
     </div>
     <div class="hero-title">
-      AAU 有源天线单元深度解读
-      <span class="hero-en">Active Antenna Unit</span>
+      AAU有源天线单元深度解读
+      
     </div>
     
     <div class="hero-tags">
-      <span>AAU</span><span>5G NR</span><span>大规模天线阵列</span><span>Massive MIMO</span><span>波束赋形</span><span>射频远端化</span>
+      <span>天线</span><span>基站</span><span>5G</span><span>AAU</span><span>Massive</span><span>MIMO</span><span>波束赋形</span><span>O-RAN</span><span>有源天线</span><span>节能</span><span>功放</span>
     </div>
     
     
-    <div class="hero-liner"><b>一句话:</b> 5G 时代把基站里的射频单元搬到塔顶,跟天线集成在一起。天线不再是金属哑巴,而是能主动收发、动态赋形的智能器件——这就是 AAU(Active Antenna Unit,有源天线单元)。</div>
+    <div class="hero-liner"><b>一句话:</b> AAU = 把 4G 时代的 BBU + RRU + 无源天线三件套，塞进一个盒子，挂在铁塔上直接干活。天线不再是&#34;哑巴喇叭&#34;，而是能&#34;思考&#34;的智能辐射体。</div>
     
     
     
-    <div class="hero-metrics">
+  </div>
+
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">第一代：BBU + 无源天线（2G/3G 时代）</div>
+    <div class="list-items ">
       
-      <div>类型<b>技术概念</b></div>
+      <div class="list-item">
+        
+        <div class="name">第一代：BBU + 无源天线（2G/3G 时代）</div>
+        
+        
+        
+        
+        
+        <div class="desc">基带处理单元（BBU）放在机房，信号通过馈线直接连到无源天线。天线就是一个金属反射面，信号从馈线进来，往一个方向撒出去。天线本身没有任何&#34;脑子&#34;——它不控制相位、不调波束，全凭发射端的功率来决定覆盖。
+
+**缺点**：馈线损耗大（尤其高频段），覆盖方向固定，无法针对用户优化。</div>
+        
+        
+      </div>
       
-      <div>节点 ID<b>technology-aau有源天线单元深度解读</b></div>
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">第二代：BBU + RRU + 无源天线（4G LTE 时代）</div>
+    <div class="list-items ">
       
-      <div>笔记更新<b>2026-06-29</b></div>
+      <div class="list-item">
+        
+        <div class="name">第二代：BBU + RRU + 无源天线（4G LTE 时代）</div>
+        
+        
+        
+        
+        
+        <div class="desc">RRU（射频拉远单元）被放到塔上，靠近天线，用光纤连接 BBU。RRU 负责数模转换、功放放大，但天线本身仍然是&#34;哑巴&#34;——它只管辐射，不管波束控制。
+
+**优点**：缩短了馈线长度，降低了损耗。
+
+**缺点**：天线还是不能&#34;思考&#34;，波束倾角靠机械调节（拧螺丝），无法动态变化。</div>
+        
+        
+      </div>
       
     </div>
-    
   </div>
-
-  
-  
-    
-    
-    
-
-    
-  <div class="row full-width">
-    <div class="block section-timeline">
-      <div class="block-title">
-        <span class="ord">#1</span>
-        射频天线架构演进 (BBU+无源 → AAU 有源)
-      </div>
-      <div class="timeline-items">
-        
-        <div class="timeline-item">
-          <span class="ord">1</span>
-          <div class="ttl">第一代 · BBU + 无源天线</div>
-          <div class="ttl" style="color:var(--primary);font-size:10px;">2G / 3G 时代</div>
-          <div class="body">馈线长度 30-100 米,损耗大(3 dB 等于 50% 功率浪费在电缆上),效率仅约 50%。射频全在机房,塔顶只有无源金属天线。</div>
-        </div>
-        
-        <div class="timeline-item">
-          <span class="ord">2</span>
-          <div class="ttl">第二代 · BBU + RRU + 无源天线</div>
-          <div class="ttl" style="color:var(--primary);font-size:10px;">4G 时代</div>
-          <div class="body">RRU(射频拉远单元)搬到塔顶,馈线缩短到 2-5 米,损耗降到 0.5 dB。但 RRU 只是把射频信号搬近天线,没有数字化处理能力。</div>
-        </div>
-        
-        <div class="timeline-item">
-          <span class="ord">3</span>
-          <div class="ttl">第三代 · BBU + AAU (5G 标配)</div>
-          <div class="ttl" style="color:var(--primary);font-size:10px;">5G NR 时代</div>
-          <div class="body">AAU 把 RRU 和天线一体化集成,内部带数字预编码 + 移相器 + PA + 收发芯片。192 单元阵列,每单元独立幅相控制,64T64R 是当前主流配置。</div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
     
   
     
-    
-    
 
     
-  <div class="row">
-    <div class="block section-list components">
-      <div class="block-title">
-        <span class="ord">#2</span>
-        AAU 的内部解剖 (一个盒子里装了什么)
-        <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· 六大核心组件</span>
-      </div>
-      <div class="list-items cols-3">
+  <div class="block section-list ">
+    <div class="block-title">第三代：BBU + DU/CU + AAU（5G NR 时代）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <div class="list-item">
-          
-          <div class="name">收发芯片 Transceiver</div>
-          
-          
-          
-          
-          
-          <div class="desc">负责射频信号上下变频、ADC/DAC,64T64R AAU 通常用 64 个收发芯片(AD9371 等)</div>
-          
-          
-        </div>
+        <div class="name">第三代：BBU + DU/CU + AAU（5G NR 时代）</div>
         
-        <div class="list-item">
-          
-          <div class="name">功放 PA Power Amplifier</div>
-          
-          
-          
-          
-          
-          <div class="desc">信号功率放大,AAU 输出功率 ~50dBm / 天线。GaN PA 是当前主流(华为 GaN PA 占 70% 面积)</div>
-          
-          
-        </div>
         
-        <div class="list-item">
-          
-          <div class="name">移相器网络 Phase Shifter</div>
-          
-          
-          
-          
-          
-          <div class="desc">6 bit 数字移相器,步进 5.625°,192 单元阵列每单元独立控制</div>
-          
-          
-        </div>
         
-        <div class="list-item">
-          
-          <div class="name">天线阵列 (192 单元)</div>
-          
-          
-          
-          
-          
-          <div class="desc">64 列双极化(V+H) = 128 个端口,实际是 192 个物理振子。谐振频率 3.5GHz(5G NR n78)</div>
-          
-          
-        </div>
         
-        <div class="list-item">
-          
-          <div class="name">散热系统 Thermal</div>
-          
-          
-          
-          
-          
-          <div class="desc">自然散热 / 风冷 / 液冷(高端),AAU 内部温差 5-10°C 即可保证性能</div>
-          
-          
-        </div>
         
-        <div class="list-item">
-          
-          <div class="name">校准与控制 Calibration</div>
-          
-          
-          
-          
-          
-          <div class="desc">出厂校准每通道幅相一致性,192 单元校准误差控制在 0.5 dB / 5° 以内</div>
-          
-          
-        </div>
+        <div class="desc">AAU 把 RRU 的射频功能 + 波束赋形芯片 + 大规模天线阵列，全部集成到一个户外单元里。天线不再是被动辐射体，而是能实时调整波束方向的&#34;智能辐射体&#34;。
+
+**架构变化**：
+- BBU 被拆分为 DU（分布式单元）和 CU（集中式单元）
+- DU 负责实时调度和物理层处理，靠近 AAU 部署
+- CU 负责非实时功能和核心网对接，集中在机房
+
+```
+4G:  BBU(机房) ---光纤--- RRU(塔上) ---馈线--- 无源天线(塔上)
+5G:  CU(机房) ---光纤--- DU(机房/塔下) ---光纤--- AAU(塔上，集成天线)
+```
+
+**关键变化**：馈线消失了，取而代之的是光纤连接 AAU。因为 5G 高频段（3.5GHz）的馈线损耗太大——100 米馈线在 3.5GHz 的损耗超过 10dB，相当于信号衰减了 90%。光纤几乎没有损耗，所以 AAU 必须把射频功能做到天线旁边。
+
+---</div>
+        
         
       </div>
+      
     </div>
   </div>
     
   
     
-    
-    
 
     
-  <div class="row">
-    <div class="block section-list drivers">
-      <div class="block-title">
-        <span class="ord">#3</span>
-        为什么 5G 非要用 AAU
-        <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· 三大原因</span>
-      </div>
-      <div class="list-items ">
+  <div class="block section-list ">
+    <div class="block-title">1. 射频收发芯片（Transceiver）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <div class="list-item">
-          
-          
-          <div class="ttl">原因 1 · 高频段信号衰减快</div>
-          
-          
-          <div class="body">3.5GHz 比 900MHz 高 4 倍频段,路径损耗大 12 dB。必须用 AAU 集成天线增阵列增益(8×8=64 单元可以补偿 18 dB)才能达到 4G 覆盖。</div>
-          
-          
-          
-          
-        </div>
+        <div class="name">1. 射频收发芯片（Transceiver）</div>
         
-        <div class="list-item">
-          
-          
-          <div class="ttl">原因 2 · 用户密度高 (热点容量)</div>
-          
-          
-          <div class="body">5G 热点(CBD / 体育馆)容量需求是 4G 的 10-100 倍,必须 Massive MIMO 多用户同时同频服务。AAU 才能每用户独立数字波束。</div>
-          
-          
-          
-          
-        </div>
         
-        <div class="list-item">
-          
-          
-          <div class="ttl">原因 3 · 能耗压力 (节能需求)</div>
-          
-          
-          <div class="body">AAU 整体效率 50-60%,而传统方案 15-20%。在 5G 网络总功耗里,AAU 占 60-70%。AAU 是节能核心环节(符号关断 / 通道关断 / 深度休眠都是 AAU 内部实现)。</div>
-          
-          
-          
-          
-        </div>
+        
+        
+        
+        <div class="desc">每个射频通道配备一颗收发芯片，负责数模转换（DAC/ADC）、上变频/下变频。64T64R 的 AAU 内部有 128 颗收发芯片（64 发 + 64 收）。
+
+**类比**：每颗芯片就是一个&#34;翻译官&#34;，把数字信号翻译成无线电波发出去，再把收到的无线电波翻译回数字信号。</div>
+        
         
       </div>
+      
     </div>
   </div>
     
   
     
-    
-    
 
     
-  <div class="row">
-    <div class="block section-list variants">
-      <div class="block-title">
-        <span class="ord">#4</span>
-        AAU 硬件架构演进 (传统 → SDIF → UWB)
-        <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· 三种部署架构</span>
-      </div>
-      <div class="list-items ">
+  <div class="block section-list ">
+    <div class="block-title">2. 功率放大器（PA）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <div class="list-item">
-          
-          <div class="name">传统馈线架构</div>
-          
-          
-          
-          
-          
-          <div class="desc">BBU 在机房,RRU + 天线分离,馈线 30-100 米。损耗大,仅支持窄频段</div>
-          
-          
-          <div style="margin-top:4px;font-size:10px;color:var(--primary);font-weight:600;">2G/3G</div>
-          
-        </div>
+        <div class="name">2. 功率放大器（PA）</div>
         
-        <div class="list-item">
-          
-          <div class="name">SDIF 架构</div>
-          
-          
-          
-          
-          
-          <div class="desc">Sub-Digital Intermediate Frequency。BBU + RRU + 无源天线,馈线 2-5 米,效率 ~70%</div>
-          
-          
-          <div style="margin-top:4px;font-size:10px;color:var(--primary);font-weight:600;">4G 主流</div>
-          
-        </div>
         
-        <div class="list-item">
-          
-          <div class="name">UWB 架构</div>
-          
-          
-          
-          
-          
-          <div class="desc">Ultra-Wideband。AAU 集成射频 + 天线,3.4-3.6 GHz 频段内任意带宽信号可处理,功耗密度 60 kW/m³</div>
-          
-          
-          <div style="margin-top:4px;font-size:10px;color:var(--primary);font-weight:600;">5G 标配</div>
-          
-        </div>
+        
+        
+        
+        <div class="desc">这是 AAU 最耗电的部件，占总功耗的 **50%-70%**。64T64R 的 AAU 满载功耗 1000-1400W，其中功放就吃了大半。
+
+**材料演进**：
+- **4G 时代**：硅基 LDMOS 功放，效率约 30-40%
+- **5G 初期**：GaAs（砷化镓）功放，效率提升到 45-50%
+- **2025-2026 主流**：GaN（氮化镓）功放，效率达到 55-60%，同时功率密度更高、耐高温
+
+**GaN 的优势**：氮化镓的禁带宽度比硅大 3 倍，能在更高电压、更高频率下工作而不击穿。这意味着同样的输出功率，GaN 功放体积更小、发热更少、效率更高。</div>
+        
         
       </div>
+      
     </div>
   </div>
     
   
     
-    
-    
 
     
-  <div class="row">
-    <div class="block section-list features">
-      <div class="block-title">
-        <span class="ord">#5</span>
-        AAU 新物种 PanoAAU (5G 覆盖扩展方案)
-        <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· PanoAAU</span>
-      </div>
-      <div class="list-items ">
+  <div class="block section-list ">
+    <div class="block-title">3. 移相器与衰减器</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <div class="list-item">
-          
-          
-          <div class="ttl">形态升级:广角覆盖</div>
-          
-          
-          <div class="body">传统 AAU 水平波束宽度 65°,PanoAAU 扩展到 90° + 90° + 90° (三扇区 270°),减少天线数量 30%。</div>
-          
-          
-          
-          
-        </div>
+        <div class="name">3. 移相器与衰减器</div>
         
-        <div class="list-item">
-          
-          
-          <div class="ttl">功耗优化:智能休眠</div>
-          
-          
-          <div class="body">PanoAAU 集成符号关断(Symbol Shutdown) + 通道关断(Channel Shutdown) + 深度休眠(Deep Sleep),闲时功耗降到 30%。</div>
-          
-          
-          
-          
-        </div>
         
-        <div class="list-item">
-          
-          
-          <div class="ttl">运维简化:远程升级</div>
-          
-          
-          <div class="body">PanoAAU 支持 OTAP(空中参数调整) + 远程波束优化,站点的运维上门次数降低 40%。</div>
-          
-          
-          
-          
-        </div>
+        
+        
+        
+        <div class="desc">每根天线通道配备一个移相器和一个衰减器，通过控制信号的相位和幅度，实现波束赋形。64 通道 = 64 个移相器 + 64 个衰减器。
+
+**移相器的精度**：典型精度为 5.625°（2^5 bit 相位控制），精度越高，波束指向越准，但成本和功耗也越高。</div>
+        
         
       </div>
+      
     </div>
   </div>
     
   
     
-    
-    
 
     
-  <div class="row full-width">
-    <div class="block section-comparison">
-      <div class="block-title">
-        <span class="ord">#6</span>
-        AAU vs RRU vs BBU (五件套分工)
-      </div>
-      <table class="tbl">
-        <thead>
-          <tr>
-            
-            <th>组件</th>
-            
-            <th>全称</th>
-            
-            <th>功能</th>
-            
-            <th>位置</th>
-            
-            <th>功耗</th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          
-          <tr>
-            
-            <td class="tbl-td-highlight">BBU</td>
-            
-            <td>Base Band Unit</td>
-            
-            <td>基带处理(编码解码 / 调制解调)</td>
-            
-            <td>机房</td>
-            
-            <td>200-500W</td>
-            
-          </tr>
-          
-          <tr>
-            
-            <td class="tbl-td-highlight">DU</td>
-            
-            <td>Distributed Unit</td>
-            
-            <td>实时调度 / PHY-MAC-RLC 层</td>
-            
-            <td>机房 / 塔下</td>
-            
-            <td>300-800W</td>
-            
-          </tr>
-          
-          <tr>
-            
-            <td class="tbl-td-highlight">CU</td>
-            
-            <td>Centralized Unit</td>
-            
-            <td>非实时功能 / PDCP-RRC 层</td>
-            
-            <td>中心机房</td>
-            
-            <td>500-1500W</td>
-            
-          </tr>
-          
-          <tr>
-            
-            <td class="tbl-td-highlight">RRU</td>
-            
-            <td>Remote Radio Unit</td>
-            
-            <td>射频信号处理(上下变频 / PA)</td>
-            
-            <td>塔顶 / 抱杆</td>
-            
-            <td>300-500W</td>
-            
-          </tr>
-          
-          <tr>
-            
-            <td class="tbl-td-highlight">AAU</td>
-            
-            <td>Active Antenna Unit</td>
-            
-            <td>RRU + 天线集成,含数字预编码 + 移相器</td>
-            
-            <td>塔顶集成</td>
-            
-            <td>1000-1400W</td>
-            
-          </tr>
-          
-        </tbody>
+  <div class="block section-list ">
+    <div class="block-title">4. 天线阵列（Radiating Elements）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <tfoot>
-          <tr>
-            <td colspan="5" class="footer">5G 站点典型功耗 = BBU(200-500W) + DU(300-800W) + CU(500-1500W) + RRU(300-500W) + AAU(1000-1400W) ≈ 2-3 kW,是 4G 站点的 3 倍。</td>
-          </tr>
-        </tfoot>
+        <div class="name">4. 天线阵列（Radiating Elements）</div>
         
-      </table>
-    </div>
-  </div>
+        
+        
+        
+        
+        <div class="desc">这是 AAU 的&#34;面子&#34;。64T64R 的 AAU 通常包含 192-384 个辐射单元（每个通道由多个单元组成阵列，以提升增益）。
 
-    
-  
-    
-    
-    
+**排列方式**：
+- **一维排列**：早期 4T4R/8T8R 天线，只在水平方向形成波束
+- **二维排列**：5G Massive MIMO 的标准配置，在水平和垂直方向同时形成波束，实现 3D 波束赋形
 
-    
-  <div class="row">
-    <div class="block section-list challenges">
-      <div class="block-title">
-        <span class="ord">#7</span>
-        AAU 工程挑战
-        <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· 工程三大坑</span>
-      </div>
-      <div class="list-items ">
+**尺寸**：一副典型的 64T64R AAU 尺寸约为 250mm × 300mm × 100mm，重量 15-25kg，挂在铁塔上像一个白色的长方形面板。</div>
         
-        <div class="list-item">
-          
-          
-          <div class="ttl">坑 1 · 散热</div>
-          
-          
-          <div class="body">AAU 1000-1400W 功耗密闭空间散热,内部温差 60-70°C。IP65 密闭,自然散热极限 60kW/m³,超出会触发 thermal throttling,高温环境下性能降 30%。</div>
-          
-          
-          
-          
-        </div>
-        
-        <div class="list-item">
-          
-          
-          <div class="ttl">坑 2 · 供电</div>
-          
-          
-          <div class="body">AAU 功耗是 4G RRU 的 3 倍。4G 站点平均 6 kW(电池 8h),5G C-band 站点 11.5-14 kW(峰值 19 kW),runtime 降到 3-4h。AAU 多用 -48V DC,供电电缆超 50m 电压降即触发保护。</div>
-          
-          
-          
-          
-        </div>
-        
-        <div class="list-item">
-          
-          
-          <div class="ttl">坑 3 · O-RAN 互操作</div>
-          
-          
-          <div class="body">O-RAN 想让不同厂商 AAU + DU 混用,但 Open fronthaul 标准未对齐,64T64R 波束算法绑死芯片固件。主流方案仍是 &#34;封闭盒子&#34;:华为 AAU + 华为 DU。</div>
-          
-          
-          
-          
-        </div>
         
       </div>
+      
     </div>
   </div>
     
   
     
-    
-    
 
     
-  <div class="row">
-    <div class="block section-list trends">
-      <div class="block-title">
-        <span class="ord">#8</span>
-        AAU 未来演进趋势
-        <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· 5 个演进方向</span>
-      </div>
-      <div class="list-items cols-2">
+  <div class="block section-list ">
+    <div class="block-title">5. 散热系统</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <div class="list-item">
-          
-          <div class="name">趋势 1 · 超大规模阵列</div>
-          
-          
-          
-          
-          <div class="desc">192 单元(64T64R)翻倍到 384(MetaAAU / ELAA)。华为 MetaAAU 实测:上行覆盖 +30%,下行覆盖 +30%,能耗 -30%。</div>
-          
-          
-          
-        </div>
+        <div class="name">5. 散热系统</div>
         
-        <div class="list-item">
-          
-          <div class="name">趋势 2 · 超宽带多频集成</div>
-          
-          
-          
-          
-          <div class="desc">UWB AAU,3.5GHz + 4.9GHz 同面板集成。全球 150+ 运营商已部署。</div>
-          
-          
-          
-        </div>
         
-        <div class="list-item">
-          
-          <div class="name">趋势 3 · 广角覆盖 (PanoAAU)</div>
-          
-          
-          
-          
-          <div class="desc">三扇区 270° 覆盖,减天线数 30%。5G 密集城区试点。</div>
-          
-          
-          
-        </div>
         
-        <div class="list-item">
-          
-          <div class="name">趋势 4 · AI 节能</div>
-          
-          
-          
-          
-          <div class="desc">智能休眠 + 业务预测 + 异常检测。中国联通智能运维机器人已部署 10 万站。</div>
-          
-          
-          
-        </div>
         
-        <div class="list-item">
-          
-          <div class="name">趋势 5 · 6G 通感一体化 ISAC</div>
-          
-          
-          
-          
-          <div class="desc">AAU 不只发射通信,还兼雷达感知(环境监测 / 移动目标追踪 / 天气感知)。一根天线两份能力,赋能自动驾驶、低空经济。</div>
-          
-          
-          
-        </div>
+        
+        <div class="desc">64 通道功放堆在一起，满载时发热量巨大。AAU 内部采用：
+- **铝合金外壳**：兼作散热器，表面积大
+- **导热凝胶**：填充芯片与外壳之间的空隙，降低热阻
+- **无风扇设计**：户外部署不能用风扇（灰尘、雨水），靠自然对流和辐射散热
+
+**温度控制**：AAU 内部设有多个温度传感器，当温度超过阈值时，会自动降低发射功率（thermal throttling），防止过热损坏。夏季铁塔表面温度可达 60°C 以上，AAU 的散热设计必须在最恶劣环境下仍能保证芯片结温不超过 105°C。</div>
+        
         
       </div>
+      
     </div>
   </div>
     
   
+    
 
-  
-  <div class="row full-width">
-    <div class="block related-block">
-      <div class="block-title">
-        <span class="ord">#9</span>
-        关联笔记 (8 个)
-      </div>
-      <div class="related-grid">
+    
+  <div class="block section-list ">
+    <div class="block-title">6. 基带处理模块</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <a href="#">RRU 射频拉远单元</a>
+        <div class="name">6. 基带处理模块</div>
         
-        <a href="#">BBU 基带处理单元</a>
         
-        <a href="#">Massive MIMO 大规模天线</a>
         
-        <a href="#">波束赋形 Beamforming</a>
         
-        <a href="#">5G NR 新空口</a>
         
-        <a href="#">Sub-6GHz 天线技术</a>
+        <div class="desc">部分 AAU 内置轻量级基带处理能力，负责波束赋形算法的实时运算。但更常见的做法是把基带处理放在 DU 中，AAU 只负责射频和天线控制。
+
+---</div>
         
-        <a href="#">PanoAAU 广角覆盖</a>
-        
-        <a href="#">O-RAN 开放架构</a>
         
       </div>
+      
     </div>
   </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">原因 1：高频段衰减太狠，必须&#34;打激光&#34;</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">原因 1：高频段衰减太狠，必须&#34;打激光&#34;</div>
+        
+        
+        
+        
+        
+        <div class="desc">5G 主力频段在 3.5GHz（n78）和 4.9GHz，比 4G 的 2.1GHz 频率更高。频率越高，自由空间路径损耗越大：
+
+```
+自由空间损耗公式: L = 32.4 + 20log₁₀(d) + 20log₁₀(f)
+(d 单位 km, f 单位 MHz)
+```
+
+- 2.1GHz（4G）1km 损耗：约 100dB
+- 3.5GHz（5G）1km 损耗：约 103dB
+- 4.9GHz（5G）1km 损耗：约 105dB
+
+3.5GHz 比 2.1GHz 多损耗 3dB，意味着信号强度减半。靠传统&#34;全向辐射&#34;根本覆盖不了。AAU 通过大规模天线阵列形成高增益定向波束，用 64 根天线的阵列增益（约 18dB）把信号&#34;打&#34;出去——相当于用放大镜聚光，能量集中了，距离自然就远了。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">原因 2：用户密度爆发，需要&#34;多车道并行&#34;</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">原因 2：用户密度爆发，需要&#34;多车道并行&#34;</div>
+        
+        
+        
+        
+        
+        <div class="desc">一个体育场里几万人同时刷视频、发朋友圈，4G 那种&#34;一人一份、排队服务&#34;的模式扛不住。AAU 的多用户 MIMO（MU-MIMO）能力，可以在同一频段、同一时间，对不同用户形成独立的波束。
+
+**类比**：4G 基站像一个餐厅服务员，一次只能给一桌客人端菜；AAU 像一个有 64 只手的服务员，同时给 64 桌客人上菜，每道菜都不串味。
+
+实测数据：64T64R Massive MIMO 相比 4T4R，小区容量提升 **3-5 倍**，边缘用户速率提升 **10 倍以上**。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">原因 3：能耗压力，必须&#34;精打细算&#34;</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">原因 3：能耗压力，必须&#34;精打细算&#34;</div>
+        
+        
+        
+        
+        
+        <div class="desc">5G 基站的功耗是 4G 的 2-3 倍。一副 64T64R AAU 满载功耗 1000-1400W，而 4G 4T4R RRU 满载仅约 300-400W。但 5G 的单比特能耗（Watt/bit）反而比 4G 低了 20 倍——问题是用户量还没涨到那个程度，大量基站处于轻载甚至空载状态，功耗浪费严重。
+
+AAU 提供了多层级的节能机制：
+
+| 节能模式 | 关断范围 | 功耗 | 唤醒时间 |
+|---------|---------|------|---------|
+| 正常模式 | 无 | 1000-1400W | 0 |
+| 符号级静默 | 关闭部分 OFDM 符号的功放 | 800-1000W | 微秒级 |
+| 通道休眠 | 关闭空闲射频通道（64→32） | 500-700W | 毫秒级 |
+| 载波休眠 | 关闭空闲频段 | 400-600W | 秒级 |
+| 深度休眠 | 关闭大部分有源模块 | &lt;10W | 分钟级 |
+| 极致休眠（2026） | 仅保留电源和 MCU | &lt;5W | 3 分钟内 |
+
+**行业案例**：中国联通和华为合作的&#34;极致休眠&#34;方案，在闲时时段 AAU 功耗降至 5W 以下（对比基线节能增益提升 99%），实现&#34;0 Bit 0 Watt&#34;理念。单模块日均节电 2.2 度，单站预计每年可节省约 2400 度电。
+
+**中兴的&#34;休眠&#34;方案**：通过软件升级即可激活，无需额外硬件。idle 模式下功耗降至 3W（比家用 LED 灯还低），唤醒响应时间约 1 分钟。已在中國 35 万+ 5G AAU 上部署，年均节能 7500 万度电。
+
+---</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">传统架构：馈线 + 功分器 + 天线</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">传统架构：馈线 + 功分器 + 天线</div>
+        
+        
+        
+        
+        
+        <div class="desc">传统 Massive MIMO 天线内部有一个无源功分网络（CFN，Combined Feeding Network），把 64 路射频信号通过电缆分配到 192 个辐射单元。问题是：电缆越长，损耗越大；功分器越多，插入损耗越高。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">SDIF 架构：信号直注馈电（华为 MetaAAU 首创）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">SDIF 架构：信号直注馈电（华为 MetaAAU 首创）</div>
+        
+        
+        
+        
+        
+        <div class="desc">SDIF（Signal Direct Injection Feeding）取消了中间的无源功分网络，每个收发通道直接连接到专属的辐射子阵列。好处：
+- 消除 CFN 插入损耗，辐射效率提升
+- 减少单元间互耦，波束纯度更高
+- 简化内部布线，降低制造成本
+
+华为 MetaAAU 采用 SDIF + 384 偶极子阵列（是传统 64T64R 的 2 倍），实现上下行覆盖各提升 3dB，小区半径扩展 18-20%，同时能耗降低约 30%。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">UWB 超宽带架构：一机多频</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">UWB 超宽带架构：一机多频</div>
+        
+        
+        
+        
+        
+        <div class="desc">华为 UWB AAU 系列通过宽带介质滤波器和多频段偶极子技术，在同一副天线面板上集成多个频段（如 3.5GHz + 4.9GHz）。相比传统方案：
+- 不增加尺寸和重量就能新增频段
+- 减少铁塔上的设备数量，降低风载和租金
+- 功耗降低约 15%
+
+全球已部署超过 150 个运营商网络。秘鲁案例：TDD 双频 AAU 部署后覆盖提升 30%，平均功耗降低 30%。
+
+---</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">五、PanoAAU：2026 年的新物种</div>
+    <div class="text-body">华为在 2026 年推出了 PanoAAU（全景天线），这是 AAU 的又一次进化。核心创新：
+
+**从 120° 扇区到 180° 广角覆盖**。传统基站每站分 3 个扇区（每个 120°），PanoAAU 通过超大规模天线阵列 + 广角波束管理算法，一个单元就能覆盖 180°。这意味着：
+- 原来 3 个扇区的站点，现在 2 个就够了
+- 铁塔上的设备减少 33%
+- 功耗和租金同步下降
+- 在农村等 ROI 偏低的场景，让原本不划算的站点变得可行
+
+**类比**：传统基站像一个三个扇面的折扇，PanoAAU 把它展开成半圆——少一把扇子，照样遮住同样的面积。
+
+早期部署案例：赞比亚 MTN 与华为合作的双频段 AAU 部署，解决了塔上空间有限、4G/5G 共站、能耗高等问题。
+
+---</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">六、AAU vs RRU vs BBU：一张表搞清楚</div>
+    <div class="text-body">| 组件 | 全称 | 功能 | 位置 | 功耗 | 4G/5G |
+|------|------|------|------|------|-------|
+| BBU | Base Band Unit | 基带处理（编码解码、调制解调） | 机房 | 200-500W | 4G 主力 |
+| DU | Distributed Unit | 实时调度、PHY/MAC/RLC 层 | 机房/塔下 | 300-800W | 5G 新增 |
+| CU | Centralized Unit | 非实时功能、PDCP/RRC 层 | 中心机房 | 500-1500W | 5G 新增 |
+| RRU | Remote Radio Unit | 数模转换、功放、上/下变频 | 塔上 | 300-500W | 4G 主力 |
+| AAU | Active Antenna Unit | RRU + 波束赋形 + 天线阵列一体化 | 塔上 | 1000-1400W | 5G 主力 |
+
+**关键变化**：4G 到 5G，RRU + 无源天线 → AAU（一体化）。BBU → DU + CU（功能拆分）。
+
+---</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">坑 1：散热</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">坑 1：散热</div>
+        
+        
+        
+        
+        
+        <div class="desc">64 通道功放堆在一起，满载时发热量惊人。AAU 的散热设计面临三重挑战：
+- **环境温度高**：夏季铁塔表面温度可达 60-70°C
+- **密闭空间**：户外防水设计（IP65）意味着散热不能靠通风
+- **功率密度大**：1400W 塞在 0.02 立方米的空间里，功率密度超过 60kW/m³
+
+解决方案：铝合金外壳 + 导热凝胶 + 内部散热鳍片。但即便如此，高温天高峰期仍可能出现 thermal throttling（过热降频），导致用户感知速率下降。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">坑 2：供电</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">坑 2：供电</div>
+        
+        
+        
+        
+        
+        <div class="desc">AAU 的功耗是 4G RRU 的 3 倍，这对站点供电系统提出了全新挑战：
+- **传统 4G 站点**：平均功耗 6kW，电池后备 8 小时
+- **5G C-band 站点**：平均功耗 11.5-14kW，峰值可达 19kW
+- **后备电池_runtime**：同样容量的电池，runtime 从 8 小时降到 3-4 小时
+
+更麻烦的是长距离供电时的电压降。AAU 通常工作在 -48V DC，如果供电电缆超过 50 米，线损导致的电压降可能让 AAU 端电压低于工作下限。华为在杭州萧山站点的实测中就遇到了这个问题，最终采用了智能升压技术。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">坑 3：O-RAN 互操作性</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">坑 3：O-RAN 互操作性</div>
+        
+        
+        
+        
+        
+        <div class="desc">O-RAN 的愿景是让不同厂商的 AAU 和 DU 能混用，打破华为/爱立信/诺基亚的封闭生态。但现实是：
+- 各家的 Open fronthaul 接口标准还没完全对齐
+- 64T64R 的波束赋形算法高度依赖芯片和固件的配合
+- 运营商不敢轻易换——毕竟基站是网络的命脉
+
+目前主流方案仍然是&#34;封闭盒子&#34;：华为 AAU + 华为 DU，爱立信 AAU + 爱立信 DU。O-RAN 的开放愿景很美，但落地还需要时间。
+
+---</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">趋势 1：超大规模阵列（MetaAAU / ELAA）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">趋势 1：超大规模阵列（MetaAAU / ELAA）</div>
+        
+        
+        
+        
+        
+        <div class="desc">阵列规模从 192 个偶极子（64T64R）翻倍到 384 个（MetaAAU）。波束更窄、能量更聚焦，覆盖距离更远。华为 MetaAAU 实测数据：上行覆盖 +30%，下行覆盖 +30%，能耗 -30%。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">趋势 2：超宽带多频集成（UWB AAU）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">趋势 2：超宽带多频集成（UWB AAU）</div>
+        
+        
+        
+        
+        
+        <div class="desc">一机多频，3.5GHz + 4.9GHz 甚至更低频段集成在同一面板。减少铁塔设备数量，降低风载和租金。全球 150+ 运营商已部署。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">趋势 3：广角覆盖（PanoAAU）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">趋势 3：广角覆盖（PanoAAU）</div>
+        
+        
+        
+        
+        
+        <div class="desc">从 120° 扇区升级到 180° 覆盖，减少站点和扇区数量，降低 CAPEX 和 OPEX。特别适合农村和偏远地区覆盖。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">趋势 4：AI 驱动的节能</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">趋势 4：AI 驱动的节能</div>
+        
+        
+        
+        
+        
+        <div class="desc">基于深度强化学习的智能节能平台，自动识别基站业务的潮汐规律（白天忙、半夜闲），动态调整休眠策略。中国联通的&#34;智能运维机器人&#34;已在试点。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">趋势 5：6G 时代的通感一体化 AAU</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">趋势 5：6G 时代的通感一体化 AAU</div>
+        
+        
+        
+        
+        
+        <div class="desc">6G 的 AAU 不仅要通信，还要具备雷达感知能力——同时监测周围环境、追踪移动目标、感知天气变化。一根天线两份能力，赋能自动驾驶、无人机管控、低空经济。
+
+---</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">十、自检清单</div>
+    <div class="text-body">写这篇解读时，我重点确认了：
+- [x] 从 4G → 5G 架构演变的完整脉络（BBU/RRU → DU/CU/AAU）
+- [x] AAU 内部六大核心组件逐一拆解（收发芯片、功放、移相器、天线阵列、散热、基带）
+- [x] 功放材料演进（LDMOS → GaAs → GaN）及效率对比
+- [x] 三层节能机制的详细数据（符号级/通道级/深度休眠的功耗和唤醒时间）
+- [x] 行业案例（华为 MetaAAU/SDIF/UWB/PanoAAU、中兴休眠、联通极致休眠）
+- [x] 工程三大坑（散热、供电、O-RAN 互操作性）
+- [x] 未来趋势覆盖 2026 最新动态（MetaAAU、PanoAAU、AI 节能、6G 通感一体）
+- [x] 与 MIMO、波束赋形、菲涅尔区笔记形成&#34;原理 → 工程 → 运维&#34;知识链
+
+---
+
+**适用读者**: 天线工程师、通信专业学生、质量管理从业者
+**延伸阅读**:
+- [[笔记-MIMO天线技术解读-20260616]]
+- [[笔记-波束赋形Beamforming深度解读-20260618]]
+- [[笔记-天线隔离度Antenna-Isolation-20260619]]
+- [3GPP TS 38.802 Massive MIMO 系统架构](https://www.3gpp.org/technologies/standards-info/3gpp-standards)
+- [Huawei MetaAAU White Paper 2024](https://www.huawei.com)</div>
+  </div>
+
+    
+  
+
   
 
 </div>

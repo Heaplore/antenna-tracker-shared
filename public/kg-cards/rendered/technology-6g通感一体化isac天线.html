@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>6G通感一体化ISAC天线 — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    height: 1080px;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+    column-count: 2;
+    column-gap: 12px;
+  }
+  .canvas .hero {
+    column-span: all;
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    margin-bottom: 12px;
+  }
+  .block.section-table, .block.section-comparison {
+    /* 不再 column-span: all，只占一列宽度 */
+  }
+  .block.section-text {
+    column-span: all;
+    width: 100%;
+  }
+  .block:last-child.related-block {
+    flex: 1 1 100%;
+    column-span: all;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-02</div>
+    </div>
+    <div class="hero-title">
+      6G通感一体化ISAC天线
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术/技术概念</span><span>通感一体化</span><span>ISAC</span><span>6G</span><span>共享孔径</span><span>波形设计</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> 通感一体化（Integrated Sensing and Communication, ISAC）是让同一套天线阵列、同一套射频链路、甚至同一个波形同时完成通信和雷达感知功能的 6G 核心技术。它不是&#34;通信加雷达&#34;的简单叠加，而是从信号设计、波束成形到天线架构的全面融合。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> 传统方式是&#34;各干各的&#34;——通信基站负责传数据，雷达负责探测目标，两套天线、两套设备、两套频谱，资源浪费严重。</div>
+    
+    
+  </div>
+
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.1 什么是 ISAC？</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.1 什么是 ISAC？</div>
+        
+        
+        
+        
+        
+        <div class="desc">通感一体化（ISAC）是将无线通信和雷达感知功能集成在同一系统中的技术范式。其核心特征是：
+
+- **共享硬件**：共用天线阵列、射频链路、基带处理
+- **共享频谱**：通信和感知使用同一频段
+- **共享波形**：通信信号同时用作感知信号（或反之）
+- **共享处理**：通信和感知的信号处理在统一框架下优化</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.2 ISAC 的三种实现架构</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.2 ISAC 的三种实现架构</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 架构 | 描述 | 优点 | 缺点 |
+|------|------|------|------|
+| 共址 ISAC（Co-located） | 同一基站同时服务通信用户和感知目标 | 硬件共享最大化 | 波形设计复杂 |
+| 协作 ISAC（Collaborative） | 通信基站和雷达基站协同工作 | 可分别优化 | 硬件共享有限 |
+| 网络 ISAC（Network） | 多个 ISAC 基站组网，联合通信和感知 | 覆盖范围广 | 系统复杂度高 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.3 为什么 ISAC 是 6G 的核心？</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.3 为什么 ISAC 是 6G 的核心？</div>
+        
+        
+        
+        
+        
+        <div class="desc">6G 的目标不仅仅是更快的网速，还包括：
+- 高精度定位（厘米级）
+- 环境感知（数字孪生）
+- 无人机通信与控制
+- 自动驾驶 V2X
+- 智慧工厂/智慧城市
+
+这些应用都需要&#34;感知&#34;能力，而 ISAC 可以让现有的通信基础设施&#34;顺便&#34;提供感知服务，边际成本极低。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.4 ISAC 天线的特殊性</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.4 ISAC 天线的特殊性</div>
+        
+        
+        
+        
+        
+        <div class="desc">传统通信天线只关心：
+- 增益
+- 波束宽度
+- 旁瓣电平
+
+ISAC 天线还需要关心：
+- **感知 CRB（Cramer-Rao Bound）**：参数估计的理论下限
+- **自干扰抑制**：发射信号对自身接收机的干扰
+- **波形-方向图联合优化**：通信波束和感知波束的协调</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.1 通信-感知性能权衡（Trade-off）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.1 通信-感知性能权衡（Trade-off）</div>
+        
+        
+        
+        
+        
+        <div class="desc">ISAC 的核心挑战是在通信速率和感知精度之间找到最优平衡：
+
+```
+最大化：R_comm（通信速率）
+约束：CRB_sensing ≤ γ（感知精度下限）
+```
+
+或反过来：
+
+```
+最大化：CRB_sensing（感知精度，越小越好）
+约束：R_comm ≥ R_min（最低通信速率）
+```
+
+这两个目标是**冲突的**——优化通信的波束可能不利于感知，反之亦然。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.2 感知性能指标：CRB</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.2 感知性能指标：CRB</div>
+        
+        
+        
+        
+        
+        <div class="desc">Cramer-Rao Bound 是参数估计精度的理论下限。对于 ISAC 系统，主要估计的参数包括：
+
+| 参数 | CRB 公式 | 物理意义 |
+|------|---------|---------|
+| 距离 R | CRB_R ∝ λ² / (BW² · SNR) | 测距精度 |
+| 角度 θ | CRB_θ ∝ λ / (D · √SNR) | 测角精度 |
+| 速度 v | CRB_v ∝ λ / (T_coherent · √SNR) | 测速精度 |
+
+其中：
+- BW 是信号带宽
+- D 是阵列孔径
+- T_coherent 是相干处理时间
+- SNR 是信噪比</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.3 通信性能指标：速率 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>R_comm = B · log₂(1 + SNR_comm)
+
+
+其中 B 是通信带宽，SNR_comm 是通信信道的信噪比。</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.4 波形设计的关键权衡</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.4 波形设计的关键权衡</div>
+        
+        
+        
+        
+        
+        <div class="desc">OFDM 波形在 ISAC 中的双重角色：
+
+**通信优化**：
+- 水填充功率分配（Water-filling）：中心频点功率大，边缘小
+- 结果：通信速率最大化
+
+**感知优化**：
+- 均匀功率分配：各子载波功率相等
+- 结果：CRB 最小化（测距/测角精度最优）
+
+**折中方案**：
+- 边缘子载波功率略高（兼顾感知带宽需求）
+- 中心子载波功率略低（保留一些通信容量）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.5 空间分割 ISAC（SD-ISAC）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.5 空间分割 ISAC（SD-ISAC）</div>
+        
+        
+        
+        
+        
+        <div class="desc">2024-2026 年的主流方案——利用通信信道的零空间（Null Space）叠加感知信号：
+
+```
+X_total = X_comm + X_perp
+```
+
+其中 X_perp 位于通信信道 H 的零空间中（H · X_perp = 0），因此不会对通信用户造成干扰。
+
+**优点**：
+- 通信和感知波形可以独立设计
+- 兼容现有通信标准
+- 计算复杂度低
+
+**缺点**：
+- 感知自由度受限于 N_t - K（发射天线数 - 通信用户数）
+- 通信用户越多，感知自由度越少</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.6 模式分割 ISAC（PD-ISAC）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.6 模式分割 ISAC（PD-ISAC）</div>
+        
+        
+        
+        
+        
+        <div class="desc">利用不同波束模式同时服务通信和感知：
+
+- 主波束 → 通信用户
+- 旁瓣/零陷方向 → 感知目标
+
+**关键公式**：
+
+```
+AF_total(θ) = AF_comm(θ) + α · AF_sense(θ)
+```
+
+其中 α 是感知波束的权重系数，需要在通信干扰和感知增益之间权衡。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.1 大规模 MIMO 天线用于 ISAC</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.1 大规模 MIMO 天线用于 ISAC</div>
+        
+        
+        
+        
+        
+        <div class="desc">64T64R 或 256T256R Massive MIMO 天线天然适合 ISAC：
+
+- 高增益波束 → 高 SNR → 好感知精度
+- 多波束能力 → 同时服务多个通信用户 + 多个感知目标
+- 数字波束成形 → 灵活的通信/感知波束切换
+
+**关键设计参数**：
+
+| 参数 | 通信优化 | 感知优化 | 折中 |
+|------|---------|---------|------|
+| 波束宽度 | 窄（聚焦用户） | 窄（高分辨率） | 中等 |
+| 旁瓣电平 | &lt;-15dB | &lt;-25dB | &lt;-20dB |
+| 波束切换速度 | 慢（稳定） | 快（实时更新） | 中等 |
+| 极化方式 | 双极化 | 单极化（简化） | 双极化 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.2 XL-MIMO（超大规模 MIMO）用于 ISAC</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.2 XL-MIMO（超大规模 MIMO）用于 ISAC</div>
+        
+        
+        
+        
+        
+        <div class="desc">6G 的 XL-MIMO（数百至数千天线单元）提供了前所未有的感知能力：
+
+- **近场感知**：XL-MIMO 的 Fresnel 区可达数百米，可以在近场进行高精度感知
+- **三维波束**：不仅可以控制方位角，还可以控制俯仰角和距离
+- **全息 MIMO**：连续孔径天线提供无限的波束自由度</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.3 RIS（智能超表面）辅助 ISAC</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.3 RIS（智能超表面）辅助 ISAC</div>
+        
+        
+        
+        
+        
+        <div class="desc">RIS 可以作为 ISAC 的&#34;反射放大器&#34;：
+
+- RIS 反射通信信号 → 增强覆盖
+- RIS 反射感知信号 → 增强目标回波
+- RIS 的可重构性 → 动态优化通信/感知波束
+
+**RIS-ISAC 的优势**：
+- 低成本（无源器件）
+- 低功耗
+- 可部署在建筑物表面</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.4 共享孔径天线（Shared Aperture）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.4 共享孔径天线（Shared Aperture）</div>
+        
+        
+        
+        
+        
+        <div class="desc">传统方案：通信天线和雷达天线分开安装，占用不同空间。
+
+ISAC 方案：同一副天线同时用于通信和感知。
+
+**实现方式**：
+- 极化分割：通信用 ±45° 极化，感知用圆极化
+- 频率分割：通信用低频段，感知用高频段
+- 波束分割：不同波束服务于通信和感知</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.1 智能交通</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.1 智能交通</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 路边通信基站同时感知车辆位置和速度
+- 精度：位置 &lt; 10cm，速度 &lt; 0.1m/s
+- 应用：自动驾驶 V2X、交通事故预警</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.2 无人机通信与控制</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.2 无人机通信与控制</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 基站同时为无人机提供通信服务和感知服务
+- 感知目标：无人机的位置、速度、航向
+- 通信目标：高清视频回传、控制指令</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.3 智慧工厂</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.3 智慧工厂</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 工厂内的通信基站同时监测工人和设备的位置
+- 应用：安全预警、生产效率优化、数字孪生</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.4 低空经济</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.4 低空经济</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 6G 基站感知低空无人机轨迹
+- 通信 + 感知 + 避障一体化</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.5 数字孪生</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.5 数字孪生</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 通过 ISAC 感知构建实时三维环境模型
+- 通信信号本身充当&#34;探照灯&#34;，回波携带环境信息</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.1 通信指标</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.1 通信指标</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 指标 | 目标值 | 说明 |
+|------|--------|------|
+| 峰值速率 | &gt; 100 Gbps | 6G 目标 |
+| 频谱效率 | &gt; 30 bps/Hz | XL-MIMO + ISAC |
+| 连接密度 | &gt; 10⁷ devices/km² | IoT 场景 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.2 感知指标</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.2 感知指标</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 指标 | 目标值 | 说明 |
+|------|--------|------|
+| 测距精度 | &lt; 10cm | 3GHz 频段 |
+| 测角精度 | &lt; 0.1° | 64T64R 阵列 |
+| 测速精度 | &lt; 0.01 m/s | 多普勒分辨 |
+| 探测范围 | &gt; 500m |  suburban 场景 |
+| 目标分辨率 | &lt; 5cm | 高分辨率成像 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.3 通信-感知联合指标</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.3 通信-感知联合指标</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 指标 | 定义 | 目标 |
+|------|------|------|
+| CRB-Rate Region | 通信速率和感知 CRB 的可行区域 | 最大化 |
+| Pareto 最优 | 无法在不损害一方的前提下改善另一方 | 达到 |
+| 自干扰抑制 | 发射信号对自身接收机的抑制 | &gt; 100dB |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.1 自干扰（Self-Interference）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.1 自干扰（Self-Interference）</div>
+        
+        
+        
+        
+        
+        <div class="desc">ISAC 系统同时发射和接收——发射信号会直接耦合到接收机，形成自干扰：
+
+```
+SI_power = P_TX - Isolation
+```
+
+其中 Isolation 是发射-接收隔离度（包括天线隔离和模拟域自干扰消除）。
+
+**要求**：
+- 总隔离度 &gt; 110dB（对于 P_TX = 30dBm，接收机灵敏度 -80dBm）
+- 天线隔离：30-40dB（通过极化或空间分离）
+- 模拟域消除：50-60dB
+- 数字域消除：剩余自干扰的建模和消除</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.2 波形兼容性</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.2 波形兼容性</div>
+        
+        
+        
+        
+        
+        <div class="desc">通信波形（OFDM）和传统雷达波形（线性调频 Chirp）的特性不同：
+
+| 特性 | OFDM | Chirp | ISAC 折中 |
+|------|------|-------|----------|
+| PAPR | 高（6-8dB） | 低（0dB） | 降低 OFDM PAPR |
+| 频谱特性 | 带外泄漏大 | 频谱干净 | 加窗滤波 |
+| 自相关 | 差（旁瓣高） | 好（尖锐峰值） | 优化子载波分配 |
+| 互相关 | N/A | 好 | 正交子载波 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.3 波束管理的复杂性</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.3 波束管理的复杂性</div>
+        
+        
+        
+        
+        
+        <div class="desc">ISAC 需要同时管理：
+- 通信波束（跟随用户移动）
+- 感知波束（扫描目标区域）
+- 两者之间的干扰协调
+
+**挑战**：波束切换频率高时，通信和感知的性能都会下降。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.4 标准碎片化</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.4 标准碎片化</div>
+        
+        
+        
+        
+        
+        <div class="desc">3GPP Rel-18 开始研究 ISAC，但标准尚未统一：
+- 3GPP 侧重通信侧
+- IEEE 侧重雷达侧
+- ITU-R 定义 6G ISAC 愿景
+
+**影响**：设备厂商面临多标准兼容的挑战。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">七、技术演进</div>
+    <div class="text-body">- **2017年**：ISAC 概念首次在学术界提出
+- **2019-2021年**：5G-Advanced 开始研究 ISAC 可能性
+- **2022年**：3GPP Rel-18 将 ISAC 列为研究议题
+- **2023年**：IEEE 802.11bf（WiFi 感知）标准发布
+- **2024年**：空间分割 ISAC（SD-ISAC）成为主流方案
+- **2025年**：3GPP Rel-19 开始 ISAC 标准化工作
+- **2025-2026年**：华为、爱立信、诺基亚展示 ISAC 原型系统
+- **2027-2030年**：6G 标准确立，ISAC 成为必选项</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">九、未来趋势</div>
+    <div class="text-body">- **短期（1-2年）**：
+  - 3GPP Rel-19/20 ISAC 标准化
+  - 5G-Advanced 基站增加 ISAC 演示功能
+  - 车联网 ISAC 试点部署
+
+- **中期（3-5年）**：
+  - 6G 标准中 ISAC 成为必选功能
+  - XL-MIMO + ISAC 实现近场高精度感知
+  - RIS 辅助 ISAC 在室内场景商用
+
+- **长期（5年以上）**：
+  - 全息 MIMO + ISAC：连续孔径的无限波束自由度
+  - 太赫兹 ISAC：同时实现通信和高分辨率成像
+  - 量子 ISAC：利用量子纠缠实现超灵敏感知</div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (4)</div>
+    <div class="related-grid">
+      <a href="#">technology-波束成形ic-bfic</a><a href="#">technology-方向图综合pattern-synthesis</a><a href="#">technology-智能反射面ris深度解读</a><a href="#">technology-ota天线测试over-the-air</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-6g通感一体化isac天线</span>
+</div>
+
+</div>
+
+</body>
+</html>

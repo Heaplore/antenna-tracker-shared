@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>波束赋形架构DBF-ABF-HBF混合对比 — KG 卡片</title>
+<title>Doherty-PA-DPD预失真 — KG 卡片</title>
 <style>
   :root {
     --primary: #0e7490;
@@ -248,19 +248,19 @@
       <div class="hero-updated">UPDATED 2026-07-03</div>
     </div>
     <div class="hero-title">
-      波束赋形架构DBF-ABF-HBF混合对比
+      Doherty-PA-DPD预失真
       
     </div>
     
     <div class="hero-tags">
-      <span>天线技术/技术概念</span><span>波束赋形</span><span>DBF</span><span>ABF</span><span>HBF</span><span>数字波束赋形</span><span>模拟波束赋形</span><span>混合波束赋形</span><span>5G</span><span>Massive</span><span>MIMO</span>
+      <span>天线技术/技术概念</span><span>Doherty-PA</span><span>DPD</span><span>预失真</span><span>PA线性化</span><span>5G基站</span><span>GaN</span>
     </div>
     
     
-    <div class="hero-liner"><b>一句话:</b> 波束赋形三大架构——模拟（ABF）只有一条射频链路、便宜但只能形成一个波束；数字（DBF）每根天线一条链路、最灵活但最贵；混合（HBF）折中，5G 基站主流方案用 64 通道配 12-64 条射频链路，在性能和成本之间找平衡。</div>
+    <div class="hero-liner"><b>一句话:</b> Doherty PA 是 5G 基站 PA 的&#34;效率之王&#34;——通过主从两级结构，在 6-8dB 的回退范围内保持 50-60% 的 PAE（比传统 Class AB 高 20-30%）。DPD（数字预失真）是 Doherty 的&#34;拍档&#34;——没有 DPD，Doherty 的线性度根本达不到 5G NR 的要求。</div>
     
     
-    <div class="hero-analogy"><b>类比:</b> 波束赋形就像&#34;手电筒阵列&#34;——</div>
+    <div class="hero-analogy"><b>类比:</b> Doherty PA 就像&#34;双人自行车&#34;——低速时只有一个人蹬（主通道），高速时两个人一起蹬（主通道+辅助通道），这样在低速时也不浪费体力。</div>
     
     
   </div>
@@ -270,13 +270,78 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路（1条）→ 移相器网络 → 天线阵列（N 个单元）
-                      │
-                  衰减器网络
-      
-每个天线单元前有一个移相器（Phase Shifter）
-和/或衰减器（Attenuator）</code></pre>
+    <div class="block-title">1.1 为什么需要 Doherty <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>5G NR 信号特性：
+  峰均比（PAPR）：8-12dB（4x4 MIMO）
+  平均功率：比峰值低 6-8dB
+  
+传统 Class AB PA：
+  峰值效率：~50%
+  平均效率（回退 6dB）：~15%
+  → 功耗大、散热难
+  
+Doherty PA：
+  峰值效率：~50%
+  平均效率（回退 6dB）：~40-50%
+  → 效率提升 2-3 倍</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">1.2 Doherty 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>Doherty PA 结构：
+  
+  输入信号
+    │
+    ├─→ 功率分路器（1:√2:1）
+    │     │         │
+    │     ↓         ↓
+    │   主通道     辅助通道
+    │   (Carrier)  (Peaker)
+    │     │         │
+    │     ↓         ↓
+    │   Class AB   Class C
+    │     │         │
+    │     ↓         ↓
+    │   合成器（λ/4 传输线）
+    │     │
+    │     ↓
+    │   输出信号
+  
+关键：辅助通道通过 λ/4 传输线连接到主通道
+  低功率时：辅助通道关闭，主通道独立工作
+  高功率时：辅助通道导通，两通道并联工作</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">1.3 工作原理 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>阶段 1：低功率（P &lt; P_th）
+  - 辅助通道关闭（Class C 偏置在截止区）
+  - 主通道独立工作（Class AB）
+  - 效率：~30-40%
+  
+阶段 2：中等功率（P_th &lt; P &lt; P_sat）
+  - 辅助通道开始导通
+  - λ/4 传输线实现阻抗变换
+  - 主通道看到的负载阻抗下降
+  - 效率：~40-50%
+  
+阶段 3：峰值功率（P = P_sat）
+  - 两通道都饱和
+  - 效率：~50-60%
+  
+效率提升原理：
+  辅助通道&#34;借用&#34;主通道的负载阻抗
+  使主通道在高回退时仍保持高效率</code></pre>
   </div>
 
     
@@ -285,27 +350,54 @@
 
     
   <div class="block section-list ">
-    <div class="block-title">1.2 特点</div>
+    <div class="block-title">2.1 关键指标</div>
     <div class="list-items ">
       
       <div class="list-item">
         
-        <div class="name">1.2 特点</div>
+        <div class="name">2.1 关键指标</div>
         
         
         
         
         
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | 1 |
-| 空间流数 | 1（单用户） |
-| 移相器位数 | 2-6 bit（步进 90°-5.6°） |
-| 波束切换速度 | μs 级（模拟域） |
-| 功耗 | 极低（1 条 RF 链路） |
-| 成本 | 最低 |
-| 灵活性 | 低（只能形成预置波束） |
-| 适用场景 | 毫米波初始接入、卫星通信、4G 传统天线 |</div>
+        <div class="desc">| 指标 | 典型值 | 说明 |
+|------|--------|------|
+| PAE（峰值） | 50-60% | 功率附加效率 |
+| PAE（6dB 回退） | 40-50% | 5G NR 典型工作点 |
+| 增益 | 15-25dB | 小信号增益 |
+| 带宽 | 100-400MHz | 5G NR 信道带宽 |
+| 线性度（ACLR） | &lt;-45dBc | 需要 DPD 辅助 |
+| 工作频段 | 2.6/3.5/6.5GHz | Sub-6GHz |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.2 工艺选择</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.2 工艺选择</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 工艺 | PAE | 成本 | 适用场景 |
+|------|-----|------|---------|
+| GaN on SiC | 60-70% | 高 | 5G 基站 PA |
+| GaAs HBT | 40-50% | 中 | 4G 基站 PA |
+| LDMOS | 35-45% | 低 | 4G 基站 PA |
+| CMOS | 20-30% | 低 | 集成度要求高 |</div>
         
         
       </div>
@@ -318,24 +410,24 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.3 核心组件 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>移相器类型：
-  1. 数字移相器（LUT 查找表）
-     - 相位步进：360°/2^n（n=位数）
-     - 4 bit → 22.5° 步进
-     - 6 bit → 5.6° 步进
-     
-  2. 模拟移相器（PLL/RC 网络）
-     - 连续可调
-     - 相位精度受温度影响
-     
-  3. 介质移相器
-     - 基于高 Dk 陶瓷
-     - 体积小，适合 5G AAU
-     
-  4. MEMS 移相器
-     - 微机电系统
-     - 超低损耗，但可靠性待验证</code></pre>
+    <div class="block-title">3.1 为什么需要 DPD <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>Doherty PA 的非线性来源：
+  1. Class AB 主通道：AM-AM/AM-PM
+  2. Class C 辅助通道：开关非线性
+  3. λ/4 合成器：频率依赖性
+  4. 温度漂移：效率随温度变化
+  
+5G NR 线性度要求：
+  ACLR（Adjacent Channel Leakage Ratio）：&lt;-45dBc（30MHz BW）
+  EVM（Error Vector Magnitude）：&lt;3.5%（256QAM）
+  
+没有 DPD 的 Doherty PA：
+  ACLR：&lt;-30dBc（不达标）
+  EVM：&gt;8%（不达标）
+  
+有 DPD 的 Doherty PA：
+  ACLR：&lt;-50dBc（达标）
+  EVM：&lt;2.5%（达标）</code></pre>
   </div>
 
     
@@ -344,11 +436,18 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.4 局限性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 只能形成单波束 → 无法多用户复用
-2. 波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
-3. 移相器相位量化误差 → 波束指向精度受限
-4. 无法自适应零陷 → 干扰抑制能力弱</code></pre>
+    <div class="block-title">3.2 DPD 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>DPD 系统：
+  
+  输入信号 → DPD 预失真器 → PA → 输出信号
+                          ↓
+                      采样电路
+                          ↓
+                      误差计算器
+                          ↓
+                  自适应算法（RLS/LMS）
+                          ↓
+                  更新预失真器系数</code></pre>
   </div>
 
     
@@ -357,79 +456,24 @@
 
     
   <div class="block section-code">
-    <div class="block-title">2.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路 1 → DAC → 上变频器 → PA → 天线单元 1
-射频链路 2 → DAC → 上变频器 → PA → 天线单元 2
-...
-射频链路 N → DAC → 上变频器 → PA → 天线单元 N
-
-每根天线都有独立的 RF 链路 → 数字域做波束权重</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">2.2 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | N（等于天线数） |
-| 空间流数 | 最多 N 流 |
-| 波束形成 | 数字域预编码矩阵 W ∈ C^(N×K) |
-| 波束切换速度 | ns 级（数字信号处理） |
-| 功耗 | 高（N 条 RF 链路） |
-| 成本 | 最高 |
-| 灵活性 | 最高（每根天线独立控制） |
-| 适用场景 | Sub-6GHz 基站、实验室验证 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.3 预编码算法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>全数字预编码：
-  y = Ws + n
-  
-  其中：
-  y: 接收信号
-  W: 预编码矩阵（N_t × N_s）
-  s: 发送符号
-  n: 噪声
-  
-主流算法：
-  1. 迫零 ZF（Zero-Forcing）
-     W = H^H(HH^H)^(-1)
-     简单但噪声增强
+    <div class="block-title">3.3 DPD 算法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>主流 DPD 模型：
+  1. Volterra 级数
+     - 通用非线性模型
+     - 计算量大
      
-  2. MMSE（最小均方误差）
-     W = H^H(HH^H + σ²I)^(-1)
-     考虑噪声
+  2. 多项式模型
+     - AM-AM + AM-PM
+     - 计算量中等
      
-  3. WMMSE（加权 MMSE）
-     迭代优化，逼近容量
+  3. 查找表（LUT）
+     - 直接存储预失真值
+     - 计算量小，实时性好
      
-  4. SVD 分解
-     H = UΣV^H
-     最优但计算量大</code></pre>
+  4. 神经网络 DPD
+     - 深度学习模型
+     - 适应性强
+     - 5G-A/6G 趋势</code></pre>
   </div>
 
     
@@ -438,164 +482,63 @@
 
     
   <div class="block section-code">
-    <div class="block-title">2.4 在 5G 中的实际应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>64T64R AAU：
-  - 64 条射频链路
-  - 64 个 DAC/ADC
-  - 64 个 PA/LNA
-  - 功耗：~500W-600W（含功放）
+    <div class="block-title">3.4 DPD 实现位置 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>DPD 部署位置：
+  1. 基带 DPD（BBU/DU 内）
+     - 数字域预失真
+     - 灵活性高
+     - 5G AAU 主流方案
+     
+  2. 射频 DPD（AAU 内）
+     - 模拟/混合预失真
+     - 延迟小
+     - 适合高频段
+     
+  3. 分布式 DPD
+     - BBU 粗 DPD + AAU 细 DPD
+     - 前传带宽优化</code></pre>
+  </div>
+
+    
   
-128T128R AAU：
-  - 128 条射频链路
-  - 功耗：~800W-1000W
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">4.1 Sub-6GHz AAU <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>典型配置：
+  频段：3.5GHz（n78）
+  通道：64T64R
+  PA：GaN Doherty × 64
+  DPD：数字 DPD（每通道独立）
+  带宽：100MHz（单载波）
+  功率：200-300W（总输出）
+  
+效率：
+  峰值 PAE：~55%
+  平均 PAE（6dB 回退）：~40%
+  对比传统 Class AB：节能 30-40%</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">4.2 U6G AAU（6.5GHz） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>典型配置：
+  频段：6.5GHz（n104）
+  通道：64T64R/192T192R
+  PA：GaN Doherty × 64/192
+  DPD：数字 DPD
+  带宽：400MHz（单载波）
+  功率：100-200W（总输出）
   
 挑战：
-  - 功耗随天线数线性增长
-  - 成本高昂（每多一条链路 = 多一套 RF 器件）
-  - 散热压力大</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>数字域（基带）：
-  K 条射频链路 → K 个 DAC → 模拟预编码矩阵 F_RF
-  
-模拟域（射频）：
-  F_RF → 移相器网络 → N 根天线
-  
-K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.2 三种连接架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 全连接架构（Fully Connected）
-   每条 RF 链路连接所有天线单元
-   - 性能好（逼近 DBF）
-   - 移相器数量：K × N
-   - 功耗高
-   - 复杂度最高
-   
-2. 部分连接架构（Partially Connected / Subarray）
-   每条 RF 链路连接一组天线（子阵）
-   - 移相器数量：N
-   - 功耗中
-   - 5G 基站主流方案
-   
-3. 动态子阵架构（Dynamic Subarray）
-   射频链路可以动态分配到不同子阵
-   - 灵活性最高
-   - 需要 RF 开关网络
-   - 6G 候选方案</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">3.3 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | ABF | HBF（子阵） | DBF |
-|------|-----|------------|-----|
-| 射频链路数 | 1 | K（12-64） | N（64-128） |
-| 空间流数 | 1 | K | N |
-| 频谱效率 | 基准 | 85-95% | 100% |
-| 功耗 | 基准 | 60-70% | 100% |
-| 成本 | 基准 | 50-60% | 100% |
-| 波束灵活性 | 低 | 中 | 高 |
-| 5G 主流 | ❌ | ✅ | 实验室 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">3.4 5G 基站 HBF 典型配置</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.4 5G 基站 HBF 典型配置</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 厂商 | 产品 | 天线数 | RF 链路数 | 架构 |
-|------|------|--------|----------|------|
-| 华为 | AAU 64T64R | 192（64 端口双极化） | 64 | 子阵 |
-| 爱立信 | AIR 6488 | 128（64 端口） | 64 | 子阵 |
-| 中兴 | 64T64R AAU | 384（64 端口） | 32-64 | 子阵 |
-| 三星 | MMB-H13（28GHz） | 128 | 32 | 子阵 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-text">
-    <div class="block-title">四、波束倾斜（Beam Squint）问题</div>
-    <div class="text-body">```
-问题：
-  模拟/混合波束赋形使用相位移相器
-  → 相位权重与频率相关
-  → 宽带信号下不同频率波束指向不同
-  
-公式：
-  Δφ = 2πd·sin(θ)/λ = 2πd·f·sin(θ)/c
-  
-当 f 变化时，θ 也变化 → 波束倾斜
-  
-影响：
-  - 宽带系统（&gt; 100MHz）性能下降
-  - 毫米波更严重（相对带宽更大）
-  
-解决方案：
-  1. 真时延（True Time Delay, TTD）
-     - 使用时延线代替移相器
-     - 所有频率相位一致
-     - 成本高、体积大
-     
-  2. 子带划分
-     - 将宽带分成多个子带
-     - 每个子带独立波束赋形
-     - 折中方案
-     
-  3. 数字波束赋形
-     - 数字域补偿
-     - 最彻底但最贵
-```</div>
+  - 6.5GHz GaN 成本高
+  - DPD 带宽需求大（400MHz）
+  - 散热更严峻</code></pre>
   </div>
 
     
@@ -603,9 +546,9 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
   
   <div class="block related-block">
-    <div class="block-title">关联笔记 (4)</div>
+    <div class="block-title">关联笔记 (3)</div>
     <div class="related-grid">
-      <a href="#">technology-波束赋形beamforming深度解读</a><a href="#">technology-近场波束赋形near-field-beamforming</a><a href="#">technology-极化波束赋形polarization-beamforming</a><a href="#">technology-相控阵天线phased-array-antenna</a>
+      <a href="#">component-功率放大器pa</a><a href="#">component-t-r模块transmit-receive-module</a><a href="#">technology-天线热管理thermal-management</a>
     </div>
   </div>
   
@@ -614,7 +557,7 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
 <div class="footer">
   <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-波束赋形架构dbf-abf-hbf混合对比</span>
+  <span>node: technology-doherty-pa-dpd预失真</span>
 </div>
 
 </div>

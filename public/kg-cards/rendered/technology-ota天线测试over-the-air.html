@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>OTA天线测试Over-The-Air — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    height: 1080px;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+    column-count: 2;
+    column-gap: 12px;
+  }
+  .canvas .hero {
+    column-span: all;
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    margin-bottom: 12px;
+  }
+  .block.section-table, .block.section-comparison {
+    /* 不再 column-span: all，只占一列宽度 */
+  }
+  .block.section-text {
+    column-span: all;
+    width: 100%;
+  }
+  .block:last-child.related-block {
+    flex: 1 1 100%;
+    column-span: all;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-02</div>
+    </div>
+    <div class="hero-title">
+      OTA天线测试Over-The-Air
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术/技术概念</span><span>OTA测试</span><span>过路测试</span><span>TRP</span><span>TIS</span><span>混响室</span><span>紧缩场</span><span>3GPP</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> OTA（Over-The-Air）测试是直接通过无线空间辐射方式测量天线和终端性能的方法，无需有线连接。它是 5G Massive MIMO 和毫米波终端测试的必选方案——当天线被封装在芯片封装内部（AiP）或设备外壳内部时，传统的矢量网络分析仪（VNA）馈电测试已无法使用。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> 传统的天线测试就像用水管直接给花洒水箱注水——你可以精确测量每根水管的水量和水压（S 参数）。</div>
+    
+    
+  </div>
+
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.1 为什么需要 OTA 测试？</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.1 为什么需要 OTA 测试？</div>
+        
+        
+        
+        
+        
+        <div class="desc">传统天线测试方法（VNA + 电缆）的前提是：天线端口可以物理接触到。但在以下场景中这个前提不再成立：
+
+| 场景 | 为什么不能用 VNA | 必须用 OTA |
+|------|----------------|-----------|
+| 5G 手机（Sub-6GHz） | 天线在机身内部，无外露端口 | 需要测量整机辐射性能 |
+| 毫米波 AiP（28/39GHz） | 天线集成在封装内，无测试点 | 芯片级测试必须 OTA |
+| Massive MIMO AAU | 数百个端口，无法逐一接电缆 | 需要测量整体辐射性能 |
+| IoT 设备/可穿戴 | 无标准连接器 | 只能 OTA 测试 |
+| 卫星终端 | 天线在整流罩内 | 无法接触 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.2 OTA 测试的核心指标</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.2 OTA 测试的核心指标</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 指标 | 全称 | 定义 | 测量方向 |
+|------|------|------|---------|
+| TRP | Total Radiated Power | 总辐射功率 | 发射方向 |
+| TIS | Total Isotropic Sensitivity | 总各向同性灵敏度 | 接收方向 |
+| ERP | Effective Radiated Power | 有效辐射功率 | 发射方向（含馈线损耗） |
+| EIRP | Equivalent Isotropically Radiated Power | 等效全向辐射功率 | 发射方向（含馈线损耗） |
+| ARPL | Average Radiated Power Level | 平均辐射功率电平 | 发射方向 |
+| G/T | Gain-to-Noise-Temperature Ratio | 增益噪比 | 接收方向 |
+
+**TRP 和 TIS 是 3GPP 规定的 5G OTA 测试核心指标**：
+
+```
+TRP = Σ(各方向辐射功率) = ∫∫ P_rad(θ,φ) · sinθ dθ dφ
+TIS = 1 / [ (1/N) · Σ(1/各方向灵敏度) ]
+```</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.3 OTA 测试方法的分类</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.3 OTA 测试方法的分类</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 方法 | 缩写 | 原理 | 适用场景 |
+|------|------|------|---------|
+| 直接远场法 | DFF（Direct Far-Field） | 天线在远场区直接测量 | Sub-6GHz，小天线 |
+| 紧缩场法 | CATR（Compact Antenna Test Range） | 抛物面反射器产生平面波 | 大天线、毫米波 |
+| 近场扫描法 | NF-FF（Near-Field to Far-Field） | 近场扫描 + FFT 变换 | 高精度测量 |
+| 混响室法 | RC（Reverberation Chamber） | 搅拌器产生统计均匀场 | MIMO/TRP/TIS |
+| 多探头暗室法 | MPAC（Multi-Probe Anechoic Chamber） | 多天线模拟多径信道 | 5G MIMO OTA |
+| 近场天线测试仪 | NFA | 近场探头直接测量 | 芯片/模组级 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.1 直接远场法（DFF）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.1 直接远场法（DFF）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：将被测设备（EUT）放在远场区，用标准增益天线发射/接收信号。
+
+**远场条件**：
+
+```
+R &gt; 2D² / λ
+```
+
+其中 D 是被测天线的最大尺寸，λ 是波长。
+
+**典型参数**：
+
+| 频段 | λ | D（手机） | 远场距离 |
+|------|---|----------|---------|
+| 700MHz | 0.43m | 0.15m | &gt; 0.17m |
+| 2.6GHz | 0.115m | 0.15m | &gt; 0.21m |
+| 3.5GHz | 0.086m | 0.15m | &gt; 0.16m |
+| 28GHz | 0.0107m | 0.02m | &gt; 0.007m |
+| 39GHz | 0.0077m | 0.02m | &gt; 0.004m |
+
+**优点**：
+- 设备简单（暗室 + 两台信号发生器 + 两台接收机）
+- 测量精度高
+- 可直接获得方向图
+
+**缺点**：
+- 低频时需要很大的远场距离（Sub-6GHz 可能需要 10m+ 暗室）
+- 不适合 MIMO（只能一次测一个端口）
+- 不能模拟多径信道
+
+**适用场景**：单端口天线方向图测量、TRP/TIS 基础测量。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.2 紧缩场法（CATR）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.2 紧缩场法（CATR）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：使用抛物面反射器将点源天线发出的球面波转换为平面波，在较短的距离内实现&#34;远场&#34;效果。
+
+**焦距与口径的关系**：
+
+```
+F/D ≈ 0.35 - 0.6
+```
+
+其中 F 是焦距，D 是反射器直径。
+
+**平面波区尺寸**：
+
+```
+λ_z / λ &lt; 1/16  （相位误差 &lt; 22.5°）
+```
+
+**优点**：
+- 可以在较短距离内实现远场测量
+- 适合大尺寸天线（如卫星天线、AAU）
+- 精度高（相位均匀性好）
+
+**缺点**：
+- 设备昂贵（大型抛物面反射器 + 精密定位系统）
+- 暗室体积仍然很大
+- 不适合 MIMO 多端口同时测试
+
+**典型应用**：
+- 卫星天线测试（口径 1-10m）
+- 5G AAU 测试（3.5-39GHz）
+- 机载雷达天线测试</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.3 近场扫描法（NF-FF）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.3 近场扫描法（NF-FF）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：在靠近天线的区域内扫描电磁场（电场或磁场），然后通过傅里叶变换计算远场方向图。
+
+**扫描类型**：
+- **平面近场**：扫描平面，适合方向性强的天线
+- **圆柱近场**：扫描圆柱面，适合垂直极化天线
+- **球面近场**：扫描球面，最通用但最复杂
+
+**FFT 变换公式**：
+
+```
+E_ff(θ,φ) = FFT[E_near(x,y)]
+```
+
+**优点**：
+- 测量距离短（不需要远场距离）
+- 精度高（可以测量相位和幅度）
+- 适合各种天线类型
+
+**缺点**：
+- 需要精密扫描系统（三维运动平台）
+- 数据处理复杂
+- 不适合 MIMO 或多端口同时测试
+
+**典型应用**：
+- 高精度天线方向图测量
+- 反射面天线测试
+- 相控阵天线校准</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.4 混响室法（Reverberation Chamber, RC）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.4 混响室法（Reverberation Chamber, RC）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：在一个金属腔体内用搅拌器（Mode Stirrer）产生统计均匀的电磁场环境，被测设备在其中测量 TRP/TIS。
+
+**混响室的工作条件**：
+
+```
+f &gt; 2.5 · f_c
+```
+
+其中 f_c 是混响室的截止频率（最低有效模态频率）。
+
+**搅拌方式**：
+- 机械搅拌：旋转金属叶片
+- 电子搅拌：可调匹配网络
+- 位置搅拌：移动 EUT 位置
+
+**优点**：
+- 设备紧凑（3-5m³ 即可）
+- 测试速度快（TRP 测量 &lt; 5 分钟）
+- 适合 MIMO 设备的批量测试
+- 可以模拟多径环境
+
+**缺点**：
+- 不能获得方向图（统计均匀场）
+- 精度低于远场方法（不确定度较大）
+- 不适合高频（&gt; 20GHz）
+
+**典型应用**：
+- 手机/TRP/TIS 批量测试
+- WiFi/蓝牙 MIMO 设备测试
+- 电磁兼容性（EMC）预兼容性测试</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.5 多探头暗室法（MPAC）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.5 多探头暗室法（MPAC）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：在暗室中围绕 EUT 布置多根探头天线（通常 8-16 根），每根天线从不同方向发射/接收信号，模拟真实的空中多径信道。
+
+**3GPP 标准配置**：
+- FR1（Sub-6GHz）：16 根双极化探头 = 32 通道
+- FR2（毫米波）：8 根双极化探头 = 16 通道
+
+**信道模型模拟**：
+- UMi CDL-C（城市微蜂窝）
+- UMa CDL-C（城市宏蜂窝）
+- RMa CDL-C（农村）
+
+**优点**：
+- 可以模拟真实的空中信道（多径、衰落、多普勒）
+- 支持 MIMO 性能测试（吞吐量、ECC、MCR）
+- 符合 3GPP 标准
+
+**缺点**：
+- 设备昂贵（多通道信号发生器 + 暗室）
+- 校准复杂
+- 测试时间长
+
+**典型应用**：
+- 5G NR UE MIMO OTA 测试（3GPP TS 38.551）
+- Massive MIMO 基站 OTA 测试（3GPP TS 38.810）
+- 信道模型验证</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">3.1 TRP 计算 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>TRP = (1/4π) · ∫∫ G(θ,φ) · P_inc(θ,φ) · sinθ dθ dφ
+
+
+简化为离散形式（N 个测量点）：
+
+
+TRP ≈ (4π/N) · Σ[G(θ_i,φ_i) · P_inc(θ_i,φ_i)]
+
+
+其中 G(θ,φ) 是 EUT 的发射增益，P_inc(θ,φ) 是入射功率密度。</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">3.2 TIS 计算 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>TIS = N / Σ(1/G_i(θ,φ))
+
+
+其中 G_i 是每个测量方向的接收增益。</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">3.3 EIRP 计算 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>EIRP = P_TX + G_ant - L_cable
+
+
+其中 P_TX 是发射功率，G_ant 是天线增益，L_cable 是馈线损耗。</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.4 5G MIMO 吞吐量测试</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.4 5G MIMO 吞吐量测试</div>
+        
+        
+        
+        
+        
+        <div class="desc">3GPP 定义了 MIMO 吞吐量测试方法：
+
+```
+Throughput = Σ(各层数据速率) × (1 - BLER_threshold)
+```
+
+其中 BLER（Block Error Rate）阈值为 10%。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">3.5 包络相关系数（ECC） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>ECC = |ρ₁₂|² = |s₁ᴴ · s₂|² / (|s₁|² · |s₂|²)
+
+
+其中 s₁ 和 s₂ 是两个端口的 S 参数向量。
+
+ECC &lt; 0.5 被认为是可接受的 MIMO 性能。</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.1 按频段选择</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.1 按频段选择</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 频段 | 推荐方法 | 原因 |
+|------|---------|------|
+| &lt; 1GHz | DFF / RC | 远场距离可接受，RC 效率高 |
+| 1-6GHz（Sub-6GHz） | MPAC / DFF / RC | 3GPP 标准方法 |
+| 24-40GHz（mmWave） | CATR / 近场 | 远场距离短但精度要求高 |
+| &gt; 60GHz（太赫兹） | 近场 / 暗室 | 设备 specialized |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.2 按被测对象选择</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.2 按被测对象选择</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 被测对象 | 推荐方法 | 说明 |
+|---------|---------|------|
+| 手机/UE | MPAC / RC | 3GPP 标准要求 |
+| 毫米波 AiP 模组 | 近场 / CATR | 芯片级测试 |
+| 基站 AAU | CATR / DFF | 大尺寸，高精度 |
+| 卫星终端 | CATR / DFF | 远距离远场 |
+| WiFi/蓝牙模组 | RC / 暗室 | 成本低，速度快 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.3 按测试目的选择</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.3 按测试目的选择</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 目的 | 推荐方法 |
+|------|---------|
+| 方向图测量 | CATR / 近场 / DFF |
+| TRP/TIS 认证 | MPAC / RC |
+| MIMO 吞吐量 | MPAC |
+| ECC/DGC | MPAC / RC |
+| EIRP/ERP | DFF / RC |
+| 信道模型验证 | MPAC |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.1 远场距离的&#34;陷阱&#34;</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.1 远场距离的&#34;陷阱&#34;</div>
+        
+        
+        
+        
+        
+        <div class="desc">对于 3.5GHz、口径 1m 的 Massive MIMO AAU：
+
+```
+R &gt; 2D²/λ = 2 × 1² / 0.086 = 23.3m
+```
+
+这意味着需要一个至少 25m 长的暗室——这在大多数测试实验室中是不现实的。
+
+**解决方案**：
+- 使用 CATR（紧缩场）：可以在 10m 内实现等效远场
+- 使用近场扫描 + FFT
+- 使用中近场方法（Near-to-Far-Field Transformation）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.2 毫米波 OTA 的对准难题</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.2 毫米波 OTA 的对准难题</div>
+        
+        
+        
+        
+        
+        <div class="desc">28GHz 下波束宽度仅 2-5°，EUT 和测试天线的对准误差 0.5° 就可能导致 3dB 的测量误差。
+
+**解决方案**：
+- 使用精密旋转台（角度分辨率 &lt; 0.01°）
+- 自动对准算法
+- 多位置平均</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.3 MIMO 通道校准</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.3 MIMO 通道校准</div>
+        
+        
+        
+        
+        
+        <div class="desc">MPAC 中 32 根探头天线的幅度和相位必须精确校准，否则 MIMO 性能测试结果不可信。
+
+**校准方法**：
+- 点对点校准（每对探头之间）
+- 使用校准天线（Calibration Antenna）
+- 定期重新校准（建议每 6 个月）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.4 混响室的模式密度</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.4 混响室的模式密度</div>
+        
+        
+        
+        
+        
+        <div class="desc">混响室要产生统计均匀场，必须保证模式密度足够：
+
+```
+N_modes &gt; 20-50  （最低要求）
+```
+
+模式密度与频率的关系：
+
+```
+N_modes ∝ f³ · V
+```
+
+其中 V 是混响室体积。低频时模式密度不足，混响室无效。
+
+**经验法则**：混响室的最低工作频率 f_min ≈ 300-500MHz（取决于体积）。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.5 测试不确定度</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.5 测试不确定度</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 方法 | 典型不确定度（TRP） | 典型不确定度（方向图） |
+|------|-------------------|---------------------|
+| DFF | 0.3-0.5dB | 0.5-1dB |
+| CATR | 0.2-0.4dB | 0.3-0.8dB |
+| 近场 | 0.3-0.6dB | 0.5-1dB |
+| RC | 0.5-1.5dB | N/A |
+| MPAC | 0.5-1.0dB | 1-2dB |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">六、技术演进</div>
+    <div class="text-body">- **1990s**：OTA 测试概念提出，主要用于卫星和雷达天线
+- **2000s**：混响室法（RC）用于 WiFi/蓝牙设备测试
+- **2010s**：3GPP 开始制定 LTE OTA 测试标准（Release 11-13）
+- **2016-2018年**：5G NR OTA 标准确立（TS 38.521-1, 38.551, 38.810）
+- **2019-2021年**：毫米波 OTA 测试方法标准化（FR2）
+- **2022-2024年**：Massive MIMO OTA 测试成为 5G 基站认证标配
+- **2025年**：3GPP Release 18 扩展 OTA 到 7GHz+ 频段
+- **2025-2026年**：6G 太赫兹 OTA 测试方法研究</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">八、未来趋势</div>
+    <div class="text-body">- **短期（1-2年）**：
+  - 5G-Advanced 推动更高频段（7GHz+）的 OTA 测试标准化
+  - AI 辅助 OTA 测试自动化（自动对准、自动校准）
+  - 大规模 MIMO OTA 测试时间压缩（从小时级到分钟级）
+
+- **中期（3-5年）**：
+  - 6G 太赫兹 OTA 测试方法建立
+  - 通感一体化（ISAC）设备的联合 OTA 测试
+  - 无人机/卫星终端的 OTA 测试标准化
+
+- **长期（5年以上）**：
+  - 全息 MIMO 的 OTA 测试理论重新定义
+  - 量子传感器的 OTA 测试</div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (3)</div>
+    <div class="related-grid">
+      <a href="#">technology-mimo天线去耦decoupling</a><a href="#">metric-天线效率antenna-efficiency</a><a href="#">technology-封装天线antenna-in-package-aip</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-ota天线测试over-the-air</span>
+</div>
+
+</div>
+
+</body>
+</html>

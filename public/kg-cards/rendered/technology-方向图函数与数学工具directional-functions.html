@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>波束赋形架构DBF-ABF-HBF混合对比 — KG 卡片</title>
+<title>方向图函数与数学工具Directional-Functions — KG 卡片</title>
 <style>
   :root {
     --primary: #0e7490;
@@ -245,285 +245,65 @@
   <div class="hero">
     <div class="hero-header">
       <div class="hero-type">technology · KG 卡片</div>
-      <div class="hero-updated">UPDATED 2026-07-03</div>
+      <div class="hero-updated">UPDATED 2026-07-02</div>
     </div>
     <div class="hero-title">
-      波束赋形架构DBF-ABF-HBF混合对比
+      方向图函数与数学工具Directional-Functions
       
     </div>
     
     <div class="hero-tags">
-      <span>天线技术/技术概念</span><span>波束赋形</span><span>DBF</span><span>ABF</span><span>HBF</span><span>数字波束赋形</span><span>模拟波束赋形</span><span>混合波束赋形</span><span>5G</span><span>Massive</span><span>MIMO</span>
+      <span>天线技术/技术概念</span><span>方向图函数</span><span>特殊函数</span><span>贝塞尔</span><span>Chebyshev</span><span>Legendre</span><span>数学工具</span>
     </div>
     
     
-    <div class="hero-liner"><b>一句话:</b> 波束赋形三大架构——模拟（ABF）只有一条射频链路、便宜但只能形成一个波束；数字（DBF）每根天线一条链路、最灵活但最贵；混合（HBF）折中，5G 基站主流方案用 64 通道配 12-64 条射频链路，在性能和成本之间找平衡。</div>
+    <div class="hero-liner"><b>一句话:</b> 天线方向图的背后是一套丰富的数学工具——sinc 函数描述矩形孔径、贝塞尔函数描述圆形孔径、Chebyshev 多项式控制旁瓣、Legendre 多项式描述球面波。掌握这些函数的数学特性，就能理解和预测天线方向图的行为。</div>
     
     
-    <div class="hero-analogy"><b>类比:</b> 波束赋形就像&#34;手电筒阵列&#34;——</div>
+    <div class="hero-analogy"><b>类比:</b> 天线方向图就像一首乐曲的&#34;声音指纹&#34;，而这些特殊函数就是乐谱上的音符。</div>
     
     
   </div>
 
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">1.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路（1条）→ 移相器网络 → 天线阵列（N 个单元）
-                      │
-                  衰减器网络
-      
-每个天线单元前有一个移相器（Phase Shifter）
-和/或衰减器（Attenuator）</code></pre>
-  </div>
-
-    
   
     
 
     
   <div class="block section-list ">
-    <div class="block-title">1.2 特点</div>
+    <div class="block-title">1.1 sinc 函数（抽样函数）</div>
     <div class="list-items ">
       
       <div class="list-item">
         
-        <div class="name">1.2 特点</div>
+        <div class="name">1.1 sinc 函数（抽样函数）</div>
         
         
         
         
         
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | 1 |
-| 空间流数 | 1（单用户） |
-| 移相器位数 | 2-6 bit（步进 90°-5.6°） |
-| 波束切换速度 | μs 级（模拟域） |
-| 功耗 | 极低（1 条 RF 链路） |
-| 成本 | 最低 |
-| 灵活性 | 低（只能形成预置波束） |
-| 适用场景 | 毫米波初始接入、卫星通信、4G 传统天线 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
+        <div class="desc">**定义**：
+```
+sinc(x) = sin(x)/x    （数学定义）
+或
+sinc(x) = sin(πx)/(πx)  （工程定义，零点在整数处）
+```
 
-    
-  <div class="block section-code">
-    <div class="block-title">1.3 核心组件 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>移相器类型：
-  1. 数字移相器（LUT 查找表）
-     - 相位步进：360°/2^n（n=位数）
-     - 4 bit → 22.5° 步进
-     - 6 bit → 5.6° 步进
-     
-  2. 模拟移相器（PLL/RC 网络）
-     - 连续可调
-     - 相位精度受温度影响
-     
-  3. 介质移相器
-     - 基于高 Dk 陶瓷
-     - 体积小，适合 5G AAU
-     
-  4. MEMS 移相器
-     - 微机电系统
-     - 超低损耗，但可靠性待验证</code></pre>
-  </div>
+**在天线中的应用**：
+- 矩形孔径均匀照明 → 方向图 = sinc 函数
+- 线性阵列均匀激励 → 阵列因子 = Dirichlet 核（周期 sinc）
 
-    
-  
-    
+**关键性质**：
+```
+零点：x = ±π, ±2π, ±3π, ...
+第一旁瓣：-13.2 dB
+旁瓣滚降：∝ 1/x（缓慢）
+```
 
-    
-  <div class="block section-code">
-    <div class="block-title">1.4 局限性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 只能形成单波束 → 无法多用户复用
-2. 波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
-3. 移相器相位量化误差 → 波束指向精度受限
-4. 无法自适应零陷 → 干扰抑制能力弱</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路 1 → DAC → 上变频器 → PA → 天线单元 1
-射频链路 2 → DAC → 上变频器 → PA → 天线单元 2
-...
-射频链路 N → DAC → 上变频器 → PA → 天线单元 N
-
-每根天线都有独立的 RF 链路 → 数字域做波束权重</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">2.2 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | N（等于天线数） |
-| 空间流数 | 最多 N 流 |
-| 波束形成 | 数字域预编码矩阵 W ∈ C^(N×K) |
-| 波束切换速度 | ns 级（数字信号处理） |
-| 功耗 | 高（N 条 RF 链路） |
-| 成本 | 最高 |
-| 灵活性 | 最高（每根天线独立控制） |
-| 适用场景 | Sub-6GHz 基站、实验室验证 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.3 预编码算法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>全数字预编码：
-  y = Ws + n
-  
-  其中：
-  y: 接收信号
-  W: 预编码矩阵（N_t × N_s）
-  s: 发送符号
-  n: 噪声
-  
-主流算法：
-  1. 迫零 ZF（Zero-Forcing）
-     W = H^H(HH^H)^(-1)
-     简单但噪声增强
-     
-  2. MMSE（最小均方误差）
-     W = H^H(HH^H + σ²I)^(-1)
-     考虑噪声
-     
-  3. WMMSE（加权 MMSE）
-     迭代优化，逼近容量
-     
-  4. SVD 分解
-     H = UΣV^H
-     最优但计算量大</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.4 在 5G 中的实际应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>64T64R AAU：
-  - 64 条射频链路
-  - 64 个 DAC/ADC
-  - 64 个 PA/LNA
-  - 功耗：~500W-600W（含功放）
-  
-128T128R AAU：
-  - 128 条射频链路
-  - 功耗：~800W-1000W
-  
-挑战：
-  - 功耗随天线数线性增长
-  - 成本高昂（每多一条链路 = 多一套 RF 器件）
-  - 散热压力大</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>数字域（基带）：
-  K 条射频链路 → K 个 DAC → 模拟预编码矩阵 F_RF
-  
-模拟域（射频）：
-  F_RF → 移相器网络 → N 根天线
-  
-K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.2 三种连接架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 全连接架构（Fully Connected）
-   每条 RF 链路连接所有天线单元
-   - 性能好（逼近 DBF）
-   - 移相器数量：K × N
-   - 功耗高
-   - 复杂度最高
-   
-2. 部分连接架构（Partially Connected / Subarray）
-   每条 RF 链路连接一组天线（子阵）
-   - 移相器数量：N
-   - 功耗中
-   - 5G 基站主流方案
-   
-3. 动态子阵架构（Dynamic Subarray）
-   射频链路可以动态分配到不同子阵
-   - 灵活性最高
-   - 需要 RF 开关网络
-   - 6G 候选方案</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">3.3 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | ABF | HBF（子阵） | DBF |
-|------|-----|------------|-----|
-| 射频链路数 | 1 | K（12-64） | N（64-128） |
-| 空间流数 | 1 | K | N |
-| 频谱效率 | 基准 | 85-95% | 100% |
-| 功耗 | 基准 | 60-70% | 100% |
-| 成本 | 基准 | 50-60% | 100% |
-| 波束灵活性 | 低 | 中 | 高 |
-| 5G 主流 | ❌ | ✅ | 实验室 |</div>
+**图形特征**：
+```
+主瓣宽度（-3dB）：Δx ≈ 0.886·π
+主瓣宽度（零点到零点）：Δx = 2π
+```</div>
         
         
       </div>
@@ -536,68 +316,372 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
     
   <div class="block section-list ">
-    <div class="block-title">3.4 5G 基站 HBF 典型配置</div>
+    <div class="block-title">1.2 贝塞尔函数（Bessel Function）</div>
     <div class="list-items ">
       
       <div class="list-item">
         
-        <div class="name">3.4 5G 基站 HBF 典型配置</div>
+        <div class="name">1.2 贝塞尔函数（Bessel Function）</div>
         
         
         
         
         
-        <div class="desc">| 厂商 | 产品 | 天线数 | RF 链路数 | 架构 |
-|------|------|--------|----------|------|
-| 华为 | AAU 64T64R | 192（64 端口双极化） | 64 | 子阵 |
-| 爱立信 | AIR 6488 | 128（64 端口） | 64 | 子阵 |
-| 中兴 | 64T64R AAU | 384（64 端口） | 32-64 | 子阵 |
-| 三星 | MMB-H13（28GHz） | 128 | 32 | 子阵 |</div>
+        <div class="desc">**定义**（一阶）：
+```
+J₁(x) = Σ(k=0 to ∞) [(-1)ᵏ · (x/2)^(2k+1)] / [k! · (k+1)!]
+```
+
+**在天线中的应用**：
+- 圆形孔径均匀照明 → 方向图 = 2·J₁(x)/x
+- 抛物面天线的馈源方向图
+
+**关键性质**：
+```
+第一零点：x ≈ 3.832
+第一旁瓣：-17.6 dB（比矩形孔径更高）
+旁瓣滚降：∝ 1/√x（比 sinc 慢）
+```
+
+**圆形孔径方向图**：
+```
+F(θ) = 2·J₁(ka·sinθ) / (ka·sinθ)
+```
+其中 a = 孔径半径，k = 2π/λ。
+
+**3dB 波束宽度**：
+```
+HPBW ≈ 1.02·λ/D    （D = 2a 是直径）
+```
+
+对比矩形孔径：HPBW ≈ 0.886·λ/L</div>
         
         
       </div>
       
     </div>
   </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.3 Chebyshev 多项式</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.3 Chebyshev 多项式</div>
+        
+        
+        
+        
+        
+        <div class="desc">**定义**：
+```
+T_n(x) = cos(n·arccos(x)),  |x| ≤ 1
+T_n(x) = cosh(n·arccosh(x)), |x| &gt; 1
+```
+
+递推关系：
+```
+T_0(x) = 1
+T_1(x) = x
+T_{n+1}(x) = 2x·T_n(x) - T_{n-1}(x)
+```
+
+**关键性质**：
+- 在 [-1, 1] 区间内，|T_n(x)| ≤ 1（等振荡）
+- 在 |x| &gt; 1 时，T_n(x) 单调递增
+- 等旁瓣特性 → 用于 Dolph-Chebyshev 天线设计
+
+**在天线中的应用**：
+Dolph-Chebyshev 阵列的方向图：
+```
+AF(ψ) = T_{N-1}[cos(ψ₀)·cos(ψ/2)] / T_{N-1}[cos(ψ₀)]
+```
+
+其中 ψ₀ 控制旁瓣电平：
+```
+SLL = 20·log₁₀(T_{N-1}(cos(ψ₀)))
+```</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.4 Legendre 多项式</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.4 Legendre 多项式</div>
+        
+        
+        
+        
+        
+        <div class="desc">**定义**：
+```
+P_n(x) = (1/(2ⁿ·n!)) · dⁿ/dxⁿ[(x²-1)ⁿ]
+```
+
+前几个：
+```
+P_0(x) = 1
+P_1(x) = x
+P_2(x) = (3x²-1)/2
+P_3(x) = (5x³-3x)/2
+```
+
+**在天线中的应用**：
+- 球面波展开
+- 球面天线（如卫星天线）的方向图分析
+- 球坐标系中的角度函数</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.5 Dirichlet 核（周期 sinc）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.5 Dirichlet 核（周期 sinc）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**定义**：
+```
+D_N(x) = sin((N+½)x) / sin(x/2)
+```
+
+**在天线中的应用**：
+- 均匀线性阵列的方向图（有限单元数 N）
+- 当 N → ∞ 时，D_N(x) → 周期 sinc 函数
+
+**关键性质**：
+```
+主瓣宽度：4π/N
+第一旁瓣：-13.2 dB
+旁瓣数量：N-1 个
+```</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.1 傅里叶变换对</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.1 傅里叶变换对</div>
+        
+        
+        
+        
+        
+        <div class="desc">天线方向图计算的核心——方向图是口径场的傅里叶变换：
+
+| 口径分布 | 方向图 |
+|---------|--------|
+| 矩形（均匀） | sinc |
+| 余弦 | sinc² |
+| 高斯 | 高斯 |
+| 三角形 | sinc² |
+| Bartlett | sinc² |
+| 圆形均匀 | 2·J₁(x)/x |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.2 渐近展开</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.2 渐近展开</div>
+        
+        
+        
+        
+        
+        <div class="desc">当 x → ∞ 时：
+
+```
+sinc(x) ≈ 1/x          （缓慢滚降）
+J₁(x) ≈ √(2/πx)·cos(x-3π/4)  （振荡滚降）
+T_n(x) ≈ (x+√(x²-1))ⁿ / (2ⁿ·√(x²-1))  （指数增长）
+```</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.3 积分恒等式 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>∫₀^∞ J₁(ax)/x dx = 1
+∫_{-∞}^∞ sinc²(x) dx = π
+∫₀^π sinⁿ(x) dx = √π · Γ((n+1)/2) / Γ((n+2)/2)</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.4 特殊函数关系 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>J_{n+1}(x) = (2n/x)·J_n(x) - J_{n-1}(x)    （递推）
+d/dx[J₀(x)] = -J₁(x)
+∫x·J₀²(x)dx = x²/2 · [J₀²(x) + J₁²(x)]</code></pre>
+  </div>
+
     
   
     
 
     
   <div class="block section-text">
-    <div class="block-title">四、波束倾斜（Beam Squint）问题</div>
-    <div class="text-body">```
-问题：
-  模拟/混合波束赋形使用相位移相器
-  → 相位权重与频率相关
-  → 宽带信号下不同频率波束指向不同
-  
-公式：
-  Δφ = 2πd·sin(θ)/λ = 2πd·f·sin(θ)/c
-  
-当 f 变化时，θ 也变化 → 波束倾斜
-  
-影响：
-  - 宽带系统（&gt; 100MHz）性能下降
-  - 毫米波更严重（相对带宽更大）
-  
-解决方案：
-  1. 真时延（True Time Delay, TTD）
-     - 使用时延线代替移相器
-     - 所有频率相位一致
-     - 成本高、体积大
-     
-  2. 子带划分
-     - 将宽带分成多个子带
-     - 每个子带独立波束赋形
-     - 折中方案
-     
-  3. 数字波束赋形
-     - 数字域补偿
-     - 最彻底但最贵
-```</div>
+    <div class="block-title">三、常见方向图函数的对比</div>
+    <div class="text-body">| 函数 | 旁瓣(dB) | 滚降速度 | 主瓣宽度 | 应用 |
+|------|---------|---------|---------|------|
+| sinc | -13.2 | 1/x | 0.886·λ/L | 矩形孔径 |
+| sinc² | -26.5 | 1/x² | 1.5×sinc | 三角形孔径 |
+| 2J₁(x)/x | -17.6 | 1/√x | 1.02·λ/D | 圆形孔径 |
+| exp(-x²) | &lt;-40 | 指数 | ~1.28×sinc | 高斯孔径 |
+| Chebyshev | 可控 | 慢→快 | 最小 | 低旁瓣阵列 |
+| Taylor | 可控 | 中 | 适中 | 通用 |</div>
   </div>
 
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.1 波束宽度公式</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.1 波束宽度公式</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 孔径形状 | 照明分布 | HPBW |
+|---------|---------|------|
+| 矩形 | 均匀 | 0.886·λ/L |
+| 矩形 | 余弦 | 1.21·λ/L |
+| 矩形 | 高斯 | 1.03·λ/L |
+| 圆形 | 均匀 | 1.02·λ/D |
+| 圆形 | 高斯 | 1.20·λ/D |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.2 方向性系数公式</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.2 方向性系数公式</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 孔径形状 | 照明分布 | D |
+|---------|---------|---|
+| 矩形 | 均匀 | 4·A/λ² |
+| 矩形 | 余弦 | 2.34·A/λ² |
+| 圆形 | 均匀 | 2.45·π·(D/2)²/λ² |
+| 圆形 | 高斯 | ~2·π·(D/2)²/λ² |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.3 第一旁瓣位置</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.3 第一旁瓣位置</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 函数 | 第一旁瓣位置 |
+|------|------------|
+| sinc(x) | x ≈ 1.43π |
+| 2J₁(x)/x | x ≈ 5.14 |
+| sinc²(x) | x ≈ 1.43π |
+| 高斯 | 无旁瓣 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
     
   
 
@@ -605,7 +689,7 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
   <div class="block related-block">
     <div class="block-title">关联笔记 (4)</div>
     <div class="related-grid">
-      <a href="#">technology-波束赋形beamforming深度解读</a><a href="#">technology-近场波束赋形near-field-beamforming</a><a href="#">technology-极化波束赋形polarization-beamforming</a><a href="#">technology-相控阵天线phased-array-antenna</a>
+      <a href="#">technology-方向图综合pattern-synthesis</a><a href="#">technology-口径照明分布aperture-illumination-taper</a><a href="#">technology-抛物面反射器天线深度解读</a><a href="#">metric-天线方向图radiation-pattern</a>
     </div>
   </div>
   
@@ -614,7 +698,7 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
 <div class="footer">
   <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-波束赋形架构dbf-abf-hbf混合对比</span>
+  <span>node: technology-方向图函数与数学工具directional-functions</span>
 </div>
 
 </div>

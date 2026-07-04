@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>波束赋形架构DBF-ABF-HBF混合对比 — KG 卡片</title>
+<title>天线自动化测试设备ATS暗室探头 — KG 卡片</title>
 <style>
   :root {
     --primary: #0e7490;
@@ -248,19 +248,19 @@
       <div class="hero-updated">UPDATED 2026-07-03</div>
     </div>
     <div class="hero-title">
-      波束赋形架构DBF-ABF-HBF混合对比
+      天线自动化测试设备ATS暗室探头
       
     </div>
     
     <div class="hero-tags">
-      <span>天线技术/技术概念</span><span>波束赋形</span><span>DBF</span><span>ABF</span><span>HBF</span><span>数字波束赋形</span><span>模拟波束赋形</span><span>混合波束赋形</span><span>5G</span><span>Massive</span><span>MIMO</span>
+      <span>天线技术/技术概念</span><span>OTA测试</span><span>暗室</span><span>探头</span><span>ATS</span><span>自动化测试系统</span><span>3GPP测试</span>
     </div>
     
     
-    <div class="hero-liner"><b>一句话:</b> 波束赋形三大架构——模拟（ABF）只有一条射频链路、便宜但只能形成一个波束；数字（DBF）每根天线一条链路、最灵活但最贵；混合（HBF）折中，5G 基站主流方案用 64 通道配 12-64 条射频链路，在性能和成本之间找平衡。</div>
+    <div class="hero-liner"><b>一句话:</b> 天线自动化测试系统（ATS）= 暗室/转台/探头/软件 组成的&#34;天线体检中心&#34;。5G Massive MIMO 时代，64 通道天线的人工测试不现实——必须用自动化系统，30 分钟内测完一个 AAU 的 200+ 项指标。</div>
     
     
-    <div class="hero-analogy"><b>类比:</b> 波束赋形就像&#34;手电筒阵列&#34;——</div>
+    <div class="hero-analogy"><b>类比:</b> ATS 就像&#34;汽车排放检测线&#34;——车开上去，机器自动测尾气、测动力、测噪音，出一本报告。</div>
     
     
   </div>
@@ -270,13 +270,42 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路（1条）→ 移相器网络 → 天线阵列（N 个单元）
-                      │
-                  衰减器网络
-      
-每个天线单元前有一个移相器（Phase Shifter）
-和/或衰减器（Attenuator）</code></pre>
+    <div class="block-title">1.1 核心硬件 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>ATS 系统架构：
+
+┌─────────────────────────────────────────┐
+│  控制计算机                              │
+│  ┌───────────────────────────────────┐  │
+│  │  测试软件（Python/C++）            │  │
+│  │  - 测试流程控制                    │  │
+│  │  - 数据采集与分析                  │  │
+│  │  - 报告生成                        │  │
+│  └───────────────────────────────────┘  │
+│         │                              │
+│    VISA/GPIB/Ethernet                   │
+│         │                              │
+├─────────┼──────────────────────────────┤
+│         ▼                              │
+│  ┌──────────────┐  ┌──────────────┐   │
+│  │  网络分析仪   │  │  信号发生器  │   │
+│  │  (VNA)       │  │  (SG)        │   │
+│  │  S参数测量    │  │  发射测试     │   │
+│  └──────┬───────┘  └──────┬───────┘   │
+│         │                  │            │
+│  ┌──────┴──────────────────┴───────┐   │
+│  │         射频电缆/波导            │   │
+│  └──────┬──────────────────┬───────┘   │
+│         │                  │            │
+│  ┌──────┴───────┐  ┌──────┴───────┐   │
+│  │  探头天线     │  │  转台/升降台  │   │
+│  │  (Rx)        │  │  (DUT 旋转)   │   │
+│  └──────────────┘  └──────────────┘   │
+│                                        │
+│  ┌────────────────────────────────┐   │
+│  │    暗室（Anechoic Chamber）     │   │
+│  │    吸波材料 + 隔振平台          │   │
+│  └────────────────────────────────┘   │
+└─────────────────────────────────────────┘</code></pre>
   </div>
 
     
@@ -285,27 +314,29 @@
 
     
   <div class="block section-list ">
-    <div class="block-title">1.2 特点</div>
+    <div class="block-title">1.2 关键设备参数</div>
     <div class="list-items ">
       
       <div class="list-item">
         
-        <div class="name">1.2 特点</div>
+        <div class="name">1.2 关键设备参数</div>
         
         
         
         
         
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | 1 |
-| 空间流数 | 1（单用户） |
-| 移相器位数 | 2-6 bit（步进 90°-5.6°） |
-| 波束切换速度 | μs 级（模拟域） |
-| 功耗 | 极低（1 条 RF 链路） |
-| 成本 | 最低 |
-| 灵活性 | 低（只能形成预置波束） |
-| 适用场景 | 毫米波初始接入、卫星通信、4G 传统天线 |</div>
+        <div class="desc">| 设备 | 参数 | 5G AAU 要求 |
+|------|------|------------|
+| VNA | 频率范围 | DC-6.5GHz（Sub-6GHz） |
+| VNA | 端口数 | 4-8 端口（多端口校准） |
+| 信号发生器 | 频率 | DC-6.5GHz |
+| 信号发生器 | 通道数 | ≥ 64（Massive MIMO） |
+| 转台 | 精度 | &lt; 0.01° |
+| 转台 | 承重 | &gt; 100kg（AAU 很重） |
+| 探头天线 | 频率 | 多频段探头 |
+| 探头天线 | 极化 | ±45° 可切换 |
+| 暗室 | 截止频率 | &gt; 6.5GHz |
+| 暗室 | 尺寸 | ≥ 6m × 4m × 3m |</div>
         
         
       </div>
@@ -318,24 +349,27 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.3 核心组件 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>移相器类型：
-  1. 数字移相器（LUT 查找表）
-     - 相位步进：360°/2^n（n=位数）
-     - 4 bit → 22.5° 步进
-     - 6 bit → 5.6° 步进
-     
-  2. 模拟移相器（PLL/RC 网络）
-     - 连续可调
-     - 相位精度受温度影响
-     
-  3. 介质移相器
-     - 基于高 Dk 陶瓷
-     - 体积小，适合 5G AAU
-     
-  4. MEMS 移相器
-     - 微机电系统
-     - 超低损耗，但可靠性待验证</code></pre>
+    <div class="block-title">2.1 远场 OTA 测试（主流） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>原理：
+  DUT（待测天线）与探头天线距离 &gt; 2R²/λ
+  R = 天线最大尺寸
+  λ = 波长
+  
+典型距离：
+  64T64R AAU（1.2m）@ 3.5GHz：
+  R_far = 2 × 1.2² / 0.086 = ~34m
+  
+  → 远场暗室需要 34m 以上！
+  → 实际用 15-20m + 近远场变换
+  
+测试流程：
+  1. 安装 DUT 到转台
+  2. VNA/SG 连接 DUT 的 RF 端口
+  3. 探头天线接收/发射信号
+  4. 转台旋转（水平 0-360°）
+  5. 升降台移动（垂直 -90° to +90°）
+  6. 采集每个角度的 S 参数
+  7. 软件处理 → 方向图/增益/隔离度</code></pre>
   </div>
 
     
@@ -344,11 +378,19 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.4 局限性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 只能形成单波束 → 无法多用户复用
-2. 波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
-3. 移相器相位量化误差 → 波束指向精度受限
-4. 无法自适应零陷 → 干扰抑制能力弱</code></pre>
+    <div class="block-title">2.2 近场测试 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>原理：
+  探头靠近 DUT（&lt; R_far）
+  测量近场 → 数学变换 → 远场
+  
+优势：
+  - 暗室可以很小（3-5m）
+  - 适合实验室
+  
+劣势：
+  - 变换算法复杂
+  - 精度略低
+  - 不适用于有源天线（需要激励所有通道）</code></pre>
   </div>
 
     
@@ -357,79 +399,25 @@
 
     
   <div class="block section-code">
-    <div class="block-title">2.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路 1 → DAC → 上变频器 → PA → 天线单元 1
-射频链路 2 → DAC → 上变频器 → PA → 天线单元 2
-...
-射频链路 N → DAC → 上变频器 → PA → 天线单元 N
-
-每根天线都有独立的 RF 链路 → 数字域做波束权重</code></pre>
-  </div>
-
-    
+    <div class="block-title">2.3 混响室测试 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>原理：
+  金属腔体内搅拌电磁场
+  形成&#34;统计均匀&#34;的多径环境
   
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">2.2 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | N（等于天线数） |
-| 空间流数 | 最多 N 流 |
-| 波束形成 | 数字域预编码矩阵 W ∈ C^(N×K) |
-| 波束切换速度 | ns 级（数字信号处理） |
-| 功耗 | 高（N 条 RF 链路） |
-| 成本 | 最高 |
-| 灵活性 | 最高（每根天线独立控制） |
-| 适用场景 | Sub-6GHz 基站、实验室验证 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
+测量：
+  - TRP（总辐射功率）
+  - TIS（总接收灵敏度）
+  - MIMO 容量
   
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.3 预编码算法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>全数字预编码：
-  y = Ws + n
+优势：
+  - 测试速度快（分钟级）
+  - 暗室小（2-3m）
+  - 适合产线批量测试
   
-  其中：
-  y: 接收信号
-  W: 预编码矩阵（N_t × N_s）
-  s: 发送符号
-  n: 噪声
-  
-主流算法：
-  1. 迫零 ZF（Zero-Forcing）
-     W = H^H(HH^H)^(-1)
-     简单但噪声增强
-     
-  2. MMSE（最小均方误差）
-     W = H^H(HH^H + σ²I)^(-1)
-     考虑噪声
-     
-  3. WMMSE（加权 MMSE）
-     迭代优化，逼近容量
-     
-  4. SVD 分解
-     H = UΣV^H
-     最优但计算量大</code></pre>
+劣势：
+  - 不能测方向图
+  - 不能测增益
+  - 只能测&#34;总量&#34;</code></pre>
   </div>
 
     
@@ -438,64 +426,38 @@
 
     
   <div class="block section-code">
-    <div class="block-title">2.4 在 5G 中的实际应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>64T64R AAU：
-  - 64 条射频链路
-  - 64 个 DAC/ADC
-  - 64 个 PA/LNA
-  - 功耗：~500W-600W（含功放）
-  
-128T128R AAU：
-  - 128 条射频链路
-  - 功耗：~800W-1000W
-  
-挑战：
-  - 功耗随天线数线性增长
-  - 成本高昂（每多一条链路 = 多一套 RF 器件）
-  - 散热压力大</code></pre>
-  </div>
+    <div class="block-title">3.1 测试项目清单 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>AAU 出厂测试（200+ 项）：
 
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>数字域（基带）：
-  K 条射频链路 → K 个 DAC → 模拟预编码矩阵 F_RF
-  
-模拟域（射频）：
-  F_RF → 移相器网络 → N 根天线
-  
-K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.2 三种连接架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 全连接架构（Fully Connected）
-   每条 RF 链路连接所有天线单元
-   - 性能好（逼近 DBF）
-   - 移相器数量：K × N
-   - 功耗高
-   - 复杂度最高
+1. S 参数测试（VNA）
+   - S11/S22（端口回波损耗）
+   - S12/S21（插入损耗）
+   - Sij（端口间隔离度）
    
-2. 部分连接架构（Partially Connected / Subarray）
-   每条 RF 链路连接一组天线（子阵）
-   - 移相器数量：N
-   - 功耗中
-   - 5G 基站主流方案
+2. 有源测试（SG + 探头）
+   - 增益（Gain）
+   - 方向图（Pattern）
+   - 波束宽度（Beamwidth）
+   - 前后比（FBR）
+   - 旁瓣电平（SLL）
    
-3. 动态子阵架构（Dynamic Subarray）
-   射频链路可以动态分配到不同子阵
-   - 灵活性最高
-   - 需要 RF 开关网络
-   - 6G 候选方案</code></pre>
+3. MIMO 测试
+   - 通道间幅度一致性（&lt; 0.5dB）
+   - 通道间相位一致性（&lt; 5°）
+   - 空间流数验证
+   - 预编码矩阵验证
+   
+4. PIM 测试
+   - 双三载波 PIM
+   - 要求：&lt; -150dBc
+   
+5. 极化测试
+   - 交叉极化隔离度（&gt; 25dB）
+   - 轴比（如适用）
+   
+6. 温度循环测试
+   - -40°C to +85°C
+   - 各温度点复测关键指标</code></pre>
   </div>
 
     
@@ -503,99 +465,23 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
     
 
     
-  <div class="block section-list ">
-    <div class="block-title">3.3 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | ABF | HBF（子阵） | DBF |
-|------|-----|------------|-----|
-| 射频链路数 | 1 | K（12-64） | N（64-128） |
-| 空间流数 | 1 | K | N |
-| 频谱效率 | 基准 | 85-95% | 100% |
-| 功耗 | 基准 | 60-70% | 100% |
-| 成本 | 基准 | 50-60% | 100% |
-| 波束灵活性 | 低 | 中 | 高 |
-| 5G 主流 | ❌ | ✅ | 实验室 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
+  <div class="block section-code">
+    <div class="block-title">3.2 测试时间 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>单台 64T64R AAU 测试时间：
 
-    
-  <div class="block section-list ">
-    <div class="block-title">3.4 5G 基站 HBF 典型配置</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.4 5G 基站 HBF 典型配置</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 厂商 | 产品 | 天线数 | RF 链路数 | 架构 |
-|------|------|--------|----------|------|
-| 华为 | AAU 64T64R | 192（64 端口双极化） | 64 | 子阵 |
-| 爱立信 | AIR 6488 | 128（64 端口） | 64 | 子阵 |
-| 中兴 | 64T64R AAU | 384（64 端口） | 32-64 | 子阵 |
-| 三星 | MMB-H13（28GHz） | 128 | 32 | 子阵 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
+  安装定位：5min
+  S 参数测试：10min
+  有源测试（全方向图）：15min
+  MIMO 测试：10min
+  PIM 测试：5min
+  极化测试：5min
+  数据分析和报告：5min
   
-    
-
-    
-  <div class="block section-text">
-    <div class="block-title">四、波束倾斜（Beam Squint）问题</div>
-    <div class="text-body">```
-问题：
-  模拟/混合波束赋形使用相位移相器
-  → 相位权重与频率相关
-  → 宽带信号下不同频率波束指向不同
+  总计：~55min
   
-公式：
-  Δφ = 2πd·sin(θ)/λ = 2πd·f·sin(θ)/c
-  
-当 f 变化时，θ 也变化 → 波束倾斜
-  
-影响：
-  - 宽带系统（&gt; 100MHz）性能下降
-  - 毫米波更严重（相对带宽更大）
-  
-解决方案：
-  1. 真时延（True Time Delay, TTD）
-     - 使用时延线代替移相器
-     - 所有频率相位一致
-     - 成本高、体积大
-     
-  2. 子带划分
-     - 将宽带分成多个子带
-     - 每个子带独立波束赋形
-     - 折中方案
-     
-  3. 数字波束赋形
-     - 数字域补偿
-     - 最彻底但最贵
-```</div>
+产线节拍：
+  目标：2 台/小时
+  → 需要 2 套 ATS 并行</code></pre>
   </div>
 
     
@@ -603,9 +489,9 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
   
   <div class="block related-block">
-    <div class="block-title">关联笔记 (4)</div>
+    <div class="block-title">关联笔记 (2)</div>
     <div class="related-grid">
-      <a href="#">technology-波束赋形beamforming深度解读</a><a href="#">technology-近场波束赋形near-field-beamforming</a><a href="#">technology-极化波束赋形polarization-beamforming</a><a href="#">technology-相控阵天线phased-array-antenna</a>
+      <a href="#">component-校准板calibration-board</a><a href="#">technology-有源单元方向图active-element-pattern</a>
     </div>
   </div>
   
@@ -614,7 +500,7 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
 <div class="footer">
   <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-波束赋形架构dbf-abf-hbf混合对比</span>
+  <span>node: technology-天线自动化测试设备ats暗室探头</span>
 </div>
 
 </div>

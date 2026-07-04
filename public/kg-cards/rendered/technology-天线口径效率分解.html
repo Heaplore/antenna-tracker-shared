@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>{{ name }} — KG 卡片</title>
+<title>天线口径效率分解 — KG 卡片</title>
 <style>
   :root {
     --primary: #0e7490;
@@ -244,129 +244,224 @@
 
   <div class="hero">
     <div class="hero-header">
-      <div class="hero-type">{{ type | default('technology') }} · KG 卡片</div>
-      <div class="hero-updated">UPDATED {{ updated }}</div>
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-03</div>
     </div>
     <div class="hero-title">
-      {{ name }}
-      {% if english_name %}<span class="hero-en">{{ english_name }}</span>{% endif %}
+      天线口径效率分解
+      
     </div>
-    {% if tags %}
+    
     <div class="hero-tags">
-      {% for t in tags %}<span>{{ t }}</span>{% endfor %}
+      <span>天线技术/技术概念</span><span>天线口径效率</span><span>照明效率</span><span>溢出效率</span><span>遮挡效率</span><span>极化效率</span><span>天线性能</span>
     </div>
-    {% endif %}
-    {% if one_liner %}
-    <div class="hero-liner"><b>一句话:</b> {{ one_liner }}</div>
-    {% endif %}
-    {% if analogy %}
-    <div class="hero-analogy"><b>类比:</b> {{ analogy }}</div>
-    {% endif %}
-    {% if metrics_row %}
-    <div class="hero-metrics">
-      {% for m in metrics_row %}
-      <div>{{ m.label }}<b>{{ m.value }}</b></div>
-      {% endfor %}
-    </div>
-    {% endif %}
+    
+    
+    <div class="hero-liner"><b>一句话:</b> 天线增益 = 4πA_phys/λ² × η_total，而 η_total = η_illumination × η_spillover × η_obstruction × η_polarization × η_conduction × η_dielectric——口径效率不是单一数字，是 6 个效率因子的乘积，每个因子都揭示了一种&#34;能量浪费&#34;的方式。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> 口径效率就像&#34;水桶装水&#34;——桶口面积是 A_phys，但水不一定能装满：照明不均匀（边缘少中间多）= 照明效率，水泼出去了 = 溢出效率，桶里有障碍物 = 遮挡效率，桶底漏水 = 导体效率。</div>
+    
+    
   </div>
 
-  {% for section in sections %}
-    {% set stype = section.type | default('text') %}
+  
+    
 
-    {% if stype == 'table' or stype == 'comparison' %}
-  <div class="block section-{{ stype }}">
-    <div class="block-title">{{ section.title }}</div>
-    <table class="tbl">
-      <thead><tr>
-        {% for h in section.table_headers %}<th>{{ h }}</th>{% endfor %}
-      </tr></thead>
-      <tbody>
-        {% for row in section.table_rows %}
-        <tr>
-          {% for cell in row %}
-          <td{% if section.highlight_col is defined and loop.index0 == section.highlight_col %} class="tbl-td-highlight"{% endif %}>{{ cell }}</td>
-          {% endfor %}
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% if section.table_footer %}
-    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">{{ section.table_footer }}</div>
-    {% endif %}
-  </div>
-
-    {% elif stype == 'timeline' %}
-  <div class="block section-timeline">
-    <div class="block-title">{{ section.title }}</div>
-    <div class="timeline-items">
-      {% for item in section.entries %}
-      <div class="timeline-item">
-        <div class="ttl">{{ item.title }}</div>
-        {% if item.tag %}<div style="font-size:10px;color:var(--primary);font-weight:600;margin-bottom:4px;">{{ item.tag }}</div>{% endif %}
-        <div class="body">{{ item.body }}</div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-
-    {% elif stype == 'code' %}
-  <div class="block section-code">
-    <div class="block-title">{{ section.title }}{% if section.code_language %} <span style="margin-left:auto;font-size:10px;opacity:0.7;">{{ section.code_language }}</span>{% endif %}</div>
-    <pre class="code-body"><code>{{ section.content }}</code></pre>
-  </div>
-
-    {% elif stype == 'text' %}
+    
   <div class="block section-text">
-    <div class="block-title">{{ section.title }}</div>
-    <div class="text-body">{{ section.content }}</div>
+    <div class="block-title">一、口径效率分解公式</div>
+    <div class="text-body">```
+天线增益：
+  G = η_total × (4πA_phys/λ²)
+  
+η_total = η_ill × η_spill × obs × η_pol × η_cond × η_diel
+
+各项典型值（64T64R AAU, 3.5GHz）：
+  ┌──────────────────────────────────────┐
+  │ 效率因子          │ 典型值  │ 说明    │
+  ├──────────────────────────────────────┤
+  │ 照明效率 η_ill    │ 0.70-0.85 │ Chebyshev 加权 │
+  │ 溢出效率 η_spill  │ 0.85-0.95 │ 波束对准探头   │
+  │ 遮挡效率 η_obs    │ 0.90-0.98 │ 馈电结构遮挡   │
+  │ 极化效率 η_pol    │ 0.90-0.98 │ 交叉极化抑制   │
+  │ 导体效率 η_cond   │ 0.95-0.99 │ 金属损耗      │
+  │ 介质效率 η_diel   │ 0.95-0.99 │ 基板/Radome   │
+  ├──────────────────────────────────────┤
+  │ 总效率 η_total    │ 0.50-0.70 │ 乘积          │
+  └──────────────────────────────────────┘
+
+结论：
+  即使每项都很高（0.95），乘起来也只有 0.77
+  → 天线效率很难超过 75%
+  → 设计时要逐项优化
+```</div>
   </div>
 
-    {% elif stype == 'list' %}
-  <div class="block section-list {{ section.list_class | default('') }}">
-    <div class="block-title">{{ section.title }}{% if section.subtitle %} <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· {{ section.subtitle }}</span>{% endif %}</div>
-    <div class="list-items {% if section.entries|length >= 6 %}cols-3{% elif section.entries|length >= 4 %}cols-2{% endif %}">
-      {% for item in section.entries %}
-      <div class="list-item">
-        {% if item.name %}
-        <div class="name">{{ item.name }}{% if item.en %}<span class="en">{{ item.en }}</span>{% endif %}</div>
-        {% endif %}
-        {% if item.title %}
-        <div class="ttl">{{ item.title }}</div>
-        {% endif %}
-        {% if item.body %}
-        <div class="body">{{ item.body }}</div>
-        {% endif %}
-        {% if item.detail %}
-        <div class="desc">{{ item.detail }}</div>
-        {% endif %}
-        {% if item.desc %}
-        <div class="desc">{{ item.desc }}</div>
-        {% endif %}
-        {% if item.tag %}
-        <div style="margin-top:4px;font-size:10px;color:var(--primary);font-weight:600;">{{ item.tag }}</div>
-        {% endif %}
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-    {% endif %}
-  {% endfor %}
+    
+  
+    
 
-  {% if related and related|length > 0 %}
+    
+  <div class="block section-code">
+    <div class="block-title">2.1 照明效率（Illumination Efficiency） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>定义：
+  口径上场强分布不均匀导致的增益损失
+  
+原因：
+  天线边缘功率低、中间功率高（ tapering ）
+  → 波束变宽、旁瓣降低
+  → 但主瓣增益下降
+  
+计算公式：
+  η_ill = |∫E(x,y)dA|² / (A × ∫|E(x,y)|²dA)
+  
+典型值：
+  均匀照明：1.0（理论最优，但旁瓣高 -13dB）
+  Taylor 分布：0.85-0.90（旁瓣 -25dB）
+  Chebyshev：0.80-0.85（旁瓣 -30dB）
+  二项式：0.70-0.75（旁瓣 &lt;-40dB）
+  
+设计 trade-off：
+  旁瓣越低 → 照明效率越低
+  → 需要根据场景选择</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.2 溢出效率（Spillover Efficiency） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>定义：
+  馈源辐射能量超出反射面/天线口径导致的损失
+  
+原因：
+  馈源波束不是完美的&#34;圆柱形&#34;
+  → 一部分能量洒到天线外面
+  
+典型值：
+  抛物面天线：0.70-0.85
+  平面阵列：0.85-0.95（溢出少）
+  
+改善方法：
+  - 优化馈源波束宽度
+  - 使用多馈源设计</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.3 遮挡效率（Obstruction Efficiency） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>定义：
+  馈电结构/支撑结构遮挡口径导致的损失
+  
+原因：
+  AAU 内部：
+  - 功分器/合路器遮挡
+  - 馈线/传输线遮挡
+  - 散热结构遮挡
+  
+典型值：
+  平面阵列：0.90-0.98（遮挡小）
+  抛物面：0.70-0.85（遮挡大）
+  
+改善方法：
+  - 优化馈电网络布局
+  - 使用低剖面传输线（微带/带状线）</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.4 极化效率（Polarization Efficiency） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>定义：
+  交叉极化分量导致的有用极化信号损失
+  
+原因：
+  - 天线结构不对称
+  - 入射波极化不匹配
+  
+典型值：
+  ±45° 双极化天线：0.90-0.98
+  （交叉极化隔离度 20-30dB）
+  
+改善方法：
+  - 对称结构设计
+  - 极化纯净的辐射单元</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.5 导体效率（Conduction Efficiency） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>定义：
+  金属导体欧姆损耗导致的损失
+  
+原因：
+  - 铜/铝的表面电阻
+  - 趋肤效应 → 电流只在表面流过
+  
+典型值：
+  铜/铝：0.95-0.99（Sub-6GHz）
+  银镀层：0.98-0.995
+  
+改善方法：
+  - 使用高导电材料（铜/银）
+  - 表面镀银</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.6 介质效率（Dielectric Efficiency） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>定义：
+  介质材料（基板/天线罩）损耗导致的损失
+  
+原因：
+  - 基板 Df（损耗角正切）
+  - Radome Df
+  
+典型值：
+  RO4350B：0.97-0.99
+  PTFE：0.99-0.995
+  Radome（ASA）：0.95-0.98
+  
+改善方法：
+  - 低 Df 材料
+  - 薄型 Radome</code></pre>
+  </div>
+
+    
+  
+
+  
   <div class="block related-block">
-    <div class="block-title">关联笔记 ({{ related|length }})</div>
+    <div class="block-title">关联笔记 (3)</div>
     <div class="related-grid">
-      {% for r in related %}<a href="#">{{ r }}</a>{% endfor %}
+      <a href="#">metric-口径效率aperture-efficiency</a><a href="#">technology-口径照明分布aperture-illumination-taper</a><a href="#">metric-天线增益antenna-gain</a>
     </div>
   </div>
-  {% endif %}
+  
 
 </div>
 
 <div class="footer">
-  <span>antenna-tracker · KG 科普卡片 · {{ type | default('technology') }}</span>
-  <span>node: {{ node_id }}</span>
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-天线口径效率分解</span>
 </div>
 
 </div>

@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>{{ name }} — KG 卡片</title>
+<title>MIT-HoNiBAJR反射面天线低功耗抗干扰卫星通信 — KG 卡片</title>
 <style>
   :root {
     --primary: #0e7490;
@@ -244,129 +244,156 @@
 
   <div class="hero">
     <div class="hero-header">
-      <div class="hero-type">{{ type | default('technology') }} · KG 卡片</div>
-      <div class="hero-updated">UPDATED {{ updated }}</div>
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-06-28</div>
     </div>
     <div class="hero-title">
-      {{ name }}
-      {% if english_name %}<span class="hero-en">{{ english_name }}</span>{% endif %}
+      MIT-HoNiBAJR反射面天线低功耗抗干扰卫星通信
+      
     </div>
-    {% if tags %}
+    
     <div class="hero-tags">
-      {% for t in tags %}<span>{{ t }}</span>{% endfor %}
+      <span>[天线技术</span><span>卫星通信</span><span>相控阵</span><span>反射面天线</span><span>抗干扰</span><span>MIT</span><span>低轨卫星</span><span>SWaP-C</span>
     </div>
-    {% endif %}
-    {% if one_liner %}
-    <div class="hero-liner"><b>一句话:</b> {{ one_liner }}</div>
-    {% endif %}
-    {% if analogy %}
-    <div class="hero-analogy"><b>类比:</b> {{ analogy }}</div>
-    {% endif %}
-    {% if metrics_row %}
-    <div class="hero-metrics">
-      {% for m in metrics_row %}
-      <div>{{ m.label }}<b>{{ m.value }}</b></div>
-      {% endfor %}
-    </div>
-    {% endif %}
+    
+    
+    
+    
   </div>
 
-  {% for section in sections %}
-    {% set stype = section.type | default('text') %}
+  
+    
 
-    {% if stype == 'table' or stype == 'comparison' %}
-  <div class="block section-{{ stype }}">
-    <div class="block-title">{{ section.title }}</div>
-    <table class="tbl">
-      <thead><tr>
-        {% for h in section.table_headers %}<th>{{ h }}</th>{% endfor %}
-      </tr></thead>
-      <tbody>
-        {% for row in section.table_rows %}
-        <tr>
-          {% for cell in row %}
-          <td{% if section.highlight_col is defined and loop.index0 == section.highlight_col %} class="tbl-td-highlight"{% endif %}>{{ cell }}</td>
-          {% endfor %}
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% if section.table_footer %}
-    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">{{ section.table_footer }}</div>
-    {% endif %}
-  </div>
-
-    {% elif stype == 'timeline' %}
-  <div class="block section-timeline">
-    <div class="block-title">{{ section.title }}</div>
-    <div class="timeline-items">
-      {% for item in section.entries %}
-      <div class="timeline-item">
-        <div class="ttl">{{ item.title }}</div>
-        {% if item.tag %}<div style="font-size:10px;color:var(--primary);font-weight:600;margin-bottom:4px;">{{ item.tag }}</div>{% endif %}
-        <div class="body">{{ item.body }}</div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-
-    {% elif stype == 'code' %}
-  <div class="block section-code">
-    <div class="block-title">{{ section.title }}{% if section.code_language %} <span style="margin-left:auto;font-size:10px;opacity:0.7;">{{ section.code_language }}</span>{% endif %}</div>
-    <pre class="code-body"><code>{{ section.content }}</code></pre>
-  </div>
-
-    {% elif stype == 'text' %}
+    
   <div class="block section-text">
-    <div class="block-title">{{ section.title }}</div>
-    <div class="text-body">{{ section.content }}</div>
+    <div class="block-title">主题概述</div>
+    <div class="text-body">MIT林肯实验室于2026年6月26日发布了一款名为 **HoNi BAJR**（Hosted Nimble Beamforming Anti-Jam Reflectarray）的扫描反射面天线原型。专为pLEO（ proliferated Low Earth Orbit，大规模低轨卫星星座）环境设计，核心目标是：**在极低功耗条件下实现抗干扰战术卫星通信**。关键指标——相比传统相控阵天线降低约95%功耗，且尺寸可适配典型小型卫星平台。</div>
   </div>
 
-    {% elif stype == 'list' %}
-  <div class="block section-list {{ section.list_class | default('') }}">
-    <div class="block-title">{{ section.title }}{% if section.subtitle %} <span style="font-weight:500;color:var(--primary);text-transform:none;letter-spacing:0;">· {{ section.subtitle }}</span>{% endif %}</div>
-    <div class="list-items {% if section.entries|length >= 6 %}cols-3{% elif section.entries|length >= 4 %}cols-2{% endif %}">
-      {% for item in section.entries %}
-      <div class="list-item">
-        {% if item.name %}
-        <div class="name">{{ item.name }}{% if item.en %}<span class="en">{{ item.en }}</span>{% endif %}</div>
-        {% endif %}
-        {% if item.title %}
-        <div class="ttl">{{ item.title }}</div>
-        {% endif %}
-        {% if item.body %}
-        <div class="body">{{ item.body }}</div>
-        {% endif %}
-        {% if item.detail %}
-        <div class="desc">{{ item.detail }}</div>
-        {% endif %}
-        {% if item.desc %}
-        <div class="desc">{{ item.desc }}</div>
-        {% endif %}
-        {% if item.tag %}
-        <div style="margin-top:4px;font-size:10px;color:var(--primary);font-weight:600;">{{ item.tag }}</div>
-        {% endif %}
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-    {% endif %}
-  {% endfor %}
+    
+  
+    
 
-  {% if related and related|length > 0 %}
-  <div class="block related-block">
-    <div class="block-title">关联笔记 ({{ related|length }})</div>
-    <div class="related-grid">
-      {% for r in related %}<a href="#">{{ r }}</a>{% endfor %}
-    </div>
+    
+  <div class="block section-text">
+    <div class="block-title">核心技术/原理</div>
+    <div class="text-body">**反射面天线（Reflectarray）vs 相控阵（Phased Array）**
+
+传统相控阵的每个天线单元后面都需要一个独立的功率放大器（PA），单元越多、功耗越大。HoNi BAJR采用的是反射面架构：
+
+- 天线表面由大量可独立控制的反射单元组成
+- 信号到达反射面后，各单元通过调节相位偏移来控制波束形成
+- **所有信号最终汇聚到一个馈源天线（feed antenna）**，由这个单一馈源完成信号的放大和组合
+- 不需要每个单元后面都放放大器，大幅降低SWaP（尺寸、重量、功耗）
+
+**抗干扰机制**
+
+- **旁瓣抑制**：传统相控阵通过&#34;零点形成&#34;（null steering）对抗干扰——在干扰方向上形成信号零点。但HoNi BAJR面对的是pLEO环境中大量快速变化的干扰源，来不及逐个对准。解决方案：通过整形波束旁瓣来创建&#34;干扰抑制区域&#34;，而不是针对单个干扰点。
+- **自适应波束赋形**：基于DESRa（可展开电子扫描反射面）和PhAB（模拟相位波束赋形）两个内部研发项目的技术积累，能够在实时信号环境中适应干扰。
+- **多峰值波束合成**：可将波束分裂为多个峰值，同时服务多个用户而不损失信息。
+
+**关键性能**
+
+| 指标 | 数值 |
+|------|------|
+| 功耗降低 | 约95%（vs 传统相控阵） |
+| 扫描角度 | 高扫描角（wide scan angle） |
+| 多波束能力 | 支持多峰值波束合成 |
+| 平台适配 | 典型小型卫星平台 |
+| 工作场景 | pLEO星座、强干扰环境 |</div>
   </div>
-  {% endif %}
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">行业应用</div>
+    <div class="text-body">**核心应用场景**：
+
+1. **战术卫星通信**：军事/政府场景下，低轨卫星需要在强干扰环境中保持可靠通信链路
+2. **pLEO星座**：Starlink、OneWeb等大规模星座中的卫星之间或卫星与地面之间的抗干扰通信
+3. **边缘覆盖**：适合低功率用户终端，在 proliferation jamming（大规模干扰）环境下仍能工作
+
+**与现有方案的差异**：
+
+- 相比传统相控阵：功耗降低95%，但波束切换速度较慢（反射面调节 vs 电子切换）
+- 相比PARSA（可展开反射面天线）：HoNi BAJR更紧凑，专为小型卫星平台优化
+- 适合&#34;计划性通信场景&#34;（scheduled communication），不太适合需要毫秒级波束切换的动态场景</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">竞品/同行动态</div>
+    <div class="text-body">| 机构/厂商 | 方案 | 特点 |
+|-----------|------|------|
+| MIT Lincoln Lab | HoNi BAJR | 反射面+单一馈源，95%功耗降低，抗干扰 |
+| SpaceX | Starlink V2 | 5倍天线尺寸，S-band，ASIC化相控阵 |
+| 银河航天 | 第二代相控阵 | 128波束ASIC化，功耗降20% |
+| 华为 | GigaUplink | 地面5G-A大上行，Massive MIMO |
+| Aalto大学 | Metacrystal | 被动式超晶体面板，6G室内覆盖 |</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">趋势判断</div>
+    <div class="text-body">**1. 反射面天线在卫星通信中的复兴**
+
+反射面天线并非新技术（二战时期就有），但在卫星通信领域，随着pLEO星座对SWaC的极致追求，反射面架构重新获得关注。HoNi BAJR证明了它在抗干扰场景下的可行性。未来可能在小型卫星/立方星领域成为主流方案。
+
+**2. 抗干扰从&#34;点对点&#34;到&#34;区域化&#34;**
+
+传统相控阵的抗干扰方式是逐个干扰源形成零点（null steering），这在干扰源少的场景有效。但pLEO环境中的干扰可能是大规模、快速变化的。HoNi BAJR的&#34;区域抑制&#34;思路——通过旁瓣整形创建干扰抑制区——更适合这种场景。这是一个重要的方法论转变。
+
+**3. 95%功耗降低意味着什么**
+
+对于卫星来说，功耗直接决定了太阳能板面积、散热需求和有效载荷空间。95%的功耗降低意味着：同样大小的卫星可以搭载更多功能载荷，或者用更小的卫星平台实现同等通信能力。这对降低发射成本有直接贡献。</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">与老大的关联</div>
+    <div class="text-body">1. **卫星通信天线技术追踪**：HoNi BAJR代表了卫星天线的一条差异化技术路线——反射面 vs 相控阵。中兴在卫星通信领域如果有布局，这个方向值得持续关注。
+2. **与银河航天的对比**：银河航天走的是相控阵+ASIC路线（功耗降20%），MIT走的是反射面路线（功耗降95%）。两条路线各有优劣，反映的是不同的工程权衡。
+3. **MWC上海2026的延伸**：MWC上海发布的银河航天、华为方案都是地面/近地场景，HoNi BAJR则是太空场景的抗干扰方案，三者共同勾勒出6G空天地一体化的天线技术版图。</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">参考资料</div>
+    <div class="text-body">- [Antenna array could provide protected tactical satellite communications in low-Earth orbit](https://news.mit.edu/2026/antenna-array-could-provide-protected-tactical-satellite-communications-low-earth-orbit-0626), MIT News, 2026-06-26
+- [MIT Antenna Enhances Secure Satellite Communications](https://modernmechanics24.com/post/mit-anti-jam-satellite-antenna-system/), Modern Mechanics, 2026
+- [New satellite antenna counters jamming while using 95% less power](https://interestingengineering.com/military/reflectarray-satellite-antenna-jamming), Interesting Engineering, 2026-06-08
+- [Prototype Reflectarray Antenna Demonstrates Low-SWaP Anti-Jam Tactical SATCOM](https://www.mobilityengineeringtech.com/component/content/article/55361-prototype-reflectarray-antenna-demonstrates-low-swap-anti-jam-tactical-satcom), Mobility Engineering Tech</div>
+  </div>
+
+    
+  
+
+  
 
 </div>
 
 <div class="footer">
-  <span>antenna-tracker · KG 科普卡片 · {{ type | default('technology') }}</span>
-  <span>node: {{ node_id }}</span>
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-mit-honibajr反射面天线低功耗抗干扰卫星通信</span>
 </div>
 
 </div>

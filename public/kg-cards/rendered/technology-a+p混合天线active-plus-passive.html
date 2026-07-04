@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>波束赋形架构DBF-ABF-HBF混合对比 — KG 卡片</title>
+<title>A+P混合天线Active-Plus-Passive — KG 卡片</title>
 <style>
   :root {
     --primary: #0e7490;
@@ -248,19 +248,19 @@
       <div class="hero-updated">UPDATED 2026-07-03</div>
     </div>
     <div class="hero-title">
-      波束赋形架构DBF-ABF-HBF混合对比
+      A+P混合天线Active-Plus-Passive
       
     </div>
     
     <div class="hero-tags">
-      <span>天线技术/技术概念</span><span>波束赋形</span><span>DBF</span><span>ABF</span><span>HBF</span><span>数字波束赋形</span><span>模拟波束赋形</span><span>混合波束赋形</span><span>5G</span><span>Massive</span><span>MIMO</span>
+      <span>天线技术/技术概念</span><span>A+P天线</span><span>Active-Plus-Passive</span><span>混合天线</span><span>频段共存</span><span>Sub-6GHz</span>
     </div>
     
     
-    <div class="hero-liner"><b>一句话:</b> 波束赋形三大架构——模拟（ABF）只有一条射频链路、便宜但只能形成一个波束；数字（DBF）每根天线一条链路、最灵活但最贵；混合（HBF）折中，5G 基站主流方案用 64 通道配 12-64 条射频链路，在性能和成本之间找平衡。</div>
+    <div class="hero-liner"><b>一句话:</b> A+P 天线是 5G 基站天线的&#34;混搭方案&#34;——有源层（AAU）负责高频段（3.5GHz）提供容量，无源层（平板天线）负责低频段（700/2.6GHz）提供覆盖，两层共用一个支架，节省站址资源。</div>
     
     
-    <div class="hero-analogy"><b>类比:</b> 波束赋形就像&#34;手电筒阵列&#34;——</div>
+    <div class="hero-analogy"><b>类比:</b> A+P 就像双层汉堡包——上层 AAU 是&#34;肉饼&#34;（高频高容量），下层平板是&#34;面包&#34;（低频广覆盖），共用一个&#34;托盘&#34;（安装支架）。</div>
     
     
   </div>
@@ -270,72 +270,22 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路（1条）→ 移相器网络 → 天线阵列（N 个单元）
-                      │
-                  衰减器网络
-      
-每个天线单元前有一个移相器（Phase Shifter）
-和/或衰减器（Attenuator）</code></pre>
-  </div>
-
-    
+    <div class="block-title">1.1 分层结构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>顶层：AAU（有源层）
+  - 频段：3.5GHz（n78）
+  - 通道：64T64R
+  - 功能：高容量数据
+  - 供电：48V DC，200-500W
   
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">1.2 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | 1 |
-| 空间流数 | 1（单用户） |
-| 移相器位数 | 2-6 bit（步进 90°-5.6°） |
-| 波束切换速度 | μs 级（模拟域） |
-| 功耗 | 极低（1 条 RF 链路） |
-| 成本 | 最低 |
-| 灵活性 | 低（只能形成预置波束） |
-| 适用场景 | 毫米波初始接入、卫星通信、4G 传统天线 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
+中层：馈电/隔离层
+  - 频段隔离（700MHz ↔ 3.5GHz）
+  - 结构支撑
   
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">1.3 核心组件 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>移相器类型：
-  1. 数字移相器（LUT 查找表）
-     - 相位步进：360°/2^n（n=位数）
-     - 4 bit → 22.5° 步进
-     - 6 bit → 5.6° 步进
-     
-  2. 模拟移相器（PLL/RC 网络）
-     - 连续可调
-     - 相位精度受温度影响
-     
-  3. 介质移相器
-     - 基于高 Dk 陶瓷
-     - 体积小，适合 5G AAU
-     
-  4. MEMS 移相器
-     - 微机电系统
-     - 超低损耗，但可靠性待验证</code></pre>
+底层：平板天线（无源层）
+  - 频段：700MHz（n28）+ 2.6GHz（n41）
+  - 通道：2T2R 或 4T4R
+  - 功能：广覆盖 + 容量补充
+  - 供电：不需要</code></pre>
   </div>
 
     
@@ -344,11 +294,16 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.4 局限性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 只能形成单波束 → 无法多用户复用
-2. 波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
-3. 移相器相位量化误差 → 波束指向精度受限
-4. 无法自适应零陷 → 干扰抑制能力弱</code></pre>
+    <div class="block-title">1.2 天线共装 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>传统方案（分开安装）：
+  700MHz 天线 → 独立抱杆
+  3.5GHz AAU → 独立抱杆
+  占用 2 个站址或 2 组抱杆
+  
+A+P 方案（共装）：
+  700MHz 天线 + 3.5GHz AAU → 同一抱杆
+  占用 1 个站址，1 组抱杆
+  节省站址成本 30-50%</code></pre>
   </div>
 
     
@@ -357,79 +312,15 @@
 
     
   <div class="block section-code">
-    <div class="block-title">2.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路 1 → DAC → 上变频器 → PA → 天线单元 1
-射频链路 2 → DAC → 上变频器 → PA → 天线单元 2
-...
-射频链路 N → DAC → 上变频器 → PA → 天线单元 N
-
-每根天线都有独立的 RF 链路 → 数字域做波束权重</code></pre>
-  </div>
-
-    
+    <div class="block-title">2.1 隔离需求 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>700MHz ↔ 3.5GHz 隔离度要求：
+  - 互调抑制：&gt; 80dB
+  - 耦合抑制：&gt; 60dB
+  - 防止 700MHz 信号进入 3.5GHz 接收机
   
-    
-
-    
-  <div class="block section-list ">
-    <div class="block-title">2.2 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 特点</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | N（等于天线数） |
-| 空间流数 | 最多 N 流 |
-| 波束形成 | 数字域预编码矩阵 W ∈ C^(N×K) |
-| 波束切换速度 | ns 级（数字信号处理） |
-| 功耗 | 高（N 条 RF 链路） |
-| 成本 | 最高 |
-| 灵活性 | 最高（每根天线独立控制） |
-| 适用场景 | Sub-6GHz 基站、实验室验证 |</div>
-        
-        
-      </div>
-      
-    </div>
-  </div>
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.3 预编码算法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>全数字预编码：
-  y = Ws + n
-  
-  其中：
-  y: 接收信号
-  W: 预编码矩阵（N_t × N_s）
-  s: 发送符号
-  n: 噪声
-  
-主流算法：
-  1. 迫零 ZF（Zero-Forcing）
-     W = H^H(HH^H)^(-1)
-     简单但噪声增强
-     
-  2. MMSE（最小均方误差）
-     W = H^H(HH^H + σ²I)^(-1)
-     考虑噪声
-     
-  3. WMMSE（加权 MMSE）
-     迭代优化，逼近容量
-     
-  4. SVD 分解
-     H = UΣV^H
-     最优但计算量大</code></pre>
+2.6GHz ↔ 3.5GHz 隔离度要求：
+  - 互调抑制：&gt; 70dB
+  - 耦合抑制：&gt; 50dB</code></pre>
   </div>
 
     
@@ -438,64 +329,18 @@
 
     
   <div class="block section-code">
-    <div class="block-title">2.4 在 5G 中的实际应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>64T64R AAU：
-  - 64 条射频链路
-  - 64 个 DAC/ADC
-  - 64 个 PA/LNA
-  - 功耗：~500W-600W（含功放）
-  
-128T128R AAU：
-  - 128 条射频链路
-  - 功耗：~800W-1000W
-  
-挑战：
-  - 功耗随天线数线性增长
-  - 成本高昂（每多一条链路 = 多一套 RF 器件）
-  - 散热压力大</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>数字域（基带）：
-  K 条射频链路 → K 个 DAC → 模拟预编码矩阵 F_RF
-  
-模拟域（射频）：
-  F_RF → 移相器网络 → N 根天线
-  
-K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.2 三种连接架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 全连接架构（Fully Connected）
-   每条 RF 链路连接所有天线单元
-   - 性能好（逼近 DBF）
-   - 移相器数量：K × N
-   - 功耗高
-   - 复杂度最高
+    <div class="block-title">2.2 隔离方法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>1. 物理间距
+   - 700MHz ↔ 3.5GHz：≥ 0.5m
+   - 2.6GHz ↔ 3.5GHz：≥ 0.3m
    
-2. 部分连接架构（Partially Connected / Subarray）
-   每条 RF 链路连接一组天线（子阵）
-   - 移相器数量：N
-   - 功耗中
-   - 5G 基站主流方案
+2. 极化隔离
+   - 底层：±45° 极化
+   - 顶层：±45° 极化（错开 90°）
    
-3. 动态子阵架构（Dynamic Subarray）
-   射频链路可以动态分配到不同子阵
-   - 灵活性最高
-   - 需要 RF 开关网络
-   - 6G 候选方案</code></pre>
+3. 滤波隔离
+   - 底层加带通滤波器
+   - 顶层加带通滤波器</code></pre>
   </div>
 
     
@@ -504,26 +349,23 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
     
   <div class="block section-list ">
-    <div class="block-title">3.3 特点</div>
+    <div class="block-title">3.1 优势</div>
     <div class="list-items ">
       
       <div class="list-item">
         
-        <div class="name">3.3 特点</div>
+        <div class="name">3.1 优势</div>
         
         
         
         
         
-        <div class="desc">| 特性 | ABF | HBF（子阵） | DBF |
-|------|-----|------------|-----|
-| 射频链路数 | 1 | K（12-64） | N（64-128） |
-| 空间流数 | 1 | K | N |
-| 频谱效率 | 基准 | 85-95% | 100% |
-| 功耗 | 基准 | 60-70% | 100% |
-| 成本 | 基准 | 50-60% | 100% |
-| 波束灵活性 | 低 | 中 | 高 |
-| 5G 主流 | ❌ | ✅ | 实验室 |</div>
+        <div class="desc">| 优势 | 说明 |
+|------|------|
+| 站址节省 | 共装一套抱杆，节省 30-50% 站址成本 |
+| 覆盖+容量 | 低频广覆盖 + 高频高容量 |
+| 运维简化 | 一套站点，统一运维 |
+| 快速部署 | 5G 快速覆盖，无需新建站址 |</div>
         
         
       </div>
@@ -536,23 +378,24 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
     
   <div class="block section-list ">
-    <div class="block-title">3.4 5G 基站 HBF 典型配置</div>
+    <div class="block-title">3.2 挑战</div>
     <div class="list-items ">
       
       <div class="list-item">
         
-        <div class="name">3.4 5G 基站 HBF 典型配置</div>
+        <div class="name">3.2 挑战</div>
         
         
         
         
         
-        <div class="desc">| 厂商 | 产品 | 天线数 | RF 链路数 | 架构 |
-|------|------|--------|----------|------|
-| 华为 | AAU 64T64R | 192（64 端口双极化） | 64 | 子阵 |
-| 爱立信 | AIR 6488 | 128（64 端口） | 64 | 子阵 |
-| 中兴 | 64T64R AAU | 384（64 端口） | 32-64 | 子阵 |
-| 三星 | MMB-H13（28GHz） | 128 | 32 | 子阵 |</div>
+        <div class="desc">| 挑战 | 说明 |
+|------|------|
+| 重量负担 | 总重可达 50-70kg，抱杆需加固 |
+| 风载增加 | 迎风面积增加 50-100%，风载加倍 |
+| 频段隔离 | 需要足够的物理间距和滤波 |
+| 散热 | AAU 发热 + 密闭空间 = 散热挑战 |
+| 安装难度 | 需要更大抱杆和更强支架 |</div>
         
         
       </div>
@@ -564,38 +407,41 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
     
 
     
-  <div class="block section-text">
-    <div class="block-title">四、波束倾斜（Beam Squint）问题</div>
-    <div class="text-body">```
-问题：
-  模拟/混合波束赋形使用相位移相器
-  → 相位权重与频率相关
-  → 宽带信号下不同频率波束指向不同
+  <div class="block section-code">
+    <div class="block-title">4.1 中国移动 A+P <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>底层：700MHz n28（中国移动）
+  - 天线：2T2R 平板
+  - 增益：17dBi
+  - 功率：43dBm
   
-公式：
-  Δφ = 2πd·sin(θ)/λ = 2πd·f·sin(θ)/c
+顶层：3.5GHz n78（中国电信/联通）
+  - AAU：64T64R
+  - 增益：24dBi
+  - 功率：200W（每通道）
   
-当 f 变化时，θ 也变化 → 波束倾斜
+间距：≥ 0.8m</code></pre>
+  </div>
+
+    
   
-影响：
-  - 宽带系统（&gt; 100MHz）性能下降
-  - 毫米波更严重（相对带宽更大）
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">4.2 欧洲 A+P <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>底层：800MHz（运营商 A）
+  - 2T2R 平板
+  - 覆盖层
   
-解决方案：
-  1. 真时延（True Time Delay, TTD）
-     - 使用时延线代替移相器
-     - 所有频率相位一致
-     - 成本高、体积大
-     
-  2. 子带划分
-     - 将宽带分成多个子带
-     - 每个子带独立波束赋形
-     - 折中方案
-     
-  3. 数字波束赋形
-     - 数字域补偿
-     - 最彻底但最贵
-```</div>
+中层：1.8GHz（运营商 A）
+  - 4T4R 平板
+  - 容量层
+  
+顶层：3.5GHz（运营商 B）
+  - 64T64R AAU
+  - 5G 容量层
+  
+间距：≥ 0.5m（每层）</code></pre>
   </div>
 
     
@@ -603,9 +449,9 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
   
   <div class="block related-block">
-    <div class="block-title">关联笔记 (4)</div>
+    <div class="block-title">关联笔记 (3)</div>
     <div class="related-grid">
-      <a href="#">technology-波束赋形beamforming深度解读</a><a href="#">technology-近场波束赋形near-field-beamforming</a><a href="#">technology-极化波束赋形polarization-beamforming</a><a href="#">technology-相控阵天线phased-array-antenna</a>
+      <a href="#">component-平板天线panel-antenna</a><a href="#">component-t-r模块transmit-receive-module</a><a href="#">technology-毫米波天线millimeter-wave-antenna</a>
     </div>
   </div>
   
@@ -614,7 +460,7 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
 <div class="footer">
   <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-波束赋形架构dbf-abf-hbf混合对比</span>
+  <span>node: technology-a+p混合天线active-plus-passive</span>
 </div>
 
 </div>

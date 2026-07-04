@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>波束赋形架构DBF-ABF-HBF混合对比 — KG 卡片</title>
+<title>传输线微带线带状线空气带线钣金 — KG 卡片</title>
 <style>
   :root {
     --primary: #0e7490;
@@ -248,19 +248,19 @@
       <div class="hero-updated">UPDATED 2026-07-03</div>
     </div>
     <div class="hero-title">
-      波束赋形架构DBF-ABF-HBF混合对比
+      传输线微带线带状线空气带线钣金
       
     </div>
     
     <div class="hero-tags">
-      <span>天线技术/技术概念</span><span>波束赋形</span><span>DBF</span><span>ABF</span><span>HBF</span><span>数字波束赋形</span><span>模拟波束赋形</span><span>混合波束赋形</span><span>5G</span><span>Massive</span><span>MIMO</span>
+      <span>天线技术/技术概念</span><span>微带线</span><span>带状线</span><span>空气带线</span><span>钣金传输线</span><span>馈电网络</span><span>传输线</span>
     </div>
     
     
-    <div class="hero-liner"><b>一句话:</b> 波束赋形三大架构——模拟（ABF）只有一条射频链路、便宜但只能形成一个波束；数字（DBF）每根天线一条链路、最灵活但最贵；混合（HBF）折中，5G 基站主流方案用 64 通道配 12-64 条射频链路，在性能和成本之间找平衡。</div>
+    <div class="hero-liner"><b>一句话:</b> 传输线是 AAU 内部信号分配的&#34;血管&#34;——从 PCB 上的微带线到金属腔体内的空气带线/钣金带状线，核心矛盾是&#34;损耗 vs 体积 vs 功率容量&#34;。Sub-6GHz 用微带线够用，毫米波和大功率开始转向空气带线和钣金结构。</div>
     
     
-    <div class="hero-analogy"><b>类比:</b> 波束赋形就像&#34;手电筒阵列&#34;——</div>
+    <div class="hero-analogy"><b>类比:</b> 传输线就像&#34;水管&#34;——信号是水，水管的形状决定了水流稳不稳。</div>
     
     
   </div>
@@ -270,13 +270,21 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路（1条）→ 移相器网络 → 天线阵列（N 个单元）
-                      │
-                  衰减器网络
-      
-每个天线单元前有一个移相器（Phase Shifter）
-和/或衰减器（Attenuator）</code></pre>
+    <div class="block-title">1.1 结构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>微带线结构：
+  ┌──────────────┐ ← 信号线（铜，宽度 W）
+  │              │
+  │  介质基板    │ ← Dk=3.48（RO4350B）
+  │              │
+  └──────────────┘ ← 接地层（铜）
+
+关键尺寸：
+  W/H（线宽/基板厚）→ 决定特性阻抗 Z₀
+  Z₀ = 50Ω（通信标准）
+  
+典型参数（RO4350B, H=0.81mm）：
+  50Ω 微带线：W ≈ 1.5mm
+  3.5GHz 损耗：~0.5dB/10cm</code></pre>
   </div>
 
     
@@ -298,14 +306,12 @@
         
         <div class="desc">| 特性 | 值/说明 |
 |------|---------|
-| 射频链路数 | 1 |
-| 空间流数 | 1（单用户） |
-| 移相器位数 | 2-6 bit（步进 90°-5.6°） |
-| 波束切换速度 | μs 级（模拟域） |
-| 功耗 | 极低（1 条 RF 链路） |
+| 损耗 | 中等（0.3-1dB/10cm @3.5GHz） |
+| 功率容量 | 低（&lt; 1W） |
+| 尺寸 | 最小（适合高密度） |
 | 成本 | 最低 |
-| 灵活性 | 低（只能形成预置波束） |
-| 适用场景 | 毫米波初始接入、卫星通信、4G 传统天线 |</div>
+| 加工 | 最简单（PCB 蚀刻） |
+| 适用频段 | DC-6.5GHz |</div>
         
         
       </div>
@@ -318,24 +324,16 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.3 核心组件 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>移相器类型：
-  1. 数字移相器（LUT 查找表）
-     - 相位步进：360°/2^n（n=位数）
-     - 4 bit → 22.5° 步进
-     - 6 bit → 5.6° 步进
-     
-  2. 模拟移相器（PLL/RC 网络）
-     - 连续可调
-     - 相位精度受温度影响
-     
-  3. 介质移相器
-     - 基于高 Dk 陶瓷
-     - 体积小，适合 5G AAU
-     
-  4. MEMS 移相器
-     - 微机电系统
-     - 超低损耗，但可靠性待验证</code></pre>
+    <div class="block-title">1.3 在 AAU 中的应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>微带线用于：
+  - T/R 模块内部信号分配
+  - 馈电网络（功分器/移相器）
+  - PCB 振子之间的连接
+  
+局限：
+  - 损耗随频率升高急剧增加
+  - 28GHz 时 10cm 微带线损耗 &gt; 5dB
+  - 不适合毫米波长距离传输</code></pre>
   </div>
 
     
@@ -344,26 +342,20 @@
 
     
   <div class="block section-code">
-    <div class="block-title">1.4 局限性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 只能形成单波束 → 无法多用户复用
-2. 波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
-3. 移相器相位量化误差 → 波束指向精度受限
-4. 无法自适应零陷 → 干扰抑制能力弱</code></pre>
-  </div>
+    <div class="block-title">2.1 结构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>带状线结构：
+  ┌──────────────┐ ← 上层接地
+  │              │
+  │  ───────     │ ← 信号线（嵌在介质中间）
+  │  ───────     │   （宽度 W，离上下接地距离 H/2）
+  │              │
+  └──────────────┘ ← 下层接地
 
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">2.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路 1 → DAC → 上变频器 → PA → 天线单元 1
-射频链路 2 → DAC → 上变频器 → PA → 天线单元 2
-...
-射频链路 N → DAC → 上变频器 → PA → 天线单元 N
-
-每根天线都有独立的 RF 链路 → 数字域做波束权重</code></pre>
+特点：
+  - 信号线被接地层上下包围
+  - 电磁场完全封闭在介质内
+  - 无辐射损耗
+  - 比微带线损耗低 20-30%</code></pre>
   </div>
 
     
@@ -372,12 +364,83 @@
 
     
   <div class="block section-list ">
-    <div class="block-title">2.2 特点</div>
+    <div class="block-title">2.2 微带线 vs 带状线</div>
     <div class="list-items ">
       
       <div class="list-item">
         
-        <div class="name">2.2 特点</div>
+        <div class="name">2.2 微带线 vs 带状线</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 特性 | 微带线 | 带状线 |
+|------|--------|--------|
+| 结构 | 信号线在上层 | 信号线在介质中间 |
+| 损耗 | 较高（有辐射） | 较低（无辐射） |
+| 尺寸 | 更小 | 更大（需要多层板） |
+| 耦合 | 有边缘耦合 | 隔离度更好 |
+| 加工 | 简单 | 复杂（需要多层压合） |
+| 适用 | Sub-6GHz | Sub-6GHz 高密度 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.3 在 AAU 中的应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>带状线用于：
+  - 64T64R AAU 的背板（多层 RO4350B）
+  - 需要高隔离度的信号分配
+  - 高密度布线（64 通道）
+  
+优势：
+  - 通道间串扰 &lt; -30dB
+  - 比微带线更紧凑
+  - 适合 64 通道以上的密集布线</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">3.1 结构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>空气带线结构：
+  ┌──────────────┐ ← 金属盖板
+  │              │
+  │  空气（Dk≈1）│ ← 介质是空气！
+  │              │
+  │  ───────     │ ← 信号线（铜）
+  │  ───────     │
+  └──────────────┘ ← 金属底板（接地）
+
+关键：
+  - 介质是空气（Dk=1.0）
+  - 有效 Dk ≈ 1.0-1.5（取决于盖板高度）
+  - 信号在空气中传播 → 损耗极低</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.2 特点</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.2 特点</div>
         
         
         
@@ -385,14 +448,11 @@
         
         <div class="desc">| 特性 | 值/说明 |
 |------|---------|
-| 射频链路数 | N（等于天线数） |
-| 空间流数 | 最多 N 流 |
-| 波束形成 | 数字域预编码矩阵 W ∈ C^(N×K) |
-| 波束切换速度 | ns 级（数字信号处理） |
-| 功耗 | 高（N 条 RF 链路） |
-| 成本 | 最高 |
-| 灵活性 | 最高（每根天线独立控制） |
-| 适用场景 | Sub-6GHz 基站、实验室验证 |</div>
+| 损耗 | 极低（0.05-0.2dB/10cm @3.5GHz） |
+| 功率容量 | 高（空气散热好） |
+| 尺寸 | 中等（比微带线大） |
+| 成本 | 中（需要精密加工） |
+| 适用频段 | DC-10GHz |</div>
         
         
       </div>
@@ -405,31 +465,16 @@
 
     
   <div class="block section-code">
-    <div class="block-title">2.3 预编码算法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>全数字预编码：
-  y = Ws + n
+    <div class="block-title">3.3 在 AAU 中的应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>空气带线用于：
+  - 毫米波 AAU 内部馈线（28/39GHz）
+  - 高功率 Sub-6GHz 分配网络
+  - 低损耗相位一致性要求高的场景
   
-  其中：
-  y: 接收信号
-  W: 预编码矩阵（N_t × N_s）
-  s: 发送符号
-  n: 噪声
-  
-主流算法：
-  1. 迫零 ZF（Zero-Forcing）
-     W = H^H(HH^H)^(-1)
-     简单但噪声增强
-     
-  2. MMSE（最小均方误差）
-     W = H^H(HH^H + σ²I)^(-1)
-     考虑噪声
-     
-  3. WMMSE（加权 MMSE）
-     迭代优化，逼近容量
-     
-  4. SVD 分解
-     H = UΣV^H
-     最优但计算量大</code></pre>
+优势：
+  - 损耗比微带线低 5-10 倍
+  - 温度稳定性好（空气 Dk 不随温度变）
+  - 功率容量大（空气不发热）</code></pre>
   </div>
 
     
@@ -438,64 +483,28 @@
 
     
   <div class="block section-code">
-    <div class="block-title">2.4 在 5G 中的实际应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>64T64R AAU：
-  - 64 条射频链路
-  - 64 个 DAC/ADC
-  - 64 个 PA/LNA
-  - 功耗：~500W-600W（含功放）
-  
-128T128R AAU：
-  - 128 条射频链路
-  - 功耗：~800W-1000W
-  
-挑战：
-  - 功耗随天线数线性增长
-  - 成本高昂（每多一条链路 = 多一套 RF 器件）
-  - 散热压力大</code></pre>
-  </div>
+    <div class="block-title">4.1 结构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>钣金带状线结构：
+  ┌──────────────────┐ ← 金属上盖（铝/铜）
+  │                    │
+  │  ┌──────────────┐  │
+  │  │ 信号铜条     │  │ ← 信号导体（铜排）
+  │  │              │  │
+  │  │ 介质支撑柱   │  │ ← PTFE/陶瓷支撑
+  │  │              │  │
+  │  └──────────────┘  │
+  │                    │
+  └────────────────────┘ ← 金属底板（接地）
 
-    
+加工方式：
+  - 钣金折弯/冲压形成金属腔体
+  - 铜排蚀刻/冲压形成信号线
+  - PTFE 支撑柱固定间距
   
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>数字域（基带）：
-  K 条射频链路 → K 个 DAC → 模拟预编码矩阵 F_RF
-  
-模拟域（射频）：
-  F_RF → 移相器网络 → N 根天线
-  
-K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
-  </div>
-
-    
-  
-    
-
-    
-  <div class="block section-code">
-    <div class="block-title">3.2 三种连接架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 全连接架构（Fully Connected）
-   每条 RF 链路连接所有天线单元
-   - 性能好（逼近 DBF）
-   - 移相器数量：K × N
-   - 功耗高
-   - 复杂度最高
-   
-2. 部分连接架构（Partially Connected / Subarray）
-   每条 RF 链路连接一组天线（子阵）
-   - 移相器数量：N
-   - 功耗中
-   - 5G 基站主流方案
-   
-3. 动态子阵架构（Dynamic Subarray）
-   射频链路可以动态分配到不同子阵
-   - 灵活性最高
-   - 需要 RF 开关网络
-   - 6G 候选方案</code></pre>
+特点：
+  - 全金属结构 → 屏蔽极佳
+  - 功率容量大（铜排散热好）
+  - 损耗低（空气+PTFE 介质）</code></pre>
   </div>
 
     
@@ -504,26 +513,25 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
     
   <div class="block section-list ">
-    <div class="block-title">3.3 特点</div>
+    <div class="block-title">4.2 特点</div>
     <div class="list-items ">
       
       <div class="list-item">
         
-        <div class="name">3.3 特点</div>
+        <div class="name">4.2 特点</div>
         
         
         
         
         
-        <div class="desc">| 特性 | ABF | HBF（子阵） | DBF |
-|------|-----|------------|-----|
-| 射频链路数 | 1 | K（12-64） | N（64-128） |
-| 空间流数 | 1 | K | N |
-| 频谱效率 | 基准 | 85-95% | 100% |
-| 功耗 | 基准 | 60-70% | 100% |
-| 成本 | 基准 | 50-60% | 100% |
-| 波束灵活性 | 低 | 中 | 高 |
-| 5G 主流 | ❌ | ✅ | 实验室 |</div>
+        <div class="desc">| 特性 | 值/说明 |
+|------|---------|
+| 损耗 | 低（0.1-0.3dB/10cm @3.5GHz） |
+| 功率容量 | 很高（10-100W） |
+| 尺寸 | 较大（适合机架内） |
+| 成本 | 中（钣金加工） |
+| 适用频段 | DC-6.5GHz |
+| 隔离度 | &gt; 40dB |</div>
         
         
       </div>
@@ -535,66 +543,64 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
     
 
     
-  <div class="block section-list ">
-    <div class="block-title">3.4 5G 基站 HBF 典型配置</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.4 5G 基站 HBF 典型配置</div>
-        
-        
-        
-        
-        
-        <div class="desc">| 厂商 | 产品 | 天线数 | RF 链路数 | 架构 |
-|------|------|--------|----------|------|
-| 华为 | AAU 64T64R | 192（64 端口双极化） | 64 | 子阵 |
-| 爱立信 | AIR 6488 | 128（64 端口） | 64 | 子阵 |
-| 中兴 | 64T64R AAU | 384（64 端口） | 32-64 | 子阵 |
-| 三星 | MMB-H13（28GHz） | 128 | 32 | 子阵 |</div>
-        
-        
-      </div>
-      
-    </div>
+  <div class="block section-code">
+    <div class="block-title">4.3 在 AAU 中的应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>钣金传输线用于：
+  - 4G/5G 基站馈电网络（功分器/合路器）
+  - RRU 到 AAU 的内部连接
+  - 大功率分配网络
+  
+优势：
+  - 比 PCB 微带线功率容量高 10-100 倍
+  - 比同轴电缆更紧凑
+  - 适合批量生产（钣金+组装）
+  
+典型应用：
+  - 64 通道功分器（钣金腔体 + PCB 电路）
+  - 双频/三频合路器
+  - 滤波器腔体</code></pre>
   </div>
+
     
   
     
 
     
   <div class="block section-text">
-    <div class="block-title">四、波束倾斜（Beam Squint）问题</div>
+    <div class="block-title">五、四种传输线对比总结</div>
+    <div class="text-body">| 特性 | 微带线 | 带状线 | 空气带线 | 钣金传输线 |
+|------|--------|--------|---------|-----------|
+| 损耗(@3.5GHz) | 0.5dB/10cm | 0.35dB/10cm | 0.1dB/10cm | 0.2dB/10cm |
+| 功率容量 | &lt; 1W | &lt; 1W | 1-5W | 10-100W |
+| 尺寸 | ★★★★★(最小) | ★★★★ | ★★★ | ★★(最大) |
+| 成本 | ★★★★★(最低) | ★★★★ | ★★★ | ★★★ |
+| 加工难度 | 低 | 中 | 高 | 中 |
+| 适用频段 | DC-6.5GHz | DC-6.5GHz | DC-10GHz | DC-6.5GHz |
+| 5G 应用场景 | T/R 模块内 | 64T 背板 | 毫米波 AAU | 功分器/合路器 |</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">六、5G AAU 传输线选型指南</div>
     <div class="text-body">```
-问题：
-  模拟/混合波束赋形使用相位移相器
-  → 相位权重与频率相关
-  → 宽带信号下不同频率波束指向不同
+Sub-6GHz AAU（3.5GHz）：
+  T/R 模块内部 → 微带线（PCB 集成）
+  64 通道分配 → 带状线（多层背板）
+  功分器/合路器 → 钣金传输线（功率大）
   
-公式：
-  Δφ = 2πd·sin(θ)/λ = 2πd·f·sin(θ)/c
+毫米波 AAU（28GHz）：
+  BFIC 到 AiP → 空气带线/FFC（低损耗）
+  腔体内 → 波导（功率大/损耗最低）
   
-当 f 变化时，θ 也变化 → 波束倾斜
-  
-影响：
-  - 宽带系统（&gt; 100MHz）性能下降
-  - 毫米波更严重（相对带宽更大）
-  
-解决方案：
-  1. 真时延（True Time Delay, TTD）
-     - 使用时延线代替移相器
-     - 所有频率相位一致
-     - 成本高、体积大
-     
-  2. 子带划分
-     - 将宽带分成多个子带
-     - 每个子带独立波束赋形
-     - 折中方案
-     
-  3. 数字波束赋形
-     - 数字域补偿
-     - 最彻底但最贵
+关键决策因素：
+  1. 频率 → 越高越需要低损耗结构
+  2. 功率 → 越大越需要金属结构
+  3. 尺寸 → 越小越需要 PCB 集成
+  4. 成本 → 越低越需要批量工艺
 ```</div>
   </div>
 
@@ -603,9 +609,9 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
   
   <div class="block related-block">
-    <div class="block-title">关联笔记 (4)</div>
+    <div class="block-title">关联笔记 (3)</div>
     <div class="related-grid">
-      <a href="#">technology-波束赋形beamforming深度解读</a><a href="#">technology-近场波束赋形near-field-beamforming</a><a href="#">technology-极化波束赋形polarization-beamforming</a><a href="#">technology-相控阵天线phased-array-antenna</a>
+      <a href="#">component-功分器合路器power-divider-combiner</a><a href="#">component-天线基板substrate</a><a href="#">technology-天线馈电网络feed-network-power-divider</a>
     </div>
   </div>
   
@@ -614,7 +620,7 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
 
 <div class="footer">
   <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-波束赋形架构dbf-abf-hbf混合对比</span>
+  <span>node: technology-传输线微带线带状线空气带线钣金</span>
 </div>
 
 </div>
