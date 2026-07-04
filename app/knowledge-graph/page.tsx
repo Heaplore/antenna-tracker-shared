@@ -664,7 +664,7 @@ function Modal({
 
           {/* HTML 卡片 iframe */}
           <iframe
-            src={`../kg-cards-rendered/${encodeURIComponent(node.id)}.html`}
+            src={`/antenna-tracker/kg-cards-rendered/${encodeURIComponent(node.id)}.html`}
             title={`${node.name} 科普卡片`}
             style={{
               flex: 1,
@@ -672,7 +672,7 @@ function Modal({
               border: 'none',
               minHeight: 400,
             }}
-            sandbox="allow-same-origin"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"
           />
 
           {/* 底部关联信息 */}
