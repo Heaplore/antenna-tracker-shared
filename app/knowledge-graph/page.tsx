@@ -588,8 +588,6 @@ function Modal({
     return m
   }, [])
 
-  const htmlCardSrc = `/antenna-tracker/kg-cards/rendered/${encodeURIComponent(node.id)}.html`
-
   return (
     <>
       <div
@@ -666,7 +664,7 @@ function Modal({
 
           {/* HTML 卡片 iframe */}
           <iframe
-            src={htmlCardSrc}
+            src={`../kg-cards/rendered/${encodeURIComponent(node.id)}.html`}
             title={`${node.name} 科普卡片`}
             style={{
               flex: 1,

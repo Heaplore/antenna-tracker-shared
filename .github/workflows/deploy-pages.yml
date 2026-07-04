@@ -50,6 +50,15 @@ jobs:
           echo "Build complete!"
           ls -la out/
 
+      - name: Copy static assets to out/
+        run: |
+          set -e
+          echo "Copying public/kg-cards/rendered/ to out/kg-cards/rendered/..."
+          mkdir -p out/kg-cards/rendered
+          cp -r public/kg-cards/rendered/* out/kg-cards/rendered/
+          ls out/kg-cards/rendered/ | wc -l
+          echo "Done."
+
       - name: Verify output
         run: |
           echo "Checking out/ directory..."
