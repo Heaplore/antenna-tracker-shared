@@ -1,175 +1,293 @@
 'use client'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, AreaChart, Area } from 'recharts'
 import marketDataRaw from '@/app/_data/market.json'
 
-// Type: weekly_banner 可选 (周报由 generate_banner_report.py 周一生成, 其他天不存在)
-type WeeklyBanner = {
-  period_label: string;
-  generated_at: string;
-  highlight: string;
-  top_segment?: string;
-  top_segment_cagr?: string;
-}
-type MarketData = typeof marketDataRaw & { weekly_banner?: WeeklyBanner }
+type MarketData = typeof marketDataRaw & { weekly_banner?: { period_label: string; generated_at: string; highlight: string; top_segment?: string; top_segment_cagr?: string } }
 const marketData = marketDataRaw as MarketData
 
+// Chart color palette (Recharts defaults)
+const SEGMENT_COLORS = ['#0088FE', '#00C49F', '#9966FF', '#FFBB28', '#FF6699', '#FF8042', '#8884D8']
+
+// Parse numeric value from strings like "320.53亿元"
+function parseSize(val: string | undefined): number {
+  if (!val) return 0
+  const num = parseFloat(val.replace(/[^\d.]/g, ''))
+  return isNaN(num) ? 0 : num
+}
+
+// Parse CAGR percentage
+function parseCAGR(val: string | undefined): number {
+  if (!val) return 0
+  const num = parseFloat(val.replace('%', ''))
+  return isNaN(num) ? 0 : num
+}
+
+// Sort segments by global size descending
+const sortedSegments = [...marketData.segments].sort((a, b) => parseSize(b.globalSize) - parseSize(a.globalSize))
+const chartData = sortedSegments.map((seg, i) => ({
+  name: seg.name,
+  value: parseSize(seg.globalSize),
+  color: SEGMENT_COLORS[i % SEGMENT_COLORS.length],
+  cagr: seg.cagr,
+  chinaSize: seg.chinaSize,
+  forecastGlobal: seg.forecastGlobal,
+  forecastYear: seg.forecastYear,
+  drivers: seg.drivers,
+  types: seg.types,
+  keyPlayers: seg.keyPlayers,
+  status: seg.status,
+}))
+
+// Trend data with prediction zone
+const trendChartData = marketData.trendData.map(d => ({
+  year: d.year,
+  global: d.global,
+  china: d.china,
+  isPrediction: parseInt(d.year) >= 2025,
+}))
+
 export default function MarketPage() {
-  const trendChartData = marketData.trendData.map(d => ({
-    year: d.year,
-    全球: d.global,
-    中国: d.china
-  }))
+  const totalGlobal = chartData.reduce((sum, s) => sum + s.value, 0)
+  const totalChina = sortedSegments.reduce((sum, s) => sum + parseSize(s.chinaSize), 0)
+  const avgCAGR = (marketData.segments.reduce((sum, s) => sum + parseCAGR(s.cagr), 0) / marketData.segments.length).toFixed(1)
 
   return (
-    <div>
-      <header className="header">
-        <h1>📊 市场分析</h1>
-        <p>全球与中国天线市场规模、细分市场、增长驱动因素</p>
-        <p className="update-info">数据更新：{marketData.lastUpdate}</p>
+    <div className="space-y-6">
+      {/* Header */}
+      <header className="market-header">
+        <div className="header-content">
+          <h1>📊 市场分析</h1>
+          <p>全球与中国天线市场规模、细分赛道、增长驱动因素</p>
+          <p className="update-info">数据更新：{marketData.lastUpdate}</p>
+        </div>
       </header>
 
-      {/* 周报 banner（由 generate_banner_report.py 自动维护） */}
+      {/* 周报 banner */}
       {marketData.weekly_banner && (
         <section className="card weekly-banner">
           <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
-            <h2 className="text-lg sm:text-xl font-semibold">📅 本周市场周报（{marketData.weekly_banner.period_label}）</h2>
-            <span className="text-xs text-gray-500">
-              生成时间：{marketData.weekly_banner.generated_at}
-            </span>
+            <h2 className="text-lg font-semibold">📅 本周市场周报（{marketData.weekly_banner.period_label}）</h2>
+            <span className="text-xs text-gray-500">生成时间：{marketData.weekly_banner.generated_at}</span>
           </div>
-          <p className="text-base sm:text-lg leading-relaxed text-gray-700">
-            {marketData.weekly_banner.highlight}
-          </p>
+          <p className="text-base leading-relaxed text-gray-700">{marketData.weekly_banner.highlight}</p>
           {marketData.weekly_banner.top_segment && (
             <p className="mt-2 text-sm text-gray-600">
               领跑细分：<strong>{marketData.weekly_banner.top_segment}</strong>
-              {marketData.weekly_banner.top_segment_cagr && (
-                <span>（CAGR {marketData.weekly_banner.top_segment_cagr}）</span>
-              )}
+              {marketData.weekly_banner.top_segment_cagr && <span>（CAGR {marketData.weekly_banner.top_segment_cagr}）</span>}
             </p>
           )}
         </section>
       )}
 
-      {/* 市场总览卡片 */}
+      {/* Section 1: 宏观概览 — 环形图 + 关键数字 */}
       <section className="card">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">🌐 市场总览</h2>
-        <div className="stats-grid">
-          <div className="stat-item">
-            <div className="stat-value">{marketData.summary.globalMarketSize2024}</div>
-            <div className="stat-label">2024年全球天线市场规模</div>
+        <h2 className="card-title">🌐 宏观概览</h2>
+        <div className="overview-grid">
+          {/* Donut chart */}
+          <div className="chart-panel">
+            <h3 className="panel-title">2024 全球细分市场占比</h3>
+            <div className="chart-container">
+              <ResponsiveContainer width="100%" height={280}>
+                <PieChart>
+                  <Pie
+                    data={chartData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={70}
+                    outerRadius={110}
+                    paddingAngle={2}
+                    dataKey="value"
+                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(1)}%`}
+                    labelLine={false}
+                  >
+                    {chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    formatter={(value: number, name: string, props: any) => [
+                      `${value.toFixed(1)} 亿元`,
+                      props.payload.name,
+                    ]}
+                    contentStyle={{ borderRadius: '8px', border: '1px solid #e0e0e0', fontSize: '0.85rem' }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
-          <div className="stat-item">
-            <div className="stat-value">{marketData.summary.chinaMarketSize2024}</div>
-            <div className="stat-label">2024年中国市场规模</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-value">{marketData.summary.forecast2030}</div>
-            <div className="stat-label">2030年预测规模</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-value">{marketData.summary.cagr}</div>
-            <div className="stat-label">年复合增长率</div>
+
+          {/* Key metrics */}
+          <div className="metrics-panel">
+            <div className="metric-item">
+              <div className="metric-value">{marketData.summary.globalMarketSize2024}</div>
+              <div className="metric-label">2024 全球天线市场规模</div>
+            </div>
+            <div className="metric-item">
+              <div className="metric-value">{marketData.summary.chinaMarketSize2024}</div>
+              <div className="metric-label">2024 中国市场规模</div>
+            </div>
+            <div className="metric-item">
+              <div className="metric-value">{marketData.summary.forecast2030}</div>
+              <div className="metric-label">2030 年全球预测规模</div>
+            </div>
+            <div className="metric-item">
+              <div className="metric-value">{marketData.summary.cagr}</div>
+              <div className="metric-label">年均复合增长率</div>
+            </div>
+            <div className="metric-item">
+              <div className="metric-value">{sortedSegments.length}</div>
+              <div className="metric-label">追踪细分赛道</div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 增长驱动因素 */}
+      {/* Section 2: 市场规模趋势 — 折线图 + 预测区间 */}
       <section className="card">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">🚀 增长驱动因素</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        <h2 className="card-title">📈 市场规模趋势（2020-2030）</h2>
+        <div className="chart-panel-full">
+          <ResponsiveContainer width="100%" height={320}>
+            <AreaChart data={trendChartData} margin={{ top: 10, right: 20, left: 0, bottom: 10 }}>
+              <defs>
+                <linearGradient id="globalGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#667eea" stopOpacity={0.3}/>
+                  <stop offset="95%" stopColor="#667eea" stopOpacity={0}/>
+                </linearGradient>
+                <linearGradient id="chinaGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#e53935" stopOpacity={0.3}/>
+                  <stop offset="95%" stopColor="#e53935" stopOpacity={0}/>
+                </linearGradient>
+                <linearGradient id="predictionGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#667eea" stopOpacity={0.05}/>
+                  <stop offset="100%" stopColor="#667eea" stopOpacity={0.15}/>
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
+              <XAxis dataKey="year" tick={{ fontSize: 11, fill: '#999' }} tickLine={false} axisLine={{ stroke: '#e0e0e0' }} />
+              <YAxis tick={{ fontSize: 11, fill: '#999' }} tickLine={false} axisLine={{ stroke: '#e0e0e0' }} tickFormatter={(v) => `${v}亿`} width={55} />
+              <Tooltip
+                formatter={(value: number) => [`${value.toFixed(1)} 亿元`, '']}
+                contentStyle={{ borderRadius: '8px', border: '1px solid #e0e0e0', fontSize: '0.85rem' }}
+              />
+              {/* Prediction zone shading */}
+              <Area
+                type="monotone"
+                dataKey="global"
+                stroke="#667eea"
+                strokeWidth={2}
+                fill="url(#globalGrad)"
+                activeDot={{ r: 5 }}
+              />
+              <Area
+                type="monotone"
+                dataKey="china"
+                stroke="#e53935"
+                strokeWidth={2}
+                fill="url(#chinaGrad)"
+                activeDot={{ r: 5 }}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+          <div className="chart-legend-custom">
+            <span className="legend-item"><span className="legend-dot" style={{ background: '#667eea' }}></span>全球市场规模</span>
+            <span className="legend-item"><span className="legend-dot" style={{ background: '#e53935' }}></span>中国市场规模</span>
+            <span className="legend-item"><span className="legend-dot" style={{ background: 'rgba(102,126,234,0.15)' }}></span>预测区间（2025-2030）</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: 细分赛道对比 — 横向柱状图 */}
+      <section className="card">
+        <h2 className="card-title">📊 细分赛道规模对比</h2>
+        <div className="chart-panel-full">
+          <ResponsiveContainer width="100%" height={350}>
+            <BarChart data={chartData} layout="horizontal" margin={{ top: 10, right: 30, left: 20, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
+              <XAxis type="number" tick={{ fontSize: 11, fill: '#999' }} tickLine={false} axisLine={{ stroke: '#e0e0e0' }} tickFormatter={(v) => `${v}亿`} />
+              <YAxis type="category" dataKey="name" tick={{ fontSize: 12, fill: '#333' }} tickLine={false} axisLine={false} width={100} />
+              <Tooltip
+                formatter={(value: number, name: string, props: any) => [`${value.toFixed(1)} 亿元`, name === 'value' ? '全球规模' : '']}
+                contentStyle={{ borderRadius: '8px', border: '1px solid #e0e0e0', fontSize: '0.85rem' }}
+              />
+              <Bar dataKey="value" name="全球规模" radius={[0, 6, 6, 0]}>
+                {chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </section>
+
+      {/* Section 4: 增长驱动力 */}
+      <section className="card">
+        <h2 className="card-title">🚀 核心增长驱动力</h2>
+        <div className="drivers-grid">
           {marketData.keyDrivers.map((driver, i) => (
-            <span key={i} className="tag">{driver}</span>
+            <div key={i} className="driver-chip">
+              <span className="driver-icon">{['📡', '🏭', '🚗', '🛰️', '🛡️'][i % 5]}</span>
+              <span>{driver}</span>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* 市场规模趋势图 */}
+      {/* Section 5: 细分赛道详情 */}
       <section className="card">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">📈 市场规模趋势（2020-2030预测）</h2>
-        <ResponsiveContainer width="100%" height={280} className="sm:h-80">
-          <LineChart data={trendChartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-            <XAxis dataKey="year" tick={{ fontSize: 11, fill: '#999' }} tickLine={false} axisLine={{ stroke: '#e0e0e0' }} />
-            <YAxis tick={{ fontSize: 11, fill: '#999' }} tickLine={false} axisLine={{ stroke: '#e0e0e0' }} tickFormatter={(v) => `${v}亿`} width={50} />
-            <Tooltip formatter={(value: number) => [`${value} 亿元`, '']} contentStyle={{ borderRadius: '8px', border: '1px solid #e0e0e0', fontSize: '0.85rem' }} />
-            <Legend wrapperStyle={{ fontSize: '0.85rem' }} />
-            <Line type="monotone" dataKey="全球" stroke="#667eea" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
-            <Line type="monotone" dataKey="中国" stroke="#e53935" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
-          </LineChart>
-        </ResponsiveContainer>
-      </section>
-
-      {/* 细分市场 - 全部渲染 */}
-      <section className="card">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">📈 细分市场详情</h2>
-        <div className="segment-grid">
-          {marketData.segments.map((seg, i) => (
-            <div key={i} className="segment-card" style={{ borderTop: '3px solid #667eea' }}>
-              <div className="segment-name">{seg.name}</div>
-
-              {(seg.globalSize || seg.chinaSize) && (
-                <div className="segment-stat">
-                  <span>全球规模</span>
-                  <span style={{ fontWeight: 600 }}>{seg.globalSize || '—'}</span>
+        <h2 className="card-title">🔍 细分赛道详情</h2>
+        <div className="detail-grid">
+          {chartData.map((seg, i) => (
+            <div key={i} className="detail-card" style={{ borderTop: `3px solid ${seg.color}` }}>
+              <div className="detail-header">
+                <span className="detail-name">{seg.name}</span>
+                <span className="detail-cagr" style={{ color: seg.color }}>{seg.cagr}</span>
+              </div>
+              <div className="detail-stats">
+                <div className="detail-stat">
+                  <span className="detail-stat-label">全球</span>
+                  <span className="detail-stat-value">{seg.value.toFixed(1)} 亿元</span>
                 </div>
-              )}
-              {(seg.chinaSize) && (
-                <div className="segment-stat">
-                  <span>中国规模</span>
-                  <span style={{ fontWeight: 600 }}>{seg.chinaSize}</span>
+                <div className="detail-stat">
+                  <span className="detail-stat-label">中国</span>
+                  <span className="detail-stat-value">{seg.chinaSize}</span>
                 </div>
-              )}
-              {seg.cagr && (
-                <div className="segment-stat">
-                  <span>年复合增长率</span>
-                  <span style={{ fontWeight: 600, color: '#667eea' }}>{seg.cagr}</span>
+                <div className="detail-stat">
+                  <span className="detail-stat-label">20{seg.forecastYear?.toString().slice(-2)}</span>
+                  <span className="detail-stat-value">{seg.forecastGlobal}</span>
                 </div>
-              )}
-              {seg.forecastYear && seg.forecastGlobal && (
-                <div className="segment-stat">
-                  <span>预测年份</span>
-                  <span>{seg.forecastYear}年全球 {seg.forecastGlobal}</span>
-                </div>
-              )}
+              </div>
               {seg.drivers && seg.drivers.length > 0 && (
-                <div style={{ marginTop: '12px' }}>
-                  <span style={{ fontSize: '12px', color: '#999' }}>驱动因素：</span>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '4px' }}>
+                <div className="detail-section">
+                  <span className="detail-section-label">驱动因素</span>
+                  <div className="detail-tags">
                     {seg.drivers.map((d, j) => (
-                      <span key={j} className="tag" style={{ fontSize: '0.75rem' }}>{d}</span>
+                      <span key={j} className="detail-tag">{d}</span>
                     ))}
                   </div>
                 </div>
               )}
               {seg.types && seg.types.length > 0 && (
-                <div style={{ marginTop: '12px' }}>
-                  <span style={{ fontSize: '12px', color: '#999' }}>主要类型：</span>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '4px' }}>
+                <div className="detail-section">
+                  <span className="detail-section-label">主要类型</span>
+                  <div className="detail-tags">
                     {seg.types.map((t, j) => (
-                      <span key={j} className="tag" style={{ fontSize: '0.75rem' }}>{t}</span>
+                      <span key={j} className="detail-tag">{t}</span>
                     ))}
                   </div>
                 </div>
               )}
               {seg.keyPlayers && seg.keyPlayers.length > 0 && (
-                <div style={{ marginTop: '12px' }}>
-                  <span style={{ fontSize: '12px', color: '#999' }}>主要玩家：</span>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '4px' }}>
+                <div className="detail-section">
+                  <span className="detail-section-label">主要玩家</span>
+                  <div className="detail-players">
                     {seg.keyPlayers.map((p, j) => (
-                      <span key={j} style={{
-                        display: 'inline-block', padding: '2px 8px',
-                        background: '#eef2ff', color: '#667eea',
-                        borderRadius: '4px', fontSize: '0.75rem', fontWeight: 500
-                      }}>{p}</span>
+                      <span key={j} className="player-tag">{p.trim()}</span>
                     ))}
                   </div>
                 </div>
               )}
               {seg.status && (
-                <div style={{ marginTop: '10px', fontSize: '0.75rem', color: '#999', fontStyle: 'italic' }}>
-                  {seg.status}
-                </div>
+                <div className="detail-status">{seg.status}</div>
               )}
             </div>
           ))}
