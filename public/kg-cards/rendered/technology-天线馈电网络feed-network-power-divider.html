@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,19 +269,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.1 功率分配</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.1 功率分配</div>
-        
-        
-        
-        
-        
-        <div class="desc">最基本的功能：将输入信号分成 N 路等幅（或不等幅）输出：
+    <div class="text-body">最基本的功能：将输入信号分成 N 路等幅（或不等幅）输出：
 
 `
 输入 1 路 → 输出 N 路
@@ -296,30 +286,16 @@
 中心单元功率高，边缘单元功率低
 用于降低旁瓣电平
 典型应用：射电望远镜、卫星通信</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.2 相位控制</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 相位控制</div>
-        
-        
-        
-        
-        
-        <div class="desc">某些馈电网络需要引入特定的相位差：
+    <div class="text-body">某些馈电网络需要引入特定的相位差：
 
 `
 Δφ_n = n · d · sin(θ₀) · 2π/λ
@@ -331,30 +307,16 @@
 波束指向控制（相控阵）
 波束倾斜（机械/电子倾角）
 多波束生成</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.3 阻抗匹配</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.3 阻抗匹配</div>
-        
-        
-        
-        
-        
-        <div class="desc">确保从输入到每个输出的阻抗匹配：
+    <div class="text-body">确保从输入到每个输出的阻抗匹配：
 
 `
 Z_in = Z₀（输入匹配）
@@ -365,30 +327,16 @@ Z_out_n = Z₀（输出匹配）
 反射增大 → S11 恶化
 功率损耗 → 效率下降
 谐波失真 → 信号质量下降</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.4 端口隔离</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.4 端口隔离</div>
-        
-        
-        
-        
-        
-        <div class="desc">输出端口之间需要足够的隔离度：
+    <div class="text-body">输出端口之间需要足够的隔离度：
 
 `
 S_ij &lt; -20dB（i ≠ j，输出端口间）
@@ -398,12 +346,8 @@ S_ij &lt; -20dB（i ≠ j，输出端口间）
 互耦增大 → 方向图畸变
 功率在端口间泄露 → 效率下降
 多径效应加剧 → MIMO 性能下降</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -612,19 +556,9 @@ Input ──┬── Output 1
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 带状线馈电网络（Stripline Feed Network）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 带状线馈电网络（Stripline Feed Network）</div>
-        
-        
-        
-        
-        
-        <div class="desc">介于微带和波导之间：
+    <div class="text-body">介于微带和波导之间：
 
 `
 Top Microstrip
@@ -638,12 +572,8 @@ Bottom Microstrip ← 天线单元在此层
 双面布局（馈线和天线分开）
 屏蔽好（无辐射损耗）
 适合多层 PCB</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -665,19 +595,9 @@ Ground ────┘ ──── Ground
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.5 硅通孔馈电网络（Through-Silicon Via, TSV）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.5 硅通孔馈电网络（Through-Silicon Via, TSV）</div>
-        
-        
-        
-        
-        
-        <div class="desc">用于 AiP 和芯片级集成：
+    <div class="text-body">用于 AiP 和芯片级集成：
 
 `
 Chip Top:  天线单元
@@ -692,30 +612,16 @@ Chip Bot:  驱动 IC（BFIC）
 超薄剖面
 高频损耗低
 适合大规模量产</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.6 激光诱导技术馈电网络（LIFT / LIGA）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.6 激光诱导技术馈电网络（LIFT / LIGA）</div>
-        
-        
-        
-        
-        
-        <div class="desc">用于毫米波/太赫兹的高精度馈线：
+    <div class="text-body">用于毫米波/太赫兹的高精度馈线：
 
 `
 高精度 LIGA 工艺 → 深硅刻蚀 → 金属填充
@@ -724,42 +630,24 @@ Chip Bot:  驱动 IC（BFIC）
 线宽精度 ±1μm
 适合 100GHz+ 频段
 成本高</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.7 X 型全波导馈电网络（X-Type Full-Corporate Waveguide）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.7 X 型全波导馈电网络（X-Type Full-Corporate Waveguide）</div>
-        
-        
-        
-        
-        
-        <div class="desc">2022 年提出的新型毫米波馈电拓扑：
+    <div class="text-body">2022 年提出的新型毫米波馈电拓扑：
 
 特点：
 级数减半（相比传统树状）
 带宽提升 2 倍
 插入损耗降低 3dB
 适合 28/39GHz 大规模阵列</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -849,19 +737,9 @@ Chip Bot:  驱动 IC（BFIC）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3 混合馈电（Hybrid Feed）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 混合馈电（Hybrid Feed）</div>
-        
-        
-        
-        
-        
-        <div class="desc">树状 + 并行结合：
+    <div class="text-body">树状 + 并行结合：
 
 `
 输入 → 树状分配（4 路）→ 每路并行馈给 8 个单元
@@ -869,12 +747,8 @@ Chip Bot:  驱动 IC（BFIC）
 
 优点：兼顾简单性和均匀性
 缺点：设计复杂</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -978,19 +852,9 @@ MIMO 信道相关性增加</code></pre>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.1 导体损耗剧增</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.1 导体损耗剧增</div>
-        
-        
-        
-        
-        
-        <div class="desc">趋肤深度 δ 随频率升高而减小：
+    <div class="text-body">趋肤深度 δ 随频率升高而减小：
 
 `
 δ = √(2ρ/ωμ)
@@ -1000,30 +864,16 @@ MIMO 信道相关性增加</code></pre>
 PCB 铜厚至少 3δ ≈ 1μm（镀金层）
 表面粗糙度影响显著
 Ra &lt; 0.5μm 是目标</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.2 尺寸缩小</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.2 尺寸缩小</div>
-        
-        
-        
-        
-        
-        <div class="desc">波长缩短 → 所有传输线尺寸按比例缩小：
+    <div class="text-body">波长缩短 → 所有传输线尺寸按比例缩小：
 
 `
 λ_28GHz = λ_3.5GHz / 8
@@ -1032,30 +882,16 @@ Ra &lt; 0.5μm 是目标</div>
 微带线宽度从 ~1mm 缩到 ~0.13mm
 波导尺寸从 ~70mm 缩到 ~9mm
 加工精度要求从 ±0.1mm 提升到 ±0.02mm</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.3 多路功分器的级联损耗</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.3 多路功分器的级联损耗</div>
-        
-        
-        
-        
-        
-        <div class="desc">N = 64 单元需要 6 级 Wilkinson：
+    <div class="text-body">N = 64 单元需要 6 级 Wilkinson：
 
 `
 总损耗 = 6 × 0.15dB（每级）= 0.9dB
@@ -1072,30 +908,16 @@ Ra &lt; 0.5μm 是目标</div>
 `
 总损耗 ≈ 8 × 0.15 + 0.2 = 1.4dB
 `</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.4 双频/多频馈电</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.4 双频/多频馈电</div>
-        
-        
-        
-        
-        
-        <div class="desc">5G 毫米波通常覆盖多个频段（如 28GHz + 39GHz）：
+    <div class="text-body">5G 毫米波通常覆盖多个频段（如 28GHz + 39GHz）：
 
 `
 双频 Wilkinson 设计：
@@ -1108,12 +930,8 @@ Ra &lt; 0.5μm 是目标</div>
 28GHz 带宽：23-32GHz（32.1%）
 39GHz 带宽：34-46.5GHz（32.1%）
 采用级间相位优化技术</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

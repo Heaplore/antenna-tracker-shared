@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,19 +269,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.1 什么是口径照明分布？</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.1 什么是口径照明分布？</div>
-        
-        
-        
-        
-        
-        <div class="desc">口径照明分布（Aperture Illumination / Taper Distribution）是指天线辐射孔径上场强的空间分布函数：
+    <div class="text-body">口径照明分布（Aperture Illumination / Taper Distribution）是指天线辐射孔径上场强的空间分布函数：
 
 `
 E_aperture(x, y) = A(x, y) · exp[j·φ(x, y)]
@@ -298,12 +288,8 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
 `
 
 关键洞察：改变口径上的 A(x, y)，就是在改变方向图的&#34;形状&#34;。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -633,19 +619,9 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.2 数学本质：不确定性原理</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.2 数学本质：不确定性原理</div>
-        
-        
-        
-        
-        
-        <div class="desc">口径照明分布的权衡本质上是傅里叶变换的不确定性原理：
+    <div class="text-body">口径照明分布的权衡本质上是傅里叶变换的不确定性原理：
 
 `
 Δx · Δk ≥ 1/2
@@ -655,30 +631,16 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
 
 口径能量越集中（均匀分布）→ 方向图主瓣越窄，但旁瓣越高
 口径能量越分散（tapered 分布）→ 方向图旁瓣越低，但主瓣越宽</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3  pedestal（平台）效应</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3  pedestal（平台）效应</div>
-        
-        
-        
-        
-        
-        <div class="desc">实际工程中，经常在 taper 分布中加入一个&#34;平台&#34;（pedestal）分量：
+    <div class="text-body">实际工程中，经常在 taper 分布中加入一个&#34;平台&#34;（pedestal）分量：
 
 `
 A_tapered(x) = (1-p) · A_distribution(x) + p · A_uniform(x)
@@ -692,12 +654,8 @@ p = 1：均匀分布（旁瓣高，波束窄）
 p = 0.1-0.2：折中方案（旁瓣稍高，波束稍窄）
 
 应用：卫星通信天线常用 p ≈ 0.15 的 Taylor-pedestal 组合。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -838,179 +796,85 @@ p = 0.1-0.2：折中方案（旁瓣稍高，波束稍窄）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.2 Hansen 圆形孔径分布</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.2 Hansen 圆形孔径分布</div>
-        
-        
-        
-        
-        
-        <div class="desc">R.C. Hansen 提出的单参数圆形孔径分布，在波束宽度、旁瓣和效率之间取得最优折中：
+    <div class="text-body">R.C. Hansen 提出的单参数圆形孔径分布，在波束宽度、旁瓣和效率之间取得最优折中：
 
 `
 A_Hansen(ρ) = J₀(v·ρ) · exp(-α·ρ²)
 `
 
 其中 v 和 α 是两个可调参数。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 卫星通信</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 卫星通信</div>
-        
-        
-        
-        
-        
-        <div class="desc">要求：低旁瓣（减少干扰）、适中增益
+    <div class="text-body">要求：低旁瓣（减少干扰）、适中增益
 选择：Taylor 分布（旁瓣 -25 到 -30dB）+ pedestal
 原因：卫星之间距离远，旁瓣干扰是主要问题</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 雷达</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 雷达</div>
-        
-        
-        
-        
-        
-        <div class="desc">要求：低旁瓣（减少虚警）、窄波束（高分辨率）
+    <div class="text-body">要求：低旁瓣（减少虚警）、窄波束（高分辨率）
 选择：Chebyshev 或 Taylor
 原因：旁瓣会产生虚假目标回波</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 基站天线</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 基站天线</div>
-        
-        
-        
-        
-        
-        <div class="desc">要求：适中旁瓣、适中波束宽度、高增益
+    <div class="text-body">要求：适中旁瓣、适中波束宽度、高增益
 选择：Cosine 或 Taylor（旁瓣 -20 到 -25dB）
 原因：基站天线需要平衡覆盖和干扰</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 射电天文</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 射电天文</div>
-        
-        
-        
-        
-        
-        <div class="desc">要求：极低旁瓣（减少地面噪声）
+    <div class="text-body">要求：极低旁瓣（减少地面噪声）
 选择：高斯或二项式
 原因：需要尽可能减少来自地平线方向的干扰</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.5 点对点微波</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.5 点对点微波</div>
-        
-        
-        
-        
-        
-        <div class="desc">要求：最大增益、最窄波束
+    <div class="text-body">要求：最大增益、最窄波束
 选择：均匀或接近均匀
 原因：点对点链路距离固定，旁瓣不重要</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.1 馈源照明不均匀</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.1 馈源照明不均匀</div>
-        
-        
-        
-        
-        
-        <div class="desc">抛物面天线的口径照明由馈源决定：
+    <div class="text-body">抛物面天线的口径照明由馈源决定：
 
 `
 A_aperture(θ_feed) = G_feed(θ_feed)
@@ -1021,30 +885,16 @@ A_aperture(θ_feed) = G_feed(θ_feed)
 中心过亮或过暗：导致口径效率下降
 
 优化方法：选择合适焦距直径比（f/D）和馈源方向图。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.2 相位中心偏移</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.2 相位中心偏移</div>
-        
-        
-        
-        
-        
-        <div class="desc">馈源的相位中心偏移会导致口径相位误差：
+    <div class="text-body">馈源的相位中心偏移会导致口径相位误差：
 
 `
 Δφ = k·Δz·(1 - cosθ)
@@ -1053,70 +903,38 @@ A_aperture(θ_feed) = G_feed(θ_feed)
 其中 Δz 是相位中心沿轴向的偏移。
 
 影响：波束指向偏移、增益下降、旁瓣升高。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.3 制造公差</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.3 制造公差</div>
-        
-        
-        
-        
-        
-        <div class="desc">口径上的物理缺陷（面板变形、馈源位置误差）会破坏理想的照明分布：
+    <div class="text-body">口径上的物理缺陷（面板变形、馈源位置误差）会破坏理想的照明分布：
 
 面板变形 → 相位误差
 馈源偏移 → 幅度 + 相位误差
 遮挡（副反射面支撑）→ 幅度凹陷 + 相位畸变</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.4 极化纯度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.4 极化纯度</div>
-        
-        
-        
-        
-        
-        <div class="desc">双极化天线中，交叉极化口径分布会污染主极化方向图：
+    <div class="text-body">双极化天线中，交叉极化口径分布会污染主极化方向图：
 
 `
 E_total = E_co · p_co + E_cross · p_cross
 `
 
 交叉极化分量会在主瓣附近产生额外的旁瓣结构。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>MIMO天线去耦Decoupling — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    height: 1080px;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+    column-count: 2;
+    column-gap: 12px;
+  }
+  .canvas .hero {
+    column-span: all;
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    margin-bottom: 12px;
+  }
+  .block.section-table, .block.section-comparison {
+    /* 不再 column-span: all，只占一列宽度 */
+  }
+  .block.section-text {
+    column-span: all;
+    width: 100%;
+  }
+  .block:last-child.related-block {
+    flex: 1 1 100%;
+    column-span: all;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-02</div>
+    </div>
+    <div class="hero-title">
+      MIMO天线去耦Decoupling
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术/技术概念</span><span>MIMO去耦</span><span>端口隔离</span><span>互耦抑制</span><span>DGS</span><span>EBG</span><span>极化分集</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> MIMO天线去耦技术是通过各种电磁结构设计或信号处理手段，降低多输入多输出天线系统中相邻端口之间互耦（Mutual Coupling）的方法集合。它是实现高密度 MIMO 和 Massive MIMO 的关键使能技术，直接决定了空间复用的增益能否在现实中兑现。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> 想象两个人在狭小的房间里同时打电话——如果房间太小，A 说的话会干扰 B 的通话质量。</div>
+    
+    
+  </div>
+
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.1 互耦的本质</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.1 互耦的本质</div>
+        
+        
+        
+        
+        
+        <div class="desc">当两个天线单元靠得很近时（通常间距 &lt; 2λ），一个单元辐射的电磁场会在相邻单元中感应出电流，这种现象称为互耦（Mutual Coupling）。互耦用 S 参数表示为 S_ij（i ≠ j），即从端口 j 到端口 i 的耦合系数。
+
+**互耦的危害**：
+- 端口间信号串扰 → MIMO 空间复用增益下降
+- 输入阻抗变化 → 匹配恶化 → VSWR 升高
+- 方向图畸变 → 波束指向偏移
+- 相关性增加 → ECC（Envelope Correlation Coefficient）升高 → 分集增益下降</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.2 去耦技术的两大类别</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.2 去耦技术的两大类别</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 类别 | 方法 | 原理 |
+|------|------|------|
+| **内部去耦** | 空间分集、极化分集、频率分集 | 让天线&#34;天生&#34;就不耦合 |
+| **外部去耦** | DGS、EBG、中和线、寄生单元、超材料 | 在天线之间加&#34;隔离墙&#34; |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.3 性能评价指标</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.3 性能评价指标</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 指标 | 定义 | 目标值 |
+|------|------|--------|
+| 端口隔离度（S21） | 端口间耦合系数 | &lt; -15dB（一般）/&lt;-25dB（MIMO） |
+| ECC | 包络相关系数 | &lt; 0.5（4G）/&lt; 0.1（5G） |
+| DGC | 分集增益系数 | &gt; 10dB |
+| TARC | 总有源反射系数 | &lt; -10dB |
+| Channel Capacity Loss | 信道容量损失 | &lt; 0.5bps/Hz |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.1 空间分集（Spatial Diversity）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.1 空间分集（Spatial Diversity）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：将天线单元物理间距拉大，降低互耦。
+
+```
+隔离度 ≈ 20·log₁₀(λ / (4π·d))
+```
+
+**典型效果**：
+- d = 0.5λ → S21 ≈ -14dB
+- d = λ → S21 ≈ -28dB
+- d = 2λ → S21 ≈ -34dB
+
+**优点**：最简单、最有效、无额外损耗
+**缺点**：占用面积大，不适合手机等小型设备
+**适用场景**：基站 AAU（单元间距通常 ≥ 0.5λ）、户外 MIMO</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.2 极化分集（Polarization Diversity）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.2 极化分集（Polarization Diversity）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：使用正交极化（如 ±45° 双极化）的天线单元，正交极化之间的天然隔离度可达 25-35dB。
+
+**关键参数**：XPD（Cross-Polarization Discrimination，交叉极化鉴别率）
+
+```
+XPD = 10·log₁₀(P_co / P_cross)
+```
+
+**典型效果**：
+- ±45° 双极化：隔离度 25-35dB
+- 水平/垂直极化：隔离度 20-30dB
+- 左旋/右旋圆极化：隔离度 20-25dB
+
+**优点**：不增加天线间距，可在同一位置放置两个正交极化天线
+**缺点**：传播环境会改变极化状态（去极化），实际隔离度可能降至 15-20dB
+**适用场景**：基站双极化天线（±45° 是行业标准）、手机 MIMO</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.3 频率分集（Frequency Diversity）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.3 频率分集（Frequency Diversity）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：不同频段的天线之间天然隔离（工作频率不同，互耦可忽略）。
+
+**适用场景**：多频段 MIMO（如 4G + 5G 共存）、载波聚合</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.4 模式分集（Mode Diversity）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.4 模式分集（Mode Diversity）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：利用天线 Different Radiation Modes（如 TE10 和 TE20 模式）的正交性实现去耦。
+
+**典型应用**：波导 MIMO、介质谐振器天线（DRA）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.1 缺陷接地结构（Defected Ground Structure, DGS）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.1 缺陷接地结构（Defected Ground Structure, DGS）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：在接地层上蚀刻特定形状的缺口（如 U 形、V 形、环形），破坏表面波的传播路径。
+
+**效果**：
+- 隔离度改善：5-15dB
+- 工作频带：DC-40GHz
+- 尺寸：缺口尺寸 ≈ λ/2
+
+**典型形状**：
+| 形状 | 特点 | 适用场景 |
+|------|------|---------|
+| U 形 | 最简单，易加工 | Sub-6GHz MIMO |
+| V 形 | 可调谐频带 | 多频段 |
+| 环形 | 多频带抑制 | 多频段 MIMO |
+| 十字形 | 宽频抑制 | 宽带 MIMO |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.2 电磁带隙结构（Electromagnetic Bandgap, EBG）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.2 电磁带隙结构（Electromagnetic Bandgap, EBG）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：周期性排列的金属贴片或孔洞，在特定频段内形成&#34;带隙&#34;，阻止表面波传播。
+
+**效果**：
+- 隔离度改善：10-25dB
+- 带宽：通常 10-20%（相对带宽）
+- 尺寸：周期 ≈ λ/2
+
+**EBG 的变种**：
+- **Mushroom EBG**：金属柱 + 顶部金属贴片，最常用
+- **Yagi EBG**：类似 Yagi-Uda 结构，宽带效果好
+- **UC-EBG（Ultra-Compact）**：紧凑版 EBG，尺寸减半</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.3 中和线（Neutralization Line, NL）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.3 中和线（Neutralization Line, NL）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：在天线单元之间连接一条金属线（或微带线），产生一个与互耦电流反向的电流，抵消互耦。
+
+**效果**：
+- 隔离度改善：15-30dB
+- 带宽：较窄（5-10%）
+- 设计复杂度高（需要精确计算中和线长度和位置）
+
+**适用场景**：紧密间距的 MIMO 天线（d &lt; 0.3λ）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.4 寄生去耦单元（Parasitic Decoupling Element, PDE）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.4 寄生去耦单元（Parasitic Decoupling Element, PDE）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：在天线之间放置一个无源（不连接馈线）的金属单元，通过感应电流产生反向耦合场。
+
+**效果**：
+- 隔离度改善：10-20dB
+- 带宽：10-15%
+- 设计相对简单
+
+**变种**：
+- 单寄生单元：简单但带宽窄
+- 多寄生单元：带宽更宽
+- 可调寄生单元（含 varactor）：可动态调谐</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.5 超材料去耦（Metamaterial Decoupling）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.5 超材料去耦（Metamaterial Decoupling）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：使用人工超材料（如 SRR 谐振环、NRI 材料）的特殊电磁特性来抑制互耦。
+
+**效果**：
+- 隔离度改善：15-35dB
+- 带宽：5-20%（取决于设计）
+- 可设计性强，但加工复杂
+
+**典型结构**：
+- SRR（Split Ring Resonator）：适用于 10-60GHz
+- ELC（Electric LC Resonator）：适用于 Sub-6GHz
+- 超表面（Metasurface）：覆盖大面积，宽带效果好</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.6 去耦网络（Decoupling Network）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.6 去耦网络（Decoupling Network）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：在天线馈线之间插入无源网络（变压器、LC 网络、传输线组合），直接在电路层面抵消耦合。
+
+**效果**：
+- 隔离度改善：20-40dB
+- 带宽：取决于网络设计
+- 不改变天线结构，可后加装
+
+**典型方案**：
+- 正交模耦合器（OMC）：用于双极化天线
+- 传输线变压器：宽带去耦
+- LC 谐振网络：窄带但高效</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.7 去耦与图案塑造表面（DPSS）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.7 去耦与图案塑造表面（DPSS）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：2025 年最新技术，在天线阵列上方放置周期性金属贴片表面，同时实现去耦和方向图塑造。
+
+**效果**：
+- 隔离度：&lt; -20dB
+- 效率：&gt; 75%
+- 同时可塑造方向图（降低特定方向的旁瓣）
+
+**特点**：通过遗传算法优化贴片连接状态，将问题转化为二进制优化问题。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">四、8 大去耦技术对比</div>
+    <div class="text-body">| 技术 | 隔离度改善 | 带宽 | 尺寸代价 | 复杂度 | 适用频段 | 量产可行性 |
+|------|-----------|------|---------|--------|---------|-----------|
+| 空间分集 | 高（随距离） | 无限 | 大 | 低 | 所有 | 高（基站） |
+| 极化分集 | 中高（25-35dB） | 无限 | 无 | 低 | 所有 | 极高 |
+| DGS | 中（5-15dB） | 中 | 小 | 中 | Sub-6G/mmWave | 高 |
+| EBG | 中高（10-25dB） | 中 | 小 | 中高 | Sub-6G/mmWave | 中 |
+| 中和线 | 高（15-30dB） | 窄 | 无 | 高 | Sub-6G | 中 |
+| 寄生单元 | 中（10-20dB） | 中 | 小 | 中 | Sub-6G/mmWave | 中 |
+| 超材料 | 高（15-35dB） | 中 | 小 | 高 | mmWave/THz | 低 |
+| 去耦网络 | 很高（20-40dB） | 可变 | 无 | 高 | Sub-6G | 中 |</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.1 规模效应</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.1 规模效应</div>
+        
+        
+        
+        
+        
+        <div class="desc">64T64R AAU 有 128 个端口（64TX + 64RX），端口之间的互耦组合多达 128×127 = 16,256 对。即使每对的耦合只有 -15dB，累积效应也会导致严重的性能下降。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.2 双极化 + 空间密集排列</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.2 双极化 + 空间密集排列</div>
+        
+        
+        
+        
+        
+        <div class="desc">典型 4V8H 配置（4 垂直 × 8 水平 = 32 单元，双极化 → 64 端口）：
+- 水平间距：≈ 0.5λ
+- 垂直间距：≈ 0.5λ
+- 极化隔离：25-30dB
+- 互耦隔离：15-20dB（同极化相邻单元）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.3 去耦方案的工程选择</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.3 去耦方案的工程选择</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 场景 | 首选方案 | 备选方案 |
+|------|---------|---------|
+| 基站 AAU | 极化分集 + 空间分集 | DGS/EBG |
+| 手机 MIMO | 极化分集 + DGS | 寄生单元 |
+| mmWave AiP | 空间分集（λ 小，单元间距相对大） | 超材料 |
+| 车载雷达 | 极化分集 + EBG | 去耦网络 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.1 耦合矩阵补偿</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.1 耦合矩阵补偿</div>
+        
+        
+        
+        
+        
+        <div class="desc">通过测量得到 N×N 的耦合矩阵 C，在基带对接收信号进行补偿：
+
+```
+x_clean = C⁻¹ · x_measured
+```</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.2 自适应波束成形</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.2 自适应波束成形</div>
+        
+        
+        
+        
+        
+        <div class="desc">MVDR（最小方差无畸变响应）波束成形器可以自动在互耦方向上放置零陷：
+
+```
+w_opt = R⁻¹ · a(θ₀) / (a(θ₀)ᴴ · R⁻¹ · a(θ₀))
+```
+
+其中 R 是协方差矩阵（包含互耦信息），a(θ₀) 是导向矢量。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.3 AI 辅助去耦</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.3 AI 辅助去耦</div>
+        
+        
+        
+        
+        
+        <div class="desc">2024-2026 年的研究趋势：用深度学习模型直接从天线几何结构预测最优去耦方案，或将互耦补偿学习为端到端的神经网络。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">七、技术演进</div>
+    <div class="text-body">- **1990s**：空间分集和极化分集是主要的去耦手段
+- **2000s**：DGS 和 EBG 被提出用于微带天线去耦
+- **2010s**：中和线和寄生去耦单元在 4G MIMO 中广泛应用
+- **2015-2018年**：超材料去耦成为研究热点
+- **2018-2022年**：5G Massive MIMO 推动多技术组合去耦方案
+- **2023-2024年**：去耦网络 + 数字域补偿成为基站 AAU 标准方案
+- **2025年**：DPSS（去耦与图案塑造表面）首次提出
+- **2025-2026年**：AI 辅助去耦设计进入工程验证阶段</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">九、未来趋势</div>
+    <div class="text-body">- **短期（1-2年）**：
+  - 6G UM-MIMO（数千单元）的去耦挑战推动新理论
+  - AI 端到端去耦设计工具商用化
+  - 可重构去耦结构（动态调谐）
+
+- **中期（3-5年）**：
+  - 智能超表面（RIS）用于大规模去耦
+  - 太赫兹频段的去耦技术标准化
+  - 封装级去耦（AiP 内部单元间耦合抑制）
+
+- **长期（5年以上）**：
+  - 量子 MIMO 的去耦理论
+  - 全息 MIMO 的去耦重新定义</div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (3)</div>
+    <div class="related-grid">
+      <a href="#">technology-天线阵列antenna-array</a><a href="#">metric-天线隔离度antenna-isolation</a><a href="#">metric-天线方向图radiation-pattern</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-mimo天线去耦decoupling</span>
+</div>
+
+</div>
+
+</body>
+</html>

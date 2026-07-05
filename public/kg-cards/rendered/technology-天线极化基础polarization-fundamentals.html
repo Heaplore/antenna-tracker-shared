@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,19 +269,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.1 极化的数学定义</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.1 极化的数学定义</div>
-        
-        
-        
-        
-        
-        <div class="desc">电磁波的电场可以分解为两个正交分量：
+    <div class="text-body">电磁波的电场可以分解为两个正交分量：
 
 `
 E(z,t) = E_x·cos(ωt - kz + φ_x)·x̂ + E_y·cos(ωt - kz + φ_y)·ŷ
@@ -291,42 +281,24 @@ E(z,t) = E_x·cos(ωt - kz + φ_x)·x̂ + E_y·cos(ωt - kz + φ_y)·ŷ
 幅度比：E_y / E_x
 相位差：Δφ = φ_y - φ_x
 传播方向：k（通常取 +z 方向）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.2 极化椭圆的形成</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 极化椭圆的形成</div>
-        
-        
-        
-        
-        
-        <div class="desc">当 E_x 和 E_y 都存在且 Δφ ≠ 0, π 时，电场矢量的末端在固定位置随时间画出一个椭圆：
+    <div class="text-body">当 E_x 和 E_y 都存在且 Δφ ≠ 0, π 时，电场矢量的末端在固定位置随时间画出一个椭圆：
 
 `
 (E_x/E_0x)² + (E_y/E_0y)² - 2(E_x/E_0x)(E_y/E_0y)cos(Δφ) = sin²(Δφ)
 `
 
 这就是极化椭圆方程。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -586,19 +558,9 @@ RFID（标签取向不确定）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.1 极化匹配因子（Polarization Match Factor）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.1 极化匹配因子（Polarization Match Factor）</div>
-        
-        
-        
-        
-        
-        <div class="desc">收发天线之间的功率传输效率：
+    <div class="text-body">收发天线之间的功率传输效率：
 
 `
 PLF = |ρ̂_t · ρ̂_r|²
@@ -618,12 +580,8 @@ PLF = |ρ̂_t · ρ̂_r|²
 | RHCP × LHCP | 0 | -∞dB | 完全隔离 |
 | VPol × RHCP | 0.5 | -3dB | 一半功率 |
 | HPol × RHCP | 0.5 | -3dB | 一半功率 |</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -721,19 +679,9 @@ PLF = |ρ̂_t · ρ̂_r|²
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.1 极化分集（Polarization Diversity）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.1 极化分集（Polarization Diversity）</div>
-        
-        
-        
-        
-        
-        <div class="desc">利用两个正交极化在同一频率上传输独立数据流：
+    <div class="text-body">利用两个正交极化在同一频率上传输独立数据流：
 
 `
 天线 A：+45° 线极化 → 数据流 1
@@ -746,12 +694,8 @@ PLF = |ρ̂_t · ρ̂_r|²
 实际互耦 20-30dB → 容量提升 30-50%
 
 已有笔记：[[技术概念-极化分集Polarization-Diversity]]</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -841,19 +785,9 @@ PLF = |ρ̂_t · ρ̂_r|²
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.3 极化复用（Polarization Division Multiplexing, PDM）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.3 极化复用（Polarization Division Multiplexing, PDM）</div>
-        
-        
-        
-        
-        
-        <div class="desc">光纤通信和卫星通信中广泛使用：
+    <div class="text-body">光纤通信和卫星通信中广泛使用：
 
 `
 发送端：
@@ -865,30 +799,16 @@ PLF = |ρ̂_t · ρ̂_r|²
 `
 
 频谱效率提升：2×（同一频率传两路数据）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.4 卫星通信中的圆极化</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.4 卫星通信中的圆极化</div>
-        
-        
-        
-        
-        
-        <div class="desc">GPS 信号使用 RHCP：
+    <div class="text-body">GPS 信号使用 RHCP：
 
 `
 卫星 → RHCP 信号 → 地面接收天线（RHCP）
@@ -900,12 +820,8 @@ PLF = |ρ̂_t · ρ̂_r|²
 卫星姿态变化不影响信号（圆极化不受旋转影响）
 多径反射被抑制（反射改变旋向）
 室内/城市峡谷中仍有较好接收</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1009,49 +925,25 @@ PLF = |ρ̂_t · ρ̂_r|²
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.3 自适应极化波束赋形</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.3 自适应极化波束赋形</div>
-        
-        
-        
-        
-        
-        <div class="desc">根据信道状态动态调整极化方向：
+    <div class="text-body">根据信道状态动态调整极化方向：
 
 `
 信道测量 → 最优极化方向 → 调整天线极化 → 最大化信噪比
 `
 
 已有笔记：[[技术概念-极化波束赋形Polarization-Beamforming]]</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 雨致极化旋转</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 雨致极化旋转</div>
-        
-        
-        
-        
-        
-        <div class="desc">降雨会使线极化波发生旋转：
+    <div class="text-body">降雨会使线极化波发生旋转：
 
 `
 旋转角 ∝ 降雨率 × 传播距离 × f²
@@ -1063,30 +955,16 @@ Ka 波段（30GHz）：小雨旋转 10-20°
 100GHz+：旋转可达 45°+
 
 对策：使用圆极化（不受旋转影响）或自适应极化补偿</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 电离层法拉第旋转</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 电离层法拉第旋转</div>
-        
-        
-        
-        
-        
-        <div class="desc">低频（&lt; 1GHz）信号穿过电离层时极化面旋转：
+    <div class="text-body">低频（&lt; 1GHz）信号穿过电离层时极化面旋转：
 
 `
 旋转角 ∝ TEC × f⁻²
@@ -1097,30 +975,16 @@ TEC 是总电子含量，随太阳活动变化。
 影响：
 GPS L1（1.57GHz）：旋转 5-20°
 使用 RHCP 可消除影响</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 多径极化散射</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 多径极化散射</div>
-        
-        
-        
-        
-        
-        <div class="desc">信号经建筑物/地面反射后极化状态改变：
+    <div class="text-body">信号经建筑物/地面反射后极化状态改变：
 
 `
 入射 VPol → 反射 → VPol + 少量 HPol（交叉极化）
@@ -1128,30 +992,16 @@ GPS L1（1.57GHz）：旋转 5-20°
 `
 
 反射面越粗糙，交叉极化分量越大。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.1 轴比测量</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.1 轴比测量</div>
-        
-        
-        
-        
-        
-        <div class="desc">旋转天线法：
+    <div class="text-body">旋转天线法：
 固定发射天线（RHCP）
 旋转接收天线，记录功率变化
 最大功率与最小功率之比 = AR²
@@ -1160,57 +1010,29 @@ GPS L1（1.57GHz）：旋转 5-20°
 测量两个正交线极化分量
 计算相位差和幅度比
 推导轴比</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.2 极化隔离度测量</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.2 极化隔离度测量</div>
-        
-        
-        
-        
-        
-        <div class="desc">发射天线设为 +45° 线极化
+    <div class="text-body">发射天线设为 +45° 线极化
 接收天线分别设为 +45° 和 -45°
 测量 S21_co 和 S21_cross
 PI = S21_co - S21_cross</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.3 极化方向图测量</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.3 极化方向图测量</div>
-        
-        
-        
-        
-        
-        <div class="desc">在暗室中使用可旋转极化的参考天线：
+    <div class="text-body">在暗室中使用可旋转极化的参考天线：
 
 `
 方位角 θ → 旋转接收天线极化 → 记录 co-pol 和 cross-pol 方向图
@@ -1220,12 +1042,8 @@ PI = S21_co - S21_cross</div>
 co-pol 方向图（期望极化）
 cross-pol 方向图（交叉极化）
 轴比方向图（全空间 AR 分布）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

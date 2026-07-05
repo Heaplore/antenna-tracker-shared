@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -413,19 +413,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.2 工作原理</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 工作原理</div>
-        
-        
-        
-        
-        
-        <div class="desc">发射模式：
+    <div class="text-body">发射模式：
 馈源置于球面某点 F₁
 球面波进入透镜
 由于折射率梯度，波前被逐渐弯曲
@@ -441,12 +431,8 @@
 将多个馈源排列在球面的&#34;焦平面&#34;上
 切换不同的馈源 → 波束指向改变
 扫描范围：理论上 ±90°（实际 ±60-70°）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -575,19 +561,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.4 GRIN 透镜（渐变折射率超材料）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.4 GRIN 透镜（渐变折射率超材料）</div>
-        
-        
-        
-        
-        
-        <div class="desc">用超材料或周期性结构实现连续的 ε_r(r) 分布：
+    <div class="text-body">用超材料或周期性结构实现连续的 ε_r(r) 分布：
 
 `
 外层：小单元、低填充率 → 低 ε_r
@@ -599,30 +575,16 @@
 逼近理想折射率分布
 可实现任意曲面（非球形）
 轻量化</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.5 准形变换透镜（Quasi-Conformal Luneburg）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.5 准形变换透镜（Quasi-Conformal Luneburg）</div>
-        
-        
-        
-        
-        
-        <div class="desc">通过共形变换光学设计，将球形透镜&#34;压扁&#34;成任意形状：
+    <div class="text-body">通过共形变换光学设计，将球形透镜&#34;压扁&#34;成任意形状：
 
 `
 理想球形 → 准形变换 → 扁平/圆柱形透镜
@@ -631,12 +593,8 @@
 应用：
 卫星表面贴装（减轻重量和气动阻力）
 车辆集成（低剖面）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -735,130 +693,60 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.2 核心劣势：扫描速度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.2 核心劣势：扫描速度</div>
-        
-        
-        
-        
-        
-        <div class="desc">龙勃透镜的扫描速度受限于 RF 开关（微秒级），而相控阵的移相器可以达到纳秒级。对于需要快速跳波束的应用（如电子战），相控阵更合适。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">龙勃透镜的扫描速度受限于 RF 开关（微秒级），而相控阵的移相器可以达到纳秒级。对于需要快速跳波束的应用（如电子战），相控阵更合适。</div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.1 卫星通信（SATCOM）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.1 卫星通信（SATCOM）</div>
-        
-        
-        
-        
-        
-        <div class="desc">移动卫星通信（SoM）的终端天线
+    <div class="text-body">移动卫星通信（SoM）的终端天线
 无需电子移相器，减轻卫星重量
 Ku/Ka 波段（12-40GHz）
 扫描范围：±50-70°</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.2 地面基站</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.2 地面基站</div>
-        
-        
-        
-        
-        
-        <div class="desc">多波束基站（一颗透镜 + 多个馈源 = 多个扇区）
+    <div class="text-body">多波束基站（一颗透镜 + 多个馈源 = 多个扇区）
 减少 T/R 模块数量（降低成本）
 5G 前传/回传</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.3 雷达系统</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.3 雷达系统</div>
-        
-        
-        
-        
-        
-        <div class="desc">防空雷达（大扫描范围 + 高增益）
+    <div class="text-body">防空雷达（大扫描范围 + 高增益）
 火控雷达（F-22 等战机使用龙勃透镜天线罩）
 无源扫描，可靠性高</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.4 5G 固定无线接入（FWA）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.4 5G 固定无线接入（FWA）</div>
-        
-        
-        
-        
-        
-        <div class="desc">户外 CPE 天线
+    <div class="text-body">户外 CPE 天线
 免维护（无源，无电子故障点）
 安装简单（对准基站即可）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -952,19 +840,9 @@ Ku/Ka 波段（12-40GHz）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.2 制造工艺</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.2 制造工艺</div>
-        
-        
-        
-        
-        
-        <div class="desc">传统方法：
+    <div class="text-body">传统方法：
 分层球壳加工（每层不同 ε_r 的材料）
 球壳组装（胶合或机械固定）
 表面精加工（抛光）
@@ -973,12 +851,8 @@ Ku/Ka 波段（12-40GHz）
 3D 打印梯度介电结构
 超材料单元排列（等效 ε_r）
 注塑成型（大批量低成本）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1050,19 +924,9 @@ Ku/Ka 波段（12-40GHz）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 体积问题</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 体积问题</div>
-        
-        
-        
-        
-        
-        <div class="desc">透镜直径 D 必须满足：
+    <div class="text-body">透镜直径 D 必须满足：
 `
 D &gt; 10λ  （保证高增益）
 `
@@ -1073,30 +937,16 @@ D &gt; 10λ  （保证高增益）
 使用半透镜（Half-Luneburg）减小体积
 使用高 ε_r 核心材料缩小波长等效尺寸
 超材料 GRIN 实现轻薄化</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 馈源互耦</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 馈源互耦</div>
-        
-        
-        
-        
-        
-        <div class="desc">多个馈源紧密排列在球面上时，馈源之间会互相耦合：
+    <div class="text-body">多个馈源紧密排列在球面上时，馈源之间会互相耦合：
 
 `
 S_feeder_coupling &gt; -15dB  （典型值）
@@ -1106,70 +956,38 @@ S_feeder_coupling &gt; -15dB  （典型值）
 馈源之间加隔离墙
 使用低增益馈源（减少能量泄漏到相邻馈源）
 馈源间距 ≥ 2λ</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 制造公差</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 制造公差</div>
-        
-        
-        
-        
-        
-        <div class="desc">每层介电常数的偏差会导致波束指向误差：
+    <div class="text-body">每层介电常数的偏差会导致波束指向误差：
 
 `
 Δθ_beam ≈ arctan(Δε_r / ε_r) · 90°
 `
 
 对于 ε_r 偏差 5%，Δθ_beam ≈ 3°。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 极化纯度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 极化纯度</div>
-        
-        
-        
-        
-        
-        <div class="desc">馈源切换时，极化纯度可能下降：
+    <div class="text-body">馈源切换时，极化纯度可能下降：
 
 `
 交叉极化隔离度：20-30dB（典型）
 `</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -319,19 +319,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.2 ±45° 双极化阵列的基本模型</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 ±45° 双极化阵列的基本模型</div>
-        
-        
-        
-        
-        
-        <div class="desc">基站天线通常采用 ±45° 交叉极化配置：
+    <div class="text-body">基站天线通常采用 ±45° 交叉极化配置：
 
 `
 E_total = E_V · p_V + E_H · p_H
@@ -344,58 +334,30 @@ E_total = E_V · p_V + E_H · p_H
 `
 w = [w_V1, w_V2, ..., w_VN, w_H1, w_H2, ..., w_HN]^T
 `</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.3 极化波束赋形的核心思想</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.3 极化波束赋形的核心思想</div>
-        
-        
-        
-        
-        
-        <div class="desc">传统空间波束赋形只优化 w 的相位部分（控制波束指向），而极化波束赋形同时优化：
+    <div class="text-body">传统空间波束赋形只优化 w 的相位部分（控制波束指向），而极化波束赋形同时优化：
 
 空间相位：控制波束指向角（θ, φ）
 极化相位：控制 V/H 极化之间的相位差 → 决定辐射极化状态
 极化幅度：控制 V/H 极化之间的幅度比 → 决定极化纯度</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.4 极化状态的数学描述</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.4 极化状态的数学描述</div>
-        
-        
-        
-        
-        
-        <div class="desc">任意极化状态可以用极化椭圆参数描述：
+    <div class="text-body">任意极化状态可以用极化椭圆参数描述：
 
 `
 椭圆率 χ = arctan(b/a)  （a=长半轴，b=短半轴）
@@ -408,12 +370,8 @@ w = [w_V1, w_V2, ..., w_VN, w_H1, w_H2, ..., w_HN]^T
 χ = ±45° → 右/左旋圆极化
 
 通过控制 w_V 和 w_H 的幅度和相位，可以动态生成任意极化状态。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -477,19 +435,9 @@ w = [w_V1, w_V2, ..., w_VN, w_H1, w_H2, ..., w_HN]^T
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 XPD（交叉极化鉴别率）的空间变化</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 XPD（交叉极化鉴别率）的空间变化</div>
-        
-        
-        
-        
-        
-        <div class="desc">在传统 MIMO 中，XPD 被视为一个标量值（通常 20-30dB）。但在 XL-MIMO 中，XPD 在阵列上是非均匀的：
+    <div class="text-body">在传统 MIMO 中，XPD 被视为一个标量值（通常 20-30dB）。但在 XL-MIMO 中，XPD 在阵列上是非均匀的：
 
 `
 XPD(x,y) = 10·log₁₀(P_co(x,y) / P_cross(x,y))
@@ -501,30 +449,16 @@ XPD(x,y) = 10·log₁₀(P_co(x,y) / P_cross(x,y))
 安装公差在边缘累积更大
 
 影响：XPD 不均匀会导致极化复用串扰增加，容量下降 10-30%。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 近场极化波束赋形</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 近场极化波束赋形</div>
-        
-        
-        
-        
-        
-        <div class="desc">在 XL-MIMO 的近场区（Fresnel 区），电磁波是球面波而非平面波，极化状态随传播方向变化：
+    <div class="text-body">在 XL-MIMO 的近场区（Fresnel 区），电磁波是球面波而非平面波，极化状态随传播方向变化：
 
 `
 E_r(θ,φ) = E_θ · r̂_θ + E_φ · r̂_φ
@@ -534,30 +468,16 @@ E_r(θ,φ) = E_θ · r̂_θ + E_φ · r̂_φ
 
 传统波束赋形假设：所有单元的极化方向一致（平面波近似）。
 近场极化波束赋形：每个单元的极化方向需要根据其到用户的几何关系独立调整。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.4 极化波束赋形的容量增益</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.4 极化波束赋形的容量增益</div>
-        
-        
-        
-        
-        
-        <div class="desc">双极化 XL-MIMO 相比单极化的容量增益：
+    <div class="text-body">双极化 XL-MIMO 相比单极化的容量增益：
 
 `
 C_dual-pol ≈ C_single-pol × (1 + ρ_xpol)
@@ -570,30 +490,16 @@ C_dual-pol ≈ C_single-pol × (1 + ρ_xpol)
 恶劣情况（ρ_xpol &gt; 0.7）：容量增加 &lt; 1.3×
 
 关键：降低极化相关性是极化波束赋形发挥容量的前提。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.1 独立极化波束（Independent Polarization Beam）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.1 独立极化波束（Independent Polarization Beam）</div>
-        
-        
-        
-        
-        
-        <div class="desc">为 V 和 H 极化通道分别设计独立的波束赋形向量：
+    <div class="text-body">为 V 和 H 极化通道分别设计独立的波束赋形向量：
 
 `
 w_V = [w_V1, w_V2, ..., w_VN]^T  → 波束指向 θ_V, φ_V
@@ -604,30 +510,16 @@ w_H = [w_H1, w_H2, ..., w_HN]^T  → 波束指向 θ_H, φ_H
 V 和 H 波束可以指向不同方向
 可以同时服务两个不同方向的用户
 极化隔离度要求较低</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.2 联合极化波束（Joint Polarization Beam）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.2 联合极化波束（Joint Polarization Beam）</div>
-        
-        
-        
-        
-        
-        <div class="desc">V 和 H 极化波束指向同一方向，但极化状态不同：
+    <div class="text-body">V 和 H 极化波束指向同一方向，但极化状态不同：
 
 `
 w_V = w · cos(τ)
@@ -640,30 +532,16 @@ w_H = w · sin(τ) · exp(j·Δφ)
 波束指向一致，利于覆盖优化
 通过调整 τ 和 Δφ 可以动态改变极化状态
 适合极化复用场景</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3 自适应极化波束赋形</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 自适应极化波束赋形</div>
-        
-        
-        
-        
-        
-        <div class="desc">根据信道状态信息（CSI）动态调整极化波束：
+    <div class="text-body">根据信道状态信息（CSI）动态调整极化波束：
 
 `
 maximize    C(w_V, w_H)
@@ -681,12 +559,8 @@ w_V 和 w_H 的相位
 交替优化（Alternating Optimization）
 凸优化（Convex Optimization）
 深度学习（Deep Learning）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -948,121 +822,55 @@ w_V 和 w_H 的相位
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.1 6G XL-MIMO 基站</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.1 6G XL-MIMO 基站</div>
-        
-        
-        
-        
-        
-        <div class="desc">配置：1024-4096 单元双极化阵列
+    <div class="text-body">配置：1024-4096 单元双极化阵列
 目标：容量相比 5G 提升 10-100 倍
 极化波束赋形作用：在不增加硬件的前提下，将空间自由度翻倍</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.2 卫星通信</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.2 卫星通信</div>
-        
-        
-        
-        
-        
-        <div class="desc">圆极化波束赋形：适应卫星姿态变化导致的极化旋转
+    <div class="text-body">圆极化波束赋形：适应卫星姿态变化导致的极化旋转
 频率复用：同一频率、不同极化（RHCP/LHCP）实现两次容量</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.3 无人机通信</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.3 无人机通信</div>
-        
-        
-        
-        
-        
-        <div class="desc">极化自适应：无人机姿态变化时，自动调整极化状态保持最佳连接
+    <div class="text-body">极化自适应：无人机姿态变化时，自动调整极化状态保持最佳连接
 极化分集：多架无人机之间的极化正交复用</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.4 ISAC（通感一体化）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.4 ISAC（通感一体化）</div>
-        
-        
-        
-        
-        
-        <div class="desc">不同极化波束分别服务于通信和感知
+    <div class="text-body">不同极化波束分别服务于通信和感知
 感知波束使用圆极化（对目标极化不敏感）
 通信波束使用线性极化（高纯度）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 极化校准</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 极化校准</div>
-        
-        
-        
-        
-        
-        <div class="desc">双极化阵列的极化波束赋形需要精确的极化校准：
+    <div class="text-body">双极化阵列的极化波束赋形需要精确的极化校准：
 
 校准步骤：
 测量每个单元的 S 参数矩阵（2N × 2N）
@@ -1074,59 +882,31 @@ w_V 和 w_H 的相位
 幅度误差：&lt; 0.2dB
 相位误差：&lt; 2°
 极化角误差：&lt; 1°</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 温度漂移</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 温度漂移</div>
-        
-        
-        
-        
-        
-        <div class="desc">温度变化会导致：
+    <div class="text-body">温度变化会导致：
 移相器相位漂移（±0.5°/°C）
 极化倾斜角漂移（±0.3°/°C）
 XPD 变化（±1dB/°C）
 
 对策：内置温度传感器 + 实时补偿算法。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 极化失配</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 极化失配</div>
-        
-        
-        
-        
-        
-        <div class="desc">传播环境中的散射、反射和折射会改变信号的极化状态：
+    <div class="text-body">传播环境中的散射、反射和折射会改变信号的极化状态：
 
 `
 E_received = Γ_co · E_transmitted + Γ_cross · E_transmitted_perp
@@ -1141,30 +921,16 @@ E_received = Γ_co · E_transmitted + Γ_cross · E_transmitted_perp
 `
 
 δ 越大，极化复用增益越低。在城市环境中 δ ≈ 0.1-0.3，在室内环境中 δ ≈ 0.3-0.5。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 计算复杂度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 计算复杂度</div>
-        
-        
-        
-        
-        
-        <div class="desc">N 单元双极化阵列的波束赋形向量有 2N 个复数自由度：
+    <div class="text-body">N 单元双极化阵列的波束赋形向量有 2N 个复数自由度：
 
 `
 w ∈ ℂ^(2N)
@@ -1176,12 +942,8 @@ w ∈ ℂ^(2N)
 波束域（Beamspace）方法：在傅里叶域优化，自由度降低 8-16 倍
 两级波束赋形：模拟域（极化+粗波束）+ 数字域（精波束）
 分组优化：将阵列分成子阵，每阵独立优化</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -337,19 +337,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.2 数学本质：从傅里叶级数到傅里叶变换</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 数学本质：从傅里叶级数到傅里叶变换</div>
-        
-        
-        
-        
-        
-        <div class="desc">离散阵列的方向图是傅里叶级数：
+    <div class="text-body">离散阵列的方向图是傅里叶级数：
 
 `
 AF(θ) = Σ(n=-N/2 to N/2) [I_n · exp(j·n·k·d·sinθ)]
@@ -364,41 +354,23 @@ F(k_x, k_y) = ∬∬ J(x,y) · exp[j·(k_x·x + k_y·y)] dx dy
 其中 J(x,y) 是连续表面上的电流分布，k_x = k·sinθ·cosφ，k_y = k·sinθ·sinφ。
 
 关键洞察：傅里叶变换有无限多的频率分量，而傅里叶级数只有 N 个。这意味着 CAPA 可以形成无限多的独立波束（理论上）。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.3 全息原理</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.3 全息原理</div>
-        
-        
-        
-        
-        
-        <div class="desc">全息 MIMO 的名称来源于光学全息技术——全息图记录的是光波的完整振幅和相位信息，而不是简单的强度分布。
+    <div class="text-body">全息 MIMO 的名称来源于光学全息技术——全息图记录的是光波的完整振幅和相位信息，而不是简单的强度分布。
 
 在天线领域，&#34;全息&#34;意味着：
 表面不仅控制辐射强度
 还精确控制每个点的辐射相位
 通过干涉和衍射原理，在空间中&#34;重建&#34;出任意波前</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -470,19 +442,9 @@ F(k_x, k_y) = ∬∬ J(x,y) · exp[j·(k_x·x + k_y·y)] dx dy
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.1 CAPA 的信道模型</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.1 CAPA 的信道模型</div>
-        
-        
-        
-        
-        
-        <div class="desc">传统 MIMO 信道矩阵 H 是 N_t × N_r 的离散矩阵。CAPA 的信道是连续信道函数 h(x,y; x&#39;,y&#39;)：
+    <div class="text-body">传统 MIMO 信道矩阵 H 是 N_t × N_r 的离散矩阵。CAPA 的信道是连续信道函数 h(x,y; x&#39;,y&#39;)：
 
 `
 y(x&#39;,y&#39;) = ∬ h(x,y; x&#39;,y&#39;) · J(x,y) dx dy + n
@@ -492,30 +454,16 @@ y(x&#39;,y&#39;) = ∬ h(x,y; x&#39;,y&#39;) · J(x,y) dx dy + n
 J(x,y) 是发射表面的电流分布
 h(x,y; x&#39;,y&#39;) 是两点之间的信道传递函数
 y(x&#39;,y&#39;) 是接收表面的感应电流</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 CAPA 的容量上限</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 CAPA 的容量上限</div>
-        
-        
-        
-        
-        
-        <div class="desc">传统 MIMO 的容量：
+    <div class="text-body">传统 MIMO 的容量：
 
 `
 C = log₂ det(I + (ρ/N_t) · H · Hᴴ)
@@ -531,30 +479,16 @@ C_CAPA = lim(N→∞) C_MIMO(N)
 无限自由度可以精确匹配信道特征函数
 没有单元间距限制（无栅瓣）
 近场波前可以精确建模</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 波束赋形的电磁优化</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 波束赋形的电磁优化</div>
-        
-        
-        
-        
-        
-        <div class="desc">CAPA 的波束赋形不是简单的向量乘法，而是电磁场的优化问题：
+    <div class="text-body">CAPA 的波束赋形不是简单的向量乘法，而是电磁场的优化问题：
 
 `
 maximize    接收功率 = ||∬ J(x,y) · h(x,y) dx dy||²
@@ -566,30 +500,16 @@ subject to  ∬ |J(x,y)|² dx dy ≤ P_max
 超表面：|J(x,y)| = 常数，相位可调（0-2π）
 可编程金属：|J(x,y)| 和相位都可调
 RIS：|J(x,y)| = 0 或 1（被动反射）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.4 模式分割复用（Pattern-Division Multiplexing, PDM）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.4 模式分割复用（Pattern-Division Multiplexing, PDM）</div>
-        
-        
-        
-        
-        
-        <div class="desc">CAPA 的核心创新——不再用空间位置或极化来区分用户，而是用波束形状来区分：
+    <div class="text-body">CAPA 的核心创新——不再用空间位置或极化来区分用户，而是用波束形状来区分：
 
 `
 用户 1: J₁(x,y) → 波束形状 F₁(θ,φ)
@@ -605,42 +525,24 @@ RIS：|J(x,y)| = 0 或 1（被动反射）</div>
 `
 ∬ F_i(θ,φ) · F_j*(θ,φ) dΩ = 0,  i ≠ j
 `</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.5 全息波束赋形设计</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.5 全息波束赋形设计</div>
-        
-        
-        
-        
-        
-        <div class="desc">给定目标波前 W_target(θ,φ)，求解表面电流分布 J(x,y)：
+    <div class="text-body">给定目标波前 W_target(θ,φ)，求解表面电流分布 J(x,y)：
 
 `
 J(x,y) = F⁻¹[W_target(k_x, k_y)]
 `
 
 其中 F⁻¹ 是逆傅里叶变换。这就是&#34;全息&#34;的含义——通过逆傅里叶变换&#34;重建&#34;出产生目标波前的表面电流分布。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -858,131 +760,61 @@ J(x,y) = F⁻¹[W_target(k_x, k_y)]
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.1 6G 基站</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.1 6G 基站</div>
-        
-        
-        
-        
-        
-        <div class="desc">用一块 2m × 2m 的超表面替代传统 AAU
+    <div class="text-body">用一块 2m × 2m 的超表面替代传统 AAU
 同时服务数十个用户（每个用户一个独立波束）
 波束形状可动态调整（适应不同场景）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.2 室内覆盖</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.2 室内覆盖</div>
-        
-        
-        
-        
-        
-        <div class="desc">天花板安装可编程电磁表面
+    <div class="text-body">天花板安装可编程电磁表面
 自动跟踪用户位置，形成&#34;跟随波束&#34;
 无需传统 AP/RRU</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.3 ISAC（通感一体化）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.3 ISAC（通感一体化）</div>
-        
-        
-        
-        
-        
-        <div class="desc">同一块超表面同时完成通信和感知
+    <div class="text-body">同一块超表面同时完成通信和感知
 通信波束和感知波束在电磁域联合优化
 CAPA 的无限自由度可以最大化 ISAC 的 Pareto 最优区域</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.4 卫星通信</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.4 卫星通信</div>
-        
-        
-        
-        
-        
-        <div class="desc">轻量化、超薄型的 CAPA 天线
+    <div class="text-body">轻量化、超薄型的 CAPA 天线
 可展开的柔性连续孔径（FCAPA）
 在轨可重构波束</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.5 智能反射面（RIS）增强覆盖</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.5 智能反射面（RIS）增强覆盖</div>
-        
-        
-        
-        
-        
-        <div class="desc">在信号盲区放置 RIS 表面
+    <div class="text-body">在信号盲区放置 RIS 表面
 动态调整反射相位，将信号&#34;拐&#34;到盲区
 低成本、低功耗</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1190,76 +1022,38 @@ CAPA 的无限自由度可以最大化 ISAC 的 Pareto 最优区域</div>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 控制复杂度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 控制复杂度</div>
-        
-        
-        
-        
-        
-        <div class="desc">N 个离散单元的波束赋形需要 N 个复数控制信号。CAPA 有&#34;无限&#34;个控制点——如何控制？
+    <div class="text-body">N 个离散单元的波束赋形需要 N 个复数控制信号。CAPA 有&#34;无限&#34;个控制点——如何控制？
 
 实际方案：
 将连续表面离散化为 M 个控制单元（M &gt;&gt; N）
 使用压缩感知/稀疏优化减少控制信号数量
 AI 驱动的控制：神经网络直接从目标波前映射到控制信号</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 互耦效应</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 互耦效应</div>
-        
-        
-        
-        
-        
-        <div class="desc">在 CAPA 中，相邻单元之间的互耦不再是小扰动，而是主导因素：
+    <div class="text-body">在 CAPA 中，相邻单元之间的互耦不再是小扰动，而是主导因素：
 
 每个单元的响应都受到所有其他单元的影响
 传统的&#34;独立单元 + 阵列因子&#34;模型失效
 需要全电磁仿真 + 互耦矩阵补偿</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 校准</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 校准</div>
-        
-        
-        
-        
-        
-        <div class="desc">CAPA 的校准比离散阵列复杂得多：
+    <div class="text-body">CAPA 的校准比离散阵列复杂得多：
 
 离散阵列：校准 N 个通道的幅相
 CAPA：校准 M 个单元（M &gt;&gt; N）的幅相
@@ -1269,30 +1063,16 @@ CAPA：校准 M 个单元（M &gt;&gt; N）的幅相
 分组校准（将 M 个单元分成若干组）
 在线自校准（利用通信信号）
 AI 辅助校准（学习校准映射）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.5 功耗</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.5 功耗</div>
-        
-        
-        
-        
-        
-        <div class="desc">虽然 CAPA 本身（被动超表面）功耗极低，但其控制系统（FPGA/ASIC）的功耗可能不低：
+    <div class="text-body">虽然 CAPA 本身（被动超表面）功耗极低，但其控制系统（FPGA/ASIC）的功耗可能不低：
 
 M 个单元的实时相位控制需要 M 个 DAC
 M = 1000 时，DAC 功耗可能超过传统 Massive MIMO
@@ -1301,12 +1081,8 @@ M = 1000 时，DAC 功耗可能超过传统 Massive MIMO
 事件驱动控制（只激活活跃的单元）
 低功耗 MEMS 移相器
 模拟域波束赋形（避免数字域的大规模运算）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

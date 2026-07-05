@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -281,19 +281,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.1 阵列因子（Array Factor）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.1 阵列因子（Array Factor）</div>
-        
-        
-        
-        
-        
-        <div class="desc">N 元均匀线性阵列：
+    <div class="text-body">N 元均匀线性阵列：
 `
 AF(θ) = Σ(n=0 to N-1) [I_n × exp(j×n×kd×sinθ)]
 `
@@ -312,30 +302,16 @@ sin(θ₀) = -Δφ / (k×d) = -Δφ×λ / (2π×d)
 其中 Δφ 是相邻单元间的相位差。
 
 关键洞察：改变 Δφ → 波束指向 θ₀ 改变 → 电子扫描，无需机械转动。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.2 扫描范围与栅瓣</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 扫描范围与栅瓣</div>
-        
-        
-        
-        
-        
-        <div class="desc">栅瓣条件：
+    <div class="text-body">栅瓣条件：
 `
 当 d/λ &gt; 1/(1 + |sinθ_max|) 时，出现栅瓣
 `
@@ -353,30 +329,16 @@ d ≤ λ / (1 + |sinθ_max|)
 | 全向（±90°） | ≤ 0.333 |
 
 工程实践：5G 基站相控阵通常取 d = 0.5λ（最安全，无栅瓣）。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.3 波束倾斜（Beam Squint）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.3 波束倾斜（Beam Squint）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原因：用相位移相器（而非真延时）做波束赋形时，不同频率的波束指向不同。
+    <div class="text-body">原因：用相位移相器（而非真延时）做波束赋形时，不同频率的波束指向不同。
 
 `
 Δθ_squint ∝ Δf / f₀ × tan(θ₀)
@@ -392,30 +354,16 @@ d ≤ λ / (1 + |sinθ_max|)
 数字波束赋形：DSP 中实现 true time delay → 完美消除
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.1 模拟波束赋形（Analog Beamforming）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.1 模拟波束赋形（Analog Beamforming）</div>
-        
-        
-        
-        
-        
-        <div class="desc">结构：
+    <div class="text-body">结构：
 `
 天线单元 → 移相器 → 功率合成 → 单 RF 链 → ADC/DAC
 `
@@ -434,30 +382,16 @@ d ≤ λ / (1 + |sinθ_max|)
 5G mmWave 终端（手机/ CPE）
 室内 WiFi 6E/7
 简单雷达</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 数字波束赋形（Digital Beamforming）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 数字波束赋形（Digital Beamforming）</div>
-        
-        
-        
-        
-        
-        <div class="desc">结构：
+    <div class="text-body">结构：
 `
 天线单元 → RF 链(ADC) → 数字波束赋形 → 数据流
 天线单元 → RF 链(ADC) → 数字波束赋形 → 数据流
@@ -480,12 +414,8 @@ d ≤ λ / (1 + |sinθ_max|)
 Sub-6GHz 基站 Massive MIMO（64T64R）
 高端雷达（AESA）
 6G 太赫兹（未来）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -547,31 +477,17 @@ Sub-6GHz 基站 Massive MIMO（64T64R）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.1 T/R 模块的功能</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.1 T/R 模块的功能</div>
-        
-        
-        
-        
-        
-        <div class="desc">AESA 相控阵的核心部件，集成：
+    <div class="text-body">AESA 相控阵的核心部件，集成：
 功率放大器（PA）：发射路径，将信号放大到瓦级
 低噪声放大器（LNA）：接收路径，放大微弱信号
 移相器（Phase Shifter）：控制波束指向
 衰减器（Attenuator）：控制波束形状（旁瓣电平的&#34;雕刻刀&#34;）
 T/R 开关（SPDT）：切换收发
 环行器/限幅器：保护 LNA 免受 PA 损害</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -665,19 +581,9 @@ T/R 开关（SPDT）：切换收发
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3 2024-2025 前沿进展</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 2024-2025 前沿进展</div>
-        
-        
-        
-        
-        
-        <div class="desc">65nm CMOS 24-30GHz 8 元 TRX（IOP 2024）：
+    <div class="text-body">65nm CMOS 24-30GHz 8 元 TRX（IOP 2024）：
 6-bit 360° 移相器
 6-bit 31.5dB 增益调节
 TX OP1dB = 20.8dBm
@@ -691,12 +597,8 @@ RX NF = 4.1dB
 单单元面积仅 0.088mm²，功耗 15mW
 8 单元 AiP 模块：EIRP 25.7dBm，56Gbps
 发射功耗 150mW/单元，接收 93mW/单元</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -968,160 +870,80 @@ T/R 模块损耗（0.5-1dB/级）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.1 5G 基站（Massive MIMO AAU）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.1 5G 基站（Massive MIMO AAU）</div>
-        
-        
-        
-        
-        
-        <div class="desc">架构：64T64R 或 128T128R 相控阵
+    <div class="text-body">架构：64T64R 或 128T128R 相控阵
 Sub-6GHz：GaN PA + 模拟/混合波束赋形
 mmWave：CMOS TRX + 混合波束赋形
 波束赋形 + 波束切换 + 波束恢复（RRC 连接重建时）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.2 战斗机雷达（AESA）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.2 战斗机雷达（AESA）</div>
-        
-        
-        
-        
-        
-        <div class="desc">F-35 AN/APG-81：
+    <div class="text-body">F-35 AN/APG-81：
 约 2000-3000 个 T/R 模块
 同时执行：搜索 + 跟踪 + EW（电子战）+ 通信
 波束切换时间 &lt; 1μs
 LPI（低截获概率）：频率捷变 + 低旁瓣</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.3 汽车毫米波雷达（77GHz）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.3 汽车毫米波雷达（77GHz）</div>
-        
-        
-        
-        
-        
-        <div class="desc">2025 EUMC 突破：
+    <div class="text-body">2025 EUMC 突破：
 76.5GHz 混合相控阵
 无栅瓣阵列布局
 FoV: ±60°（方位）/ ±25°（俯仰）
 旁瓣/栅瓣 &lt; -30dBc
 角度分辨力 1° @ 100m
 相位器数量减少 67%</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.4 卫星互联网（Starlink）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.4 卫星互联网（Starlink）</div>
-        
-        
-        
-        
-        
-        <div class="desc">相控阵终端：
+    <div class="text-body">相控阵终端：
 数千个贴片单元
 同时跟踪多颗卫星
 波束切换时间 &lt; 10ms
 车载/船载/航空移动平台</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.5 6G 太赫兹通信</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.5 6G 太赫兹通信</div>
-        
-        
-        
-        
-        
-        <div class="desc">2026 IEEE JSSC D-band AiP：
+    <div class="text-body">2026 IEEE JSSC D-band AiP：
 142-164GHz
 ILTPS（注入锁定倍频移相器）
 56Gbps 数据传输
 单单元功耗 150mW（TX）/ 93mW（RX）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.6 RIS（Reconfigurable Intelligent Surface）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.6 RIS（Reconfigurable Intelligent Surface）</div>
-        
-        
-        
-        
-        
-        <div class="desc">概念：用低成本无源反射单元&#34;智能&#34;控制电磁波传播环境。
+    <div class="text-body">概念：用低成本无源反射单元&#34;智能&#34;控制电磁波传播环境。
 
 2024 arXiv 研究：
 AP + RIS 协作波束跟踪
@@ -1130,124 +952,64 @@ RNN + GNN 深度学习框架
 多用户干扰下的最优波束成形
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 互耦（Mutual Coupling）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 互耦（Mutual Coupling）</div>
-        
-        
-        
-        
-        
-        <div class="desc">问题：单元间电磁耦合 → 阻抗变化 + 方向图畸变 + 波束指向偏移。
+    <div class="text-body">问题：单元间电磁耦合 → 阻抗变化 + 方向图畸变 + 波束指向偏移。
 
 缓解：
 隔离柱/槽
 EBG 结构
 去耦网络</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 热管理</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 热管理</div>
-        
-        
-        
-        
-        
-        <div class="desc">64T AAU 功耗：
+    <div class="text-body">64T AAU 功耗：
 总功耗：200-400W
 T/R 模块占 50-70%
 需要液冷或高效风冷</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 校准</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 校准</div>
-        
-        
-        
-        
-        
-        <div class="desc">TDD  reciprocity 校准：
+    <div class="text-body">TDD  reciprocity 校准：
 利用上下行信道互易性
 但 T/R 模块幅相不一致 → 需要逐模块校准
 校准频率：开机 + 周期性（温度漂移导致）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 成本</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 成本</div>
-        
-        
-        
-        
-        
-        <div class="desc">64T AAU T/R 模块成本：
+    <div class="text-body">64T AAU T/R 模块成本：
 单个 GaN T/R 模块：$10-50
 64T = 128 通道 → $8,000-$64,000（仅 T/R 模块）
 占 AAU BOM 成本 40-60%
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

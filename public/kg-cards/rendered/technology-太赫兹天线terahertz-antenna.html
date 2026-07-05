@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -323,29 +323,15 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.2 为什么太赫兹需要特殊天线？</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 为什么太赫兹需要特殊天线？</div>
-        
-        
-        
-        
-        
-        <div class="desc">在 Sub-6GHz 和 mmWave（24-40GHz）频段，天线可以通过封装（AiP）或 PCB 实现。但到了太赫兹频段：
+    <div class="text-body">在 Sub-6GHz 和 mmWave（24-40GHz）频段，天线可以通过封装（AiP）或 PCB 实现。但到了太赫兹频段：
 
 波长太短：传统传输线（微带线）的损耗极高（&gt; 10dB/cm），信号在到达天线之前就已经衰减完了
 解决方案：天线必须直接做在芯片上（On-Chip Antenna, AoC），或者通过极短的互连（&lt; 1mm）连接
 尺寸优势：200GHz 下 λ/2 天线只有 0.75mm，可以集成在芯片封装内</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -488,19 +474,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 封装天线（Package-Level THz Antenna）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 封装天线（Package-Level THz Antenna）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：天线做在封装基板（LTCC/有机基板/玻璃）上，通过极短互连连接到芯片。
+    <div class="text-body">原理：天线做在封装基板（LTCC/有机基板/玻璃）上，通过极短互连连接到芯片。
 
 优势：
 可以使用更复杂的结构（阵列、波导）
@@ -511,30 +487,16 @@
 LTCC SIW 天线：10 dBi @ 210GHz
 玻璃基板天线：12-15 dBi @ 200-300GHz
 FOWLP（扇出型晶圆级封装）天线：8-10 dBi</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 硅透镜耦合天线（Silicon Lens-Coupled Antenna）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 硅透镜耦合天线（Silicon Lens-Coupled Antenna）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：在芯片天线上方放置一个半球形或共形硅透镜，将芯片天线的宽波束&#34;聚焦&#34;成窄波束，提高增益。
+    <div class="text-body">原理：在芯片天线上方放置一个半球形或共形硅透镜，将芯片天线的宽波束&#34;聚焦&#34;成窄波束，提高增益。
 
 增益提升公式：
 
@@ -553,30 +515,16 @@ G_lens ≈ G_chip × (n_si)²
 透镜形状：半球形、超半球形、高斯形
 天线-透镜间距：必须精确对准焦点（误差 &lt; 10μm）
 抗反射涂层：减少硅-空气界面的反射（可提升 2-3dB）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.4 太赫兹波导天线（THz Waveguide Antenna）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.4 太赫兹波导天线（THz Waveguide Antenna）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：使用金属波导（矩形波导、圆波导）传输 THz 能量，末端开口辐射。
+    <div class="text-body">原理：使用金属波导（矩形波导、圆波导）传输 THz 能量，末端开口辐射。
 
 典型类型：
 角锥喇叭（Pyramidal Horn）：10-15 dBi，带宽 20-30%
@@ -592,30 +540,16 @@ G_lens ≈ G_chip × (n_si)²
 体积大（相对于芯片尺寸）
 加工精度要求极高（线宽 &lt; 10μm）
 与芯片的耦合效率低</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.5 太赫兹 SIW 阵列天线</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.5 太赫兹 SIW 阵列天线</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：使用 SIW（基片集成波导）技术构建太赫兹频段的多单元阵列。
+    <div class="text-body">原理：使用 SIW（基片集成波导）技术构建太赫兹频段的多单元阵列。
 
 SIW 在太赫兹的优势：
 金属壁提供低损耗传输（相比微带线）
@@ -627,30 +561,16 @@ SIW 在太赫兹的优势：
 单元数：16-64
 增益：15-22 dBi
 效率：30-50%</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.6 太赫兹超表面天线（Metasurface THz Antenna）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.6 太赫兹超表面天线（Metasurface THz Antenna）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：使用超材料/超表面结构控制 THz 波的辐射方向和波束形状。
+    <div class="text-body">原理：使用超材料/超表面结构控制 THz 波的辐射方向和波束形状。
 
 特点：
 超低剖面（厚度 &lt;&lt; λ）
@@ -659,12 +579,8 @@ SIW 在太赫兹的优势：
 带宽窄（5-10%）
 
 应用：可重构 THz 天线、波束扫描天线</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -890,127 +806,61 @@ SIW 在太赫兹的优势：
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.1 6G 短距离高速通信</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.1 6G 短距离高速通信</div>
-        
-        
-        
-        
-        
-        <div class="desc">距离：10-100m
+    <div class="text-body">距离：10-100m
 速率：100Gbps - 1Tbps
 天线方案：硅透镜耦合天线 + 波束赋形
 典型场景：数据中心互联、无线回程</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.2 太赫兹无线 LAN</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.2 太赫兹无线 LAN</div>
-        
-        
-        
-        
-        
-        <div class="desc">距离：&lt; 10m
+    <div class="text-body">距离：&lt; 10m
 速率：10-100Gbps
 天线方案：芯片天线或封装天线
 典型场景：VR/AR、无线坞站</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.3 太赫兹成像与传感</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.3 太赫兹成像与传感</div>
-        
-        
-        
-        
-        
-        <div class="desc">频率：0.1-1THz
+    <div class="text-body">频率：0.1-1THz
 分辨率：亚毫米级
 天线方案：扫描波导喇叭或阵列
 应用：安检、医疗成像、材料检测</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.4 卫星间太赫兹链路</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.4 卫星间太赫兹链路</div>
-        
-        
-        
-        
-        
-        <div class="desc">距离：数百公里（LEO 卫星之间）
+    <div class="text-body">距离：数百公里（LEO 卫星之间）
 速率：100Gbps+
 天线方案：高增益波导喇叭 + 精确波束跟踪
 优势：频谱资源丰富，带宽可达 100GHz+</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.1 加工精度——微米级的噩梦</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.1 加工精度——微米级的噩梦</div>
-        
-        
-        
-        
-        
-        <div class="desc">在 200GHz 下，波长仅 1.5mm。一个 10μm 的加工误差就是波长的 0.67%，足以导致：
+    <div class="text-body">在 200GHz 下，波长仅 1.5mm。一个 10μm 的加工误差就是波长的 0.67%，足以导致：
 谐振频率偏移 5-10GHz
 增益下降 3-5dB
 波束指向偏移 2-5°
@@ -1019,30 +869,16 @@ SIW 在太赫兹的优势：
 使用 MEMS 加工工艺（线宽精度 &lt; 1μm）
 电子束光刻（E-beam Lithography）
 聚焦离子束（FIB）加工</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.2 表面粗糙度——趋肤效应的放大</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.2 表面粗糙度——趋肤效应的放大</div>
-        
-        
-        
-        
-        
-        <div class="desc">THz 下的趋肤深度 δ ≈ 0.1-0.3μm。如果金属表面粗糙度 &gt; δ，导体损耗会急剧增加：
+    <div class="text-body">THz 下的趋肤深度 δ ≈ 0.1-0.3μm。如果金属表面粗糙度 &gt; δ，导体损耗会急剧增加：
 
 `
 R_ac ≈ R_dc · (1 + 2·σ_rms / δ)
@@ -1054,30 +890,16 @@ R_ac ≈ R_dc · (1 + 2·σ_rms / δ)
 电镀金（粗糙度 &lt; 0.1μm）
 化学抛光
 使用超导材料（低温下）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.3 天线-透镜对准——微米级精度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.3 天线-透镜对准——微米级精度</div>
-        
-        
-        
-        
-        
-        <div class="desc">硅透镜耦合天线要求天线精确位于透镜的焦点位置：
+    <div class="text-body">硅透镜耦合天线要求天线精确位于透镜的焦点位置：
 
 `
 焦点位置误差 &lt; λ/10 = 150μm @ 200GHz
@@ -1089,30 +911,16 @@ R_ac ≈ R_dc · (1 + 2·σ_rms / δ)
 晶圆级对准（Wafer-Level Alignment）
 自对准封装结构
 主动对准 + 胶水固化</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.4 热管理——功率密度极高</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.4 热管理——功率密度极高</div>
-        
-        
-        
-        
-        
-        <div class="desc">THz 芯片天线的功率密度极高（天线尺寸 &lt; 1mm²，功率 10-100mW），局部温升可达 50-100°C。
+    <div class="text-body">THz 芯片天线的功率密度极高（天线尺寸 &lt; 1mm²，功率 10-100mW），局部温升可达 50-100°C。
 
 影响：
 硅的电阻率随温度变化 → 天线效率下降
@@ -1123,40 +931,22 @@ R_ac ≈ R_dc · (1 + 2·σ_rms / δ)
 芯片级散热通道（Through-Silicon Thermal Via）
 高热导率封装材料
 功率限制</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.5 测试困难——THz 仪器稀缺</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.5 测试困难——THz 仪器稀缺</div>
-        
-        
-        
-        
-        
-        <div class="desc">200GHz 以上的 VNA、信号发生器和天线标准增益喇叭都非常昂贵且稀缺：
+    <div class="text-body">200GHz 以上的 VNA、信号发生器和天线标准增益喇叭都非常昂贵且稀缺：
 
 200GHz VNA：$500K-$1M+
 标准增益喇叭：需要定制加工
 OTA 测试：需要专门的 THz 暗室</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

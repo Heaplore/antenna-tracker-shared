@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>极化波束赋形Polarization-Beamforming — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    height: 1080px;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+    column-count: 2;
+    column-gap: 12px;
+  }
+  .canvas .hero {
+    column-span: all;
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    margin-bottom: 12px;
+  }
+  .block.section-table, .block.section-comparison {
+    /* 不再 column-span: all，只占一列宽度 */
+  }
+  .block.section-text {
+    column-span: all;
+    width: 100%;
+  }
+  .block:last-child.related-block {
+    flex: 1 1 100%;
+    column-span: all;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-02</div>
+    </div>
+    <div class="hero-title">
+      极化波束赋形Polarization-Beamforming
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术/技术概念</span><span>极化波束赋形</span><span>Dual-Polarization</span><span>XL-MIMO</span><span>6G</span><span>XPD</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> 极化波束赋形是在传统空间波束赋形基础上，额外利用电磁波的极化自由度（如 ±45° 双极化、圆极化、任意椭圆极化）进行独立的波束控制和空间复用，从而在不增加天线数量的前提下将容量翻倍的技术。它是 6G XL-MIMO 的核心使能技术之一。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> 传统波束赋形像是在一维的墙上打孔——你只能左右上下调整角度。</div>
+    
+    
+  </div>
+
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.1 从极化分集到极化波束赋形</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.1 从极化分集到极化波束赋形</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 技术 | 原理 | 容量增益 |
+|------|------|---------|
+| 极化分集 | 利用正交极化降低信号相关性 | 1.2-1.5× |
+| 极化复用 | 同一频率、不同极化传输独立数据流 | 2× |
+| **极化波束赋形** | **对不同极化通道独立赋形，形成极化依赖的波束** | **2-4×** |
+
+极化波束赋形是上述技术的综合——它不仅利用双极化来倍增容量，还对每个极化通道独立进行波束指向控制。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.2 ±45° 双极化阵列的基本模型</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.2 ±45° 双极化阵列的基本模型</div>
+        
+        
+        
+        
+        
+        <div class="desc">基站天线通常采用 ±45° 交叉极化配置：
+
+```
+E_total = E_V · p_V + E_H · p_H
+```
+
+其中 p_V 和 p_H 分别是 +45° 和 -45° 极化单位矢量。
+
+对于 N 单元双极化阵列（N 个物理单元，每个单元有两个极化端口），波束赋形向量是 2N × 1 的复数向量：
+
+```
+w = [w_V1, w_V2, ..., w_VN, w_H1, w_H2, ..., w_HN]^T
+```</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.3 极化波束赋形的核心思想</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.3 极化波束赋形的核心思想</div>
+        
+        
+        
+        
+        
+        <div class="desc">传统空间波束赋形只优化 w 的相位部分（控制波束指向），而极化波束赋形同时优化：
+
+1. **空间相位**：控制波束指向角（θ, φ）
+2. **极化相位**：控制 V/H 极化之间的相位差 → 决定辐射极化状态
+3. **极化幅度**：控制 V/H 极化之间的幅度比 → 决定极化纯度</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.4 极化状态的数学描述</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.4 极化状态的数学描述</div>
+        
+        
+        
+        
+        
+        <div class="desc">任意极化状态可以用极化椭圆参数描述：
+
+```
+椭圆率 χ = arctan(b/a)  （a=长半轴，b=短半轴）
+倾斜角 τ = arctan(E_H/E_V)
+```
+
+- τ = 0° → 垂直极化
+- τ = 45° → +45° 线性极化
+- τ = -45° → -45° 线性极化
+- χ = ±45° → 右/左旋圆极化
+
+通过控制 w_V 和 w_H 的幅度和相位，可以动态生成任意极化状态。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.1 XL-MIMO 的极化挑战</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.1 XL-MIMO 的极化挑战</div>
+        
+        
+        
+        
+        
+        <div class="desc">6G 的 XL-MIMO（超大规模 MIMO）天线阵列可能有 1024-4096 个单元，双极化后达到 2048-8192 个端口。极化波束赋形在此规模下面临独特挑战：
+
+| 挑战 | 原因 | 影响 |
+|------|------|------|
+| XPD 空间变化 | 阵列不同位置的单元 XPD 不同 | 极化隔离度下降 |
+| 近场效应 | XL-MIMO 的近场区可达数百米 | 极化状态随距离变化 |
+| 去极化 | 传播环境导致极化状态改变 | 极化复用增益下降 |
+| 校准复杂度 | 2N 个端口的幅相校准 | 校准时间大幅增加 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.2 XPD（交叉极化鉴别率）的空间变化</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.2 XPD（交叉极化鉴别率）的空间变化</div>
+        
+        
+        
+        
+        
+        <div class="desc">在传统 MIMO 中，XPD 被视为一个标量值（通常 20-30dB）。但在 XL-MIMO 中，XPD 在阵列上是**非均匀的**：
+
+```
+XPD(x,y) = 10·log₁₀(P_co(x,y) / P_cross(x,y))
+```
+
+边缘单元的 XPD 可能比中心单元低 5-10dB，原因是：
+- 边缘单元的互耦环境不同
+- 近场效应在边缘更显著
+- 安装公差在边缘累积更大
+
+**影响**：XPD 不均匀会导致极化复用串扰增加，容量下降 10-30%。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.3 近场极化波束赋形</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.3 近场极化波束赋形</div>
+        
+        
+        
+        
+        
+        <div class="desc">在 XL-MIMO 的近场区（Fresnel 区），电磁波是球面波而非平面波，极化状态随传播方向变化：
+
+```
+E_r(θ,φ) = E_θ · r̂_θ + E_φ · r̂_φ
+```
+
+其中 r̂_θ 和 r̂_φ 是球坐标系下的极化单位矢量，随 (θ, φ) 变化。
+
+**传统波束赋形假设**：所有单元的极化方向一致（平面波近似）。
+**近场极化波束赋形**：每个单元的极化方向需要根据其到用户的几何关系独立调整。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.4 极化波束赋形的容量增益</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.4 极化波束赋形的容量增益</div>
+        
+        
+        
+        
+        
+        <div class="desc">双极化 XL-MIMO 相比单极化的容量增益：
+
+```
+C_dual-pol ≈ C_single-pol × (1 + ρ_xpol)
+```
+
+其中 ρ_xpol 是交叉极化通道的相关系数。
+
+- 理想情况（ρ_xpol = 0）：容量翻倍（2×）
+- 实际情况（ρ_xpol = 0.3-0.5）：容量增加 1.5-1.7×
+- 恶劣情况（ρ_xpol &gt; 0.7）：容量增加 &lt; 1.3×
+
+**关键**：降低极化相关性是极化波束赋形发挥容量的前提。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.1 独立极化波束（Independent Polarization Beam）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.1 独立极化波束（Independent Polarization Beam）</div>
+        
+        
+        
+        
+        
+        <div class="desc">为 V 和 H 极化通道分别设计独立的波束赋形向量：
+
+```
+w_V = [w_V1, w_V2, ..., w_VN]^T  → 波束指向 θ_V, φ_V
+w_H = [w_H1, w_H2, ..., w_HN]^T  → 波束指向 θ_H, φ_H
+```
+
+**特点**：
+- V 和 H 波束可以指向不同方向
+- 可以同时服务两个不同方向的用户
+- 极化隔离度要求较低</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.2 联合极化波束（Joint Polarization Beam）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.2 联合极化波束（Joint Polarization Beam）</div>
+        
+        
+        
+        
+        
+        <div class="desc">V 和 H 极化波束指向同一方向，但极化状态不同：
+
+```
+w_V = w · cos(τ)
+w_H = w · sin(τ) · exp(j·Δφ)
+```
+
+其中 τ 是倾斜角，Δφ 是极化相位差。
+
+**特点**：
+- 波束指向一致，利于覆盖优化
+- 通过调整 τ 和 Δφ 可以动态改变极化状态
+- 适合极化复用场景</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.3 自适应极化波束赋形</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.3 自适应极化波束赋形</div>
+        
+        
+        
+        
+        
+        <div class="desc">根据信道状态信息（CSI）动态调整极化波束：
+
+```
+maximize    C(w_V, w_H)
+subject to  ||w_V||² + ||w_H||² ≤ P_total
+            XPD(w_V, w_H) ≥ XPD_min
+```
+
+**优化变量**：
+- w_V 和 w_H 的幅度
+- w_V 和 w_H 的相位
+- 极化倾斜角 τ
+- 极化相位差 Δφ
+
+**求解方法**：
+- 交替优化（Alternating Optimization）
+- 凸优化（Convex Optimization）
+- 深度学习（Deep Learning）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.4 极化波束量化</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.4 极化波束量化</div>
+        
+        
+        
+        
+        
+        <div class="desc">实际系统中，极化状态只能离散取值（受限于 BFIC 的移相器位数）：
+
+| 极化状态 | τ (度) | Δφ (度) | 对应极化 |
+|---------|--------|---------|---------|
+| 1 | 45 | 0 | +45° 线性 |
+| 2 | -45 | 0 | -45° 线性 |
+| 3 | 45 | 90 | 右旋圆 |
+| 4 | 45 | -90 | 左旋圆 |
+| 5 | 0 | 0 | 垂直线性 |
+| 6 | 90 | 0 | 水平线性 |
+
+6-bit BFIC 可以提供 64 种极化状态，足以近似任意极化椭圆。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.1 极化性能指标</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.1 极化性能指标</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 指标 | 定义 | 目标值 |
+|------|------|--------|
+| XPD | 交叉极化鉴别率 | &gt; 25dB（基站）/ &gt; 20dB（手机） |
+| 极化隔离度 | V/H 端口间的 S 参数 | &gt; 25dB |
+| 极化纯度 | 主极化功率 / 总功率 | &gt; 95% |
+| 轴比（AR） | 椭圆极化的长短轴比 | &lt; 3dB（圆极化） |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.2 波束赋形指标</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.2 波束赋形指标</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 指标 | 定义 | 目标值 |
+|------|------|--------|
+| 极化波束数 | 可同时形成的独立极化波束数 | ≥ 2（V+H） |
+| 波束切换时间 | 从一个极化波束切换到另一个的时间 | &lt; 1ms |
+| 极化复用增益 | 双极化相比单极化的容量增益 | 1.5-2× |
+| 极化相关性 | V/H 通道之间的相关系数 | &lt; 0.3 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.3 XL-MIMO 特有指标</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.3 XL-MIMO 特有指标</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 指标 | 定义 | 目标值 |
+|------|------|--------|
+| XPD 均匀性 | 阵列上各单元 XPD 的标准差 | &lt; 3dB |
+| 近场极化误差 | 球面波极化假设与实际的偏差 | &lt; 2° |
+| 极化校准误差 | 极化波束赋形向量与实际向量的偏差 | &lt; 0.5dB / &lt; 3° |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.1 6G XL-MIMO 基站</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.1 6G XL-MIMO 基站</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 配置：1024-4096 单元双极化阵列
+- 目标：容量相比 5G 提升 10-100 倍
+- 极化波束赋形作用：在不增加硬件的前提下，将空间自由度翻倍</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.2 卫星通信</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.2 卫星通信</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 圆极化波束赋形：适应卫星姿态变化导致的极化旋转
+- 频率复用：同一频率、不同极化（RHCP/LHCP）实现两次容量</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.3 无人机通信</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.3 无人机通信</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 极化自适应：无人机姿态变化时，自动调整极化状态保持最佳连接
+- 极化分集：多架无人机之间的极化正交复用</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.4 ISAC（通感一体化）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.4 ISAC（通感一体化）</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 不同极化波束分别服务于通信和感知
+- 感知波束使用圆极化（对目标极化不敏感）
+- 通信波束使用线性极化（高纯度）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.1 极化校准</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.1 极化校准</div>
+        
+        
+        
+        
+        
+        <div class="desc">双极化阵列的极化波束赋形需要精确的极化校准：
+
+**校准步骤**：
+1. 测量每个单元的 S 参数矩阵（2N × 2N）
+2. 确定每个单元的极化倾斜角 τ 和极化相位差 Δφ
+3. 计算极化波束赋形向量 w_V 和 w_H
+4. 在线监测和定期重新校准
+
+**校准精度要求**：
+- 幅度误差：&lt; 0.2dB
+- 相位误差：&lt; 2°
+- 极化角误差：&lt; 1°</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.2 温度漂移</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.2 温度漂移</div>
+        
+        
+        
+        
+        
+        <div class="desc">温度变化会导致：
+- 移相器相位漂移（±0.5°/°C）
+- 极化倾斜角漂移（±0.3°/°C）
+- XPD 变化（±1dB/°C）
+
+**对策**：内置温度传感器 + 实时补偿算法。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.3 极化失配</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.3 极化失配</div>
+        
+        
+        
+        
+        
+        <div class="desc">传播环境中的散射、反射和折射会改变信号的极化状态：
+
+```
+E_received = Γ_co · E_transmitted + Γ_cross · E_transmitted_perp
+```
+
+其中 Γ_co 是同极化传输系数，Γ_cross 是交叉极化传输系数。
+
+**去极化系数**：
+
+```
+δ = |Γ_cross|² / |Γ_co|²
+```
+
+δ 越大，极化复用增益越低。在城市环境中 δ ≈ 0.1-0.3，在室内环境中 δ ≈ 0.3-0.5。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.4 计算复杂度</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.4 计算复杂度</div>
+        
+        
+        
+        
+        
+        <div class="desc">N 单元双极化阵列的波束赋形向量有 2N 个复数自由度：
+
+```
+w ∈ ℂ^(2N)
+```
+
+对于 N = 1024 的 XL-MIMO，需要优化 2048 个复数变量——这比 5G Massive MIMO（64 通道）大了 32 倍。
+
+**降维策略**：
+- 波束域（Beamspace）方法：在傅里叶域优化，自由度降低 8-16 倍
+- 两级波束赋形：模拟域（极化+粗波束）+ 数字域（精波束）
+- 分组优化：将阵列分成子阵，每阵独立优化</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">七、技术演进</div>
+    <div class="text-body">- **1980s**：双极化 MIMO 概念提出
+- **2000s**：±45° 双极化成为基站天线标准配置
+- **2010s**：4G LTE 双极化 Massive MIMO 商用
+- **2018-2020年**：5G NR 双极化波束赋形标准化
+- **2022-2024年**：XL-MIMO 极化波束赋形理论建立
+- **2025年**：近场极化波束赋形算法提出
+- **2025-2026年**：6G 极化波束赋形进入原型验证</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">九、未来趋势</div>
+    <div class="text-body">- **短期（1-2年）**：
+  - 3GPP Rel-20/21 纳入 XL-MIMO 极化波束赋形标准
+  - 波束域极化赋形算法商用化
+  - 6G 原型系统验证极化复用增益
+
+- **中期（3-5年）**：
+  - RIS 辅助的极化波束赋形
+  - 太赫兹频段的极化波束赋形
+  - AI 驱动的自适应极化波束控制
+
+- **长期（5年以上）**：
+  - 全息 MIMO 的连续极化波束赋形
+  - 量子极化波束赋形</div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (3)</div>
+    <div class="related-grid">
+      <a href="#">technology-天线阵列antenna-array</a><a href="#">technology-mimo天线去耦decoupling</a><a href="#">technology-波束赋形beamforming深度解读</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-极化波束赋形polarization-beamforming</span>
+</div>
+
+</div>
+
+</body>
+</html>

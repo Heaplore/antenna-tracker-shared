@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,43 +269,19 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.1 定义</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.1 定义</div>
-        
-        
-        
-        
-        
-        <div class="desc">天线阵列（Antenna Array）是由两个或多个相同或不同的辐射单元按照一定的几何形状和排列方式组成的天线系统。阵列的核心思想是空间信号处理——利用多个天线单元的空间分布特性，通过幅度加权（Amplitude Weighting）和相位控制（Phase Control），实现对辐射方向图的灵活调控。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">天线阵列（Antenna Array）是由两个或多个相同或不同的辐射单元按照一定的几何形状和排列方式组成的天线系统。阵列的核心思想是空间信号处理——利用多个天线单元的空间分布特性，通过幅度加权（Amplitude Weighting）和相位控制（Phase Control），实现对辐射方向图的灵活调控。</div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 基本原理：阵列因子理论</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 基本原理：阵列因子理论</div>
-        
-        
-        
-        
-        
-        <div class="desc">天线阵列的总辐射方向图由两个部分组成：
+    <div class="text-body">天线阵列的总辐射方向图由两个部分组成：
 
 `
 总方向图 = 单元方向图 × 阵列因子（Array Factor, AF）
@@ -326,38 +302,20 @@ An = 第n个单元的激励幅度
 ψ = kd·cos(θ) + α，k为波数（2π/λ），d为单元间距，α为相邻单元间的相位差
 
 这个公式揭示了天线阵列的本质：它是一个空间采样系统，单元间距d决定了空间采样率，相位差α决定了波束指向。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.3 核心物理机制</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.3 核心物理机制</div>
-        
-        
-        
-        
-        
-        <div class="desc">相长干涉：当电磁波到达某方向时相位相同，信号叠加增强
+    <div class="text-body">相长干涉：当电磁波到达某方向时相位相同，信号叠加增强
 相消干涉：当电磁波到达某方向时相位相反，信号相互抵消
 波束扫描：通过改变馈电相位梯度，电子控制波束指向，无需机械转动</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -431,59 +389,31 @@ An = 第n个单元的激励幅度
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 阵列权重函数（窗函数）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 阵列权重函数（窗函数）</div>
-        
-        
-        
-        
-        
-        <div class="desc">与光学中的傅里叶变换类似，阵列单元的幅度分布决定了旁瓣电平：
+    <div class="text-body">与光学中的傅里叶变换类似，阵列单元的幅度分布决定了旁瓣电平：
 
 均匀分布（所有单元等幅）：波束最窄，但旁瓣最高（-13.2 dB）
 泰勒分布（Taylor Weighting）：旁瓣可控（-20 至 -40 dB），波束稍宽
 切比雪夫分布（Chebyshev）：等旁瓣电平最优分布
 汉宁/海明分布（Hanning/Hamming）：旁瓣抑制好，但波束展宽明显</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 互耦效应（Mutual Coupling）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 互耦效应（Mutual Coupling）</div>
-        
-        
-        
-        
-        
-        <div class="desc">阵列中相邻单元之间通过近场耦合相互影响，导致：
+    <div class="text-body">阵列中相邻单元之间通过近场耦合相互影响，导致：
 单元输入阻抗随扫描角变化（Active Impedance Variation）
 方向图畸变
 增益下降
 
 互耦效应在密集阵列（d &lt; 0.5λ）中尤为显著，是工程设计的核心挑战之一。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -605,29 +535,15 @@ An = 第n个单元的激励幅度
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3 按有源/无源分类</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 按有源/无源分类</div>
-        
-        
-        
-        
-        
-        <div class="desc">无源阵列（Passive Array）：只有一个发射机/接收机，通过移相网络分配到各单元
+    <div class="text-body">无源阵列（Passive Array）：只有一个发射机/接收机，通过移相网络分配到各单元
 有源阵列（Active Array / AESA）：每个单元或子阵配有独立的发射/接收模块（T/R Module）
   - T/R模块通常采用GaAs或GaN工艺
   - 支持真正的多波束同时工作
   - 单点故障不影响整体性能（冗余设计）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -671,131 +587,61 @@ An = 第n个单元的激励幅度
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 栅瓣（Grating Lobe）问题</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 栅瓣（Grating Lobe）问题</div>
-        
-        
-        
-        
-        
-        <div class="desc">当单元间距 d &gt; λ/2 时，在波束扫描过程中会出现与主瓣强度相当的&#34;镜像瓣&#34;，导致能量浪费和方向混淆。工程铁律：在最大扫描角θ_max处，需满足 d ≤ λ/(1+sinθ_max)。对于±60°扫描的阵列，间距需≤λ/2。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">当单元间距 d &gt; λ/2 时，在波束扫描过程中会出现与主瓣强度相当的&#34;镜像瓣&#34;，导致能量浪费和方向混淆。工程铁律：在最大扫描角θ_max处，需满足 d ≤ λ/(1+sinθ_max)。对于±60°扫描的阵列，间距需≤λ/2。</div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 互耦引起的阻抗失配</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 互耦引起的阻抗失配</div>
-        
-        
-        
-        
-        
-        <div class="desc">阵列中单元越密，互耦越强，导致：
+    <div class="text-body">阵列中单元越密，互耦越强，导致：
 单元输入阻抗偏离设计值（通常从50Ω漂移）
 VSWR恶化，反射增大
 实际增益低于理论值
 
 解决方案：去耦结构设计（如defected ground structure、电磁带隙EBG结构）、单元间距优化。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 相位误差累积</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 相位误差累积</div>
-        
-        
-        
-        
-        
-        <div class="desc">实际系统中，每个T/R通道的相位和幅度不可能完全一致：
+    <div class="text-body">实际系统中，每个T/R通道的相位和幅度不可能完全一致：
 电缆长度差异引入相位偏差
 温度变化导致移相器漂移
 ADC/DAC量化精度有限
 
 相位误差会导致波束指向偏移、旁瓣升高。校准是关键环节，通常在出厂时做一次全通道校准，运行中定期自校准。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 散热问题</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 散热问题</div>
-        
-        
-        
-        
-        
-        <div class="desc">有源阵列（尤其AESA）的T/R模块功耗巨大。一个64T64R的5G AAU，整机功耗可达数百瓦，散热设计直接影响可靠性和寿命。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">有源阵列（尤其AESA）的T/R模块功耗巨大。一个64T64R的5G AAU，整机功耗可达数百瓦，散热设计直接影响可靠性和寿命。</div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.5 校准复杂度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.5 校准复杂度</div>
-        
-        
-        
-        
-        
-        <div class="desc">大规模阵列的校准是一个&#34;鸡生蛋&#34;问题：要校准就需要知道真实方向图，但方向图本身又受校准精度影响。业界通常采用基于近场测量的迭代校准方案。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">大规模阵列的校准是一个&#34;鸡生蛋&#34;问题：要校准就需要知道真实方向图，但方向图本身又受校准精度影响。业界通常采用基于近场测量的迭代校准方案。</div>
   </div>
+
     
   
     

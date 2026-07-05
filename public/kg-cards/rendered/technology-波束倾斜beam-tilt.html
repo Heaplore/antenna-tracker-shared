@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,45 +269,21 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.1 定义</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.1 定义</div>
-        
-        
-        
-        
-        
-        <div class="desc">波束倾斜（Beam Tilt）是指相控阵天线的主波束在垂直面内偏离水平方向的角度。在蜂窝移动通信中，通常使用下倾角（Downtilt），即将波束指向地面而非水平方向，以实现更好的覆盖和减少小区间干扰。
+    <div class="text-body">波束倾斜（Beam Tilt）是指相控阵天线的主波束在垂直面内偏离水平方向的角度。在蜂窝移动通信中，通常使用下倾角（Downtilt），即将波束指向地面而非水平方向，以实现更好的覆盖和减少小区间干扰。
 
 总倾角 = 机械倾角（Mechanical Tilt）+ 电倾角（Electrical Tilt）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.2 波束倾斜的物理原理</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 波束倾斜的物理原理</div>
-        
-        
-        
-        
-        
-        <div class="desc">对于均匀线性阵列，波束指向角 θ₀ 由相邻单元的相位差 α 决定：
+    <div class="text-body">对于均匀线性阵列，波束指向角 θ₀ 由相邻单元的相位差 α 决定：
 
 `
 θ₀ = arcsin(-α / kd)
@@ -322,12 +298,8 @@
 `
 
 也就是说，越靠下的单元相位越超前（或滞后，取决于符号约定），使得波束向下偏转。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -385,19 +357,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.1 覆盖半径与倾角的关系</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.1 覆盖半径与倾角的关系</div>
-        
-        
-        
-        
-        
-        <div class="desc">天线高度 H，倾角 θ，覆盖半径 R 的近似关系：
+    <div class="text-body">天线高度 H，倾角 θ，覆盖半径 R 的近似关系：
 
 `
 R ≈ H / tan(θ_mech + θ_elec)
@@ -410,72 +372,40 @@ R ≈ √(2 · R_earth · H_eff)
 `
 
 其中 H_eff 是有效天线高度（考虑了倾角和折射）。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 倾角对垂直方向图的影响</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 倾角对垂直方向图的影响</div>
-        
-        
-        
-        
-        
-        <div class="desc">电倾角不会改变波束形状的&#34;内在&#34;宽度，但会使整个方向图在垂直面内平移：
+    <div class="text-body">电倾角不会改变波束形状的&#34;内在&#34;宽度，但会使整个方向图在垂直面内平移：
 
 `
 F_tilt(θ) = F_original(θ + θ_tilt)
 `
 
 其中 F_original 是无倾角时的方向图，θ_tilt 是电倾角（下倾为正）。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 波束宽度与倾角的关系</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 波束宽度与倾角的关系</div>
-        
-        
-        
-        
-        
-        <div class="desc">垂直波束宽度（VBW）随电倾角的变化：
+    <div class="text-body">垂直波束宽度（VBW）随电倾角的变化：
 
 机械倾角：不改变 VBW
 电倾角：在靠近波束边缘的方向上，有效 VBW 会&#34;压缩&#34;
 当电倾角增大时，靠近地面的那部分方向图被&#34;挤压&#34;，导致覆盖区域的信号强度分布不均匀
 
 经验法则：电倾角每增加 1°，垂直方向图的下半部分增益下降约 0.5-1 dB。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -506,19 +436,9 @@ RET 电倾角：0° - 15°（主要用于精细优化）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.5 5G Massive MIMO 的数字波束倾斜</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.5 5G Massive MIMO 的数字波束倾斜</div>
-        
-        
-        
-        
-        
-        <div class="desc">5G AAU（有源天线单元）支持数字波束倾斜，其原理是：
+    <div class="text-body">5G AAU（有源天线单元）支持数字波束倾斜，其原理是：
 
 `
 SSB 波束 i 的倾角 = 基础倾角 + 数字偏移_i
@@ -535,12 +455,8 @@ SSB 波束 i 的倾角 = 基础倾角 + 数字偏移_i
 `
 
 其中 H 是天线高度，D 是小区间距离。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -776,133 +692,63 @@ SSB 波束 i 的倾角 = 基础倾角 + 数字偏移_i
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.1 4G LTE 基站</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.1 4G LTE 基站</div>
-        
-        
-        
-        
-        
-        <div class="desc">典型配置：机械倾角 2°-5° + RET 电倾角 2°-10°
+    <div class="text-body">典型配置：机械倾角 2°-5° + RET 电倾角 2°-10°
 优化目标：覆盖半径、SINR、切换边界
 调整频率：每月或每季度一次（人工优化）
 工具：Drive Test + OMC 网管系统</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.2 5G Sub-6GHz Massive MIMO</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.2 5G Sub-6GHz Massive MIMO</div>
-        
-        
-        
-        
-        
-        <div class="desc">典型配置：机械倾角 0°-3° + 数字波束倾斜（每波束独立）
+    <div class="text-body">典型配置：机械倾角 0°-3° + 数字波束倾斜（每波束独立）
 SSB 波束：4-8 个垂直波束层，每层可独立设置倾角
 CSI-RS 波束：更细粒度的波束，倾角由波束赋形算法自动优化
 优化目标：用户吞吐量、SINR、负载均衡
 调整频率：实时/每小时（AI 自动优化）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.3 5G mmWave（28/39GHz）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.3 5G mmWave（28/39GHz）</div>
-        
-        
-        
-        
-        
-        <div class="desc">典型配置：窄波束（2°-5° HPBW），倾角精度要求更高
+    <div class="text-body">典型配置：窄波束（2°-5° HPBW），倾角精度要求更高
 挑战：毫米波波束窄，倾角误差 0.5° 就可能导致覆盖偏移
 解决方案：AiP 模组内集成数字移相器，每通道独立控制</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.4 室内分布系统</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.4 室内分布系统</div>
-        
-        
-        
-        
-        
-        <div class="desc">典型配置：小倾角（0°-3°），主要靠天线位置和朝向控制覆盖
+    <div class="text-body">典型配置：小倾角（0°-3°），主要靠天线位置和朝向控制覆盖
 挑战：室内空间小，过大倾角会导致信号打不到远处</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.5 专网/物联网</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.5 专网/物联网</div>
-        
-        
-        
-        
-        
-        <div class="desc">典型配置：固定倾角（根据场景预设）
+    <div class="text-body">典型配置：固定倾角（根据场景预设）
 场景：工厂、港口、矿山等封闭区域
 优化目标：覆盖无死角 + 干扰最小化</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1044,74 +890,36 @@ CSI-RS 波束：更细粒度的波束，倾角由波束赋形算法自动优化
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 倾角过大导致方向图畸变</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 倾角过大导致方向图畸变</div>
-        
-        
-        
-        
-        
-        <div class="desc">电倾角超过 10° 后，方向图下半部分的增益急剧下降，上半部分的旁瓣升高：
+    <div class="text-body">电倾角超过 10° 后，方向图下半部分的增益急剧下降，上半部分的旁瓣升高：
 
 后果：近处信号弱，远处干扰强
 对策：机械倾角 + 电倾角组合使用，总倾角中电倾角部分不超过 10°</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 多频共存时的倾角冲突</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 多频共存时的倾角冲突</div>
-        
-        
-        
-        
-        
-        <div class="desc">一个基站天线通常同时承载 2.6GHz（n77）、3.5GHz（n78）、4.9GHz（n79）等多频段：
+    <div class="text-body">一个基站天线通常同时承载 2.6GHz（n77）、3.5GHz（n78）、4.9GHz（n79）等多频段：
 
 不同频段的垂直波束宽度不同（频率越高，VBW 越窄）
 同一倾角对不同频段的效果不同
 对策：以最低频段（最宽 VBW）为基准设置倾角，高频段通过数字波束倾斜微调</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 RET 电机故障</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 RET 电机故障</div>
-        
-        
-        
-        
-        
-        <div class="desc">RET 电机是机械部件，长期运行后可能出现：
+    <div class="text-body">RET 电机是机械部件，长期运行后可能出现：
 电机卡死（Jam）：无法响应倾角调整指令
 位置漂移：设定倾角与实际倾角不一致
 寿命到期：超过 10 万次操作后故障率显著上升
@@ -1120,69 +928,37 @@ CSI-RS 波束：更细粒度的波束，倾角由波束赋形算法自动优化
 定期自检（OMS 系统监控 RET 状态）
 设置倾角调整频率上限（如每天不超过 10 次）
 选用高品质 RET 电机（寿命 &gt; 50 万次）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 5G 与 4G 共站时的倾角协调</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 5G 与 4G 共站时的倾角协调</div>
-        
-        
-        
-        
-        
-        <div class="desc">4G 和 5G 天线共站时，需要协调两者的倾角：
+    <div class="text-body">4G 和 5G 天线共站时，需要协调两者的倾角：
 
 `
 5G 总倾角 ≈ 4G 总倾角 - 0.5 × 4G VBW
 `
 
 这是因为 5G 的 VBW 通常比 4G 窄，如果倾角相同，5G 的覆盖会比 4G 更&#34;远&#34;，导致切换问题。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.5 数字波束倾斜的波束间干扰</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.5 数字波束倾斜的波束间干扰</div>
-        
-        
-        
-        
-        
-        <div class="desc">在 Massive MIMO 中，不同倾角的 SSB 波束之间可能存在干扰：
+    <div class="text-body">在 Massive MIMO 中，不同倾角的 SSB 波束之间可能存在干扰：
 
 大倾角波束（近处）和小倾角波束（远处）同时工作时，近处用户的信号可能被远处波束的旁瓣干扰
 对策：波束功率控制 + 智能波束选择</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -337,31 +337,17 @@ Y_in(f) = 1/R_r + 1/R_s + j(2πfC - 1/(2πfL))
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.3 频率相关电阻模型</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.3 频率相关电阻模型</div>
-        
-        
-        
-        
-        
-        <div class="desc">实际天线的辐射电阻 R_r 和损耗电阻 R_s 都随频率变化：
+    <div class="text-body">实际天线的辐射电阻 R_r 和损耗电阻 R_s 都随频率变化：
 
 `
 R_r(f) ≈ R_r(f₀) · (f/f₀)²    （电小天线）
 R_r(f) ≈ R_r(f₀)               （谐振天线附近）
 R_s(f) ≈ R_s(f₀) · √(f/f₀)    （趋肤效应）
 `</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -583,19 +569,9 @@ R_s(f) ≈ R_s(f₀) · √(f/f₀)    （趋肤效应）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 非均匀分段模型</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 非均匀分段模型</div>
-        
-        
-        
-        
-        
-        <div class="desc">2023 年 ACES 期刊提出的宽带偶极子分布参数模型：
+    <div class="text-body">2023 年 ACES 期刊提出的宽带偶极子分布参数模型：
 
 将偶极子沿轴向分为 N 段，每段用 RLC 表示：
 
@@ -611,12 +587,8 @@ R_s(f) ≈ R_s(f₀) · √(f/f₀)    （趋肤效应）
 频率无关的参数
 物理意义清晰
 可用于瞬态响应分析</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -750,19 +722,9 @@ R_s(f) ≈ R_s(f₀) · √(f/f₀)    （趋肤效应）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3 Harrington 直接性-带宽极限</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 Harrington 直接性-带宽极限</div>
-        
-        
-        
-        
-        
-        <div class="desc">Harrington (1960) 证明了给定球壳内可以激发的最大直接性：
+    <div class="text-body">Harrington (1960) 证明了给定球壳内可以激发的最大直接性：
 
 `
 D_max ≤ (2l_max + 1)² / l_max
@@ -774,89 +736,47 @@ D_max ≤ (2l_max + 1)² / l_max
 Chu 限制带宽（Q 值）
 Harrington 限制直接性（增益）
 两者结合 → 直接性-带宽-效率的&#34;Pozar 三角&#34;</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.4 2024 年 Chu 极限更新</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.4 2024 年 Chu 极限更新</div>
-        
-        
-        
-        
-        
-        <div class="desc">2024 年新研究对 Chu 极限进行了修正：
+    <div class="text-body">2024 年新研究对 Chu 极限进行了修正：
 
 建立了精确的 1D 传输线模型替代 Chu 电路
 重新定义了&#34;存储能量&#34;和&#34;辐射能量&#34;的边界
 发现 Chu 极限在电大天线（ka &gt; 10）时过于保守
 新的直接性-带宽极限比 Harrington 高 20-40%</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.1 基本原理</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.1 基本原理</div>
-        
-        
-        
-        
-        
-        <div class="desc">CMA 将天线的表面电流分解为一系列正交的&#34;特性模&#34;：
+    <div class="text-body">CMA 将天线的表面电流分解为一系列正交的&#34;特性模&#34;：
 
 `
 J_total = Σ_n α_n · J_n_characteristic
 `
 
 每个特性模有自己的谐振频率、辐射电阻和 Q 值。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.2 特性模的等效电路</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.2 特性模的等效电路</div>
-        
-        
-        
-        
-        
-        <div class="desc">每个特性模可以用独立的 RLC 串联电路表示：
+    <div class="text-body">每个特性模可以用独立的 RLC 串联电路表示：
 
 `
 Z_in = Σ_n |α_n|² · Z_n_RLC
@@ -869,57 +789,29 @@ Z_n_RLC = R_n + j(ωL_n - 1/(ωC_n))
 β_n &gt; 0 → 感性（频率高于谐振）
 β_n &lt; 0 → 容性（频率低于谐振）
 `</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.3 CMA 的工程应用</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.3 CMA 的工程应用</div>
-        
-        
-        
-        
-        
-        <div class="desc">确定天线的谐振模式
+    <div class="text-body">确定天线的谐振模式
 优化多频天线设计
 分析 MIMO 天线的模式隔离度
 指导表面形状优化</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.1 从 S 参数提取</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.1 从 S 参数提取</div>
-        
-        
-        
-        
-        
-        <div class="desc">使用 VNA 测量 S₁₁(f)，然后：
+    <div class="text-body">使用 VNA 测量 S₁₁(f)，然后：
 
 `
 Z_in = Z₀ · (1+S₁₁)/(1-S₁₁)
@@ -933,59 +825,31 @@ X(f) = 2πfL - 1/(2πfC)
 `
 
 通过最小二乘法拟合 L 和 C。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.2 从脉冲响应提取</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.2 从脉冲响应提取</div>
-        
-        
-        
-        
-        
-        <div class="desc">时域反射计（TDR）或超宽带脉冲测量：
+    <div class="text-body">时域反射计（TDR）或超宽带脉冲测量：
 
 `
 I(t) → FFT → I(f)
 Z_in(f) = V(f)/I(f)
 `</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.3 从全波仿真提取</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.3 从全波仿真提取</div>
-        
-        
-        
-        
-        
-        <div class="desc">HFSS/CST 仿真得到 Z_in(f)，然后：
+    <div class="text-body">HFSS/CST 仿真得到 Z_in(f)，然后：
 
 `
 找到谐振频率 f₀（Im(Z) = 0）
@@ -993,12 +857,8 @@ Z_in(f) = V(f)/I(f)
 在 f₀ 附近，Q = f₀/(f₂-f₁) = ω₀·W/P_rad
 L = Im(Z)/(2πf)，C = -1/(Im(Z)·2πf)
 `</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1069,49 +929,21 @@ Z₁ → Z₂ → ... → Z_N → Z₀</code></pre>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.1 集总参数模型的局限性</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.1 集总参数模型的局限性</div>
-        
-        
-        
-        
-        
-        <div class="desc">RLC 串联/并联模型只适用于窄带（&lt; 20% 带宽）天线。宽带天线需要多模模型或分布参数模型。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">RLC 串联/并联模型只适用于窄带（&lt; 20% 带宽）天线。宽带天线需要多模模型或分布参数模型。</div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.2 频率相关电阻</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.2 频率相关电阻</div>
-        
-        
-        
-        
-        
-        <div class="desc">实际天线的 R_r、L、C 都随频率变化，固定参数的 RLC 模型在频带边缘误差很大。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">实际天线的 R_r、L、C 都随频率变化，固定参数的 RLC 模型在频带边缘误差很大。</div>
   </div>
+
     
   
     
@@ -1177,27 +1009,13 @@ Z₁ → Z₂ → ... → Z_N → Z₀</code></pre>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.4 温度和环境的影响</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.4 温度和环境的影响</div>
-        
-        
-        
-        
-        
-        <div class="desc">温度变化 → 基板 ε_r 变化 → C 变化 → 谐振频率偏移
+    <div class="text-body">温度变化 → 基板 ε_r 变化 → C 变化 → 谐振频率偏移
 湿度变化 → 介质损耗变化 → R_s 变化
 机械应力 → 几何变形 → L、C 变化</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

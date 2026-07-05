@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,19 +269,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.1 定义</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.1 定义</div>
-        
-        
-        
-        
-        
-        <div class="desc">方向图综合（Pattern Synthesis）是指给定目标方向图（或方向图约束条件），求解阵列单元的复数激励系数（幅度 + 相位），使得实际方向图尽可能逼近目标方向图的过程。
+    <div class="text-body">方向图综合（Pattern Synthesis）是指给定目标方向图（或方向图约束条件），求解阵列单元的复数激励系数（幅度 + 相位），使得实际方向图尽可能逼近目标方向图的过程。
 
 核心思想基于以下事实：
 
@@ -290,12 +280,8 @@
 `
 
 其中 I_n = |I_n| · exp(j·φ_n) 是第 n 个单元的复数激励系数。方向图综合就是求解这一组 I_n。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -356,19 +342,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.3 基本 trade-off：旁瓣 vs 波束宽度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.3 基本 trade-off：旁瓣 vs 波束宽度</div>
-        
-        
-        
-        
-        
-        <div class="desc">方向图综合中最基本的权衡是：
+    <div class="text-body">方向图综合中最基本的权衡是：
 
 旁瓣电平（SLL）越低 → 波束宽度（HPBW）越宽 → 增益越低
 
@@ -377,30 +353,16 @@
 -20 dB 泰勒分布：SLL = -20 dB，HPBW 增大约 20%，增益下降约 0.8 dB
 -30 dB 切比雪夫：SLL = -30 dB，HPBW 增大约 40%，增益下降约 1.5 dB
 -40 dB：SLL = -40 dB，HPBW 增大约 60%，增益下降约 2.5 dB</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.1 傅里叶变换法（Fourier Transform Method）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.1 傅里叶变换法（Fourier Transform Method）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：均匀激励线性阵列的方向图 AF(θ) 是激励分布 I_n 的离散傅里叶变换（DFT）：
+    <div class="text-body">原理：均匀激励线性阵列的方向图 AF(θ) 是激励分布 I_n 的离散傅里叶变换（DFT）：
 
 `
 AF(ψ) = Σ I_n · exp(j·n·ψ)
@@ -422,30 +384,16 @@ I_n = IDT[F(ψ)]
 不适合低旁瓣设计
 
 适用场景：扇形波束、平顶波束的快速初始设计。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 Dolph-Chebyshev 法</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 Dolph-Chebyshev 法</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：使用切比雪夫多项式构造激励分布，使得在给定主瓣宽度的条件下，旁瓣电平最低（最优解）。
+    <div class="text-body">原理：使用切比雪夫多项式构造激励分布，使得在给定主瓣宽度的条件下，旁瓣电平最低（最优解）。
 
 切比雪夫多项式定义：
 
@@ -487,12 +435,8 @@ z₀ = cosh[(1/(N-1)) · arccosh(R)]
 只适用于等间距阵列
 旁瓣全部等高，可能在某些方向不需要这么低的旁瓣
 N 很大时，边缘单元的激励非常小，信噪比差</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -612,19 +556,9 @@ HPBW 比 Chebyshev 宽约 5-10%</div>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.4 Bayliss 分布法</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.4 Bayliss 分布法</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：Bayliss 在 Taylor 的基础上改进，用连续分布的虚零点替代离散零点，使得方向图在所有角度（包括旁瓣区）都能更好地逼近目标。
+    <div class="text-body">原理：Bayliss 在 Taylor 的基础上改进，用连续分布的虚零点替代离散零点，使得方向图在所有角度（包括旁瓣区）都能更好地逼近目标。
 
 特点：
 旁瓣在整个角度范围内更均匀
@@ -632,30 +566,16 @@ HPBW 比 Chebyshev 宽约 5-10%</div>
 计算复杂度高于 Taylor
 
 适用场景：需要全角度低旁瓣的应用，如射电望远镜、卫星通信。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.5 非均匀间距阵列（Non-uniform Spacing）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.5 非均匀间距阵列（Non-uniform Spacing）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：通过随机化或优化单元间距，打破周期性，从而抑制栅瓣和旁瓣。
+    <div class="text-body">原理：通过随机化或优化单元间距，打破周期性，从而抑制栅瓣和旁瓣。
 
 方法：
 Yagi-Uda 法：基于傅里叶法的非均匀间距推广
@@ -670,30 +590,16 @@ Yagi-Uda 法：基于傅里叶法的非均匀间距推广
 激励幅度可能非常大（边缘单元需要极大功率）
 方向图不对称
 校准复杂</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.1 凸优化方法</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.1 凸优化方法</div>
-        
-        
-        
-        
-        
-        <div class="desc">将方向图综合问题表述为凸优化问题：
+    <div class="text-body">将方向图综合问题表述为凸优化问题：
 
 `
 minimize    w^H · w  （最小化激励功率）
@@ -714,30 +620,16 @@ subject to  |AF(θ)| ≤ SLL_target,  θ ∈ 旁瓣区
 缺点：
 计算量大（但现代求解器可在秒级完成）
 需要专业知识设置优化问题</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.2 零点放置法（Zero Placement Technique）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.2 零点放置法（Zero Placement Technique）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：阵列因子可以表示为零点的多项式：
+    <div class="text-body">原理：阵列因子可以表示为零点的多项式：
 
 `
 AF(u) = Π(n=1 to N-1) (u - u_n)
@@ -749,30 +641,16 @@ Flat-top 零點放置法（ZPFT）：
 在主瓣区域放置两个实轴零点来&#34;压平&#34;顶部
 其余零点按 Chebyshev 分布
 可同时控制平顶宽度和旁瓣电平</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3 迭代傅里叶算法（Iterative Fourier Transform Algorithm, IFTA）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 迭代傅里叶算法（Iterative Fourier Transform Algorithm, IFTA）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：
+    <div class="text-body">原理：
 给定目标方向图（幅度和相位）
 逆傅里叶变换得到激励系数
 强制激励系数满足约束（如幅度为正实数）
@@ -786,172 +664,84 @@ Flat-top 零點放置法（ZPFT）：
 缺点：
 可能陷入局部最优
 收敛速度慢</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.4 AI/机器学习方法</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.4 AI/机器学习方法</div>
-        
-        
-        
-        
-        
-        <div class="desc">近年来，深度学习被用于方向图综合：
+    <div class="text-body">近年来，深度学习被用于方向图综合：
 
 监督学习：训练神经网络直接从目标方向图映射到激励系数
 强化学习：通过试错优化激励分布
 生成对抗网络（GAN）：生成满足约束的方向图
 
 优势：一旦训练完成，推理速度极快（毫秒级），适合实时波束成形。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.1 雷达低旁瓣设计</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.1 雷达低旁瓣设计</div>
-        
-        
-        
-        
-        
-        <div class="desc">目标：SLL &lt; -25 dB（避免杂波和虚假目标）
+    <div class="text-body">目标：SLL &lt; -25 dB（避免杂波和虚假目标）
 方法：Taylor 或 Bayliss 分布
 典型阵列：64-256 单元</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.2 卫星通信笔形波束</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.2 卫星通信笔形波束</div>
-        
-        
-        
-        
-        
-        <div class="desc">目标：主瓣覆盖特定地球区域，旁瓣 &lt; -20 dB
+    <div class="text-body">目标：主瓣覆盖特定地球区域，旁瓣 &lt; -20 dB
 方法：Dolph-Chebyshev 或凸优化
 典型阵列：16-64 单元</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.3 5G Massive MIMO 扇区覆盖</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.3 5G Massive MIMO 扇区覆盖</div>
-        
-        
-        
-        
-        
-        <div class="desc">目标：扇形波束（覆盖 60° 或 120° 扇区）
+    <div class="text-body">目标：扇形波束（覆盖 60° 或 120° 扇区）
 方法：傅里叶法 + 窗函数
 典型阵列：64-256 单元（平面阵列）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.4 干扰抑制零陷</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.4 干扰抑制零陷</div>
-        
-        
-        
-        
-        
-        <div class="desc">目标：在干扰方向放置深度零陷（&lt;-40 dB）
+    <div class="text-body">目标：在干扰方向放置深度零陷（&lt;-40 dB）
 方法：凸优化或自适应波束成形（MVDR）
 典型阵列：8-64 单元</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.5 射电望远镜均匀照射</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.5 射电望远镜均匀照射</div>
-        
-        
-        
-        
-        
-        <div class="desc">目标：口径照射分布均匀，旁瓣 &lt; -30 dB
+    <div class="text-body">目标：口径照射分布均匀，旁瓣 &lt; -30 dB
 方法：Taylor n_bar = N-3
 典型阵列：数百至数千单元</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1093,49 +883,25 @@ Flat-top 零點放置法（ZPFT）：
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 激励幅度范围过大</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 激励幅度范围过大</div>
-        
-        
-        
-        
-        
-        <div class="desc">Chebyshev 和 Taylor 分布在追求极低旁瓣时，边缘单元的激励可能只有中心单元的 1-5%：
+    <div class="text-body">Chebyshev 和 Taylor 分布在追求极低旁瓣时，边缘单元的激励可能只有中心单元的 1-5%：
 
 边缘单元的信噪比极差
 T/R 模块在小信号时的非线性更严重
 实际实现的旁瓣可能比理论值高 5-10 dB
 
 对策：设置最小激励阈值（如 -20dB 截断），超出部分重新分配。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 相位量化效应</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 相位量化效应</div>
-        
-        
-        
-        
-        
-        <div class="desc">BFIC 的移相器位数有限（通常 6-bit），量化误差会导致：
+    <div class="text-body">BFIC 的移相器位数有限（通常 6-bit），量化误差会导致：
 实际旁瓣比理论值高 2-5 dB
 波束指向偏移
 
@@ -1146,30 +912,16 @@ T/R 模块在小信号时的非线性更严重
 `
 
 对于 N = 64，ΔSLL ≈ 0.3 dB；对于 N = 256，ΔSLL ≈ 0.15 dB。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 幅相误差的累积</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 幅相误差的累积</div>
-        
-        
-        
-        
-        
-        <div class="desc">实际阵列中，每个 T/R 通道的幅度和相位都存在误差：
+    <div class="text-body">实际阵列中，每个 T/R 通道的幅度和相位都存在误差：
 幅度误差：±0.5 dB（出厂校准后）
 相位误差：±3°（出厂校准后）
 温度漂移：±1°/°C
@@ -1177,40 +929,22 @@ T/R 模块在小信号时的非线性更严重
 这些误差会使理论综合的方向图在实际中退化。
 
 对策：在线自校准 + 鲁棒综合设计（在综合时预留误差裕量）。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 边缘效应</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 边缘效应</div>
-        
-        
-        
-        
-        
-        <div class="desc">有限尺寸阵列的边缘单元与中心单元的 AEP 不同，导致：
+    <div class="text-body">有限尺寸阵列的边缘单元与中心单元的 AEP 不同，导致：
 综合出的理想激励在实际边缘单元上无法实现
 方向图不对称，一侧旁瓣低，另一侧高
 
 对策：在综合时考虑边缘效应，或使用有限阵列综合算法。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

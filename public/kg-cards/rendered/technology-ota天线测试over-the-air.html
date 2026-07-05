@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -611,19 +611,9 @@ TIS = 1 / [ (1/N) · Σ(1/各方向灵敏度) ]
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 紧缩场法（CATR）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 紧缩场法（CATR）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：使用抛物面反射器将点源天线发出的球面波转换为平面波，在较短的距离内实现&#34;远场&#34;效果。
+    <div class="text-body">原理：使用抛物面反射器将点源天线发出的球面波转换为平面波，在较短的距离内实现&#34;远场&#34;效果。
 
 焦距与口径的关系：
 
@@ -653,30 +643,16 @@ F/D ≈ 0.35 - 0.6
 卫星天线测试（口径 1-10m）
 5G AAU 测试（3.5-39GHz）
 机载雷达天线测试</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 近场扫描法（NF-FF）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 近场扫描法（NF-FF）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：在靠近天线的区域内扫描电磁场（电场或磁场），然后通过傅里叶变换计算远场方向图。
+    <div class="text-body">原理：在靠近天线的区域内扫描电磁场（电场或磁场），然后通过傅里叶变换计算远场方向图。
 
 扫描类型：
 平面近场：扫描平面，适合方向性强的天线
@@ -703,30 +679,16 @@ E_ff(θ,φ) = FFT[E_near(x,y)]
 高精度天线方向图测量
 反射面天线测试
 相控阵天线校准</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.4 混响室法（Reverberation Chamber, RC）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.4 混响室法（Reverberation Chamber, RC）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：在一个金属腔体内用搅拌器（Mode Stirrer）产生统计均匀的电磁场环境，被测设备在其中测量 TRP/TIS。
+    <div class="text-body">原理：在一个金属腔体内用搅拌器（Mode Stirrer）产生统计均匀的电磁场环境，被测设备在其中测量 TRP/TIS。
 
 混响室的工作条件：
 
@@ -756,30 +718,16 @@ f &gt; 2.5 · f_c
 手机/TRP/TIS 批量测试
 WiFi/蓝牙 MIMO 设备测试
 电磁兼容性（EMC）预兼容性测试</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.5 多探头暗室法（MPAC）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.5 多探头暗室法（MPAC）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：在暗室中围绕 EUT 布置多根探头天线（通常 8-16 根），每根天线从不同方向发射/接收信号，模拟真实的空中多径信道。
+    <div class="text-body">原理：在暗室中围绕 EUT 布置多根探头天线（通常 8-16 根），每根天线从不同方向发射/接收信号，模拟真实的空中多径信道。
 
 3GPP 标准配置：
 FR1（Sub-6GHz）：16 根双极化探头 = 32 通道
@@ -804,12 +752,8 @@ RMa CDL-C（农村）
 5G NR UE MIMO OTA 测试（3GPP TS 38.551）
 Massive MIMO 基站 OTA 测试（3GPP TS 38.810）
 信道模型验证</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -860,31 +804,17 @@ TRP ≈ (4π/N) · Σ[G(θ_i,φ_i) · P_inc(θ_i,φ_i)]
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.4 5G MIMO 吞吐量测试</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.4 5G MIMO 吞吐量测试</div>
-        
-        
-        
-        
-        
-        <div class="desc">3GPP 定义了 MIMO 吞吐量测试方法：
+    <div class="text-body">3GPP 定义了 MIMO 吞吐量测试方法：
 
 `
 Throughput = Σ(各层数据速率) × (1 - BLER_threshold)
 `
 
 其中 BLER（Block Error Rate）阈值为 10%。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1097,19 +1027,9 @@ ECC &lt; 0.5 被认为是可接受的 MIMO 性能。</code></pre>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.1 远场距离的&#34;陷阱&#34;</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.1 远场距离的&#34;陷阱&#34;</div>
-        
-        
-        
-        
-        
-        <div class="desc">对于 3.5GHz、口径 1m 的 Massive MIMO AAU：
+    <div class="text-body">对于 3.5GHz、口径 1m 的 Massive MIMO AAU：
 
 `
 R &gt; 2D²/λ = 2 × 1² / 0.086 = 23.3m
@@ -1121,88 +1041,46 @@ R &gt; 2D²/λ = 2 × 1² / 0.086 = 23.3m
 使用 CATR（紧缩场）：可以在 10m 内实现等效远场
 使用近场扫描 + FFT
 使用中近场方法（Near-to-Far-Field Transformation）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.2 毫米波 OTA 的对准难题</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.2 毫米波 OTA 的对准难题</div>
-        
-        
-        
-        
-        
-        <div class="desc">28GHz 下波束宽度仅 2-5°，EUT 和测试天线的对准误差 0.5° 就可能导致 3dB 的测量误差。
+    <div class="text-body">28GHz 下波束宽度仅 2-5°，EUT 和测试天线的对准误差 0.5° 就可能导致 3dB 的测量误差。
 
 解决方案：
 使用精密旋转台（角度分辨率 &lt; 0.01°）
 自动对准算法
 多位置平均</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.3 MIMO 通道校准</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.3 MIMO 通道校准</div>
-        
-        
-        
-        
-        
-        <div class="desc">MPAC 中 32 根探头天线的幅度和相位必须精确校准，否则 MIMO 性能测试结果不可信。
+    <div class="text-body">MPAC 中 32 根探头天线的幅度和相位必须精确校准，否则 MIMO 性能测试结果不可信。
 
 校准方法：
 点对点校准（每对探头之间）
 使用校准天线（Calibration Antenna）
 定期重新校准（建议每 6 个月）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.4 混响室的模式密度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.4 混响室的模式密度</div>
-        
-        
-        
-        
-        
-        <div class="desc">混响室要产生统计均匀场，必须保证模式密度足够：
+    <div class="text-body">混响室要产生统计均匀场，必须保证模式密度足够：
 
 `
 N_modes &gt; 20-50  （最低要求）
@@ -1217,12 +1095,8 @@ N_modes ∝ f³ · V
 其中 V 是混响室体积。低频时模式密度不足，混响室无效。
 
 经验法则：混响室的最低工作频率 f_min ≈ 300-500MHz（取决于体积）。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,45 +269,21 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.1 定义</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.1 定义</div>
-        
-        
-        
-        
-        
-        <div class="desc">扫描盲区（Scan Blindness），又称扫描共振（Scan Resonance），是指无限大或有限大相控阵天线在扫描到某些特定角度时，阵列的有源反射系数（Active Reflection Coefficient）急剧增大（接近 1），导致阵列在该角度附近的输入阻抗严重失配，绝大部分功率被反射而非辐射的现象。
+    <div class="text-body">扫描盲区（Scan Blindness），又称扫描共振（Scan Resonance），是指无限大或有限大相控阵天线在扫描到某些特定角度时，阵列的有源反射系数（Active Reflection Coefficient）急剧增大（接近 1），导致阵列在该角度附近的输入阻抗严重失配，绝大部分功率被反射而非辐射的现象。
 
 在扫描盲区角度，阵列的 TARC（总有源反射系数）会从正常的 -15 dB 以下骤升至 -3 dB 甚至更高，意味着超过 50% 的功率被反射。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.2 物理机制：Floquet 模式与表面波耦合</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 物理机制：Floquet 模式与表面波耦合</div>
-        
-        
-        
-        
-        
-        <div class="desc">扫描盲区的根本原因是模式匹配共振：
+    <div class="text-body">扫描盲区的根本原因是模式匹配共振：
 
 当相控阵的波束扫描到某个角度 θ_b 时，阵列中产生的 Floquet 模式（周期性结构的衍射模式）的传播常数 β_F 恰好等于基板表面波模式的传播常数 β_SW：
 
@@ -316,30 +292,16 @@
 `
 
 此时，辐射的 Floquet 模式能量会耦合到表面波模式中。由于表面波被限制在基板内部传播（不辐射到自由空间），能量就被&#34;困&#34;在了基板里，无法从天线辐射出去。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.3 Floquet 模式传播常数</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.3 Floquet 模式传播常数</div>
-        
-        
-        
-        
-        
-        <div class="desc">对于周期性间距为 d 的一维阵列，第 n 阶 Floquet 模式的传播常数为：
+    <div class="text-body">对于周期性间距为 d 的一维阵列，第 n 阶 Floquet 模式的传播常数为：
 
 `
 β_F,n = k₀·sin(θ₀) + 2πn/d
@@ -356,30 +318,16 @@ d 是单元间距
 当 n ≠ 0 时，β_F,n 对应高阶 Floquet 模式。在正常扫描范围内，这些模式通常是&#34;消逝的&#34;（evanescent），即它们不传播而是指数衰减。
 
 关键点：当某个高阶 Floquet 模式从消逝态变为传播态（称为栅瓣出现），或者当它与表面波模式匹配时，就可能引发扫描盲区。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.4 表面波模式</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.4 表面波模式</div>
-        
-        
-        
-        
-        
-        <div class="desc">在接地介质基板（grounded dielectric slab）上，表面波模式的传播常数为：
+    <div class="text-body">在接地介质基板（grounded dielectric slab）上，表面波模式的传播常数为：
 
 `
 β_SW = k₀·√(ε_r - sin²(θ₀))
@@ -388,30 +336,16 @@ d 是单元间距
 其中 ε_r 是基板的相对介电常数。
 
 表面波有两种基本模式：TM₀ 和 TE₁。对于常见的微带阵列基板（ε_r = 2.2-10），TM₀ 表面波模式最容易与 Floquet 模式耦合。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.5 扫描盲区角度的计算公式</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.5 扫描盲区角度的计算公式</div>
-        
-        
-        
-        
-        
-        <div class="desc">扫描盲区出现的角度 θ_b 可以通过以下公式估算：
+    <div class="text-body">扫描盲区出现的角度 θ_b 可以通过以下公式估算：
 
 `
 sin(θ_b) = √(ε_r) - (λ₀/d)·n
@@ -424,12 +358,8 @@ sin(θ_b) = √(ε_r) - 1  （近似，当 d ≈ λ₀/2 时）
 `
 
 更精确的计算需要考虑基板厚度、介质分层和高阶模式。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -545,85 +475,43 @@ sin(θ_b) = √(ε_r) - 1  （近似，当 d ≈ λ₀/2 时）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 单元间距</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 单元间距</div>
-        
-        
-        
-        
-        
-        <div class="desc">单元间距 d 影响 Floquet 模式的传播常数：
+    <div class="text-body">单元间距 d 影响 Floquet 模式的传播常数：
 
 d 越小 → β_F 越大 → 盲区角度越大（越不容易出现）
 d &gt; λ₀/2 → 可能出现栅瓣 → 栅瓣与表面波耦合也会引发盲区</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.4 极化方向</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.4 极化方向</div>
-        
-        
-        
-        
-        
-        <div class="desc">TE 极化和 TM 极化的盲区角度不同：
+    <div class="text-body">TE 极化和 TM 极化的盲区角度不同：
 
 TM 极化（电场平行于入射面）更容易激发表面波
 TE 极化（电场垂直于入射面）盲区角度通常更大</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.5 频率</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.5 频率</div>
-        
-        
-        
-        
-        
-        <div class="desc">扫描盲区角度随频率变化：
+    <div class="text-body">扫描盲区角度随频率变化：
 
 `
 sin(θ_b) ∝ λ₀/d ∝ 1/f
 `
 
 频率越低（波长越长），盲区角度越大；频率越高，盲区角度越小。这意味着宽频带阵列在不同频率下盲区位置不同，可能影响整个工作带宽。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -697,284 +585,144 @@ sin(θ_b) ∝ λ₀/d ∝ 1/f
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.2 对 T/R 模块的影响</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.2 对 T/R 模块的影响</div>
-        
-        
-        
-        
-        
-        <div class="desc">扫描盲区不仅影响天线本身，还会对 T/R 模块造成损害：
+    <div class="text-body">扫描盲区不仅影响天线本身，还会对 T/R 模块造成损害：
 
 反射功率返回到 HPA（功放），可能导致功放过热或损坏
 反射功率返回到 LNA（低噪放），降低接收灵敏度
 在极端情况下，反射功率可能烧毁 T/R 模块
 
 这就是为什么军用雷达必须严格避免扫描盲区——它不仅影响性能，还可能损坏昂贵的 T/R 模块。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3 对系统的影响</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 对系统的影响</div>
-        
-        
-        
-        
-        
-        <div class="desc">5G 基站：盲区角度内无法形成有效波束，导致覆盖空洞
+    <div class="text-body">5G 基站：盲区角度内无法形成有效波束，导致覆盖空洞
 卫星通信：盲区角度内无法跟踪卫星，通信中断
 军用雷达：盲区角度内无法扫描，形成探测死角
 汽车雷达：盲区角度内无法检测障碍物，安全隐患</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.1 减薄基板厚度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.1 减薄基板厚度</div>
-        
-        
-        
-        
-        
-        <div class="desc">最直接的方法——让基板足够薄，使表面波无法有效激发：
+    <div class="text-body">最直接的方法——让基板足够薄，使表面波无法有效激发：
 
 适用于：mmWave AiP（LCP 基板 0.1-0.2mm）
 缺点：降低了天线增益（薄基板 → 低 Q 值 → 宽带但低增益）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.2 降低基板介电常数</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.2 降低基板介电常数</div>
-        
-        
-        
-        
-        
-        <div class="desc">使用低 ε_r 材料：
+    <div class="text-body">使用低 ε_r 材料：
 
 Rogers RO4000 系列（ε_r = 3.3-3.55）
 PTFE 玻璃纤维增强（ε_r = 2.2-2.5）
 LCP（ε_r = 2.9-3.0）
 缺点：天线尺寸增大（λ_g = λ₀/√ε_r）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.3 使用波导阵列</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.3 使用波导阵列</div>
-        
-        
-        
-        
-        
-        <div class="desc">波导阵列天然不存在扫描盲区：
+    <div class="text-body">波导阵列天然不存在扫描盲区：
 
 波导壁提供了天然的表面波抑制
 X 波段波导阵列扫描范围可达 ±60°
 缺点：体积大、重量大、成本高</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.4 槽缝阵列（Connected Slot Array）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.4 槽缝阵列（Connected Slot Array）</div>
-        
-        
-        
-        
-        
-        <div class="desc">槽缝阵列通过耦合馈电而非直接馈电，改变了表面波的激发条件：
+    <div class="text-body">槽缝阵列通过耦合馈电而非直接馈电，改变了表面波的激发条件：
 
 槽缝的电磁场分布与微带贴片不同
 合理设计槽缝间距和长度可以避免盲区
 广泛应用于 X 波段和 Ku 波段相控阵</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.5 SIW 腔体背腔（Substrate Integrated Waveguide Cavity）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.5 SIW 腔体背腔（Substrate Integrated Waveguide Cavity）</div>
-        
-        
-        
-        
-        
-        <div class="desc">在微带贴片下方集成 SIW 腔体结构：
+    <div class="text-body">在微带贴片下方集成 SIW 腔体结构：
 
 SIW 腔体阻止了表面波的传播
 相当于在贴片下方&#34;挖&#34;了一个微型波导
 可将扫描范围扩大 10-20°
 2020 年后成为微带阵列的主流方案</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.6 电磁带隙结构（EBG / Defected Ground Structure）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.6 电磁带隙结构（EBG / Defected Ground Structure）</div>
-        
-        
-        
-        
-        
-        <div class="desc">在基板接地层上蚀刻 EBG 结构：
+    <div class="text-body">在基板接地层上蚀刻 EBG 结构：
 
 EBG 结构在特定频段内形成&#34;带隙&#34;，阻止表面波传播
 DGS（缺陷接地结构）也可以抑制表面波
 缺点：增加制造复杂度，可能影响高频性能</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.7 超材料覆盖层（Metamaterial Overlay）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.7 超材料覆盖层（Metamaterial Overlay）</div>
-        
-        
-        
-        
-        
-        <div class="desc">在阵列上方放置超材料层：
+    <div class="text-body">在阵列上方放置超材料层：
 
 超材料的等效介电常数可以调节
 通过设计超材料参数，破坏 Floquet 模式与表面波的匹配条件
 2016 年后成为研究热点
 缺点：增加厚度和重量</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.8 阵列之阵列架构（Array-of-Arrays）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.8 阵列之阵列架构（Array-of-Arrays）</div>
-        
-        
-        
-        
-        
-        <div class="desc">将大阵列分割为多个小阵列，每个小阵列独立馈电：
+    <div class="text-body">将大阵列分割为多个小阵列，每个小阵列独立馈电：
 
 小阵列的表面波激发条件与大阵列不同
 可以有效避免全局性的扫描盲区
 2024 年最新方案</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1106,109 +854,53 @@ DGS（缺陷接地结构）也可以抑制表面波
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 5G mmWave 手机 AiP</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 5G mmWave 手机 AiP</div>
-        
-        
-        
-        
-        
-        <div class="desc">频率：28GHz / 39GHz
+    <div class="text-body">频率：28GHz / 39GHz
 基板：LCP，厚度 0.1-0.2mm
 盲区情况：由于基板极薄，盲区出现在 &gt; ±70°，实际工作中不会遇到
 设计要点：关注的是小扫描范围（±30°-45°）内的性能</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 5G 基站 Massive MIMO</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 5G 基站 Massive MIMO</div>
-        
-        
-        
-        
-        
-        <div class="desc">频率：3.5GHz (n77/n78)
+    <div class="text-body">频率：3.5GHz (n77/n78)
 基板：PTFE 复合材料，厚度 0.8-1.6mm
 盲区风险：较高，需要在 ±60° 扫描范围内避免盲区
 解决方案：SIW 腔体背腔 + EBG 结构组合使用</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 军用 X 波段 AESA 雷达</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 军用 X 波段 AESA 雷达</div>
-        
-        
-        
-        
-        
-        <div class="desc">频率：8-12 GHz
+    <div class="text-body">频率：8-12 GHz
 天线类型：槽缝阵列（Connected Slot Array）
 盲区情况：通过槽缝设计优化，盲区被推到 ±65° 以外
 扫描范围：±60°（工程实际使用 ±45°）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 Starlink 相控阵终端</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 Starlink 相控阵终端</div>
-        
-        
-        
-        
-        
-        <div class="desc">频率：Ku band (12-18 GHz)
+    <div class="text-body">频率：Ku band (12-18 GHz)
 天线类型：微带贴片阵列
 盲区情况：需要覆盖 ±50° 扫描范围
 解决方案：薄基板（0.5mm）+ 低 ε_r 材料（ε_r = 2.2）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

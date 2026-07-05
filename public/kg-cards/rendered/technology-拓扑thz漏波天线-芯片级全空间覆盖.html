@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -281,106 +281,50 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.1 什么是拓扑保护？</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.1 什么是拓扑保护？</div>
-        
-        
-        
-        
-        
-        <div class="desc">拓扑光子学借鉴了凝聚态物理中的拓扑绝缘体概念。在 specially structured 材料中，光可以沿着&#34;受保护的路径&#34;传播，抵抗散射和缺陷。即使芯片上有制造瑕疵或弯曲，信号也不会丢失。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">拓扑光子学借鉴了凝聚态物理中的拓扑绝缘体概念。在 specially structured 材料中，光可以沿着&#34;受保护的路径&#34;传播，抵抗散射和缺陷。即使芯片上有制造瑕疵或弯曲，信号也不会丢失。</div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 &#34;故意泄漏&#34;的设计哲学</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 &#34;故意泄漏&#34;的设计哲学</div>
-        
-        
-        
-        
-        
-        <div class="desc">传统太赫兹天线的设计思路是抑制泄漏——把信号约束在芯片内部波导中传输。而这个突破性工作的核心反转了思路：
+    <div class="text-body">传统太赫兹天线的设计思路是抑制泄漏——把信号约束在芯片内部波导中传输。而这个突破性工作的核心反转了思路：
 
 &gt; 故意让信号从芯片中&#34;泄漏&#34;出来，但通过拓扑保护确保泄漏是可控的、无损失的。
 
 就像设计一个&#34;有控制的裂缝&#34;，让光从芯片中以锥形辐射出去，同时保持信号的完整性和方向性。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 漏波天线（Leaky-Wave Antenna）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 漏波天线（Leaky-Wave Antenna）</div>
-        
-        
-        
-        
-        
-        <div class="desc">漏波天线是一种连续波导结构，信号沿波导传播时逐渐&#34;泄漏&#34;到自由空间。与传统天线不同：
+    <div class="text-body">漏波天线是一种连续波导结构，信号沿波导传播时逐渐&#34;泄漏&#34;到自由空间。与传统天线不同：
 无离散辐射单元：整个波导本身就是天线
 频率扫描特性：不同频率的信号在不同角度辐射
 拓扑增强：加入拓扑保护后，泄漏方向可控、效率极高</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.1 太赫兹频段的固有挑战</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.1 太赫兹频段的固有挑战</div>
-        
-        
-        
-        
-        
-        <div class="desc">6G计划使用的太赫兹频段（0.1-10 THz）面临两大难题：
+    <div class="text-body">6G计划使用的太赫兹频段（0.1-10 THz）面临两大难题：
 传播距离极短：大气吸收严重，毫米级精度要求
 波束极窄：传统天线在THz频段产生高度定向的窄波束，覆盖面积小</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -454,31 +398,17 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3 与中兴GigaMIMO的关系</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 与中兴GigaMIMO的关系</div>
-        
-        
-        
-        
-        
-        <div class="desc">中兴的GigaMIMO（今天已学）聚焦的是U6G亚毫米波频段（6.425-7.125 GHz），通过超大天线阵列（2000+单元）和AI调度提升容量。
+    <div class="text-body">中兴的GigaMIMO（今天已学）聚焦的是U6G亚毫米波频段（6.425-7.125 GHz），通过超大天线阵列（2000+单元）和AI调度提升容量。
 
 而拓扑THz天线走的是完全不同的技术路线：
 GigaMIMO = 阵列天线 + AI（地面基站侧）
 拓扑THz = 光子芯片 + 拓扑物理（芯片级/短距高速连接）
 
 两者互补：GigaMIMO解决广域容量，拓扑THz解决局域超高带宽（如工厂内设备互联、终端间直连）。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

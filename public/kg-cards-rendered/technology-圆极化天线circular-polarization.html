@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>圆极化天线Circular-Polarization — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    height: 1080px;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+    column-count: 2;
+    column-gap: 12px;
+  }
+  .canvas .hero {
+    column-span: all;
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    margin-bottom: 12px;
+  }
+  .block.section-table, .block.section-comparison {
+    /* 不再 column-span: all，只占一列宽度 */
+  }
+  .block.section-text {
+    column-span: all;
+    width: 100%;
+  }
+  .block:last-child.related-block {
+    flex: 1 1 100%;
+    column-span: all;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-06-29</div>
+    </div>
+    <div class="hero-title">
+      圆极化天线Circular-Polarization
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线</span><span>圆极化</span><span>circular</span><span>polarization</span><span>CP</span><span>RHCP</span><span>LHCP</span><span>axial</span><span>ratio</span><span>AR</span><span>quadrature</span><span>feed</span><span>helical</span><span>antenna</span><span>GNSS</span><span>satellite</span><span>5G</span><span>mmWave</span><span>RCS</span><span>reduction</span><span>metasurface</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> 圆极化天线发出的电磁波像螺旋钻——电场矢量端点在空间画出一个圆。好处是接收端不管卫星怎么翻转都能收到信号，GPS 卫星全用圆极化就是这个原因。衡量圆极化质量的指标叫&#34;轴比&#34;（Axial Ratio），越接近 0dB 越圆。5G 毫米波也开始用圆极化来降 RCS（雷达截面积），让隐身效果更好。</div>
+    
+    
+    
+  </div>
+
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">一句话版本</div>
+    <div class="text-body">&gt; **圆极化天线发出的电磁波像螺旋钻——电场矢量端点在空间画出一个圆。好处是接收端不管卫星怎么翻转都能收到信号，GPS 卫星全用圆极化就是这个原因。衡量圆极化质量的指标叫&#34;轴比&#34;（Axial Ratio），越接近 0dB 越圆。5G 毫米波也开始用圆极化来降 RCS（雷达截面积），让隐身效果更好。**
+
+类比入口：手电筒 vs 陀螺仪。线极化像手电筒光束——方向不对就照不到；圆极化像陀螺仪——不管怎么转，它都能保持稳定。圆极化天线在卫星通信中就是&#34;不管卫星怎么翻滚都能收到&#34;。
+
+---</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-table">
+    <div class="block-title">1.1 线极化 vs 圆极化 vs 椭圆极化</div>
+    <table class="tbl">
+      <thead><tr>
+        <th>内容</th>
+      </tr></thead>
+      <tbody>
+        
+        <tr>
+          
+          <td>**线极化**：电场矢量只在一个平面内振动。</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>↑</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>│ E</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>↓</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>**右旋圆极化（RHCP）**：电场矢量端点在空间顺时针画圆（从波源看）。</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>↻</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>↵   ↶</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>← E →</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>↶   ↵</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>↻</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>**左旋圆极化（LHCP）**：逆时针画圆。</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>**椭圆极化**：介于圆和线之间，电场矢量端点画椭圆。</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.2 圆极化的产生条件</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.2 圆极化的产生条件</div>
+        
+        
+        
+        
+        
+        <div class="desc">**两个正交的线极化波，幅度相等，相位差 90°**：
+```
+E_x = E₀ cos(ωt)
+E_y = E₀ cos(ωt ± π/2) = ±E₀ sin(ωt)
+```
+
+合成电场：
+```
+|E|² = E_x² + E_y² = E₀²(cos²ωt + sin²ωt) = E₀²
+```
+
+**结论**：电场幅度恒定，方向匀速旋转 → 圆极化。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.3 轴比（Axial Ratio, AR）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.3 轴比（Axial Ratio, AR）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**定义**：椭圆长轴与短轴之比（线性单位），或以 dB 表示。
+
+```
+AR_linear = a/b ≥ 1
+AR_dB = 20 × log₁₀(AR_linear)
+```
+
+**理想圆极化**：AR = 1（0dB）
+
+**工程标准**：
+| AR (dB) | 极化质量 | 应用场景 |
+|---------|---------|---------|
+| 0-1 | 优秀 | 高精度卫星导航 |
+| 1-3 | 良好 | GNSS 接收 |
+| 3-6 | 一般 | 卫星通信 |
+| 6-10 | 较差 | 宽带应用可接受 |
+| &gt; 10 | 接近线极化 | 不认为是 CP |
+
+**3dB AR 带宽**：AR &lt; 3dB 的频率范围，是圆极化天线的有效工作带宽。
+
+---</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-table">
+    <div class="block-title">2.1 正交馈电贴片天线（Quadrature-Fed Patch）</div>
+    <table class="tbl">
+      <thead><tr>
+        <th>内容</th>
+      </tr></thead>
+      <tbody>
+        
+        <tr>
+          
+          <td>**结构**：两个正交的微带贴片，馈电相位差 90°。</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>│  ▓  │  ← 贴片（十字形或方形）</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>│   │</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>90°  0°</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>│   │</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>**实现 90° 相位差的方法**：</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>1. **quadrature hybrid（3dB 电桥）**：如分支线耦合器、Lange 耦合器</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>2. **不等长馈线**：利用传输线相位延迟</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>3. **激励端口位置偏移**：在贴片对角线两侧激励</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>**特点**：</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- 优点：平面结构，易于集成</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- 缺点：AR 带宽窄（通常 2-5%）</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- 适用：卫星通信终端、GPS 接收</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-table">
+    <div class="block-title">2.2 螺旋天线（Helical Antenna / Turnstile）</div>
+    <table class="tbl">
+      <thead><tr>
+        <th>内容</th>
+      </tr></thead>
+      <tbody>
+        
+        <tr>
+          
+          <td>**结构**：导线绕成螺旋形，沿轴向辐射。</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>╭───╮</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>╭─╯   ╰─╮</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>╭─╯       ╰─╮</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>│           │</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>│  螺旋线圈  │</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>│           │</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>╰─╮   ╮─╯</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>╰───╯</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>轴向辐射</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>**参数**：</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>周长 C ≈ λ</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>匝间距 S ≈ λ/4</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>总匝数 N</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>**增益**：</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>G ≈ 15 × N × (C/λ)² × SA  （dBi）</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>其中 SA 是轴比效率（SA = 1/[1+(AR²)]，理想圆极化时 SA ≈ 0.81）。</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>**特点**：</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- 优点：纯圆极化（AR &lt; 1dB），增益高（N=3-5 时 12-15dBi）</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- 缺点：体积大，轴向安装</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- 适用：卫星通信、深空探测（NASA 经典选择）</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>**2014 清华突破**：贴片-螺旋混合天线</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- 寄生贴片 + 10 匝螺旋</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- 小地平面下增益 13.35dBic</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- 阻抗带宽 22%（5.05-6.30GHz）</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- 螺旋电流均匀分布，不受地平面限制</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.3 缝隙天线（Slot Antenna）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.3 缝隙天线（Slot Antenna）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**结构**：在金属面上蚀刻特定形状的缝隙。
+
+**常见形状**：
+- 十字形缝隙（cross-slot）：天然正交
+- S 形缝隙：紧凑设计
+- 阶梯形缝隙：多频谐振
+
+**2024 PMC 空气填充 SIW 圆极化缝隙阵列**：
+- 1×8 阵列，34.5-41.5GHz
+- 阻抗带宽 18.4%
+- 3dB AR 带宽 16.4%（36.5-43GHz）
+- 峰值增益 18dBic
+- 金属腔体辐射，S 形缝隙产生 CP</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-table">
+    <div class="block-title">2.4 螺旋线天线（Quadrifilar Helix）</div>
+    <table class="tbl">
+      <thead><tr>
+        <th>内容</th>
+      </tr></thead>
+      <tbody>
+        
+        <tr>
+          
+          <td>**结构**：四根导线绕成螺旋形，交替馈电。</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>╭──╮  ╭──╮</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>╭─╯  ╰─╯  ╰─╮</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>│   四线螺旋   │</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>╰─╮  ╭──╮  ╭─╯</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>╰─╯    ╰─╯</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>**特点**：</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- 半球形覆盖（hemispherical）</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- AR 带宽宽（&gt; 20%）</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- 增益 6-9dBi</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- **GNSS 天线经典选择**（GPS/GLONASS/BDS 接收）</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.5 螺旋天线（Travelling-Wave Spiral）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.5 螺旋天线（Travelling-Wave Spiral）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**结构**：平面阿基米德螺旋或对数螺旋。
+
+**特点**：
+- 超宽带（&gt; 10:1 频率比）
+- 圆极化纯度好
+- 增益恒定（~8dBi）在整个频带
+- 适用：频谱监测、电子战
+
+---</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">3.1 极化失配公式 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>Polarization Loss Factor (PLF) = |ρ̂_w · ρ̂_a|²
+
+
+其中 ρ̂_w 是入射波极化单位矢量，ρ̂_a 是天线极化单位矢量。</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.2 圆极化 - 圆极化匹配</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.2 圆极化 - 圆极化匹配</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 发射 | 接收 | PLF (dB) |
+|------|------|---------|
+| RHCP | RHCP | 0dB（完美匹配） |
+| LHCP | LHCP | 0dB（完美匹配） |
+| RHCP | LHCP | -∞dB（完全隔离！） |
+| LHCP | RHCP | -∞dB（完全隔离！） |
+
+**关键洞察**：圆极化的左右旋之间是完全隔离的！这意味着可以在同一频段、同一位置用 RHCP 发射、LHCP 接收，实现频率复用。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">3.3 圆极化 - 线极化匹配 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>PLF = 0.5（-3dB）
+
+
+**无论线极化方向如何，圆极化天线接收线极化波总是损失 3dB**。
+
+**实际意义**：
+- GPS 卫星用 RHCP 发射
+- 手机天线是线极化 → 理论损失 3dB
+- 但好处是：手机怎么拿都不会信号骤降（因为线极化方向随机变化时，圆极化接收稳定）</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.4 极化损失总结</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.4 极化损失总结</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 发射极化 | 接收极化 | 损失 |
+|---------|---------|------|
+| RHCP | RHCP | 0dB |
+| LHCP | LHCP | 0dB |
+| RHCP | LHCP | &gt; 20dB（隔离） |
+| 线极化 | RHCP | 3dB |
+| 线极化 | 线极化（同向） | 0dB |
+| 线极化 | 线极化（正交） | &gt; 20dB（隔离） |
+
+---</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.1 GNSS 卫星导航（GPS/BDS/GLONASS/Galileo）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.1 GNSS 卫星导航（GPS/BDS/GLONASS/Galileo）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**为什么用圆极化？**
+- 卫星在轨道上会翻滚/姿态变化 → 线极化会失效
+- 圆极化不受卫星姿态影响
+- 多径抑制：地面反射波会反转旋向（RHCP → LHCP），被天线天然抑制
+
+**典型参数**：
+| 参数 | 数值 |
+|------|------|
+| 频率 | L1: 1575.42MHz, L2: 1227.60MHz, L5: 1176.45MHz |
+| 极化 | 卫星发 RHCP，接收机天线 RHCP |
+| 增益 | 6-9dBi |
+| 3dB AR 波束宽度 | &gt; 200°（半球覆盖） |
+| 前后比 | &gt; 20dB |
+| 多径抑制 | 10-15dB |
+
+**2025 高精度海洋定位 GNSS 天线**：
+- 八根短路销钉围绕贴片 → 扩宽 3dB AR 波束
+- 两组弯曲金属分支在接地层 → 前后比提升
+- 重叠带宽 &gt; 45%（10dB 回波损耗 + 3dB AR）
+- 覆盖 GPS L1/L2, BDS B1/B2, GLONASS, Galileo</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.2 卫星通信</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.2 卫星通信</div>
+        
+        
+        
+        
+        
+        <div class="desc">**应用场景**：
+- 北斗/GPS 导航卫星发射天线
+- 通信卫星星载天线
+- 地面站接收天线
+- 无人机/导弹导引头
+
+**特点**：
+- 卫星姿态不确定 → 必须圆极化
+- 远距离传输 → 线极化旋转（Faraday 旋转）→ 圆极化不受影响</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.3 5G 毫米波通信</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.3 5G 毫米波通信</div>
+        
+        
+        
+        
+        
+        <div class="desc">**2024 研究热点**：
+- 圆极化 MIMO：降低通道相关性，提升容量
+- 圆极化阵列：RCS 降低（隐身应用）
+- 正交圆极化复用：RHCP + LHCP = 双倍频谱效率
+
+**2025 5G mmWave 圆极化 MIMO**：
+- 频段：25.45-32.92GHz
+- AR 带宽：26.24-29.88GHz（3.64GHz）
+- 增益：&gt; 5.8dBi
+- 辐射效率：&gt; 91.72%
+- ECC &lt; 10⁻²（极低相关性）
+- 设计：圆形贴片 + 扇形槽 + 半月形槽</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.4 雷达与隐身（RCS Reduction）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.4 雷达与隐身（RCS Reduction）</div>
+        
+        
+        
+        
+        
+        <div class="desc">**原理**：圆极化天线发射 RHCP，目标反射后变为 LHCP → 接收天线只收 RHCP → 回波被抑制。
+
+**RCS 降低量**：
+```
+ΔRCS = 20 × log₁₀(AR)  （dB）
+```
+
+对于 AR = 3dB 的天线，RCS 可降低 **~12dB**（功率降低 98.4%）。
+
+**2019-2025 研究进展**：
+- 超表面（Metasurface）加载贴片阵列 → 带外 RCS 降低 15-20dB
+- 圆极化序贯旋转阵列 → 宽频 RCS 降低
+- 极化转换超表面 + CP 阵列 → 联合优化 RCS 和辐射性能</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.5 可穿戴设备</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.5 可穿戴设备</div>
+        
+        
+        
+        
+        
+        <div class="desc">**优势**：
+- 用户头部/身体转动不影响天线极化匹配
+- 降低人体组织吸收导致的极化畸变
+- MIMO + CP → 高隔离、低相关性
+
+---</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">五、圆极化 vs 线极化对比</div>
+    <div class="text-body">| 特性 | 线极化 | 圆极化 |
+|------|-------|-------|
+| 极化纯度 | 高 | 中（取决于 AR） |
+| 极化对准要求 | 严格（正交时完全隔离） | 宽松（旋转不变） |
+| 多径抑制 | 差 | 好（反射反转旋向） |
+| 极化损失 | 0dB（对准）/ &gt;20dB（正交） | 3dB（对线极化）/ 0dB（同旋向） |
+| 带宽 | 宽 | 窄（AR 带宽通常 &lt; 阻抗带宽） |
+| 复杂度 | 低 | 中（需要 90° 相位差） |
+| 典型增益 | 高 | 略低（~0.5-1dB 极化效率损失） |
+| 应用 | WiFi/基站/大多数地面通信 | GNSS/卫星/隐身/可穿戴 |
+
+---</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">六、给非专业读者的一句话总结</div>
+    <div class="text-body">&gt; **圆极化天线发出的电磁波是&#34;螺旋钻&#34;——电场矢量在空间画圆圈。GPS 卫星用圆极化是因为卫星在天上翻滚，线极化的话地面天线就收不到了。圆极化还有一个神奇特性：左右旋完全隔离，互不干扰。这让科学家想到用它来做隐身——雷达发射 RHCP，飞机收到后反射变成 LHCP，雷达天线只收 RHCP，于是回波被大幅削弱。圆极化就是物理学送给工程师的&#34;免费礼物&#34;：一个结构，两种能力（通信+隐身）。**
+
+**金句**：圆极化告诉你一个道理——**有时候转一圈不是绕远路，而是为了在任何角度都能接到**。
+
+---</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">七、自检清单</div>
+    <div class="text-body">写这篇解读时，我重点确认了：
+- [x] 圆极化物理本质（正交等幅 90° 相位差）
+- [x] RHCP vs LHCP 定义（从波源看顺时针/逆时针）
+- [x] 轴比 AR 定义与标准（0dB 理想，3dB 工程阈值）
+- [x] 3dB AR 带宽概念
+- [x] 五种实现方法（正交馈电贴片/螺旋/缝隙/四线螺旋/行波螺旋）
+- [x] 螺旋天线增益公式 G ≈ 15N(C/λ)²SA
+- [x] 2014 清华贴片-螺旋混合天线（小地平面，13.35dBic）
+- [x] 极化失配 PLF 公式
+- [x] 圆-圆匹配表（同旋向 0dB，反旋向 &gt;20dB 隔离）
+- [x] 圆-线匹配（恒损 3dB）
+- [x] GNSS 应用（多径抑制、半球覆盖、2025 海洋定位天线）
+- [x] 5G mmWave 圆极化 MIMO（25-33GHz，ECC&lt;10⁻²）
+- [x] RCS 降低原理（反射反转旋向，ΔRCS = 20logAR）
+- [x] 超表面隐身（带外 RCS 降低 15-20dB）
+- [x] 可穿戴 CP MIMO 优势
+- [x] 圆极化 vs 线极化全面对比表
+
+---
+
+**适用读者**: 卫星通信工程师、GNSS 设计人员、雷达工程师、5G mmWave 研发
+**延伸阅读**:
+- [[笔记-极化分集Polarization Diversity深度解读-20260623]]
+- [[笔记-微带贴片天线Patch Antenna深度解读-20260629]]
+- MDPI 2023: Quad-Band CP Antenna for GNSS, 5G and WIFI-6E
+- JPIER 2019: Compact Dual-Band CP Patch for BDS
+- Tsinghua AWPL 2014: Patch-Helix Hybrid CP Antenna
+- PMC 2024: AF-SIW CP Slot Array for 5G mmWave
+- IEEE 2025: CP MIMO for 5G mmWave with Sectoral Slots
+- ScienceDirect 2024: Dual-Broadband Low-RCS Shared Aperture CP</div>
+  </div>
+
+    
+  
+
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-圆极化天线circular-polarization</span>
+</div>
+
+</div>
+
+</body>
+</html>

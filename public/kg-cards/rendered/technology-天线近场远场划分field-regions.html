@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,19 +269,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.1 反应式近场（Reactive Near-Field）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.1 反应式近场（Reactive Near-Field）</div>
-        
-        
-        
-        
-        
-        <div class="desc">定义：紧贴天线表面的区域，电磁场以储能为主（电场能和磁场能交替交换，不向外辐射）。
+    <div class="text-body">定义：紧贴天线表面的区域，电磁场以储能为主（电场能和磁场能交替交换，不向外辐射）。
 
 边界：
 `
@@ -302,12 +292,8 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
 天线与馈线之间的过渡区
 近场天线耦合（如 NFC/RFID）
 人体贴近天线时的 SAR（比吸收率）评估</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -357,19 +343,9 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.3 远场 / Fraunhofer 区（Far-Field）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.3 远场 / Fraunhofer 区（Far-Field）</div>
-        
-        
-        
-        
-        
-        <div class="desc">定义：波前近似为平面、方向图稳定的区域。
+    <div class="text-body">定义：波前近似为平面、方向图稳定的区域。
 
 边界（Rayleigh 距离）：
 `
@@ -396,12 +372,8 @@ r &gt; D²/(2λ)
 传统天线测量的标准条件
 5G Massive MIMO 的典型工作区
 卫星通信、雷达的远场目标</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -482,49 +454,25 @@ D²/(8r) &lt; λ/16  →  r &gt; 2D²/λ
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.4 径向聚焦距离（Radial-Focal Distance）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.4 径向聚焦距离（Radial-Focal Distance）</div>
-        
-        
-        
-        
-        
-        <div class="desc">2024 年新提出的概念——近场波束聚焦可行的最大距离：
+    <div class="text-body">2024 年新提出的概念——近场波束聚焦可行的最大距离：
 
 `
 R_rf ≈ D²/(4λ) = R_F/8
 `
 
 在这个距离以内，可以使用径向波束聚焦（beamfocusing in the radial domain）。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.1 远场测量</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.1 远场测量</div>
-        
-        
-        
-        
-        
-        <div class="desc">条件：r &gt; 2D²/λ
+    <div class="text-body">条件：r &gt; 2D²/λ
 
 方法：
 室外开阔场（OATS）
@@ -533,30 +481,16 @@ R_rf ≈ D²/(4λ) = R_F/8
 
 优点：平面波近似成立，测量简单
 缺点：需要很长的测量距离（XL-MIMO 需要数公里）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.2 近场测量</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.2 近场测量</div>
-        
-        
-        
-        
-        
-        <div class="desc">条件：R_Fresnel &lt; r &lt; R_F
+    <div class="text-body">条件：R_Fresnel &lt; r &lt; R_F
 
 方法：
 平面近场：在平面上扫描，通过傅里叶变换得到远场方向图
@@ -572,58 +506,30 @@ E_FF(θ,φ) = FT[E_NF(x,y)]
 
 优点：测量距离短（只需几米）
 缺点：数据处理复杂，需要精密扫描机构</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3 OTA 测量（Over-The-Air）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 OTA 测量（Over-The-Air）</div>
-        
-        
-        
-        
-        
-        <div class="desc">条件：适用于无法通过电缆连接的天线（如手机、IoT 设备）
+    <div class="text-body">条件：适用于无法通过电缆连接的天线（如手机、IoT 设备）
 
 方法：
 DFF（Direct Far-Field）：在远场直接测量
 缩距法：利用多探头阵列在近场合成远场</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.1 远场波束赋形</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.1 远场波束赋形</div>
-        
-        
-        
-        
-        
-        <div class="desc">模型：平面波
+    <div class="text-body">模型：平面波
 
 `
 w_FF(θ) = steer_vec_FF(θ) = [1, exp(j·ψ), ..., exp(j·(N-1)·ψ)]^T
@@ -633,30 +539,16 @@ w_FF(θ) = steer_vec_FF(θ) = [1, exp(j·ψ), ..., exp(j·(N-1)·ψ)]^T
 5G Massive MIMO（用户通常在远场）
 卫星通信
 雷达（目标通常在远场）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.2 近场波束赋形</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.2 近场波束赋形</div>
-        
-        
-        
-        
-        
-        <div class="desc">模型：球面波
+    <div class="text-body">模型：球面波
 
 `
 w_NF(r, θ) = steer_vec_NF(r, θ) = [1/r₁·exp(-jk·r₁), ...]^T
@@ -666,42 +558,24 @@ w_NF(r, θ) = steer_vec_NF(r, θ) = [1/r₁·exp(-jk·r₁), ...]^T
 6G XL-MIMO（大部分用户在近场）
 近场成像
 能量收集</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.3 混合场区波束赋形</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.3 混合场区波束赋形</div>
-        
-        
-        
-        
-        
-        <div class="desc">当阵列同时服务近场和远场用户时：
+    <div class="text-body">当阵列同时服务近场和远场用户时：
 
 `
 w_hybrid = α·w_NF + (1-α)·w_FF
 `
 
 其中 α 根据用户距离自适应调整。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -733,47 +607,23 @@ w_hybrid = α·w_NF + (1-α)·w_FF
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.3 3GPP 信道模型</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.3 3GPP 信道模型</div>
-        
-        
-        
-        
-        
-        <div class="desc">3GPP TR 38.901 v19 新增了近场信道模型：
+    <div class="text-body">3GPP TR 38.901 v19 新增了近场信道模型：
 
 远场：平面波模型（PWM）
 近场：球面波模型（SWM）
 边界：R_F = 2D²/λ</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 测量距离不足</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 测量距离不足</div>
-        
-        
-        
-        
-        
-        <div class="desc">在暗室中测量大孔径天线时，如果距离不够远（r &lt; 2D²/λ），平面波近似不成立，测量结果会有系统性误差：
+    <div class="text-body">在暗室中测量大孔径天线时，如果距离不够远（r &lt; 2D²/λ），平面波近似不成立，测量结果会有系统性误差：
 
 `
 相位误差 Δφ ≈ k·D²/(8r) = π·D²/(4λr)
@@ -790,30 +640,16 @@ w_hybrid = α·w_NF + (1-α)·w_FF
 使用近场测量 + 傅里叶变换
 使用缩距暗室（透镜）
 增加测量距离</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 多径干扰</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 多径干扰</div>
-        
-        
-        
-        
-        
-        <div class="desc">近场测量更容易受到反射和多径干扰的影响，因为反射波的路径差较小：
+    <div class="text-body">近场测量更容易受到反射和多径干扰的影响，因为反射波的路径差较小：
 
 `
 Δτ_reflected ≈ 2·d_mirror / c
@@ -823,69 +659,37 @@ w_hybrid = α·w_NF + (1-α)·w_FF
 高质量的吸波材料（反射损耗 &gt; 40dB）
 近场扫描时使用门控技术
 多径消除算法</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 空气衰减</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 空气衰减</div>
-        
-        
-        
-        
-        
-        <div class="desc">在太赫兹频段，空气对水的吸收会导致近场测量的显著衰减：
+    <div class="text-body">在太赫兹频段，空气对水的吸收会导致近场测量的显著衰减：
 
 `
 α_air ≈ 10-20 dB/km @ 200GHz
 `
 
 对于近距离测量（&lt; 100m），影响较小。但对于近场扫描（需要大范围移动），累积衰减可能不可忽视。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 6G XL-MIMO 的特殊挑战</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 6G XL-MIMO 的特殊挑战</div>
-        
-        
-        
-        
-        
-        <div class="desc">XL-MIMO 的 R_F 可达数公里，这意味着：
+    <div class="text-body">XL-MIMO 的 R_F 可达数公里，这意味着：
 传统远场测量方法几乎不可行
 近场测量成为唯一选择
 需要新的测量标准和协议</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

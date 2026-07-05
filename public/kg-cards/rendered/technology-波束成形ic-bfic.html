@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,19 +269,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.1 定义</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.1 定义</div>
-        
-        
-        
-        
-        
-        <div class="desc">波束成形 IC（Beamforming IC, BFIC）是一种专用的射频/微波集成电路，用于在相控阵天线系统中实现波束成形（Beamforming）功能。它将波束成形所需的所有模拟或数字控制功能集成在一个芯片上，包括：
+    <div class="text-body">波束成形 IC（Beamforming IC, BFIC）是一种专用的射频/微波集成电路，用于在相控阵天线系统中实现波束成形（Beamforming）功能。它将波束成形所需的所有模拟或数字控制功能集成在一个芯片上，包括：
 
 相位控制：调节每个通道的信号相位
 幅度控制：调节每个通道的信号幅度（衰减）
@@ -290,30 +280,16 @@
 时钟和数字接口：SPI/I2C 等控制接口
 
 BFIC 可以是纯模拟的（在 RF 域做波束成形），也可以是混合式的（部分在基带数字域处理）。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.2 波束成形的三种架构</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 波束成形的三种架构</div>
-        
-        
-        
-        
-        
-        <div class="desc">BFIC 的设计取决于它在整个波束成形架构中的位置：
+    <div class="text-body">BFIC 的设计取决于它在整个波束成形架构中的位置：
 
 模拟波束成形（Analog Beamforming）：
 `
@@ -340,12 +316,8 @@ BFIC 在数字域做波束成形（DSP/FPGA/ASIC）
 模拟 + 数字两级处理
 每个子阵（Sub-array）有一组 ADC
 5G mmWave 主流方案</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -619,19 +591,9 @@ BFIC 在数字域做波束成形（DSP/FPGA/ASIC）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 波束指向计算公式</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 波束指向计算公式</div>
-        
-        
-        
-        
-        
-        <div class="desc">BFIC 通过控制每个通道的相位偏移来实现波束扫描：
+    <div class="text-body">BFIC 通过控制每个通道的相位偏移来实现波束扫描：
 
 `
 ψ_n = -2π·d·sin(θ₀)·n/λ
@@ -645,12 +607,8 @@ d 是单元间距
 n 是通道序号
 
 BFIC 需要在离散相位状态中选择最接近 ψ_n 的值，这就引入了量化误差。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -722,19 +680,9 @@ BFIC 需要在离散相位状态中选择最接近 ψ_n 的值，这就引入了
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.5 功耗公式</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.5 功耗公式</div>
-        
-        
-        
-        
-        
-        <div class="desc">BFIC 的功耗主要由以下部分组成：
+    <div class="text-body">BFIC 的功耗主要由以下部分组成：
 
 `
 P_total = P_phase_shifter × N_channels + P_attenuator × N_channels + P_VGA × N_channels + P_control + P_interface
@@ -744,12 +692,8 @@ P_total = P_phase_shifter × N_channels + P_attenuator × N_channels + P_VGA × 
 单通道模拟 BFIC：10-50 mW（4-8 GHz）
 单通道 mmWave BFIC：50-200 mW（28 GHz）
 16 通道 BFIC 芯片：200-800 mW</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -975,147 +919,77 @@ P_total = P_phase_shifter × N_channels + P_attenuator × N_channels + P_VGA × 
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.1 5G 基站 Massive MIMO</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.1 5G 基站 Massive MIMO</div>
-        
-        
-        
-        
-        
-        <div class="desc">配置：16-64 通道模拟 BFIC
+    <div class="text-body">配置：16-64 通道模拟 BFIC
 频率：3.5 GHz (n77/n78)
 典型产品：
   - Analog Devices ADRF5510（6-bit 移相器 + 6-bit 衰减器，DC-6 GHz）
   - Qorvo QPA2107（集成 LNA+VGA+移相器+衰减器）
   - NXP BF5xx 系列（28GHz 毫米波 BFIC）
 关键要求：低功耗（单通道 &lt; 50mW）、高线性度</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.2 5G 手机 mmWave</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.2 5G 手机 mmWave</div>
-        
-        
-        
-        
-        
-        <div class="desc">配置：4-8 通道 BFIC + AiP 天线
+    <div class="text-body">配置：4-8 通道 BFIC + AiP 天线
 频率：28/39 GHz
 典型产品：
   - Samsung 28GHz 8-channel BFIC（ISSCC 2017）
   - TI IWR1443（集成 BF 功能的毫米波雷达 SoC）
 关键要求：极小尺寸（&lt; 5mm²）、低功耗（&lt; 200mW 整机）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.3 军用雷达</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.3 军用雷达</div>
-        
-        
-        
-        
-        
-        <div class="desc">配置：64-256 通道 BFIC 阵列
+    <div class="text-body">配置：64-256 通道 BFIC 阵列
 频率：X/Ku/Ka band
 典型产品：
   - ADI ADRF5001 系列（6-bit 数字移相器，DC-40 GHz）
   - Hittite/MACOM 毫米波 BFIC
 关键要求：高可靠性（-55°C 至 +125°C）、抗辐射</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.4 卫星通信</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.4 卫星通信</div>
-        
-        
-        
-        
-        
-        <div class="desc">配置：16-128 通道多波束 BFIC
+    <div class="text-body">配置：16-128 通道多波束 BFIC
 频率：Ku/Ka band
 典型产品：
   - Viasat 相控阵终端 BFIC
   - Starlink 用户端波束控制芯片
 关键要求：多波束同时工作、低噪声</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.5 汽车雷达</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.5 汽车雷达</div>
-        
-        
-        
-        
-        
-        <div class="desc">配置：4-16 通道 BFIC
+    <div class="text-body">配置：4-16 通道 BFIC
 频率：77/79 GHz
 典型产品：
   - TI AWR1642/AWR2243（集成 BF 功能的毫米波雷达 SoC）
   - NXP SR OSAR（片上系统雷达）
 关键要求：车规级可靠性、成本 &lt; $10</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1373,19 +1247,9 @@ P_total = P_phase_shifter × N_channels + P_attenuator × N_channels + P_VGA × 
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 相位误差累积</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 相位误差累积</div>
-        
-        
-        
-        
-        
-        <div class="desc">BFIC 的移相器不是理想的——每个通道的相位误差会累积：
+    <div class="text-body">BFIC 的移相器不是理想的——每个通道的相位误差会累积：
 制造公差：±1-2°
 温度漂移：±0.5°/°C
 电压波动：±0.3°
@@ -1396,30 +1260,16 @@ P_total = P_phase_shifter × N_channels + P_attenuator × N_channels + P_VGA × 
 出厂校准：逐个通道测量相位误差，写入查找表
 在线自校准：通过反馈环路实时调整
 温度补偿：内置温度传感器，动态调整</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 通道间串扰（Crosstalk）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 通道间串扰（Crosstalk）</div>
-        
-        
-        
-        
-        
-        <div class="desc">模拟 BFIC 中多个通道共享电源和地线，通道之间的信号会通过电源噪声耦合：
+    <div class="text-body">模拟 BFIC 中多个通道共享电源和地线，通道之间的信号会通过电源噪声耦合：
 通道间隔离度不足会导致波束畸形
 在高密度阵列中（如 256 通道 AAU），串扰问题尤为严重
 
@@ -1427,98 +1277,52 @@ P_total = P_phase_shifter × N_channels + P_attenuator × N_channels + P_VGA × 
 电源去耦：每个通道配独立去耦电容
 接地优化：星型接地布局
 通道间屏蔽：金属隔离墙</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 散热——高密度集成的噩梦</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 散热——高密度集成的噩梦</div>
-        
-        
-        
-        
-        
-        <div class="desc">一个 64 通道 BFIC 在 28GHz 下的总功耗可达 5-10W，集中在一个几毫米见方的芯片上，功率密度超过 100W/cm²。这比 CPU 的功率密度还高。
+    <div class="text-body">一个 64 通道 BFIC 在 28GHz 下的总功耗可达 5-10W，集中在一个几毫米见方的芯片上，功率密度超过 100W/cm²。这比 CPU 的功率密度还高。
 
 对策：
 背面散热焊盘（Exposed Pad）
 导热过孔（Thermal Via）阵列
 金属盖板（Metal Lid）传导散热
 高阶方案：嵌入式散热层</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 多波束形成的限制</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 多波束形成的限制</div>
-        
-        
-        
-        
-        
-        <div class="desc">模拟 BFIC 通常只能形成 1 个波束（因为所有通道合路后输出到单一 RF 链）。如果需要同时形成多个波束（多用户 MIMO），需要：
+    <div class="text-body">模拟 BFIC 通常只能形成 1 个波束（因为所有通道合路后输出到单一 RF 链）。如果需要同时形成多个波束（多用户 MIMO），需要：
 多个 BFIC 通道组（每组形成 1 个波束）
 或者切换到混合/数字波束成形架构
 
 这在芯片面积和功耗上是巨大的开销。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.5 校准复杂度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.5 校准复杂度</div>
-        
-        
-        
-        
-        
-        <div class="desc">BFIC 的校准是一个系统工程：
+    <div class="text-body">BFIC 的校准是一个系统工程：
 每个通道的相位和幅度都需要单独校准
 校准数据存储在非易失性存储器中
 运行中需要定期重新校准（温度漂移）
 对于 256 通道的 AAU，校准时间可能长达数小时</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

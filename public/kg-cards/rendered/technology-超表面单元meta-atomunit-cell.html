@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,30 +269,16 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.1 什么是超表面单元？</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.1 什么是超表面单元？</div>
-        
-        
-        
-        
-        
-        <div class="desc">超表面单元（Unit Cell / Meta-atom）是超表面的最小可寻址电磁控制单元。它的核心功能是：
+    <div class="text-body">超表面单元（Unit Cell / Meta-atom）是超表面的最小可寻址电磁控制单元。它的核心功能是：
 
 相位调控：改变反射或透射波的相位（通常 0-360° 可调）
 幅度调控：改变反射或透射波的幅度（可选）
 极化转换：改变波的极化状态（如线极化 → 圆极化）
 频率调控：对特定频率响应（通常窄带）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -388,19 +374,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.3 工作原理：等效电路模型</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.3 工作原理：等效电路模型</div>
-        
-        
-        
-        
-        
-        <div class="desc">每个超表面单元可以用一个可调表面阻抗 Z_s 来描述：
+    <div class="text-body">每个超表面单元可以用一个可调表面阻抗 Z_s 来描述：
 
 `
 Z_s = R_s + jX_s = f(V_control)
@@ -417,12 +393,8 @@ Z_s = R_s + jX_s = f(V_control)
 其中 Z_0 = 377Ω 是自由空间阻抗。
 
 通过调节 Z_s，可以控制 Γ 的相位 arg(Γ) 从 0 到 2π。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -527,19 +499,9 @@ Z_s = R_s + jX_s = f(V_control)
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 变容二极管（Varactor）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 变容二极管（Varactor）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：通过改变反向偏置电压，调节结电容 C_j。
+    <div class="text-body">原理：通过改变反向偏置电压，调节结电容 C_j。
 
 特点：
 连续相位调控：0-360° 连续可调
@@ -554,30 +516,16 @@ C_j(V) = C_0 / (1 + V/V_0)^γ
 `
 
 其中 γ 是掺杂剖面指数（0.33 为突变结，0.5 为缓变结）。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 MEMS（微机电系统）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 MEMS（微机电系统）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：通过静电力或热力驱动微机械结构移动。
+    <div class="text-body">原理：通过静电力或热力驱动微机械结构移动。
 
 特点：
 极低损耗：&lt; 0.1dB
@@ -590,42 +538,24 @@ C_j(V) = C_0 / (1 + V/V_0)^γ
 悬臂梁式：一端固定，一端可移动
 夹持式：两端固定，中间可移动
 翻转盖式：整个盖板翻转</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.4 液晶（Liquid Crystal）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.4 液晶（Liquid Crystal）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：电场改变液晶分子的取向 → 介电常数各向异性 → 相位变化。
+    <div class="text-body">原理：电场改变液晶分子的取向 → 介电常数各向异性 → 相位变化。
 
 特点：
 连续相位调控：0-360°
 极低功耗：只需维持电压（不切换时零功耗）
 响应速度慢：毫秒到秒级
 工作温度范围窄：-20°C 到 60°C</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -857,19 +787,9 @@ C_j(V) = C_0 / (1 + V/V_0)^γ
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3 互耦效应</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 互耦效应</div>
-        
-        
-        
-        
-        
-        <div class="desc">相邻单元之间的电磁耦合是超表面设计的核心挑战：
+    <div class="text-body">相邻单元之间的电磁耦合是超表面设计的核心挑战：
 
 `
 Z_effective = Z_self + Σ_{neighbors} Z_coupling
@@ -885,12 +805,8 @@ Z_effective = Z_self + Σ_{neighbors} Z_coupling
 单元之间加隔离槽（decoupling slots）
 预补偿算法（在控制信号中补偿互耦）
 全波仿真优化（HFSS/CST）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1036,19 +952,9 @@ Layer 5: 底层接地
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.5 Huygens 单元</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.5 Huygens 单元</div>
-        
-        
-        
-        
-        
-        <div class="desc">最理想的超表面单元——同时 electric dipole + magnetic dipole：
+    <div class="text-body">最理想的超表面单元——同时 electric dipole + magnetic dipole：
 
 `
 electric response:  J_s = σ_e · E_inc
@@ -1061,12 +967,8 @@ magnetic response:  M_s = σ_m · H_inc
 高效率（&gt; 90%）
 任意波前调控
 低互耦</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1227,179 +1129,85 @@ magnetic response:  M_s = σ_m · H_inc
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 RIS 智能反射面</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 RIS 智能反射面</div>
-        
-        
-        
-        
-        
-        <div class="desc">每个单元独立控制相位
+    <div class="text-body">每个单元独立控制相位
 宏观上实现波束反射/折射/聚焦
 典型规模：100-10000 个单元</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 全息 MIMO / CAPA</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 全息 MIMO / CAPA</div>
-        
-        
-        
-        
-        
-        <div class="desc">超表面作为连续孔径的实现载体
+    <div class="text-body">超表面作为连续孔径的实现载体
 单元间距 &lt;&lt; λ，近似连续
 通过控制每个单元的阻抗，生成任意波前</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 可重构天线</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 可重构天线</div>
-        
-        
-        
-        
-        
-        <div class="desc">单个超表面单元阵列作为天线辐射体
+    <div class="text-body">单个超表面单元阵列作为天线辐射体
 通过改变单元状态，动态调整天线方向图
 应用：波束扫描、极化切换、零点放置</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 电磁隐身/ cloaking</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 电磁隐身/ cloaking</div>
-        
-        
-        
-        
-        
-        <div class="desc">超表面单元设计为特定的折射率分布
+    <div class="text-body">超表面单元设计为特定的折射率分布
 引导电磁波绕过目标物体
 应用：天线罩、隐身涂层</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.5 太赫兹/光学子表面</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.5 太赫兹/光学子表面</div>
-        
-        
-        
-        
-        
-        <div class="desc">单元尺寸缩小到亚微米级
+    <div class="text-body">单元尺寸缩小到亚微米级
 工作频率从 THz 到可见光
 应用：超透镜、全息显示、光通信</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.1 温度稳定性</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.1 温度稳定性</div>
-        
-        
-        
-        
-        
-        <div class="desc">可调元件的参数随温度变化：
+    <div class="text-body">可调元件的参数随温度变化：
 
 PIN 二极管：正向压降 -2mV/°C
 变容管：结电容温度系数 ±50ppm/°C
 MEMS：热膨胀导致机械应力变化
 
 对策：温度补偿电路 + 校准算法。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.2 控制电路复杂度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.2 控制电路复杂度</div>
-        
-        
-        
-        
-        
-        <div class="desc">N 个单元需要 N 个控制信号：
+    <div class="text-body">N 个单元需要 N 个控制信号：
 
 1-bit：N 条 GPIO 线
 2-bit：2N 条 GPIO 线
@@ -1411,12 +1219,8 @@ MEMS：热膨胀导致机械应力变化
 行列复用（Row-Column Multiplexing）：N² 单元只需 2N 条线
 级联控制：通过少数控制线驱动多个单元
 FPGA/ASIC 专用控制器</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1492,46 +1296,22 @@ FPGA/ASIC 专用控制器</div>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.4 可靠性</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.4 可靠性</div>
-        
-        
-        
-        
-        
-        <div class="desc">PIN 二极管：平均无故障时间 &gt; 10 年（10⁹ 次开关）
+    <div class="text-body">PIN 二极管：平均无故障时间 &gt; 10 年（10⁹ 次开关）
 MEMS：机械疲劳是主要失效模式
 变容管：结老化导致电容漂移
 液晶：高温下性能退化</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">7.5 加工公差</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">7.5 加工公差</div>
-        
-        
-        
-        
-        
-        <div class="desc">单元尺寸的微小变化会导致相位响应的显著偏移：
+    <div class="text-body">单元尺寸的微小变化会导致相位响应的显著偏移：
 
 `
 Δphase ≈ (2π/λ) · (Δa/a) · L_effective
@@ -1544,12 +1324,8 @@ MEMS：机械疲劳是主要失效模式
 `
 
 12° 的相位误差在 4-bit（22.5° 步进）系统中是不可忽视的。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -313,19 +313,9 @@ W ≈ c / (2f) × √(2/(ε_r+1))  （优化辐射效率）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.2 工作原理：谐振腔模型</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 工作原理：谐振腔模型</div>
-        
-        
-        
-        
-        
-        <div class="desc">物理图像：
+    <div class="text-body">物理图像：
 贴片和接地层构成一个&#34;开放谐振腔&#34;
 电磁波在贴片边缘来回反射
 当腔长 = λ_g/2 时，形成谐振
@@ -340,30 +330,16 @@ E_z(x) ∝ cos(πx/L)
 `
 H_y(x) ∝ sin(πx/L)
 `</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.3 辐射机制：缝隙模型</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.3 辐射机制：缝隙模型</div>
-        
-        
-        
-        
-        
-        <div class="desc">每个短边等效为一个缝隙：
+    <div class="text-body">每个短边等效为一个缝隙：
 `
 E_edge ∝ V_gap / d
 `
@@ -373,12 +349,8 @@ E_edge ∝ V_gap / d
 方向图 = 单缝隙方向图 × 阵列因子
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -930,19 +902,9 @@ E_edge ∝ V_gap / d
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.2 带宽瓶颈</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.2 带宽瓶颈</div>
-        
-        
-        
-        
-        
-        <div class="desc">根本原因：贴片天线的 Q 值很高（储能大，辐射弱）。
+    <div class="text-body">根本原因：贴片天线的 Q 值很高（储能大，辐射弱）。
 
 `
 Q ≈ √ε_r × (λ₀/h)
@@ -955,12 +917,8 @@ BW ≈ f₀/Q
 使用激子层（Exciter Layer）：双层贴片
 开槽/刻蚀：引入多谐振模式
 使用 EBG 结构：抑制表面波，提高效率</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1120,19 +1078,9 @@ BW ≈ f₀/Q
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.3 5G 毫米波贴片阵列案例</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.3 5G 毫米波贴片阵列案例</div>
-        
-        
-        
-        
-        
-        <div class="desc">2025 IOP Science 28GHz 阵列：
+    <div class="text-body">2025 IOP Science 28GHz 阵列：
 基板：RT5880（ε_r = 2.2, tanδ = 0.0009）
 1×2 阵列：增益 11.1dBi，回波损耗 -31dB
 4×1 阵列：增益 13.8dBi，回波损耗 -41.4dB
@@ -1152,30 +1100,16 @@ BW ≈ f₀/Q
 特点：无 inset cut、无寄生贴片、无过孔
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.1 互耦问题</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.1 互耦问题</div>
-        
-        
-        
-        
-        
-        <div class="desc">原因：贴片之间的近场电磁耦合。
+    <div class="text-body">原因：贴片之间的近场电磁耦合。
 
 影响：
 阻抗失配（S11 恶化）
@@ -1188,12 +1122,8 @@ MIMO 相关性增加 → 容量下降
 `
 
 其中 d 是间距，δ_c 是耦合衰减长度。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1277,19 +1207,9 @@ MIMO 相关性增加 → 容量下降
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.3 MIMO 贴片阵列隔离设计</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.3 MIMO 贴片阵列隔离设计</div>
-        
-        
-        
-        
-        
-        <div class="desc">2023 IEEE 16端口 Massive MIMO：
+    <div class="text-body">2023 IEEE 16端口 Massive MIMO：
 负折射率材料（NIM）隔离
 端口间隔离 &gt; 25dB
 通道相关系数 &lt; 0.1
@@ -1304,92 +1224,46 @@ Meta-Surface Antenna Array Decoupling
 极小间距（&lt; 0.3λ）下仍保持 &gt; 20dB 隔离
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 圆形贴片</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 圆形贴片</div>
-        
-        
-        
-        
-        
-        <div class="desc">特点：
+    <div class="text-body">特点：
 支持圆极化（正交模激发）
 带宽比矩形略高
 尺寸：D = c/(f√ε_r)</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.2 三角/六边形贴片</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.2 三角/六边形贴片</div>
-        
-        
-        
-        
-        
-        <div class="desc">特点：
+    <div class="text-body">特点：
 降低互耦（紧密排列）
 带宽略低
 适合蜂窝阵列</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 环形/八边形贴片</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 环形/八边形贴片</div>
-        
-        
-        
-        
-        
-        <div class="desc">特点：
+    <div class="text-body">特点：
 多谐振模式 → 宽带
 2025 研究：八边形环状贴片，23-29GHz 带宽</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1485,19 +1359,9 @@ Meta-Surface Antenna Array Decoupling
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.5 柔性贴片天线</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.5 柔性贴片天线</div>
-        
-        
-        
-        
-        
-        <div class="desc">基板：PI（聚酰亚胺）、PET、LCP（液态晶体聚合物）
+    <div class="text-body">基板：PI（聚酰亚胺）、PET、LCP（液态晶体聚合物）
 
 特点：
 可弯曲、可折叠
@@ -1505,71 +1369,39 @@ Meta-Surface Antenna Array Decoupling
 损耗略高于刚性基板
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">优点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">优点</div>
-        
-        
-        
-        
-        
-        <div class="desc">超低剖面：高度 0.01-0.05λ，几乎不占空间
+    <div class="text-body">超低剖面：高度 0.01-0.05λ，几乎不占空间
 轻量化：PCB 材料，克级重量
 易集成：与微波集成电路（MIC/MMIC）兼容
 低成本：标准 PCB 工艺，批量生产极便宜
 灵活极化：矩形/圆形/交叉贴片实现线极化/圆极化
 阵列友好：天然适合大规模阵列（Massive MIMO）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">缺点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">缺点</div>
-        
-        
-        
-        
-        
-        <div class="desc">窄带宽：基本结构仅 1-5%
+    <div class="text-body">窄带宽：基本结构仅 1-5%
 低功率容量：PCB 材料耐热性差（&lt; 10W）
 表面波损耗：高 ε_r 基板损耗大
 互耦严重：密集阵列时性能下降
 制造公差敏感：毫米波频段尺寸误差影响大
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

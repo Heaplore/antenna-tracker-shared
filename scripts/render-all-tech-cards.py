@@ -156,8 +156,9 @@ def normalize_node(node: dict) -> dict:
                 if table_result:
                     sec.update(table_result)
                 else:
-                    sec["type"] = "list"
-                    sec["entries"] = [{"name": sec["title"], "desc": strip_markdown(raw)}]
+                    # 不是表格就是普通文本（段落/列表），统一走 text 类型
+                    sec["type"] = "text"
+                    sec["content"] = strip_markdown(raw.strip())
         else:
             sec["type"] = "text"
             sec["content"] = strip_markdown(raw.strip())

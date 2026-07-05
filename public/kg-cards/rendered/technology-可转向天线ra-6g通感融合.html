@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -281,19 +281,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5G 基站的&#34;方向困境&#34;</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5G 基站的&#34;方向困境&#34;</div>
-        
-        
-        
-        
-        
-        <div class="desc">5G 基站天线一旦安装，覆盖方向就基本固定了。传统做法是每个扇区 120°，三个扇区拼成 360° 全覆盖。但这种静态覆盖模式在 6G 时代面临三大瓶颈：
+    <div class="text-body">5G 基站天线一旦安装，覆盖方向就基本固定了。传统做法是每个扇区 120°，三个扇区拼成 360° 全覆盖。但这种静态覆盖模式在 6G 时代面临三大瓶颈：
 
 瓶颈 1：覆盖有盲区
 
@@ -306,30 +296,16 @@
 瓶颈 3：干扰难控
 
 密集部署的基站之间，波束重叠区域会产生同频干扰。固定朝向的天线无法动态规避干扰方向，只能靠复杂的算法在信号层面&#34;擦屁股&#34;。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">核心思路：把&#34;方向自由度&#34;还给天线</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">核心思路：把&#34;方向自由度&#34;还给天线</div>
-        
-        
-        
-        
-        
-        <div class="desc">可转向天线（Rotatable Antenna, RA）的核心创新在于：在天线阵列的波束赋形之外，增加了一个宏观的方向自由度——让整个天线阵列可以转动。
+    <div class="text-body">可转向天线（Rotatable Antenna, RA）的核心创新在于：在天线阵列的波束赋形之外，增加了一个宏观的方向自由度——让整个天线阵列可以转动。
 
 `
 传统基站:  天线固定 → 只能靠波束赋形在 ±60° 内微调
@@ -339,30 +315,16 @@
 类比：你用望远镜看星星。传统方式是望远镜固定不动，只能靠调整内部镜片来追踪星星的移动。可转向天线相当于给望远镜装了一个赤道仪——整个镜筒跟着星星转，内部镜片只需要做微小调整。
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">机械转向（Mechanical Steering）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">机械转向（Mechanical Steering）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：用伺服电机、舵机或步进电机带动整个天线阵列转动，改变天线的物理朝向。
+    <div class="text-body">原理：用伺服电机、舵机或步进电机带动整个天线阵列转动，改变天线的物理朝向。
 
 特点：
 转向范围：360° 水平 + ±90° 俯仰（全向）
@@ -383,30 +345,16 @@
 卫星通信地球站
 雷达系统
 低空经济中的无人机追踪基站</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">电子转向（Electronic Steering / Beamforming）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">电子转向（Electronic Steering / Beamforming）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：不移动天线本身，通过调节阵列内各元件的信号相位和幅度，实现波束的&#34;虚拟转向&#34;。这就是波束赋形的核心能力。
+    <div class="text-body">原理：不移动天线本身，通过调节阵列内各元件的信号相位和幅度，实现波束的&#34;虚拟转向&#34;。这就是波束赋形的核心能力。
 
 特点：
 转向范围：受限于阵列几何和单元间距，通常 ±60°
@@ -427,30 +375,16 @@
 相控阵卫星通信（Starlink 用户终端）
 军用雷达
 毫米波回传</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">混合转向（Hybrid Steering）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">混合转向（Hybrid Steering）</div>
-        
-        
-        
-        
-        
-        <div class="desc">原理：机械负责大范围粗调，电子负责小范围精调。两者协同工作，取长补短。
+    <div class="text-body">原理：机械负责大范围粗调，电子负责小范围精调。两者协同工作，取长补短。
 
 特点：
 转向范围：机械提供 360° 粗调 + 电子提供 ±60° 精调 = 理论无死角
@@ -474,59 +408,31 @@
 云台+阵列架构：天线阵列安装在二维云台上（azimuth + elevation），云台提供大范围转向，阵列内部做精细波束控制
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">覆盖扩展</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">覆盖扩展</div>
-        
-        
-        
-        
-        
-        <div class="desc">机械转向让天线可以&#34;回头看&#34;，消除了固定天线的覆盖盲区。
+    <div class="text-body">机械转向让天线可以&#34;回头看&#34;，消除了固定天线的覆盖盲区。
 
 实测数据：
 传统 120° 扇区基站：盲区约 120°（两个扇区交界处）
 可转向天线：360° 全覆盖，盲区 &lt; 5°（机械转向死区）
 小区半径扩展：18-25%（波束更精准对准用户，等效增益提升）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">干扰抑制</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">干扰抑制</div>
-        
-        
-        
-        
-        
-        <div class="desc">天线转向可以智能规避干扰方向，而不是在信号层面&#34;擦屁股&#34;。
+    <div class="text-body">天线转向可以智能规避干扰方向，而不是在信号层面&#34;擦屁股&#34;。
 
 机制：
 在干扰方向形成波束零点（null steering）
@@ -534,56 +440,28 @@
 电子波束赋形在干扰方向形成深度零点（-30dB 以下）
 
 效果：同频干扰降低 15-25dB，小区边缘 SINR 提升 3-6dB。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">空间复用效率</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">空间复用效率</div>
-        
-        
-        
-        
-        
-        <div class="desc">可转向天线可以让不同扇区的覆盖区域动态调整，避免重叠干扰，提升空间复用效率。
+    <div class="text-body">可转向天线可以让不同扇区的覆盖区域动态调整，避免重叠干扰，提升空间复用效率。
 
 场景：白天写字楼区域用户密集，天线自动转向写字楼方向；夜间住宅区用户密集，天线自动转向住宅方向。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">通感一体化（ISAC）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">通感一体化（ISAC）</div>
-        
-        
-        
-        
-        
-        <div class="desc">这是可转向天线在 6G 时代最大的想象空间。
+    <div class="text-body">这是可转向天线在 6G 时代最大的想象空间。
 
 通感一体化：同一套天线硬件同时做两件事——通信（传输数据）和感知（雷达探测）。
 
@@ -600,54 +478,26 @@
 类比：你的眼睛和耳朵。眼睛看东西（感知），嘴巴说话（通信）。可转向天线就是 6G 基站的&#34;眼睛+嘴巴&#34;——一边看一边说，看到的用来指导说的方向。
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">问题本质</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">问题本质</div>
-        
-        
-        
-        
-        
-        <div class="desc">天线有 N 个可能的朝向，每个朝向下又有 M 个可能的波束。总共有 N×M 种组合。逐一尝试？太慢了。全部同时开启？算力不够。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">天线有 N 个可能的朝向，每个朝向下又有 M 个可能的波束。总共有 N×M 种组合。逐一尝试？太慢了。全部同时开启？算力不够。</div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">解决方案：两阶段渐进式估计</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">解决方案：两阶段渐进式估计</div>
-        
-        
-        
-        
-        
-        <div class="desc">第一阶段：粗估计（Coarse Estimation）
+    <div class="text-body">第一阶段：粗估计（Coarse Estimation）
 
 通过低速扫描（机械转动 + 低分辨率波束），快速锁定用户的大致方向。
 
@@ -676,30 +526,16 @@
 耗时：约 1-5ms。
 
 总耗时：11-55ms，满足 6G 通信的时延要求（&lt; 100ms）。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">交替优化算法</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">交替优化算法</div>
-        
-        
-        
-        
-        
-        <div class="desc">将机械转向和电子波束赋形联合优化，通过连续凸近似（SCA）方法求解。核心思想：
+    <div class="text-body">将机械转向和电子波束赋形联合优化，通过连续凸近似（SCA）方法求解。核心思想：
 
 固定机械角度，优化电子波束权重 → 凸优化问题
 固定电子波束，优化机械角度 → 凸优化问题
@@ -708,41 +544,23 @@
 理论保证：在凸近似条件下，交替优化算法收敛到局部最优解。实际部署中，3-5 次迭代即可达到满意性能。
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">原型成本（实验室阶段）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">原型成本（实验室阶段）</div>
-        
-        
-        
-        
-        
-        <div class="desc">之前的原型验证显示，一套 4 单元可转向天线阵列的硬件成本约 1624 元：
+    <div class="text-body">之前的原型验证显示，一套 4 单元可转向天线阵列的硬件成本约 1624 元：
 天线单元 × 4：582 元
 舵机云台 × 4：137 元
 FPGA 开发板：419 元
 无人机（测试平台）：399 元
 其他配件：87 元</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -830,19 +648,9 @@ FPGA 开发板：419 元
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">Kymeta 电子转向平板天线</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">Kymeta 电子转向平板天线</div>
-        
-        
-        
-        
-        
-        <div class="desc">Kymeta 是全球领先的电子转向天线公司，其产品基于 metamaterial（超材料）技术，无需机械运动即可实现波束转向。
+    <div class="text-body">Kymeta 是全球领先的电子转向天线公司，其产品基于 metamaterial（超材料）技术，无需机械运动即可实现波束转向。
 
 最新进展（2025-2026）：
 KuKa 8 Series：全球首款 Ku 波段 + Ka 波段多频并发电子转向天线
@@ -851,30 +659,16 @@ KuKa 8 Series：全球首款 Ku 波段 + Ka 波段多频并发电子转向天线
 美国海军 ONR 合同验证中
 
 技术路线：Kymeta 走的是纯电子转向路线（无机械部件），优势是响应极快、无磨损、外形扁平。劣势是带宽和增益不如机械转向方案。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6DMA 可移动天线（学术界）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6DMA 可移动天线（学术界）</div>
-        
-        
-        
-        
-        
-        <div class="desc">清华大学/香港中文大学团队提出的 6DMA（6D Movable Antenna）架构：
+    <div class="text-body">清华大学/香港中文大学团队提出的 6DMA（6D Movable Antenna）架构：
 
 天线阵列可在三维空间中沿导轨移动 + 旋转
 6 个自由度：X/Y/Z 平移 + 方位/俯仰/滚转旋转
@@ -882,30 +676,16 @@ KuKa 8 Series：全球首款 Ku 波段 + Ka 波段多频并发电子转向天线
 仿真显示：相比固定天线，sum-rate 提升 2-5 倍
 
 商业化前景：6DMA 目前仍处于学术研究阶段，但概念已被多家设备商关注。预计 2028-2030 年可能出现首批商用产品。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">低空经济中的可转向天线</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">低空经济中的可转向天线</div>
-        
-        
-        
-        
-        
-        <div class="desc">6G 通感一体化（ISAC）在低空经济中的应用是最受关注的场景之一：
+    <div class="text-body">6G 通感一体化（ISAC）在低空经济中的应用是最受关注的场景之一：
 
 场景 1：无人机物流
 
@@ -929,12 +709,8 @@ ISAC 基站通过感知功能扫描机场周边空域
 感知数据用于调度优化和碰撞预防
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -962,49 +738,25 @@ ISAC 基站通过感知功能扫描机场周边空域
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">挑战 1：机械可靠性</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">挑战 1：机械可靠性</div>
-        
-        
-        
-        
-        
-        <div class="desc">户外部署的天线需要承受风载、雨雪、温差。机械转向机构的密封性和耐久性是关键。
+    <div class="text-body">户外部署的天线需要承受风载、雨雪、温差。机械转向机构的密封性和耐久性是关键。
 
 解决方案：
 IP67 防护等级（防尘防水）
 伺服电机 + 谐波减速器（高精度、长寿命）
 编码器闭环控制（实时反馈实际角度）
 自动归位：断电后弹簧复位到安全角度</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">挑战 2：控制复杂度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">挑战 2：控制复杂度</div>
-        
-        
-        
-        
-        
-        <div class="desc">机械转向和电子波束赋形的协同控制需要复杂的算法。
+    <div class="text-body">机械转向和电子波束赋形的协同控制需要复杂的算法。
 
 难点：
 两级转向的切换时机（什么时候该机械转，什么时候该电子调？）
@@ -1015,30 +767,16 @@ IP67 防护等级（防尘防水）
 两层时间尺度的解耦优化（机械：秒级；电子：毫秒级）
 过渡期波束保持（机械转动时，电子波束暂时覆盖更大范围）
 AI 预测用户轨迹，提前规划转向策略</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">挑战 3：风载与结构</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">挑战 3：风载与结构</div>
-        
-        
-        
-        
-        
-        <div class="desc">可转向天线在强风下需要保持指向精度。
+    <div class="text-body">可转向天线在强风下需要保持指向精度。
 
 解决方案：
 风速传感器 + 自动进入&#34;安全模式&#34;（转向顺风方向减小受力）
@@ -1046,110 +784,50 @@ AI 预测用户轨迹，提前规划转向策略</div>
 主动风载补偿（风力作用时，电子波束微调抵消指向偏差）
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">趋势 1：从 6DMA 到全空间可动天线</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">趋势 1：从 6DMA 到全空间可动天线</div>
-        
-        
-        
-        
-        
-        <div class="desc">6DMA 的 6 个自由度（3 平移 + 3 旋转）只是起点。未来可能出现更灵活的&#34;可变形天线&#34;——天线单元 individually movable，每个单元都可以独立移动位置，实现任意空间分布。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">6DMA 的 6 个自由度（3 平移 + 3 旋转）只是起点。未来可能出现更灵活的&#34;可变形天线&#34;——天线单元 individually movable，每个单元都可以独立移动位置，实现任意空间分布。</div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">趋势 2：与 RIS 结合的&#34;超可转向&#34;架构</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">趋势 2：与 RIS 结合的&#34;超可转向&#34;架构</div>
-        
-        
-        
-        
-        
-        <div class="desc">可重构智能表面（RIS） + 可转向天线 = 双重可转向。RIS 负责局部波束反射和聚焦，可转向天线负责大范围覆盖调整。两者结合可以实现前所未有的波束控制精度。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">可重构智能表面（RIS） + 可转向天线 = 双重可转向。RIS 负责局部波束反射和聚焦，可转向天线负责大范围覆盖调整。两者结合可以实现前所未有的波束控制精度。</div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">趋势 3：AI 驱动的自主转向</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">趋势 3：AI 驱动的自主转向</div>
-        
-        
-        
-        
-        
-        <div class="desc">深度学习预测用户轨迹和环境变化，天线&#34;未卜先知&#34;地提前转向。不是&#34;用户到哪我跟到哪&#34;，而是&#34;我知道你要到哪，我先转过去等你&#34;。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">深度学习预测用户轨迹和环境变化，天线&#34;未卜先知&#34;地提前转向。不是&#34;用户到哪我跟到哪&#34;，而是&#34;我知道你要到哪，我先转过去等你&#34;。</div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">趋势 4：空天地海全域覆盖</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">趋势 4：空天地海全域覆盖</div>
-        
-        
-        
-        
-        
-        <div class="desc">可转向天线不仅是地面基站的核心技术，还将延伸到卫星（对地波束动态调整）、船舶（海浪中的稳定指向）、飞行器（高速移动中的波束保持）。
+    <div class="text-body">可转向天线不仅是地面基站的核心技术，还将延伸到卫星（对地波束动态调整）、船舶（海浪中的稳定指向）、飞行器（高速移动中的波束保持）。
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
 

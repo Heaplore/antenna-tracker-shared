@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -618,19 +618,9 @@ PCB 表面处理工艺至关重要（ENEIG vs HASL）</div>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 缝隙天线（Slot Antenna）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 缝隙天线（Slot Antenna）</div>
-        
-        
-        
-        
-        
-        <div class="desc">在金属接地层上刻蚀缝隙作为辐射体：
+    <div class="text-body">在金属接地层上刻蚀缝隙作为辐射体：
 
 `
 GND 层:  ──╫══╫══╫══╫──
@@ -644,12 +634,8 @@ Signal:   ─────────────   ← 微带馈线
 易于集成于多层 PCB
 带宽优于贴片（5-10%）
 增益：10-15dBi（4×4 阵列）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -757,88 +743,46 @@ Signal:   ─────────────   ← 微带馈线
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.4 漏波天线（Leaky-Wave Antenna）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.4 漏波天线（Leaky-Wave Antenna）</div>
-        
-        
-        
-        
-        
-        <div class="desc">详见 [[技术概念-漏波天线Leaky-Wave-Antenna]]
+    <div class="text-body">详见 [[技术概念-漏波天线Leaky-Wave-Antenna]]
 
 特点：
 频率扫描波束（无需移相器）
 高增益（15-25dBi）
 宽带（10-40%）
 集成度高（SIW 实现）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.5 封装天线 AiP（Antenna-in-Package）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.5 封装天线 AiP（Antenna-in-Package）</div>
-        
-        
-        
-        
-        
-        <div class="desc">详见 [[技术概念-封装天线Antenna-in-Package-AiP]]
+    <div class="text-body">详见 [[技术概念-封装天线Antenna-in-Package-AiP]]
 
 特点：
 天线集成于芯片封装
 单元尺寸极小（毫米级）
 需要 LCP/玻璃基板
 5G 手机主流方案</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.6 平面倒 F 天线（PIFA）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.6 平面倒 F 天线（PIFA）</div>
-        
-        
-        
-        
-        
-        <div class="desc">常用于毫米波手机内部
+    <div class="text-body">常用于毫米波手机内部
 尺寸紧凑
 带宽窄（1-3%）
 增益：3-6dBi</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -932,46 +876,22 @@ R_s = √(πfμ/σ)
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.2 互耦加剧</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.2 互耦加剧</div>
-        
-        
-        
-        
-        
-        <div class="desc">毫米波波长极短（28GHz 时 λ ≈ 10.7mm），单元间距仅需 λ/2 ≈ 5.3mm。密集排列导致：
+    <div class="text-body">毫米波波长极短（28GHz 时 λ ≈ 10.7mm），单元间距仅需 λ/2 ≈ 5.3mm。密集排列导致：
 表面波耦合增强
 馈电网络互耦显著
 需要精密的去耦设计</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3 热管理</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 热管理</div>
-        
-        
-        
-        
-        
-        <div class="desc">毫米波功放效率低（10-20%），大量能量转化为热量：
+    <div class="text-body">毫米波功放效率低（10-20%），大量能量转化为热量：
 
 `
 P_heat = P_RF / η_PA - P_RF
@@ -986,12 +906,8 @@ P_heat = 100/0.15 - 100 = 567W
 金属散热底座（Cu-W, Cu-Mo）
 热通孔阵列（Thermal Via Array）
 微通道液冷（高端基站）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1057,19 +973,9 @@ P_heat = 100/0.15 - 100 = 567W
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.5 馈电网络损耗</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.5 馈电网络损耗</div>
-        
-        
-        
-        
-        
-        <div class="desc">大规模阵列的馈电网络本身就是损耗大户：
+    <div class="text-body">大规模阵列的馈电网络本身就是损耗大户：
 
 `
 总损耗 = 分配损耗 + 导体损耗 + 接头损耗
@@ -1082,12 +988,8 @@ P_heat = 100/0.15 - 100 = 567W
 导体损耗（28GHz）：1-3dB
 接头/过渡损耗：0.5-1dB
 总计：2-5dB</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1121,19 +1023,9 @@ Level 3: 8 路输出（每个再分 8 路 → 64 单元）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.2 波束赋形网络</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.2 波束赋形网络</div>
-        
-        
-        
-        
-        
-        <div class="desc">毫米波天线必须配合波束赋形才能工作：
+    <div class="text-body">毫米波天线必须配合波束赋形才能工作：
 
 `
 数字域：BFIC（波束成形IC）
@@ -1148,30 +1040,16 @@ Level 3: 8 路输出（每个再分 8 路 → 64 单元）
 幅度控制：4-8 bit
 波束切换时间：&lt; 1μs
 波束指向精度：&lt; 0.5°</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">4.3 通道校准</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">4.3 通道校准</div>
-        
-        
-        
-        
-        
-        <div class="desc">毫米波阵列需要定期校准以补偿通道间偏差：
+    <div class="text-body">毫米波阵列需要定期校准以补偿通道间偏差：
 
 `
 Δphase_per_channel &lt; 5°
@@ -1182,122 +1060,62 @@ Level 3: 8 路输出（每个再分 8 路 → 64 单元）
 内置校准网络（Coupler + Directional Detector）
 外部互易校准（利用信道互易性）
 数字域自适应校准（基于导频信号）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.1 5G 基站（gNB）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.1 5G 基站（gNB）</div>
-        
-        
-        
-        
-        
-        <div class="desc">天线类型：波导缝隙阵列 / 贴片阵列
+    <div class="text-body">天线类型：波导缝隙阵列 / 贴片阵列
 单元数：64-512（大规模 MIMO）
 增益：25-35dBi
 波束数：8-64 个独立波束
 典型厂商：华为、中兴、爱立信、诺基亚</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.2 5G 手机</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.2 5G 手机</div>
-        
-        
-        
-        
-        
-        <div class="desc">天线类型：AiP / PIFA / 贴片
+    <div class="text-body">天线类型：AiP / PIFA / 贴片
 频段：n257/n258/n260/n261
 单元数：4-16（受限于机身空间）
 增益：3-10dBi
 关键挑战：人手遮挡、电池/屏幕干扰</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.3 V2X 车联网</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.3 V2X 车联网</div>
-        
-        
-        
-        
-        
-        <div class="desc">频段：76-81 GHz（4D 成像雷达）
+    <div class="text-body">频段：76-81 GHz（4D 成像雷达）
 天线类型：SiGe MMIC 集成贴片/缝隙
 增益：15-20dBi
 波束扫描：电子扫描 ±60°</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.4 卫星通信（Ka 波段）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.4 卫星通信（Ka 波段）</div>
-        
-        
-        
-        
-        
-        <div class="desc">频段：20-40 GHz
+    <div class="text-body">频段：20-40 GHz
 天线类型：抛物面 / 相控阵
 增益：35-45dBi
 波束指向：机械 + 电子混合</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

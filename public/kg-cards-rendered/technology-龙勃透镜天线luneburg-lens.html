@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>龙勃透镜天线Luneburg-Lens — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    height: 1080px;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+    column-count: 2;
+    column-gap: 12px;
+  }
+  .canvas .hero {
+    column-span: all;
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    margin-bottom: 12px;
+  }
+  .block.section-table, .block.section-comparison {
+    /* 不再 column-span: all，只占一列宽度 */
+  }
+  .block.section-text {
+    column-span: all;
+    width: 100%;
+  }
+  .block:last-child.related-block {
+    flex: 1 1 100%;
+    column-span: all;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-02</div>
+    </div>
+    <div class="hero-title">
+      龙勃透镜天线Luneburg-Lens
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术/技术概念</span><span>龙勃透镜</span><span>Luneburg</span><span>Lens</span><span>无源波束扫描</span><span>介电常数梯度</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> 龙勃透镜是一种介电常数从中心到表面呈径向渐变的球形透镜天线——中心 ε_r ≈ 2，表面 ε_r ≈ 1。它将馈源置于球面上任意一点时，能将球面波转换为相反方向的高增益平行波束，且无需有源移相器即可实现无源波束扫描。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> 想象一个透明的玻璃球，但球的内部不是均匀的——越靠近中心折射率越高，越靠近表面越低。</div>
+    
+    
+  </div>
+
+  
+    
+
+    
+  <div class="block section-table">
+    <div class="block-title">1.1 龙勃透镜的折射率分布</div>
+    <table class="tbl">
+      <thead><tr>
+        <th>内容</th>
+      </tr></thead>
+      <tbody>
+        
+        <tr>
+          
+          <td>理想龙勃透镜的相对介电常数径向分布：</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>ε_r(r) = 2 - (r/R)²</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>其中：</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- r 是从球心到球面的径向距离</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- R 是球半径</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- r = 0（球心）：ε_r = 2</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>- r = R（球面）：ε_r = 1（等于空气）</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>**折射率分布曲线**：</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>ε_r</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>2.0 │●</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>│  ●</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>1.8 │    ●</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>│       ●</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>1.5 │          ●</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>│             ●</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>1.0 │                ●●●●●</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>0    0.2  0.4  0.6  0.8   1.0</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.2 工作原理</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.2 工作原理</div>
+        
+        
+        
+        
+        
+        <div class="desc">**发射模式**：
+1. 馈源置于球面某点 F₁
+2. 球面波进入透镜
+3. 由于折射率梯度，波前被逐渐弯曲
+4. 从球面正对面 F₂ 射出时变成平行波束
+5. 波束方向指向 F₁ 的对跖点
+
+**接收模式**：
+1. 来自 F₁ 对跖点方向的平面波入射
+2. 透镜将平面波聚焦到球面 F₂ 点
+3. 馈源在 F₂ 点接收聚焦能量
+
+**波束扫描**：
+- 将多个馈源排列在球面的&#34;焦平面&#34;上
+- 切换不同的馈源 → 波束指向改变
+- 扫描范围：理论上 ±90°（实际 ±60-70°）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">1.3 增益公式 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>G = π²·D²/λ² · ε_ap
+
+
+其中 D = 2R 是透镜直径，ε_ap 是孔径效率（通常 50-70%）。
+
+**典型值**：
+
+| 透镜直径 | 频率 | 增益 |
+|---------|------|------|
+| 0.5m | 10GHz | 28dBi |
+| 0.3m | 14GHz | 27dBi |
+| 0.1m | 28GHz | 24dBi |
+| 0.05m | 60GHz | 21dBi |</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.1 全球形透镜 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>┌───────┐
+    ───┤  ε(r) ├───← 馈源在球面
+       └───────┘
+
+
+- 馈源在球面上
+- 全向扫描（360° azimuth）
+- 馈源与透镜耦合复杂</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.2 半球形透镜（Half-Luneburg） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>┌───────┐
+    ───┤  ε(r) ├───← 馈源阵列在焦平面
+       └───────┘
+      ────────      ← 金属接地面
+
+
+- 底部加金属接地面
+- 馈源在焦平面上方（易于布线）
+- 扫描范围：±60°（azimuth 360°）</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.3 阶梯折射率透镜（Stepped-Index）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.3 阶梯折射率透镜（Stepped-Index）</div>
+        
+        
+        
+        
+        
+        <div class="desc">理想 ε_r(r) 是连续函数，实际用多层球壳近似：
+
+```
+Layer 1 (core):    ε_r = 1.95
+Layer 2:           ε_r = 1.80
+Layer 3:           ε_r = 1.55
+Layer 4:           ε_r = 1.30
+Layer 5 (surface): ε_r = 1.05
+```
+
+**层数 vs 性能**：
+
+| 层数 | 增益损失 | 扫描角误差 | 制造难度 |
+|------|---------|----------|---------|
+| 3 | -2dB | ±5° | 低 |
+| 5 | -0.5dB | ±2° | 中 |
+| 10 | -0.1dB | ±0.5° | 高 |
+| ∞（理想） | 0 | 0 | 不可能 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.4 GRIN 透镜（渐变折射率超材料）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.4 GRIN 透镜（渐变折射率超材料）</div>
+        
+        
+        
+        
+        
+        <div class="desc">用超材料或周期性结构实现连续的 ε_r(r) 分布：
+
+```
+外层：小单元、低填充率 → 低 ε_r
+中层：中等单元 → 中等 ε_r
+内层：大单元、高填充率 → 高 ε_r
+```
+
+**优势**：
+- 逼近理想折射率分布
+- 可实现任意曲面（非球形）
+- 轻量化</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">2.5 准形变换透镜（Quasi-Conformal Luneburg）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">2.5 准形变换透镜（Quasi-Conformal Luneburg）</div>
+        
+        
+        
+        
+        
+        <div class="desc">通过共形变换光学设计，将球形透镜&#34;压扁&#34;成任意形状：
+
+```
+理想球形 → 准形变换 → 扁平/圆柱形透镜
+```
+
+**应用**：
+- 卫星表面贴装（减轻重量和气动阻力）
+- 车辆集成（低剖面）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">三、与相控阵的对比</div>
+    <div class="text-body">| 特性 | 龙勃透镜 | 相控阵 |
+|------|---------|--------|
+| 波束扫描方式 | 馈源切换（无源） | 移相器（有源） |
+| 复杂度 | 低（无源透镜 + N 个馈源） | 高（N 个 T/R 模块） |
+| 功耗 | 极低（透镜无源） | 高（T/R 模块功耗大） |
+| 波束数量 | 离散（等于馈源数） | 连续（任意指向） |
+| 扫描速度 | 微秒级（开关切换） | 纳秒级（电子移相） |
+| 成本 | 低（无源） | 高（有源） |
+| 增益 | 高（25-35dBi） | 高（25-35dBi） |
+| 极化纯度 | 好 | 好 |
+| 多波束 | 天然支持（多馈源） | 需要数字波束赋形 |
+| 体积 | 大（球径 D &gt; λ） | 薄（平板） |</div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-table">
+    <div class="block-title">3.1 核心优势：无源扫描</div>
+    <table class="tbl">
+      <thead><tr>
+        <th>内容</th>
+      </tr></thead>
+      <tbody>
+        
+        <tr>
+          
+          <td>龙勃透镜最大的亮点是**不需要任何有源移相器就能扫描波束**。相控阵需要 N 个移相器（每个 T/R 模块一个），而龙勃透镜只需要 N 个馈源 + 一个开关矩阵：</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>馈源 1 ──┐</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>馈源 2 ──┤</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>馈源 3 ──┼── [RF Switch] ──→ 接收机</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>...     │</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>馈源 N ──┘</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>```</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>开关矩阵的复杂度是 O(N)，而相控阵的复杂度是 O(N²)（每个单元都需要移相器）。</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">3.2 核心劣势：扫描速度</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">3.2 核心劣势：扫描速度</div>
+        
+        
+        
+        
+        
+        <div class="desc">龙勃透镜的扫描速度受限于 RF 开关（微秒级），而相控阵的移相器可以达到纳秒级。对于需要快速跳波束的应用（如电子战），相控阵更合适。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.1 卫星通信（SATCOM）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.1 卫星通信（SATCOM）</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 移动卫星通信（SoM）的终端天线
+- 无需电子移相器，减轻卫星重量
+- Ku/Ka 波段（12-40GHz）
+- 扫描范围：±50-70°</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.2 地面基站</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.2 地面基站</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 多波束基站（一颗透镜 + 多个馈源 = 多个扇区）
+- 减少 T/R 模块数量（降低成本）
+- 5G 前传/回传</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.3 雷达系统</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.3 雷达系统</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 防空雷达（大扫描范围 + 高增益）
+- 火控雷达（F-22 等战机使用龙勃透镜天线罩）
+- 无源扫描，可靠性高</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">4.4 5G 固定无线接入（FWA）</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">4.4 5G 固定无线接入（FWA）</div>
+        
+        
+        
+        
+        
+        <div class="desc">- 户外 CPE 天线
+- 免维护（无源，无电子故障点）
+- 安装简单（对准基站即可）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.1 材料选择</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.1 材料选择</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 材料 | ε_r (core) | 密度 | 成本 | 适用频段 |
+|------|-----------|------|------|---------|
+| 聚苯乙烯泡沫 | 1.05 | 极低 | 低 | UHF/VHF |
+| PVC 泡沫 | 1.5-2.5 | 低 | 低 | L/S/C 波段 |
+| 陶瓷粉末复合材料 | 1.5-2.0 | 中 | 中 | X/Ka 波段 |
+| 3D 打印梯度材料 | 可调 | 中 | 高 | 毫米波 |
+| 超材料/超表面 | 可调 | 低 | 很高 | 毫米波/THz |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.2 制造工艺</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.2 制造工艺</div>
+        
+        
+        
+        
+        
+        <div class="desc">**传统方法**：
+1. 分层球壳加工（每层不同 ε_r 的材料）
+2. 球壳组装（胶合或机械固定）
+3. 表面精加工（抛光）
+
+**现代方法**：
+1. 3D 打印梯度介电结构
+2. 超材料单元排列（等效 ε_r）
+3. 注塑成型（大批量低成本）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">5.3 馈源设计</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">5.3 馈源设计</div>
+        
+        
+        
+        
+        
+        <div class="desc">馈源是龙勃透镜的天线&#34;嘴巴&#34;，直接决定了性能：
+
+| 馈源类型 | 带宽 | 增益 | 适用场景 |
+|---------|------|------|---------|
+| 角锥喇叭 | 1-2oct | 8-12dBi | 基站/卫星 |
+| 贴片天线 | &lt; 5% | 5-8dBi | 手机集成 |
+| Vivaldi | &gt; 3oct | 10-15dBi | 超宽带 |
+| 螺旋天线 | 1-2oct | 8-12dBi | 圆极化 |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.1 体积问题</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.1 体积问题</div>
+        
+        
+        
+        
+        
+        <div class="desc">透镜直径 D 必须满足：
+```
+D &gt; 10λ  （保证高增益）
+```
+
+在 28GHz（λ = 10.7mm）时，D &gt; 107mm。在 10GHz 时，D &gt; 300mm。
+
+**解决方案**：
+- 使用半透镜（Half-Luneburg）减小体积
+- 使用高 ε_r 核心材料缩小波长等效尺寸
+- 超材料 GRIN 实现轻薄化</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.2 馈源互耦</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.2 馈源互耦</div>
+        
+        
+        
+        
+        
+        <div class="desc">多个馈源紧密排列在球面上时，馈源之间会互相耦合：
+
+```
+S_feeder_coupling &gt; -15dB  （典型值）
+```
+
+**解决方案**：
+- 馈源之间加隔离墙
+- 使用低增益馈源（减少能量泄漏到相邻馈源）
+- 馈源间距 ≥ 2λ</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.3 制造公差</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.3 制造公差</div>
+        
+        
+        
+        
+        
+        <div class="desc">每层介电常数的偏差会导致波束指向误差：
+
+```
+Δθ_beam ≈ arctan(Δε_r / ε_r) · 90°
+```
+
+对于 ε_r 偏差 5%，Δθ_beam ≈ 3°。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">6.4 极化纯度</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">6.4 极化纯度</div>
+        
+        
+        
+        
+        
+        <div class="desc">馈源切换时，极化纯度可能下降：
+
+```
+交叉极化隔离度：20-30dB（典型）
+```</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">七、技术演进</div>
+    <div class="text-body">- **1944年**：Luneburg 提出理论（Rainer Karl Luneburg 著作）
+- **1950s**：多层球壳实现
+- **1960-1980s**：军事雷达广泛应用（F-4、F-15、F-22）
+- **1990s-2000s**：卫星通信应用
+- **2010s**：GRIN 超材料实现连续折射率
+- **2015-2020年**：准形变换透镜（任意形状）
+- **2020-2024年**：5G/6G 多波束基站应用
+- **2025年**：3D 打印梯度介电透镜商业化</div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (4)</div>
+    <div class="related-grid">
+      <a href="#">technology-相控阵天线phased-array-antenna</a><a href="#">technology-抛物面反射器天线深度解读</a><a href="#">technology-超表面天线metasurface-antenna</a><a href="#">technology-智能反射面ris深度解读</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-龙勃透镜天线luneburg-lens</span>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -281,48 +281,24 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">电磁波的极化方向</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">电磁波的极化方向</div>
-        
-        
-        
-        
-        
-        <div class="desc">电磁波在空间中传播时，电场矢量的振动方向就是极化方向。想象一根绳子，你上下抖它，波就是垂直极化的；左右抖它，波就是水平极化的。
+    <div class="text-body">电磁波在空间中传播时，电场矢量的振动方向就是极化方向。想象一根绳子，你上下抖它，波就是垂直极化的；左右抖它，波就是水平极化的。
 
 三种基本极化：
 线性极化：电场矢量在一个固定平面内振动（+45°、-45°、水平、垂直）
 圆极化：电场矢量端点随时间画出一个圆（左旋或右旋）
 椭圆极化：电场矢量端点随时间画出一个椭圆（最general的情况）</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">现实世界的残酷真相：极化不是固定的</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">现实世界的残酷真相：极化不是固定的</div>
-        
-        
-        
-        
-        
-        <div class="desc">在实验室里，你可以精确控制发射和接收天线的极化方向，做到完美匹配。但在真实的移动通信环境中，信号从基站发射出去后，经过建筑反射、地面折射、树叶散射、人体吸收……到达手机时，极化方向早就面目全非了。
+    <div class="text-body">在实验室里，你可以精确控制发射和接收天线的极化方向，做到完美匹配。但在真实的移动通信环境中，信号从基站发射出去后，经过建筑反射、地面折射、树叶散射、人体吸收……到达手机时，极化方向早就面目全非了。
 
 多径效应下的极化演变：
 `
@@ -340,12 +316,8 @@
 `
 
 关键判断：在复杂的城市环境中，到达接收端的信号极化状态是随机的、时变的。指望单一极化天线&#34;恰好对准&#34;信号的极化方向？概率极低。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -412,19 +384,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">原因 1：人体手持手机姿态随机</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">原因 1：人体手持手机姿态随机</div>
-        
-        
-        
-        
-        
-        <div class="desc">用户可能横握、竖握、斜握手机，手机天线的极化方向随之变化。如果是水平/垂直双极化：
+    <div class="text-body">用户可能横握、竖握、斜握手机，手机天线的极化方向随之变化。如果是水平/垂直双极化：
 用户竖握手机 → 垂直极化天线匹配好，水平极化天线几乎收不到信号
 用户横握手机 → 反过来
 
@@ -442,66 +404,34 @@
   最大极化失配：45°（恒定）
   平均性能：优于水平/垂直
 `</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">原因 2：空间复用（极化复用）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">原因 2：空间复用（极化复用）</div>
-        
-        
-        
-        
-        
-        <div class="desc">两根正交极化天线可以使用同一频率、同一时间传输不同的数据流——这在 MIMO 系统中被称为&#34;极化复用&#34;。
+    <div class="text-body">两根正交极化天线可以使用同一频率、同一时间传输不同的数据流——这在 MIMO 系统中被称为&#34;极化复用&#34;。
 
 类比：两条高速公路，一条车道向上行驶，一条车道向下行驶，互不干扰。极化复用就是在同一片频谱上开辟两条&#34;隐形车道&#34;，不增加额外频率就能翻倍容量。
 
 实测数据：在 XPD &gt; 20dB 的理想条件下，极化复用可以将 MIMO 信道容量提升 30-50%。在城市峡谷等 XPD 较低的场景，容量提升约 15-25%。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">原因 3：对称性</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">原因 3：对称性</div>
-        
-        
-        
-        
-        
-        <div class="desc">±45° 双极化在物理结构上具有 90° 旋转对称性，天线面板无论怎么安装（正装或倒装），极化方向都不会改变。而水平/垂直双极化在安装时需要严格对准，否则极化方向会整体旋转 90°。
+    <div class="text-body">±45° 双极化在物理结构上具有 90° 旋转对称性，天线面板无论怎么安装（正装或倒装），极化方向都不会改变。而水平/垂直双极化在安装时需要严格对准，否则极化方向会整体旋转 90°。
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -531,19 +461,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">场景 1：5G 基站 AAU</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">场景 1：5G 基站 AAU</div>
-        
-        
-        
-        
-        
-        <div class="desc">一个典型的 64T64R Massive MIMO AAU 内部，包含 128 根 ±45° 双极化振子（64 对）。每对振子不仅承担分集接收的功能，还参与波束赋形的空间处理——一根天线同时干两份活。
+    <div class="text-body">一个典型的 64T64R Massive MIMO AAU 内部，包含 128 根 ±45° 双极化振子（64 对）。每对振子不仅承担分集接收的功能，还参与波束赋形的空间处理——一根天线同时干两份活。
 
 工作原理：
 `
@@ -559,30 +479,16 @@
 `
 
 行业数据：根据爱立信白皮书，双极化 Massive MIMO 相比单极化方案，小区容量提升 40-60%，频谱效率提升 30-50%。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">场景 2：手机天线</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">场景 2：手机天线</div>
-        
-        
-        
-        
-        
-        <div class="desc">现代旗舰手机的内部空间被压缩到极致，天线之间的间距常常不足几毫米（远小于 λ/2）。通过极化分集，手机可以在不增加天线数量的前提下，依然获得足够的分集增益来对抗多径衰落。
+    <div class="text-body">现代旗舰手机的内部空间被压缩到极致，天线之间的间距常常不足几毫米（远小于 λ/2）。通过极化分集，手机可以在不增加天线数量的前提下，依然获得足够的分集增益来对抗多径衰落。
 
 实际体验：这就是为什么你的手机在电梯里、地下车库、高楼密集区，虽然信号格数不多，但通话和上网一般不会完全断掉——极化分集在默默干活。
 
@@ -591,30 +497,16 @@
 金属边框干扰极化方向
 人手握持改变天线谐振特性
 需要同时支持 4G/5G/Wi-Fi/蓝牙/NFC 多个频段</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">场景 3：铁路专网</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">场景 3：铁路专网</div>
-        
-        
-        
-        
-        
-        <div class="desc">2026 年最新研究：针对 5G 铁路专网的扇形波束极化分集天线。
+    <div class="text-body">2026 年最新研究：针对 5G 铁路专网的扇形波束极化分集天线。
 
 论文概要（Nature Scientific Reports, 2026）：
 采用高阶模贴片天线辐射单元
@@ -626,58 +518,30 @@
 为什么铁路需要极化分集：列车高速移动（350km/h）导致多普勒频移和极化快速变化，单极化天线容易遭遇深衰落。极化分集提供额外的分集维度，确保链路可靠性。
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">基站天线 XPD 标准</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">基站天线 XPD 标准</div>
-        
-        
-        
-        
-        
-        <div class="desc">中国移动对 ±45° 双极化基站天线的 XPD 技术指标要求：
+    <div class="text-body">中国移动对 ±45° 双极化基站天线的 XPD 技术指标要求：
 主波束方向（boresight）：XPD &gt; 20dB
 主瓣 ±60° 范围内：XPD &gt; 10dB
 
 为什么有这个标准：XPD 越高，极化复用效果越好，MIMO 容量越高。如果 XPD 太低，两根极化天线收到的信号高度相关，极化分集增益大幅下降。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">提升 XPD 的技术手段</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">提升 XPD 的技术手段</div>
-        
-        
-        
-        
-        
-        <div class="desc">手段 1：寄生单元（Parasitic Elements）
+    <div class="text-body">手段 1：寄生单元（Parasitic Elements）
 
 在 ±45° 双极化天线下方添加四个垂直寄生单元，形成正方形排列。这四个寄生单元不直接馈电，但会改变天线的近场电磁分布，提升 XPD。
 
@@ -694,86 +558,44 @@
 在馈电网络中使用 OMT，将线性极化转换为正交圆极化，进一步提升极化纯度。
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">局限 1：城市峡谷中的极化退化</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">局限 1：城市峡谷中的极化退化</div>
-        
-        
-        
-        
-        
-        <div class="desc">在密集建筑群中，多次反射会让信号极化特性变得杂乱，XPD 急剧下降到 5-10dB。此时两根正交极化天线收到的信号高度相关，分集增益大打折扣。
+    <div class="text-body">在密集建筑群中，多次反射会让信号极化特性变得杂乱，XPD 急剧下降到 5-10dB。此时两根正交极化天线收到的信号高度相关，分集增益大打折扣。
 
 量化：
 开阔地带（XPD = 25dB）：极化分集增益约 4-5dB
 城市郊区（XPD = 15dB）：极化分集增益约 3-4dB
 城市峡谷（XPD = 8dB）：极化分集增益约 1-2dB
 室内密集（XPD = 5dB）：极化分集增益约 0.5-1dB</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">局限 2：只能对抗极化相关的衰落</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">局限 2：只能对抗极化相关的衰落</div>
-        
-        
-        
-        
-        
-        <div class="desc">极化分集对多径引起的空间和时间相关性无能为力。如果所有多径分量都以相同的极化状态到达（比如强 LOS 环境），两根极化天线收到的信号几乎相同，分集增益趋近于零。
+    <div class="text-body">极化分集对多径引起的空间和时间相关性无能为力。如果所有多径分量都以相同的极化状态到达（比如强 LOS 环境），两根极化天线收到的信号几乎相同，分集增益趋近于零。
 
 解决方案：与空间分集、时间分集组合使用，形成&#34;多维分集&#34;。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">局限 3：极化失配损耗</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">局限 3：极化失配损耗</div>
-        
-        
-        
-        
-        
-        <div class="desc">如果发射端和接收端的极化方向不完全正交，会产生极化失配损耗：
+    <div class="text-body">如果发射端和接收端的极化方向不完全正交，会产生极化失配损耗：
 
 `
 极化失配损耗 (dB) = -10 × log₁₀(cos²(Δθ))
@@ -789,80 +611,38 @@
 Δθ = 30°：损耗 6dB（严重）
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6G XL-MIMO 中的 XPD 挑战</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6G XL-MIMO 中的 XPD 挑战</div>
-        
-        
-        
-        
-        
-        <div class="desc">6G 的 XL-MIMO（超大规模 MIMO）天线孔径极大（数米级别），近场效应显著。2025 年 arXiv 论文提出：双极化 XL-MIMO 的近远场边界需要考虑 XPD 差异，传统的近远场判据只考虑同极化信道分量，忽略了交叉极化分量的影响。
+    <div class="text-body">6G 的 XL-MIMO（超大规模 MIMO）天线孔径极大（数米级别），近场效应显著。2025 年 arXiv 论文提出：双极化 XL-MIMO 的近远场边界需要考虑 XPD 差异，传统的近远场判据只考虑同极化信道分量，忽略了交叉极化分量的影响。
 
 创新点：引入&#34;非均匀 XPD 距离&#34;（non-uniform XPD distance）作为新的距离判据，考虑不同天线单元上的 XPD 变化，优化发射协方差矩阵。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">太赫兹通信中的芯片级极化分集</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">太赫兹通信中的芯片级极化分集</div>
-        
-        
-        
-        
-        
-        <div class="desc">太赫兹波段（0.1-10THz）波长极短（0.03-3mm），天线可以做得非常小。在芯片级集成数十甚至上百对极化分集天线，配合智能反射面（RIS）技术，实现前所未有的空间-极化联合波束赋形。</div>
-        
-        
-      </div>
-      
-    </div>
+    <div class="text-body">太赫兹波段（0.1-10THz）波长极短（0.03-3mm），天线可以做得非常小。在芯片级集成数十甚至上百对极化分集天线，配合智能反射面（RIS）技术，实现前所未有的空间-极化联合波束赋形。</div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">通感一体化中的极化分集</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">通感一体化中的极化分集</div>
-        
-        
-        
-        
-        
-        <div class="desc">6G 通感一体化（ISAC）利用极化分集同时获取目标的极化散射特性。不同材质、形状的目标对不同极化波的散射特性不同，通过分析极化散射矩阵（PolSAR），可以实现更精细的目标识别。
+    <div class="text-body">6G 通感一体化（ISAC）利用极化分集同时获取目标的极化散射特性。不同材质、形状的目标对不同极化波的散射特性不同，通过分析极化散射矩阵（PolSAR），可以实现更精细的目标识别。
 
 应用：
 区分无人机和飞鸟（极化散射特征不同）
@@ -870,12 +650,8 @@
 检测天气现象（雨滴 vs 冰雹 vs 雪花）
 
 ---</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

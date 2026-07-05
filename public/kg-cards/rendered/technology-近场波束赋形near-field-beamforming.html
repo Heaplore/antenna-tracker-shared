@@ -28,7 +28,7 @@
     height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -337,19 +337,9 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.2 近场区的定义</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.2 近场区的定义</div>
-        
-        
-        
-        
-        
-        <div class="desc">传统天线理论中，近场/远场的分界是 Rayleigh 距离：
+    <div class="text-body">传统天线理论中，近场/远场的分界是 Rayleigh 距离：
 
 `
 R_Rayleigh = 2D² / λ
@@ -368,12 +358,8 @@ R_Rayleigh = 2 × 20² / 0.086 ≈ 9.3km
 `
 
 关键洞察：6G XL-MIMO 的近场区可以延伸到数公里！大部分用户都在近场内。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -423,19 +409,9 @@ R_Rayleigh = 2 × 20² / 0.086 ≈ 9.3km
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">1.4 球面波模型</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">1.4 球面波模型</div>
-        
-        
-        
-        
-        
-        <div class="desc">远场平面波模型：
+    <div class="text-body">远场平面波模型：
 
 `
 steering_vector_FF(θ) = [1, exp(j·ψ), exp(j·2ψ), ..., exp(j·(N-1)ψ)]^T
@@ -452,30 +428,16 @@ steering_vector_NF(r, θ) = [1/r₁·exp(-jk·r₁), 1/r₂·exp(-jk·r₂), ...
 其中 rₙ = √(r² + (n·d)² - 2rd·sinθ) 是第 n 个单元到用户的距离。
 
 关键差异：球面波模型中，每个单元的相位是距离 r 的二次函数（抛物线相位），而远场模型中相位是线性函数。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.1 波束聚焦（Beamfocusing）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.1 波束聚焦（Beamfocusing）</div>
-        
-        
-        
-        
-        
-        <div class="desc">远场波束赋形只能控制波束的指向角，所有距离上的增益相同。近场波束赋形可以控制波束的焦点位置：
+    <div class="text-body">远场波束赋形只能控制波束的指向角，所有距离上的增益相同。近场波束赋形可以控制波束的焦点位置：
 
 `
 w_focus(r₀, θ₀) = steer_vec_NF*(r₀, θ₀)
@@ -486,30 +448,16 @@ w_focus(r₀, θ₀) = steer_vec_NF*(r₀, θ₀)
 效果：
 焦点处增益：比远场波束高 3-6dB
 非焦点处干扰：降低 10-20dB</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.2 距离维度复用（Range-Dimension Multiplexing）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.2 距离维度复用（Range-Dimension Multiplexing）</div>
-        
-        
-        
-        
-        
-        <div class="desc">远场波束赋形中，两个在同一角度但不同距离的用户无法区分。近场波束赋形可以利用距离维度同时服务这两个用户：
+    <div class="text-body">远场波束赋形中，两个在同一角度但不同距离的用户无法区分。近场波束赋形可以利用距离维度同时服务这两个用户：
 
 `
 用户 A: (r_A, θ)
@@ -531,30 +479,16 @@ w_focus(r₀, θ₀) = steer_vec_NF*(r₀, θ₀)
 `
 
 这意味着可以在 100m 距离上区分相距 2cm 的两个用户！</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">2.3 距离-角度解耦波束赋形（Range-Angle Decoupled, RAD）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">2.3 距离-角度解耦波束赋形（Range-Angle Decoupled, RAD）</div>
-        
-        
-        
-        
-        
-        <div class="desc">2025 年提出的新框架——将波束赋形分为两步：
+    <div class="text-body">2025 年提出的新框架——将波束赋形分为两步：
 
 第一步：距离聚焦（Range-Focusing）
 `
@@ -571,12 +505,8 @@ w_angle = ZF([w_range · steer_vec_FF(θ₁), ...])
 优势：
 反馈开销从 O(N) 降到 O(1)（只需反馈 r 和 θ 两个标量）
 实现与最大比值传输（MRT）等效的单用户增益</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -640,19 +570,9 @@ w_angle = ZF([w_range · steer_vec_FF(θ₁), ...])
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.1 基于码本的波束训练</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.1 基于码本的波束训练</div>
-        
-        
-        
-        
-        
-        <div class="desc">与传统远场波束训练不同，近场波束训练需要在角度-距离二维网格上搜索：
+    <div class="text-body">与传统远场波束训练不同，近场波束训练需要在角度-距离二维网格上搜索：
 
 `
 Codebook = { (θ₁, r₁), (θ₁, r₂), ..., (θ_K, r_S) }
@@ -667,30 +587,16 @@ S 通常取 10-100，码本大小暴增 10-100 倍
 两级码本：粗角度搜索 + 精距离搜索
 网格-free 方法：压缩感知、原子范最小化
 深度学习：直接预测 (θ, r)</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.2 基于优化的波束赋形</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.2 基于优化的波束赋形</div>
-        
-        
-        
-        
-        
-        <div class="desc">直接优化波束赋形向量：
+    <div class="text-body">直接优化波束赋形向量：
 
 `
 maximize    Σ_k log₂(1 + SINR_k(r_k, θ_k))
@@ -701,30 +607,16 @@ subject to  ||w||² ≤ P_max
 交替优化（AO）：固定 w，优化 (r, θ)；固定 (r, θ)，优化 w
 半定松弛（SDR）
 梯度下降 + 流形优化</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.3 近场-远场统一波束赋形</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.3 近场-远场统一波束赋形</div>
-        
-        
-        
-        
-        
-        <div class="desc">2025 年的研究趋势——设计一个统一的波束赋形框架，同时适用于近场和远场用户：
+    <div class="text-body">2025 年的研究趋势——设计一个统一的波束赋形框架，同时适用于近场和远场用户：
 
 `
 w_unified = α · w_NF + (1-α) · w_FF
@@ -733,42 +625,24 @@ w_unified = α · w_NF + (1-α) · w_FF
 其中 α 是根据用户距离自适应调整的权重：
 α → 1：用户在近场 → 使用近场波束赋形
 α → 0：用户在远场 → 使用远场波束赋形</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">3.4 近场波束赋形与全息 MIMO 的结合</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">3.4 近场波束赋形与全息 MIMO 的结合</div>
-        
-        
-        
-        
-        
-        <div class="desc">CAPA（连续孔径阵列）天然支持近场波束赋形——因为连续表面可以生成任意波前，包括球面波前：
+    <div class="text-body">CAPA（连续孔径阵列）天然支持近场波束赋形——因为连续表面可以生成任意波前，包括球面波前：
 
 `
 J(x,y) = A(x,y) · exp(-jk·√((x-x₀)² + (y-y₀)² + r₀²))
 `
 
 这个电流分布在 (x₀, y₀, r₀) 处形成聚焦波束。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -938,149 +812,69 @@ J(x,y) = A(x,y) · exp(-jk·√((x-x₀)² + (y-y₀)² + r₀²))
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.1 6G 超密集小区</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.1 6G 超密集小区</div>
-        
-        
-        
-        
-        
-        <div class="desc">基站间距：50-100m
+    <div class="text-body">基站间距：50-100m
 XL-MIMO 孔径：10-20m
 近场波束赋形：为每个用户形成独立焦点
 效果：同一角度、不同距离的用户可并行服务</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.2 室内覆盖</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.2 室内覆盖</div>
-        
-        
-        
-        
-        
-        <div class="desc">天花板安装 XL-MIMO 面板（2m × 2m）
+    <div class="text-body">天花板安装 XL-MIMO 面板（2m × 2m）
 近场聚焦：精确对准每个终端
 优势：减少楼层间干扰，提升能效</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.3 无人机通信</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.3 无人机通信</div>
-        
-        
-        
-        
-        
-        <div class="desc">无人机高度：50-200m
+    <div class="text-body">无人机高度：50-200m
 近场波束赋形：在三维空间中追踪无人机
 附加能力：利用波束聚焦同时感知无人机位置</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.4 ISAC（通感一体化）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.4 ISAC（通感一体化）</div>
-        
-        
-        
-        
-        
-        <div class="desc">通信波束：聚焦通信用户
+    <div class="text-body">通信波束：聚焦通信用户
 感知波束：聚焦感知目标
 近场 ISAC：在距离域同时服务通信和感知</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">5.5 能量收集</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">5.5 能量收集</div>
-        
-        
-        
-        
-        
-        <div class="desc">近场聚焦：将能量精确聚焦到能量收集器
+    <div class="text-body">近场聚焦：将能量精确聚焦到能量收集器
 效率提升：相比远场波束，聚焦能量效率提升 3-10 倍</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.1 信道估计复杂度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.1 信道估计复杂度</div>
-        
-        
-        
-        
-        
-        <div class="desc">近场波束赋形需要在二维（角度 + 距离）上估计信道：
+    <div class="text-body">近场波束赋形需要在二维（角度 + 距离）上估计信道：
 
 `
 估计参数：θ₁, r₁, θ₂, r₂, ..., θ_L, r_L + 复数路径增益
@@ -1092,12 +886,8 @@ XL-MIMO 孔径：10-20m
 二维搜索空间大
 距离参数的量化误差直接影响聚焦性能
 需要更长的导频和更多的天线</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
@@ -1163,19 +953,9 @@ XL-MIMO 孔径：10-20m
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.3 用户移动性</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.3 用户移动性</div>
-        
-        
-        
-        
-        
-        <div class="desc">用户移动时，焦点位置 (r, θ) 随之变化，需要实时更新波束赋形向量：
+    <div class="text-body">用户移动时，焦点位置 (r, θ) 随之变化，需要实时更新波束赋形向量：
 
 `
 更新频率 f_update ≥ 2 · v_max / λ_focusing_spot
@@ -1187,30 +967,16 @@ f_update ≥ 20Hz
 `
 
 这意味着每 50ms 就要重新计算波束赋形向量——对基站的计算能力提出了很高要求。</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.4 近场-远场混合场景</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.4 近场-远场混合场景</div>
-        
-        
-        
-        
-        
-        <div class="desc">实际网络中，既有近场用户也有远场用户：
+    <div class="text-body">实际网络中，既有近场用户也有远场用户：
 
 `
 用户 A: r = 50m → 近场
@@ -1223,30 +989,16 @@ f_update ≥ 20Hz
 统一波束赋形（α 混合）
 分层波束赋形：远场用户用平面波，近场用户用球面波
 码本设计：二维码本（角度 + 距离）覆盖近场，一维码本（角度）覆盖远场</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-text">
     <div class="block-title">6.5 多径效应</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
-        
-        <div class="name">6.5 多径效应</div>
-        
-        
-        
-        
-        
-        <div class="desc">近场多径比远场更复杂——每条径有不同的距离和角度：
+    <div class="text-body">近场多径比远场更复杂——每条径有不同的距离和角度：
 
 `
 h_NF = Σ_l α_l · steer_vec_NF(r_l, θ_l)
@@ -1258,12 +1010,8 @@ h_NF = Σ_l α_l · steer_vec_NF(r_l, θ_l)
 信道秩增加（近场 LoS 路径的秩 &gt; 1）
 波束赋形需要考虑多径合并
 干扰管理更加复杂</div>
-        
-        
-      </div>
-      
-    </div>
   </div>
+
     
   
     

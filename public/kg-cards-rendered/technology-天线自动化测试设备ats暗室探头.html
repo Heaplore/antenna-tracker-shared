@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>天线自动化测试设备ATS暗室探头 — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    height: 1080px;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+    column-count: 2;
+    column-gap: 12px;
+  }
+  .canvas .hero {
+    column-span: all;
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    margin-bottom: 12px;
+  }
+  .block.section-table, .block.section-comparison {
+    /* 不再 column-span: all，只占一列宽度 */
+  }
+  .block.section-text {
+    column-span: all;
+    width: 100%;
+  }
+  .block:last-child.related-block {
+    flex: 1 1 100%;
+    column-span: all;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-03</div>
+    </div>
+    <div class="hero-title">
+      天线自动化测试设备ATS暗室探头
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术/技术概念</span><span>OTA测试</span><span>暗室</span><span>探头</span><span>ATS</span><span>自动化测试系统</span><span>3GPP测试</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> 天线自动化测试系统（ATS）= 暗室/转台/探头/软件 组成的&#34;天线体检中心&#34;。5G Massive MIMO 时代，64 通道天线的人工测试不现实——必须用自动化系统，30 分钟内测完一个 AAU 的 200+ 项指标。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> ATS 就像&#34;汽车排放检测线&#34;——车开上去，机器自动测尾气、测动力、测噪音，出一本报告。</div>
+    
+    
+  </div>
+
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">1.1 核心硬件 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>ATS 系统架构：
+
+┌─────────────────────────────────────────┐
+│  控制计算机                              │
+│  ┌───────────────────────────────────┐  │
+│  │  测试软件（Python/C++）            │  │
+│  │  - 测试流程控制                    │  │
+│  │  - 数据采集与分析                  │  │
+│  │  - 报告生成                        │  │
+│  └───────────────────────────────────┘  │
+│         │                              │
+│    VISA/GPIB/Ethernet                   │
+│         │                              │
+├─────────┼──────────────────────────────┤
+│         ▼                              │
+│  ┌──────────────┐  ┌──────────────┐   │
+│  │  网络分析仪   │  │  信号发生器  │   │
+│  │  (VNA)       │  │  (SG)        │   │
+│  │  S参数测量    │  │  发射测试     │   │
+│  └──────┬───────┘  └──────┬───────┘   │
+│         │                  │            │
+│  ┌──────┴──────────────────┴───────┐   │
+│  │         射频电缆/波导            │   │
+│  └──────┬──────────────────┬───────┘   │
+│         │                  │            │
+│  ┌──────┴───────┐  ┌──────┴───────┐   │
+│  │  探头天线     │  │  转台/升降台  │   │
+│  │  (Rx)        │  │  (DUT 旋转)   │   │
+│  └──────────────┘  └──────────────┘   │
+│                                        │
+│  ┌────────────────────────────────┐   │
+│  │    暗室（Anechoic Chamber）     │   │
+│  │    吸波材料 + 隔振平台          │   │
+│  └────────────────────────────────┘   │
+└─────────────────────────────────────────┘</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-list ">
+    <div class="block-title">1.2 关键设备参数</div>
+    <div class="list-items ">
+      
+      <div class="list-item">
+        
+        <div class="name">1.2 关键设备参数</div>
+        
+        
+        
+        
+        
+        <div class="desc">| 设备 | 参数 | 5G AAU 要求 |
+|------|------|------------|
+| VNA | 频率范围 | DC-6.5GHz（Sub-6GHz） |
+| VNA | 端口数 | 4-8 端口（多端口校准） |
+| 信号发生器 | 频率 | DC-6.5GHz |
+| 信号发生器 | 通道数 | ≥ 64（Massive MIMO） |
+| 转台 | 精度 | &lt; 0.01° |
+| 转台 | 承重 | &gt; 100kg（AAU 很重） |
+| 探头天线 | 频率 | 多频段探头 |
+| 探头天线 | 极化 | ±45° 可切换 |
+| 暗室 | 截止频率 | &gt; 6.5GHz |
+| 暗室 | 尺寸 | ≥ 6m × 4m × 3m |</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.1 远场 OTA 测试（主流） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>原理：
+  DUT（待测天线）与探头天线距离 &gt; 2R²/λ
+  R = 天线最大尺寸
+  λ = 波长
+  
+典型距离：
+  64T64R AAU（1.2m）@ 3.5GHz：
+  R_far = 2 × 1.2² / 0.086 = ~34m
+  
+  → 远场暗室需要 34m 以上！
+  → 实际用 15-20m + 近远场变换
+  
+测试流程：
+  1. 安装 DUT 到转台
+  2. VNA/SG 连接 DUT 的 RF 端口
+  3. 探头天线接收/发射信号
+  4. 转台旋转（水平 0-360°）
+  5. 升降台移动（垂直 -90° to +90°）
+  6. 采集每个角度的 S 参数
+  7. 软件处理 → 方向图/增益/隔离度</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.2 近场测试 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>原理：
+  探头靠近 DUT（&lt; R_far）
+  测量近场 → 数学变换 → 远场
+  
+优势：
+  - 暗室可以很小（3-5m）
+  - 适合实验室
+  
+劣势：
+  - 变换算法复杂
+  - 精度略低
+  - 不适用于有源天线（需要激励所有通道）</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.3 混响室测试 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>原理：
+  金属腔体内搅拌电磁场
+  形成&#34;统计均匀&#34;的多径环境
+  
+测量：
+  - TRP（总辐射功率）
+  - TIS（总接收灵敏度）
+  - MIMO 容量
+  
+优势：
+  - 测试速度快（分钟级）
+  - 暗室小（2-3m）
+  - 适合产线批量测试
+  
+劣势：
+  - 不能测方向图
+  - 不能测增益
+  - 只能测&#34;总量&#34;</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">3.1 测试项目清单 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>AAU 出厂测试（200+ 项）：
+
+1. S 参数测试（VNA）
+   - S11/S22（端口回波损耗）
+   - S12/S21（插入损耗）
+   - Sij（端口间隔离度）
+   
+2. 有源测试（SG + 探头）
+   - 增益（Gain）
+   - 方向图（Pattern）
+   - 波束宽度（Beamwidth）
+   - 前后比（FBR）
+   - 旁瓣电平（SLL）
+   
+3. MIMO 测试
+   - 通道间幅度一致性（&lt; 0.5dB）
+   - 通道间相位一致性（&lt; 5°）
+   - 空间流数验证
+   - 预编码矩阵验证
+   
+4. PIM 测试
+   - 双三载波 PIM
+   - 要求：&lt; -150dBc
+   
+5. 极化测试
+   - 交叉极化隔离度（&gt; 25dB）
+   - 轴比（如适用）
+   
+6. 温度循环测试
+   - -40°C to +85°C
+   - 各温度点复测关键指标</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">3.2 测试时间 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>单台 64T64R AAU 测试时间：
+
+  安装定位：5min
+  S 参数测试：10min
+  有源测试（全方向图）：15min
+  MIMO 测试：10min
+  PIM 测试：5min
+  极化测试：5min
+  数据分析和报告：5min
+  
+  总计：~55min
+  
+产线节拍：
+  目标：2 台/小时
+  → 需要 2 套 ATS 并行</code></pre>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (2)</div>
+    <div class="related-grid">
+      <a href="#">component-校准板calibration-board</a><a href="#">technology-有源单元方向图active-element-pattern</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-天线自动化测试设备ats暗室探头</span>
+</div>
+
+</div>
+
+</body>
+</html>

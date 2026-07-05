@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>3GPP TR38.901信道模型 — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    height: 1080px;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+    column-count: 2;
+    column-gap: 12px;
+  }
+  .canvas .hero {
+    column-span: all;
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    margin-bottom: 12px;
+  }
+  .block.section-table, .block.section-comparison {
+    /* 不再 column-span: all，只占一列宽度 */
+  }
+  .block.section-text {
+    column-span: all;
+    width: 100%;
+  }
+  .block:last-child.related-block {
+    flex: 1 1 100%;
+    column-span: all;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-03</div>
+    </div>
+    <div class="hero-title">
+      3GPP TR38.901信道模型
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术/技术概念</span><span>3GPP信道模型</span><span>TR38.901</span><span>近场信道</span><span>6G信道</span><span>DTC数字孪生信道</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> 3GPP TR 38.901 是 5G NR 信道建模的标准——定义了从 0.5-100GHz 的路径损耗、时延扩展、RMS 角度扩展、到达/离开角度分布。Rel-17 新增了&#34;近场信道模型&#34;（平面波模型），为 XL-MIMO/CAPA 做准备。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> 信道模型就像&#34;天气预报模型&#34;——根据历史数据和物理规律，预测信号在空间中的&#34;天气&#34;。</div>
+    
+    
+  </div>
+
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">1.1 适用范围 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>3GPP TR 38.901 V17.0.0（2022）：
+
+频率范围：0.5 - 100 GHz
+场景：
+  - UMi（Urban Microcell，城市微蜂窝）
+  - UMa（Urban Macrocell，城市宏蜂窝）
+  - Rural（乡村）
+  - Indoor（室内）
+  - 室外到室内（O2I）
+  
+天线模型：
+  - 远场（球面波 SWP）
+  - 近场（平面波 PW，Rel-17 新增）</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">1.2 路径损耗模型（PL） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>总路径损耗 = PL_BSD + PL_IN + PL_O2I
+
+1. BSD（Base Station to Device）路径损耗：
+  
+   LOS（视距）：
+    PL_BSD_LOS = max(PL_FS, PL_BSD_LOS_min) + X
+   
+  NLOS（非视距）：
+    PL_BSD_NLOS = max(PL_FS + L_OsNLoS, PL_BSD_NLOS_min) + X
+   
+  其中：
+    PL_FS = 20log₁₀(4πd·f/c)  （自由空间损耗）
+    d = 传输距离（m）
+    f = 频率（GHz）
+    X = 阴影衰落（高斯分布）
+    
+  LOS/NLOS 判定：
+    根据 BS 和 UE 高度、距离、城市环境
+    → 计算 LOS 概率
+    
+2. IN（Indoor）路径损耗：
+   - 墙壁穿透损耗：15-25dB（混凝土）
+   - 楼层损耗：10-20dB/层
+   - 室内传播损耗：30-40dB/10m
+
+典型值对比（d=100m, f=3.5GHz）：
+  ┌─────────────────────────────────┐
+  │ 场景    │ PL(dB) │ 备注         │
+  ├─────────────────────────────────┤
+  │ 自由空间 │ 80     │ 理论下限     │
+  │ UMi LOS │ 88     │ 城市视距     │
+  │ UMi NLOS│ 112    │ 城市非视距   │
+  │ UMa LOS │ 85     │ 宏站视距     │
+  │ UMa NLOS│ 118    │ 宏站非视距   │
+  └─────────────────────────────────┘</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">1.3 时空信道参数（TSCS） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>38.901 定义的完整信道参数：
+
+1. 时延扩展（Delay Spread）：
+   RMS 时延扩展：0.5-15ns（城市）
+   
+2. 角度扩展（Angular Spread）：
+   - Azimuth Angle Spread（AAS）：水平角度扩展
+   - Elevation Angle Spread（EES）：垂直角度扩展
+   
+3. 到达/离开角度（AoA/AoD）：
+   - 水平 AoA/AoD：均匀分布 + 主瓣
+   - 垂直 AoA/AoD：高斯分布
+   
+4. 多普勒扩展（Doppler Spread）：
+   - 静止：0Hz
+   - 步行（3km/h）：~100Hz @3.5GHz
+   - 驾车（60km/h）：~200Hz @3.5GHz
+   - 高铁（300km/h）：~1000Hz @3.5GHz</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.1 为什么需要近场模型？ <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>传统 38.901（Rel-15/16）：
+  假设球面波（Spherical Wave, SWP）
+  → 适用于远场（d &gt; 2D²/λ）
+  → D = 天线口径，λ = 波长
+  
+6G XL-MIMO / CAPA：
+  天线口径极大（D = 10-100m）
+  → 近场区域延伸到 km 级！
+  → 球面波假设不准确
+  
+解决方案：
+  平面波（Plane Wave, PW）分解模型
+  → 近场用多个平面波叠加
+  → 更准确地描述近场传播</code></pre>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-code">
+    <div class="block-title">2.2 近场信道特征 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
+    <pre class="code-body"><code>近场 vs 远场：
+
+  远场：
+    - 波前 = 球面（近似平面）
+    - 角度与距离解耦
+    - 一个 AoA 对应一个方向
+    
+  近场：
+    - 波前 = 明显球面
+    - 角度与距离耦合
+    - 同一个 AoA 在不同距离有不同的相位分布
+    → 需要同时估计 AoA + 距离
+    
+影响：
+  - 近场波束赋形 = 球面波赋形（不是平面波）
+  - 信道矩阵不再是 Toeplitz 结构
+  - 容量计算需要新方法</code></pre>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (3)</div>
+    <div class="related-grid">
+      <a href="#">technology-6g信道建模范式转移-从统计拟合到数字孪生</a><a href="#">technology-天线近场远场划分field-regions</a><a href="#">technology-全息mimo连续孔径capa</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-3gpp-tr38901信道模型</span>
+</div>
+
+</div>
+
+</body>
+</html>
