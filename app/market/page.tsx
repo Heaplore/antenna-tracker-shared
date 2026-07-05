@@ -209,6 +209,7 @@ export default function MarketPage() {
               <CartesianGrid strokeDasharray="3 3" stroke="#eee" horizontal={false} />
               <XAxis
                 type="number"
+                domain={[0, 'dataMax + 20']}
                 tick={{ fontSize: 11, fill: '#999' }}
                 tickLine={false}
                 axisLine={{ stroke: '#e0e0e0' }}
