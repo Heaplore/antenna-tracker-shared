@@ -14,8 +14,9 @@ from pathlib import Path
 
 try:
     from jinja2 import Environment, FileSystemLoader, select_autoescape
+    import markdown
 except ImportError:
-    print("需要安装 jinja2: pip install jinja2")
+    print("需要安装 jinja2 + markdown: pip install jinja2 markdown")
     sys.exit(1)
 
 ROOT = Path(r"E:/OH-workspace/antenna-tracker")
@@ -24,106 +25,26 @@ RENDERED_DIR = ROOT / "public/kg-cards/rendered"
 KG_FILE = ROOT / "app/_data/knowledge-graph.json"
 
 
+def md_to_html(md_text: str) -> str:
+    """将 Markdown 原文转为 HTML，保留所有格式。"""
+    if not md_text:
+        return ""
+    # 用 markdown 库转 HTML，启用表格/代码块/粗体等扩展
+    return markdown.markdown(
+        md_text,
+        extensions=["tables", "fenced_code", "nl2br"],
+    )
+
+
 def strip_markdown(text: str) -> str:
-    """Strip common markdown formatting for HTML card rendering."""
+    """仅用于标题等元数据，剥离格式化标记。"""
     if not text:
         return ""
-    # Strip bold/italic markers
     text = re.sub(r'\*\*(.+?)\*\*', r'\1', text)
     text = re.sub(r'\*(.+?)\*', r'\1', text)
     text = re.sub(r'__(.+?)__', r'\1', text)
-    text = re.sub(r'`(.+?)`', r'\1', text)
-    text = re.sub(r'```[\s\S]*?```', '', text)  # code fences
-    text = re.sub(r'^[-*+] ', '', text, flags=re.MULTILINE)  # list bullets
-    text = re.sub(r'^\d+\. ', '', text, flags=re.MULTILINE)  # numbered lists
     text = text.strip()
     return text
-
-
-def parse_pipe_table(raw: str) -> tuple[list[str], list[list[str]], str | None]:
-    """Parse pipe-style markdown tables. Returns (headers, rows, footer_or_none)."""
-    lines = [l.strip() for l in raw.strip().split('\n') if l.strip()]
-    if not lines:
-        return [], [], None
-
-    # Find header line (must have at least 2 pipes)
-    header_line = None
-    separator_idx = None
-    for i, line in enumerate(lines):
-        parts = [p.strip() for p in line.split('|') if p.strip() != '']
-        if len(parts) >= 2:
-            header_line = parts
-            # Find separator line (---, |---|---|, etc.)
-            for j in range(i + 1, len(lines)):
-                sep = lines[j]
-                sep_parts = [p.strip() for p in sep.split('|') if p.strip() != '']
-                if all(re.match(r'^[-:]+$', p) for p in sep_parts):
-                    separator_idx = j
-                    break
-            break
-
-    if header_line is None:
-        return [], [], None
-
-    rows = []
-    footer_parts = []
-    for i, line in enumerate(lines):
-        if i <= separator_idx:
-            continue
-        parts = [p.strip() for p in line.split('|') if p.strip() != '']
-        if len(parts) == len(header_line):
-            rows.append(parts)
-        else:
-            footer_parts.append(line)
-
-    footer = '\n'.join(footer_parts) if footer_parts else None
-    return header_line, rows, footer
-
-
-def detect_and_parse_table(raw: str) -> dict | None:
-    """Detect if raw text is a table (pipe or ASCII box) and parse it.
-    Returns normalized section dict, or None if not a table."""
-    raw_stripped = raw.strip()
-
-    # 1. Check for pipe-style markdown table
-    pipe_lines = [l for l in raw_stripped.split('\n') if l.strip() and '|' in l]
-    if len(pipe_lines) >= 3:
-        # At least 3 lines with pipes (header + separator + 1 data row minimum)
-        header_match = False
-        sep_found = False
-        for i, line in enumerate(pipe_lines):
-            parts = [p.strip() for p in line.split('|') if p.strip() != '']
-            if len(parts) >= 2:
-                header_match = True
-                # Check if next line is a separator
-                if i + 1 < len(pipe_lines):
-                    next_parts = [p.strip() for p in pipe_lines[i+1].split('|') if p.strip() != '']
-                    if all(re.match(r'^[-:]+$', p) for p in next_parts):
-                        sep_found = True
-                        break
-        if header_match and sep_found:
-            headers, rows, footer = parse_pipe_table(raw_stripped)
-            if rows:
-                result = {
-                    "type": "comparison",
-                    "table_headers": headers,
-                    "table_rows": [[strip_markdown(cell) for cell in row] for row in rows],
-                }
-                if footer:
-                    result["table_footer"] = strip_markdown(footer)
-                return result
-
-    # 2. Check for ASCII box-drawing table
-    if "┌" in raw_stripped or ("│" in raw_stripped and "─" in raw_stripped):
-        lines = [l for l in raw_stripped.split('\n') if l.strip() and not l.strip().startswith('┌') and not l.strip().startswith('└')]
-        if lines:
-            return {
-                "type": "table",
-                "table_headers": ["内容"],
-                "table_rows": [[strip_markdown(l.strip())] for l in lines],
-            }
-
-    return None
 
 
 def normalize_node(node: dict) -> dict:
@@ -138,30 +59,14 @@ def normalize_node(node: dict) -> dict:
         sec = {"title": strip_markdown(title)}
         level = s.get("level", 2)
         raw = s.get("raw", "") or ""
-        content = s.get("content", "") or ""
 
         # 跳过一级标题（"一、概述" 这种）
         if level == 2 and len(raw.strip()) < 200:
             continue
 
-        if level == 3:
-            # 代码块 → code 类型
-            if raw.strip().startswith("```"):
-                sec["type"] = "code"
-                sec["content"] = strip_markdown(raw.strip().replace("```", "").strip())
-                sec["code_language"] = "markdown"
-            else:
-                # 尝试检测是否为表格（优先 pipe 表格，其次 ASCII 表格）
-                table_result = detect_and_parse_table(raw)
-                if table_result:
-                    sec.update(table_result)
-                else:
-                    # 不是表格就是普通文本（段落/列表），统一走 text 类型
-                    sec["type"] = "text"
-                    sec["content"] = strip_markdown(raw.strip())
-        else:
-            sec["type"] = "text"
-            sec["content"] = strip_markdown(raw.strip())
+        # 所有 section 统一走 text 类型，raw 直接转 HTML
+        sec["type"] = "text"
+        sec["content"] = md_to_html(raw.strip())
 
         sections.append(sec)
 

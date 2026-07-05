@@ -269,23 +269,24 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.1 分层结构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>顶层：AAU（有源层）
+  <div class="block section-text">
+    <div class="block-title">1.1 分层结构</div>
+    <div class="text-body"><pre><code>顶层：AAU（有源层）
   - 频段：3.5GHz（n78）
   - 通道：64T64R
   - 功能：高容量数据
   - 供电：48V DC，200-500W
-  
+
 中层：馈电/隔离层
   - 频段隔离（700MHz ↔ 3.5GHz）
   - 结构支撑
-  
+
 底层：平板天线（无源层）
   - 频段：700MHz（n28）+ 2.6GHz（n41）
   - 通道：2T2R 或 4T4R
   - 功能：广覆盖 + 容量补充
-  - 供电：不需要</code></pre>
+  - 供电：不需要
+</code></pre></div>
   </div>
 
     
@@ -293,17 +294,18 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.2 天线共装 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>传统方案（分开安装）：
+  <div class="block section-text">
+    <div class="block-title">1.2 天线共装</div>
+    <div class="text-body"><pre><code>传统方案（分开安装）：
   700MHz 天线 → 独立抱杆
   3.5GHz AAU → 独立抱杆
   占用 2 个站址或 2 组抱杆
-  
+
 A+P 方案（共装）：
   700MHz 天线 + 3.5GHz AAU → 同一抱杆
   占用 1 个站址，1 组抱杆
-  节省站址成本 30-50%</code></pre>
+  节省站址成本 30-50%
+</code></pre></div>
   </div>
 
     
@@ -311,16 +313,17 @@ A+P 方案（共装）：
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.1 隔离需求 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>700MHz ↔ 3.5GHz 隔离度要求：
+  <div class="block section-text">
+    <div class="block-title">2.1 隔离需求</div>
+    <div class="text-body"><pre><code>700MHz ↔ 3.5GHz 隔离度要求：
   - 互调抑制：&gt; 80dB
   - 耦合抑制：&gt; 60dB
   - 防止 700MHz 信号进入 3.5GHz 接收机
-  
+
 2.6GHz ↔ 3.5GHz 隔离度要求：
   - 互调抑制：&gt; 70dB
-  - 耦合抑制：&gt; 50dB</code></pre>
+  - 耦合抑制：&gt; 50dB
+</code></pre></div>
   </div>
 
     
@@ -328,19 +331,20 @@ A+P 方案（共装）：
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.2 隔离方法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>物理间距
+  <div class="block section-text">
+    <div class="block-title">2.2 隔离方法</div>
+    <div class="text-body"><pre><code>1. 物理间距
    - 700MHz ↔ 3.5GHz：≥ 0.5m
    - 2.6GHz ↔ 3.5GHz：≥ 0.3m
-   
-极化隔离
+
+2. 极化隔离
    - 底层：±45° 极化
    - 顶层：±45° 极化（错开 90°）
-   
-滤波隔离
+
+3. 滤波隔离
    - 底层加带通滤波器
-   - 顶层加带通滤波器</code></pre>
+   - 顶层加带通滤波器
+</code></pre></div>
   </div>
 
     
@@ -348,49 +352,34 @@ A+P 方案（共装）：
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.1 优势</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>优势</th><th>说明</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>站址节省</td>
-          
-          <td>共装一套抱杆，节省 30-50% 站址成本</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>覆盖+容量</td>
-          
-          <td>低频广覆盖 + 高频高容量</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>运维简化</td>
-          
-          <td>一套站点，统一运维</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>快速部署</td>
-          
-          <td>5G 快速覆盖，无需新建站址</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>优势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>站址节省</td>
+<td>共装一套抱杆，节省 30-50% 站址成本</td>
+</tr>
+<tr>
+<td>覆盖+容量</td>
+<td>低频广覆盖 + 高频高容量</td>
+</tr>
+<tr>
+<td>运维简化</td>
+<td>一套站点，统一运维</td>
+</tr>
+<tr>
+<td>快速部署</td>
+<td>5G 快速覆盖，无需新建站址</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -398,57 +387,38 @@ A+P 方案（共装）：
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.2 挑战</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>挑战</th><th>说明</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>重量负担</td>
-          
-          <td>总重可达 50-70kg，抱杆需加固</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>风载增加</td>
-          
-          <td>迎风面积增加 50-100%，风载加倍</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>频段隔离</td>
-          
-          <td>需要足够的物理间距和滤波</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>散热</td>
-          
-          <td>AAU 发热 + 密闭空间 = 散热挑战</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>安装难度</td>
-          
-          <td>需要更大抱杆和更强支架</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>挑战</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>重量负担</td>
+<td>总重可达 50-70kg，抱杆需加固</td>
+</tr>
+<tr>
+<td>风载增加</td>
+<td>迎风面积增加 50-100%，风载加倍</td>
+</tr>
+<tr>
+<td>频段隔离</td>
+<td>需要足够的物理间距和滤波</td>
+</tr>
+<tr>
+<td>散热</td>
+<td>AAU 发热 + 密闭空间 = 散热挑战</td>
+</tr>
+<tr>
+<td>安装难度</td>
+<td>需要更大抱杆和更强支架</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -456,19 +426,20 @@ A+P 方案（共装）：
     
 
     
-  <div class="block section-code">
-    <div class="block-title">4.1 中国移动 A+P <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>底层：700MHz n28（中国移动）
+  <div class="block section-text">
+    <div class="block-title">4.1 中国移动 A+P</div>
+    <div class="text-body"><pre><code>底层：700MHz n28（中国移动）
   - 天线：2T2R 平板
   - 增益：17dBi
   - 功率：43dBm
-  
+
 顶层：3.5GHz n78（中国电信/联通）
   - AAU：64T64R
   - 增益：24dBi
   - 功率：200W（每通道）
-  
-间距：≥ 0.8m</code></pre>
+
+间距：≥ 0.8m
+</code></pre></div>
   </div>
 
     
@@ -476,21 +447,22 @@ A+P 方案（共装）：
     
 
     
-  <div class="block section-code">
-    <div class="block-title">4.2 欧洲 A+P <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>底层：800MHz（运营商 A）
+  <div class="block section-text">
+    <div class="block-title">4.2 欧洲 A+P</div>
+    <div class="text-body"><pre><code>底层：800MHz（运营商 A）
   - 2T2R 平板
   - 覆盖层
-  
+
 中层：1.8GHz（运营商 A）
   - 4T4R 平板
   - 容量层
-  
+
 顶层：3.5GHz（运营商 B）
   - 64T64R AAU
   - 5G 容量层
-  
-间距：≥ 0.5m（每层）</code></pre>
+
+间距：≥ 0.5m（每层）
+</code></pre></div>
   </div>
 
     

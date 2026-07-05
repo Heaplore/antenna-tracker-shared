@@ -269,42 +269,58 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.1 串联 RLC 模型（最基础） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>┌───[R_r]───[L]───[C]───┐
+  <div class="block section-text">
+    <div class="block-title">1.1 串联 RLC 模型（最基础）</div>
+    <div class="text-body"><pre><code>        ┌───[R_r]───[L]───[C]───┐
         │                        │
        [R_s]                     │
         │                        │
         └────────────────────────┘
               端口
-
-
-元件含义：
-
-| 元件 | 物理意义 | 频率特性 |
-|------|---------|---------|
-| R_r | 辐射电阻 | 与频率相关 |
-| R_s | 损耗电阻（导体+介质） | 基本恒定 |
-| L | 磁储能等效电感 | ∝ √f |
-| C | 电储能等效电容 | ∝ 1/√f |
-
-输入阻抗：
-
-Z_in(f) = R_r + R_s + j(2πfL - 1/(2πfC))
-
-
-谐振频率：
-
-f₀ = 1/(2π√(LC))
-
-
-在谐振时：
-
-Z_in(f₀) = R_r + R_s（纯电阻）
+</code></pre>
+<p><strong>元件含义</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>元件</th>
+<th>物理意义</th>
+<th>频率特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R_r</td>
+<td>辐射电阻</td>
+<td>与频率相关</td>
+</tr>
+<tr>
+<td>R_s</td>
+<td>损耗电阻（导体+介质）</td>
+<td>基本恒定</td>
+</tr>
+<tr>
+<td>L</td>
+<td>磁储能等效电感</td>
+<td>∝ √f</td>
+</tr>
+<tr>
+<td>C</td>
+<td>电储能等效电容</td>
+<td>∝ 1/√f</td>
+</tr>
+</tbody>
+</table>
+<p><strong>输入阻抗</strong>：</p>
+<pre><code>Z_in(f) = R_r + R_s + j(2πfL - 1/(2πfC))
+</code></pre>
+<p><strong>谐振频率</strong>：</p>
+<pre><code>f₀ = 1/(2π√(LC))
+</code></pre>
+<p>在谐振时：</p>
+<pre><code>Z_in(f₀) = R_r + R_s（纯电阻）
 Q = f₀/Δf = (1/R)·√(L/C)
-
-
-其中 Δf 是 -3dB 带宽。</code></pre>
+</code></pre>
+<p>其中 Δf 是 -3dB 带宽。</p></div>
   </div>
 
     
@@ -312,24 +328,21 @@ Q = f₀/Δf = (1/R)·√(L/C)
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.2 并联 RLC 模型 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>┌────[R_r]────┐
+  <div class="block section-text">
+    <div class="block-title">1.2 并联 RLC 模型</div>
+    <div class="text-body"><pre><code>        ┌────[R_r]────┐
         │             │
        [L]           [C]
         │             │
         └────[R_s]────┘
               端口
-
-
-输入导纳：
-
-Y_in(f) = 1/R_r + 1/R_s + j(2πfC - 1/(2πfL))
-
-
-适用场景：
-并联馈电天线（如微带贴片）
-阵列天线的单元等效</code></pre>
+</code></pre>
+<p><strong>输入导纳</strong>：</p>
+<pre><code>Y_in(f) = 1/R_r + 1/R_s + j(2πfC - 1/(2πfL))
+</code></pre>
+<p><strong>适用场景</strong>：<br />
+- 并联馈电天线（如微带贴片）<br />
+- 阵列天线的单元等效</p></div>
   </div>
 
     
@@ -339,13 +352,11 @@ Y_in(f) = 1/R_r + 1/R_s + j(2πfC - 1/(2πfL))
     
   <div class="block section-text">
     <div class="block-title">1.3 频率相关电阻模型</div>
-    <div class="text-body">实际天线的辐射电阻 R_r 和损耗电阻 R_s 都随频率变化：
-
-`
-R_r(f) ≈ R_r(f₀) · (f/f₀)²    （电小天线）
+    <div class="text-body"><p>实际天线的辐射电阻 R_r 和损耗电阻 R_s 都随频率变化：</p>
+<pre><code>R_r(f) ≈ R_r(f₀) · (f/f₀)²    （电小天线）
 R_r(f) ≈ R_r(f₀)               （谐振天线附近）
 R_s(f) ≈ R_s(f₀) · √(f/f₀)    （趋肤效应）
-`</div>
+</code></pre></div>
   </div>
 
     
@@ -353,101 +364,22 @@ R_s(f) ≈ R_s(f₀) · √(f/f₀)    （趋肤效应）
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">2.1 多模 RLC 串联模型</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>宽带天线（如 Vivaldi、螺旋、对数周期）可以用多个 RLC 支路并联来模拟不同&#34;模&#34;的响应：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│                    │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Z_in =              +──[R₂]-[L₂]-[C₂]──┤</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│                    │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>+──...               │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│                    │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>+──[Rₙ]-[Lₙ]-[Cₙ]──┘</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>每个 RLC 支路对应天线的一个谐振模。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>提取方法：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>全波仿真或测量获得 Z_in(f)</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>在多个谐振频率附近拟合 RLC 参数</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优化所有参数使电路响应与仿真一致</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p>宽带天线（如 Vivaldi、螺旋、对数周期）可以用多个 RLC 支路并联来模拟不同"模"的响应：</p>
+<pre><code>                    ┌──[R₁]-[L₁]-[C₁]──┐
+                    │                    │
+Z_in =              +──[R₂]-[L₂]-[C₂]──┤
+                    │                    │
+                    +──...               │
+                    │                    │
+                    +──[Rₙ]-[Lₙ]-[Cₙ]──┘
+</code></pre>
+<p>每个 RLC 支路对应天线的一个谐振模。</p>
+<p><strong>提取方法</strong>：<br />
+1. 全波仿真或测量获得 Z_in(f)<br />
+2. 在多个谐振频率附近拟合 RLC 参数<br />
+3. 优化所有参数使电路响应与仿真一致</p></div>
   </div>
 
     
@@ -455,113 +387,22 @@ R_s(f) ≈ R_s(f₀) · √(f/f₀)    （趋肤效应）
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">2.2 分布参数模型</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>对于长线天线（如偶极子、单极子），可以用传输线模型：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│                 │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>+───[Z₀]───[θ]───+</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│                 │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>[负载]            [馈电]</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>其中 Z₀ 是特性阻抗，θ = β·l 是电长度。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>偶极子的传输线模型：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Z_in = Z₀ · (Z_L + jZ₀·tanθ) / (Z₀ + jZ_L·tanθ)</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>对于开路终端（Z_L → ∞）：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Z_in = -jZ₀ · cotθ</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p>对于长线天线（如偶极子、单极子），可以用传输线模型：</p>
+<pre><code>         ┌───[Z₀]───[θ]───┐
+         │                 │
+         +───[Z₀]───[θ]───+
+         │                 │
+        [负载]            [馈电]
+</code></pre>
+<p>其中 Z₀ 是特性阻抗，θ = β·l 是电长度。</p>
+<p><strong>偶极子的传输线模型</strong>：</p>
+<pre><code>Z_in = Z₀ · (Z_L + jZ₀·tanθ) / (Z₀ + jZ_L·tanθ)
+</code></pre>
+<p>对于开路终端（Z_L → ∞）：</p>
+<pre><code>Z_in = -jZ₀ · cotθ
+</code></pre></div>
   </div>
 
     
@@ -571,22 +412,18 @@ R_s(f) ≈ R_s(f₀) · √(f/f₀)    （趋肤效应）
     
   <div class="block section-text">
     <div class="block-title">2.3 非均匀分段模型</div>
-    <div class="text-body">2023 年 ACES 期刊提出的宽带偶极子分布参数模型：
-
-将偶极子沿轴向分为 N 段，每段用 RLC 表示：
-
-`
-段 1: [R₁]-[L₁]-[C₁]
+    <div class="text-body"><p>2023 年 ACES 期刊提出的宽带偶极子分布参数模型：</p>
+<p>将偶极子沿轴向分为 N 段，每段用 RLC 表示：</p>
+<pre><code>段 1: [R₁]-[L₁]-[C₁]
 段 2: [R₂]-[L₂]-[C₂]
 ...
 段 N: [R_N]-[L_N]-[C_N]
-`
-
-优势：
-宽带（DC 到 THz）
-频率无关的参数
-物理意义清晰
-可用于瞬态响应分析</div>
+</code></pre>
+<p><strong>优势</strong>：<br />
+- 宽带（DC 到 THz）<br />
+- 频率无关的参数<br />
+- 物理意义清晰<br />
+- 可用于瞬态响应分析</p></div>
   </div>
 
     
@@ -594,107 +431,23 @@ R_s(f) ≈ R_s(f₀) · √(f/f₀)    （趋肤效应）
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">3.1 Chu 球形天线模型</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>Chu (1948) 将天线放在半径为 a 的球壳内，用电磁球模展开：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>TM_mn 模的等效电路：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│                               │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>+──[R_loss,mn]                  │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│                               │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>基模（TM₁₁）的 Q 值下限：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Q_min = 1/(ka)³ + 1/(ka)</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>其中 k = 2π/λ, a = 天线所在球壳半径。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>物理意义：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>ka &lt;&lt; 1（电小天线）：Q_min ≈ 1/(ka)³ → Q 很大，带宽很窄</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>ka &gt;&gt; 1（电大天线）：Q_min ≈ 1/(ka) → Q 很小，带宽很宽</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p>Chu (1948) 将天线放在半径为 a 的球壳内，用电磁球模展开：</p>
+<pre><code>TM_mn 模的等效电路：
+    ┌──[R_rad,mn]──[L_mn]──[C_mn]──┐
+    │                               │
+    +──[R_loss,mn]                  │
+    │                               │
+    └──────────── 端口 ─────────────┘
+</code></pre>
+<p><strong>基模（TM₁₁）的 Q 值下限</strong>：</p>
+<pre><code>Q_min = 1/(ka)³ + 1/(ka)
+</code></pre>
+<p>其中 k = 2π/λ, a = 天线所在球壳半径。</p>
+<p><strong>物理意义</strong>：<br />
+- ka &lt;&lt; 1（电小天线）：Q_min ≈ 1/(ka)³ → Q 很大，带宽很窄<br />
+- ka &gt;&gt; 1（电大天线）：Q_min ≈ 1/(ka) → Q 很小，带宽很宽</p></div>
   </div>
 
     
@@ -702,19 +455,47 @@ R_s(f) ≈ R_s(f₀) · √(f/f₀)    （趋肤效应）
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.2 Chu 极限的工程解读 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>Q_min · BW_max ≈ 常数
-
-
-即：天线的 Q 值和带宽的乘积有理论下限。
-
-| 天线尺寸 | ka | Q_min | 相对带宽 |
-|---------|-----|-------|---------|
-| a = λ/10 | 0.63 | ~8 | ~12% |
-| a = λ/20 | 0.31 | ~64 | ~1.5% |
-| a = λ/50 | 0.13 | ~610 | ~0.16% |
-| a = λ/100 | 0.063 | ~4900 | ~0.02% |</code></pre>
+  <div class="block section-text">
+    <div class="block-title">3.2 Chu 极限的工程解读</div>
+    <div class="text-body"><pre><code>Q_min · BW_max ≈ 常数
+</code></pre>
+<p>即：天线的 Q 值和带宽的乘积有理论下限。</p>
+<table>
+<thead>
+<tr>
+<th>天线尺寸</th>
+<th>ka</th>
+<th>Q_min</th>
+<th>相对带宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a = λ/10</td>
+<td>0.63</td>
+<td>~8</td>
+<td>~12%</td>
+</tr>
+<tr>
+<td>a = λ/20</td>
+<td>0.31</td>
+<td>~64</td>
+<td>~1.5%</td>
+</tr>
+<tr>
+<td>a = λ/50</td>
+<td>0.13</td>
+<td>~610</td>
+<td>~0.16%</td>
+</tr>
+<tr>
+<td>a = λ/100</td>
+<td>0.063</td>
+<td>~4900</td>
+<td>~0.02%</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -724,18 +505,14 @@ R_s(f) ≈ R_s(f₀) · √(f/f₀)    （趋肤效应）
     
   <div class="block section-text">
     <div class="block-title">3.3 Harrington 直接性-带宽极限</div>
-    <div class="text-body">Harrington (1960) 证明了给定球壳内可以激发的最大直接性：
-
-`
-D_max ≤ (2l_max + 1)² / l_max
-`
-
-其中 l_max 是可以有效激发的球模阶数。
-
-与 Chu 极限的关系：
-Chu 限制带宽（Q 值）
-Harrington 限制直接性（增益）
-两者结合 → 直接性-带宽-效率的&#34;Pozar 三角&#34;</div>
+    <div class="text-body"><p>Harrington (1960) 证明了给定球壳内可以激发的最大直接性：</p>
+<pre><code>D_max ≤ (2l_max + 1)² / l_max
+</code></pre>
+<p>其中 l_max 是可以有效激发的球模阶数。</p>
+<p><strong>与 Chu 极限的关系</strong>：<br />
+- Chu 限制带宽（Q 值）<br />
+- Harrington 限制直接性（增益）<br />
+- 两者结合 → 直接性-带宽-效率的"Pozar 三角"</p></div>
   </div>
 
     
@@ -745,12 +522,13 @@ Harrington 限制直接性（增益）
     
   <div class="block section-text">
     <div class="block-title">3.4 2024 年 Chu 极限更新</div>
-    <div class="text-body">2024 年新研究对 Chu 极限进行了修正：
-
-建立了精确的 1D 传输线模型替代 Chu 电路
-重新定义了&#34;存储能量&#34;和&#34;辐射能量&#34;的边界
-发现 Chu 极限在电大天线（ka &gt; 10）时过于保守
-新的直接性-带宽极限比 Harrington 高 20-40%</div>
+    <div class="text-body"><p>2024 年新研究对 Chu 极限进行了修正：</p>
+<ul>
+<li>建立了精确的 1D 传输线模型替代 Chu 电路</li>
+<li>重新定义了"存储能量"和"辐射能量"的边界</li>
+<li>发现 Chu 极限在电大天线（ka &gt; 10）时过于保守</li>
+<li>新的直接性-带宽极限比 Harrington 高 20-40%</li>
+</ul></div>
   </div>
 
     
@@ -760,13 +538,10 @@ Harrington 限制直接性（增益）
     
   <div class="block section-text">
     <div class="block-title">4.1 基本原理</div>
-    <div class="text-body">CMA 将天线的表面电流分解为一系列正交的&#34;特性模&#34;：
-
-`
-J_total = Σ_n α_n · J_n_characteristic
-`
-
-每个特性模有自己的谐振频率、辐射电阻和 Q 值。</div>
+    <div class="text-body"><p>CMA 将天线的表面电流分解为一系列正交的"特性模"：</p>
+<pre><code>J_total = Σ_n α_n · J_n_characteristic
+</code></pre>
+<p>每个特性模有自己的谐振频率、辐射电阻和 Q 值。</p></div>
   </div>
 
     
@@ -776,19 +551,15 @@ J_total = Σ_n α_n · J_n_characteristic
     
   <div class="block section-text">
     <div class="block-title">4.2 特性模的等效电路</div>
-    <div class="text-body">每个特性模可以用独立的 RLC 串联电路表示：
-
-`
-Z_in = Σ_n |α_n|² · Z_n_RLC
+    <div class="text-body"><p>每个特性模可以用独立的 RLC 串联电路表示：</p>
+<pre><code>Z_in = Σ_n |α_n|² · Z_n_RLC
 Z_n_RLC = R_n + j(ωL_n - 1/(ωC_n))
-`
-
-特征值 β_n：
-`
-β_n = 0 → 谐振
+</code></pre>
+<p><strong>特征值 β_n</strong>：</p>
+<pre><code>β_n = 0 → 谐振
 β_n &gt; 0 → 感性（频率高于谐振）
 β_n &lt; 0 → 容性（频率低于谐振）
-`</div>
+</code></pre></div>
   </div>
 
     
@@ -798,10 +569,12 @@ Z_n_RLC = R_n + j(ωL_n - 1/(ωC_n))
     
   <div class="block section-text">
     <div class="block-title">4.3 CMA 的工程应用</div>
-    <div class="text-body">确定天线的谐振模式
-优化多频天线设计
-分析 MIMO 天线的模式隔离度
-指导表面形状优化</div>
+    <div class="text-body"><ul>
+<li>确定天线的谐振模式</li>
+<li>优化多频天线设计</li>
+<li>分析 MIMO 天线的模式隔离度</li>
+<li>指导表面形状优化</li>
+</ul></div>
   </div>
 
     
@@ -811,20 +584,15 @@ Z_n_RLC = R_n + j(ωL_n - 1/(ωC_n))
     
   <div class="block section-text">
     <div class="block-title">5.1 从 S 参数提取</div>
-    <div class="text-body">使用 VNA 测量 S₁₁(f)，然后：
-
-`
-Z_in = Z₀ · (1+S₁₁)/(1-S₁₁)
+    <div class="text-body"><p>使用 VNA 测量 S₁₁(f)，然后：</p>
+<pre><code>Z_in = Z₀ · (1+S₁₁)/(1-S₁₁)
 R = Re(Z_in)
 X = Im(Z_in)
-`
-
-拟合 RLC 参数：
-`
-X(f) = 2πfL - 1/(2πfC)
-`
-
-通过最小二乘法拟合 L 和 C。</div>
+</code></pre>
+<p>拟合 RLC 参数：</p>
+<pre><code>X(f) = 2πfL - 1/(2πfC)
+</code></pre>
+<p>通过最小二乘法拟合 L 和 C。</p></div>
   </div>
 
     
@@ -834,12 +602,10 @@ X(f) = 2πfL - 1/(2πfC)
     
   <div class="block section-text">
     <div class="block-title">5.2 从脉冲响应提取</div>
-    <div class="text-body">时域反射计（TDR）或超宽带脉冲测量：
-
-`
-I(t) → FFT → I(f)
+    <div class="text-body"><p>时域反射计（TDR）或超宽带脉冲测量：</p>
+<pre><code>I(t) → FFT → I(f)
 Z_in(f) = V(f)/I(f)
-`</div>
+</code></pre></div>
   </div>
 
     
@@ -849,14 +615,12 @@ Z_in(f) = V(f)/I(f)
     
   <div class="block section-text">
     <div class="block-title">5.3 从全波仿真提取</div>
-    <div class="text-body">HFSS/CST 仿真得到 Z_in(f)，然后：
-
-`
-找到谐振频率 f₀（Im(Z) = 0）
-在 f₀ 处，R = Re(Z)
-在 f₀ 附近，Q = f₀/(f₂-f₁) = ω₀·W/P_rad
-L = Im(Z)/(2πf)，C = -1/(Im(Z)·2πf)
-`</div>
+    <div class="text-body"><p>HFSS/CST 仿真得到 Z_in(f)，然后：</p>
+<pre><code>1. 找到谐振频率 f₀（Im(Z) = 0）
+2. 在 f₀ 处，R = Re(Z)
+3. 在 f₀ 附近，Q = f₀/(f₂-f₁) = ω₀·W/P_rad
+4. L = Im(Z)/(2πf)，C = -1/(Im(Z)·2πf)
+</code></pre></div>
   </div>
 
     
@@ -864,9 +628,9 @@ L = Im(Z)/(2πf)，C = -1/(Im(Z)·2πf)
     
 
     
-  <div class="block section-code">
-    <div class="block-title">6.1 偶极子天线 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>串联 RLC：
+  <div class="block section-text">
+    <div class="block-title">6.1 偶极子天线</div>
+    <div class="text-body"><pre><code>串联 RLC：
 R_r ≈ 73Ω（半波）
 L ≈ λ/2 对应的电感
 C ≈ λ/2 对应的电容
@@ -875,7 +639,8 @@ C ≈ λ/2 对应的电容
 ┌──[73Ω]-[L₁]-[C₁]──┐
 ├──[65Ω]-[L₂]-[C₂]──┤  （第二模）
 ├──[58Ω]-[L₃]-[C₃]──┤  （第三模）
-└────────────────────┘</code></pre>
+└────────────────────┘
+</code></pre></div>
   </div>
 
     
@@ -883,16 +648,17 @@ C ≈ λ/2 对应的电容
     
 
     
-  <div class="block section-code">
-    <div class="block-title">6.2 微带贴片天线 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>并联 RLC：
+  <div class="block section-text">
+    <div class="block-title">6.2 微带贴片天线</div>
+    <div class="text-body"><pre><code>并联 RLC：
 R ≈ 120-300Ω（取决于馈电位置和基板）
 L ≈ 基板介质中的磁储能
 C ≈ 贴片- Ground 之间的电容
 
 辐射电阻与 Q：
 R_r ∝ (h/λ)² · (W/λ)
-Q ≈ (λ/h) · √(ε_r)</code></pre>
+Q ≈ (λ/h) · √(ε_r)
+</code></pre></div>
   </div>
 
     
@@ -900,14 +666,15 @@ Q ≈ (λ/h) · √(ε_r)</code></pre>
     
 
     
-  <div class="block section-code">
-    <div class="block-title">6.3 螺旋天线 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>多模串联 RLC：
+  <div class="block section-text">
+    <div class="block-title">6.3 螺旋天线</div>
+    <div class="text-body"><pre><code>多模串联 RLC：
 每个圈对应一个 RLC 模
 模与模之间有互感耦合
 
 特征阻抗：
-Z₀ ≈ 10π·(D/h) Ω</code></pre>
+Z₀ ≈ 10π·(D/h) Ω
+</code></pre></div>
   </div>
 
     
@@ -915,13 +682,14 @@ Z₀ ≈ 10π·(D/h) Ω</code></pre>
     
 
     
-  <div class="block section-code">
-    <div class="block-title">6.4 Vivaldi 天线 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>传输线模型：
+  <div class="block section-text">
+    <div class="block-title">6.4 Vivaldi 天线</div>
+    <div class="text-body"><pre><code>传输线模型：
 渐变的特性阻抗 Z(x) 沿槽线变化
 
 等效为多级阻抗变换器：
-Z₁ → Z₂ → ... → Z_N → Z₀</code></pre>
+Z₁ → Z₂ → ... → Z_N → Z₀
+</code></pre></div>
   </div>
 
     
@@ -931,7 +699,7 @@ Z₁ → Z₂ → ... → Z_N → Z₀</code></pre>
     
   <div class="block section-text">
     <div class="block-title">7.1 集总参数模型的局限性</div>
-    <div class="text-body">RLC 串联/并联模型只适用于窄带（&lt; 20% 带宽）天线。宽带天线需要多模模型或分布参数模型。</div>
+    <div class="text-body"><p>RLC 串联/并联模型只适用于窄带（&lt; 20% 带宽）天线。宽带天线需要多模模型或分布参数模型。</p></div>
   </div>
 
     
@@ -941,7 +709,7 @@ Z₁ → Z₂ → ... → Z_N → Z₀</code></pre>
     
   <div class="block section-text">
     <div class="block-title">7.2 频率相关电阻</div>
-    <div class="text-body">实际天线的 R_r、L、C 都随频率变化，固定参数的 RLC 模型在频带边缘误差很大。</div>
+    <div class="text-body"><p>实际天线的 R_r、L、C 都随频率变化，固定参数的 RLC 模型在频带边缘误差很大。</p></div>
   </div>
 
     
@@ -949,59 +717,16 @@ Z₁ → Z₂ → ... → Z_N → Z₀</code></pre>
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">7.3 互耦的电路表示</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>阵列中单元之间的互耦需要在等效电路中增加互感 M 和互电阻 R_m：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Z_array =</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│[Z₂₁] [Z₂₂] ... [Z₂N]│</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│[...]  [...]  [...]  │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>其中 Z_nm = R_nm + jωL_nm - j/(ωC_nm)。</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p>阵列中单元之间的互耦需要在等效电路中增加互感 M 和互电阻 R_m：</p>
+<pre><code>Z_array = 
+┌[Z₁₁] [Z₁₂] ... [Z₁N]┐
+│[Z₂₁] [Z₂₂] ... [Z₂N]│
+│[...]  [...]  [...]  │
+└[ZN1] [ZN2] ... [ZNN]┘
+</code></pre>
+<p>其中 Z_nm = R_nm + jωL_nm - j/(ωC_nm)。</p></div>
   </div>
 
     
@@ -1011,9 +736,11 @@ Z₁ → Z₂ → ... → Z_N → Z₀</code></pre>
     
   <div class="block section-text">
     <div class="block-title">7.4 温度和环境的影响</div>
-    <div class="text-body">温度变化 → 基板 ε_r 变化 → C 变化 → 谐振频率偏移
-湿度变化 → 介质损耗变化 → R_s 变化
-机械应力 → 几何变形 → L、C 变化</div>
+    <div class="text-body"><ul>
+<li>温度变化 → 基板 ε_r 变化 → C 变化 → 谐振频率偏移</li>
+<li>湿度变化 → 介质损耗变化 → R_s 变化</li>
+<li>机械应力 → 几何变形 → L、C 变化</li>
+</ul></div>
   </div>
 
     
@@ -1023,14 +750,16 @@ Z₁ → Z₂ → ... → Z_N → Z₀</code></pre>
     
   <div class="block section-text">
     <div class="block-title">八、技术演进</div>
-    <div class="text-body">1948年：Chu 球形天线模型和 Q 极限
-1960年：Harrington 直接性-带宽极限
-1970s：多模等效电路方法
-1990s：特性模分析（CMA）理论建立
-2000s：分布参数等效电路
-2010s：CMA 在 MIMO 天线中的应用
-2020-2023年：宽带分布参数模型、非均匀分段模型
-2024年：Chu 极限修正和更新</div>
+    <div class="text-body"><ul>
+<li><strong>1948年</strong>：Chu 球形天线模型和 Q 极限</li>
+<li><strong>1960年</strong>：Harrington 直接性-带宽极限</li>
+<li><strong>1970s</strong>：多模等效电路方法</li>
+<li><strong>1990s</strong>：特性模分析（CMA）理论建立</li>
+<li><strong>2000s</strong>：分布参数等效电路</li>
+<li><strong>2010s</strong>：CMA 在 MIMO 天线中的应用</li>
+<li><strong>2020-2023年</strong>：宽带分布参数模型、非均匀分段模型</li>
+<li><strong>2024年</strong>：Chu 极限修正和更新</li>
+</ul></div>
   </div>
 
     

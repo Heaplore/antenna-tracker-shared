@@ -271,23 +271,16 @@
     
   <div class="block section-text">
     <div class="block-title">1.1 什么是口径照明分布？</div>
-    <div class="text-body">口径照明分布（Aperture Illumination / Taper Distribution）是指天线辐射孔径上场强的空间分布函数：
-
-`
-E_aperture(x, y) = A(x, y) · exp[j·φ(x, y)]
-`
-
-其中：
-A(x, y) 是幅度分布（taper）
-φ(x, y) 是相位分布
-
-方向图是口径场的傅里叶变换：
-
-`
-F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)] dx dy
-`
-
-关键洞察：改变口径上的 A(x, y)，就是在改变方向图的&#34;形状&#34;。</div>
+    <div class="text-body"><p>口径照明分布（Aperture Illumination / Taper Distribution）是指天线辐射孔径上场强的空间分布函数：</p>
+<pre><code>E_aperture(x, y) = A(x, y) · exp[j·φ(x, y)]
+</code></pre>
+<p>其中：<br />
+- A(x, y) 是幅度分布（taper）<br />
+- φ(x, y) 是相位分布</p>
+<p>方向图是口径场的<strong>傅里叶变换</strong>：</p>
+<pre><code>F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)] dx dy
+</code></pre>
+<p><strong>关键洞察</strong>：改变口径上的 A(x, y)，就是在改变方向图的"形状"。</p></div>
   </div>
 
     
@@ -295,70 +288,52 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">1.2 均匀分布（Uniform / Rectangular）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>指标</th><th>值</th><th>说明</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>峰值旁瓣电平</td>
-          
-          <td>-13.2 dB</td>
-          
-          <td>第一旁瓣</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>旁瓣总数</td>
-          
-          <td>无穷</td>
-          
-          <td>sinc 函数有无穷多个旁瓣</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>3dB 波束宽度</td>
-          
-          <td>0.886·λ/L</td>
-          
-          <td>最窄</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>口径效率</td>
-          
-          <td>100%</td>
-          
-          <td>理论最大</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>增益</td>
-          
-          <td>最大</td>
-          
-          <td>所有能量集中</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">优点：增益最大、波束最窄。
-缺点：旁瓣太高（-13.2dB），容易受到杂散信号干扰。</div>
-    
+    <div class="text-body"><p>孔径上场强处处相等：</p>
+<pre><code>A_uniform(x, y) = 1,  对于所有 (x, y) ∈ 孔径
+</code></pre>
+<p><strong>方向图</strong>（矩形孔径）：</p>
+<pre><code>F(θ) = sinc(k·L·sinθ/2) = sin(πL·sinθ/λ) / (πL·sinθ/λ)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>峰值旁瓣电平</td>
+<td>-13.2 dB</td>
+<td>第一旁瓣</td>
+</tr>
+<tr>
+<td>旁瓣总数</td>
+<td>无穷</td>
+<td>sinc 函数有无穷多个旁瓣</td>
+</tr>
+<tr>
+<td>3dB 波束宽度</td>
+<td>0.886·λ/L</td>
+<td>最窄</td>
+</tr>
+<tr>
+<td>口径效率</td>
+<td>100%</td>
+<td>理论最大</td>
+</tr>
+<tr>
+<td>增益</td>
+<td>最大</td>
+<td>所有能量集中</td>
+</tr>
+</tbody>
+</table>
+<p><strong>优点</strong>：增益最大、波束最窄。<br />
+<strong>缺点</strong>：旁瓣太高（-13.2dB），容易受到杂散信号干扰。</p></div>
   </div>
 
     
@@ -366,17 +341,36 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.3 余弦分布（Cosine / Cosine-Tapered） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>A_cosine(x) = cos(πx/L),  |x| ≤ L/2
-
-
-| 指标 | 值 |
-|------|------|
-| 峰值旁瓣电平 | -23.0 dB |
-| 3dB 波束宽度 | 1.21·λ/L（比均匀宽 37%） |
-| 口径效率 | 58% |
-| 增益损失 | -2.37 dB |</code></pre>
+  <div class="block section-text">
+    <div class="block-title">1.3 余弦分布（Cosine / Cosine-Tapered）</div>
+    <div class="text-body"><pre><code>A_cosine(x) = cos(πx/L),  |x| ≤ L/2
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>峰值旁瓣电平</td>
+<td>-23.0 dB</td>
+</tr>
+<tr>
+<td>3dB 波束宽度</td>
+<td>1.21·λ/L（比均匀宽 37%）</td>
+</tr>
+<tr>
+<td>口径效率</td>
+<td>58%</td>
+</tr>
+<tr>
+<td>增益损失</td>
+<td>-2.37 dB</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -384,17 +378,36 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.4 余弦平方分布（Cosine-Squared） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>A_cos2(x) = cos²(πx/L),  |x| ≤ L/2
-
-
-| 指标 | 值 |
-|------|------|
-| 峰值旁瓣电平 | -32.2 dB |
-| 3dB 波束宽度 | 1.50·λ/L（比均匀宽 69%） |
-| 口径效率 | 40% |
-| 增益损失 | -3.92 dB |</code></pre>
+  <div class="block section-text">
+    <div class="block-title">1.4 余弦平方分布（Cosine-Squared）</div>
+    <div class="text-body"><pre><code>A_cos2(x) = cos²(πx/L),  |x| ≤ L/2
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>峰值旁瓣电平</td>
+<td>-32.2 dB</td>
+</tr>
+<tr>
+<td>3dB 波束宽度</td>
+<td>1.50·λ/L（比均匀宽 69%）</td>
+</tr>
+<tr>
+<td>口径效率</td>
+<td>40%</td>
+</tr>
+<tr>
+<td>增益损失</td>
+<td>-3.92 dB</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -402,21 +415,38 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.5 高斯分布（Gaussian） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>A_gaussian(x) = exp[-(x/w)²]
-
-
-其中 w 是高斯宽度参数，控制 taper 的陡峭程度。
-
-| 指标 | 值（w = L/2.5） |
-|------|----------------|
-| 峰值旁瓣电平 | -40 dB 或更低 |
-| 旁瓣特性 | 旁瓣快速滚降（无振荡） |
-| 3dB 波束宽度 | ~1.28·λ/L |
-| 口径效率 | ~45-55% |
-
-特点：高斯分布的傅里叶变换仍然是高斯函数——旁瓣没有振荡，而是单调递减。这在雷达应用中很有优势（旁瓣不会&#34;反弹&#34;）。</code></pre>
+  <div class="block section-text">
+    <div class="block-title">1.5 高斯分布（Gaussian）</div>
+    <div class="text-body"><pre><code>A_gaussian(x) = exp[-(x/w)²]
+</code></pre>
+<p>其中 w 是高斯宽度参数，控制 taper 的陡峭程度。</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>值（w = L/2.5）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>峰值旁瓣电平</td>
+<td>-40 dB 或更低</td>
+</tr>
+<tr>
+<td>旁瓣特性</td>
+<td>旁瓣快速滚降（无振荡）</td>
+</tr>
+<tr>
+<td>3dB 波束宽度</td>
+<td>~1.28·λ/L</td>
+</tr>
+<tr>
+<td>口径效率</td>
+<td>~45-55%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>特点</strong>：高斯分布的傅里叶变换仍然是高斯函数——旁瓣没有振荡，而是单调递减。这在雷达应用中很有优势（旁瓣不会"反弹"）。</p></div>
   </div>
 
     
@@ -424,20 +454,34 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.6 二项式分布（Binomial） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>A[n] = C(N-1, n) = (N-1)! / (n! · (N-1-n)!)
-
-
-对于 N = 4 个单元：A = [1, 3, 3, 1]
-
-| 指标 | 值 |
-|------|------|
-| 峰值旁瓣电平 | &lt; -40 dB（理论无旁瓣） |
-| 3dB 波束宽度 | 最宽 |
-| 口径效率 | 最低（20-30%） |
-
-特点：二项式分布完全没有旁瓣（方向图只有主瓣），但代价是波束很宽、效率很低。</code></pre>
+  <div class="block section-text">
+    <div class="block-title">1.6 二项式分布（Binomial）</div>
+    <div class="text-body"><pre><code>A[n] = C(N-1, n) = (N-1)! / (n! · (N-1-n)!)
+</code></pre>
+<p>对于 N = 4 个单元：A = [1, 3, 3, 1]</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>峰值旁瓣电平</td>
+<td>&lt; -40 dB（理论无旁瓣）</td>
+</tr>
+<tr>
+<td>3dB 波束宽度</td>
+<td>最宽</td>
+</tr>
+<tr>
+<td>口径效率</td>
+<td>最低（20-30%）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>特点</strong>：二项式分布完全没有旁瓣（方向图只有主瓣），但代价是波束很宽、效率很低。</p></div>
   </div>
 
     
@@ -445,55 +489,43 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">1.7 Dolph-Chebyshev 分布</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>旁瓣目标</th><th>波束展宽因子</th><th>增益损失</th><th>口径效率</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>-20 dB</td>
-          
-          <td>1.15</td>
-          
-          <td>-0.8 dB</td>
-          
-          <td>78%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>-30 dB</td>
-          
-          <td>1.35</td>
-          
-          <td>-1.5 dB</td>
-          
-          <td>65%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>-40 dB</td>
-          
-          <td>1.60</td>
-          
-          <td>-2.5 dB</td>
-          
-          <td>50%</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">核心优势：在给定旁瓣电平下，波束最窄。</div>
-    
+    <div class="text-body"><p>Chebyshev 多项式构造的分布，在所有单元等旁瓣的前提下实现<strong>最窄波束</strong>：</p>
+<pre><code>A_CE(θ) = T_N(cos(ψ)·cos(ψ₀)) / T_N(cos(θ₀)·cos(ψ₀))
+</code></pre>
+<p>其中 T_N 是 N 阶 Chebyshev 多项式，ψ₀ 控制旁瓣电平。</p>
+<table>
+<thead>
+<tr>
+<th>旁瓣目标</th>
+<th>波束展宽因子</th>
+<th>增益损失</th>
+<th>口径效率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-20 dB</td>
+<td>1.15</td>
+<td>-0.8 dB</td>
+<td>78%</td>
+</tr>
+<tr>
+<td>-30 dB</td>
+<td>1.35</td>
+<td>-1.5 dB</td>
+<td>65%</td>
+</tr>
+<tr>
+<td>-40 dB</td>
+<td>1.60</td>
+<td>-2.5 dB</td>
+<td>50%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心优势</strong>：在给定旁瓣电平下，波束最窄。</p></div>
   </div>
 
     
@@ -501,51 +533,39 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">1.8 Taylor 分布</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>指标</th><th>值</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>旁瓣特性</td>
-          
-          <td>内圈等高，外圈滚降</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>波束宽度</td>
-          
-          <td>介于 Chebyshev 和高斯之间</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>口径效率</td>
-          
-          <td>60-75%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>灵活性</td>
-          
-          <td>高（可调 N_bar 和 S）</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">特点：Taylor 是工程中最常用的分布之一——兼顾旁瓣抑制和口径效率。</div>
-    
+    <div class="text-body"><p>Taylor 分布在前 N 个旁瓣保持等高水平，然后按 sinc 函数滚降：</p>
+<pre><code>A_Taylor(θ) = [sin(π·N·u) / (π·N·u)] · [1 + 2·Σ(n=1 to N_bar) cos(2πn·u/S)]
+</code></pre>
+<p>其中 S 是旁瓣控制参数，N_bar 是保持等高的旁瓣数量。</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>旁瓣特性</td>
+<td>内圈等高，外圈滚降</td>
+</tr>
+<tr>
+<td>波束宽度</td>
+<td>介于 Chebyshev 和高斯之间</td>
+</tr>
+<tr>
+<td>口径效率</td>
+<td>60-75%</td>
+</tr>
+<tr>
+<td>灵活性</td>
+<td>高（可调 N_bar 和 S）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>特点</strong>：Taylor 是工程中最常用的分布之一——兼顾旁瓣抑制和口径效率。</p></div>
   </div>
 
     
@@ -555,15 +575,76 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
   <div class="block section-text">
     <div class="block-title">二、各种分布的对比总结</div>
-    <div class="text-body">| 分布 | 旁瓣(dB) | 波束展宽 | 口径效率 | 增益损失 | 适用场景 |
-|------|---------|---------|---------|---------|---------|
-| 均匀 | -13.2 | 1.00× | 100% | 0dB | 需要最大增益 |
-| 余弦 | -23.0 | 1.21× | 58% | -2.37dB | 通用 |
-| 余弦平方 | -32.2 | 1.50× | 40% | -3.92dB | 低旁瓣需求 |
-| 高斯 | &lt;-40 | 1.28× | 45-55% | -3dB | 雷达（无旁瓣振荡） |
-| 二项式 | &lt;-40 | ~2.0× | 20-30% | -5dB | 极端低旁瓣 |
-| Chebyshev | 可控 | 1.15-1.6× | 50-78% | -0.8~-2.5dB | 雷达/卫星 |
-| Taylor | 可控 | 1.15-1.4× | 60-75% | -1~-2dB | 通用（最常用） |</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>分布</th>
+<th>旁瓣(dB)</th>
+<th>波束展宽</th>
+<th>口径效率</th>
+<th>增益损失</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>均匀</td>
+<td>-13.2</td>
+<td>1.00×</td>
+<td>100%</td>
+<td>0dB</td>
+<td>需要最大增益</td>
+</tr>
+<tr>
+<td>余弦</td>
+<td>-23.0</td>
+<td>1.21×</td>
+<td>58%</td>
+<td>-2.37dB</td>
+<td>通用</td>
+</tr>
+<tr>
+<td>余弦平方</td>
+<td>-32.2</td>
+<td>1.50×</td>
+<td>40%</td>
+<td>-3.92dB</td>
+<td>低旁瓣需求</td>
+</tr>
+<tr>
+<td>高斯</td>
+<td>&lt;-40</td>
+<td>1.28×</td>
+<td>45-55%</td>
+<td>-3dB</td>
+<td>雷达（无旁瓣振荡）</td>
+</tr>
+<tr>
+<td>二项式</td>
+<td>&lt;-40</td>
+<td>~2.0×</td>
+<td>20-30%</td>
+<td>-5dB</td>
+<td>极端低旁瓣</td>
+</tr>
+<tr>
+<td>Chebyshev</td>
+<td>可控</td>
+<td>1.15-1.6×</td>
+<td>50-78%</td>
+<td>-0.8~-2.5dB</td>
+<td>雷达/卫星</td>
+</tr>
+<tr>
+<td>Taylor</td>
+<td>可控</td>
+<td>1.15-1.4×</td>
+<td>60-75%</td>
+<td>-1~-2dB</td>
+<td>通用（最常用）</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -571,47 +652,42 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.1 物理定律：不可能三角</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>选择</th><th>牺牲</th><th>代表分布</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>窄波束 + 高增益</td>
-          
-          <td>旁瓣高</td>
-          
-          <td>均匀</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>低旁瓣 + 高增益</td>
-          
-          <td>波束宽</td>
-          
-          <td>高斯</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>窄波束 + 低旁瓣</td>
-          
-          <td>增益低</td>
-          
-          <td>Chebyshev/Taylor</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p>口径照明分布存在一个<strong>不可逾越的权衡三角</strong>：</p>
+<pre><code>       低旁瓣
+         /\
+        /  \
+       /    \
+  窄波束 ------ 高增益
+</code></pre>
+<p>你只能同时满足其中两个，第三个必然妥协：</p>
+<table>
+<thead>
+<tr>
+<th>选择</th>
+<th>牺牲</th>
+<th>代表分布</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>窄波束 + 高增益</td>
+<td>旁瓣高</td>
+<td>均匀</td>
+</tr>
+<tr>
+<td>低旁瓣 + 高增益</td>
+<td>波束宽</td>
+<td>高斯</td>
+</tr>
+<tr>
+<td>窄波束 + 低旁瓣</td>
+<td>增益低</td>
+<td>Chebyshev/Taylor</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -621,16 +697,14 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
   <div class="block section-text">
     <div class="block-title">3.2 数学本质：不确定性原理</div>
-    <div class="text-body">口径照明分布的权衡本质上是傅里叶变换的不确定性原理：
-
-`
-Δx · Δk ≥ 1/2
-`
-
-其中 Δx 是口径上的&#34;宽度&#34;（能量集中度），Δk 是方向图上的&#34;宽度&#34;（波束宽度）。
-
-口径能量越集中（均匀分布）→ 方向图主瓣越窄，但旁瓣越高
-口径能量越分散（tapered 分布）→ 方向图旁瓣越低，但主瓣越宽</div>
+    <div class="text-body"><p>口径照明分布的权衡本质上是<strong>傅里叶变换的不确定性原理</strong>：</p>
+<pre><code>Δx · Δk ≥ 1/2
+</code></pre>
+<p>其中 Δx 是口径上的"宽度"（能量集中度），Δk 是方向图上的"宽度"（波束宽度）。</p>
+<ul>
+<li>口径能量越集中（均匀分布）→ 方向图主瓣越窄，但旁瓣越高</li>
+<li>口径能量越分散（tapered 分布）→ 方向图旁瓣越低，但主瓣越宽</li>
+</ul></div>
   </div>
 
     
@@ -640,20 +714,15 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
   <div class="block section-text">
     <div class="block-title">3.3  pedestal（平台）效应</div>
-    <div class="text-body">实际工程中，经常在 taper 分布中加入一个&#34;平台&#34;（pedestal）分量：
-
-`
-A_tapered(x) = (1-p) · A_distribution(x) + p · A_uniform(x)
-`
-
-其中 p 是 pedestal 比例（0 ≤ p ≤ 1）。
-
-效果：
-p = 0：纯 taper 分布（旁瓣低，波束宽）
-p = 1：均匀分布（旁瓣高，波束窄）
-p = 0.1-0.2：折中方案（旁瓣稍高，波束稍窄）
-
-应用：卫星通信天线常用 p ≈ 0.15 的 Taylor-pedestal 组合。</div>
+    <div class="text-body"><p>实际工程中，经常在 taper 分布中加入一个"平台"（pedestal）分量：</p>
+<pre><code>A_tapered(x) = (1-p) · A_distribution(x) + p · A_uniform(x)
+</code></pre>
+<p>其中 p 是 pedestal 比例（0 ≤ p ≤ 1）。</p>
+<p><strong>效果</strong>：<br />
+- p = 0：纯 taper 分布（旁瓣低，波束宽）<br />
+- p = 1：均匀分布（旁瓣高，波束窄）<br />
+- p = 0.1-0.2：折中方案（旁瓣稍高，波束稍窄）</p>
+<p><strong>应用</strong>：卫星通信天线常用 p ≈ 0.15 的 Taylor-pedestal 组合。</p></div>
   </div>
 
     
@@ -661,12 +730,11 @@ p = 0.1-0.2：折中方案（旁瓣稍高，波束稍窄）
     
 
     
-  <div class="block section-code">
-    <div class="block-title">4.1 均匀相位（理想情况） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>φ(x, y) = 0,  所有 (x, y)
-
-
-方向图由幅度分布唯一决定。</code></pre>
+  <div class="block section-text">
+    <div class="block-title">4.1 均匀相位（理想情况）</div>
+    <div class="text-body"><pre><code>φ(x, y) = 0,  所有 (x, y)
+</code></pre>
+<p>方向图由幅度分布唯一决定。</p></div>
   </div>
 
     
@@ -674,12 +742,11 @@ p = 0.1-0.2：折中方案（旁瓣稍高，波束稍窄）
     
 
     
-  <div class="block section-code">
-    <div class="block-title">4.2 锥形相位（Tilt） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>φ(x, y) = k·x·sinθ₀
-
-
-导致波束指向偏移 θ₀。</code></pre>
+  <div class="block section-text">
+    <div class="block-title">4.2 锥形相位（Tilt）</div>
+    <div class="text-body"><pre><code>φ(x, y) = k·x·sinθ₀
+</code></pre>
+<p>导致波束指向偏移 θ₀。</p></div>
   </div>
 
     
@@ -687,87 +754,60 @@ p = 0.1-0.2：折中方案（旁瓣稍高，波束稍窄）
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">4.3 像差相位（Aberration）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>RMS 相位误差</th><th>增益损失</th><th>旁瓣升高</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>0°</td>
-          
-          <td>0dB</td>
-          
-          <td>无</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>10°</td>
-          
-          <td>0.05dB</td>
-          
-          <td>+1dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>20°</td>
-          
-          <td>0.2dB</td>
-          
-          <td>+3dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>30°</td>
-          
-          <td>0.5dB</td>
-          
-          <td>+6dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>45°</td>
-          
-          <td>1.2dB</td>
-          
-          <td>+10dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>60°</td>
-          
-          <td>2.5dB</td>
-          
-          <td>+15dB</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">Ruze 公式（表面精度与增益的关系）：
-`
-η_phase = exp[-(4π·σ/λ)²]
-`
-其中 σ 是表面 RMS 误差。
-对于 λ = 3cm（10GHz），σ = 1mm：
-`
-η_phase = exp[-(4π·0.1/3)²] = exp[-0.175] ≈ 84%  (-0.76dB)
-`</div>
-    
+    <div class="text-body"><p>实际系统中，相位不均匀是常态：</p>
+<pre><code>φ_actual(x, y) = φ_desired(x, y) + φ_error(x, y)
+</code></pre>
+<p>相位误差对方向图的影响：</p>
+<table>
+<thead>
+<tr>
+<th>RMS 相位误差</th>
+<th>增益损失</th>
+<th>旁瓣升高</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0°</td>
+<td>0dB</td>
+<td>无</td>
+</tr>
+<tr>
+<td>10°</td>
+<td>0.05dB</td>
+<td>+1dB</td>
+</tr>
+<tr>
+<td>20°</td>
+<td>0.2dB</td>
+<td>+3dB</td>
+</tr>
+<tr>
+<td>30°</td>
+<td>0.5dB</td>
+<td>+6dB</td>
+</tr>
+<tr>
+<td>45°</td>
+<td>1.2dB</td>
+<td>+10dB</td>
+</tr>
+<tr>
+<td>60°</td>
+<td>2.5dB</td>
+<td>+15dB</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ruze 公式</strong>（表面精度与增益的关系）：</p>
+<pre><code>η_phase = exp[-(4π·σ/λ)²]
+</code></pre>
+<p>其中 σ 是表面 RMS 误差。</p>
+<p>对于 λ = 3cm（10GHz），σ = 1mm：</p>
+<pre><code>η_phase = exp[-(4π·0.1/3)²] = exp[-0.175] ≈ 84%  (-0.76dB)
+</code></pre></div>
   </div>
 
     
@@ -775,20 +815,34 @@ p = 0.1-0.2：折中方案（旁瓣稍高，波束稍窄）
     
 
     
-  <div class="block section-code">
-    <div class="block-title">5.1 圆形孔径的均匀分布 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>F(θ) = 2·J₁(k·a·sinθ) / (k·a·sinθ)
-
-
-其中 J₁ 是一阶贝塞尔函数，a 是圆孔径半径。
-
-| 指标 | 值 |
-|------|------|
-| 峰值旁瓣电平 | -17.6 dB（第一旁瓣） |
-| 3dB 波束宽度 | 1.02·λ/D |
-| 口径效率 | 100% |
-
-圆形孔径的第一旁瓣（-17.6dB）比矩形孔径（-13.2dB）更高，这是因为贝塞尔函数的振荡特性。</code></pre>
+  <div class="block section-text">
+    <div class="block-title">5.1 圆形孔径的均匀分布</div>
+    <div class="text-body"><pre><code>F(θ) = 2·J₁(k·a·sinθ) / (k·a·sinθ)
+</code></pre>
+<p>其中 J₁ 是一阶贝塞尔函数，a 是圆孔径半径。</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>峰值旁瓣电平</td>
+<td>-17.6 dB（第一旁瓣）</td>
+</tr>
+<tr>
+<td>3dB 波束宽度</td>
+<td>1.02·λ/D</td>
+</tr>
+<tr>
+<td>口径效率</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<p>圆形孔径的第一旁瓣（-17.6dB）比矩形孔径（-13.2dB）更高，这是因为贝塞尔函数的振荡特性。</p></div>
   </div>
 
     
@@ -798,13 +852,10 @@ p = 0.1-0.2：折中方案（旁瓣稍高，波束稍窄）
     
   <div class="block section-text">
     <div class="block-title">5.2 Hansen 圆形孔径分布</div>
-    <div class="text-body">R.C. Hansen 提出的单参数圆形孔径分布，在波束宽度、旁瓣和效率之间取得最优折中：
-
-`
-A_Hansen(ρ) = J₀(v·ρ) · exp(-α·ρ²)
-`
-
-其中 v 和 α 是两个可调参数。</div>
+    <div class="text-body"><p>R.C. Hansen 提出的单参数圆形孔径分布，在波束宽度、旁瓣和效率之间取得最优折中：</p>
+<pre><code>A_Hansen(ρ) = J₀(v·ρ) · exp(-α·ρ²)
+</code></pre>
+<p>其中 v 和 α 是两个可调参数。</p></div>
   </div>
 
     
@@ -814,9 +865,11 @@ A_Hansen(ρ) = J₀(v·ρ) · exp(-α·ρ²)
     
   <div class="block section-text">
     <div class="block-title">6.1 卫星通信</div>
-    <div class="text-body">要求：低旁瓣（减少干扰）、适中增益
-选择：Taylor 分布（旁瓣 -25 到 -30dB）+ pedestal
-原因：卫星之间距离远，旁瓣干扰是主要问题</div>
+    <div class="text-body"><ul>
+<li>要求：低旁瓣（减少干扰）、适中增益</li>
+<li>选择：Taylor 分布（旁瓣 -25 到 -30dB）+ pedestal</li>
+<li>原因：卫星之间距离远，旁瓣干扰是主要问题</li>
+</ul></div>
   </div>
 
     
@@ -826,9 +879,11 @@ A_Hansen(ρ) = J₀(v·ρ) · exp(-α·ρ²)
     
   <div class="block section-text">
     <div class="block-title">6.2 雷达</div>
-    <div class="text-body">要求：低旁瓣（减少虚警）、窄波束（高分辨率）
-选择：Chebyshev 或 Taylor
-原因：旁瓣会产生虚假目标回波</div>
+    <div class="text-body"><ul>
+<li>要求：低旁瓣（减少虚警）、窄波束（高分辨率）</li>
+<li>选择：Chebyshev 或 Taylor</li>
+<li>原因：旁瓣会产生虚假目标回波</li>
+</ul></div>
   </div>
 
     
@@ -838,9 +893,11 @@ A_Hansen(ρ) = J₀(v·ρ) · exp(-α·ρ²)
     
   <div class="block section-text">
     <div class="block-title">6.3 基站天线</div>
-    <div class="text-body">要求：适中旁瓣、适中波束宽度、高增益
-选择：Cosine 或 Taylor（旁瓣 -20 到 -25dB）
-原因：基站天线需要平衡覆盖和干扰</div>
+    <div class="text-body"><ul>
+<li>要求：适中旁瓣、适中波束宽度、高增益</li>
+<li>选择：Cosine 或 Taylor（旁瓣 -20 到 -25dB）</li>
+<li>原因：基站天线需要平衡覆盖和干扰</li>
+</ul></div>
   </div>
 
     
@@ -850,9 +907,11 @@ A_Hansen(ρ) = J₀(v·ρ) · exp(-α·ρ²)
     
   <div class="block section-text">
     <div class="block-title">6.4 射电天文</div>
-    <div class="text-body">要求：极低旁瓣（减少地面噪声）
-选择：高斯或二项式
-原因：需要尽可能减少来自地平线方向的干扰</div>
+    <div class="text-body"><ul>
+<li>要求：极低旁瓣（减少地面噪声）</li>
+<li>选择：高斯或二项式</li>
+<li>原因：需要尽可能减少来自地平线方向的干扰</li>
+</ul></div>
   </div>
 
     
@@ -862,9 +921,11 @@ A_Hansen(ρ) = J₀(v·ρ) · exp(-α·ρ²)
     
   <div class="block section-text">
     <div class="block-title">6.5 点对点微波</div>
-    <div class="text-body">要求：最大增益、最窄波束
-选择：均匀或接近均匀
-原因：点对点链路距离固定，旁瓣不重要</div>
+    <div class="text-body"><ul>
+<li>要求：最大增益、最窄波束</li>
+<li>选择：均匀或接近均匀</li>
+<li>原因：点对点链路距离固定，旁瓣不重要</li>
+</ul></div>
   </div>
 
     
@@ -874,17 +935,13 @@ A_Hansen(ρ) = J₀(v·ρ) · exp(-α·ρ²)
     
   <div class="block section-text">
     <div class="block-title">7.1 馈源照明不均匀</div>
-    <div class="text-body">抛物面天线的口径照明由馈源决定：
-
-`
-A_aperture(θ_feed) = G_feed(θ_feed)
-`
-
-馈源的方向图通常不是理想的 taper 分布，导致：
-边缘溢出（spillover）：馈源能量照射到反射面之外
-中心过亮或过暗：导致口径效率下降
-
-优化方法：选择合适焦距直径比（f/D）和馈源方向图。</div>
+    <div class="text-body"><p>抛物面天线的口径照明由馈源决定：</p>
+<pre><code>A_aperture(θ_feed) = G_feed(θ_feed)
+</code></pre>
+<p>馈源的方向图通常不是理想的 taper 分布，导致：<br />
+- 边缘溢出（spillover）：馈源能量照射到反射面之外<br />
+- 中心过亮或过暗：导致口径效率下降</p>
+<p><strong>优化方法</strong>：选择合适焦距直径比（f/D）和馈源方向图。</p></div>
   </div>
 
     
@@ -894,15 +951,11 @@ A_aperture(θ_feed) = G_feed(θ_feed)
     
   <div class="block section-text">
     <div class="block-title">7.2 相位中心偏移</div>
-    <div class="text-body">馈源的相位中心偏移会导致口径相位误差：
-
-`
-Δφ = k·Δz·(1 - cosθ)
-`
-
-其中 Δz 是相位中心沿轴向的偏移。
-
-影响：波束指向偏移、增益下降、旁瓣升高。</div>
+    <div class="text-body"><p>馈源的相位中心偏移会导致口径相位误差：</p>
+<pre><code>Δφ = k·Δz·(1 - cosθ)
+</code></pre>
+<p>其中 Δz 是相位中心沿轴向的偏移。</p>
+<p><strong>影响</strong>：波束指向偏移、增益下降、旁瓣升高。</p></div>
   </div>
 
     
@@ -912,11 +965,12 @@ A_aperture(θ_feed) = G_feed(θ_feed)
     
   <div class="block section-text">
     <div class="block-title">7.3 制造公差</div>
-    <div class="text-body">口径上的物理缺陷（面板变形、馈源位置误差）会破坏理想的照明分布：
-
-面板变形 → 相位误差
-馈源偏移 → 幅度 + 相位误差
-遮挡（副反射面支撑）→ 幅度凹陷 + 相位畸变</div>
+    <div class="text-body"><p>口径上的物理缺陷（面板变形、馈源位置误差）会破坏理想的照明分布：</p>
+<ul>
+<li>面板变形 → 相位误差</li>
+<li>馈源偏移 → 幅度 + 相位误差</li>
+<li>遮挡（副反射面支撑）→ 幅度凹陷 + 相位畸变</li>
+</ul></div>
   </div>
 
     
@@ -926,13 +980,10 @@ A_aperture(θ_feed) = G_feed(θ_feed)
     
   <div class="block section-text">
     <div class="block-title">7.4 极化纯度</div>
-    <div class="text-body">双极化天线中，交叉极化口径分布会污染主极化方向图：
-
-`
-E_total = E_co · p_co + E_cross · p_cross
-`
-
-交叉极化分量会在主瓣附近产生额外的旁瓣结构。</div>
+    <div class="text-body"><p>双极化天线中，交叉极化口径分布会污染主极化方向图：</p>
+<pre><code>E_total = E_co · p_co + E_cross · p_cross
+</code></pre>
+<p>交叉极化分量会在主瓣附近产生额外的旁瓣结构。</p></div>
   </div>
 
     
@@ -942,13 +993,15 @@ E_total = E_co · p_co + E_cross · p_cross
     
   <div class="block section-text">
     <div class="block-title">八、技术演进</div>
-    <div class="text-body">1940s：均匀分布、余弦分布经典分析
-1946年：Dolph-Chebyshev 分布提出
-1960年：Taylor 分布提出（NASA）
-1976年：Hansen 圆形孔径最优分布
-1990s：Pedestal 技术实用化
-2000s：AI 辅助照明分布优化
-2020s：可重构照明分布（通过 RIS 动态调整）</div>
+    <div class="text-body"><ul>
+<li><strong>1940s</strong>：均匀分布、余弦分布经典分析</li>
+<li><strong>1946年</strong>：Dolph-Chebyshev 分布提出</li>
+<li><strong>1960年</strong>：Taylor 分布提出（NASA）</li>
+<li><strong>1976年</strong>：Hansen 圆形孔径最优分布</li>
+<li><strong>1990s</strong>：Pedestal 技术实用化</li>
+<li><strong>2000s</strong>：AI 辅助照明分布优化</li>
+<li><strong>2020s</strong>：可重构照明分布（通过 RIS 动态调整）</li>
+</ul></div>
   </div>
 
     

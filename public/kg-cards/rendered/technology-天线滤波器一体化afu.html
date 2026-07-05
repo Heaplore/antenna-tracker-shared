@@ -269,34 +269,35 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.1 传统方案的痛点 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>传统基站架构：
+  <div class="block section-text">
+    <div class="block-title">1.1 传统方案的痛点</div>
+    <div class="text-body"><pre><code>传统基站架构：
   天线阵列
     │
-    ├─→ 馈线（1/2&#34; 低损电缆）
+    ├─→ 馈线（1/2&quot; 低损电缆）
     │     ↓
     │   滤波器（双工器/双频滤波器）
     │     ↓
     │   馈线
     │     ↓
     │   RRU/AAU
-    
+
 问题：
   1. 连接器 PIM：每个连接器 = PIM 源
      - 2 个连接器 → 2 个 PIM 源
      - 双三载波 PIM 累积可能超标
-     
+
   2. 馈线损耗：10m 馈线 @3.5GHz ≈ 2dB
      - 2 段馈线 = 4dB 损耗
      - 4dB = 发射功率降低 60%!
-     
+
   3. 安装复杂度：2 段馈线 + 4 个连接器
      - 安装时间长
      - 安装质量不一致
-     
+
   4. 重量：馈线 + 连接器 ≈ 5-10kg
-     - 塔装风载增加</code></pre>
+     - 塔装风载增加
+</code></pre></div>
   </div>
 
     
@@ -304,9 +305,9 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.2 AFU 的解决方案 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>AFU 架构：
+  <div class="block section-text">
+    <div class="block-title">1.2 AFU 的解决方案</div>
+    <div class="text-body"><pre><code>AFU 架构：
   天线阵列
     │
     └─→ 滤波器（集成在天线腔体内）
@@ -314,12 +315,13 @@
           └─→ 短跳线（&lt; 0.5m）
                 │
                 └─→ RRU/AAU
-  
+
 优势：
   1. 连接器减少 2 个 → PIM 源减半
   2. 馈线减少 2 段 → 损耗减少 ~3dB
   3. 重量减轻 5-10kg → 风载降低
-  4. 安装简化 → 一致性提高</code></pre>
+  4. 安装简化 → 一致性提高
+</code></pre></div>
   </div>
 
     
@@ -327,28 +329,29 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.1 滤波器类型 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>AFU 中常用的滤波器：
+  <div class="block section-text">
+    <div class="block-title">2.1 滤波器类型</div>
+    <div class="text-body"><pre><code>AFU 中常用的滤波器：
 
-双频滤波器（Dual-Band Filter）
+1. 双频滤波器（Dual-Band Filter）
    用途：同一天线支持两个频段
    例如：700MHz + 2.6GHz 合一
    结构：两个谐振腔并联
-   
-双工器（Duplexer）
+
+2. 双工器（Duplexer）
    用途：Tx/Rx 频率分离
    例如：FDD 模式，Tx 和 Rx 不同频段
    结构：Tx 滤波器 + Rx 滤波器 + 环形器
-   
-多频滤波器（Multi-Band Filter）
+
+3. 多频滤波器（Multi-Band Filter）
    用途：支持 3-4 个频段
    例如：700/900/1800/2600MHz 合一
    结构：多个谐振腔 + 耦合网络
-   
-带通滤波器（Band-Pass Filter）
+
+4. 带通滤波器（Band-Pass Filter）
    用途：带外干扰抑制
-   例如：抑制邻频干扰</code></pre>
+   例如：抑制邻频干扰
+</code></pre></div>
   </div>
 
     
@@ -356,24 +359,25 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.2 集成方式 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>方式 1：腔体集成（主流）
+  <div class="block section-text">
+    <div class="block-title">2.2 集成方式</div>
+    <div class="text-body"><pre><code>方式 1：腔体集成（主流）
   天线腔体 + 滤波器腔体 = 同一个金属壳
   内部用隔板分隔
   优点：屏蔽好，PIM 低
   缺点：体积大
-  
+
 方式 2：PCB 集成
   滤波器做在 PCB 上（LTCC/SAW）
   贴在天线馈电网络旁边
   优点：体积小，成本低
   缺点：功率容量低，只适合小功率
-  
+
 方式 3：SiP 集成
   滤波器 + 天线 + 馈电网络 = 一个封装
   优点：极致小型化
-  缺点：设计复杂，只适合 Small Cell/AiP</code></pre>
+  缺点：设计复杂，只适合 Small Cell/AiP
+</code></pre></div>
   </div>
 
     
@@ -381,9 +385,9 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.3 AFU 内部结构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>典型 64T64R AFU（双频 700+2600MHz）：
+  <div class="block section-text">
+    <div class="block-title">2.3 AFU 内部结构</div>
+    <div class="text-body"><pre><code>典型 64T64R AFU（双频 700+2600MHz）：
 
 ┌─────────────────────────────────────────┐
 │  天线罩（Radome）                         │
@@ -407,7 +411,8 @@
 关键设计：
   - 天线腔体与滤波器腔体之间：电磁隔离
   - 滤波器输入到天线振子：&lt; 0.1m 短距离
-  - 滤波器输出到 RRU：1 根 7/16&#34; 电缆</code></pre>
+  - 滤波器输出到 RRU：1 根 7/16&quot; 电缆
+</code></pre></div>
   </div>
 
     
@@ -415,67 +420,44 @@
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.1 滤波器指标</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>参数</th><th>要求</th><th>说明</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>插入损耗</td>
-          
-          <td>&lt; 0.3dB</td>
-          
-          <td>越低越好</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>带外抑制</td>
-          
-          <td>&gt; 60dB</td>
-          
-          <td>抑制邻频干扰</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>PIM</td>
-          
-          <td>&lt; -155dBc</td>
-          
-          <td>双三载波</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>功率容量</td>
-          
-          <td>&gt; 50W</td>
-          
-          <td>每通道</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>温度稳定性</td>
-          
-          <td>±5MHz（-40~85°C）</td>
-          
-          <td>频偏控制</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>要求</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插入损耗</td>
+<td>&lt; 0.3dB</td>
+<td>越低越好</td>
+</tr>
+<tr>
+<td>带外抑制</td>
+<td>&gt; 60dB</td>
+<td>抑制邻频干扰</td>
+</tr>
+<tr>
+<td>PIM</td>
+<td>&lt; -155dBc</td>
+<td>双三载波</td>
+</tr>
+<tr>
+<td>功率容量</td>
+<td>&gt; 50W</td>
+<td>每通道</td>
+</tr>
+<tr>
+<td>温度稳定性</td>
+<td>±5MHz（-40~85°C）</td>
+<td>频偏控制</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -483,77 +465,50 @@
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.2 AFU 整体指标</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>参数</th><th>传统方案</th><th>AFU</th><th>改善</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>馈线损耗</td>
-          
-          <td>3-4dB</td>
-          
-          <td>&lt; 1dB</td>
-          
-          <td>-70%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>连接器数</td>
-          
-          <td>6-8 个</td>
-          
-          <td>2-4 个</td>
-          
-          <td>-50%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>PIM 源</td>
-          
-          <td>6-8 个</td>
-          
-          <td>2-4 个</td>
-          
-          <td>-50%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>重量</td>
-          
-          <td>+5-10kg</td>
-          
-          <td>基准</td>
-          
-          <td>-50%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>安装时间</td>
-          
-          <td>30min</td>
-          
-          <td>15min</td>
-          
-          <td>-50%</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>传统方案</th>
+<th>AFU</th>
+<th>改善</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>馈线损耗</td>
+<td>3-4dB</td>
+<td>&lt; 1dB</td>
+<td>-70%</td>
+</tr>
+<tr>
+<td>连接器数</td>
+<td>6-8 个</td>
+<td>2-4 个</td>
+<td>-50%</td>
+</tr>
+<tr>
+<td>PIM 源</td>
+<td>6-8 个</td>
+<td>2-4 个</td>
+<td>-50%</td>
+</tr>
+<tr>
+<td>重量</td>
+<td>+5-10kg</td>
+<td>基准</td>
+<td>-50%</td>
+</tr>
+<tr>
+<td>安装时间</td>
+<td>30min</td>
+<td>15min</td>
+<td>-50%</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     

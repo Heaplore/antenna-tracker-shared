@@ -269,22 +269,22 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.1 ±45° 双极化（基站主流） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>结构：
+  <div class="block section-text">
+    <div class="block-title">1.1 ±45° 双极化（基站主流）</div>
+    <div class="text-body"><pre><code>结构：
   每个天线单元 = 两根互相垂直的振子
   振子 1：+45° 方向
   振子 2：-45° 方向
-  
+
 实现方式：
   1. 交叉偶极子（Crossed Dipole）
      两根半波振子成 90° 交叉
      馈电点偏移 45° 实现 ±45° 极化
-     
+
   2. 微带贴片（Patch）
      两个馈点激励正 TM 模
      馈电相位差 90° → ±45°
-     
+
   3. 波导缝隙（Waveguide Slot）
      波导壁上切两组正交缝隙
      分别激励 +45°/-45°
@@ -302,7 +302,8 @@
 
 劣势：
   - 多径衰落时极化失配
-  - 终端天线极化不确定时性能下降</code></pre>
+  - 终端天线极化不确定时性能下降
+</code></pre></div>
   </div>
 
     
@@ -310,17 +311,18 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.0°/90° 垂直极化 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>应用：
+  <div class="block section-text">
+    <div class="block-title">1.0°/90° 垂直极化</div>
+    <div class="text-body"><pre><code>应用：
   - 卫星通信（部分）
   - 雷达
   - 老旧 2G/3G 基站
-  
+
 特点：
   - 极化隔离度好
   - 但受终端姿态影响大
-  - 5G 已基本不用</code></pre>
+  - 5G 已基本不用
+</code></pre></div>
   </div>
 
     
@@ -328,27 +330,28 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.1 原理 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>圆极化：
+  <div class="block section-text">
+    <div class="block-title">2.1 原理</div>
+    <div class="text-body"><pre><code>圆极化：
   电场矢量端点随时间画圆
-  
+
   右旋圆极化（RHCP）：顺时针旋转
   左旋圆极化（LHCP）：逆时针旋转
-  
+
 产生方式：
   1. 正交线极化 + 90° 相位差
      E_x = E₀·cos(ωt)
      E_y = E₀·cos(ωt + 90°) = -E₀·sin(ωt)
      → 合成矢量端点画圆
-     
+
   2. 螺旋天线（Helical Antenna）
      导线绕成螺旋形
      轴向辐射 = 圆极化
-     
+
   3. 微带贴片 + 偏心馈电
      方形贴片两个对角馈电
-     相位差 90° → 圆极化</code></pre>
+     相位差 90° → 圆极化
+</code></pre></div>
   </div>
 
     
@@ -356,20 +359,21 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.2 关键指标 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>轴比（Axial Ratio, AR）：
-  衡量圆极化&#34;圆&#34;的程度
+  <div class="block section-text">
+    <div class="block-title">2.2 关键指标</div>
+    <div class="text-body"><pre><code>轴比（Axial Ratio, AR）：
+  衡量圆极化&quot;圆&quot;的程度
   AR = 长轴/短轴
-  
+
   AR = 1（0dB）→ 完美圆极化
   AR = 3dB → 可接受
   AR &gt; 6dB → 不适合圆极化应用
-  
+
 带宽：
   圆极化带宽通常比线极化窄
   ±45° 线极化：~100% 相对带宽
-  圆极化：~10-20% 相对带宽</code></pre>
+  圆极化：~10-20% 相对带宽
+</code></pre></div>
   </div>
 
     
@@ -377,67 +381,44 @@
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">2.3 应用场景</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>应用</th><th>极化方式</th><th>原因</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>GNSS（GPS/北斗）</td>
-          
-          <td>RHCP</td>
-          
-          <td>卫星信号经过大气反射后极化不变</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>卫星通信</td>
-          
-          <td>RHCP/LHCP</td>
-          
-          <td>减少极化失配（卫星姿态变化）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>RFID</td>
-          
-          <td>RHCP</td>
-          
-          <td>标签姿态不确定</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>车载毫米波雷达</td>
-          
-          <td>圆极化</td>
-          
-          <td>多径反射抑制</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>5G 基站</td>
-          
-          <td>❌ 不用</td>
-          
-          <td>线极化更高效</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>应用</th>
+<th>极化方式</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GNSS（GPS/北斗）</td>
+<td>RHCP</td>
+<td>卫星信号经过大气反射后极化不变</td>
+</tr>
+<tr>
+<td>卫星通信</td>
+<td>RHCP/LHCP</td>
+<td>减少极化失配（卫星姿态变化）</td>
+</tr>
+<tr>
+<td>RFID</td>
+<td>RHCP</td>
+<td>标签姿态不确定</td>
+</tr>
+<tr>
+<td>车载毫米波雷达</td>
+<td>圆极化</td>
+<td>多径反射抑制</td>
+</tr>
+<tr>
+<td>5G 基站</td>
+<td>❌ 不用</td>
+<td>线极化更高效</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -447,15 +428,60 @@
     
   <div class="block section-text">
     <div class="block-title">三、极化方式对比</div>
-    <div class="text-body">| 特性 | ±45° 线极化 | 垂直线极化 | 圆极化 |
-|------|------------|-----------|--------|
-| 极化隔离度 | 25-30dB | 30+dB | N/A |
-| 实现复杂度 | 低 | 低 | 中 |
-| 带宽 | 宽（&gt; 100%） | 宽 | 窄（10-20%） |
-| 终端兼容性 | 好（手机双极化） | 差 | 中 |
-| 多径容忍度 | 中 | 低 | 高 |
-| 5G 基站 | ✅ 主流 | ❌ | ❌ |
-| 卫星/GNSS | ❌ | ❌ | ✅ |</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>±45° 线极化</th>
+<th>垂直线极化</th>
+<th>圆极化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>极化隔离度</td>
+<td>25-30dB</td>
+<td>30+dB</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>实现复杂度</td>
+<td>低</td>
+<td>低</td>
+<td>中</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>宽（&gt; 100%）</td>
+<td>宽</td>
+<td>窄（10-20%）</td>
+</tr>
+<tr>
+<td>终端兼容性</td>
+<td>好（手机双极化）</td>
+<td>差</td>
+<td>中</td>
+</tr>
+<tr>
+<td>多径容忍度</td>
+<td>中</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>5G 基站</td>
+<td>✅ 主流</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>卫星/GNSS</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     

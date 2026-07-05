@@ -269,49 +269,41 @@
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">1.1 什么是漏波天线？</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>封闭结构天线</th><th>开放结构天线（LWA）</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>能量在辐射体上建立驻波</td>
-          
-          <td>能量沿传输线行波传播</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>辐射集中在天线表面</td>
-          
-          <td>辐射沿整个传输线分布</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>频率固定，波束固定</td>
-          
-          <td>频率改变，波束自动扫描</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>带宽较窄</td>
-          
-          <td>带宽较宽</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p>漏波天线是一种<strong>开放结构天线</strong>（Open-Structure Antenna），与传统的"封闭结构"（如微带贴片、偶极子）不同，LWA 的辐射体本身就是传输线：</p>
+<pre><code>信号输入 ──→ ════════════════════════→ 终端匹配
+              ↑↑↑ ↑↑↑ ↑↑↑ ↑↑↑ ↑↑↑
+              辐射  辐射  辐射  辐射  辐射
+              (沿传播方向不断泄漏)
+</code></pre>
+<p><strong>核心区别</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>封闭结构天线</th>
+<th>开放结构天线（LWA）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>能量在辐射体上建立驻波</td>
+<td>能量沿传输线行波传播</td>
+</tr>
+<tr>
+<td>辐射集中在天线表面</td>
+<td>辐射沿整个传输线分布</td>
+</tr>
+<tr>
+<td>频率固定，波束固定</td>
+<td>频率改变，波束自动扫描</td>
+</tr>
+<tr>
+<td>带宽较窄</td>
+<td>带宽较宽</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -319,53 +311,47 @@
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">1.2 色散关系与波束指向</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>频率</th><th>β/k₀</th><th>sin(θ₀)</th><th>θ₀</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>f_low</td>
-          
-          <td>0.8k₀</td>
-          
-          <td>0.8</td>
-          
-          <td>53°（后向）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>f_mid</td>
-          
-          <td>0.3k₀</td>
-          
-          <td>0.3</td>
-          
-          <td>17°（近 broadside）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>f_high</td>
-          
-          <td>0.05k₀</td>
-          
-          <td>0.05</td>
-          
-          <td>3°（前向）</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p>LWA 的辐射方向由<strong>色散关系</strong>决定：</p>
+<pre><code>β(ω) = 传播常数（随频率变化）
+k₀(ω) = 自由空间波数 = ω/c
+</code></pre>
+<p><strong>波束指向角</strong>：</p>
+<pre><code>sin(θ₀) = β(ω) / k₀(ω)
+</code></pre>
+<p>当频率 f 变化时，β 和 k₀ 都变化 → θ₀ 变化 → <strong>波束扫描</strong>。</p>
+<p><strong>典型扫描特性</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>频率</th>
+<th>β/k₀</th>
+<th>sin(θ₀)</th>
+<th>θ₀</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>f_low</td>
+<td>0.8k₀</td>
+<td>0.8</td>
+<td>53°（后向）</td>
+</tr>
+<tr>
+<td>f_mid</td>
+<td>0.3k₀</td>
+<td>0.3</td>
+<td>17°（近 broadside）</td>
+</tr>
+<tr>
+<td>f_high</td>
+<td>0.05k₀</td>
+<td>0.05</td>
+<td>3°（前向）</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -375,21 +361,17 @@
     
   <div class="block section-text">
     <div class="block-title">1.3 向后辐射 vs 向前辐射</div>
-    <div class="text-body">LWA 可以分为两种模式：
-
-向后扫描（Backward Radiating）：
-`
-β &gt; 0, 相速度 &amp; 群速度反向
+    <div class="text-body"><p>LWA 可以分为两种模式：</p>
+<p><strong>向后扫描（Backward Radiating）</strong>：</p>
+<pre><code>β &gt; 0, 相速度 &amp; 群速度反向
 sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 180° 扫到 90°
-`
-低频时波束指向后方，频率升高波束逐渐移向 broadside。
-
-向前扫描（Forward Radiating）：
-`
-β &gt; 0, 相速度 &amp; 群速度同向
+</code></pre>
+<p>低频时波束指向后方，频率升高波束逐渐移向 broadside。</p>
+<p><strong>向前扫描（Forward Radiating）</strong>：</p>
+<pre><code>β &gt; 0, 相速度 &amp; 群速度同向
 sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 0° 扫到 90°
-`
-低频时波束指向前方，频率升高波束逐渐远离 broadside。</div>
+</code></pre>
+<p>低频时波束指向前方，频率升高波束逐渐远离 broadside。</p></div>
   </div>
 
     
@@ -399,22 +381,18 @@ sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 0° 扫到 90°
     
   <div class="block section-text">
     <div class="block-title">1.4 开放阻带（Open Stop Band, OSB）</div>
-    <div class="text-body">当 β → 0 时（broadside 方向，θ₀ = 90°），LWA 出现&#34;开放阻带&#34;：
-
-`
-β = 0 → sin(θ₀) = 0 → θ₀ = 90°（broadside）
-`
-
-此时：
-波束无限宽（无法形成定向波束）
-增益骤降（5-10dB）
-输入匹配恶化
-
-抑制 OSB 的方法：
-非周期性结构（打破 β = 0 的条件）
-弯曲波导（蛇形线）
-非对称缝隙
-慢波结构（增强 β，避免 β → 0）</div>
+    <div class="text-body"><p>当 β → 0 时（broadside 方向，θ₀ = 90°），LWA 出现"开放阻带"：</p>
+<pre><code>β = 0 → sin(θ₀) = 0 → θ₀ = 90°（broadside）
+</code></pre>
+<p>此时：<br />
+- 波束无限宽（无法形成定向波束）<br />
+- 增益骤降（5-10dB）<br />
+- 输入匹配恶化</p>
+<p><strong>抑制 OSB 的方法</strong>：<br />
+- 非周期性结构（打破 β = 0 的条件）<br />
+- 弯曲波导（蛇形线）<br />
+- 非对称缝隙<br />
+- 慢波结构（增强 β，避免 β → 0）</p></div>
   </div>
 
     
@@ -422,89 +400,21 @@ sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 0° 扫到 90°
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">2.1 SIW 漏波天线（Substrate Integrated Waveguide LWA）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>目前最主流的毫米波 LWA：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒    │ ← 横向缝隙（辐射体）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│ ════════════════════════    │ ← SIW 波导</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│ ●● ●● ●● ●● ●● ●● ●● ●●    │ ← 接地层通孔</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>特点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>集成于 PCB，成本低</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>30-46GHz 工作（5G FR2）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>带宽：20-40%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>增益：10-18dBi</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>扫描范围：±30°</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p>目前最主流的毫米波 LWA：</p>
+<pre><code>┌─────────────────────────────┐
+│ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒    │ ← 横向缝隙（辐射体）
+│ ════════════════════════    │ ← SIW 波导
+│ ●● ●● ●● ●● ●● ●● ●● ●●    │ ← 接地层通孔
+└─────────────────────────────┘
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 集成于 PCB，成本低<br />
+- 30-46GHz 工作（5G FR2）<br />
+- 带宽：20-40%<br />
+- 增益：10-18dBi<br />
+- 扫描范围：±30°</p></div>
   </div>
 
     
@@ -512,22 +422,21 @@ sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 0° 扫到 90°
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.2 微带漏波天线（Microstrip LWA） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>┌──────────────────────┐
+  <div class="block section-text">
+    <div class="block-title">2.2 微带漏波天线（Microstrip LWA）</div>
+    <div class="text-body"><pre><code>┌──────────────────────┐
 │ ──┬──┬──┬──┬──┬──   │ ← 非对称缝隙
 │   │  │  │  │  │      │
 │ 微带线                │
 │   │  │  │  │  │      │
 │ ──┴──┴──┴──┴──┴──   │ ← 接地层
 └──────────────────────┘
-
-
-特点：
-最简单结构
-带宽较窄（5-15%）
-增益较低（8-12dBi）
-适合低频段</code></pre>
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 最简单结构<br />
+- 带宽较窄（5-15%）<br />
+- 增益较低（8-12dBi）<br />
+- 适合低频段</p></div>
   </div>
 
     
@@ -535,15 +444,14 @@ sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 0° 扫到 90°
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.3 共面波导漏波天线（CPW LWA） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>信号线在顶层，接地在两侧，无底层地平面
-
-
-特点：
-双面辐射
-易于集成有源器件
-损耗高于 SIW</code></pre>
+  <div class="block section-text">
+    <div class="block-title">2.3 共面波导漏波天线（CPW LWA）</div>
+    <div class="text-body"><pre><code>信号线在顶层，接地在两侧，无底层地平面
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 双面辐射<br />
+- 易于集成有源器件<br />
+- 损耗高于 SIW</p></div>
   </div>
 
     
@@ -553,17 +461,14 @@ sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 0° 扫到 90°
     
   <div class="block section-text">
     <div class="block-title">2.4 光栅耦合漏波天线（Grating-Coupled LWA）</div>
-    <div class="text-body">利用周期性光栅结构实现辐射：
-
-`
-周期 Λ → 满足光栅方程：
+    <div class="text-body"><p>利用周期性光栅结构实现辐射：</p>
+<pre><code>周期 Λ → 满足光栅方程：
 sin(θ_m) = m·λ/Λ - β/k₀
-`
-
-特点：
-精确控制辐射方向
-可用于太赫兹频段
-加工精度要求高</div>
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 精确控制辐射方向<br />
+- 可用于太赫兹频段<br />
+- 加工精度要求高</p></div>
   </div>
 
     
@@ -573,16 +478,13 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
   <div class="block section-text">
     <div class="block-title">2.5 人工表面表面波漏波天线（SSW LWA）</div>
-    <div class="text-body">利用人工表面波（Surface Wave on Artificial Dielectric）：
-
-`
-金属柱阵列 → 等效表面波 → 周期性辐射
-`
-
-特点：
-超低剖面
-适合室内覆盖
-扫描范围大（±60°）</div>
+    <div class="text-body"><p>利用人工表面波（Surface Wave on Artificial Dielectric）：</p>
+<pre><code>金属柱阵列 → 等效表面波 → 周期性辐射
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 超低剖面<br />
+- 适合室内覆盖<br />
+- 扫描范围大（±60°）</p></div>
   </div>
 
     
@@ -590,77 +492,19 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">2.6 CRLH 漏波天线（复合左右手传输线）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>同时支持正向波（Right-Handed）和反向波（Left-Handed）：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>CRLH 单元：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│          │          │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>特点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>双向扫描（backward + forward）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>broadside 辐射无 OSB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>带宽极宽（&gt; 100%）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>设计复杂</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p>同时支持正向波（Right-Handed）和反向波（Left-Handed）：</p>
+<pre><code>CRLH 单元：
+  ┌──[C_R]──┬──[L_R]──┐
+  │          │          │
+  └──[L_L]──┬──[C_L]──┘
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 双向扫描（backward + forward）<br />
+- broadside 辐射无 OSB<br />
+- 带宽极宽（&gt; 100%）<br />
+- 设计复杂</p></div>
   </div>
 
     
@@ -668,57 +512,39 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.1 扫描范围</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>LWA 类型</th><th>扫描范围</th><th>带宽</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>SIW 缝隙 LWA</td>
-          
-          <td>±30°</td>
-          
-          <td>20-40%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>微带缝隙 LWA</td>
-          
-          <td>±20°</td>
-          
-          <td>10-20%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>CRLH LWA</td>
-          
-          <td>-60° to +60°</td>
-          
-          <td>&gt; 100%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>蛇形波导 LWA</td>
-          
-          <td>-35° to +42°</td>
-          
-          <td>30%</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>LWA 类型</th>
+<th>扫描范围</th>
+<th>带宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIW 缝隙 LWA</td>
+<td>±30°</td>
+<td>20-40%</td>
+</tr>
+<tr>
+<td>微带缝隙 LWA</td>
+<td>±20°</td>
+<td>10-20%</td>
+</tr>
+<tr>
+<td>CRLH LWA</td>
+<td>-60° to +60°</td>
+<td>&gt; 100%</td>
+</tr>
+<tr>
+<td>蛇形波导 LWA</td>
+<td>-35° to +42°</td>
+<td>30%</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -726,57 +552,39 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.2 增益</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>LWA 类型</th><th>增益</th><th>单元数等效</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>SIW LWA（10单元）</td>
-          
-          <td>10-12dBi</td>
-          
-          <td>~10</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>SIW LWA（30单元）</td>
-          
-          <td>15-18dBi</td>
-          
-          <td>~30</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>微带 LWA（20单元）</td>
-          
-          <td>12-15dBi</td>
-          
-          <td>~20</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>CRLH LWA（40单元）</td>
-          
-          <td>16-20dBi</td>
-          
-          <td>~40</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>LWA 类型</th>
+<th>增益</th>
+<th>单元数等效</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIW LWA（10单元）</td>
+<td>10-12dBi</td>
+<td>~10</td>
+</tr>
+<tr>
+<td>SIW LWA（30单元）</td>
+<td>15-18dBi</td>
+<td>~30</td>
+</tr>
+<tr>
+<td>微带 LWA（20单元）</td>
+<td>12-15dBi</td>
+<td>~20</td>
+</tr>
+<tr>
+<td>CRLH LWA（40单元）</td>
+<td>16-20dBi</td>
+<td>~40</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -786,12 +594,11 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
   <div class="block section-text">
     <div class="block-title">3.3 波束纯度</div>
-    <div class="text-body">LWA 的旁瓣通常较高（-10 到 -15dB），因为辐射沿传输线均匀分布（类似均匀照射的口径）：
-
-降低旁瓣的方法：
-非均匀单元设计（改变每个单元的泄漏率）
-振幅加权（渐削照射）
-多 LWA 组合</div>
+    <div class="text-body"><p>LWA 的旁瓣通常较高（-10 到 -15dB），因为辐射沿传输线均匀分布（类似均匀照射的口径）：</p>
+<p><strong>降低旁瓣的方法</strong>：<br />
+- 非均匀单元设计（改变每个单元的泄漏率）<br />
+- 振幅加权（渐削照射）<br />
+- 多 LWA 组合</p></div>
   </div>
 
     
@@ -801,22 +608,69 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
   <div class="block section-text">
     <div class="block-title">四、与相控阵的对比</div>
-    <div class="text-body">| 特性 | LWA | 相控阵 |
-|------|-----|--------|
-| 扫描方式 | 频率扫描 | 相位扫描 |
-| 扫描速度 | 快（调频即可） | 快（移相器） |
-| 波束数量 | 连续（频率连续可调） | 离散/连续 |
-| 复杂度 | 极低（无移相器） | 高（N 个移相器） |
-| 成本 | 低 | 高 |
-| 功耗 | 极低 | 高 |
-| 增益 | 中等（10-20dBi） | 高（20-35dBi） |
-| 波束宽度 | 较宽 | 较窄 |
-| 多波束 | 困难 | 容易 |
-| 极化切换 | 困难 | 容易 |
-
-核心优势：LWA 是最便宜的电子扫描天线——不需要移相器、不需要 T/R 模块、不需要波束赋形 IC，只需要一个可调频的信号源。
-
-核心劣势：扫描时频率也在变 → 波束和频率耦合（frequency-scanning coupling），不适合需要频率固定的场景。</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>LWA</th>
+<th>相控阵</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>扫描方式</td>
+<td>频率扫描</td>
+<td>相位扫描</td>
+</tr>
+<tr>
+<td>扫描速度</td>
+<td>快（调频即可）</td>
+<td>快（移相器）</td>
+</tr>
+<tr>
+<td>波束数量</td>
+<td>连续（频率连续可调）</td>
+<td>离散/连续</td>
+</tr>
+<tr>
+<td>复杂度</td>
+<td>极低（无移相器）</td>
+<td>高（N 个移相器）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>极低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>增益</td>
+<td>中等（10-20dBi）</td>
+<td>高（20-35dBi）</td>
+</tr>
+<tr>
+<td>波束宽度</td>
+<td>较宽</td>
+<td>较窄</td>
+</tr>
+<tr>
+<td>多波束</td>
+<td>困难</td>
+<td>容易</td>
+</tr>
+<tr>
+<td>极化切换</td>
+<td>困难</td>
+<td>容易</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心优势</strong>：LWA 是<strong>最便宜的电子扫描天线</strong>——不需要移相器、不需要 T/R 模块、不需要波束赋形 IC，只需要一个可调频的信号源。</p>
+<p><strong>核心劣势</strong>：扫描时频率也在变 → 波束和频率耦合（frequency-scanning coupling），不适合需要频率固定的场景。</p></div>
   </div>
 
     
@@ -826,10 +680,12 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
   <div class="block section-text">
     <div class="block-title">5.1 5G 基站</div>
-    <div class="text-body">28/39GHz SIW LWA
-扇区覆盖（一个 LWA 覆盖一个 120° 扇区）
-频率扫描替代机械旋转
-低成本、低剖面</div>
+    <div class="text-body"><ul>
+<li>28/39GHz SIW LWA</li>
+<li>扇区覆盖（一个 LWA 覆盖一个 120° 扇区）</li>
+<li>频率扫描替代机械旋转</li>
+<li>低成本、低剖面</li>
+</ul></div>
   </div>
 
     
@@ -839,10 +695,12 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
   <div class="block section-text">
     <div class="block-title">5.2 车载雷达</div>
-    <div class="text-body">77GHz LWA
-频率扫描实现方位角覆盖
-与毫米波 SoC 集成
-成本远低于相控阵</div>
+    <div class="text-body"><ul>
+<li>77GHz LWA</li>
+<li>频率扫描实现方位角覆盖</li>
+<li>与毫米波 SoC 集成</li>
+<li>成本远低于相控阵</li>
+</ul></div>
   </div>
 
     
@@ -852,9 +710,11 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
   <div class="block section-text">
     <div class="block-title">5.3 卫星通信</div>
-    <div class="text-body">Ka 波段 LWA
-轻量、低剖面
-频率扫描替代机械转向</div>
+    <div class="text-body"><ul>
+<li>Ka 波段 LWA</li>
+<li>轻量、低剖面</li>
+<li>频率扫描替代机械转向</li>
+</ul></div>
   </div>
 
     
@@ -864,10 +724,12 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
   <div class="block section-text">
     <div class="block-title">5.4 6G 太赫兹通信</div>
-    <div class="text-body">0.1-1THz LWA
-芯片级集成（SIW/WSIW）
-超宽带（&gt; 100GHz 带宽）
-波束扫描 + 高速数据传输</div>
+    <div class="text-body"><ul>
+<li>0.1-1THz LWA</li>
+<li>芯片级集成（SIW/WSIW）</li>
+<li>超宽带（&gt; 100GHz 带宽）</li>
+<li>波束扫描 + 高速数据传输</li>
+</ul></div>
   </div>
 
     
@@ -877,16 +739,13 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
   <div class="block section-text">
     <div class="block-title">6.1 开放阻带（OSB）</div>
-    <div class="text-body">broadside 方向的 OSB 是 LWA 最大的痛点：
-
-`
-频率 f_OSbroadside → 波束无限宽 → 增益崩溃
-`
-
-抑制方法：
-蛇形波导（增加有效长度，避免 β = 0）
-非对称结构（打破对称性）
-CRLH 结构（同时支持 forward/backward）</div>
+    <div class="text-body"><p>broadside 方向的 OSB 是 LWA 最大的痛点：</p>
+<pre><code>频率 f_OSbroadside → 波束无限宽 → 增益崩溃
+</code></pre>
+<p><strong>抑制方法</strong>：<br />
+- 蛇形波导（增加有效长度，避免 β = 0）<br />
+- 非对称结构（打破对称性）<br />
+- CRLH 结构（同时支持 forward/backward）</p></div>
   </div>
 
     
@@ -896,14 +755,13 @@ CRLH 结构（同时支持 forward/backward）</div>
     
   <div class="block section-text">
     <div class="block-title">6.2 频率-波束耦合</div>
-    <div class="text-body">LWA 的波束指向依赖于频率，这意味着：
-通信时频率变化 → 波束偏移 → 链路中断
-需要频率稳定或波束跟踪
-
-解决方案：
-窄带通信（频率变化小）
-反馈控制（检测波束偏移并补偿）
-多 LWA 冗余覆盖</div>
+    <div class="text-body"><p>LWA 的波束指向依赖于频率，这意味着：<br />
+- 通信时频率变化 → 波束偏移 → 链路中断<br />
+- 需要频率稳定或波束跟踪</p>
+<p><strong>解决方案</strong>：<br />
+- 窄带通信（频率变化小）<br />
+- 反馈控制（检测波束偏移并补偿）<br />
+- 多 LWA 冗余覆盖</p></div>
   </div>
 
     
@@ -911,12 +769,11 @@ CRLH 结构（同时支持 forward/backward）</div>
     
 
     
-  <div class="block section-code">
-    <div class="block-title">6.3 带宽与增益的权衡 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>带宽 ↑ → 单元数 ↓ → 增益 ↓
-
-
-要同时获得宽频带和高增益非常困难。</code></pre>
+  <div class="block section-text">
+    <div class="block-title">6.3 带宽与增益的权衡</div>
+    <div class="text-body"><pre><code>带宽 ↑ → 单元数 ↓ → 增益 ↓
+</code></pre>
+<p>要同时获得宽频带和高增益非常困难。</p></div>
   </div>
 
     
@@ -926,13 +783,10 @@ CRLH 结构（同时支持 forward/backward）</div>
     
   <div class="block section-text">
     <div class="block-title">6.4 加工精度</div>
-    <div class="text-body">毫米波 LWA 的缝隙/周期结构精度要求高：
-
-`
-ΔL/L &lt; 1% → Δθ &lt; 1°
-`
-
-对于 30GHz（λ = 10mm），ΔL &lt; 0.1mm。</div>
+    <div class="text-body"><p>毫米波 LWA 的缝隙/周期结构精度要求高：</p>
+<pre><code>ΔL/L &lt; 1% → Δθ &lt; 1°
+</code></pre>
+<p>对于 30GHz（λ = 10mm），ΔL &lt; 0.1mm。</p></div>
   </div>
 
     
@@ -942,13 +796,15 @@ CRLH 结构（同时支持 forward/backward）</div>
     
   <div class="block section-text">
     <div class="block-title">七、技术演进</div>
-    <div class="text-body">1950s：LWA 理论建立（Watson, Oliner）
-1970s：周期性漏波结构实用化
-1990s：非均匀 LWA（降低旁瓣）
-2000s：CRLH LWA 提出
-2010s：SIW LWA 成为主流（毫米波）
-2020-2024年：太赫兹 LWA、芯片级集成
-2025年：拓扑光子学 LWA（72Gbps 芯片级）</div>
+    <div class="text-body"><ul>
+<li><strong>1950s</strong>：LWA 理论建立（Watson, Oliner）</li>
+<li><strong>1970s</strong>：周期性漏波结构实用化</li>
+<li><strong>1990s</strong>：非均匀 LWA（降低旁瓣）</li>
+<li><strong>2000s</strong>：CRLH LWA 提出</li>
+<li><strong>2010s</strong>：SIW LWA 成为主流（毫米波）</li>
+<li><strong>2020-2024年</strong>：太赫兹 LWA、芯片级集成</li>
+<li><strong>2025年</strong>：拓扑光子学 LWA（72Gbps 芯片级）</li>
+</ul></div>
   </div>
 
     

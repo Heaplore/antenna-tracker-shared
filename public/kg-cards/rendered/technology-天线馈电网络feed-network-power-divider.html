@@ -271,21 +271,17 @@
     
   <div class="block section-text">
     <div class="block-title">1.1 功率分配</div>
-    <div class="text-body">最基本的功能：将输入信号分成 N 路等幅（或不等幅）输出：
-
-`
-输入 1 路 → 输出 N 路
-`
-
-等幅分配（最常见）：
-所有输出端口功率相等
-用于均匀照射的阵列
-典型应用：波束赋形阵列、相控阵
-
-不等幅分配（渐削照射）：
-中心单元功率高，边缘单元功率低
-用于降低旁瓣电平
-典型应用：射电望远镜、卫星通信</div>
+    <div class="text-body"><p>最基本的功能：将输入信号分成 N 路等幅（或不等幅）输出：</p>
+<pre><code>输入 1 路 → 输出 N 路
+</code></pre>
+<p><strong>等幅分配</strong>（最常见）：<br />
+- 所有输出端口功率相等<br />
+- 用于均匀照射的阵列<br />
+- 典型应用：波束赋形阵列、相控阵</p>
+<p><strong>不等幅分配</strong>（渐削照射）：<br />
+- 中心单元功率高，边缘单元功率低<br />
+- 用于降低旁瓣电平<br />
+- 典型应用：射电望远镜、卫星通信</p></div>
   </div>
 
     
@@ -295,18 +291,14 @@
     
   <div class="block section-text">
     <div class="block-title">1.2 相位控制</div>
-    <div class="text-body">某些馈电网络需要引入特定的相位差：
-
-`
-Δφ_n = n · d · sin(θ₀) · 2π/λ
-`
-
-其中 d 是单元间距，θ₀ 是目标波束指向。
-
-用途：
-波束指向控制（相控阵）
-波束倾斜（机械/电子倾角）
-多波束生成</div>
+    <div class="text-body"><p>某些馈电网络需要引入特定的相位差：</p>
+<pre><code>Δφ_n = n · d · sin(θ₀) · 2π/λ
+</code></pre>
+<p>其中 d 是单元间距，θ₀ 是目标波束指向。</p>
+<p><strong>用途</strong>：<br />
+- 波束指向控制（相控阵）<br />
+- 波束倾斜（机械/电子倾角）<br />
+- 多波束生成</p></div>
   </div>
 
     
@@ -316,17 +308,14 @@
     
   <div class="block section-text">
     <div class="block-title">1.3 阻抗匹配</div>
-    <div class="text-body">确保从输入到每个输出的阻抗匹配：
-
-`
-Z_in = Z₀（输入匹配）
+    <div class="text-body"><p>确保从输入到每个输出的阻抗匹配：</p>
+<pre><code>Z_in = Z₀（输入匹配）
 Z_out_n = Z₀（输出匹配）
-`
-
-匹配不好会导致：
-反射增大 → S11 恶化
-功率损耗 → 效率下降
-谐波失真 → 信号质量下降</div>
+</code></pre>
+<p>匹配不好会导致：<br />
+- 反射增大 → S11 恶化<br />
+- 功率损耗 → 效率下降<br />
+- 谐波失真 → 信号质量下降</p></div>
   </div>
 
     
@@ -336,16 +325,13 @@ Z_out_n = Z₀（输出匹配）
     
   <div class="block section-text">
     <div class="block-title">1.4 端口隔离</div>
-    <div class="text-body">输出端口之间需要足够的隔离度：
-
-`
-S_ij &lt; -20dB（i ≠ j，输出端口间）
-`
-
-隔离度差会导致：
-互耦增大 → 方向图畸变
-功率在端口间泄露 → 效率下降
-多径效应加剧 → MIMO 性能下降</div>
+    <div class="text-body"><p>输出端口之间需要足够的隔离度：</p>
+<pre><code>S_ij &lt; -20dB（i ≠ j，输出端口间）
+</code></pre>
+<p>隔离度差会导致：<br />
+- 互耦增大 → 方向图畸变<br />
+- 功率在端口间泄露 → 效率下降<br />
+- 多径效应加剧 → MIMO 性能下降</p></div>
   </div>
 
     
@@ -355,42 +341,35 @@ S_ij &lt; -20dB（i ≠ j，输出端口间）
     
   <div class="block section-text">
     <div class="block-title">Wilkinson 功分器（最经典）</div>
-    <div class="text-body">`
-         Z₀·√2, θ₀
+    <div class="text-body"><pre><code>         Z₀·√2, θ₀
 Input ────┤╬├──── Output 1
           │ │
          [R]       ← 隔离电阻（2Z₀）
           │ │
 Output 2 ─┤╬├──── Output 3
          Z₀·√2, θ₀
-`
-
-原理：
-两段 λ/4 阻抗变换线（Z = Z₀√2）
-中心隔离电阻 R = 2Z₀ = 100Ω（50Ω 系统）
-当两输出端匹配时，电阻上无电流 → 不耗散功率
-当输出失配时，电阻吸收反射功率 → 提高隔离
-
-性能指标：
-| 参数 | 典型值 |
-|------|--------|
-| 插入损耗 | 0.1-0.3dB |
-| 隔离度 | &gt; 20dB |
-| 带宽 | 10-20% |
-| 幅度平衡 | ±0.5° |
-| 相位平衡 | ±0.1dB |
-
-多路扩展（树状结构）：
-
-`
-1→2 功分器
+</code></pre>
+<p><strong>原理</strong>：<br />
+- 两段 λ/4 阻抗变换线（Z = Z₀√2）<br />
+- 中心隔离电阻 R = 2Z₀ = 100Ω（50Ω 系统）<br />
+- 当两输出端匹配时，电阻上无电流 → 不耗散功率<br />
+- 当输出失配时，电阻吸收反射功率 → 提高隔离</p>
+<p><strong>性能指标</strong>：<br />
+| 参数 | 典型值 |<br />
+|------|--------|<br />
+| 插入损耗 | 0.1-0.3dB |<br />
+| 隔离度 | &gt; 20dB |<br />
+| 带宽 | 10-20% |<br />
+| 幅度平衡 | ±0.5° |<br />
+| 相位平衡 | ±0.1dB |</p>
+<p><strong>多路扩展</strong>（树状结构）：</p>
+<pre><code>1→2 功分器
   ├─ 1→2 → 输出 1,2
   └─ 1→2 → 1→2 → 输出 3,4
                 └─ 1→2 → 输出 5,6
                       └─ 1→2 → 输出 7,8
-`
-
-N 路需要 log₂(N) 级 Wilkinson。</div>
+</code></pre>
+<p>N 路需要 log₂(N) 级 Wilkinson。</p></div>
   </div>
 
     
@@ -400,17 +379,16 @@ N 路需要 log₂(N) 级 Wilkinson。</div>
     
   <div class="block section-text">
     <div class="block-title">T 结功分器（T-Junction Divider）</div>
-    <div class="text-body">最简单的结构，但隔离度差：
-
-`
-Input ──┬── Output 1
+    <div class="text-body"><p>最简单的结构，但隔离度差：</p>
+<pre><code>Input ──┬── Output 1
         └── Output 2
-`
-
-插入损耗：0.5-1dB
-隔离度：-3dB（很差）
-带宽：宽（DC 到 GHz）
-适用：对隔离要求不高的场景</div>
+</code></pre>
+<ul>
+<li>插入损耗：0.5-1dB</li>
+<li>隔离度：-3dB（很差）</li>
+<li>带宽：宽（DC 到 GHz）</li>
+<li>适用：对隔离要求不高的场景</li>
+</ul></div>
   </div>
 
     
@@ -418,137 +396,29 @@ Input ──┬── Output 1
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">2.2 波导馈电网络（Waveguide Feed Network）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>毫米波基站的主流选择：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Input ──┤</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├─── 臂 B ──→ 单元 9-16</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├─── 臂 C ──→ 单元 17-24</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优势：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>损耗极低（比微带低 5-10 倍）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>功率容量大（kW 级）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>高频性能好（毫米波/太赫兹）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>屏蔽性好（无辐射损耗）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>劣势：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>体积大、重量大</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>加工成本高</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>难以集成</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>常见波导功分器：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>E 面 T 接头</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>H 面 T 接头</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>交叉波导（Magic Tee）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Rat-Race 环形电桥</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p>毫米波基站的主流选择：</p>
+<pre><code>        ┌─── 臂 A ──→ 单元 1-8
+Input ──┤
+        ├─── 臂 B ──→ 单元 9-16
+        ├─── 臂 C ──→ 单元 17-24
+        └─── 臂 D ──→ 单元 25-32
+</code></pre>
+<p><strong>优势</strong>：<br />
+- 损耗极低（比微带低 5-10 倍）<br />
+- 功率容量大（kW 级）<br />
+- 高频性能好（毫米波/太赫兹）<br />
+- 屏蔽性好（无辐射损耗）</p>
+<p><strong>劣势</strong>：<br />
+- 体积大、重量大<br />
+- 加工成本高<br />
+- 难以集成</p>
+<p><strong>常见波导功分器</strong>：<br />
+- E 面 T 接头<br />
+- H 面 T 接头<br />
+- 交叉波导（Magic Tee）<br />
+- Rat-Race 环形电桥</p></div>
   </div>
 
     
@@ -558,20 +428,17 @@ Input ──┬── Output 1
     
   <div class="block section-text">
     <div class="block-title">2.3 带状线馈电网络（Stripline Feed Network）</div>
-    <div class="text-body">介于微带和波导之间：
-
-`
-Top Microstrip
+    <div class="text-body"><p>介于微带和波导之间：</p>
+<pre><code>Top Microstrip
 Dielectric
 Middle Stripline ← 馈电网络藏在此层
 Dielectric
 Bottom Microstrip ← 天线单元在此层
-`
-
-优势：
-双面布局（馈线和天线分开）
-屏蔽好（无辐射损耗）
-适合多层 PCB</div>
+</code></pre>
+<p><strong>优势</strong>：<br />
+- 双面布局（馈线和天线分开）<br />
+- 屏蔽好（无辐射损耗）<br />
+- 适合多层 PCB</p></div>
   </div>
 
     
@@ -579,15 +446,16 @@ Bottom Microstrip ← 天线单元在此层
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.4 共面波导馈电网络（CPW Feed Network） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>Signal ────┬──── Signal
+  <div class="block section-text">
+    <div class="block-title">2.4 共面波导馈电网络（CPW Feed Network）</div>
+    <div class="text-body"><pre><code>Signal ────┬──── Signal
 Ground ────┘ ──── Ground
-
-
-无需过孔接地
-易于并联有源器件
-损耗高于微带和波导</code></pre>
+</code></pre>
+<ul>
+<li>无需过孔接地</li>
+<li>易于并联有源器件</li>
+<li>损耗高于微带和波导</li>
+</ul></div>
   </div>
 
     
@@ -597,21 +465,18 @@ Ground ────┘ ──── Ground
     
   <div class="block section-text">
     <div class="block-title">2.5 硅通孔馈电网络（Through-Silicon Via, TSV）</div>
-    <div class="text-body">用于 AiP 和芯片级集成：
-
-`
-Chip Top:  天线单元
+    <div class="text-body"><p>用于 AiP 和芯片级集成：</p>
+<pre><code>Chip Top:  天线单元
             │
 TSV:       ▼▼▼▼▼▼  ← 垂直互连
 Chip Mid:  馈电网络（硅基底内）
             │
 Chip Bot:  驱动 IC（BFIC）
-`
-
-优势：
-超薄剖面
-高频损耗低
-适合大规模量产</div>
+</code></pre>
+<p><strong>优势</strong>：<br />
+- 超薄剖面<br />
+- 高频损耗低<br />
+- 适合大规模量产</p></div>
   </div>
 
     
@@ -621,15 +486,14 @@ Chip Bot:  驱动 IC（BFIC）
     
   <div class="block section-text">
     <div class="block-title">2.6 激光诱导技术馈电网络（LIFT / LIGA）</div>
-    <div class="text-body">用于毫米波/太赫兹的高精度馈线：
-
-`
-高精度 LIGA 工艺 → 深硅刻蚀 → 金属填充
-`
-
-线宽精度 ±1μm
-适合 100GHz+ 频段
-成本高</div>
+    <div class="text-body"><p>用于毫米波/太赫兹的高精度馈线：</p>
+<pre><code>高精度 LIGA 工艺 → 深硅刻蚀 → 金属填充
+</code></pre>
+<ul>
+<li>线宽精度 ±1μm</li>
+<li>适合 100GHz+ 频段</li>
+<li>成本高</li>
+</ul></div>
   </div>
 
     
@@ -639,13 +503,12 @@ Chip Bot:  驱动 IC（BFIC）
     
   <div class="block section-text">
     <div class="block-title">2.7 X 型全波导馈电网络（X-Type Full-Corporate Waveguide）</div>
-    <div class="text-body">2022 年提出的新型毫米波馈电拓扑：
-
-特点：
-级数减半（相比传统树状）
-带宽提升 2 倍
-插入损耗降低 3dB
-适合 28/39GHz 大规模阵列</div>
+    <div class="text-body"><p>2022 年提出的新型毫米波馈电拓扑：</p>
+<p><strong>特点</strong>：<br />
+- 级数减半（相比传统树状）<br />
+- 带宽提升 2 倍<br />
+- 插入损耗降低 3dB<br />
+- 适合 28/39GHz 大规模阵列</p></div>
   </div>
 
     
@@ -653,41 +516,29 @@ Chip Bot:  驱动 IC（BFIC）
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.1 树状馈电（Corporate Feed）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>优点</th><th>缺点</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>设计简单</td>
-          
-          <td>级数多时损耗大</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>幅度/相位一致性好</td>
-          
-          <td>级联越多，累积误差越大</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>易于仿真和优化</td>
-          
-          <td>故障扩散（一级坏了全废）</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p>最经典的分配方式：</p>
+<pre><code>         Input
+           │
+        ┌──┴──┐
+        │ 1→2 │
+        └──┬──┘
+     ┌─────┴─────┐
+  ┌──┴──┐     ┌──┴──┐
+  │ 1→2 │     │ 1→2 │
+  └──┬──┘     └──┬──┘
+ ┌──┴──┐     ┌──┴──┐
+ │1→2  │     │1→2  │
+ └──┬──┘     └──┬──┘
+   1   2       3   4    （4 单元阵列）
+</code></pre>
+<p><strong>优缺点</strong>：<br />
+| 优点 | 缺点 |<br />
+|------|------|<br />
+| 设计简单 | 级数多时损耗大 |<br />
+| 幅度/相位一致性好 | 级联越多，累积误差越大 |<br />
+| 易于仿真和优化 | 故障扩散（一级坏了全废） |</p></div>
   </div>
 
     
@@ -695,41 +546,19 @@ Chip Bot:  驱动 IC（BFIC）
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.2 并行馈电（Parallel Feed / Bus Feed）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>优点</th><th>缺点</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>结构简单</td>
-          
-          <td>馈线损耗大（沿程衰减）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>无级联损耗</td>
-          
-          <td>幅度不一致（边缘单元弱）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>故障不影响其他</td>
-          
-          <td>阻抗变化大</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p>所有单元并联到同一根馈线上：</p>
+<pre><code>Input ────────────────────────────────
+        │         │         │
+      Unit 1    Unit 2   Unit 3
+</code></pre>
+<p><strong>优缺点</strong>：<br />
+| 优点 | 缺点 |<br />
+|------|------|<br />
+| 结构简单 | 馈线损耗大（沿程衰减） |<br />
+| 无级联损耗 | 幅度不一致（边缘单元弱） |<br />
+| 故障不影响其他 | 阻抗变化大 |</p></div>
   </div>
 
     
@@ -739,14 +568,11 @@ Chip Bot:  驱动 IC（BFIC）
     
   <div class="block section-text">
     <div class="block-title">3.3 混合馈电（Hybrid Feed）</div>
-    <div class="text-body">树状 + 并行结合：
-
-`
-输入 → 树状分配（4 路）→ 每路并行馈给 8 个单元
-`
-
-优点：兼顾简单性和均匀性
-缺点：设计复杂</div>
+    <div class="text-body"><p>树状 + 并行结合：</p>
+<pre><code>输入 → 树状分配（4 路）→ 每路并行馈给 8 个单元
+</code></pre>
+<p><strong>优点</strong>：兼顾简单性和均匀性<br />
+<strong>缺点</strong>：设计复杂</p></div>
   </div>
 
     
@@ -754,12 +580,11 @@ Chip Bot:  驱动 IC（BFIC）
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.4 波导混合馈电（Waveguide Corporate + Parallel） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>波导分配 → 微带功分 → 天线单元
-
-
-典型应用：5G 基站 AAU</code></pre>
+  <div class="block section-text">
+    <div class="block-title">3.4 波导混合馈电（Waveguide Corporate + Parallel）</div>
+    <div class="text-body"><pre><code>波导分配 → 微带功分 → 天线单元
+</code></pre>
+<p><strong>典型应用</strong>：5G 基站 AAU</p></div>
   </div>
 
     
@@ -767,17 +592,46 @@ Chip Bot:  驱动 IC（BFIC）
     
 
     
-  <div class="block section-code">
-    <div class="block-title">4.1 插入损耗（Insertion Loss） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>IL_total = IL_splitter + IL_line + IL_connector
-
-
-| 频率 | 微带线损耗 | 波导损耗 | LCP 损耗 |
-|------|----------|---------|---------|
-| 3.5GHz | 0.1 dB/m | 0.02 dB/m | 0.08 dB/m |
-| 28GHz | 1.5 dB/m | 0.2 dB/m | 1.0 dB/m |
-| 39GHz | 2.5 dB/m | 0.3 dB/m | 1.8 dB/m |
-| 77GHz | 5.0 dB/m | 0.8 dB/m | 4.0 dB/m |</code></pre>
+  <div class="block section-text">
+    <div class="block-title">4.1 插入损耗（Insertion Loss）</div>
+    <div class="text-body"><pre><code>IL_total = IL_splitter + IL_line + IL_connector
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>频率</th>
+<th>微带线损耗</th>
+<th>波导损耗</th>
+<th>LCP 损耗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.5GHz</td>
+<td>0.1 dB/m</td>
+<td>0.02 dB/m</td>
+<td>0.08 dB/m</td>
+</tr>
+<tr>
+<td>28GHz</td>
+<td>1.5 dB/m</td>
+<td>0.2 dB/m</td>
+<td>1.0 dB/m</td>
+</tr>
+<tr>
+<td>39GHz</td>
+<td>2.5 dB/m</td>
+<td>0.3 dB/m</td>
+<td>1.8 dB/m</td>
+</tr>
+<tr>
+<td>77GHz</td>
+<td>5.0 dB/m</td>
+<td>0.8 dB/m</td>
+<td>4.0 dB/m</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -785,15 +639,14 @@ Chip Bot:  驱动 IC（BFIC）
     
 
     
-  <div class="block section-code">
-    <div class="block-title">4.2 幅度平衡（Amplitude Balance） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>ΔP = |P_out1 - P_out2| &lt; 0.5dB（典型要求）
-
-
-幅度不平衡会导致：
-旁瓣电平升高
-波束指向偏移
-极化隔离度下降</code></pre>
+  <div class="block section-text">
+    <div class="block-title">4.2 幅度平衡（Amplitude Balance）</div>
+    <div class="text-body"><pre><code>ΔP = |P_out1 - P_out2| &lt; 0.5dB（典型要求）
+</code></pre>
+<p>幅度不平衡会导致：<br />
+- 旁瓣电平升高<br />
+- 波束指向偏移<br />
+- 极化隔离度下降</p></div>
   </div>
 
     
@@ -801,15 +654,14 @@ Chip Bot:  驱动 IC（BFIC）
     
 
     
-  <div class="block section-code">
-    <div class="block-title">4.3 相位平衡（Phase Balance） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>Δφ = |φ_out1 - φ_out2| &lt; 5°（典型要求）
-
-
-相位不平衡的后果更严重：
-波束指向误差：Δθ ≈ Δφ / (180°/N)
-64 单元阵列中，Δφ = 5° → Δθ ≈ 4.5°
-可能导致链路中断</code></pre>
+  <div class="block section-text">
+    <div class="block-title">4.3 相位平衡（Phase Balance）</div>
+    <div class="text-body"><pre><code>Δφ = |φ_out1 - φ_out2| &lt; 5°（典型要求）
+</code></pre>
+<p>相位不平衡的后果更严重：<br />
+- 波束指向误差：Δθ ≈ Δφ / (180°/N)<br />
+- 64 单元阵列中，Δφ = 5° → Δθ ≈ 4.5°<br />
+- 可能导致链路中断</p></div>
   </div>
 
     
@@ -817,15 +669,14 @@ Chip Bot:  驱动 IC（BFIC）
     
 
     
-  <div class="block section-code">
-    <div class="block-title">4.4 隔离度（Isolation） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>S_isolation = 20·log₁₀(|V_reflected| / |V_incident|) &lt; -20dB
-
-
-隔离度不足的影响：
-单元间互耦
-方向图畸变
-MIMO 信道相关性增加</code></pre>
+  <div class="block section-text">
+    <div class="block-title">4.4 隔离度（Isolation）</div>
+    <div class="text-body"><pre><code>S_isolation = 20·log₁₀(|V_reflected| / |V_incident|) &lt; -20dB
+</code></pre>
+<p>隔离度不足的影响：<br />
+- 单元间互耦<br />
+- 方向图畸变<br />
+- MIMO 信道相关性增加</p></div>
   </div>
 
     
@@ -833,18 +684,40 @@ MIMO 信道相关性增加</code></pre>
     
 
     
-  <div class="block section-code">
-    <div class="block-title">4.5 带宽（Bandwidth） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>BW = (f_max - f_min) / f_center × 100%
-
-
-| 馈电类型 | 典型带宽 |
-|---------|---------|
-| Wilkinson | 10-20% |
-| Rat-Race | 10-15% |
-| Marchand Balun | 20-40% |
-| 波导 | 10-30% |
-| 多节变换 | &gt; 50% |</code></pre>
+  <div class="block section-text">
+    <div class="block-title">4.5 带宽（Bandwidth）</div>
+    <div class="text-body"><pre><code>BW = (f_max - f_min) / f_center × 100%
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>馈电类型</th>
+<th>典型带宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wilkinson</td>
+<td>10-20%</td>
+</tr>
+<tr>
+<td>Rat-Race</td>
+<td>10-15%</td>
+</tr>
+<tr>
+<td>Marchand Balun</td>
+<td>20-40%</td>
+</tr>
+<tr>
+<td>波导</td>
+<td>10-30%</td>
+</tr>
+<tr>
+<td>多节变换</td>
+<td>&gt; 50%</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -854,16 +727,13 @@ MIMO 信道相关性增加</code></pre>
     
   <div class="block section-text">
     <div class="block-title">5.1 导体损耗剧增</div>
-    <div class="text-body">趋肤深度 δ 随频率升高而减小：
-
-`
-δ = √(2ρ/ωμ)
-`
-
-28GHz 时铜的 δ ≈ 0.35μm，意味着：
-PCB 铜厚至少 3δ ≈ 1μm（镀金层）
-表面粗糙度影响显著
-Ra &lt; 0.5μm 是目标</div>
+    <div class="text-body"><p>趋肤深度 δ 随频率升高而减小：</p>
+<pre><code>δ = √(2ρ/ωμ)
+</code></pre>
+<p>28GHz 时铜的 δ ≈ 0.35μm，意味着：<br />
+- PCB 铜厚至少 3δ ≈ 1μm（镀金层）<br />
+- 表面粗糙度影响显著<br />
+- Ra &lt; 0.5μm 是目标</p></div>
   </div>
 
     
@@ -873,15 +743,14 @@ Ra &lt; 0.5μm 是目标</div>
     
   <div class="block section-text">
     <div class="block-title">5.2 尺寸缩小</div>
-    <div class="text-body">波长缩短 → 所有传输线尺寸按比例缩小：
-
-`
-λ_28GHz = λ_3.5GHz / 8
-`
-
-微带线宽度从 ~1mm 缩到 ~0.13mm
-波导尺寸从 ~70mm 缩到 ~9mm
-加工精度要求从 ±0.1mm 提升到 ±0.02mm</div>
+    <div class="text-body"><p>波长缩短 → 所有传输线尺寸按比例缩小：</p>
+<pre><code>λ_28GHz = λ_3.5GHz / 8
+</code></pre>
+<ul>
+<li>微带线宽度从 ~1mm 缩到 ~0.13mm</li>
+<li>波导尺寸从 ~70mm 缩到 ~9mm</li>
+<li>加工精度要求从 ±0.1mm 提升到 ±0.02mm</li>
+</ul></div>
   </div>
 
     
@@ -891,23 +760,15 @@ Ra &lt; 0.5μm 是目标</div>
     
   <div class="block section-text">
     <div class="block-title">5.3 多路功分器的级联损耗</div>
-    <div class="text-body">N = 64 单元需要 6 级 Wilkinson：
-
-`
-总损耗 = 6 × 0.15dB（每级）= 0.9dB
-`
-
-加上传输线损耗（假设平均每路 10cm，28GHz 下 1.5dB/m）：
-
-`
-总损耗 ≈ 0.9 + 0.15 = 1.05dB
-`
-
-对于 256 单元（8 级）：
-
-`
-总损耗 ≈ 8 × 0.15 + 0.2 = 1.4dB
-`</div>
+    <div class="text-body"><p>N = 64 单元需要 6 级 Wilkinson：</p>
+<pre><code>总损耗 = 6 × 0.15dB（每级）= 0.9dB
+</code></pre>
+<p>加上传输线损耗（假设平均每路 10cm，28GHz 下 1.5dB/m）：</p>
+<pre><code>总损耗 ≈ 0.9 + 0.15 = 1.05dB
+</code></pre>
+<p>对于 256 单元（8 级）：</p>
+<pre><code>总损耗 ≈ 8 × 0.15 + 0.2 = 1.4dB
+</code></pre></div>
   </div>
 
     
@@ -917,19 +778,16 @@ Ra &lt; 0.5μm 是目标</div>
     
   <div class="block section-text">
     <div class="block-title">5.4 双频/多频馈电</div>
-    <div class="text-body">5G 毫米波通常覆盖多个频段（如 28GHz + 39GHz）：
-
-`
-双频 Wilkinson 设计：
-使用多节阻抗变换
-每节针对一个频段优化
-带宽扩展技术（inter-stage phase optimization）
-`
-
-2024 年天津大学提出的 16 路双频功分器：
-28GHz 带宽：23-32GHz（32.1%）
-39GHz 带宽：34-46.5GHz（32.1%）
-采用级间相位优化技术</div>
+    <div class="text-body"><p>5G 毫米波通常覆盖多个频段（如 28GHz + 39GHz）：</p>
+<pre><code>双频 Wilkinson 设计：
+- 使用多节阻抗变换
+- 每节针对一个频段优化
+- 带宽扩展技术（inter-stage phase optimization）
+</code></pre>
+<p>2024 年天津大学提出的 16 路双频功分器：<br />
+- 28GHz 带宽：23-32GHz（32.1%）<br />
+- 39GHz 带宽：34-46.5GHz（32.1%）<br />
+- 采用级间相位优化技术</p></div>
   </div>
 
     
@@ -937,15 +795,16 @@ Ra &lt; 0.5μm 是目标</div>
     
 
     
-  <div class="block section-code">
-    <div class="block-title">6.1 5G 基站 AAU 馈电网络 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>BFIC → 波导分配 → 微带功分 → 天线单元（64-256）
-
-
-波导部分：低损耗主干分配
-微带部分：精细阻抗匹配
-总损耗：&lt; 2dB
-隔离度：&gt; 25dB</code></pre>
+  <div class="block section-text">
+    <div class="block-title">6.1 5G 基站 AAU 馈电网络</div>
+    <div class="text-body"><pre><code>BFIC → 波导分配 → 微带功分 → 天线单元（64-256）
+</code></pre>
+<ul>
+<li>波导部分：低损耗主干分配</li>
+<li>微带部分：精细阻抗匹配</li>
+<li>总损耗：&lt; 2dB</li>
+<li>隔离度：&gt; 25dB</li>
+</ul></div>
   </div>
 
     
@@ -953,15 +812,16 @@ Ra &lt; 0.5μm 是目标</div>
     
 
     
-  <div class="block section-code">
-    <div class="block-title">6.2 手机 AiP 馈电网络 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>BFIC → LCP 微带 → 天线单元（4-16）
-
-
-基板：LCP 或玻璃
-线宽：50-100μm
-总损耗：&lt; 1.5dB
-尺寸：&lt; 20mm × 20mm</code></pre>
+  <div class="block section-text">
+    <div class="block-title">6.2 手机 AiP 馈电网络</div>
+    <div class="text-body"><pre><code>BFIC → LCP 微带 → 天线单元（4-16）
+</code></pre>
+<ul>
+<li>基板：LCP 或玻璃</li>
+<li>线宽：50-100μm</li>
+<li>总损耗：&lt; 1.5dB</li>
+<li>尺寸：&lt; 20mm × 20mm</li>
+</ul></div>
   </div>
 
     
@@ -969,14 +829,15 @@ Ra &lt; 0.5μm 是目标</div>
     
 
     
-  <div class="block section-code">
-    <div class="block-title">6.3 卫星通信馈电网络 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>LNA → 波导分配 → 喇叭馈源 → 龙勃透镜
-
-
-功率容量：kW 级
-损耗：&lt; 0.5dB
-可靠性：MTBF &gt; 100,000 小时</code></pre>
+  <div class="block section-text">
+    <div class="block-title">6.3 卫星通信馈电网络</div>
+    <div class="text-body"><pre><code>LNA → 波导分配 → 喇叭馈源 → 龙勃透镜
+</code></pre>
+<ul>
+<li>功率容量：kW 级</li>
+<li>损耗：&lt; 0.5dB</li>
+<li>可靠性：MTBF &gt; 100,000 小时</li>
+</ul></div>
   </div>
 
     

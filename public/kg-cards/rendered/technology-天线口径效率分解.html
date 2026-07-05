@@ -271,10 +271,9 @@
     
   <div class="block section-text">
     <div class="block-title">一、口径效率分解公式</div>
-    <div class="text-body">`
-天线增益：
+    <div class="text-body"><pre><code>天线增益：
   G = η_total × (4πA_phys/λ²)
-  
+
 η_total = η_ill × η_spill × obs × η_pol × η_cond × η_diel
 
 各项典型值（64T64R AAU, 3.5GHz）：
@@ -295,7 +294,7 @@
   即使每项都很高（0.95），乘起来也只有 0.77
   → 天线效率很难超过 75%
   → 设计时要逐项优化
-`</div>
+</code></pre></div>
   </div>
 
     
@@ -303,28 +302,29 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.1 照明效率（Illumination Efficiency） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>定义：
+  <div class="block section-text">
+    <div class="block-title">2.1 照明效率（Illumination Efficiency）</div>
+    <div class="text-body"><pre><code>定义：
   口径上场强分布不均匀导致的增益损失
-  
+
 原因：
   天线边缘功率低、中间功率高（ tapering ）
   → 波束变宽、旁瓣降低
   → 但主瓣增益下降
-  
+
 计算公式：
   η_ill = |∫E(x,y)dA|² / (A × ∫|E(x,y)|²dA)
-  
+
 典型值：
   均匀照明：1.0（理论最优，但旁瓣高 -13dB）
   Taylor 分布：0.85-0.90（旁瓣 -25dB）
   Chebyshev：0.80-0.85（旁瓣 -30dB）
   二项式：0.70-0.75（旁瓣 &lt;-40dB）
-  
+
 设计 trade-off：
   旁瓣越低 → 照明效率越低
-  → 需要根据场景选择</code></pre>
+  → 需要根据场景选择
+</code></pre></div>
   </div>
 
     
@@ -332,22 +332,23 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.2 溢出效率（Spillover Efficiency） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>定义：
+  <div class="block section-text">
+    <div class="block-title">2.2 溢出效率（Spillover Efficiency）</div>
+    <div class="text-body"><pre><code>定义：
   馈源辐射能量超出反射面/天线口径导致的损失
-  
+
 原因：
-  馈源波束不是完美的&#34;圆柱形&#34;
+  馈源波束不是完美的&quot;圆柱形&quot;
   → 一部分能量洒到天线外面
-  
+
 典型值：
   抛物面天线：0.70-0.85
   平面阵列：0.85-0.95（溢出少）
-  
+
 改善方法：
   - 优化馈源波束宽度
-  - 使用多馈源设计</code></pre>
+  - 使用多馈源设计
+</code></pre></div>
   </div>
 
     
@@ -355,24 +356,25 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.3 遮挡效率（Obstruction Efficiency） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>定义：
+  <div class="block section-text">
+    <div class="block-title">2.3 遮挡效率（Obstruction Efficiency）</div>
+    <div class="text-body"><pre><code>定义：
   馈电结构/支撑结构遮挡口径导致的损失
-  
+
 原因：
   AAU 内部：
   - 功分器/合路器遮挡
   - 馈线/传输线遮挡
   - 散热结构遮挡
-  
+
 典型值：
   平面阵列：0.90-0.98（遮挡小）
   抛物面：0.70-0.85（遮挡大）
-  
+
 改善方法：
   - 优化馈电网络布局
-  - 使用低剖面传输线（微带/带状线）</code></pre>
+  - 使用低剖面传输线（微带/带状线）
+</code></pre></div>
   </div>
 
     
@@ -380,22 +382,23 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.4 极化效率（Polarization Efficiency） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>定义：
+  <div class="block section-text">
+    <div class="block-title">2.4 极化效率（Polarization Efficiency）</div>
+    <div class="text-body"><pre><code>定义：
   交叉极化分量导致的有用极化信号损失
-  
+
 原因：
   - 天线结构不对称
   - 入射波极化不匹配
-  
+
 典型值：
   ±45° 双极化天线：0.90-0.98
   （交叉极化隔离度 20-30dB）
-  
+
 改善方法：
   - 对称结构设计
-  - 极化纯净的辐射单元</code></pre>
+  - 极化纯净的辐射单元
+</code></pre></div>
   </div>
 
     
@@ -403,22 +406,23 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.5 导体效率（Conduction Efficiency） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>定义：
+  <div class="block section-text">
+    <div class="block-title">2.5 导体效率（Conduction Efficiency）</div>
+    <div class="text-body"><pre><code>定义：
   金属导体欧姆损耗导致的损失
-  
+
 原因：
   - 铜/铝的表面电阻
   - 趋肤效应 → 电流只在表面流过
-  
+
 典型值：
   铜/铝：0.95-0.99（Sub-6GHz）
   银镀层：0.98-0.995
-  
+
 改善方法：
   - 使用高导电材料（铜/银）
-  - 表面镀银</code></pre>
+  - 表面镀银
+</code></pre></div>
   </div>
 
     
@@ -426,23 +430,24 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.6 介质效率（Dielectric Efficiency） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>定义：
+  <div class="block section-text">
+    <div class="block-title">2.6 介质效率（Dielectric Efficiency）</div>
+    <div class="text-body"><pre><code>定义：
   介质材料（基板/天线罩）损耗导致的损失
-  
+
 原因：
   - 基板 Df（损耗角正切）
   - Radome Df
-  
+
 典型值：
   RO4350B：0.97-0.99
   PTFE：0.99-0.995
   Radome（ASA）：0.95-0.98
-  
+
 改善方法：
   - 低 Df 材料
-  - 薄型 Radome</code></pre>
+  - 薄型 Radome
+</code></pre></div>
   </div>
 
     

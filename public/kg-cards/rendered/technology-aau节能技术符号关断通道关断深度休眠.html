@@ -269,9 +269,9 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.1 功耗分布 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>AAU 总功耗：600-800W（64T64R, 3.5GHz）
+  <div class="block section-text">
+    <div class="block-title">1.1 功耗分布</div>
+    <div class="text-body"><pre><code>AAU 总功耗：600-800W（64T64R, 3.5GHz）
 
 功耗分布：
   ┌─────────────────────────────────────┐
@@ -282,7 +282,8 @@
   │ 其他（电源/控制）    │   30-50W   │  5-8%   │
   └─────────────────────────────────────┘
 
-关键：PA 占 60-70%，是节能主战场</code></pre>
+关键：PA 占 60-70%，是节能主战场
+</code></pre></div>
   </div>
 
     
@@ -290,12 +291,13 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.2 为什么 5G 更耗电？ <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>天线数多：64T/128T vs 4G 2T/4T → 射频链路多 16-64 倍
-带宽大：100MHz vs 20MHz → 数据处理量大 5 倍
-功放效率低：Doherty PA 平均效率 25-35% → 65-75% 变成热量
-散热需求：AAU 密闭腔体 → 需要风扇/液冷</code></pre>
+  <div class="block section-text">
+    <div class="block-title">1.2 为什么 5G 更耗电？</div>
+    <div class="text-body"><pre><code>1. 天线数多：64T/128T vs 4G 2T/4T → 射频链路多 16-64 倍
+2. 带宽大：100MHz vs 20MHz → 数据处理量大 5 倍
+3. 功放效率低：Doherty PA 平均效率 25-35% → 65-75% 变成热量
+4. 散热需求：AAU 密闭腔体 → 需要风扇/液冷
+</code></pre></div>
   </div>
 
     
@@ -303,29 +305,30 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.1 符号级关断（Symbol Shutdown） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>原理：
+  <div class="block section-text">
+    <div class="block-title">2.1 符号级关断（Symbol Shutdown）</div>
+    <div class="text-body"><pre><code>原理：
   5G OFDM 帧中，空闲时隙没有数据传输
   → 关闭 PA 和射频链路供电
   → 下一个时隙再快速唤醒
-  
+
 时间尺度：
   OFDM 符号周期：~30μs（15kHz 子载波间隔）
   唤醒延迟：&lt; 1μs
-  
+
 省电效果：
   轻载时（&lt; 20% 利用率）：省电 5-10%
-  
+
 实现方式：
   - PA 偏置电压快速调节
   - DAC/ADC 时钟门控
   - 射频开关快速切断
-  
+
 挑战：
   - 唤醒瞬态会产生瞬态干扰
   - 需要精确的定时控制
-  - PA 偏置电路响应速度要求高</code></pre>
+  - PA 偏置电路响应速度要求高
+</code></pre></div>
   </div>
 
     
@@ -333,32 +336,33 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.2 通道级关断（Channel/Element Shutdown） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>原理：
+  <div class="block section-text">
+    <div class="block-title">2.2 通道级关断（Channel/Element Shutdown）</div>
+    <div class="text-body"><pre><code>原理：
   用户少时，关闭部分天线通道
   → 从 64T 降到 32T/16T/8T
   → 波束变宽，覆盖范围缩小，但省电
-  
+
 时间尺度：
   秒级到分钟级（基于负载均衡）
-  
+
 省电效果：
   64T → 32T：省电 20-30%
   64T → 16T：省电 40-50%
-  
+
 实现方式：
   - 数字预编码矩阵降秩
   - 关闭部分 RF 链路的 DAC/PA
   - 调整波束宽度补偿覆盖
-  
+
 关键：覆盖补偿
   通道减少后波束变宽 → 边缘用户信号变弱
   → 需要调整天线倾角/功率补偿
-  
+
 3GPP 方案：
   - Deep Sleep Mode：部分通道休眠
-  - Dynamic MIMO Power Saving：NR Rel-16 引入</code></pre>
+  - Dynamic MIMO Power Saving：NR Rel-16 引入
+</code></pre></div>
   </div>
 
     
@@ -366,28 +370,29 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.3 深度休眠（Deep Sleep） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>原理：
+  <div class="block section-text">
+    <div class="block-title">2.3 深度休眠（Deep Sleep）</div>
+    <div class="text-body"><pre><code>原理：
   夜间/低峰期，整扇区休眠
   → 只保留最低功耗的监控通道
   → 用户来了快速唤醒
-  
+
 时间尺度：
   分钟级到小时级
-  
+
 省电效果：
   相比常开：省电 50-70%
-  
+
 实现方式：
   - 关闭 PA、大部分射频链路
   - 保留同步信号和唤醒检测
   - 唤醒时间：&lt; 10ms（NR Rel-16 要求）
-  
+
 挑战：
   - 唤醒延迟影响用户体验
   - 频繁开关加速器件老化
-  - 需要精准的流量预测</code></pre>
+  - 需要精准的流量预测
+</code></pre></div>
   </div>
 
     
@@ -395,18 +400,19 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.1 流量预测 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>基于历史数据的 AI 预测：
+  <div class="block section-text">
+    <div class="block-title">3.1 流量预测</div>
+    <div class="text-body"><pre><code>基于历史数据的 AI 预测：
   - LSTM/Transformer 预测未来 15min-2h 流量
   - 准确率 &gt; 90%（城市宏站）
   - 提前调整节能策略
-  
+
 应用场景：
   1. 白天高峰：全通道开启，最大化容量
   2. 午间低谷：通道级关断
   3. 深夜：深度休眠 + 符号关断
-  4. 突发流量：AI 预测到即将高峰，提前唤醒</code></pre>
+  4. 突发流量：AI 预测到即将高峰，提前唤醒
+</code></pre></div>
   </div>
 
     
@@ -414,15 +420,16 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.2 智能波束调整 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>AI 优化波束指向：
+  <div class="block section-text">
+    <div class="block-title">3.2 智能波束调整</div>
+    <div class="text-body"><pre><code>AI 优化波束指向：
   - 根据用户分布动态调整波束
   - 关闭无人方向的波束
   - 集中能量到有用户的方向
-  
+
 省电效果：
-  相比固定波束：额外省电 10-15%</code></pre>
+  相比固定波束：额外省电 10-15%
+</code></pre></div>
   </div>
 
     
@@ -432,12 +439,47 @@
     
   <div class="block section-text">
     <div class="block-title">四、节能效果对比</div>
-    <div class="text-body">| 技术 | 时间尺度 | 省电效果 | 唤醒延迟 | 质量影响 |
-|------|---------|---------|---------|---------|
-| 符号关断 | μs-ms | 5-10% | &lt; 1μs | 无 |
-| 通道关断 | s-min | 20-40% | &lt; 10ms | 轻微（覆盖缩小） |
-| 深度休眠 | min-hour | 50-70% | 10-100ms | 中（需要重新建立连接） |
-| AI 预测节能 | hour-day | 额外 10-15% | 无 | 无 |</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>技术</th>
+<th>时间尺度</th>
+<th>省电效果</th>
+<th>唤醒延迟</th>
+<th>质量影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>符号关断</td>
+<td>μs-ms</td>
+<td>5-10%</td>
+<td>&lt; 1μs</td>
+<td>无</td>
+</tr>
+<tr>
+<td>通道关断</td>
+<td>s-min</td>
+<td>20-40%</td>
+<td>&lt; 10ms</td>
+<td>轻微（覆盖缩小）</td>
+</tr>
+<tr>
+<td>深度休眠</td>
+<td>min-hour</td>
+<td>50-70%</td>
+<td>10-100ms</td>
+<td>中（需要重新建立连接）</td>
+</tr>
+<tr>
+<td>AI 预测节能</td>
+<td>hour-day</td>
+<td>额外 10-15%</td>
+<td>无</td>
+<td>无</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     

@@ -313,13 +313,13 @@
     {% elif stype == 'code' %}
   <div class="block section-code">
     <div class="block-title">{{ section.title }}{% if section.code_language %} <span style="margin-left:auto;font-size:10px;opacity:0.7;">{{ section.code_language }}</span>{% endif %}</div>
-    <pre class="code-body"><code>{{ section.content }}</code></pre>
+    <pre class="code-body"><code>{{ section.content | safe }}</code></pre>
   </div>
 
     {% elif stype == 'text' %}
   <div class="block section-text">
     <div class="block-title">{{ section.title }}</div>
-    <div class="text-body">{{ section.content }}</div>
+    <div class="text-body">{{ section.content | safe }}</div>
   </div>
 
     {% elif stype == 'list' %}

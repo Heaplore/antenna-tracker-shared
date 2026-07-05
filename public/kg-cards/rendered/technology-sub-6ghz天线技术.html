@@ -269,24 +269,25 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.1 5G Sub-6GHz 频段 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>FR1（Sub-6GHz）频段划分：
+  <div class="block section-text">
+    <div class="block-title">1.1 5G Sub-6GHz 频段</div>
+    <div class="text-body"><pre><code>FR1（Sub-6GHz）频段划分：
 
 低频段（Coverage Layer）：
   600MHz（n71）：覆盖半径 ~10km
   700MHz（n28）：覆盖半径 ~8km（中国移动）
   800MHz（n20/n28）：覆盖半径 ~7km
-  
+
 中频段（Capacity Layer）：
   1.8GHz（n3）：覆盖半径 ~3km
   2.1GHz（n1）：覆盖半径 ~3km
   2.6GHz（n41）：覆盖半径 ~2km（中国联通/电信）
   3.5GHz（n78）：覆盖半径 ~1km（5G 主力）
-  
+
 高 Sub-6GHz：
   4.9GHz（n79）：覆盖半径 ~800m
-  6.425-7.125GHz（n104/U6G）：覆盖半径 ~1km（6G 试验）</code></pre>
+  6.425-7.125GHz（n104/U6G）：覆盖半径 ~1km（6G 试验）
+</code></pre></div>
   </div>
 
     
@@ -294,87 +295,56 @@
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">1.2 频段对比</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>频段</th><th>波长</th><th>覆盖半径</th><th>单载波带宽</th><th>典型增益</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>700MHz</td>
-          
-          <td>429mm</td>
-          
-          <td>8-10km</td>
-          
-          <td>20MHz</td>
-          
-          <td>15-17dBi</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>2.6GHz</td>
-          
-          <td>115mm</td>
-          
-          <td>2-3km</td>
-          
-          <td>100MHz</td>
-          
-          <td>17-19dBi</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>3.5GHz</td>
-          
-          <td>86mm</td>
-          
-          <td>1-2km</td>
-          
-          <td>100MHz</td>
-          
-          <td>20-22dBi</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>4.9GHz</td>
-          
-          <td>61mm</td>
-          
-          <td>0.8-1km</td>
-          
-          <td>100MHz</td>
-          
-          <td>20-22dBi</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>6.5GHz</td>
-          
-          <td>46mm</td>
-          
-          <td>1km</td>
-          
-          <td>400MHz</td>
-          
-          <td>22-24dBi</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>频段</th>
+<th>波长</th>
+<th>覆盖半径</th>
+<th>单载波带宽</th>
+<th>典型增益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>700MHz</td>
+<td>429mm</td>
+<td>8-10km</td>
+<td>20MHz</td>
+<td>15-17dBi</td>
+</tr>
+<tr>
+<td>2.6GHz</td>
+<td>115mm</td>
+<td>2-3km</td>
+<td>100MHz</td>
+<td>17-19dBi</td>
+</tr>
+<tr>
+<td>3.5GHz</td>
+<td>86mm</td>
+<td>1-2km</td>
+<td>100MHz</td>
+<td>20-22dBi</td>
+</tr>
+<tr>
+<td>4.9GHz</td>
+<td>61mm</td>
+<td>0.8-1km</td>
+<td>100MHz</td>
+<td>20-22dBi</td>
+</tr>
+<tr>
+<td>6.5GHz</td>
+<td>46mm</td>
+<td>1km</td>
+<td>400MHz</td>
+<td>22-24dBi</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -382,9 +352,9 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.1 多频段合一（Multi-Band） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>问题：运营商需要一块天线覆盖多个频段
+  <div class="block section-text">
+    <div class="block-title">2.1 多频段合一（Multi-Band）</div>
+    <div class="text-body"><pre><code>问题：运营商需要一块天线覆盖多个频段
   中国移动：700MHz（n28）+ 2.6GHz（n41）
   中国电信/联通：3.5GHz（n78）+ 2.6GHz（n41）
 
@@ -394,16 +364,17 @@
      - 2.6GHz 振子：~5.7cm 长
      - 3.5GHz 振子：~4.3cm 长
      - 三层叠放，共用同一口径
-     
+
   2. 宽带天线
      - 单振子覆盖 2.6-3.5GHz
      - 需要特殊匹配网络
      - 增益略低（-1-2dB）
-     
+
   3. 共口径设计
      - 不同频段共用同一反射板
      - 馈电网络隔离是关键
-     - 需要 &gt; 30dB 频段间隔离</code></pre>
+     - 需要 &gt; 30dB 频段间隔离
+</code></pre></div>
   </div>
 
     
@@ -411,25 +382,26 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.2 小型化 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>Sub-6GHz 天线尺寸约束：
+  <div class="block section-text">
+    <div class="block-title">2.2 小型化</div>
+    <div class="text-body"><pre><code>Sub-6GHz 天线尺寸约束：
   抱杆空间有限：天线宽度 ≤ 300mm
   重量限制：单面天线 ≤ 30kg（4G）/ 50kg（5G）
-  
+
 700MHz 天线小型化方法：
   1. 折叠振子（Folded Dipole）
      - 将 λ/2 振子折叠成 U 形
      - 尺寸缩小 30-40%
-     
+
   2. 加载电感/电容
      - 电加载缩短振子长度
      - 代价：带宽变窄
-     
+
   3. 高介电常数基板
      - ε_r = 10-20 的陶瓷基板
      - 尺寸缩小 √ε_r 倍
-     - 代价：损耗增加</code></pre>
+     - 代价：损耗增加
+</code></pre></div>
   </div>
 
     
@@ -437,18 +409,19 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.3 互耦与隔离 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>多频段天线互耦问题：
+  <div class="block section-text">
+    <div class="block-title">2.3 互耦与隔离</div>
+    <div class="text-body"><pre><code>多频段天线互耦问题：
   700MHz ↔ 2.6GHz：~15dB 耦合
   2.6GHz ↔ 3.5GHz：~10dB 耦合
   3.5GHz ↔ 6.5GHz：~8dB 耦合
-  
+
 隔离方法：
   1. 物理间距：≥ λ_low/4
   2. 极化隔离：±45° 错开
   3. 去耦结构：DGS/EBG/中和线
-  4. 滤波网络：每个频段加带通滤波器</code></pre>
+  4. 滤波网络：每个频段加带通滤波器
+</code></pre></div>
   </div>
 
     
@@ -456,28 +429,29 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.1 4G 到 5G 的演进 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>4G Sub-6GHz 天线：
+  <div class="block section-text">
+    <div class="block-title">3.1 4G 到 5G 的演进</div>
+    <div class="text-body"><pre><code>4G Sub-6GHz 天线：
   频段：1.8GHz + 2.6GHz（双频）
   通道：2T2R/4T4R
   天线形态：平板（偶极子阵列）
   增益：17-19dBi
   下倾：机械/RET
-  
+
 5G Sub-6GHz 天线（AAU）：
   频段：3.5GHz（主力）+ 2.6GHz（补充）
   通道：64T64R/128T128R
   天线形态：平板（贴片阵列）
   增益：22-25dBi
   下倾：RET + 数字波束赋形
-  
+
 5G-A Sub-6GHz 天线：
   频段：3.5GHz + 6.5GHz（U6G）
   通道：192T192R/256T256R
   天线形态：紧凑平板
   增益：24-27dBi
-  下倾：3D 波束赋形</code></pre>
+  下倾：3D 波束赋形
+</code></pre></div>
   </div>
 
     
@@ -485,24 +459,25 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.2 多频段 AAU <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>三频段 AAU（主流方案）：
+  <div class="block section-text">
+    <div class="block-title">3.2 多频段 AAU</div>
+    <div class="text-body"><pre><code>三频段 AAU（主流方案）：
   频段 1：700MHz（n28）→ 覆盖层
   频段 2：2.6GHz（n41）→ 容量层
   频段 3：3.5GHz（n78）→ 容量层
-  
+
 实现方式：
   1. 共口径三频段 AAU
      - 三层天线叠放
      - 共用散热系统
      - 重量：60-80kg
-     
+
   2. 分离式三频段
      - 700MHz 平板（无源）
      - 2.6GHz AAU（有源）
      - 3.5GHz AAU（有源）
-     - A+P 共装</code></pre>
+     - A+P 共装
+</code></pre></div>
   </div>
 
     
@@ -512,16 +487,57 @@
     
   <div class="block section-text">
     <div class="block-title">四、Sub-6GHz vs 毫米波</div>
-    <div class="text-body">| 特性 | Sub-6GHz | 毫米波（24-40GHz） |
-|------|---------|-------------------|
-| 覆盖半径 | 1-10km | 100-300m |
-| 穿墙能力 | 强（-5dB 墙体） | 弱（-20dB 墙体） |
-| 带宽 | 20-400MHz | 400MHz-2GHz |
-| 天线尺寸 | 大（cm 级） | 小（mm 级） |
-| 通道数 | 64-256 | 256-1024 |
-| 功耗 | 200-500W | 500-1000W |
-| 部署成本 | 低 | 高（需要密集部署） |
-| 成熟度 | 成熟（2019 商用） | 早期（2025+ 商用） |</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Sub-6GHz</th>
+<th>毫米波（24-40GHz）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>覆盖半径</td>
+<td>1-10km</td>
+<td>100-300m</td>
+</tr>
+<tr>
+<td>穿墙能力</td>
+<td>强（-5dB 墙体）</td>
+<td>弱（-20dB 墙体）</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>20-400MHz</td>
+<td>400MHz-2GHz</td>
+</tr>
+<tr>
+<td>天线尺寸</td>
+<td>大（cm 级）</td>
+<td>小（mm 级）</td>
+</tr>
+<tr>
+<td>通道数</td>
+<td>64-256</td>
+<td>256-1024</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>200-500W</td>
+<td>500-1000W</td>
+</tr>
+<tr>
+<td>部署成本</td>
+<td>低</td>
+<td>高（需要密集部署）</td>
+</tr>
+<tr>
+<td>成熟度</td>
+<td>成熟（2019 商用）</td>
+<td>早期（2025+ 商用）</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     

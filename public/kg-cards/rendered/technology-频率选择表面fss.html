@@ -269,9 +269,9 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.1 结构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>FSS 单元结构（周期性排列）：
+  <div class="block section-text">
+    <div class="block-title">1.1 结构</div>
+    <div class="text-body"><pre><code>FSS 单元结构（周期性排列）：
   ┌──────────────────┐
   │  金属贴片/缝隙    │  ← 谐振结构
   ├──────────────────┤
@@ -279,8 +279,9 @@
   ├──────────────────┤
   │  金属贴片/缝隙    │  ← 谐振结构
   └──────────────────┘
-  
-单元间距：d &lt; λ/2（避免栅瓣）</code></pre>
+
+单元间距：d &lt; λ/2（避免栅瓣）
+</code></pre></div>
   </div>
 
     
@@ -288,21 +289,22 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.2 工作机理 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>共振频率 f_r：
+  <div class="block section-text">
+    <div class="block-title">1.2 工作机理</div>
+    <div class="text-body"><pre><code>共振频率 f_r：
   f_r = c / (2π√(ε_eff) · L)
-  
+
 L = 单元尺寸
 ε_eff = 有效介电常数
-  
+
 当 f = f_r：
   - 带通型 FSS：透射（天线罩应用）
   - 带阻型 FSS：反射（隔离应用）
-  
+
 当 f ≠ f_r：
   - 带通型 FSS：反射
-  - 带阻型 FSS：透射</code></pre>
+  - 带阻型 FSS：透射
+</code></pre></div>
   </div>
 
     
@@ -310,9 +312,9 @@ L = 单元尺寸
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.1 带通型 FSS（Pass-Band） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>结构：金属贴片阵列
+  <div class="block section-text">
+    <div class="block-title">2.1 带通型 FSS（Pass-Band）</div>
+    <div class="text-body"><pre><code>结构：金属贴片阵列
 功能：只让目标频段通过
 应用：滤波天线罩、多频天线隔离
 
@@ -320,7 +322,8 @@ L = 单元尺寸
   中心频率：3.5GHz
   带宽：100MHz（2.8% FBW）
   插入损耗：&lt; 0.1dB
-  阻带抑制：&gt; 30dB（@ 700MHz）</code></pre>
+  阻带抑制：&gt; 30dB（@ 700MHz）
+</code></pre></div>
   </div>
 
     
@@ -328,9 +331,9 @@ L = 单元尺寸
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.2 带阻型 FSS（Stop-Band） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>结构：缝隙阵列
+  <div class="block section-text">
+    <div class="block-title">2.2 带阻型 FSS（Stop-Band）</div>
+    <div class="text-body"><pre><code>结构：缝隙阵列
 功能：阻挡特定频段
 应用：天线隔离、EMI 屏蔽
 
@@ -338,7 +341,8 @@ L = 单元尺寸
   中心频率：2.4GHz
   带宽：200MHz（8% FBW）
   插入损耗：&lt; 0.5dB（通带）
-  阻带抑制：&gt; 40dB</code></pre>
+  阻带抑制：&gt; 40dB
+</code></pre></div>
   </div>
 
     
@@ -346,16 +350,17 @@ L = 单元尺寸
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.3 双频/多频 FSS <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>结构：多层 FSS（每层不同频率）
+  <div class="block section-text">
+    <div class="block-title">2.3 双频/多频 FSS</div>
+    <div class="text-body"><pre><code>结构：多层 FSS（每层不同频率）
 功能：多层频段选择
 应用：A+P 天线频段隔离
 
 典型参数：
   层数：2-4 层
   频段：700MHz + 2.6GHz + 3.5GHz
-  层间间距：λ/4</code></pre>
+  层间间距：λ/4
+</code></pre></div>
   </div>
 
     
@@ -363,17 +368,18 @@ L = 单元尺寸
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.1 滤波天线罩 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>传统天线罩：
+  <div class="block section-text">
+    <div class="block-title">3.1 滤波天线罩</div>
+    <div class="text-body"><pre><code>传统天线罩：
   全频段透明（300MHz-6GHz）
   损耗：0.5-1dB
-  
+
 FSS 滤波天线罩：
   只透射目标频段（如 3.5GHz）
   阻挡干扰频段（700MHz、2.6GHz）
   损耗：&lt; 0.1dB（通带）
-  抑制：&gt; 30dB（阻带）</code></pre>
+  抑制：&gt; 30dB（阻带）
+</code></pre></div>
   </div>
 
     
@@ -381,18 +387,19 @@ FSS 滤波天线罩：
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.2 A+P 天线频段隔离 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>问题：
+  <div class="block section-text">
+    <div class="block-title">3.2 A+P 天线频段隔离</div>
+    <div class="text-body"><pre><code>问题：
   700MHz ↔ 3.5GHz 互调
-  
+
 解决方案：
   在两层天线之间加 FSS 隔离层
-  
+
 效果：
   700MHz 信号被 FSS 反射
   3.5GHz 信号透过 FSS
-  互调抑制：&gt; 80dB</code></pre>
+  互调抑制：&gt; 80dB
+</code></pre></div>
   </div>
 
     
@@ -400,17 +407,18 @@ FSS 滤波天线罩：
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.3 多频共口径天线 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>结构：
+  <div class="block section-text">
+    <div class="block-title">3.3 多频共口径天线</div>
+    <div class="text-body"><pre><code>结构：
   上层：3.5GHz 贴片天线
   中层：FSS 隔离层（透 3.5GHz，阻 700MHz）
   下层：700MHz 偶极子天线
-  
+
 效果：
   两层天线共用同一口径
   频段隔离 &gt; 40dB
-  节省站址空间</code></pre>
+  节省站址空间
+</code></pre></div>
   </div>
 
     

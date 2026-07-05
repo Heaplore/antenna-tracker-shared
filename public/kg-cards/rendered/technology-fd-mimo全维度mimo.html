@@ -269,22 +269,23 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.1 从 2D 到 3D <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>传统 MIMO（2D）：
+  <div class="block section-text">
+    <div class="block-title">1.1 从 2D 到 3D</div>
+    <div class="text-body"><pre><code>传统 MIMO（2D）：
   天线阵列：水平排列（如 2T2R, 4T4R）
   波束控制：只能控制水平方向
   空间复用：水平维度
-  
+
 FD-MIMO（3D）：
   天线阵列：水平 + 垂直排列（如 64T64R, 128T128R）
   波束控制：水平 + 垂直双维度
   空间复用：3D 空间维度
-  
+
 关键差异：
   垂直维度的引入 → 可以区分不同高度的用户
   → 高层建筑覆盖质量大幅提升
-  → 小区容量提升 2-3 倍</code></pre>
+  → 小区容量提升 2-3 倍
+</code></pre></div>
   </div>
 
     
@@ -292,13 +293,13 @@ FD-MIMO（3D）：
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.2 天线阵列结构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>FD-MIMO 典型阵列（64T64R）：
-  
+  <div class="block section-text">
+    <div class="block-title">1.2 天线阵列结构</div>
+    <div class="text-body"><pre><code>FD-MIMO 典型阵列（64T64R）：
+
   垂直方向（8 行）× 水平方向（8 列）= 64 个端口
   每个端口 = 双极化（±45°）× 2 = 实际 128 个辐射单元
-  
+
   天线排列：
   ┌───┬───┬───┬───┬───┬───┬───┬───┐
   │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 8 行（顶部）
@@ -317,12 +318,13 @@ FD-MIMO（3D）：
   ├───┼───┼───┼───┼───┼───┼───┼───┤
   │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 1 行（底部）
   └───┴───┴───┴───┴───┴───┴───┴───┘
-  
+
   ↑ = +45° 极化
   ↗ = -45° 极化
-  
+
   垂直间距：~0.5λ（~43mm @3.5GHz）
-  水平间距：~0.5λ（~43mm @3.5GHz）</code></pre>
+  水平间距：~0.5λ（~43mm @3.5GHz）
+</code></pre></div>
   </div>
 
     
@@ -330,29 +332,30 @@ FD-MIMO（3D）：
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.1 垂直波束倾斜 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>传统电调倾角（RET）：
+  <div class="block section-text">
+    <div class="block-title">2.1 垂直波束倾斜</div>
+    <div class="text-body"><pre><code>传统电调倾角（RET）：
   整个天线阵面作为一个整体倾斜
   → 只能调整一个倾角
   → 无法对不同高度用户差异化覆盖
-  
+
 FD-MIMO 3D 波束赋形：
   垂直维度每个单元独立控制相位
   → 可以同时形成多个垂直波束
   → 例如：一个波束对准 3-5 楼，一个对准 10-15 楼
-  
+
 垂直波束宽度：
   8 单元垂直阵列 → HPBW ≈ 70°/8 = ~9°
   → 可以区分不同楼层
-  
+
 波束赋形公式（3D）：
   AF(θ,φ) = Σ_n Σ_m w_nm · e^(j·k·d_n·sin(θ)cos(φ)) · e^(j·k·d_m·sin(θ)sin(φ))
-  
+
   其中：
   θ = 俯仰角（垂直维度）
   φ = 方位角（水平维度）
-  w_nm = 第 n 行第 m 列的复数权重</code></pre>
+  w_nm = 第 n 行第 m 列的复数权重
+</code></pre></div>
   </div>
 
     
@@ -360,24 +363,25 @@ FD-MIMO 3D 波束赋形：
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.2 3D 波束赋形优势 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>垂直维度复用
+  <div class="block section-text">
+    <div class="block-title">2.2 3D 波束赋形优势</div>
+    <div class="text-body"><pre><code>1. 垂直维度复用
    同一频率，不同楼层 = 不同用户 = 空间复用
    → 容量提升 2-3 倍
-   
-覆盖优化
+
+2. 覆盖优化
    高层建筑边缘用户信号改善 5-10dB
    → 减少掉话率
-   
-干扰抑制
+
+3. 干扰抑制
    垂直方向零陷 → 减少小区间干扰
    → 边缘用户 SINR 提升
-   
-动态调整
+
+4. 动态调整
    根据用户分布实时调整 3D 波束
    → 白天写字楼（中高层密集）
-   → 晚上住宅区（高层密集）</code></pre>
+   → 晚上住宅区（高层密集）
+</code></pre></div>
   </div>
 
     
@@ -385,27 +389,28 @@ FD-MIMO 3D 波束赋形：
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.1 Release 演进 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>Rel-13（LTE-Advanced Pro）：
+  <div class="block section-text">
+    <div class="block-title">3.1 Release 演进</div>
+    <div class="text-body"><pre><code>Rel-13（LTE-Advanced Pro）：
   - 首次引入 FD-MIMO 概念
   - 支持 8T8R 3D 波束赋形
   - 垂直波束宽度可调
-  
+
 Rel-15（5G NR）：
   - 支持 64T64R Massive MIMO
   - 全 3D 波束赋形
   - 波束管理流程标准化
-  
+
 Rel-16：
   - 增强型波束管理
   - AI 辅助波束预测
   - 节能机制（通道关断）
-  
+
 Rel-17/18（5G-A）：
   - XL-MIMO（超大规模天线）
   - 近场波束赋形
-  - 极化波束赋形</code></pre>
+  - 极化波束赋形
+</code></pre></div>
   </div>
 
     
@@ -413,81 +418,54 @@ Rel-17/18（5G-A）：
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.2 典型配置</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>配置</th><th>天线数</th><th>射频链路</th><th>垂直单元</th><th>水平单元</th><th>典型场景</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>8T8R</td>
-          
-          <td>16</td>
-          
-          <td>8</td>
-          
-          <td>2</td>
-          
-          <td>4</td>
-          
-          <td>热点覆盖</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>32T32R</td>
-          
-          <td>64</td>
-          
-          <td>32</td>
-          
-          <td>4</td>
-          
-          <td>4</td>
-          
-          <td>城市宏站</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>64T64R</td>
-          
-          <td>128</td>
-          
-          <td>64</td>
-          
-          <td>8</td>
-          
-          <td>4</td>
-          
-          <td>主流宏站</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>128T128R</td>
-          
-          <td>256</td>
-          
-          <td>128</td>
-          
-          <td>16</td>
-          
-          <td>8</td>
-          
-          <td>容量热点</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>配置</th>
+<th>天线数</th>
+<th>射频链路</th>
+<th>垂直单元</th>
+<th>水平单元</th>
+<th>典型场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8T8R</td>
+<td>16</td>
+<td>8</td>
+<td>2</td>
+<td>4</td>
+<td>热点覆盖</td>
+</tr>
+<tr>
+<td>32T32R</td>
+<td>64</td>
+<td>32</td>
+<td>4</td>
+<td>4</td>
+<td>城市宏站</td>
+</tr>
+<tr>
+<td>64T64R</td>
+<td>128</td>
+<td>64</td>
+<td>8</td>
+<td>4</td>
+<td>主流宏站</td>
+</tr>
+<tr>
+<td>128T128R</td>
+<td>256</td>
+<td>128</td>
+<td>16</td>
+<td>8</td>
+<td>容量热点</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -497,24 +475,23 @@ Rel-17/18（5G-A）：
     
   <div class="block section-text">
     <div class="block-title">四、FD-MIMO 与 Massive MIMO 的关系</div>
-    <div class="text-body">`
-Massive MIMO：
+    <div class="text-body"><pre><code>Massive MIMO：
   广义概念 → 大规模天线阵列（&gt; 8T8R）
   可以是 2D 也可以是 3D
-  
+
 FD-MIMO：
   狭义概念 → 特指 3D 波束赋形
   强调垂直维度的引入
-  
+
 关系：
   FD-MIMO ⊂ Massive MIMO
   所有 FD-MIMO 都是 Massive MIMO
   但不是所有 Massive MIMO 都是 FD-MIMO
-  
+
 5G 基站现状：
   64T64R AAU 几乎都是 FD-MIMO（3D 波束赋形）
   → 垂直+水平双维度波束控制
-`</div>
+</code></pre></div>
   </div>
 
     

@@ -269,14 +269,15 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路（1条）→ 移相器网络 → 天线阵列（N 个单元）
+  <div class="block section-text">
+    <div class="block-title">1.1 架构</div>
+    <div class="text-body"><pre><code>射频链路（1条）→ 移相器网络 → 天线阵列（N 个单元）
                       │
                   衰减器网络
-      
+
 每个天线单元前有一个移相器（Phase Shifter）
-和/或衰减器（Attenuator）</code></pre>
+和/或衰减器（Attenuator）
+</code></pre></div>
   </div>
 
     
@@ -284,81 +285,50 @@
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">1.2 特点</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>特性</th><th>值/说明</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>射频链路数</td>
-          
-          <td>1</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>空间流数</td>
-          
-          <td>1（单用户）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>移相器位数</td>
-          
-          <td>2-6 bit（步进 90°-5.6°）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>波束切换速度</td>
-          
-          <td>μs 级（模拟域）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>功耗</td>
-          
-          <td>极低（1 条 RF 链路）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>成本</td>
-          
-          <td>最低</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>灵活性</td>
-          
-          <td>低（只能形成预置波束）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>适用场景</td>
-          
-          <td>毫米波初始接入、卫星通信、4G 传统天线</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>值/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>射频链路数</td>
+<td>1</td>
+</tr>
+<tr>
+<td>空间流数</td>
+<td>1（单用户）</td>
+</tr>
+<tr>
+<td>移相器位数</td>
+<td>2-6 bit（步进 90°-5.6°）</td>
+</tr>
+<tr>
+<td>波束切换速度</td>
+<td>μs 级（模拟域）</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>极低（1 条 RF 链路）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>最低</td>
+</tr>
+<tr>
+<td>灵活性</td>
+<td>低（只能形成预置波束）</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>毫米波初始接入、卫星通信、4G 传统天线</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -366,25 +336,26 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.3 核心组件 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>移相器类型：
+  <div class="block section-text">
+    <div class="block-title">1.3 核心组件</div>
+    <div class="text-body"><pre><code>移相器类型：
   1. 数字移相器（LUT 查找表）
      - 相位步进：360°/2^n（n=位数）
      - 4 bit → 22.5° 步进
      - 6 bit → 5.6° 步进
-     
+
   2. 模拟移相器（PLL/RC 网络）
      - 连续可调
      - 相位精度受温度影响
-     
+
   3. 介质移相器
      - 基于高 Dk 陶瓷
      - 体积小，适合 5G AAU
-     
+
   4. MEMS 移相器
      - 微机电系统
-     - 超低损耗，但可靠性待验证</code></pre>
+     - 超低损耗，但可靠性待验证
+</code></pre></div>
   </div>
 
     
@@ -392,12 +363,13 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.4 局限性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>只能形成单波束 → 无法多用户复用
-波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
-移相器相位量化误差 → 波束指向精度受限
-无法自适应零陷 → 干扰抑制能力弱</code></pre>
+  <div class="block section-text">
+    <div class="block-title">1.4 局限性</div>
+    <div class="text-body"><pre><code>1. 只能形成单波束 → 无法多用户复用
+2. 波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
+3. 移相器相位量化误差 → 波束指向精度受限
+4. 无法自适应零陷 → 干扰抑制能力弱
+</code></pre></div>
   </div>
 
     
@@ -405,14 +377,15 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>射频链路 1 → DAC → 上变频器 → PA → 天线单元 1
+  <div class="block section-text">
+    <div class="block-title">2.1 架构</div>
+    <div class="text-body"><pre><code>射频链路 1 → DAC → 上变频器 → PA → 天线单元 1
 射频链路 2 → DAC → 上变频器 → PA → 天线单元 2
 ...
 射频链路 N → DAC → 上变频器 → PA → 天线单元 N
 
-每根天线都有独立的 RF 链路 → 数字域做波束权重</code></pre>
+每根天线都有独立的 RF 链路 → 数字域做波束权重
+</code></pre></div>
   </div>
 
     
@@ -420,81 +393,50 @@
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">2.2 特点</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>特性</th><th>值/说明</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>射频链路数</td>
-          
-          <td>N（等于天线数）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>空间流数</td>
-          
-          <td>最多 N 流</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>波束形成</td>
-          
-          <td>数字域预编码矩阵 W ∈ C^(N×K)</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>波束切换速度</td>
-          
-          <td>ns 级（数字信号处理）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>功耗</td>
-          
-          <td>高（N 条 RF 链路）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>成本</td>
-          
-          <td>最高</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>灵活性</td>
-          
-          <td>最高（每根天线独立控制）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>适用场景</td>
-          
-          <td>Sub-6GHz 基站、实验室验证</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>值/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>射频链路数</td>
+<td>N（等于天线数）</td>
+</tr>
+<tr>
+<td>空间流数</td>
+<td>最多 N 流</td>
+</tr>
+<tr>
+<td>波束形成</td>
+<td>数字域预编码矩阵 W ∈ C^(N×K)</td>
+</tr>
+<tr>
+<td>波束切换速度</td>
+<td>ns 级（数字信号处理）</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>高（N 条 RF 链路）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>最高</td>
+</tr>
+<tr>
+<td>灵活性</td>
+<td>最高（每根天线独立控制）</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>Sub-6GHz 基站、实验室验证</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -502,32 +444,33 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.3 预编码算法 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>全数字预编码：
+  <div class="block section-text">
+    <div class="block-title">2.3 预编码算法</div>
+    <div class="text-body"><pre><code>全数字预编码：
   y = Ws + n
-  
+
   其中：
   y: 接收信号
   W: 预编码矩阵（N_t × N_s）
   s: 发送符号
   n: 噪声
-  
+
 主流算法：
   1. 迫零 ZF（Zero-Forcing）
      W = H^H(HH^H)^(-1)
      简单但噪声增强
-     
+
   2. MMSE（最小均方误差）
      W = H^H(HH^H + σ²I)^(-1)
      考虑噪声
-     
+
   3. WMMSE（加权 MMSE）
      迭代优化，逼近容量
-     
+
   4. SVD 分解
      H = UΣV^H
-     最优但计算量大</code></pre>
+     最优但计算量大
+</code></pre></div>
   </div>
 
     
@@ -535,22 +478,23 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.4 在 5G 中的实际应用 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>64T64R AAU：
+  <div class="block section-text">
+    <div class="block-title">2.4 在 5G 中的实际应用</div>
+    <div class="text-body"><pre><code>64T64R AAU：
   - 64 条射频链路
   - 64 个 DAC/ADC
   - 64 个 PA/LNA
   - 功耗：~500W-600W（含功放）
-  
+
 128T128R AAU：
   - 128 条射频链路
   - 功耗：~800W-1000W
-  
+
 挑战：
   - 功耗随天线数线性增长
   - 成本高昂（每多一条链路 = 多一套 RF 器件）
-  - 散热压力大</code></pre>
+  - 散热压力大
+</code></pre></div>
   </div>
 
     
@@ -558,15 +502,16 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.1 架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>数字域（基带）：
+  <div class="block section-text">
+    <div class="block-title">3.1 架构</div>
+    <div class="text-body"><pre><code>数字域（基带）：
   K 条射频链路 → K 个 DAC → 模拟预编码矩阵 F_RF
-  
+
 模拟域（射频）：
   F_RF → 移相器网络 → N 根天线
-  
-K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
+
+K &lt;&lt; N（射频链路数远小于天线数）
+</code></pre></div>
   </div>
 
     
@@ -574,26 +519,27 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.2 三种连接架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>全连接架构（Fully Connected）
+  <div class="block section-text">
+    <div class="block-title">3.2 三种连接架构</div>
+    <div class="text-body"><pre><code>1. 全连接架构（Fully Connected）
    每条 RF 链路连接所有天线单元
    - 性能好（逼近 DBF）
    - 移相器数量：K × N
    - 功耗高
    - 复杂度最高
-   
-部分连接架构（Partially Connected / Subarray）
+
+2. 部分连接架构（Partially Connected / Subarray）
    每条 RF 链路连接一组天线（子阵）
    - 移相器数量：N
    - 功耗中
    - 5G 基站主流方案
-   
-动态子阵架构（Dynamic Subarray）
+
+3. 动态子阵架构（Dynamic Subarray）
    射频链路可以动态分配到不同子阵
    - 灵活性最高
    - 需要 RF 开关网络
-   - 6G 候选方案</code></pre>
+   - 6G 候选方案
+</code></pre></div>
   </div>
 
     
@@ -601,101 +547,62 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.3 特点</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>特性</th><th>ABF</th><th>HBF（子阵）</th><th>DBF</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>射频链路数</td>
-          
-          <td>1</td>
-          
-          <td>K（12-64）</td>
-          
-          <td>N（64-128）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>空间流数</td>
-          
-          <td>1</td>
-          
-          <td>K</td>
-          
-          <td>N</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>频谱效率</td>
-          
-          <td>基准</td>
-          
-          <td>85-95%</td>
-          
-          <td>100%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>功耗</td>
-          
-          <td>基准</td>
-          
-          <td>60-70%</td>
-          
-          <td>100%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>成本</td>
-          
-          <td>基准</td>
-          
-          <td>50-60%</td>
-          
-          <td>100%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>波束灵活性</td>
-          
-          <td>低</td>
-          
-          <td>中</td>
-          
-          <td>高</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>5G 主流</td>
-          
-          <td>❌</td>
-          
-          <td>✅</td>
-          
-          <td>实验室</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>ABF</th>
+<th>HBF（子阵）</th>
+<th>DBF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>射频链路数</td>
+<td>1</td>
+<td>K（12-64）</td>
+<td>N（64-128）</td>
+</tr>
+<tr>
+<td>空间流数</td>
+<td>1</td>
+<td>K</td>
+<td>N</td>
+</tr>
+<tr>
+<td>频谱效率</td>
+<td>基准</td>
+<td>85-95%</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>基准</td>
+<td>60-70%</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>基准</td>
+<td>50-60%</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>波束灵活性</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>5G 主流</td>
+<td>❌</td>
+<td>✅</td>
+<td>实验室</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -703,73 +610,49 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.4 5G 基站 HBF 典型配置</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>厂商</th><th>产品</th><th>天线数</th><th>RF 链路数</th><th>架构</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>华为</td>
-          
-          <td>AAU 64T64R</td>
-          
-          <td>192（64 端口双极化）</td>
-          
-          <td>64</td>
-          
-          <td>子阵</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>爱立信</td>
-          
-          <td>AIR 6488</td>
-          
-          <td>128（64 端口）</td>
-          
-          <td>64</td>
-          
-          <td>子阵</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>中兴</td>
-          
-          <td>64T64R AAU</td>
-          
-          <td>384（64 端口）</td>
-          
-          <td>32-64</td>
-          
-          <td>子阵</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>三星</td>
-          
-          <td>MMB-H13（28GHz）</td>
-          
-          <td>128</td>
-          
-          <td>32</td>
-          
-          <td>子阵</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>产品</th>
+<th>天线数</th>
+<th>RF 链路数</th>
+<th>架构</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>华为</td>
+<td>AAU 64T64R</td>
+<td>192（64 端口双极化）</td>
+<td>64</td>
+<td>子阵</td>
+</tr>
+<tr>
+<td>爱立信</td>
+<td>AIR 6488</td>
+<td>128（64 端口）</td>
+<td>64</td>
+<td>子阵</td>
+</tr>
+<tr>
+<td>中兴</td>
+<td>64T64R AAU</td>
+<td>384（64 端口）</td>
+<td>32-64</td>
+<td>子阵</td>
+</tr>
+<tr>
+<td>三星</td>
+<td>MMB-H13（28GHz）</td>
+<td>128</td>
+<td>32</td>
+<td>子阵</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -779,36 +662,35 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
     
   <div class="block section-text">
     <div class="block-title">四、波束倾斜（Beam Squint）问题</div>
-    <div class="text-body">`
-问题：
+    <div class="text-body"><pre><code>问题：
   模拟/混合波束赋形使用相位移相器
   → 相位权重与频率相关
   → 宽带信号下不同频率波束指向不同
-  
+
 公式：
   Δφ = 2πd·sin(θ)/λ = 2πd·f·sin(θ)/c
-  
+
 当 f 变化时，θ 也变化 → 波束倾斜
-  
+
 影响：
   - 宽带系统（&gt; 100MHz）性能下降
   - 毫米波更严重（相对带宽更大）
-  
+
 解决方案：
   1. 真时延（True Time Delay, TTD）
      - 使用时延线代替移相器
      - 所有频率相位一致
      - 成本高、体积大
-     
+
   2. 子带划分
      - 将宽带分成多个子带
      - 每个子带独立波束赋形
      - 折中方案
-     
+
   3. 数字波束赋形
      - 数字域补偿
      - 最彻底但最贵
-`</div>
+</code></pre></div>
   </div>
 
     

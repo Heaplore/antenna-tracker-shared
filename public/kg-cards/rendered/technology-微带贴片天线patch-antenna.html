@@ -269,11 +269,11 @@
     
   <div class="block section-text">
     <div class="block-title">一句话版本</div>
-    <div class="text-body">&gt; 贴片天线就是&#34;电路板上的金属方块&#34;——一块铜皮贴在介电基板上面，下面铺满接地层，中间用探针或缝隙馈电。它薄如纸、轻如羽，增益 6-8dBi，天然适合做阵列。5G 毫米波基站里成百上千个贴片堆在一起，每个都精确到微米级别，这就是 Massive MIMO 的物理基础。
-
-类比入口：微波炉。微波在金属腔体内来回反射，形成驻波模式。贴片天线类似——电磁波在金属贴片和接地层之间来回反射，形成谐振腔模式，能量从边缘缝隙&#34;泄漏&#34;出来变成辐射。
-
----</div>
+    <div class="text-body"><blockquote>
+<p><strong>贴片天线就是"电路板上的金属方块"——一块铜皮贴在介电基板上面，下面铺满接地层，中间用探针或缝隙馈电。它薄如纸、轻如羽，增益 6-8dBi，天然适合做阵列。5G 毫米波基站里成百上千个贴片堆在一起，每个都精确到微米级别，这就是 Massive MIMO 的物理基础。</strong></p>
+</blockquote>
+<p>类比入口：微波炉。微波在金属腔体内来回反射，形成驻波模式。贴片天线类似——电磁波在金属贴片和接地层之间来回反射，形成谐振腔模式，能量从边缘缝隙"泄漏"出来变成辐射。</p>
+<hr /></div>
   </div>
 
     
@@ -281,9 +281,9 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.1 几何结构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>┌─────────────────────┐
+  <div class="block section-text">
+    <div class="block-title">1.1 几何结构</div>
+    <div class="text-body"><pre><code>    ┌─────────────────────┐
     │                     │
     │    金属贴片         │  ← 辐射体（铜皮）
     │   (W × L)          │
@@ -295,17 +295,14 @@
     └─────────────────────┘
          │
       馈电点
-
-
-关键尺寸：
-
-L ≈ λ_g / 2 = c / (2f√ε_eff)
+</code></pre>
+<p><strong>关键尺寸</strong>：</p>
+<pre><code>L ≈ λ_g / 2 = c / (2f√ε_eff)
 W ≈ c / (2f) × √(2/(ε_r+1))  （优化辐射效率）
-
-
-其中 ε_eff 是有效介电常数：
-
-ε_eff = (ε_r + 1)/2 + (ε_r - 1)/2 × [1 + 12(h/W)]^(-1/2)</code></pre>
+</code></pre>
+<p>其中 ε_eff 是有效介电常数：</p>
+<pre><code>ε_eff = (ε_r + 1)/2 + (ε_r - 1)/2 × [1 + 12(h/W)]^(-1/2)
+</code></pre></div>
   </div>
 
     
@@ -315,21 +312,17 @@ W ≈ c / (2f) × √(2/(ε_r+1))  （优化辐射效率）
     
   <div class="block section-text">
     <div class="block-title">1.2 工作原理：谐振腔模型</div>
-    <div class="text-body">物理图像：
-贴片和接地层构成一个&#34;开放谐振腔&#34;
-电磁波在贴片边缘来回反射
-当腔长 = λ_g/2 时，形成谐振
-能量从贴片边缘的缝隙辐射出去
-
-电场分布（矩形贴片 TM₁₀ 模）：
-`
-E_z(x) ∝ cos(πx/L)
-`
-
-磁场分布：
-`
-H_y(x) ∝ sin(πx/L)
-`</div>
+    <div class="text-body"><p><strong>物理图像</strong>：<br />
+- 贴片和接地层构成一个"开放谐振腔"<br />
+- 电磁波在贴片边缘来回反射<br />
+- 当腔长 = λ_g/2 时，形成谐振<br />
+- 能量从贴片边缘的缝隙辐射出去</p>
+<p><strong>电场分布</strong>（矩形贴片 TM₁₀ 模）：</p>
+<pre><code>E_z(x) ∝ cos(πx/L)
+</code></pre>
+<p><strong>磁场分布</strong>：</p>
+<pre><code>H_y(x) ∝ sin(πx/L)
+</code></pre></div>
   </div>
 
     
@@ -339,16 +332,13 @@ H_y(x) ∝ sin(πx/L)
     
   <div class="block section-text">
     <div class="block-title">1.3 辐射机制：缝隙模型</div>
-    <div class="text-body">每个短边等效为一个缝隙：
-`
-E_edge ∝ V_gap / d
-`
-
-两个缝隙的辐射叠加：
-相位相同 → 法向（broadside）辐射最强
-方向图 = 单缝隙方向图 × 阵列因子
-
----</div>
+    <div class="text-body"><p><strong>每个短边等效为一个缝隙</strong>：</p>
+<pre><code>E_edge ∝ V_gap / d
+</code></pre>
+<p><strong>两个缝隙的辐射叠加</strong>：<br />
+- 相位相同 → 法向（broadside）辐射最强<br />
+- 方向图 = 单缝隙方向图 × 阵列因子</p>
+<hr /></div>
   </div>
 
     
@@ -356,95 +346,22 @@ E_edge ∝ V_gap / d
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">2.1 探针馈电（Probe/Coaxial Feed）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>结构：同轴电缆内导体穿过基板连接到贴片。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  Patch│</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├────●──┤  ← 探针</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│       │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├───────┤</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  GND  │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>特点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优点：结构简单，易于加工，阻抗匹配好</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>缺点：引入寄生电感，带宽窄（1-2%）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>适用：单贴片、小规模阵列</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>阻抗变换：通过调节探针插入位置（从中心到边缘，阻抗从 ~300Ω 降到 ~50Ω）。</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p><strong>结构</strong>：同轴电缆内导体穿过基板连接到贴片。</p>
+<pre><code>    ┌───────┐
+    │  Patch│
+    ├────●──┤  ← 探针
+    │       │
+    ├───────┤
+    │  GND  │
+    └───────┘
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 优点：结构简单，易于加工，阻抗匹配好<br />
+- 缺点：引入寄生电感，带宽窄（1-2%）<br />
+- 适用：单贴片、小规模阵列</p>
+<p><strong>阻抗变换</strong>：通过调节探针插入位置（从中心到边缘，阻抗从 ~300Ω 降到 ~50Ω）。</p></div>
   </div>
 
     
@@ -452,83 +369,20 @@ E_edge ∝ V_gap / d
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">2.2 微带线边缘馈电（Edge/Microstrip Feed）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>结构：微带传输线直接连接到贴片边缘。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  Patch│───┐</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├───────┘   │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  Feed     │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  Line     │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>特点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优点：与 PCB 工艺兼容，易于集成馈电网络</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>缺点：表面波损耗，谐波辐射</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>适用：阵列天线，5G 毫米波主流方案</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p><strong>结构</strong>：微带传输线直接连接到贴片边缘。</p>
+<pre><code>    ┌───────┐
+    │  Patch│───┐
+    ├───────┘   │
+    │  Feed     │
+    │  Line     │
+    └───────────┘
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 优点：与 PCB 工艺兼容，易于集成馈电网络<br />
+- 缺点：表面波损耗，谐波辐射<br />
+- 适用：阵列天线，5G 毫米波主流方案</p></div>
   </div>
 
     
@@ -536,113 +390,25 @@ E_edge ∝ V_gap / d
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">2.3 耦合缝隙馈电（Aperture-Coupled Feed）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>结构：贴片和馈线之间隔一层基板，通过缝隙耦合。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  Patch│     ← 辐射层</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├───────┤</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  Gap  │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├───────┤</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  Slot │  ← 耦合缝隙</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├───────┤</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  GND  │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├───────┤</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  Feed │     ← 馈线层（反向）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>特点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优点：无表面波，隔离度高，可多层设计</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>缺点：结构复杂，加工成本高</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>适用：双极化天线，MIMO 阵列</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p><strong>结构</strong>：贴片和馈线之间隔一层基板，通过缝隙耦合。</p>
+<pre><code>    ┌───────┐
+    │  Patch│     ← 辐射层
+    ├───────┤
+    │  Gap  │
+    ├───────┤
+    │  Slot │  ← 耦合缝隙
+    ├───────┤
+    │  GND  │
+    ├───────┤
+    │  Feed │     ← 馈线层（反向）
+    └───────┘
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 优点：无表面波，隔离度高，可多层设计<br />
+- 缺点：结构复杂，加工成本高<br />
+- 适用：双极化天线，MIMO 阵列</p></div>
   </div>
 
     
@@ -650,101 +416,23 @@ E_edge ∝ V_gap / d
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">2.4 近场耦合馈电（Proximity-Coupled Feed）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>结构：类似耦合缝隙，但不用金属缝隙，而是靠近场电磁耦合。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  Patch│</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├───────┤</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  Sub  │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├───────┤</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│Couple │     ← 耦合微带线（不接触）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├───────┤</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  GND  │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>特点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优点：无穿孔，表面平整</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>缺点：设计复杂</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>适用：高频（&gt; 30GHz）</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p><strong>结构</strong>：类似耦合缝隙，但不用金属缝隙，而是靠近场电磁耦合。</p>
+<pre><code>    ┌───────┐
+    │  Patch│
+    ├───────┤
+    │  Sub  │
+    ├───────┤
+    │Couple │     ← 耦合微带线（不接触）
+    ├───────┤
+    │  GND  │
+    └───────┘
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 优点：无穿孔，表面平整<br />
+- 缺点：设计复杂<br />
+- 适用：高频（&gt; 30GHz）</p></div>
   </div>
 
     
@@ -752,75 +440,50 @@ E_edge ∝ V_gap / d
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">2.5 馈电技术对比</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>技术</th><th>带宽</th><th>复杂度</th><th>适用频率</th><th>5G 适用性</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>探针馈电</td>
-          
-          <td>1-2%</td>
-          
-          <td>低</td>
-          
-          <td>Sub-6GHz</td>
-          
-          <td>低</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>边缘馈电</td>
-          
-          <td>2-5%</td>
-          
-          <td>低</td>
-          
-          <td>Sub-6GHz/mmWave</td>
-          
-          <td>高</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>耦合缝隙</td>
-          
-          <td>5-15%</td>
-          
-          <td>中</td>
-          
-          <td>Sub-6GHz/mmWave</td>
-          
-          <td>中高</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>近场耦合</td>
-          
-          <td>5-20%</td>
-          
-          <td>高</td>
-          
-          <td>mmWave</td>
-          
-          <td>中</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">---</div>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>技术</th>
+<th>带宽</th>
+<th>复杂度</th>
+<th>适用频率</th>
+<th>5G 适用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>探针馈电</td>
+<td>1-2%</td>
+<td>低</td>
+<td>Sub-6GHz</td>
+<td>低</td>
+</tr>
+<tr>
+<td>边缘馈电</td>
+<td>2-5%</td>
+<td>低</td>
+<td>Sub-6GHz/mmWave</td>
+<td>高</td>
+</tr>
+<tr>
+<td>耦合缝隙</td>
+<td>5-15%</td>
+<td>中</td>
+<td>Sub-6GHz/mmWave</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>近场耦合</td>
+<td>5-20%</td>
+<td>高</td>
+<td>mmWave</td>
+<td>中</td>
+</tr>
+</tbody>
+</table>
+<hr /></div>
   </div>
 
     
@@ -828,73 +491,46 @@ E_edge ∝ V_gap / d
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">3.1 典型参数</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>参数</th><th>数值</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>增益</td>
-          
-          <td>6-9 dBi（单贴片）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>带宽</td>
-          
-          <td>1-5%（基本结构）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>VSWR</td>
-          
-          <td>&lt; 2:1</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>极化</td>
-          
-          <td>线性（取决于贴片形状）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>前后比</td>
-          
-          <td>20-30dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>剖面高度</td>
-          
-          <td>0.01-0.05λ</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>重量</td>
-          
-          <td>极轻（PCB 材料）</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增益</td>
+<td>6-9 dBi（单贴片）</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>1-5%（基本结构）</td>
+</tr>
+<tr>
+<td>VSWR</td>
+<td>&lt; 2:1</td>
+</tr>
+<tr>
+<td>极化</td>
+<td>线性（取决于贴片形状）</td>
+</tr>
+<tr>
+<td>前后比</td>
+<td>20-30dB</td>
+</tr>
+<tr>
+<td>剖面高度</td>
+<td>0.01-0.05λ</td>
+</tr>
+<tr>
+<td>重量</td>
+<td>极轻（PCB 材料）</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -904,19 +540,16 @@ E_edge ∝ V_gap / d
     
   <div class="block section-text">
     <div class="block-title">3.2 带宽瓶颈</div>
-    <div class="text-body">根本原因：贴片天线的 Q 值很高（储能大，辐射弱）。
-
-`
-Q ≈ √ε_r × (λ₀/h)
+    <div class="text-body"><p><strong>根本原因</strong>：贴片天线的 Q 值很高（储能大，辐射弱）。</p>
+<pre><code>Q ≈ √ε_r × (λ₀/h)
 BW ≈ f₀/Q
-`
-
-提高带宽的方法：
-增加基板厚度 h：Q 降低 → BW 增加（但引入表面波）
-降低介电常数 ε_r：Q 降低 → BW 增加
-使用激子层（Exciter Layer）：双层贴片
-开槽/刻蚀：引入多谐振模式
-使用 EBG 结构：抑制表面波，提高效率</div>
+</code></pre>
+<p><strong>提高带宽的方法</strong>：<br />
+1. <strong>增加基板厚度 h</strong>：Q 降低 → BW 增加（但引入表面波）<br />
+2. <strong>降低介电常数 ε_r</strong>：Q 降低 → BW 增加<br />
+3. <strong>使用激子层（Exciter Layer）</strong>：双层贴片<br />
+4. <strong>开槽/刻蚀</strong>：引入多谐振模式<br />
+5. <strong>使用 EBG 结构</strong>：抑制表面波，提高效率</p></div>
   </div>
 
     
@@ -924,21 +557,52 @@ BW ≈ f₀/Q
     
 
     
-  <div class="block section-code">
-    <div class="block-title">3.3 增益与阵列规模 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>G_array ≈ G_element + 10×log₁₀(N)
-
-
-| 阵列规模 | 单个增益 | 阵列增益 |
-|---------|---------|---------|
-| 1×1 | 7dBi | 7dBi |
-| 1×2 | 7dBi | 10dBi |
-| 2×2 | 7dBi | 13dBi |
-| 4×4 | 7dBi | 19dBi |
-| 8×8 | 7dBi | 25dBi |
-| 16×16 | 7dBi | 31dBi |
-
----</code></pre>
+  <div class="block section-text">
+    <div class="block-title">3.3 增益与阵列规模</div>
+    <div class="text-body"><pre><code>G_array ≈ G_element + 10×log₁₀(N)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>阵列规模</th>
+<th>单个增益</th>
+<th>阵列增益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1×1</td>
+<td>7dBi</td>
+<td>7dBi</td>
+</tr>
+<tr>
+<td>1×2</td>
+<td>7dBi</td>
+<td>10dBi</td>
+</tr>
+<tr>
+<td>2×2</td>
+<td>7dBi</td>
+<td>13dBi</td>
+</tr>
+<tr>
+<td>4×4</td>
+<td>7dBi</td>
+<td>19dBi</td>
+</tr>
+<tr>
+<td>8×8</td>
+<td>7dBi</td>
+<td>25dBi</td>
+</tr>
+<tr>
+<td>16×16</td>
+<td>7dBi</td>
+<td>31dBi</td>
+</tr>
+</tbody>
+</table>
+<hr /></div>
   </div>
 
     
@@ -946,71 +610,19 @@ BW ≈ f₀/Q
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">4.1 串联馈电（Series Feed）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>结构：所有贴片通过微带线串联连接。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│ │ │ │ │ │ │ │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│   │   │   │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>馈线</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>特点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优点：结构简单，无功分器损耗</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>缺点：带宽窄，波束扫描时频率偏移</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p><strong>结构</strong>：所有贴片通过微带线串联连接。</p>
+<pre><code>    ┌─┐ ┌─┐ ┌─┐ ┌─┐
+    │ │ │ │ │ │ │ │
+    └─┘ └─┘ └─┘ └─┘
+    │   │   │   │
+    └───┴───┴───┘
+        馈线
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 优点：结构简单，无功分器损耗<br />
+- 缺点：带宽窄，波束扫描时频率偏移</p></div>
   </div>
 
     
@@ -1018,59 +630,20 @@ BW ≈ f₀/Q
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">4.2 并行馈电（Parallel/Corporate Feed）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>结构：使用功分器（Wilkinson）并行馈电。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│ │ │ │ │ │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>特点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优点：带宽宽，波束扫描性能好</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>缺点：功分器引入损耗，结构复杂</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p><strong>结构</strong>：使用功分器（Wilkinson）并行馈电。</p>
+<pre><code>        ┌─┐
+       ┌┴─┴┐
+      ┌┴───┴┐
+     ┌┴─────┴┐
+    ┌┴───────┴┐
+    │ │ │ │ │ │
+    └─┘ └─┘ └─┘ └─┘
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 优点：带宽宽，波束扫描性能好<br />
+- 缺点：功分器引入损耗，结构复杂</p></div>
   </div>
 
     
@@ -1080,26 +653,23 @@ BW ≈ f₀/Q
     
   <div class="block section-text">
     <div class="block-title">4.3 5G 毫米波贴片阵列案例</div>
-    <div class="text-body">2025 IOP Science 28GHz 阵列：
-基板：RT5880（ε_r = 2.2, tanδ = 0.0009）
-1×2 阵列：增益 11.1dBi，回波损耗 -31dB
-4×1 阵列：增益 13.8dBi，回波损耗 -41.4dB
-馈电：微带线边缘馈电
-
-2025 紧凑高效 1×6 线性阵列：
-工作频率：28GHz
-峰值增益：11.5dBi
-阻抗带宽：30.21%（-10dB）
-馈电：Wilkinson-like 功分器
-单元间距：0.5λ（避免栅瓣）
-
-2024 六元阵列（5/6G）：
-频率：28.8GHz
-增益：9.19dBi
-基板：ROGER 3003
-特点：无 inset cut、无寄生贴片、无过孔
-
----</div>
+    <div class="text-body"><p><strong>2025 IOP Science 28GHz 阵列</strong>：<br />
+- 基板：RT5880（ε_r = 2.2, tanδ = 0.0009）<br />
+- 1×2 阵列：增益 11.1dBi，回波损耗 -31dB<br />
+- 4×1 阵列：增益 13.8dBi，回波损耗 -41.4dB<br />
+- 馈电：微带线边缘馈电</p>
+<p><strong>2025 紧凑高效 1×6 线性阵列</strong>：<br />
+- 工作频率：28GHz<br />
+- 峰值增益：11.5dBi<br />
+- 阻抗带宽：30.21%（-10dB）<br />
+- 馈电：Wilkinson-like 功分器<br />
+- 单元间距：0.5λ（避免栅瓣）</p>
+<p><strong>2024 六元阵列（5/6G）</strong>：<br />
+- 频率：28.8GHz<br />
+- 增益：9.19dBi<br />
+- 基板：ROGER 3003<br />
+- 特点：无 inset cut、无寄生贴片、无过孔</p>
+<hr /></div>
   </div>
 
     
@@ -1109,19 +679,15 @@ BW ≈ f₀/Q
     
   <div class="block section-text">
     <div class="block-title">5.1 互耦问题</div>
-    <div class="text-body">原因：贴片之间的近场电磁耦合。
-
-影响：
-阻抗失配（S11 恶化）
-方向图畸变
-MIMO 相关性增加 → 容量下降
-
-耦合强度：
-`
-|S₂₁|_coupling ∝ exp(-d/δ_c)
-`
-
-其中 d 是间距，δ_c 是耦合衰减长度。</div>
+    <div class="text-body"><p><strong>原因</strong>：贴片之间的近场电磁耦合。</p>
+<p><strong>影响</strong>：<br />
+- 阻抗失配（S11 恶化）<br />
+- 方向图畸变<br />
+- MIMO 相关性增加 → 容量下降</p>
+<p><strong>耦合强度</strong>：</p>
+<pre><code>|S₂₁|_coupling ∝ exp(-d/δ_c)
+</code></pre>
+<p>其中 d 是间距，δ_c 是耦合衰减长度。</p></div>
   </div>
 
     
@@ -1129,77 +695,49 @@ MIMO 相关性增加 → 容量下降
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">5.2 去耦技术</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>技术</th><th>原理</th><th>隔离改善</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>EBG（电磁带隙）</td>
-          
-          <td>抑制表面波</td>
-          
-          <td>10-20dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Defected Ground Structure (DGS)</td>
-          
-          <td>破坏接地层连续性</td>
-          
-          <td>15-25dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>正交排列</td>
-          
-          <td>极化正交</td>
-          
-          <td>20-30dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>隔离柱/槽</td>
-          
-          <td>阻断表面电流</td>
-          
-          <td>10-15dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Metamaterial 超表面</td>
-          
-          <td>负折射/反相耦合</td>
-          
-          <td>20-30dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>空间间隔 0.5λ</td>
-          
-          <td>降低近场重叠</td>
-          
-          <td>自然衰减</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>技术</th>
+<th>原理</th>
+<th>隔离改善</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EBG（电磁带隙）</td>
+<td>抑制表面波</td>
+<td>10-20dB</td>
+</tr>
+<tr>
+<td>Defected Ground Structure (DGS)</td>
+<td>破坏接地层连续性</td>
+<td>15-25dB</td>
+</tr>
+<tr>
+<td>正交排列</td>
+<td>极化正交</td>
+<td>20-30dB</td>
+</tr>
+<tr>
+<td>隔离柱/槽</td>
+<td>阻断表面电流</td>
+<td>10-15dB</td>
+</tr>
+<tr>
+<td>Metamaterial 超表面</td>
+<td>负折射/反相耦合</td>
+<td>20-30dB</td>
+</tr>
+<tr>
+<td>空间间隔 0.5λ</td>
+<td>降低近场重叠</td>
+<td>自然衰减</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -1209,21 +747,18 @@ MIMO 相关性增加 → 容量下降
     
   <div class="block section-text">
     <div class="block-title">5.3 MIMO 贴片阵列隔离设计</div>
-    <div class="text-body">2023 IEEE 16端口 Massive MIMO：
-负折射率材料（NIM）隔离
-端口间隔离 &gt; 25dB
-通道相关系数 &lt; 0.1
-
-2020 JPIER 双频 MIMO：
-C 形寄生元件隔离
-双频段（Sub-6 + mmWave）
-隔离改善 15dB
-
-2018 Nature 超表面去耦（MAAD）：
-Meta-Surface Antenna Array Decoupling
-极小间距（&lt; 0.3λ）下仍保持 &gt; 20dB 隔离
-
----</div>
+    <div class="text-body"><p><strong>2023 IEEE 16端口 Massive MIMO</strong>：<br />
+- 负折射率材料（NIM）隔离<br />
+- 端口间隔离 &gt; 25dB<br />
+- 通道相关系数 &lt; 0.1</p>
+<p><strong>2020 JPIER 双频 MIMO</strong>：<br />
+- C 形寄生元件隔离<br />
+- 双频段（Sub-6 + mmWave）<br />
+- 隔离改善 15dB</p>
+<p><strong>2018 Nature 超表面去耦（MAAD）</strong>：<br />
+- Meta-Surface Antenna Array Decoupling<br />
+- 极小间距（&lt; 0.3λ）下仍保持 &gt; 20dB 隔离</p>
+<hr /></div>
   </div>
 
     
@@ -1233,10 +768,10 @@ Meta-Surface Antenna Array Decoupling
     
   <div class="block section-text">
     <div class="block-title">6.1 圆形贴片</div>
-    <div class="text-body">特点：
-支持圆极化（正交模激发）
-带宽比矩形略高
-尺寸：D = c/(f√ε_r)</div>
+    <div class="text-body"><p><strong>特点</strong>：<br />
+- 支持圆极化（正交模激发）<br />
+- 带宽比矩形略高<br />
+- 尺寸：D = c/(f√ε_r)</p></div>
   </div>
 
     
@@ -1246,10 +781,10 @@ Meta-Surface Antenna Array Decoupling
     
   <div class="block section-text">
     <div class="block-title">6.2 三角/六边形贴片</div>
-    <div class="text-body">特点：
-降低互耦（紧密排列）
-带宽略低
-适合蜂窝阵列</div>
+    <div class="text-body"><p><strong>特点</strong>：<br />
+- 降低互耦（紧密排列）<br />
+- 带宽略低<br />
+- 适合蜂窝阵列</p></div>
   </div>
 
     
@@ -1259,9 +794,9 @@ Meta-Surface Antenna Array Decoupling
     
   <div class="block section-text">
     <div class="block-title">6.3 环形/八边形贴片</div>
-    <div class="text-body">特点：
-多谐振模式 → 宽带
-2025 研究：八边形环状贴片，23-29GHz 带宽</div>
+    <div class="text-body"><p><strong>特点</strong>：<br />
+- 多谐振模式 → 宽带<br />
+- 2025 研究：八边形环状贴片，23-29GHz 带宽</p></div>
   </div>
 
     
@@ -1269,89 +804,21 @@ Meta-Surface Antenna Array Decoupling
     
 
     
-  <div class="block section-table">
+  <div class="block section-text">
     <div class="block-title">6.4 多层/堆叠贴片（Stacked Patch）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>结构：两层或多层贴片，通过缝隙或探针耦合。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├─────┤</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  Gap│</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├─────┤  ← 下层贴片（有源）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>├─────┤</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│ GND │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>特点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>带宽可提升至 10-20%</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>增益提高 1-2dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>成本增加</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p><strong>结构</strong>：两层或多层贴片，通过缝隙或探针耦合。</p>
+<pre><code>    ┌─────┐  ← 上层贴片（寄生）
+    ├─────┤
+    │  Gap│
+    ├─────┤  ← 下层贴片（有源）
+    ├─────┤
+    │ GND │
+    └─────┘
+</code></pre>
+<p><strong>特点</strong>：<br />
+- 带宽可提升至 10-20%<br />
+- 增益提高 1-2dB<br />
+- 成本增加</p></div>
   </div>
 
     
@@ -1361,14 +828,12 @@ Meta-Surface Antenna Array Decoupling
     
   <div class="block section-text">
     <div class="block-title">6.5 柔性贴片天线</div>
-    <div class="text-body">基板：PI（聚酰亚胺）、PET、LCP（液态晶体聚合物）
-
-特点：
-可弯曲、可折叠
-适用于可穿戴设备
-损耗略高于刚性基板
-
----</div>
+    <div class="text-body"><p><strong>基板</strong>：PI（聚酰亚胺）、PET、LCP（液态晶体聚合物）</p>
+<p><strong>特点</strong>：<br />
+- 可弯曲、可折叠<br />
+- 适用于可穿戴设备<br />
+- 损耗略高于刚性基板</p>
+<hr /></div>
   </div>
 
     
@@ -1378,12 +843,14 @@ Meta-Surface Antenna Array Decoupling
     
   <div class="block section-text">
     <div class="block-title">优点</div>
-    <div class="text-body">超低剖面：高度 0.01-0.05λ，几乎不占空间
-轻量化：PCB 材料，克级重量
-易集成：与微波集成电路（MIC/MMIC）兼容
-低成本：标准 PCB 工艺，批量生产极便宜
-灵活极化：矩形/圆形/交叉贴片实现线极化/圆极化
-阵列友好：天然适合大规模阵列（Massive MIMO）</div>
+    <div class="text-body"><ul>
+<li><strong>超低剖面</strong>：高度 0.01-0.05λ，几乎不占空间</li>
+<li><strong>轻量化</strong>：PCB 材料，克级重量</li>
+<li><strong>易集成</strong>：与微波集成电路（MIC/MMIC）兼容</li>
+<li><strong>低成本</strong>：标准 PCB 工艺，批量生产极便宜</li>
+<li><strong>灵活极化</strong>：矩形/圆形/交叉贴片实现线极化/圆极化</li>
+<li><strong>阵列友好</strong>：天然适合大规模阵列（Massive MIMO）</li>
+</ul></div>
   </div>
 
     
@@ -1393,13 +860,14 @@ Meta-Surface Antenna Array Decoupling
     
   <div class="block section-text">
     <div class="block-title">缺点</div>
-    <div class="text-body">窄带宽：基本结构仅 1-5%
-低功率容量：PCB 材料耐热性差（&lt; 10W）
-表面波损耗：高 ε_r 基板损耗大
-互耦严重：密集阵列时性能下降
-制造公差敏感：毫米波频段尺寸误差影响大
-
----</div>
+    <div class="text-body"><ul>
+<li><strong>窄带宽</strong>：基本结构仅 1-5%</li>
+<li><strong>低功率容量</strong>：PCB 材料耐热性差（&lt; 10W）</li>
+<li><strong>表面波损耗</strong>：高 ε_r 基板损耗大</li>
+<li><strong>互耦严重</strong>：密集阵列时性能下降</li>
+<li><strong>制造公差敏感</strong>：毫米波频段尺寸误差影响大</li>
+</ul>
+<hr /></div>
   </div>
 
     
@@ -1409,11 +877,11 @@ Meta-Surface Antenna Array Decoupling
     
   <div class="block section-text">
     <div class="block-title">八、给非专业读者的一句话总结</div>
-    <div class="text-body">&gt; 贴片天线就是&#34;电路板上的铜皮方块&#34;——薄、轻、便宜、好量产。单个增益只有 7dBi，但把 64 个堆在一起就是 25dBi 的 5G 基站天线。它的带宽窄（像收音机只能收一个台），但阵列化之后什么都能覆盖。5G 毫米波基站里密密麻麻的都是这种&#34;铜皮方块&#34;，每个只有米粒大小，但加起来就是高速网络的基石。
-
-金句：贴片天线告诉你一个道理——个体渺小没关系，团结起来就是力量。一个贴片 7dBi，64 个贴片就是 25dBi。
-
----</div>
+    <div class="text-body"><blockquote>
+<p><strong>贴片天线就是"电路板上的铜皮方块"——薄、轻、便宜、好量产。单个增益只有 7dBi，但把 64 个堆在一起就是 25dBi 的 5G 基站天线。它的带宽窄（像收音机只能收一个台），但阵列化之后什么都能覆盖。5G 毫米波基站里密密麻麻的都是这种"铜皮方块"，每个只有米粒大小，但加起来就是高速网络的基石。</strong></p>
+</blockquote>
+<p><strong>金句</strong>：贴片天线告诉你一个道理——<strong>个体渺小没关系，团结起来就是力量</strong>。一个贴片 7dBi，64 个贴片就是 25dBi。</p>
+<hr /></div>
   </div>
 
     

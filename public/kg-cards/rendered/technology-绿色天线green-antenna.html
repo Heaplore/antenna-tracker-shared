@@ -269,9 +269,9 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.1 5G 能耗挑战 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>4G 基站功耗：~1000W
+  <div class="block section-text">
+    <div class="block-title">1.1 5G 能耗挑战</div>
+    <div class="text-body"><pre><code>4G 基站功耗：~1000W
 5G AAU 功耗：~2000-5000W
 
 原因：
@@ -282,7 +282,8 @@
 
 运营商痛点：
   电费占 OPEX 30-40%
-  5G 部署速度受限于能耗成本</code></pre>
+  5G 部署速度受限于能耗成本
+</code></pre></div>
   </div>
 
     
@@ -290,13 +291,14 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">1.2 绿色天线目标 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>目标：
+  <div class="block section-text">
+    <div class="block-title">1.2 绿色天线目标</div>
+    <div class="text-body"><pre><code>目标：
   1. 降低 AAU 功耗 30-50%
   2. 不影响覆盖和容量
   3. 支持智能节能/唤醒
-  4. 延长设备寿命</code></pre>
+  4. 延长设备寿命
+</code></pre></div>
   </div>
 
     
@@ -304,21 +306,22 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.1 符号级休眠（Symbol Shutdown） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>原理：
+  <div class="block section-text">
+    <div class="block-title">2.1 符号级休眠（Symbol Shutdown）</div>
+    <div class="text-body"><pre><code>原理：
   5G OFDM 帧中有很多空闲符号
   空闲符号 → PA 关闭 → 节能
-  
+
 节能效果：
   平均负载 20% → 节能 30-40%
   平均负载 50% → 节能 15-20%
   平均负载 80% → 节能 5-10%
-  
+
 实现方式：
   1. PA 偏置电压关闭
   2. 移相器归零
-  3. 时钟门控</code></pre>
+  3. 时钟门控
+</code></pre></div>
   </div>
 
     
@@ -326,19 +329,20 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.2 通道级休眠（Channel Shutdown） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>原理：
+  <div class="block section-text">
+    <div class="block-title">2.2 通道级休眠（Channel Shutdown）</div>
+    <div class="text-body"><pre><code>原理：
   低负载时关闭部分通道
   例如：64T64R → 16T16R
-  
+
 节能效果：
   关闭 50% 通道 → 节能 20-30%
-  
+
 影响：
   - 峰值容量下降
   - 覆盖范围缩小
-  - 适合夜间低负载场景</code></pre>
+  - 适合夜间低负载场景
+</code></pre></div>
   </div>
 
     
@@ -346,18 +350,19 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.3 波束级休眠（Beam Shutdown） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>原理：
+  <div class="block section-text">
+    <div class="block-title">2.3 波束级休眠（Beam Shutdown）</div>
+    <div class="text-body"><pre><code>原理：
   关闭服务于空闲区域的波束
   保留核心覆盖波束
-  
+
 节能效果：
   关闭 50% 波束 → 节能 10-20%
-  
+
 优势：
   - 不影响核心覆盖
-  - 用户无感知</code></pre>
+  - 用户无感知
+</code></pre></div>
   </div>
 
     
@@ -365,23 +370,24 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.4 智能反射面（RIS）辅助 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>原理：
+  <div class="block section-text">
+    <div class="block-title">2.4 智能反射面（RIS）辅助</div>
+    <div class="text-body"><pre><code>原理：
   用无源 RIS 反射信号
   替代部分有源 AAU
-  
+
 节能效果：
   减少 1-2 个 AAU → 节能 2000-5000W
-  
+
 优势：
   - RIS 无源（几乎零功耗）
   - 成本低
   - 安装简单
-  
+
 局限：
   - 覆盖范围有限
-  - 不适合高速移动场景</code></pre>
+  - 不适合高速移动场景
+</code></pre></div>
   </div>
 
     
@@ -389,20 +395,21 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">2.5 功率自适应（Adaptive Power） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>原理：
+  <div class="block section-text">
+    <div class="block-title">2.5 功率自适应（Adaptive Power）</div>
+    <div class="text-body"><pre><code>原理：
   根据负载动态调整 PA 功率
   低负载 → 低功率
   高负载 → 满功率
-  
+
 节能效果：
   平均负载 30% → 节能 25-35%
-  
+
 实现：
   1. 实时负载监测
   2. PID 功率控制
-  3. 功率回退（Back-off）</code></pre>
+  3. 功率回退（Back-off）
+</code></pre></div>
   </div>
 
     
@@ -410,20 +417,21 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">4.1 中国移动绿色 AAU <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>方案：
+  <div class="block section-text">
+    <div class="block-title">4.1 中国移动绿色 AAU</div>
+    <div class="text-body"><pre><code>方案：
   1. 符号级休眠（标配）
   2. 通道级休眠（可选）
   3. 智能唤醒（基于 AI 预测）
-  
+
 节能效果：
   日均节能 30%
   年节省电费：~¥5000/站
-  
+
 AI 预测：
   基于历史流量预测负载
-  提前 30 分钟唤醒/休眠</code></pre>
+  提前 30 分钟唤醒/休眠
+</code></pre></div>
   </div>
 
     
@@ -431,18 +439,19 @@ AI 预测：
     
 
     
-  <div class="block section-code">
-    <div class="block-title">4.2 华为绿色 AAU <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>方案：
+  <div class="block section-text">
+    <div class="block-title">4.2 华为绿色 AAU</div>
+    <div class="text-body"><pre><code>方案：
   1. Dynamic MIMO Power Saving
   2. Symbol Shutdown
   3. Channel Shutdown
   4. AAU Sleep Mode
-  
+
 节能效果：
   夜间节能 40%
   日间节能 15%
-  综合节能 25-30%</code></pre>
+  综合节能 25-30%
+</code></pre></div>
   </div>
 
     

@@ -267,15 +267,15 @@
     
 
     
-  <div class="block section-code">
-    <div class="block-title">经典香农容量公式 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>C = B × log₂(1 + S/N)
-
-
-B = 带宽
-S/N = 信噪比
-
-限制：在固定带宽和功率下，容量增长受限于信噪比的对数增长。</code></pre>
+  <div class="block section-text">
+    <div class="block-title">经典香农容量公式</div>
+    <div class="text-body"><pre><code>C = B × log₂(1 + S/N)
+</code></pre>
+<ul>
+<li>B = 带宽</li>
+<li>S/N = 信噪比</li>
+</ul>
+<p><strong>限制</strong>：在固定带宽和功率下，容量增长受限于信噪比的对数增长。</p></div>
   </div>
 
     
@@ -283,25 +283,21 @@ S/N = 信噪比
     
 
     
-  <div class="block section-code">
-    <div class="block-title">MIMO 的香农扩展（Telatar, 1999） <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>C_MIMO = Σ log₂(1 + λ_i × S/N)
-
-
-其中 λ_i 是信道矩阵的特征值。关键点：如果有 N 根发射天线和 M 根接收天线，且信道矩阵满秩，容量可以增长 min(N, M) 倍。
-
-量化对比：
-| 配置 | 单用户速率提升 | 多用户（MU-MIMO）总容量提升 |
-|------|-------------|------------------------|
-| 2×2 SISO | 1× | N/A |
-| 2×2 SIMO | 2×（分集增益） | N/A |
-| 2×2 MIMO | 2×（复用增益） | 4×（2用户×2流） |
-| 4×4 MIMO | 4× | 8×（2用户×4流） |
-| 64×64 Massive MIMO | 64× | 128×（8用户×16流） |
-
-关键判断：MIMO 的容量增长不是线性的，而是空间自由度 × 用户数的乘积关系。这就是为什么 5G 基站要用 64T64R 甚至 128T128R——天线越多，空间自由度越高。
-
----</code></pre>
+  <div class="block section-text">
+    <div class="block-title">MIMO 的香农扩展（Telatar, 1999）</div>
+    <div class="text-body"><pre><code>C_MIMO = Σ log₂(1 + λ_i × S/N)
+</code></pre>
+<p>其中 λ_i 是信道矩阵的特征值。关键点：<strong>如果有 N 根发射天线和 M 根接收天线，且信道矩阵满秩，容量可以增长 min(N, M) 倍</strong>。</p>
+<p><strong>量化对比</strong>：<br />
+| 配置 | 单用户速率提升 | 多用户（MU-MIMO）总容量提升 |<br />
+|------|-------------|------------------------|<br />
+| 2×2 SISO | 1× | N/A |<br />
+| 2×2 SIMO | 2×（分集增益） | N/A |<br />
+| 2×2 MIMO | 2×（复用增益） | 4×（2用户×2流） |<br />
+| 4×4 MIMO | 4× | 8×（2用户×4流） |<br />
+| 64×64 Massive MIMO | 64× | 128×（8用户×16流） |</p>
+<p><strong>关键判断</strong>：MIMO 的容量增长不是线性的，而是<strong>空间自由度 × 用户数</strong>的乘积关系。这就是为什么 5G 基站要用 64T64R 甚至 128T128R——天线越多，空间自由度越高。</p>
+<hr /></div>
   </div>
 
     
@@ -311,17 +307,13 @@ S/N = 信噪比
     
   <div class="block section-text">
     <div class="block-title">2.1 空间复用（Spatial Multiplexing）—— 提速</div>
-    <div class="text-body">原理：把一份高速数据拆成多份低速数据，通过不同天线同时发送。接收端再通过算法（如 MMSE、ZF、ML 检测）把它们重新拼回来。
-
-类比：快递分拣。一个包裹拆成几个箱子同时发出，到目的地再组装。速度提升了 N 倍（N = min(发射天线数, 接收天线数)）。
-
-数学本质：信道矩阵 H 的秩（Rank）决定了可以并行传输的空间流数量。秩越高，复用增益越大。
-
-效果：4×4 MIMO 理论上速率是 SISO 的 4 倍。
-
-实际瓶颈：
-信道相关性：如果天线之间信道高度相关（比如间距太小），秩下降，复用增益降低
-检测复杂度：最大似然（ML）检测复杂度为 O(M^N)，天线数增加时呈指数增长</div>
+    <div class="text-body"><p><strong>原理</strong>：把一份高速数据拆成多份低速数据，通过不同天线同时发送。接收端再通过算法（如 MMSE、ZF、ML 检测）把它们重新拼回来。</p>
+<p><strong>类比</strong>：快递分拣。一个包裹拆成几个箱子同时发出，到目的地再组装。速度提升了 N 倍（N = min(发射天线数, 接收天线数)）。</p>
+<p><strong>数学本质</strong>：信道矩阵 H 的秩（Rank）决定了可以并行传输的空间流数量。秩越高，复用增益越大。</p>
+<p><strong>效果</strong>：4×4 MIMO 理论上速率是 SISO 的 4 倍。</p>
+<p><strong>实际瓶颈</strong>：<br />
+- 信道相关性：如果天线之间信道高度相关（比如间距太小），秩下降，复用增益降低<br />
+- 检测复杂度：最大似然（ML）检测复杂度为 O(M^N)，天线数增加时呈指数增长</p></div>
   </div>
 
     
@@ -329,67 +321,22 @@ S/N = 信噪比
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">2.2 空间分集（Spatial Diversity）—— 稳</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>类型</th><th>实现方式</th><th>典型增益</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>空间分集</td>
-          
-          <td>多根天线不同位置</td>
-          
-          <td>3-6dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>极化分集</td>
-          
-          <td>±45° 双极化</td>
-          
-          <td>20-30% 速率提升</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>角度分集</td>
-          
-          <td>不同到达角</td>
-          
-          <td>2-4dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>时间分集</td>
-          
-          <td>重传机制</td>
-          
-          <td>1-3dB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>频率分集</td>
-          
-          <td>不同频点</td>
-          
-          <td>1-2dB</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><p><strong>原理</strong>：同一份数据通过多根天线发送（或同一信号被多根天线接收），利用多径传播中不同路径衰落的独立性，确保至少有一条路径信号质量好。</p>
+<p><strong>类比</strong>：多条路送同一封信，只要有一条路没堵车，信就到了。</p>
+<p><strong>效果</strong>：<br />
+- 误码率降低：分集阶数为 N 时，误码率下降约 N 倍<br />
+- 覆盖范围扩大：同等误码率下，覆盖半径可增加 20-30%<br />
+- 抗衰落能力提升：瑞利衰落信道中，多径分集是唯一的抗衰落手段</p>
+<p><strong>分集类型</strong>：<br />
+| 类型 | 实现方式 | 典型增益 |<br />
+|------|---------|---------|<br />
+| 空间分集 | 多根天线不同位置 | 3-6dB |<br />
+| 极化分集 | ±45° 双极化 | 20-30% 速率提升 |<br />
+| 角度分集 | 不同到达角 | 2-4dB |<br />
+| 时间分集 | 重传机制 | 1-3dB |<br />
+| 频率分集 | 不同频点 | 1-2dB |</p></div>
   </div>
 
     
@@ -399,19 +346,16 @@ S/N = 信噪比
     
   <div class="block section-text">
     <div class="block-title">2.3 波束赋形（Beamforming）—— 精准</div>
-    <div class="text-body">原理：通过对多根天线的信号进行加权处理（控制幅度和相位），让电磁波能量集中指向特定方向。
-
-效果：
-目标方向信噪比提升：阵列增益 = 10×log₁₀(N)，N 为天线数
-64 天线 → 18dB 阵列增益（相当于发射功率提升 63 倍）
-同频干扰降低：波束指向用户，其他方向形成&#34;零点&#34;
-
-与空间复用的关系：
-波束赋形是&#34;单用户&#34;策略——把所有能量集中给一个人
-空间复用是&#34;多用户&#34;策略——把能量分成多束，同时给多个人
-实际系统中两者结合：先波束赋形对准用户，再在该用户内做空间复用
-
----</div>
+    <div class="text-body"><p><strong>原理</strong>：通过对多根天线的信号进行加权处理（控制幅度和相位），让电磁波能量集中指向特定方向。</p>
+<p><strong>效果</strong>：<br />
+- 目标方向信噪比提升：阵列增益 = 10×log₁₀(N)，N 为天线数<br />
+- 64 天线 → 18dB 阵列增益（相当于发射功率提升 63 倍）<br />
+- 同频干扰降低：波束指向用户，其他方向形成"零点"</p>
+<p><strong>与空间复用的关系</strong>：<br />
+- 波束赋形是"单用户"策略——把所有能量集中给一个人<br />
+- 空间复用是"多用户"策略——把能量分成多束，同时给多个人<br />
+- 实际系统中两者结合：先波束赋形对准用户，再在该用户内做空间复用</p>
+<hr /></div>
   </div>
 
     
@@ -421,9 +365,11 @@ S/N = 信噪比
     
   <div class="block section-text">
     <div class="block-title">3.1 第一代：SISO（Single-Input Single-Output）</div>
-    <div class="text-body">1 根发射天线，1 根接收天线
-容量受限于香农公式的对数增长
-抗衰落能力弱</div>
+    <div class="text-body"><ul>
+<li>1 根发射天线，1 根接收天线</li>
+<li>容量受限于香农公式的对数增长</li>
+<li>抗衰落能力弱</li>
+</ul></div>
   </div>
 
     
@@ -433,10 +379,12 @@ S/N = 信噪比
     
   <div class="block section-text">
     <div class="block-title">3.2 第二代：传统 MIMO（2×2 / 4×4）</div>
-    <div class="text-body">4G LTE 标配
-2×2 MIMO：下行峰值速率提升 2 倍
-4×4 MIMO：下行峰值速率提升 4 倍
-核心挑战：信道矩阵秩不足（空间相关性强）</div>
+    <div class="text-body"><ul>
+<li>4G LTE 标配</li>
+<li>2×2 MIMO：下行峰值速率提升 2 倍</li>
+<li>4×4 MIMO：下行峰值速率提升 4 倍</li>
+<li>核心挑战：信道矩阵秩不足（空间相关性强）</li>
+</ul></div>
   </div>
 
     
@@ -446,19 +394,18 @@ S/N = 信噪比
     
   <div class="block section-text">
     <div class="block-title">3.3 第三代：Massive MIMO（64T64R / 128T128R）</div>
-    <div class="text-body">5G NR 核心使能技术
-天线数从 4 跳到 64/128，空间自由度暴增
-有利传播（Favorable Propagation）现象：当 M &gt;&gt; K（天线数远大于用户数）时，随机生成的信道向量近似正交，用户间干扰自然降低
-
-爱立信实测数据（3.5GHz 5G 基站）：
-单用户：710Mbps
-8 用户 MU-MIMO：总速率 5.2Gbps
-平均每用户：650Mbps（仅比单用户下降 8.5%）
-天线-用户比 M/K = 4
-
-关键判断：Massive MIMO 的核心优势不是&#34;单用户更快&#34;，而是&#34;同时服务更多用户还不掉速&#34;。
-
----</div>
+    <div class="text-body"><ul>
+<li>5G NR 核心使能技术</li>
+<li>天线数从 4 跳到 64/128，空间自由度暴增</li>
+<li><strong>有利传播（Favorable Propagation）现象</strong>：当 M &gt;&gt; K（天线数远大于用户数）时，随机生成的信道向量近似正交，用户间干扰自然降低</li>
+</ul>
+<p><strong>爱立信实测数据</strong>（3.5GHz 5G 基站）：<br />
+- 单用户：710Mbps<br />
+- 8 用户 MU-MIMO：总速率 5.2Gbps<br />
+- 平均每用户：650Mbps（仅比单用户下降 8.5%）<br />
+- 天线-用户比 M/K = 4</p>
+<p><strong>关键判断</strong>：Massive MIMO 的核心优势不是"单用户更快"，而是"同时服务更多用户还不掉速"。</p>
+<hr /></div>
   </div>
 
     
@@ -466,69 +413,46 @@ S/N = 信噪比
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">4.1 天线端口（Antenna Ports）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>端口号范围</th><th>用途</th><th>说明</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>0-3</td>
-          
-          <td>PSS/SSS</td>
-          
-          <td>同步信号</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>4</td>
-          
-          <td>PBCH DM-RS</td>
-          
-          <td>广播信道解调参考信号</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>0-11</td>
-          
-          <td>PDSCH DM-RS</td>
-          
-          <td>物理下行共享信道解调参考信号</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>15-22</td>
-          
-          <td>CSI-RS</td>
-          
-          <td>信道状态信息参考信号</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>3000+</td>
-          
-          <td>Type II PMI</td>
-          
-          <td>高精度 CSI 反馈</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">关键概念：天线端口不是物理天线，而是逻辑端口。一个端口可以对应多根物理天线通过波束赋形形成的&#34;虚拟天线&#34;。</div>
-    
+    <div class="text-body"><p>5G NR 定义了多种天线端口，用于不同目的的参考信号传输：</p>
+<table>
+<thead>
+<tr>
+<th>端口号范围</th>
+<th>用途</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0-3</td>
+<td>PSS/SSS</td>
+<td>同步信号</td>
+</tr>
+<tr>
+<td>4</td>
+<td>PBCH DM-RS</td>
+<td>广播信道解调参考信号</td>
+</tr>
+<tr>
+<td>0-11</td>
+<td>PDSCH DM-RS</td>
+<td>物理下行共享信道解调参考信号</td>
+</tr>
+<tr>
+<td>15-22</td>
+<td>CSI-RS</td>
+<td>信道状态信息参考信号</td>
+</tr>
+<tr>
+<td>3000+</td>
+<td>Type II PMI</td>
+<td>高精度 CSI 反馈</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键概念</strong>：天线端口不是物理天线，而是逻辑端口。一个端口可以对应多根物理天线通过波束赋形形成的"虚拟天线"。</p></div>
   </div>
 
     
@@ -536,64 +460,48 @@ S/N = 信噪比
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">4.2 RI / PMI / CQI 反馈三角</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>参数</th><th>全称</th><th>含义</th><th>反馈周期</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>RI</td>
-          
-          <td>Rank Indicator</td>
-          
-          <td>信道秩（可并行的空间流数）</td>
-          
-          <td>10-160ms</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>PMI</td>
-          
-          <td>Precoding Matrix Indicator</td>
-          
-          <td>预编码矩阵指示</td>
-          
-          <td>与 RI 同步</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>CQI</td>
-          
-          <td>Channel Quality Indicator</td>
-          
-          <td>信道质量指示（推荐调制编码）</td>
-          
-          <td>5-80ms</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">反馈流程：
-`
-基站发送 CSI-RS（参考信号）
-UE 测量信道矩阵 H
-UE 计算 RI（信道秩）
-UE 从码本中选择最佳 PMI（预编码矩阵）
-UE 计算 CQI（基于选定的 PMI）
-UE 上报 RI/PMI/CQI 给基站
-基站根据反馈选择波束赋形权重和数据流数
-`</div>
-    
+    <div class="text-body"><p>UE 需要向基站上报三个关键参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>全称</th>
+<th>含义</th>
+<th>反馈周期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RI</strong></td>
+<td>Rank Indicator</td>
+<td>信道秩（可并行的空间流数）</td>
+<td>10-160ms</td>
+</tr>
+<tr>
+<td><strong>PMI</strong></td>
+<td>Precoding Matrix Indicator</td>
+<td>预编码矩阵指示</td>
+<td>与 RI 同步</td>
+</tr>
+<tr>
+<td><strong>CQI</strong></td>
+<td>Channel Quality Indicator</td>
+<td>信道质量指示（推荐调制编码）</td>
+<td>5-80ms</td>
+</tr>
+</tbody>
+</table>
+<p><strong>反馈流程</strong>：</p>
+<pre><code>1. 基站发送 CSI-RS（参考信号）
+2. UE 测量信道矩阵 H
+3. UE 计算 RI（信道秩）
+4. UE 从码本中选择最佳 PMI（预编码矩阵）
+5. UE 计算 CQI（基于选定的 PMI）
+6. UE 上报 RI/PMI/CQI 给基站
+7. 基站根据反馈选择波束赋形权重和数据流数
+</code></pre></div>
   </div>
 
     
@@ -601,86 +509,59 @@ UE 上报 RI/PMI/CQI 给基站
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">4.3 码本类型（Codebook）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>码本类型</th><th>特点</th><th>开销</th><th>精度</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>Type I</td>
-          
-          <td>粗粒度，单面板</td>
-          
-          <td>低</td>
-          
-          <td>一般</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Type I Multi-Panel</td>
-          
-          <td>多面板扩展</td>
-          
-          <td>中</td>
-          
-          <td>较好</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Type II</td>
-          
-          <td>精细粒度，线性组合</td>
-          
-          <td>高</td>
-          
-          <td>优秀</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Type II Port Selection</td>
-          
-          <td>端口选择 + 线性组合</td>
-          
-          <td>中高</td>
-          
-          <td>优秀</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Enhanced Type II</td>
-          
-          <td>Rel-16 增强</td>
-          
-          <td>高</td>
-          
-          <td>最佳</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">Type II 码本：
-支持子带振幅和相位反馈
-精度比 Type I 高 30-50%
-反馈开销大 3-5 倍
-适合高速移动场景和毫米波频段
-Rel-19 新增：
-Predicted PMI（预测 PMI）：基于历史 CSI 预测未来信道
-CJT（Coordinated Multi-Point Joint Transmission）：多点联合传输</div>
-    
+    <div class="text-body"><p>3GPP TS 38.214 定义了多种码本：</p>
+<table>
+<thead>
+<tr>
+<th>码本类型</th>
+<th>特点</th>
+<th>开销</th>
+<th>精度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Type I</strong></td>
+<td>粗粒度，单面板</td>
+<td>低</td>
+<td>一般</td>
+</tr>
+<tr>
+<td><strong>Type I Multi-Panel</strong></td>
+<td>多面板扩展</td>
+<td>中</td>
+<td>较好</td>
+</tr>
+<tr>
+<td><strong>Type II</strong></td>
+<td>精细粒度，线性组合</td>
+<td>高</td>
+<td>优秀</td>
+</tr>
+<tr>
+<td><strong>Type II Port Selection</strong></td>
+<td>端口选择 + 线性组合</td>
+<td>中高</td>
+<td>优秀</td>
+</tr>
+<tr>
+<td><strong>Enhanced Type II</strong></td>
+<td>Rel-16 增强</td>
+<td>高</td>
+<td>最佳</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Type II 码本</strong>：<br />
+- 支持子带振幅和相位反馈<br />
+- 精度比 Type I 高 30-50%<br />
+- 反馈开销大 3-5 倍<br />
+- 适合高速移动场景和毫米波频段</p>
+<p><strong>Rel-19 新增</strong>：<br />
+- Predicted PMI（预测 PMI）：基于历史 CSI 预测未来信道<br />
+- CJT（Coordinated Multi-Point Joint Transmission）：多点联合传输</p></div>
   </div>
 
     
@@ -688,79 +569,54 @@ CJT（Coordinated Multi-Point Joint Transmission）：多点联合传输</div>
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">4.4 SU-MIMO vs MU-MIMO</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>维度</th><th>SU-MIMO</th><th>MU-MIMO</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>服务对象</td>
-          
-          <td>单用户</td>
-          
-          <td>多用户</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>空间流数</td>
-          
-          <td>≤ min(Nt, Nr)</td>
-          
-          <td>各用户共享频谱</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>干扰管理</td>
-          
-          <td>无</td>
-          
-          <td>需要预编码消除用户间干扰</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>典型配置</td>
-          
-          <td>4×4, 8×8</td>
-          
-          <td>64T64R 服务 8-16 用户</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>复杂度</td>
-          
-          <td>低</td>
-          
-          <td>高</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">MU-MIMO 的核心挑战：如何在同一频率、同一时间服务多个用户，同时消除用户间干扰。
-解决方案：预编码（Precoding）。基站根据各用户的 CSI，计算预编码矩阵 W，使得：
-`
-y_k = h_k^T W s + n_k
-`
-其中 h_k 是用户 k 的信道向量，W 的第 k 列与 h_j (j≠k) 正交，从而实现用户间干扰消除。
-常用预编码算法：
-ZF（Zero-Forcing）：完全消除干扰，但放大噪声
-MMSE（Minimum Mean Square Error）：折中干扰和噪声
-RZF（Regularized ZF）：正则化 ZF，5G Massive MIMO 推荐算法
----</div>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>SU-MIMO</th>
+<th>MU-MIMO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>服务对象</td>
+<td>单用户</td>
+<td>多用户</td>
+</tr>
+<tr>
+<td>空间流数</td>
+<td>≤ min(Nt, Nr)</td>
+<td>各用户共享频谱</td>
+</tr>
+<tr>
+<td>干扰管理</td>
+<td>无</td>
+<td>需要预编码消除用户间干扰</td>
+</tr>
+<tr>
+<td>典型配置</td>
+<td>4×4, 8×8</td>
+<td>64T64R 服务 8-16 用户</td>
+</tr>
+<tr>
+<td>复杂度</td>
+<td>低</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+<p><strong>MU-MIMO 的核心挑战</strong>：如何在同一频率、同一时间服务多个用户，同时消除用户间干扰。</p>
+<p><strong>解决方案</strong>：预编码（Precoding）。基站根据各用户的 CSI，计算预编码矩阵 W，使得：</p>
+<pre><code>y_k = h_k^T W s + n_k
+</code></pre>
+<p>其中 h_k 是用户 k 的信道向量，W 的第 k 列与 h_j (j≠k) 正交，从而实现用户间干扰消除。</p>
+<p><strong>常用预编码算法</strong>：<br />
+- <strong>ZF（Zero-Forcing）</strong>：完全消除干扰，但放大噪声<br />
+- <strong>MMSE（Minimum Mean Square Error）</strong>：折中干扰和噪声<br />
+- <strong>RZF（Regularized ZF）</strong>：正则化 ZF，5G Massive MIMO 推荐算法</p>
+<hr /></div>
   </div>
 
     
@@ -770,11 +626,10 @@ RZF（Regularized ZF）：正则化 ZF，5G Massive MIMO 推荐算法
     
   <div class="block section-text">
     <div class="block-title">5.1 什么是信道相关性？</div>
-    <div class="text-body">如果两根天线&#34;看到&#34;的传播环境相似，它们的信道就是相关的。相关性越高，空间复用增益越低。
-
-极端情况：
-相关性 = 1（完全相关）：MIMO 退化为 SISO
-相关性 = 0（完全不相关）：MIMO 发挥最大潜力</div>
+    <div class="text-body"><p>如果两根天线"看到"的传播环境相似，它们的信道就是相关的。相关性越高，空间复用增益越低。</p>
+<p><strong>极端情况</strong>：<br />
+- 相关性 = 1（完全相关）：MIMO 退化为 SISO<br />
+- 相关性 = 0（完全不相关）：MIMO 发挥最大潜力</p></div>
   </div>
 
     
@@ -782,57 +637,39 @@ RZF（Regularized ZF）：正则化 ZF，5G Massive MIMO 推荐算法
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">5.2 降低相关性的方法</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>方法</th><th>原理</th><th>效果</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>增大天线间距</td>
-          
-          <td>空间采样更丰富</td>
-          
-          <td>间距 &gt; 0.5λ 时相关性显著下降</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>极化分集</td>
-          
-          <td>±45° 双极化天线</td>
-          
-          <td>相关性从 0.9 降到 0.5-0.7</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>多径丰富环境</td>
-          
-          <td>城市/室内多反射</td>
-          
-          <td>自然降低相关性</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>均匀矩形阵列（URA）</td>
-          
-          <td>二维排列而非一维</td>
-          
-          <td>比 ULA 相关性低 20-30%</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>原理</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>增大天线间距</strong></td>
+<td>空间采样更丰富</td>
+<td>间距 &gt; 0.5λ 时相关性显著下降</td>
+</tr>
+<tr>
+<td><strong>极化分集</strong></td>
+<td>±45° 双极化天线</td>
+<td>相关性从 0.9 降到 0.5-0.7</td>
+</tr>
+<tr>
+<td><strong>多径丰富环境</strong></td>
+<td>城市/室内多反射</td>
+<td>自然降低相关性</td>
+</tr>
+<tr>
+<td><strong>均匀矩形阵列（URA）</strong></td>
+<td>二维排列而非一维</td>
+<td>比 ULA 相关性低 20-30%</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -842,19 +679,16 @@ RZF（Regularized ZF）：正则化 ZF，5G Massive MIMO 推荐算法
     
   <div class="block section-text">
     <div class="block-title">5.3 Weichselberger 空间相关模型</div>
-    <div class="text-body">3GPP 采用的空间相关信道模型：
-
-`
-H = W_R × Ω × W_T^T
-`
-
-W_R：接收端相关矩阵
-W_T：发射端相关矩阵
-Ω：散射通道矩阵（独立分量）
-
-关键洞察：即使物理天线间距很小，只要散射环境丰富（Ω 满秩），信道仍然可以近似独立。这就是为什么城市环境中 MIMO 效果好——建筑物提供了丰富的散射体。
-
----</div>
+    <div class="text-body"><p>3GPP 采用的空间相关信道模型：</p>
+<pre><code>H = W_R × Ω × W_T^T
+</code></pre>
+<ul>
+<li>W_R：接收端相关矩阵</li>
+<li>W_T：发射端相关矩阵</li>
+<li>Ω：散射通道矩阵（独立分量）</li>
+</ul>
+<p><strong>关键洞察</strong>：即使物理天线间距很小，只要散射环境丰富（Ω 满秩），信道仍然可以近似独立。这就是为什么城市环境中 MIMO 效果好——建筑物提供了丰富的散射体。</p>
+<hr /></div>
   </div>
 
     
@@ -864,11 +698,13 @@ W_T：发射端相关矩阵
     
   <div class="block section-text">
     <div class="block-title">6.1 Sub-6GHz（FR1）</div>
-    <div class="text-body">频段：600MHz - 6GHz
-天线间距：约 2.5cm（@3.5GHz）
-典型配置：4×4, 8×8, 64T64R, 128T128R
-优势：覆盖好，相关性好（天线间距大）
-劣势：单天线增益低，需要更多天线</div>
+    <div class="text-body"><ul>
+<li>频段：600MHz - 6GHz</li>
+<li>天线间距：约 2.5cm（@3.5GHz）</li>
+<li>典型配置：4×4, 8×8, 64T64R, 128T128R</li>
+<li>优势：覆盖好，相关性好（天线间距大）</li>
+<li>劣势：单天线增益低，需要更多天线</li>
+</ul></div>
   </div>
 
     
@@ -878,16 +714,17 @@ W_T：发射端相关矩阵
     
   <div class="block section-text">
     <div class="block-title">6.2 毫米波（FR2）</div>
-    <div class="text-body">频段：24.25GHz - 52.6GHz
-天线间距：约 5.6mm（@28GHz）
-典型配置：16×16, 64×64
-优势：带宽大，单天线增益高
-劣势：路径损耗大，易被遮挡，相关性高
-
-毫米波 MIMO 的特殊挑战：
-散射体少，信道秩不足
-需要波束赋形弥补路径损耗
-空间相关性高，复用增益受限</div>
+    <div class="text-body"><ul>
+<li>频段：24.25GHz - 52.6GHz</li>
+<li>天线间距：约 5.6mm（@28GHz）</li>
+<li>典型配置：16×16, 64×64</li>
+<li>优势：带宽大，单天线增益高</li>
+<li>劣势：路径损耗大，易被遮挡，相关性高</li>
+</ul>
+<p><strong>毫米波 MIMO 的特殊挑战</strong>：<br />
+- 散射体少，信道秩不足<br />
+- 需要波束赋形弥补路径损耗<br />
+- 空间相关性高，复用增益受限</p></div>
   </div>
 
     
@@ -897,13 +734,14 @@ W_T：发射端相关矩阵
     
   <div class="block section-text">
     <div class="block-title">6.3 太赫兹（6G 候选）</div>
-    <div class="text-body">频段：100GHz - 10THz
-天线间距：亚毫米级
-潜在配置：1024×1024 UM-MIMO
-优势：超宽带（GHz 级信道带宽）
-劣势：大气吸收严重（氧气共振峰在 60GHz），传播距离极短
-
----</div>
+    <div class="text-body"><ul>
+<li>频段：100GHz - 10THz</li>
+<li>天线间距：亚毫米级</li>
+<li>潜在配置：1024×1024 UM-MIMO</li>
+<li>优势：超宽带（GHz 级信道带宽）</li>
+<li>劣势：大气吸收严重（氧气共振峰在 60GHz），传播距离极短</li>
+</ul>
+<hr /></div>
   </div>
 
     
@@ -913,12 +751,11 @@ W_T：发射端相关矩阵
     
   <div class="block section-text">
     <div class="block-title">7.1 RIS 如何增强 MIMO？</div>
-    <div class="text-body">RIS 通过在空间中部署大量低成本无源反射单元，可以&#34;创造&#34;额外的传播路径，降低 MIMO 信道相关性，提升空间复用增益。
-
-实验数据：
-QUB 2025 年 EuCAP：27-29.5GHz 双极化 RIS，增益增强 13.2-16.3dB
-220GHz 太赫兹 RIS：单波束模式接收功率增益 ≥10dB
-主动 RIS 对比被动 RIS：Sum-rate 增益提升 130% vs 22%</div>
+    <div class="text-body"><p>RIS 通过在空间中部署大量低成本无源反射单元，可以"创造"额外的传播路径，降低 MIMO 信道相关性，提升空间复用增益。</p>
+<p><strong>实验数据</strong>：<br />
+- QUB 2025 年 EuCAP：27-29.5GHz 双极化 RIS，增益增强 13.2-16.3dB<br />
+- 220GHz 太赫兹 RIS：单波束模式接收功率增益 ≥10dB<br />
+- 主动 RIS 对比被动 RIS：Sum-rate 增益提升 130% vs 22%</p></div>
   </div>
 
     
@@ -926,24 +763,21 @@ QUB 2025 年 EuCAP：27-29.5GHz 双极化 RIS，增益增强 13.2-16.3dB
     
 
     
-  <div class="block section-code">
-    <div class="block-title">7.2 RIS-MIMO 系统架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>基站 (M 天线) → 直射路径 → 用户 (N 天线)
+  <div class="block section-text">
+    <div class="block-title">7.2 RIS-MIMO 系统架构</div>
+    <div class="text-body"><pre><code>基站 (M 天线) → 直射路径 → 用户 (N 天线)
                 ↘
                  RIS (P 反射单元) → 反射路径 → 用户
-
-
-联合优化：
-基站预编码矩阵 W_BS
-RIS 相位偏移矩阵 Φ
-目标：最大化频谱效率
-
-挑战：
-RIS 是无源的，不能主动发射信号，只能反射
-需要联合估计直射和反射信道
-计算复杂度极高（M × N × P 维优化问题）
-
----</code></pre>
+</code></pre>
+<p><strong>联合优化</strong>：<br />
+- 基站预编码矩阵 W_BS<br />
+- RIS 相位偏移矩阵 Φ<br />
+- 目标：最大化频谱效率</p>
+<p><strong>挑战</strong>：<br />
+- RIS 是无源的，不能主动发射信号，只能反射<br />
+- 需要联合估计直射和反射信道<br />
+- 计算复杂度极高（M × N × P 维优化问题）</p>
+<hr /></div>
   </div>
 
     
@@ -951,59 +785,42 @@ RIS 是无源的，不能主动发射信号，只能反射
     
 
     
-  <div class="block section-comparison">
+  <div class="block section-text">
     <div class="block-title">8.1 从 Massive 到 Ultra-Massive</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>代际</th><th>天线规模</th><th>孔径</th><th>波束宽度</th><th>同时用户数</th>
-      </tr></thead>
-      <tbody>
-        
-        <tr>
-          
-          <td>4G</td>
-          
-          <td>4-8</td>
-          
-          <td>&lt; 0.5m</td>
-          
-          <td>&gt; 30°</td>
-          
-          <td>1-2</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>5G</td>
-          
-          <td>64-128</td>
-          
-          <td>1-2m</td>
-          
-          <td>5-10°</td>
-          
-          <td>8-16</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>6G</td>
-          
-          <td>256-1024+</td>
-          
-          <td>5-10m</td>
-          
-          <td>&lt; 1°</td>
-          
-          <td>16-32+</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>代际</th>
+<th>天线规模</th>
+<th>孔径</th>
+<th>波束宽度</th>
+<th>同时用户数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4G</td>
+<td>4-8</td>
+<td>&lt; 0.5m</td>
+<td>&gt; 30°</td>
+<td>1-2</td>
+</tr>
+<tr>
+<td>5G</td>
+<td>64-128</td>
+<td>1-2m</td>
+<td>5-10°</td>
+<td>8-16</td>
+</tr>
+<tr>
+<td>6G</td>
+<td>256-1024+</td>
+<td>5-10m</td>
+<td>&lt; 1°</td>
+<td>16-32+</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 
     
@@ -1013,19 +830,16 @@ RIS 是无源的，不能主动发射信号，只能反射
     
   <div class="block section-text">
     <div class="block-title">8.2 空间域 → 波束域转换</div>
-    <div class="text-body">超大规模 MIMO 面临&#34;维度灾难&#34;：1024 根天线的信道矩阵是 1024×1024 维，计算复杂度爆炸。
-
-解决方案：从空间域转换到波束域（Beam Domain）。
-
-原理：
-在空间域中，信道矩阵是稠密的
-在波束域中，信道矩阵是稀疏的（只有少数波束有显著能量）
-波束域信道估计复杂度降低 10-100 倍
-
-关键技术：
-离散傅里叶变换（DFT）码本
-压缩感知（Compressed Sensing）
-稀疏信道估计</div>
+    <div class="text-body"><p>超大规模 MIMO 面临"维度灾难"：1024 根天线的信道矩阵是 1024×1024 维，计算复杂度爆炸。</p>
+<p><strong>解决方案</strong>：从空间域转换到波束域（Beam Domain）。</p>
+<p><strong>原理</strong>：<br />
+- 在空间域中，信道矩阵是稠密的<br />
+- 在波束域中，信道矩阵是稀疏的（只有少数波束有显著能量）<br />
+- 波束域信道估计复杂度降低 10-100 倍</p>
+<p><strong>关键技术</strong>：<br />
+- 离散傅里叶变换（DFT）码本<br />
+- 压缩感知（Compressed Sensing）<br />
+- 稀疏信道估计</p></div>
   </div>
 
     
@@ -1035,18 +849,17 @@ RIS 是无源的，不能主动发射信号，只能反射
     
   <div class="block section-text">
     <div class="block-title">8.3 近场 MIMO</div>
-    <div class="text-body">6G 的 XL-MIMO 天线孔径极大，远场边界扩展到数百米。在近场区域内：
-
-波前是球面的，不是平面的
-波束不仅跟角度有关，还跟距离有关
-同一波束在不同距离处的相位分布不同
-
-3GPP Rel-19 近场扩展：
-引入球面波前建模
-虚拟镜像理论确定 NLoS 路径反射距离
-近场信道矩阵不再是 Toeplitz 结构
-
----</div>
+    <div class="text-body"><p>6G 的 XL-MIMO 天线孔径极大，远场边界扩展到数百米。在近场区域内：</p>
+<ul>
+<li>波前是球面的，不是平面的</li>
+<li>波束不仅跟角度有关，还跟距离有关</li>
+<li>同一波束在不同距离处的相位分布不同</li>
+</ul>
+<p><strong>3GPP Rel-19 近场扩展</strong>：<br />
+- 引入球面波前建模<br />
+- 虚拟镜像理论确定 NLoS 路径反射距离<br />
+- 近场信道矩阵不再是 Toeplitz 结构</p>
+<hr /></div>
   </div>
 
     
@@ -1056,13 +869,12 @@ RIS 是无源的，不能主动发射信号，只能反射
     
   <div class="block section-text">
     <div class="block-title">挑战 1：CSI 反馈开销</div>
-    <div class="text-body">问题：64T64R 的完整 CSI 需要数千比特，UE 上报压力大。
-
-解决方案：
-Type I 码本：低开销，适合高速移动
-Type II 码本：高开销，适合低速/静止
-深度学习压缩：ZTE 2026 年论文，开销降低 60-80%
-预测 PMI：Rel-19 新增，基于历史 CSI 预测</div>
+    <div class="text-body"><p><strong>问题</strong>：64T64R 的完整 CSI 需要数千比特，UE 上报压力大。</p>
+<p><strong>解决方案</strong>：<br />
+- Type I 码本：低开销，适合高速移动<br />
+- Type II 码本：高开销，适合低速/静止<br />
+- 深度学习压缩：ZTE 2026 年论文，开销降低 60-80%<br />
+- 预测 PMI：Rel-19 新增，基于历史 CSI 预测</p></div>
   </div>
 
     
@@ -1072,12 +884,11 @@ Type II 码本：高开销，适合低速/静止
     
   <div class="block section-text">
     <div class="block-title">挑战 2：互耦和校准</div>
-    <div class="text-body">问题：64 根天线紧密排列，互耦严重，每根天线的相位/幅度响应不一致。
-
-解决方案：
-内校准：通过耦合器采集每根天线的发射信号
-外校准：利用 TDD 上下行信道互易性
-互耦补偿算法：在波束赋形权重中预补偿</div>
+    <div class="text-body"><p><strong>问题</strong>：64 根天线紧密排列，互耦严重，每根天线的相位/幅度响应不一致。</p>
+<p><strong>解决方案</strong>：<br />
+- 内校准：通过耦合器采集每根天线的发射信号<br />
+- 外校准：利用 TDD 上下行信道互易性<br />
+- 互耦补偿算法：在波束赋形权重中预补偿</p></div>
   </div>
 
     
@@ -1087,14 +898,12 @@ Type II 码本：高开销，适合低速/静止
     
   <div class="block section-text">
     <div class="block-title">挑战 3：计算复杂度</div>
-    <div class="text-body">问题：128×128 信道矩阵的求逆运算量是 4×4 的 1024 倍。
-
-解决方案：
-近似算法：MMSE 替代 ML 检测
-硬件加速：专用 ASIC/FPGA
-波束域转换：降低维度
-
----</div>
+    <div class="text-body"><p><strong>问题</strong>：128×128 信道矩阵的求逆运算量是 4×4 的 1024 倍。</p>
+<p><strong>解决方案</strong>：<br />
+- 近似算法：MMSE 替代 ML 检测<br />
+- 硬件加速：专用 ASIC/FPGA<br />
+- 波束域转换：降低维度</p>
+<hr /></div>
   </div>
 
     
