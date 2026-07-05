@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天线滤波器一体化（AFU） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">天线滤波器一体化 <span class="en">AFU</span></h1>
+  <p class="lede">AFU（Antenna Filter Unit）= 滤波器直接集成在天线腔体内，省去馈线连接——少一根电缆 = 少两个连接器 = 少两个 PIM 源 + 少 1dB 损耗。5G 多频段基站标配。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>传统方案：天线 → 馈线 → 滤波器 → 馈线 → 基站（4 个连接器，3 段馈线）。AFU：天线 + 滤波器一体（0 个额外连接器）。就像"咖啡机自带滤杯"vs"咖啡机+外接滤杯"。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、为什么需要 AFU？</h2>
+    <h3>1.1 传统方案的痛点</h3>
+    <pre><code>传统基站架构：
+      天线阵列
+        │
+        ├─→ 馈线（1/2&quot; 低损电缆）
+        │     ↓
+        │   滤波器（双工器/双频滤波器）
+        │     ↓
+        │   馈线
+        │     ↓
+        │   RRU/AAU
+        
+    问题：
+      1. 连接器 PIM：每个连接器 = PIM 源
+         - 2 个连接器 → 2 个 PIM 源
+         - 双三载波 PIM 累积可能超标
+         
+      2. 馈线损耗：10m 馈线 @3.5GHz ≈ 2dB
+         - 2 段馈线 = 4dB 损耗
+         - 4dB = 发射功率降低 60%!
+         
+      3. 安装复杂度：2 段馈线 + 4 个连接器
+         - 安装时间长
+         - 安装质量不一致
+         
+      4. 重量：馈线 + 连接器 ≈ 5-10kg
+         - 塔装风载增加</code></pre>
+    <h3>1.2 AFU 的解决方案</h3>
+    <pre><code>AFU 架构：
+      天线阵列
+        │
+        └─→ 滤波器（集成在天线腔体内）
+              │
+              └─→ 短跳线（&lt; 0.5m）
+                    │
+                    └─→ RRU/AAU
+      
+    优势：
+      1. 连接器减少 2 个 → PIM 源减半
+      2. 馈线减少 2 段 → 损耗减少 ~3dB
+      3. 重量减轻 5-10kg → 风载降低
+      4. 安装简化 → 一致性提高</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、AFU 结构设计</h2>
+    <h3>2.1 滤波器类型</h3>
+    <pre><code>AFU 中常用的滤波器：
+    
+    1. 双频滤波器（Dual-Band Filter）
+       用途：同一天线支持两个频段
+       例如：700MHz + 2.6GHz 合一
+       结构：两个谐振腔并联
+       
+    2. 双工器（Duplexer）
+       用途：Tx/Rx 频率分离
+       例如：FDD 模式，Tx 和 Rx 不同频段
+       结构：Tx 滤波器 + Rx 滤波器 + 环形器
+       
+    3. 多频滤波器（Multi-Band Filter）
+       用途：支持 3-4 个频段
+       例如：700/900/1800/2600MHz 合一
+       结构：多个谐振腔 + 耦合网络
+       
+    4. 带通滤波器（Band-Pass Filter）
+       用途：带外干扰抑制
+       例如：抑制邻频干扰</code></pre>
+    <h3>2.2 集成方式</h3>
+    <pre><code>方式 1：腔体集成（主流）
+      天线腔体 + 滤波器腔体 = 同一个金属壳
+      内部用隔板分隔
+      优点：屏蔽好，PIM 低
+      缺点：体积大
+      
+    方式 2：PCB 集成
+      滤波器做在 PCB 上（LTCC/SAW）
+      贴在天线馈电网络旁边
+      优点：体积小，成本低
+      缺点：功率容量低，只适合小功率
+      
+    方式 3：SiP 集成
+      滤波器 + 天线 + 馈电网络 = 一个封装
+      优点：极致小型化
+      缺点：设计复杂，只适合 Small Cell/AiP</code></pre>
+    <h3>2.3 AFU 内部结构</h3>
+    <pre><code>典型 64T64R AFU（双频 700+2600MHz）：
+    
+    ┌─────────────────────────────────────────┐
+    │  天线罩（Radome）                         │
+    │  ┌───────────────────────────────────┐   │
+    │  │  天线阵列（双频振子）               │   │
+    │  │   700MHz 振子（底部）               │   │
+    │  │   2600MHz 振子（中部）              │   │
+    │  │   3500MHz 振子（顶部）              │   │
+    │  └───────────────────────────────────┘   │
+    │  ┌───────────────────────────────────┐   │
+    │  │  滤波器腔体（集成）                  │   │
+    │  │   700MHz 滤波器                    │   │
+    │  │   2600MHz 滤波器                    │   │
+    │  │   3500MHz 滤波器                    │   │
+    │  └───────────────────────────────────┘   │
+    │  ┌───────────────────────────────────┐   │
+    │  │  T/R 模块 + 馈电网络                │   │
+    │  └───────────────────────────────────┘   │
+    └─────────────────────────────────────────┘
+    
+    关键设计：
+      - 天线腔体与滤波器腔体之间：电磁隔离
+      - 滤波器输入到天线振子：&lt; 0.1m 短距离
+      - 滤波器输出到 RRU：1 根 7/16&quot; 电缆</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、AFU 的关键指标</h2>
+    <h3>3.1 滤波器指标</h3>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>要求</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>插入损耗</td><td>< 0.3dB</td><td>越低越好</td></tr>
+    <tr><td>带外抑制</td><td>> 60dB</td><td>抑制邻频干扰</td></tr>
+    <tr><td>PIM</td><td>< -155dBc</td><td>双三载波</td></tr>
+    <tr><td>功率容量</td><td>> 50W</td><td>每通道</td></tr>
+    <tr><td>温度稳定性</td><td>±5MHz（-40~85°C）</td><td>频偏控制</td></tr>
+    </tbody></table></div>
+    <h3>3.2 AFU 整体指标</h3>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>传统方案</th><th>AFU</th><th>改善</th></tr></thead>
+    <tbody>
+    <tr><td>馈线损耗</td><td>3-4dB</td><td>< 1dB</td><td>-70%</td></tr>
+    <tr><td>连接器数</td><td>6-8 个</td><td>2-4 个</td><td>-50%</td></tr>
+    <tr><td>PIM 源</td><td>6-8 个</td><td>2-4 个</td><td>-50%</td></tr>
+    <tr><td>重量</td><td>+5-10kg</td><td>基准</td><td>-50%</td></tr>
+    <tr><td>安装时间</td><td>30min</td><td>15min</td><td>-50%</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>四、一句话总结</h2>
+    <p>AFU 的核心价值就是"少一根线少一个坑"——把滤波器塞进天线腔体，少两段馈线、少四个连接器，损耗降 3dB，PIM 减半，安装快一倍。5G 多频段基站（双频/三频）几乎全部采用 AFU 方案。记住：AFU 不是简单地把滤波器和天线放在一起，而是要解决"电磁隔离"和"热耦合"两个核心问题。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[零部件-滤波器filter]].html"><span class="ico">[</span><span>[零部件-滤波器Filter]]</span></a>
+      <a class="rel-card" href="[[零部件-天线振子dipole-element]].html"><span class="ico">[</span><span>[[零部件-天线振子Dipole-Element]]</span></a>
+      <a class="rel-card" href="[[技术概念-天线馈电网络feed-network-power-divider].html"><span class="ico">[</span><span>[[技术概念-天线馈电网络Feed-Network-Power-Divider]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

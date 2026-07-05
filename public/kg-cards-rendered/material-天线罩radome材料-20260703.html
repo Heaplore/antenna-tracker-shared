@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天线罩（Radome）材料 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">天线罩材料 <span class="en">Radome</span></h1>
+  <p class="lede">天线罩是保护天线内部结构的"透明雨衣"——它必须同时满足两个矛盾的要求：机械上坚如磐石（抗风载、抗冰雹），电磁上近乎隐形（Dk≈2.5、Df<0.005）。天线罩材料从早期的玻璃钢（GFRP）发展到现在的 PVC/ASA/发泡 PPE，核心趋势是"越来越轻、越来越透"。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>天线罩就像飞机驾驶舱的"挡风玻璃"——既要扛住 300km/h 的风速和冰雹，又要让雷达波毫无阻碍地穿过去。如果天线罩的介电损耗太高，信号就像"隔着磨砂玻璃看灯"——能看见，但亮度大打折扣。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、天线罩的功能要求</h2>
+    <h3>1.1 双重矛盾需求</h3>
+    <pre><code>机械需求（硬）：
+      - 抗风载：150km/h 风速不变形
+      - 抗冰雹：φ25mm 冰雹不破裂
+      - 温度范围：-40°C to +70°C
+      - 寿命：15-20 年
+      
+    电磁需求（透）：
+      - Dk（介电常数）：2.0-3.0（越低越好）
+      - Df（损耗角正切）：&lt; 0.005（越低越好）
+      - 厚度均匀性：±0.1mm
+      - 入射角影响：0°-60° 范围内性能稳定</code></pre>
+    <h3>1.2 天线罩对信号的影响</h3>
+    <pre><code>信号穿透天线罩的损耗：
+    
+    单层天线罩损耗公式：
+      L_radome ≈ 20·log₁₀(e^(α·t))
+      其中 α = (2πf/c)·√Dk·Df
+      
+    典型损耗（3.5GHz，厚度 3mm）：
+      GFRP（Df=0.01）：~0.5dB（不可接受）
+      PVC（Df=0.003）：~0.15dB（勉强可用）
+      ASA（Df=0.002）：~0.1dB（可用）
+      发泡 PPE（Df=0.001）：~0.05dB（优秀）
+      
+    5G AAU 要求：
+      天线罩损耗 &lt; 0.1dB（3.5GHz）
+      这意味着 Df &lt; 0.003（3mm 厚度）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、天线罩材料类型</h2>
+    <h3>2.1 玻璃钢（GFRP）—— 第一代</h3>
+    <pre><code>结构：
+      树脂基体（不饱和聚酯/环氧树脂）
+      + 玻璃纤维增强（连续毡/编织布）
+      
+    参数：
+      Dk（2GHz）：3.5-4.5
+      Df（2GHz）：0.008-0.01
+      密度：1.8-2.0 g/cm³
+      拉伸强度：380-450 MPa
+      
+    优点：
+      - 强度高、刚度大
+      - 成本低
+      - 耐候性好
+      
+    缺点：
+      - 介电损耗大（Df=0.01）
+      - 重量大（密度 2.0）
+      - 不适合 5G 高频段
+      
+    适用场景：
+      - 4G 及以下频段（&lt; 2.6GHz）
+      - 低成本单频天线
+      - 多频/大尺寸天线（需要高强度）</code></pre>
+    <h3>2.2 PVC（改性硬质聚氯乙烯）—— 第二代</h3>
+    <pre><code>结构：
+      PVC 树脂基体
+      + 稳定剂/加工助剂/抗冲改性剂
+      + 紫外光屏蔽剂
+      
+    参数：
+      Dk（2GHz）：2.5-3.5
+      Df（2GHz）：0.001-0.005
+      密度：1.4-1.6 g/cm³
+      拉伸强度：40-60 MPa
+      工作温度：-40°C to +80°C
+      
+    优点：
+      - 介电性能优于 GFRP
+      - 成本低（三种材料最低）
+      - 可挤出成型，生产效率高
+      - 热塑性，可回收
+      
+    缺点：
+      - 强度低（不适合大尺寸天线）
+      - 耐热性差（HDT 70-85°C）
+      - 含氯，环保性差
+      - 紫外线照射后易变黄
+      
+    适用场景：
+      - 单频小尺寸天线
+      - Sub-6GHz 宏站天线
+      - 室内微站天线罩</code></pre>
+    <h3>2.3 ASA（丙烯腈-苯乙烯-丙烯酸酯）—— 第三代</h3>
+    <pre><code>结构：
+      ASA 三元共聚树脂基体
+      + 抗冲改性剂
+      + 紫外稳定剂
+      
+    参数：
+      Dk（2GHz）：2.2-2.8
+      Df（2GHz）：0.002-0.003
+      密度：1.0-1.2 g/cm³
+      拉伸强度：25-35 MPa
+      工作温度：-40°C to +90°C
+      阻燃等级：UL94 V-0
+      
+    优点：
+      - 介电性能优于 PVC
+      - 耐候性极佳（不含双键，不黄变）
+      - 重量轻（密度 1.1）
+      - 强度高（优于 PVC）
+      - 可电镀（集成放电条）
+      
+    缺点：
+      - 成本高于 PVC
+      - 强度低于 GFRP
+      - 合成工艺复杂
+      
+    适用场景：
+      - 5G Sub-6GHz 宏站天线罩（主流）
+      - 多频天线罩
+      - 户外高耐候场景</code></pre>
+    <h3>2.4 发泡 PPE（聚苯醚）—— 第四代</h3>
+    <pre><code>结构：
+      改性 PPE 树脂（旭化成 XYRON™）
+      + 发泡微珠（SunForce™）
+      
+    参数：
+      Dk（28GHz）：2.6-2.8
+      Df（28GHz）：0.001-0.004
+      密度：0.3-0.6 g/cm³（发泡后）
+      热变形温度：96-124°C
+      阻燃等级：UL94 V-0
+      
+    优点：
+      - 超低介电常数（Dk≈2.6）
+      - 超低损耗（Df≈0.001）
+      - 超轻（发泡后密度 0.4）
+      - 高刚性（夹层结构）
+      - 耐候性优异
+      - 可集成介电透镜功能
+      
+    缺点：
+      - 成本最高
+      - 工艺复杂（需要层压发泡芯材）
+      - 大规模应用经验较少
+      
+    适用场景：
+      - 5G AAU 天线罩（高端）
+      - 毫米波天线罩（28GHz+）
+      - 6G U6G 天线罩
+      - 卫星通信天线罩</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、材料对比总结</h2>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>GFRP</th><th>PVC</th><th>ASA</th><th>发泡 PPE</th></tr></thead>
+    <tbody>
+    <tr><td>Dk（2GHz）</td><td>3.5-4.5</td><td>2.5-3.5</td><td>2.2-2.8</td><td>2.4-2.8</td></tr>
+    <tr><td>Df（2GHz）</td><td>0.008-0.01</td><td>0.001-0.005</td><td>0.002-0.003</td><td>0.001-0.002</td></tr>
+    <tr><td>密度（g/cm³）</td><td>1.8-2.0</td><td>1.4-1.6</td><td>1.0-1.2</td><td>0.3-0.6</td></tr>
+    <tr><td>拉伸强度（MPa）</td><td>380-450</td><td>40-60</td><td>25-35</td><td>30-50</td></tr>
+    <tr><td>成本</td><td>低</td><td>最低</td><td>中</td><td>高</td></tr>
+    <tr><td>耐候性</td><td>良</td><td>差</td><td>优</td><td>优</td></tr>
+    <tr><td>适用频段</td><td><2.6GHz</td><td><2.6GHz</td><td><6GHz</td><td><40GHz</td></tr>
+    <tr><td>5G AAU 适用性</td><td>✗</td><td>△</td><td>✓</td><td>✓✓</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>四、天线罩结构设计</h2>
+    <h3>4.1 单层 vs 夹层</h3>
+    <pre><code>单层天线罩：
+      材料：ASA/PVC 挤出成型
+      厚度：2-5mm
+      适用：小尺寸单频天线
+      
+    夹层天线罩（Sandwich）：
+      外层：ASA（耐候）
+      芯材：发泡 PPE（低 Dk/Df）
+      内层：ASA（保护）
+      厚度：5-15mm
+      适用：大尺寸多频/毫米波天线
+      
+    优势：
+      - 高刚性（夹层结构）
+      - 低损耗（发泡芯材）
+      - 轻量化（芯材密度 0.4）
+      - 广角透波（夹层减少反射）</code></pre>
+    <h3>4.2 一体化设计</h3>
+    <pre><code>新一代一体化天线罩：
+      XYRON™ 外壳 + SunForce™ 垫片 + 放电条
+      
+    功能整合：
+      1. 外壳：XYRON™（低介电耐候）
+      2. 垫片：SunForce™ 发泡（保持间距 + 低损耗）
+      3. 放电条：电镀铜（防雷击）
+      
+    优势：
+      - 减少零件数量
+      - 提高装配精度
+      - 降低生产工时
+      - 提高无线电透明度</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>五、一句话总结</h2>
+    <p>天线罩材料经历了 GFRP→PVC→ASA→发泡 PPE 的四代演进，核心趋势是"低介电、低损耗、轻量化"。5G AAU 时代，ASA 是 Sub-6GHz 的主流选择，发泡 PPE 是毫米波/6G 的未来方向。记住：天线罩不是"随便一个塑料壳"——它的介电损耗会直接吃掉天线的增益，3mm 厚的 GFRP 就能吃掉 0.5dB 增益，这在 5G 里是不可接受的。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[零部件-天线罩radome深度解读]].html"><span class="ico">[</span><span>[零部件-天线罩Radome深度解读]]</span></a>
+      <a class="rel-card" href="[[零部件-平板天线panel-antenna]].html"><span class="ico">[</span><span>[[零部件-平板天线Panel-Antenna]]</span></a>
+      <a class="rel-card" href="[[材料-rogers系列高频板材].html"><span class="ico">[</span><span>[[材料-Rogers系列高频板材]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

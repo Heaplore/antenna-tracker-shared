@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIRP / ERP（等效全向辐射功率 / 等效辐射功率） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">EIRP / ERP（等效全向辐射功率 / 等效辐射功率） <span class="en">EIRP-ERP</span></h1>
+  <p class="lede">EIRP 是"假设天线各向同性辐射时需要的功率"——它是发射功率和天线增益的综合指标，决定了信号在自由空间中的"杀伤力"。ERP 类似但参考基准是偶极子而非各向同性体。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>EIRP 就像"子弹的杀伤力"——不仅看枪膛里的弹药量（发射功率），还要看枪管有没有瞄准器（天线增益）。一把 1W 的手枪（各向同性天线）和一把 1W 但装了瞄准镜的手枪（10dBi 增益天线），后者能打得更远更准。EIRP 就是"装了瞄准镜后的等效杀伤功率"。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、定义</h2>
+    <h3>1.1 EIRP（Effective Isotropic Radiated Power）</h3>
+    <pre><code>EIRP = P_t · G_t
+    EIRP(dBW) = P_t(dBW) + G_t(dBi)
+    EIRP(dBm) = P_t(dBm) + G_t(dBi)</code></pre>
+    <p>其中：</p>
+    <ul><li>P_t = 发射机输出功率（不含天线增益）</li><li>G_t = 发射天线增益（dBi）</li></ul>
+    <p><b>物理意义</b>：如果用一个各向同性天线（G = 1）替代现有天线，需要多大的功率才能达到相同的功率密度？</p>
+    <h3>1.2 ERP（Effective Radiated Power）</h3>
+    <pre><code>ERP = P_t · G_t_dipole
+    ERP(dBm) = P_t(dBm) + G_t(dBd)</code></pre>
+    <p>其中 G_t(dBd) 是相对于半波偶极子的增益。</p>
+    <p><b>与 EIRP 的关系</b>：</p>
+    <pre><code>EIRP(dBW) = ERP(dBW) + 2.15
+    ERP(dBW) = EIRP(dBW) - 2.15</code></pre>
+    <p>因为半波偶极子的增益是 2.15dBi。</p>
+    <h3>1.3 EIRP vs ERP vs 发射功率</h3>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>含义</th><th>单位</th><th>示例（5G 基站）</th></tr></thead>
+    <tbody>
+    <tr><td>P_t</td><td>发射机功率</td><td>dBm/W</td><td>30dBm (1W)</td></tr>
+    <tr><td>G_t</td><td>天线增益</td><td>dBi</td><td>25dBi</td></tr>
+    <tr><td>EIRP</td><td>等效全向辐射功率</td><td>dBW/dBm</td><td>55dBW</td></tr>
+    <tr><td>ERP</td><td>等效辐射功率</td><td>dBW/dBm</td><td>52.85dBW</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>二、EIRP 的法规限制</h2>
+    <h3>2.1 各国/各地区 EIRP 限值</h3>
+    <div class="tw"><table>
+    <thead><tr><th>频段</th><th>中国</th><th>美国(FCC)</th><th>欧盟(ETSI)</th><th>日本</th></tr></thead>
+    <tbody>
+    <tr><td>2.4GHz WiFi</td><td>20dBm (100mW)</td><td>30dBm (1W)</td><td>20dBm EIRP</td><td>20dBm</td></tr>
+    <tr><td>5GHz WiFi</td><td>24dBm</td><td>30dBm</td><td>23dBm EIRP</td><td>24dBm</td></tr>
+    <tr><td>28GHz 5G</td><td>40dBm/mm²</td><td>41dBm</td><td>40dBm</td><td>40dBm</td></tr>
+    <tr><td>39GHz 5G</td><td>40dBm</td><td>41dBm</td><td>40dBm</td><td>40dBm</td></tr>
+    <tr><td>卫星 C 波段</td><td>50-60dBW</td><td>50-65dBW</td><td>50-60dBW</td><td>50-55dBW</td></tr>
+    <tr><td>卫星 Ku 波段</td><td>50-60dBW</td><td>50-65dBW</td><td>50-60dBW</td><td>50-55dBW</td></tr>
+    </tbody></table></div>
+    <h3>2.2 5G 毫米波 EIRP 计算</h3>
+    <pre><code>P_t per channel = 20-30dBm (100mW-1W)
+    G_t per panel = 20-30dBi
+    EIRP = P_t + G_t = 40-60dBm (10W-1kW)</code></pre>
+    <p><b>实际限制</b>：</p>
+    <ul><li>中国：28GHz EIRP ≤ 40dBm（功率密度限制）</li><li>美国：28GHz EIRP ≤ 41dBm</li><li>欧盟：28GHz EIRP ≤ 40dBm</li></ul>
+    <h3>2.3 功率密度限制（PSD）</h3>
+    <p>毫米波频段更关注功率密度而非总 EIRP：</p>
+    <pre><code>PSD = EIRP / A_beam
+    PSD(dBm/mm²) = EIRP(dBm) - 10·log₁₀(A_beam_mm²)</code></pre>
+    <p><b>FCC 限制</b>（>6GHz）：</p>
+    <pre><code>PSD ≤ 10dBm/mm²（1cm² 平均）
+    或 PSD ≤ 23dBm/600MHz（带宽归一化）</code></pre>
+    <h3>2.4 SAR（Specific Absorption Rate，比吸收率）</h3>
+    <p>手机等贴近人体的设备受 SAR 限制：</p>
+    <pre><code>SAR = σ · E² / ρ</code></pre>
+    <p>其中 σ 是组织电导率，E 是电场强度，ρ 是组织密度。</p>
+    <p><b>限值</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>地区</th><th>头部 SAR</th><th>身体 SAR</th></tr></thead>
+    <tbody>
+    <tr><td>FCC（美国）</td><td>1.6W/kg（1g 组织）</td><td>1.6W/kg</td></tr>
+    <tr><td>ICNIRP（欧盟）</td><td>2.0W/kg（10g 组织）</td><td>2.0W/kg</td></tr>
+    <tr><td>中国</td><td>2.0W/kg（10g 组织）</td><td>2.0W/kg</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>三、EIRP 计算示例</h2>
+    <h3>3.1 5G 基站 AAU</h3>
+    <pre><code>配置：
+    P_t per RRU = 40W = 46dBm
+    G_t (64T64R) = 28dBi
+    馈线损耗 = 1dB
+    
+    EIRP = 46 + 28 - 1 = 73dBm = 73W ≈ 20kW</code></pre>
+    <p><b>注意</b>：73dBm 是峰值 EIRP，实际平均 EIRP 取决于调制方式和功率回退。</p>
+    <h3>3.2 卫星下行链路</h3>
+    <pre><code>配置：
+    转发器功率 = 100W = 50dBW
+    天线增益 = 30dBi
+    馈线损耗 = 1dB
+    
+    EIRP = 50 + 30 - 1 = 79dBW ≈ 80MW</code></pre>
+    <h3>3.3 WiFi 路由器</h3>
+    <pre><code>配置：
+    P_t = 20dBm（100mW）
+    G_t = 5dBi
+    
+    EIRP = 20 + 5 = 25dBm = 316mW</code></pre>
+    <h3>3.4 GPS 卫星上行</h3>
+    <pre><code>配置：
+    P_t = 50W = 47dBW
+    G_t = 40dBi（L1 频段）
+    
+    EIRP = 47 + 40 = 87dBW ≈ 5GW</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>四、EIRP 与链路预算</h2>
+    <h3>4.1 完整链路方程</h3>
+    <pre><code>P_r = EIRP + G_r - L_fs - L_other
+    P_r = (P_t + G_t) + G_r - L_fs - L_other</code></pre>
+    <h3>4.2 信噪比</h3>
+    <pre><code>SNR = P_r - P_n
+    SNR = EIRP + G_r - L_fs - L_other - P_n
+    SNR = EIRP + G_r/T_sys - L_fs - L_other - 10·log₁₀(k·B)</code></pre>
+    <h3>4.3 链路裕量</h3>
+    <pre><code>Margin = EIRP + G_r - L_fs - L_other - P_min</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>五、ERP vs EIRP 的选择</h2>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>EIRP</th><th>ERP</th></tr></thead>
+    <tbody>
+    <tr><td>参考基准</td><td>各向同性天线（0dBi）</td><td>半波偶达（0dBd）</td></tr>
+    <tr><td>单位</td><td>dBW/dBm（dBi）</td><td>dBW/dBm（dBd）</td></tr>
+    <tr><td>转换</td><td>ERP(dBW) = EIRP(dBW) - 2.15</td><td>EIRP(dBW) = ERP(dBW) + 2.15</td></tr>
+    <tr><td>应用领域</td><td>卫星通信、5G、雷达</td><td>广播（FM/TV）、业余无线电</td></tr>
+    <tr><td>国际标准</td><td>3GPP、FCC、ETSI</td><td>ITU-R（广播）</td></tr>
+    </tbody></table></div>
+    <p><b>工程建议</b>：</p>
+    <ul><li>5G/卫星/雷达 → 用 EIRP（dBi 基准）</li><li>FM 广播/电视 → 用 ERP（dBd 基准）</li><li>法规合规 → 按当地法规要求选择</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>六、一句话总结</h2>
+    <p>EIRP 是"发射功率 × 天线增益"的综合指标，告诉你信号到底有多"猛"。它不是真实的物理功率，而是一个等效值——假设你用一根什么都不聚光的天线（各向同性），需要多大功率才能达到同样的效果。记住：EIRP = P_t + G_t，单位 dB；ERP = EIRP - 2.15dB（因为偶极子比各向同性强 2.15dB）。法规管的就是 EIRP 上限，不是单纯的发射功率。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[指标术语-天线增益antenna-gain]].html"><span class="ico">[</span><span>[指标术语-天线增益Antenna-Gain]]</span></a>
+      <a class="rel-card" href="[[指标术语-friis传输方程friis-transmission-equation]].html"><span class="ico">[</span><span>[[指标术语-Friis传输方程Friis-Transmission-Equation]]</span></a>
+      <a class="rel-card" href="[[指标术语-噪声温度noise-temperature]].html"><span class="ico">[</span><span>[[指标术语-噪声温度Noise-Temperature]]</span></a>
+      <a class="rel-card" href="[[技术概念-毫米波天线millimeter-wave-antenna].html"><span class="ico">[</span><span>[[技术概念-毫米波天线Millimeter-Wave-Antenna]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

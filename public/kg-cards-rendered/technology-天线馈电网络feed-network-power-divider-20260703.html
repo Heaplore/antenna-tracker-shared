@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天线馈电网络（Antenna Feed Network） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">天线馈电网络 <span class="en">Antenna Feed Network</span></h1>
+  <p class="lede">馈电网络是大功率天线阵列的"血液循环系统"——它把一路输入信号均匀分配到 N 个天线单元，同时保证每个单元获得相同幅度和相位（或所需相位差）的能量。从 Sub-6GHz 的微带功分器到毫米波的波导馈电网络，再到 AiP 中的 Chip-on-Board 馈线，馈电网络的设计直接决定了阵列的性能上限。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>馈电网络就像城市的自来水管网：水源（信号发生器）进来后，需要通过主干管（输入传输线）分流到各个社区支管（功分器级联），最终到达每家每户（天线单元）。如果管道设计不合理——有的水压太大（功率不均）、有的水压太小（损耗过大）、有的管道互相串水（隔离度差）——整个供水系统就废了。馈电网络就是天线的"管道工程师"。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、馈电网络的核心功能</h2>
+    <h3>1.1 功率分配</h3>
+    <p>最基本的功能：将输入信号分成 N 路等幅（或不等幅）输出：</p>
+    <pre><code>输入 1 路 → 输出 N 路</code></pre>
+    <p><b>等幅分配</b>（最常见）：</p>
+    <ul><li>所有输出端口功率相等</li><li>用于均匀照射的阵列</li><li>典型应用：波束赋形阵列、相控阵</li></ul>
+    <p><b>不等幅分配</b>（渐削照射）：</p>
+    <ul><li>中心单元功率高，边缘单元功率低</li><li>用于降低旁瓣电平</li><li>典型应用：射电望远镜、卫星通信</li></ul>
+    <h3>1.2 相位控制</h3>
+    <p>某些馈电网络需要引入特定的相位差：</p>
+    <pre><code>Δφ_n = n · d · sin(θ₀) · 2π/λ</code></pre>
+    <p>其中 d 是单元间距，θ₀ 是目标波束指向。</p>
+    <p><b>用途</b>：</p>
+    <ul><li>波束指向控制（相控阵）</li><li>波束倾斜（机械/电子倾角）</li><li>多波束生成</li></ul>
+    <h3>1.3 阻抗匹配</h3>
+    <p>确保从输入到每个输出的阻抗匹配：</p>
+    <pre><code>Z_in = Z₀（输入匹配）
+    Z_out_n = Z₀（输出匹配）</code></pre>
+    <p>匹配不好会导致：</p>
+    <ul><li>反射增大 → S11 恶化</li><li>功率损耗 → 效率下降</li><li>谐波失真 → 信号质量下降</li></ul>
+    <h3>1.4 端口隔离</h3>
+    <p>输出端口之间需要足够的隔离度：</p>
+    <pre><code>S_ij &lt; -20dB（i ≠ j，输出端口间）</code></pre>
+    <p>隔离度差会导致：</p>
+    <ul><li>互耦增大 → 方向图畸变</li><li>功率在端口间泄露 → 效率下降</li><li>多径效应加剧 → MIMO 性能下降</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>二、馈电网络的主要类型</h2>
+    <h3>2.1 微带功分器（Microstrip Power Divider）</h3>
+    <h4>Wilkinson 功分器（最经典）</h4>
+    <pre><code>         Z₀·√2, θ₀
+    Input ────┤╬├──── Output 1
+              │ │
+             [R]       ← 隔离电阻（2Z₀）
+              │ │
+    Output 2 ─┤╬├──── Output 3
+             Z₀·√2, θ₀</code></pre>
+    <p><b>原理</b>：</p>
+    <ul><li>两段 λ/4 阻抗变换线（Z = Z₀√2）</li><li>中心隔离电阻 R = 2Z₀ = 100Ω（50Ω 系统）</li><li>当两输出端匹配时，电阻上无电流 → 不耗散功率</li><li>当输出失配时，电阻吸收反射功率 → 提高隔离</li></ul>
+    <p><b>性能指标</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>典型值</th></tr></thead>
+    <tbody>
+    <tr><td>插入损耗</td><td>0.1-0.3dB</td></tr>
+    <tr><td>隔离度</td><td>> 20dB</td></tr>
+    <tr><td>带宽</td><td>10-20%</td></tr>
+    <tr><td>幅度平衡</td><td>±0.5°</td></tr>
+    <tr><td>相位平衡</td><td>±0.1dB</td></tr>
+    </tbody></table></div>
+    <p><b>多路扩展</b>（树状结构）：</p>
+    <pre><code>1→2 功分器
+      ├─ 1→2 → 输出 1,2
+      └─ 1→2 → 1→2 → 输出 3,4
+                    └─ 1→2 → 输出 5,6
+                          └─ 1→2 → 输出 7,8</code></pre>
+    <p>N 路需要 log₂(N) 级 Wilkinson。</p>
+    <h4>T 结功分器（T-Junction Divider）</h4>
+    <p>最简单的结构，但隔离度差：</p>
+    <pre><code>Input ──┬── Output 1
+            └── Output 2</code></pre>
+    <ul><li>插入损耗：0.5-1dB</li><li>隔离度：-3dB（很差）</li><li>带宽：宽（DC 到 GHz）</li><li>适用：对隔离要求不高的场景</li></ul>
+    <h3>2.2 波导馈电网络（Waveguide Feed Network）</h3>
+    <p>毫米波基站的主流选择：</p>
+    <pre><code>        ┌─── 臂 A ──→ 单元 1-8
+    Input ──┤
+            ├─── 臂 B ──→ 单元 9-16
+            ├─── 臂 C ──→ 单元 17-24
+            └─── 臂 D ──→ 单元 25-32</code></pre>
+    <p><b>优势</b>：</p>
+    <ul><li>损耗极低（比微带低 5-10 倍）</li><li>功率容量大（kW 级）</li><li>高频性能好（毫米波/太赫兹）</li><li>屏蔽性好（无辐射损耗）</li></ul>
+    <p><b>劣势</b>：</p>
+    <ul><li>体积大、重量大</li><li>加工成本高</li><li>难以集成</li></ul>
+    <p><b>常见波导功分器</b>：</p>
+    <ul><li>E 面 T 接头</li><li>H 面 T 接头</li><li>交叉波导（Magic Tee）</li><li>Rat-Race 环形电桥</li></ul>
+    <h3>2.3 带状线馈电网络（Stripline Feed Network）</h3>
+    <p>介于微带和波导之间：</p>
+    <pre><code>Top Microstrip
+    Dielectric
+    Middle Stripline ← 馈电网络藏在此层
+    Dielectric
+    Bottom Microstrip ← 天线单元在此层</code></pre>
+    <p><b>优势</b>：</p>
+    <ul><li>双面布局（馈线和天线分开）</li><li>屏蔽好（无辐射损耗）</li><li>适合多层 PCB</li></ul>
+    <h3>2.4 共面波导馈电网络（CPW Feed Network）</h3>
+    <pre><code>Signal ────┬──── Signal
+    Ground ────┘ ──── Ground</code></pre>
+    <ul><li>无需过孔接地</li><li>易于并联有源器件</li><li>损耗高于微带和波导</li></ul>
+    <h3>2.5 硅通孔馈电网络（Through-Silicon Via, TSV）</h3>
+    <p>用于 AiP 和芯片级集成：</p>
+    <pre><code>Chip Top:  天线单元
+                │
+    TSV:       ▼▼▼▼▼▼  ← 垂直互连
+    Chip Mid:  馈电网络（硅基底内）
+                │
+    Chip Bot:  驱动 IC（BFIC）</code></pre>
+    <p><b>优势</b>：</p>
+    <ul><li>超薄剖面</li><li>高频损耗低</li><li>适合大规模量产</li></ul>
+    <h3>2.6 激光诱导技术馈电网络（LIFT / LIGA）</h3>
+    <p>用于毫米波/太赫兹的高精度馈线：</p>
+    <pre><code>高精度 LIGA 工艺 → 深硅刻蚀 → 金属填充</code></pre>
+    <ul><li>线宽精度 ±1μm</li><li>适合 100GHz+ 频段</li><li>成本高</li></ul>
+    <h3>2.7 X 型全波导馈电网络（X-Type Full-Corporate Waveguide）</h3>
+    <p>2022 年提出的新型毫米波馈电拓扑：</p>
+    <p><b>特点</b>：</p>
+    <ul><li>级数减半（相比传统树状）</li><li>带宽提升 2 倍</li><li>插入损耗降低 3dB</li><li>适合 28/39GHz 大规模阵列</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>三、馈电网络拓扑结构</h2>
+    <h3>3.1 树状馈电（Corporate Feed）</h3>
+    <p>最经典的分配方式：</p>
+    <pre><code>         Input
+               │
+            ┌──┴──┐
+            │ 1→2 │
+            └──┬──┘
+         ┌─────┴─────┐
+      ┌──┴──┐     ┌──┴──┐
+      │ 1→2 │     │ 1→2 │
+      └──┬──┘     └──┬──┘
+     ┌──┴──┐     ┌──┴──┐
+     │1→2  │     │1→2  │
+     └──┬──┘     └──┬──┘
+       1   2       3   4    （4 单元阵列）</code></pre>
+    <p><b>优缺点</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>优点</th><th>缺点</th></tr></thead>
+    <tbody>
+    <tr><td>设计简单</td><td>级数多时损耗大</td></tr>
+    <tr><td>幅度/相位一致性好</td><td>级联越多，累积误差越大</td></tr>
+    <tr><td>易于仿真和优化</td><td>故障扩散（一级坏了全废）</td></tr>
+    </tbody></table></div>
+    <h3>3.2 并行馈电（Parallel Feed / Bus Feed）</h3>
+    <p>所有单元并联到同一根馈线上：</p>
+    <pre><code>Input ────────────────────────────────
+            │         │         │
+          Unit 1    Unit 2   Unit 3</code></pre>
+    <p><b>优缺点</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>优点</th><th>缺点</th></tr></thead>
+    <tbody>
+    <tr><td>结构简单</td><td>馈线损耗大（沿程衰减）</td></tr>
+    <tr><td>无级联损耗</td><td>幅度不一致（边缘单元弱）</td></tr>
+    <tr><td>故障不影响其他</td><td>阻抗变化大</td></tr>
+    </tbody></table></div>
+    <h3>3.3 混合馈电（Hybrid Feed）</h3>
+    <p>树状 + 并行结合：</p>
+    <pre><code>输入 → 树状分配（4 路）→ 每路并行馈给 8 个单元</code></pre>
+    <p><b>优点</b>：兼顾简单性和均匀性 <b>缺点</b>：设计复杂</p>
+    <h3>3.4 波导混合馈电（Waveguide Corporate + Parallel）</h3>
+    <pre><code>波导分配 → 微带功分 → 天线单元</code></pre>
+    <p><b>典型应用</b>：5G 基站 AAU</p>
+  </article>
+
+  <article class="card">
+    <h2>四、关键性能指标</h2>
+    <h3>4.1 插入损耗（Insertion Loss）</h3>
+    <pre><code>IL_total = IL_splitter + IL_line + IL_connector</code></pre>
+    <div class="tw"><table>
+    <thead><tr><th>频率</th><th>微带线损耗</th><th>波导损耗</th><th>LCP 损耗</th></tr></thead>
+    <tbody>
+    <tr><td>3.5GHz</td><td>0.1 dB/m</td><td>0.02 dB/m</td><td>0.08 dB/m</td></tr>
+    <tr><td>28GHz</td><td>1.5 dB/m</td><td>0.2 dB/m</td><td>1.0 dB/m</td></tr>
+    <tr><td>39GHz</td><td>2.5 dB/m</td><td>0.3 dB/m</td><td>1.8 dB/m</td></tr>
+    <tr><td>77GHz</td><td>5.0 dB/m</td><td>0.8 dB/m</td><td>4.0 dB/m</td></tr>
+    </tbody></table></div>
+    <h3>4.2 幅度平衡（Amplitude Balance）</h3>
+    <pre><code>ΔP = |P_out1 - P_out2| &lt; 0.5dB（典型要求）</code></pre>
+    <p>幅度不平衡会导致：</p>
+    <ul><li>旁瓣电平升高</li><li>波束指向偏移</li><li>极化隔离度下降</li></ul>
+    <h3>4.3 相位平衡（Phase Balance）</h3>
+    <pre><code>Δφ = |φ_out1 - φ_out2| &lt; 5°（典型要求）</code></pre>
+    <p>相位不平衡的后果更严重：</p>
+    <ul><li>波束指向误差：Δθ ≈ Δφ / (180°/N)</li><li>64 单元阵列中，Δφ = 5° → Δθ ≈ 4.5°</li><li>可能导致链路中断</li></ul>
+    <h3>4.4 隔离度（Isolation）</h3>
+    <pre><code>S_isolation = 20·log₁₀(|V_reflected| / |V_incident|) &lt; -20dB</code></pre>
+    <p>隔离度不足的影响：</p>
+    <ul><li>单元间互耦</li><li>方向图畸变</li><li>MIMO 信道相关性增加</li></ul>
+    <h3>4.5 带宽（Bandwidth）</h3>
+    <pre><code>BW = (f_max - f_min) / f_center × 100%</code></pre>
+    <div class="tw"><table>
+    <thead><tr><th>馈电类型</th><th>典型带宽</th></tr></thead>
+    <tbody>
+    <tr><td>Wilkinson</td><td>10-20%</td></tr>
+    <tr><td>Rat-Race</td><td>10-15%</td></tr>
+    <tr><td>Marchand Balun</td><td>20-40%</td></tr>
+    <tr><td>波导</td><td>10-30%</td></tr>
+    <tr><td>多节变换</td><td>> 50%</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>五、毫米波馈电网络的特殊挑战</h2>
+    <h3>5.1 导体损耗剧增</h3>
+    <p>趋肤深度 δ 随频率升高而减小：</p>
+    <pre><code>δ = √(2ρ/ωμ)</code></pre>
+    <p>28GHz 时铜的 δ ≈ 0.35μm，意味着：</p>
+    <ul><li>PCB 铜厚至少 3δ ≈ 1μm（镀金层）</li><li>表面粗糙度影响显著</li><li>Ra < 0.5μm 是目标</li></ul>
+    <h3>5.2 尺寸缩小</h3>
+    <p>波长缩短 → 所有传输线尺寸按比例缩小：</p>
+    <pre><code>λ_28GHz = λ_3.5GHz / 8</code></pre>
+    <ul><li>微带线宽度从 ~1mm 缩到 ~0.13mm</li><li>波导尺寸从 ~70mm 缩到 ~9mm</li><li>加工精度要求从 ±0.1mm 提升到 ±0.02mm</li></ul>
+    <h3>5.3 多路功分器的级联损耗</h3>
+    <p>N = 64 单元需要 6 级 Wilkinson：</p>
+    <pre><code>总损耗 = 6 × 0.15dB（每级）= 0.9dB</code></pre>
+    <p>加上传输线损耗（假设平均每路 10cm，28GHz 下 1.5dB/m）：</p>
+    <pre><code>总损耗 ≈ 0.9 + 0.15 = 1.05dB</code></pre>
+    <p>对于 256 单元（8 级）：</p>
+    <pre><code>总损耗 ≈ 8 × 0.15 + 0.2 = 1.4dB</code></pre>
+    <h3>5.4 双频/多频馈电</h3>
+    <p>5G 毫米波通常覆盖多个频段（如 28GHz + 39GHz）：</p>
+    <pre><code>双频 Wilkinson 设计：
+    - 使用多节阻抗变换
+    - 每节针对一个频段优化
+    - 带宽扩展技术（inter-stage phase optimization）</code></pre>
+    <p>2024 年天津大学提出的 16 路双频功分器：</p>
+    <ul><li>28GHz 带宽：23-32GHz（32.1%）</li><li>39GHz 带宽：34-46.5GHz（32.1%）</li><li>采用级间相位优化技术</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>六、典型应用案例</h2>
+    <h3>6.1 5G 基站 AAU 馈电网络</h3>
+    <pre><code>BFIC → 波导分配 → 微带功分 → 天线单元（64-256）</code></pre>
+    <ul><li>波导部分：低损耗主干分配</li><li>微带部分：精细阻抗匹配</li><li>总损耗：< 2dB</li><li>隔离度：> 25dB</li></ul>
+    <h3>6.2 手机 AiP 馈电网络</h3>
+    <pre><code>BFIC → LCP 微带 → 天线单元（4-16）</code></pre>
+    <ul><li>基板：LCP 或玻璃</li><li>线宽：50-100μm</li><li>总损耗：< 1.5dB</li><li>尺寸：< 20mm × 20mm</li></ul>
+    <h3>6.3 卫星通信馈电网络</h3>
+    <pre><code>LNA → 波导分配 → 喇叭馈源 → 龙勃透镜</code></pre>
+    <ul><li>功率容量：kW 级</li><li>损耗：< 0.5dB</li><li>可靠性：MTBF > 100,000 小时</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>七、设计流程</h2>
+    <pre><code>1. 确定需求：N 路、频率、带宽、损耗预算
+    2. 选择拓扑：树状/并行/混合
+    3. 选择传输线：微带/带状线/波导
+    4. 设计功分器：Wilkinson/Rat-Race/其他
+    5. 仿真优化：HFSS/CST 全波仿真
+    6. 加工测试：PCB/机械加工
+    7. 实测验证：S 参数、方向图、效率</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>八、技术成熟度</h2>
+    <ul><li><b>成熟度等级</b>：高度成熟</li><li><b>说明</b>：Sub-6GHz 馈电网络技术非常成熟（几十年积累）。毫米波馈电网络在 5G 基站和手机中已有成熟应用。波导馈电网络在基站 AAU 中是主流方案。AiP 中的芯片级馈电网络正在快速成熟中。</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>九、一句话总结</h2>
+    <p>馈电网络是天线的"血管系统"——它不直接辐射，但决定了有多少能量能到达每个辐射单元、以什么幅度和相位到达。一个好的馈电网络应该做到：损耗低、幅度/相位均匀、隔离度好、带宽够。在毫米波时代，馈电网络的挑战从"能不能做"变成了"怎么做才够小够精确"。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <span style="color:var(--ink-3);font-size:13px">暂无关联笔记</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

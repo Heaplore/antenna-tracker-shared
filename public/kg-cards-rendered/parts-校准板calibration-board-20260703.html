@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校准板（Calibration Board） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">校准板 <span class="en">Calibration Board</span></h1>
+  <p class="lede">校准板是 AAU 内部校准的"桥梁"——它通过耦合器和环形器连接所有 T/R 模块，在主通道和从通道之间建立校准链路，确保 64 个通道的幅度和相位一致性。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>一、校准板的角色</h2>
+    <h3>1.1 为什么需要校准</h3>
+    <pre><code>通道不一致的来源：
+      1. T/R 模块个体差异（PA增益、LNA噪声）
+      2. 温度漂移（不同通道温升不同）
+      3. 频率响应差异
+      4. 老化效应
+      
+    不校准的后果：
+      - 波束指向偏差（误码率↑）
+      - 旁瓣抬高（干扰↑）
+      - MIMO 容量下降（速率↓）</code></pre>
+    <h3>1.2 校准链路架构</h3>
+    <pre><code>校准板连接方式：
+      ┌──────────────────────────────────────┐
+      │  主通道耦合器（Master Coupler）       │
+      │  - 从 TX 路径采样信号                 │
+      │  - 分发到从通道 RX                    │
+      └──────────────────────────────────────┘
+             │
+      ┌──────┴──────────────────────────────┐
+      │  从通道耦合器（Slave Couplers）       │
+      │  - 从各 TX 路径采样信号               │
+      │  - 发送到主通道 RX                   │
+      └──────────────────────────────────────┘</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、校准方法</h2>
+    <h3>2.1 内部校准（推荐）</h3>
+    <pre><code>步骤：
+      1. 通道 1 发射校准信号
+      2. 其他通道通过耦合器接收
+      3. 计算相对幅度和相位误差
+      4. 更新通道 1 的校准系数
+      5. 循环对所有通道执行
+      
+    优点：
+      - 无需外部设备
+      - 可在线校准
+      - 精度高
+      
+    缺点：
+      - 耦合器误差会影响精度
+      - 需要额外的耦合器/环形器</code></pre>
+    <h3>2.2 外部校准（OTA）</h3>
+    <pre><code>步骤：
+      1. AAU 放入暗室
+      2. 标准天线接收信号
+      3. 测量全方向图
+      4. 计算校准系数
+      5. 下发到 AAU
+      
+    优点：
+      - 精度最高
+      - 包含天线方向图效应
+      
+    缺点：
+      - 需要暗室设备
+      - 不能在线校准
+      - 成本高</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、校准板硬件</h2>
+    <h3>3.1 核心组件</h3>
+    <pre><code>校准板组成：
+      ├── 耦合器网络（Star Coupler / 环形器）
+      ├── 开关矩阵（选择主/从通道）
+      ├── 衰减器（保护接收链路）
+      ├── 滤波器（抑制带外干扰）
+      ├── MCU（校准算法执行）
+      └── 存储（校准系数 Flash）</code></pre>
+    <h3>3.2 校准信号</h3>
+    <pre><code>校准信号类型：
+      1. CW 信号（连续波）
+         - 最简单
+         - 适合幅度/相位校准
+         
+      2. PN 序列（伪随机）
+         - 抗干扰
+         - 适合噪声基底高的场景
+         
+      3. OFDM 符号
+         - 频率选择性校准
+         - 适合宽带系统</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>四、校准精度</h2>
+    <h3>4.1 精度要求</h3>
+    <pre><code>5G NR 要求：
+      幅度一致性：±0.5dB
+      相位一致性：±3°
+      
+    校准后精度：
+      幅度：±0.1dB
+      相位：±1°
+      
+    温度漂移：
+      幅度：±0.1dB/°C
+      相位：±0.5°/°C</code></pre>
+    <h3>4.2 校准周期</h3>
+    <pre><code>校准触发条件：
+      1. 开机时（全通道校准）
+      2. 温度变化 &gt; 5°C（部分校准）
+      3. 定时校准（每 6 小时）
+      4. 网管手动触发
+      
+    校准耗时：
+      全通道校准：~5 秒
+      温度补偿校准：~1 秒</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>五、工程注意事项</h2>
+    <h3>5.1 耦合器设计</h3>
+    <pre><code>校准耦合器要求：
+      1. 耦合度一致性：±0.1dB
+      2. 相位一致性：±1°
+      3. 温度稳定性：±0.01dB/°C
+      4. 插入损耗：&lt; 0.5dB</code></pre>
+    <h3>5.2 校准系数存储</h3>
+    <pre><code>存储位置：
+      1. EEPROM（断电保存）
+      2. Flash（可擦写）
+      3. 云端（远程备份）
+      
+    更新策略：
+      1. 全通道校准后更新
+      2. 温度补偿后增量更新
+      3. OTA 升级时同步更新</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>六、一句话总结</h2>
+    <p>校准板是 AAU 通道一致性的保障——通过耦合器网络连接所有 T/R 模块，实现内部校准。精度要求：幅度 ±0.1dB、相位 ±1°。记住：校准不是一次性的，温度漂移和老化会导致精度退化，定期校准是波束赋形质量的保证。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[零部件-t-r模块transmit-receive-module]].html"><span class="ico">[</span><span>[零部件-T-R模块Transmit-Receive-Module]]</span></a>
+      <a class="rel-card" href="[[零部件-波控板beam-control-board]].html"><span class="ico">[</span><span>[[零部件-波控板Beam-Control-Board]]</span></a>
+      <a class="rel-card" href="[[零部件-耦合器directional-coupler].html"><span class="ico">[</span><span>[[零部件-耦合器Directional-Coupler]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

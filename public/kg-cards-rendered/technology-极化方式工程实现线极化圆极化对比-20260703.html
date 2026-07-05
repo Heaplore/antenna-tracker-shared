@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>极化方式工程实现对比 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">极化方式工程实现对比</h1>
+  <p class="lede">基站天线 99% 用 ±45° 线极化（双极化天线），卫星/GNSS 用圆极化。极化方式选择取决于"空间复用效率 vs 实现复杂度"——±45° 线极化在移动场景中表现最好，交叉极化隔离度 > 25dB 就能实现双流复用。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>极化就像"光的偏振方向"——太阳镜的偏振片只让特定方向的光通过。基站天线用两个互相垂直的极化方向（±45°），相当于同时开两条"光车道"，互不干扰，容量翻倍。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、线极化（Linear Polarization）</h2>
+    <h3>1.1 ±45° 双极化（基站主流）</h3>
+    <pre><code>结构：
+      每个天线单元 = 两根互相垂直的振子
+      振子 1：+45° 方向
+      振子 2：-45° 方向
+      
+    实现方式：
+      1. 交叉偶极子（Crossed Dipole）
+         两根半波振子成 90° 交叉
+         馈电点偏移 45° 实现 ±45° 极化
+         
+      2. 微带贴片（Patch）
+         两个馈点激励正 TM 模
+         馈电相位差 90° → ±45°
+         
+      3. 波导缝隙（Waveguide Slot）
+         波导壁上切两组正交缝隙
+         分别激励 +45°/-45°
+    
+    关键指标：
+      - 极化隔离度（Cross-Pol Isolation）：&gt; 25dB
+      - 轴比（Axial Ratio）：&lt; 3dB（线极化接近 0°）
+      - 极化纯度：&gt; 95%
+    
+    优势：
+      - 结构简单，成本低
+      - 极化隔离度好（25-30dB）
+      - 适合空间复用（双流 MIMO）
+      - 5G 基站标配
+    
+    劣势：
+      - 多径衰落时极化失配
+      - 终端天线极化不确定时性能下降</code></pre>
+    <h3>1.0°/90° 垂直极化</h3>
+    <pre><code>应用：
+      - 卫星通信（部分）
+      - 雷达
+      - 老旧 2G/3G 基站
+      
+    特点：
+      - 极化隔离度好
+      - 但受终端姿态影响大
+      - 5G 已基本不用</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、圆极化（Circular Polarization）</h2>
+    <h3>2.1 原理</h3>
+    <pre><code>圆极化：
+      电场矢量端点随时间画圆
+      
+      右旋圆极化（RHCP）：顺时针旋转
+      左旋圆极化（LHCP）：逆时针旋转
+      
+    产生方式：
+      1. 正交线极化 + 90° 相位差
+         E_x = E₀·cos(ωt)
+         E_y = E₀·cos(ωt + 90°) = -E₀·sin(ωt)
+         → 合成矢量端点画圆
+         
+      2. 螺旋天线（Helical Antenna）
+         导线绕成螺旋形
+         轴向辐射 = 圆极化
+         
+      3. 微带贴片 + 偏心馈电
+         方形贴片两个对角馈电
+         相位差 90° → 圆极化</code></pre>
+    <h3>2.2 关键指标</h3>
+    <pre><code>轴比（Axial Ratio, AR）：
+      衡量圆极化&quot;圆&quot;的程度
+      AR = 长轴/短轴
+      
+      AR = 1（0dB）→ 完美圆极化
+      AR = 3dB → 可接受
+      AR &gt; 6dB → 不适合圆极化应用
+      
+    带宽：
+      圆极化带宽通常比线极化窄
+      ±45° 线极化：~100% 相对带宽
+      圆极化：~10-20% 相对带宽</code></pre>
+    <h3>2.3 应用场景</h3>
+    <div class="tw"><table>
+    <thead><tr><th>应用</th><th>极化方式</th><th>原因</th></tr></thead>
+    <tbody>
+    <tr><td>GNSS（GPS/北斗）</td><td>RHCP</td><td>卫星信号经过大气反射后极化不变</td></tr>
+    <tr><td>卫星通信</td><td>RHCP/LHCP</td><td>减少极化失配（卫星姿态变化）</td></tr>
+    <tr><td>RFID</td><td>RHCP</td><td>标签姿态不确定</td></tr>
+    <tr><td>车载毫米波雷达</td><td>圆极化</td><td>多径反射抑制</td></tr>
+    <tr><td>5G 基站</td><td>❌ 不用</td><td>线极化更高效</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>三、极化方式对比</h2>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>±45° 线极化</th><th>垂直线极化</th><th>圆极化</th></tr></thead>
+    <tbody>
+    <tr><td>极化隔离度</td><td>25-30dB</td><td>30+dB</td><td>N/A</td></tr>
+    <tr><td>实现复杂度</td><td>低</td><td>低</td><td>中</td></tr>
+    <tr><td>带宽</td><td>宽（> 100%）</td><td>宽</td><td>窄（10-20%）</td></tr>
+    <tr><td>终端兼容性</td><td>好（手机双极化）</td><td>差</td><td>中</td></tr>
+    <tr><td>多径容忍度</td><td>中</td><td>低</td><td>高</td></tr>
+    <tr><td>5G 基站</td><td>✅ 主流</td><td>❌</td><td>❌</td></tr>
+    <tr><td>卫星/GNSS</td><td>❌</td><td>❌</td><td>✅</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>四、一句话总结</h2>
+    <p>5G 基站天线 99% 用 ±45° 双极化——结构简单、隔离度好、终端兼容性强。圆极化只在卫星/GNSS/RFID 等"接收端姿态不确定"的场景用。记住：极化方式不是"越高级越好"，而是"越适合场景越好"。±45° 线极化在移动场景的空间复用效率最高，所以成了 5G 基站的事实标准。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[技术概念-天线极化基础polarization-fundamentals]].html"><span class="ico">[</span><span>[技术概念-天线极化基础Polarization-Fundamentals]]</span></a>
+      <a class="rel-card" href="[[技术概念-极化分集polarization-diversity]].html"><span class="ico">[</span><span>[[技术概念-极化分集Polarization-Diversity]]</span></a>
+      <a class="rel-card" href="[[技术概念-极化波束赋形polarization-beamforming].html"><span class="ico">[</span><span>[[技术概念-极化波束赋形Polarization-Beamforming]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

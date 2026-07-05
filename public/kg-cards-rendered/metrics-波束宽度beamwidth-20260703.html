@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>波束宽度 Beamwidth（HPBW / BW） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">波束宽度 Beamwidth <span class="en">HPBW / BW</span></h1>
+  <p class="lede">波束宽度是天线主瓣在功率下降到峰值一半（-3dB）处的张角——它告诉你天线"指得有多准"，波束越窄，方向性越强，但扫描范围可能受限。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>波束宽度就像手电筒的光斑角度——聚光模式（窄波束）照亮远处但范围小，泛光模式（宽波束）照亮近处但范围广。5G 毫米波基站用窄波束（5-10°）对准手机，就像用激光笔；而 WiFi 路由器用宽波束（60-90°）覆盖整个房间，就像用台灯。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、定义与物理意义</h2>
+    <h3>1.1 半功率波束宽度（HPBW）</h3>
+    <pre><code>HPBW = 两个功率下降到峰值一半（-3dB）的点之间的夹角</code></pre>
+    <p>在方向图中找到 E 面和 H 面：</p>
+    <pre><code>       ↑ 最大辐射方向（0°）
+          ╱╲
+         ╱  ╲
+        ╱    ╲
+       ╱      ╲
+    ──╱────────╲──
+      -θ/2    +θ/2
+          ↑
+       HPBW = θ</code></pre>
+    <h3>1.2 零点波束宽度（BWFN）</h3>
+    <pre><code>BWFN = 两个功率为零（或最小）的点之间的夹角
+    BWFN ≈ 2 × HPBW（近似）</code></pre>
+    <h3>1.3 波束宽度与方向性的关系</h3>
+    <pre><code>D ≈ 4π / (θ_E · θ_H)
+    D(dBi) ≈ 10.5 + 10·log₁₀(3600 / (θ_E · θ_H))</code></pre>
+    <p>其中 θ_E 和 θ_H 分别是 E 面和 H 面的 HPBW（单位：度）。</p>
+    <p><b>简化公式</b>（圆形对称波束）：</p>
+    <pre><code>D(dBi) ≈ 10.5 + 20·log₁₀(360 / θ) - 10·log₁₀(θ²)
+    D(dBi) ≈ 10.5 + 20·log₁₀(360/θ) - 20·log₁₀(θ)</code></pre>
+    <p>更常用的近似：</p>
+    <pre><code>D(dBi) ≈ 10.5 + 10·log₁₀(41253 / (θ_E · θ_H))</code></pre>
+    <h3>1.4 波束宽度与天线尺寸的关系</h3>
+    <pre><code>θ ≈ k · λ / D</code></pre>
+    <p>其中 k 是常数（约 70° 对于均匀口径，约 50° 对于均匀照射），D 是天线口径尺寸。</p>
+    <p><b>典型值</b>：</p>
+    <pre><code>θ(度) ≈ 65 · λ / D（均匀照射）
+    θ(度) ≈ 70 · λ / D（均匀口径）
+    θ(度) ≈ 50 · λ / D（抛物面天线，高口径效率）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、计算公式</h2>
+    <h3>2.1 阵列天线波束宽度</h3>
+    <pre><code>N 元均匀线阵：
+    HPBW ≈ 0.886 · λ / (N · d · cosθ₀)（窄束近似）
+    
+    其中：
+      λ = 波长
+      d = 单元间距
+      θ₀ = 波束指向角
+      N = 单元数</code></pre>
+    <p><b>示例</b>（64 单元，d = λ/2，θ₀ = 0°）：</p>
+    <pre><code>HPBW ≈ 0.886 · λ / (64 · λ/2) = 0.886 / 32 = 0.0277 rad = 1.59°</code></pre>
+    <p><b>扫描到 60° 时</b>：</p>
+    <pre><code>HPBW(60°) = HPBW(0°) / cos(60°) = 1.59° / 0.5 = 3.18°
+    波束展宽 2 倍！</code></pre>
+    <h3>2.2 扫描引起的波束展宽</h3>
+    <pre><code>θ_scan = θ_broadside / cos(θ₀)</code></pre>
+    <div class="tw"><table>
+    <thead><tr><th>扫描角</th><th>cos(θ₀)</th><th>波束展宽因子</th></tr></thead>
+    <tbody>
+    <tr><td>0°</td><td>1.0</td><td>1.0×</td></tr>
+    <tr><td>30°</td><td>0.866</td><td>1.15×</td></tr>
+    <tr><td>45°</td><td>0.707</td><td>1.41×</td></tr>
+    <tr><td>60°</td><td>0.5</td><td>2.0×</td></tr>
+    <tr><td>70°</td><td>0.342</td><td>2.92×</td></tr>
+    </tbody></table></div>
+    <h3>2.3 口径照明分布对波束宽度的影响</h3>
+    <pre><code>θ ≈ k(illumination) · λ / D</code></pre>
+    <div class="tw"><table>
+    <thead><tr><th>照明分布</th><th>k 值</th><th>HPBW 倍数</th><th>旁瓣电平</th></tr></thead>
+    <tbody>
+    <tr><td>均匀</td><td>70°</td><td>1.0×</td><td>0dB</td></tr>
+    <tr><td>三角形</td><td>100°</td><td>1.43×</td><td>-23dB</td></tr>
+    <tr><td>二次方</td><td>120°</td><td>1.71×</td><td>-32dB</td></tr>
+    <tr><td>泰勒分布</td><td>80-90°</td><td>1.14-1.29×</td><td>-20-30dB</td></tr>
+    <tr><td>切比雪夫</td><td>75-85°</td><td>1.07-1.21×</td><td>-20-30dB</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>三、典型值范围</h2>
+    <h3>3.1 不同天线的波束宽度</h3>
+    <div class="tw"><table>
+    <thead><tr><th>天线类型</th><th>E 面 HPBW</th><th>H 面 HPBW</th><th>应用</th></tr></thead>
+    <tbody>
+    <tr><td>八木天线</td><td>20-40°</td><td>30-60°</td><td>TV 接收</td></tr>
+    <tr><td>抛物面（C 波段）</td><td>2-5°</td><td>2-5°</td><td>卫星通信</td></tr>
+    <tr><td>抛物面（Ku 波段）</td><td>1-3°</td><td>1-3°</td><td>卫星通信</td></tr>
+    <tr><td>5G AAU（3.5GHz）</td><td>6-10°</td><td>6-10°</td><td>宏基站</td></tr>
+    <tr><td>5G AAU（28GHz）</td><td>3-8°</td><td>3-8°</td><td>毫米波基站</td></tr>
+    <tr><td>WiFi 路由器</td><td>60-90°</td><td>30-45°</td><td>室内覆盖</td></tr>
+    <tr><td>手机终端</td><td>60-120°</td><td>60-120°</td><td>移动终端</td></tr>
+    <tr><td>GPS 天线</td><td>30-60°</td><td>30-60°</td><td>卫星导航</td></tr>
+    <tr><td>雷达（机载）</td><td>1-3°</td><td>1-3°</td><td>搜索雷达</td></tr>
+    </tbody></table></div>
+    <h3>3.2 5G AAU 波束宽度与通道数的关系</h3>
+    <div class="tw"><table>
+    <thead><tr><th>天线类型</th><th>通道数</th><th>E 面 HPBW</th><th>H 面 HPBW</th><th>覆盖范围</th></tr></thead>
+    <tbody>
+    <tr><td>64T64R（3.5GHz）</td><td>64</td><td>6-8°</td><td>6-8°</td><td>1km</td></tr>
+    <tr><td>32T32R（3.5GHz）</td><td>32</td><td>8-10°</td><td>10-12°</td><td>1.5km</td></tr>
+    <tr><td>16T16R（3.5GHz）</td><td>16</td><td>12-15°</td><td>15-20°</td><td>2km</td></tr>
+    <tr><td>4T4R（2.4GHz）</td><td>4</td><td>60-90°</td><td>30-45°</td><td>300m</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>四、测量方法</h2>
+    <h3>4.1 近场测量</h3>
+    <pre><code>设备：近场扫描系统（平面/圆柱/球形）
+    方法：
+      1. 探头在距离天线 λ-2D²/λ 处扫描
+      2. 记录每个点的幅度和相位
+      3. 傅里叶变换到远场
+      4. 提取 HPBW
+    精度：±0.1°</code></pre>
+    <h3>4.2 远场测量</h3>
+    <pre><code>设备：转台 + 标准增益天线 + 矢量网络分析仪
+    方法：
+      1. 被测天线安装在转台上
+      2. 旋转转台，记录不同角度下的功率
+      3. 找到 -3dB 点
+      4. 计算两点夹角 = HPBW
+    精度：±0.5°
+    场地要求：d &gt; 2D²/λ</code></pre>
+    <h3>4.3 OTA 测量（5G 毫米波）</h3>
+    <pre><code>设备：暗室 + 多探头阵列 + 矢量网络分析仪
+    方法：
+      1. 被测天线放在暗室转台上
+      2. 多探头同时接收
+      3. 提取 HPBW
+    优势：无需线缆连接，适合终端天线</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>五、与其他指标的关系</h2>
+    <div class="tw"><table>
+    <thead><tr><th>关联指标</th><th>关系类型</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>天线增益</td><td>反比</td><td>波束越窄 → 增益越高</td></tr>
+    <tr><td>旁瓣电平</td><td>制约</td><td>旁瓣越低 → 波束越宽（口径效率↓）</td></tr>
+    <tr><td>扫描范围</td><td>制约</td><td>扫描角越大 → 波束展宽越严重</td></tr>
+    <tr><td>前后比</td><td>间接</td><td>前后比高 → 主瓣更纯净 → HPBW 更准确</td></tr>
+    <tr><td>方向性系数</td><td>正比</td><td>方向性越高 → 波束越窄</td></tr>
+    <tr><td>口径效率</td><td>反比</td><td>效率越高（均匀照射）→ 波束越窄</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>六、工程注意事项</h2>
+    <h3>6.1 波束宽度与覆盖范围的权衡</h3>
+    <pre><code>覆盖半径 R ≈ h · cot(θ/2)
+    其中 h 是天线高度，θ 是垂直波束宽度</code></pre>
+    <p><b>基站覆盖设计</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>场景</th><th>垂直 HPBW</th><th>水平 HPBW</th><th>覆盖半径</th></tr></thead>
+    <tbody>
+    <tr><td>城市宏站</td><td>6-8°</td><td>65-70°</td><td>500m-1km</td></tr>
+    <tr><td>郊区宏站</td><td>3-6°</td><td>65-70°</td><td>1-3km</td></tr>
+    <tr><td>室内分布</td><td>30-60°</td><td>60-90°</td><td>30-100m</td></tr>
+    <tr><td>高铁覆盖</td><td>2-4°</td><td>15-30°</td><td>沿轨道</td></tr>
+    </tbody></table></div>
+    <h3>6.2 电调下倾（Mechanical/Electrical Tilt）</h3>
+    <pre><code>电调下倾 = 通过移相器改变波束垂直指向
+    机械下倾 = 物理倾斜天线
+    
+    电调下倾优势：
+      - 远程调整
+      - 每个扇区独立
+      - 不影响水平波束宽度
+    机械下倾优势：
+      - 便宜
+      - 不改变波束形状</code></pre>
+    <h3>6.3 波束宽度随频率变化</h3>
+    <pre><code>θ ∝ λ/D ∝ 1/f</code></pre>
+    <p>频率升高 2 倍 → 波束宽度缩小 2 倍。</p>
+    <p><b>影响</b>：</p>
+    <ul><li>宽带天线在不同频段的波束宽度不同</li><li>毫米波天线比 Sub-6GHz 窄得多</li><li>设计时需考虑频带内最坏情况</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>七、一句话总结</h2>
+    <p>波束宽度是天线"指得有多准"的度量——HPBW 越小，方向性越强，增益越高，但覆盖范围越窄。记住三个关键：①波束宽度与天线尺寸成反比（天线越大波束越窄）②扫描时波束展宽（60° 扫描时展宽 2 倍）③波束宽度与增益是跷跷板关系（窄波束 = 高增益 = 小覆盖）。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[指标术语-方向性系数directivity]].html"><span class="ico">[</span><span>[指标术语-方向性系数Directivity]]</span></a>
+      <a class="rel-card" href="[[指标术语-天线增益antenna-gain]].html"><span class="ico">[</span><span>[[指标术语-天线增益Antenna-Gain]]</span></a>
+      <a class="rel-card" href="[[指标术语-旁瓣电平sidelobe-level]].html"><span class="ico">[</span><span>[[指标术语-旁瓣电平Sidelobe-Level]]</span></a>
+      <a class="rel-card" href="[[技术概念-相控阵天线phased-array-antenna]].html"><span class="ico">[</span><span>[[技术概念-相控阵天线Phased-Array-Antenna]]</span></a>
+      <a class="rel-card" href="[[技术概念-波束赋形beamforming深度解读].html"><span class="ico">[</span><span>[[技术概念-波束赋形Beamforming深度解读]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

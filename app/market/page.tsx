@@ -200,20 +200,39 @@ export default function MarketPage() {
       <section className="card">
         <h2 className="card-title">📊 细分赛道规模对比</h2>
         <div className="chart-panel-full">
-          <ResponsiveContainer width="100%" height={350}>
-            <BarChart data={chartData} layout="horizontal" margin={{ top: 10, right: 30, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-              <XAxis type="number" tick={{ fontSize: 11, fill: '#999' }} tickLine={false} axisLine={{ stroke: '#e0e0e0' }} tickFormatter={(v) => `${v}亿`} />
-              <YAxis type="category" dataKey="name" tick={{ fontSize: 12, fill: '#333' }} tickLine={false} axisLine={false} width={100} />
+          <ResponsiveContainer width="100%" height={Math.max(350, chartData.length * 50)}>
+            <BarChart
+              data={chartData}
+              layout="horizontal"
+              margin={{ top: 10, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="#eee" horizontal={false} />
+              <XAxis
+                type="number"
+                tick={{ fontSize: 11, fill: '#999' }}
+                tickLine={false}
+                axisLine={{ stroke: '#e0e0e0' }}
+                tickFormatter={(v) => `${v}亿`}
+              />
+              <YAxis
+                type="category"
+                dataKey="name"
+                tick={{ fontSize: 12, fill: '#333' }}
+                tickLine={false}
+                axisLine={false}
+                width={100}
+              />
               <Tooltip
-                formatter={(value: number, name: string, props: any) => [`${value.toFixed(1)} 亿元`, name === 'value' ? '全球规模' : '']}
+                formatter={(value: number) => [`${value.toFixed(1)} 亿元`, '全球规模']}
                 contentStyle={{ borderRadius: '8px', border: '1px solid #e0e0e0', fontSize: '0.85rem' }}
               />
-              <Bar dataKey="value" name="全球规模" radius={[0, 6, 6, 0]}>
-                {chartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Bar>
+              <Bar
+                dataKey="value"
+                name="全球规模"
+                fill="#0088FE"
+                radius={[0, 6, 6, 0]}
+                minPointSize={3}
+              />
             </BarChart>
           </ResponsiveContainer>
         </div>

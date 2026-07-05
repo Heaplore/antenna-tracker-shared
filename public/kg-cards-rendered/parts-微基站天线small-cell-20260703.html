@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>微基站天线（Small Cell Antenna） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">微基站天线 <span class="en">Small Cell Antenna</span></h1>
+  <p class="lede">微基站天线是"藏在路灯杆上的微型 AAU"——功率只有宏站的 1/100，覆盖半径 10-200m，但通过密集部署弥补容量。5G 微站天线正在从 PCB 天线走向 AiP（天线在封装内），毫米波微站更是 64-256 阵元的超密集阵列。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>宏站天线是"广播电台"（覆盖几十公里），微基站天线是"便利店"（覆盖几百米）。宏站解决"有没有信号"，微站解决"信号够不够快"。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、微基站分类</h2>
+    <h3>1.1 按功率分级</h3>
+    <div class="tw"><table>
+    <thead><tr><th>类型</th><th>功率</th><th>覆盖半径</th><th>应用场景</th></tr></thead>
+    <tbody>
+    <tr><td>Femtocell（家庭基站）</td><td>< 100mW</td><td>10-30m</td><td>家庭/小办公室</td></tr>
+    <tr><td>Picocell（皮基站）</td><td>100mW-2W</td><td>30-200m</td><td>商场/会议室</td></tr>
+    <tr><td>Microcell（微基站）</td><td>2-5W</td><td>200-500m</td><td>街道/园区</td></tr>
+    </tbody></table></div>
+    <h3>1.2 按频段</h3>
+    <pre><code>Sub-6GHz 微站：
+      频段：700MHz-3.5GHz
+      天线：PCB 贴片/偶极子
+      MIMO：2T2R/4T4R
+      
+    毫米波微站：
+      频段：24-40GHz
+      天线：AiP（封装内阵列）
+      MIMO：64T64R/256T256R</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、微站天线技术</h2>
+    <h3>2.1 PCB 天线（Sub-6GHz）</h3>
+    <pre><code>结构：
+      天线直接印刷在 PCB 上
+      与射频芯片集成在同一板卡
+      
+    特点：
+      - 成本极低（$0.1-0.5/天线）
+      - 体积小（毫米级）
+      - 增益低（2-5dBi）
+      - 带宽窄（5-10%）
+      
+    典型应用：
+      - 家庭基站
+      - Wi-Fi 6/7 AP
+      - 室内微站</code></pre>
+    <h3>2.2 AiP 天线（毫米波）</h3>
+    <pre><code>结构：
+      天线阵列集成在芯片封装内
+      64-256 个辐射单元
+      
+    特点：
+      - 损耗极低（无馈线）
+      - 增益高（20-28dBi）
+      - 波束窄（3-5°）
+      - 需要波束赋形
+      
+    典型应用：
+      - 5G 毫米波宏站
+      - 毫米波微站
+      - 车载雷达</code></pre>
+    <h3>2.3 玻璃天线（Smart Glass Antenna）</h3>
+    <pre><code>结构：
+      ITO/金属网格印刷在玻璃上
+      
+    特点：
+      - 透明（不影响采光）
+      - 美观（融入建筑）
+      - 增益低（0-3dBi）
+      
+    典型应用：
+      - 写字楼玻璃幕墙
+      - 公交站台
+      - 景观要求高的区域</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、微站天线 vs 宏站天线</h2>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>微站天线</th><th>宏站天线</th></tr></thead>
+    <tbody>
+    <tr><td>功率</td><td>0.1-5W</td><td>100-500W</td></tr>
+    <tr><td>覆盖</td><td>10-500m</td><td>100m-5km</td></tr>
+    <tr><td>增益</td><td>2-28dBi</td><td>17-25dBi</td></tr>
+    <tr><td>天线形式</td><td>PCB/AiP/玻璃</td><td>平板/八木</td></tr>
+    <tr><td>MIMO</td><td>2T2R-64T64R</td><td>64T64R-256T256R</td></tr>
+    <tr><td>安装</td><td>路灯杆/墙面/天花板</td><td>铁塔/抱杆</td></tr>
+    <tr><td>成本</td><td>$10-100/台</td><td>$1000-5000/台</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>四、Wi-Fi 6/7 天线</h2>
+    <h3>4.1 Wi-Fi 天线特点</h3>
+    <pre><code>Wi-Fi 6（802.11ax）：
+      频段：2.4GHz + 5GHz + 6GHz
+      MIMO：4x4/8x8
+      天线：PCB 贴片/陶瓷
+      
+    Wi-Fi 7（802.11be）：
+      频段：2.4GHz + 5GHz + 6GHz
+      MIMO：16x16
+      天线：AiP（6GHz）
+      波束赋形：MU-MIMO</code></pre>
+    <h3>4.2 路由器天线</h3>
+    <pre><code>家用路由器：
+      4-8 根 PCB 天线
+      增益：3-5dBi/天线
+      总增益：10-15dBi（4T4R）
+      
+    企业级 AP：
+      8-16 根天线
+      支持 4x4 MU-MIMO
+      内置波束赋形</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>五、一句话总结</h2>
+    <p>微站天线是"小而美"的代表——功率小、覆盖小，但通过密集部署实现高容量。Sub-6GHz 用 PCB 天线（便宜），毫米波用 AiP 天线（高性能）。记住：微站不是"缩小版的宏站"，而是"不同设计理念"——宏站追求覆盖，微站追求容量和密度。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[零部件-平板天线panel-antenna]].html"><span class="ico">[</span><span>[零部件-平板天线Panel-Antenna]]</span></a>
+      <a class="rel-card" href="[[零部件-室分天线indoor-distribution]].html"><span class="ico">[</span><span>[[零部件-室分天线Indoor-Distribution]]</span></a>
+      <a class="rel-card" href="[[技术概念-封装天线antenna-in-package-aip].html"><span class="ico">[</span><span>[[技术概念-封装天线Antenna-in-Package-AiP]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

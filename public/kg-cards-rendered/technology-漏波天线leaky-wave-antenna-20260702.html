@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漏波天线（Leaky-Wave Antenna, LWA） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">漏波天线（Leaky-Wave Antenna, LWA） <span class="en">Leaky-Wave-Antenna</span></h1>
+  <p class="lede">漏波天线是一种"边走边漏"的开放波导结构——电磁波在其中传播时，每走一步就泄漏一小部分能量辐射出去，所有泄漏波在远场相干叠加形成方向图。最大的亮点是<b>频率扫描</b>：改变工作频率就能自动改变波束指向，无需昂贵的移相器。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>想象一根水管，管壁上有一排小孔。水从一端注入，沿着管子流的过程中从小孔中喷出。如果水流速度（频率）加快，喷出的水角度就会改变。漏波天线就是这根"漏水的水管"——电磁波在里面传播时不断泄漏辐射，改变频率就等于改变了泄漏的角度。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、基本原理</h2>
+    <h3>1.1 什么是漏波天线？</h3>
+    <p>漏波天线是一种<b>开放结构天线</b>（Open-Structure Antenna），与传统的"封闭结构"（如微带贴片、偶极子）不同，LWA 的辐射体本身就是传输线：</p>
+    <pre><code>信号输入 ──→ ════════════════════════→ 终端匹配
+                  ↑↑↑ ↑↑↑ ↑↑↑ ↑↑↑ ↑↑↑
+                  辐射  辐射  辐射  辐射  辐射
+                  (沿传播方向不断泄漏)</code></pre>
+    <p><b>核心区别</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>封闭结构天线</th><th>开放结构天线（LWA）</th></tr></thead>
+    <tbody>
+    <tr><td>能量在辐射体上建立驻波</td><td>能量沿传输线行波传播</td></tr>
+    <tr><td>辐射集中在天线表面</td><td>辐射沿整个传输线分布</td></tr>
+    <tr><td>频率固定，波束固定</td><td>频率改变，波束自动扫描</td></tr>
+    <tr><td>带宽较窄</td><td>带宽较宽</td></tr>
+    </tbody></table></div>
+    <h3>1.2 色散关系与波束指向</h3>
+    <p>LWA 的辐射方向由<b>色散关系</b>决定：</p>
+    <pre><code>β(ω) = 传播常数（随频率变化）
+    k₀(ω) = 自由空间波数 = ω/c</code></pre>
+    <p><b>波束指向角</b>：</p>
+    <pre><code>sin(θ₀) = β(ω) / k₀(ω)</code></pre>
+    <p>当频率 f 变化时，β 和 k₀ 都变化 → θ₀ 变化 → <b>波束扫描</b>。</p>
+    <p><b>典型扫描特性</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>频率</th><th>β/k₀</th><th>sin(θ₀)</th><th>θ₀</th></tr></thead>
+    <tbody>
+    <tr><td>f_low</td><td>0.8k₀</td><td>0.8</td><td>53°（后向）</td></tr>
+    <tr><td>f_mid</td><td>0.3k₀</td><td>0.3</td><td>17°（近 broadside）</td></tr>
+    <tr><td>f_high</td><td>0.05k₀</td><td>0.05</td><td>3°（前向）</td></tr>
+    </tbody></table></div>
+    <h3>1.3 向后辐射 vs 向前辐射</h3>
+    <p>LWA 可以分为两种模式：</p>
+    <p><b>向后扫描（Backward Radiating）</b>：</p>
+    <pre><code>β &gt; 0, 相速度 &amp; 群速度反向
+    sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 180° 扫到 90°</code></pre>
+    <p>低频时波束指向后方，频率升高波束逐渐移向 broadside。</p>
+    <p><b>向前扫描（Forward Radiating）</b>：</p>
+    <pre><code>β &gt; 0, 相速度 &amp; 群速度同向
+    sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 0° 扫到 90°</code></pre>
+    <p>低频时波束指向前方，频率升高波束逐渐远离 broadside。</p>
+    <h3>1.4 开放阻带（Open Stop Band, OSB）</h3>
+    <p>当 β → 0 时（broadside 方向，θ₀ = 90°），LWA 出现"开放阻带"：</p>
+    <pre><code>β = 0 → sin(θ₀) = 0 → θ₀ = 90°（broadside）</code></pre>
+    <p>此时：</p>
+    <ul><li>波束无限宽（无法形成定向波束）</li><li>增益骤降（5-10dB）</li><li>输入匹配恶化</li></ul>
+    <p><b>抑制 OSB 的方法</b>：</p>
+    <ul><li>非周期性结构（打破 β = 0 的条件）</li><li>弯曲波导（蛇形线）</li><li>非对称缝隙</li><li>慢波结构（增强 β，避免 β → 0）</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>二、LWA 的主要类型</h2>
+    <h3>2.1 SIW 漏波天线（Substrate Integrated Waveguide LWA）</h3>
+    <p>目前最主流的毫米波 LWA：</p>
+    <pre><code>┌─────────────────────────────┐
+    │ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒ ▒▒    │ ← 横向缝隙（辐射体）
+    │ ════════════════════════    │ ← SIW 波导
+    │ ●● ●● ●● ●● ●● ●● ●● ●●    │ ← 接地层通孔
+    └─────────────────────────────┘</code></pre>
+    <p><b>特点</b>：</p>
+    <ul><li>集成于 PCB，成本低</li><li>30-46GHz 工作（5G FR2）</li><li>带宽：20-40%</li><li>增益：10-18dBi</li><li>扫描范围：±30°</li></ul>
+    <h3>2.2 微带漏波天线（Microstrip LWA）</h3>
+    <pre><code>┌──────────────────────┐
+    │ ──┬──┬──┬──┬──┬──   │ ← 非对称缝隙
+    │   │  │  │  │  │      │
+    │ 微带线                │
+    │   │  │  │  │  │      │
+    │ ──┴──┴──┴──┴──┴──   │ ← 接地层
+    └──────────────────────┘</code></pre>
+    <p><b>特点</b>：</p>
+    <ul><li>最简单结构</li><li>带宽较窄（5-15%）</li><li>增益较低（8-12dBi）</li><li>适合低频段</li></ul>
+    <h3>2.3 共面波导漏波天线（CPW LWA）</h3>
+    <pre><code>信号线在顶层，接地在两侧，无底层地平面</code></pre>
+    <p><b>特点</b>：</p>
+    <ul><li>双面辐射</li><li>易于集成有源器件</li><li>损耗高于 SIW</li></ul>
+    <h3>2.4 光栅耦合漏波天线（Grating-Coupled LWA）</h3>
+    <p>利用周期性光栅结构实现辐射：</p>
+    <pre><code>周期 Λ → 满足光栅方程：
+    sin(θ_m) = m·λ/Λ - β/k₀</code></pre>
+    <p><b>特点</b>：</p>
+    <ul><li>精确控制辐射方向</li><li>可用于太赫兹频段</li><li>加工精度要求高</li></ul>
+    <h3>2.5 人工表面表面波漏波天线（SSW LWA）</h3>
+    <p>利用人工表面波（Surface Wave on Artificial Dielectric）：</p>
+    <pre><code>金属柱阵列 → 等效表面波 → 周期性辐射</code></pre>
+    <p><b>特点</b>：</p>
+    <ul><li>超低剖面</li><li>适合室内覆盖</li><li>扫描范围大（±60°）</li></ul>
+    <h3>2.6 CRLH 漏波天线（复合左右手传输线）</h3>
+    <p>同时支持正向波（Right-Handed）和反向波（Left-Handed）：</p>
+    <pre><code>CRLH 单元：
+      ┌──[C_R]──┬──[L_R]──┐
+      │          │          │
+      └──[L_L]──┬──[C_L]──┘</code></pre>
+    <p><b>特点</b>：</p>
+    <ul><li>双向扫描（backward + forward）</li><li>broadside 辐射无 OSB</li><li>带宽极宽（> 100%）</li><li>设计复杂</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>三、性能指标</h2>
+    <h3>3.1 扫描范围</h3>
+    <div class="tw"><table>
+    <thead><tr><th>LWA 类型</th><th>扫描范围</th><th>带宽</th></tr></thead>
+    <tbody>
+    <tr><td>SIW 缝隙 LWA</td><td>±30°</td><td>20-40%</td></tr>
+    <tr><td>微带缝隙 LWA</td><td>±20°</td><td>10-20%</td></tr>
+    <tr><td>CRLH LWA</td><td>-60° to +60°</td><td>> 100%</td></tr>
+    <tr><td>蛇形波导 LWA</td><td>-35° to +42°</td><td>30%</td></tr>
+    </tbody></table></div>
+    <h3>3.2 增益</h3>
+    <div class="tw"><table>
+    <thead><tr><th>LWA 类型</th><th>增益</th><th>单元数等效</th></tr></thead>
+    <tbody>
+    <tr><td>SIW LWA（10单元）</td><td>10-12dBi</td><td>~10</td></tr>
+    <tr><td>SIW LWA（30单元）</td><td>15-18dBi</td><td>~30</td></tr>
+    <tr><td>微带 LWA（20单元）</td><td>12-15dBi</td><td>~20</td></tr>
+    <tr><td>CRLH LWA（40单元）</td><td>16-20dBi</td><td>~40</td></tr>
+    </tbody></table></div>
+    <h3>3.3 波束纯度</h3>
+    <p>LWA 的旁瓣通常较高（-10 到 -15dB），因为辐射沿传输线均匀分布（类似均匀照射的口径）：</p>
+    <p><b>降低旁瓣的方法</b>：</p>
+    <ul><li>非均匀单元设计（改变每个单元的泄漏率）</li><li>振幅加权（渐削照射）</li><li>多 LWA 组合</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>四、与相控阵的对比</h2>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>LWA</th><th>相控阵</th></tr></thead>
+    <tbody>
+    <tr><td>扫描方式</td><td>频率扫描</td><td>相位扫描</td></tr>
+    <tr><td>扫描速度</td><td>快（调频即可）</td><td>快（移相器）</td></tr>
+    <tr><td>波束数量</td><td>连续（频率连续可调）</td><td>离散/连续</td></tr>
+    <tr><td>复杂度</td><td>极低（无移相器）</td><td>高（N 个移相器）</td></tr>
+    <tr><td>成本</td><td>低</td><td>高</td></tr>
+    <tr><td>功耗</td><td>极低</td><td>高</td></tr>
+    <tr><td>增益</td><td>中等（10-20dBi）</td><td>高（20-35dBi）</td></tr>
+    <tr><td>波束宽度</td><td>较宽</td><td>较窄</td></tr>
+    <tr><td>多波束</td><td>困难</td><td>容易</td></tr>
+    <tr><td>极化切换</td><td>困难</td><td>容易</td></tr>
+    </tbody></table></div>
+    <p><b>核心优势</b>：LWA 是<b>最便宜的电子扫描天线</b>——不需要移相器、不需要 T/R 模块、不需要波束赋形 IC，只需要一个可调频的信号源。</p>
+    <p><b>核心劣势</b>：扫描时频率也在变 → 波束和频率耦合（frequency-scanning coupling），不适合需要频率固定的场景。</p>
+  </article>
+
+  <article class="card">
+    <h2>五、典型应用场景</h2>
+    <h3>5.1 5G 基站</h3>
+    <ul><li>28/39GHz SIW LWA</li><li>扇区覆盖（一个 LWA 覆盖一个 120° 扇区）</li><li>频率扫描替代机械旋转</li><li>低成本、低剖面</li></ul>
+    <h3>5.2 车载雷达</h3>
+    <ul><li>77GHz LWA</li><li>频率扫描实现方位角覆盖</li><li>与毫米波 SoC 集成</li><li>成本远低于相控阵</li></ul>
+    <h3>5.3 卫星通信</h3>
+    <ul><li>Ka 波段 LWA</li><li>轻量、低剖面</li><li>频率扫描替代机械转向</li></ul>
+    <h3>5.4 6G 太赫兹通信</h3>
+    <ul><li>0.1-1THz LWA</li><li>芯片级集成（SIW/WSIW）</li><li>超宽带（> 100GHz 带宽）</li><li>波束扫描 + 高速数据传输</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>六、工程挑战</h2>
+    <h3>6.1 开放阻带（OSB）</h3>
+    <p>broadside 方向的 OSB 是 LWA 最大的痛点：</p>
+    <pre><code>频率 f_OSbroadside → 波束无限宽 → 增益崩溃</code></pre>
+    <p><b>抑制方法</b>：</p>
+    <ul><li>蛇形波导（增加有效长度，避免 β = 0）</li><li>非对称结构（打破对称性）</li><li>CRLH 结构（同时支持 forward/backward）</li></ul>
+    <h3>6.2 频率-波束耦合</h3>
+    <p>LWA 的波束指向依赖于频率，这意味着：</p>
+    <ul><li>通信时频率变化 → 波束偏移 → 链路中断</li><li>需要频率稳定或波束跟踪</li></ul>
+    <p><b>解决方案</b>：</p>
+    <ul><li>窄带通信（频率变化小）</li><li>反馈控制（检测波束偏移并补偿）</li><li>多 LWA 冗余覆盖</li></ul>
+    <h3>6.3 带宽与增益的权衡</h3>
+    <pre><code>带宽 ↑ → 单元数 ↓ → 增益 ↓</code></pre>
+    <p>要同时获得宽频带和高增益非常困难。</p>
+    <h3>6.4 加工精度</h3>
+    <p>毫米波 LWA 的缝隙/周期结构精度要求高：</p>
+    <pre><code>ΔL/L &lt; 1% → Δθ &lt; 1°</code></pre>
+    <p>对于 30GHz（λ = 10mm），ΔL < 0.1mm。</p>
+  </article>
+
+  <article class="card">
+    <h2>七、技术演进</h2>
+    <ul><li><b>1950s</b>：LWA 理论建立（Watson, Oliner）</li><li><b>1970s</b>：周期性漏波结构实用化</li><li><b>1990s</b>：非均匀 LWA（降低旁瓣）</li><li><b>2000s</b>：CRLH LWA 提出</li><li><b>2010s</b>：SIW LWA 成为主流（毫米波）</li><li><b>2020-2024年</b>：太赫兹 LWA、芯片级集成</li><li><b>2025年</b>：拓扑光子学 LWA（72Gbps 芯片级）</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>八、技术成熟度</h2>
+    <ul><li><b>成熟度等级</b>：成熟（低频）→ 商用过渡（毫米波）</li><li><b>说明</b>：Sub-6GHz LWA 技术成熟。毫米波 SIW LWA 在 5G 基站和车载雷达中有小规模应用。太赫兹 LWA 处于实验室阶段。</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>九、一句话总结</h2>
+    <p>漏波天线是天线界的"变色龙"——改变频率就改变波束方向，无需移相器、无需 T/R 模块，是<b>最经济实惠的电子扫描天线</b>。它的核心痛点是开放阻带（OSB）和频率-波束耦合，但在 5G/6G 毫米波场景下，这些缺点往往可以被其低成本和低复杂度所抵消。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <span style="color:var(--ink-3);font-size:13px">暂无关联笔记</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

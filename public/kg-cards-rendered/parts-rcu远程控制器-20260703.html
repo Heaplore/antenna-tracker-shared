@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCU（Remote Control Unit）远程控制器单元 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">RCU远程控制器单元 <span class="en">Remote Control Unit</span></h1>
+  <p class="lede">RCU 是基站天线的"大脑"——它负责控制天线的所有远程功能：电调下倾角（RET）、波束赋形参数、通道校准、故障诊断和告警上报。在 5G AAU 中，RCU 通常集成在 AAU 本体或 RRU 中，不再作为独立盒子。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>RCU 就像智能家居的"中控面板"——你可以远程控制窗帘的开合角度（电调下倾）、灯光的亮度（波束赋形）、空调的温度（通道功率），还能知道哪个设备坏了（故障诊断）。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、定义与功能</h2>
+    <h3>1.1 RCU 的角色</h3>
+    <pre><code>传统基站（宏站）：
+      BBU（基带）→ 光纤 → RRU（射频）→ 馈线 → 天线
+      RCU 是独立控制器，安装在塔下
+    
+    5G AAU（有源天线）：
+      BBU/DU → 前传光纤 → AAU（集成 RCU 功能）
+      RCU 功能集成在 AAU 主控板中</code></pre>
+    <h3>1.2 核心功能</h3>
+    <div class="tw"><table>
+    <thead><tr><th>功能</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>电调下倾控制</td><td>远程调节波束下倾角（0-15°）</td></tr>
+    <tr><td>波束赋形控制</td><td>调节各通道幅度和相位</td></tr>
+    <tr><td>通道校准</td><td>管理 T/R 模块校准流程</td></tr>
+    <tr><td>功率控制</td><td>远程调节发射功率</td></tr>
+    <tr><td>故障诊断</td><td>监测温度、电压、电流、PIM</td></tr>
+    <tr><td>告警上报</td><td>通过 SNMP/NETCONF 上报</td></tr>
+    <tr><td>软件升级</td><td>OTA 远程固件升级</td></tr>
+    </tbody></table></div>
+    <h3>1.3 RCU 架构</h3>
+    <pre><code>RCU 硬件组成：
+      ├── 主控 MCU（ARM Cortex-M4）
+      ├── 通信接口
+      │     ├── RS485（连接电调板/波控板）
+      │     ├── Ethernet（SNMP/NETCONF）
+      │     └── IPMI（基站管理）
+      ├── 电源管理（48V DC → 5V/3.3V）
+      ├── 保护电路（过压/过流/反接）
+      └── 存储（Flash + EEPROM 配置备份）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、电调控制（RET Control）</h2>
+    <h3>2.1 RET 协议</h3>
+    <pre><code>RET 协议标准：3GPP TS 38.423 / O-RAN RET Profile
+    
+    RET 命令格式：
+      下倾角：0° - 15°（步进 0.1°）
+      方位角：0° - 360°（步进 0.1°）
+      波束倾斜：±10°（步进 0.1°）
+    
+    通信接口：
+      RS485（主流）
+      Ethernet（新型 AAU）
+      CAN Bus（部分厂商）</code></pre>
+    <h3>2.2 RET 精度要求</h3>
+    <pre><code>3GPP 规定：
+      角度精度：±0.5°
+      角度分辨率：0.1°
+      角度重复性：±0.2°
+      响应时间：&lt; 200ms
+    
+    实际产品：
+      精度：±0.3°
+      分辨率：0.05°
+      响应时间：&lt; 100ms</code></pre>
+    <h3>2.3 电调下倾 vs 机械下倾</h3>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>电调下倾（RET）</th><th>机械下倾</th></tr></thead>
+    <tbody>
+    <tr><td>调节范围</td><td>0-15°</td><td>固定 2-15°</td></tr>
+    <tr><td>调节精度</td><td>0.1°</td><td>固定档位</td></tr>
+    <tr><td>远程调节</td><td>✅</td><td>❌</td></tr>
+    <tr><td>对方向图影响</td><td>小（窄化主瓣）</td><td>大（畸变主瓣）</td></tr>
+    <tr><td>成本</td><td>高</td><td>低</td></tr>
+    <tr><td>可靠性</td><td>中（有电机）</td><td>高（无运动件）</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>三、波束控制</h2>
+    <h3>3.1 波束赋形参数</h3>
+    <pre><code>RCU 管理的波束参数：
+      1. 波束指向角（θ, φ）
+      2. 波束宽度（HPBW）
+      3. 波束数量（多波束并发）
+      4. 波束权重（幅度/相位）
+    
+    5G AAU 典型配置：
+      64T64R → 最多 8 个独立波束
+      每个波束可独立控制指向角和宽度</code></pre>
+    <h3>3.2 波束管理</h3>
+    <pre><code>波束切换流程：
+      1. UE 上报 CSI（Channel State Information）
+      2. gNB 计算最优波束权重
+      3. RCU 下发权重到 T/R 模块
+      4. T/R 模块更新移相器/衰减器
+      5. 波束切换完成（&lt; 1ms）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>四、故障诊断与告警</h2>
+    <h3>4.1 监测参数</h3>
+    <pre><code>RCU 实时监测：
+      温度：-40°C to +70°C（PA 温度、MCU 温度）
+      电压：48V DC ±20%
+      电流：0-50A（发射时）
+      功率：当前发射功率
+      VSWR：各通道驻波比
+      PIM：无源互调水平
+      风扇转速：（如果有）</code></pre>
+    <h3>4.2 告警级别</h3>
+    <div class="tw"><table>
+    <thead><tr><th>级别</th><th>告警类型</th><th>示例</th></tr></thead>
+    <tbody>
+    <tr><td>Critical</td><td>紧急</td><td>PA 过热、电源故障</td></tr>
+    <tr><td>Major</td><td>主要</td><td>VSWR 过高、通道失效</td></tr>
+    <tr><td>Minor</td><td>次要</td><td>PIM 超标、温度偏高</td></tr>
+    <tr><td>Warning</td><td>预警</td><td>风扇转速异常</td></tr>
+    </tbody></table></div>
+    <h3>4.3 故障诊断流程</h3>
+    <pre><code>1. RCU 监测到异常
+    2. 记录故障码和日志
+    3. 通过 SNMP Trap / NETCONF 上报
+    4. 网管系统告警
+    5. 维护人员远程诊断或派单</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>五、通信接口</h2>
+    <h3>5.1 管理接口</h3>
+    <div class="tw"><table>
+    <thead><tr><th>接口</th><th>协议</th><th>速率</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>RS485</td><td>RET Profile 2.0</td><td>115.2kbps</td><td>电调控制</td></tr>
+    <tr><td>Ethernet</td><td>SNMPv3 / NETCONF</td><td>100Mbps</td><td>网管通信</td></tr>
+    <tr><td>IPMI</td><td>IPMI 2.0</td><td>100kbps</td><td>基站管理</td></tr>
+    <tr><td>UART</td><td>调试</td><td>115.2kbps</td><td>工厂调试</td></tr>
+    </tbody></table></div>
+    <h3>5.2 前传接口（与 DU 通信）</h3>
+    <pre><code>AAU 与 DU 之间：
+      CPRI（传统）：2.5Gbps/10Gbps
+      eCPRI（5G 主流）：25Gbps
+      
+    数据内容：
+      IQ 数据（波束赋形后的基带样本）
+      控制信令（RET 命令、校准参数）
+      状态上报（温度、功率、告警）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>六、典型产品</h2>
+    <h3>6.1 中兴 RCU</h3>
+    <pre><code>型号：ZTE AAU 内置 RCU
+    处理器：ARM Cortex-M4 @ 168MHz
+    接口：RS485 × 2, Ethernet × 1, IPMI × 1
+    防护等级：IP65
+    工作温度：-40°C to +65°C
+    功耗：&lt; 5W</code></pre>
+    <h3>6.2 华为 RCU</h3>
+    <pre><code>型号：Huawei AAU Control Unit
+    处理器：ARM Cortex-A7 @ 800MHz
+    接口：RS485 × 2, Ethernet × 2
+    防护等级：IP66
+    工作温度：-40°C to +70°C
+    功耗：&lt; 8W</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>七、一句话总结</h2>
+    <p>RCU 是基站天线的"大脑"——控制电调下倾、波束赋形、通道校准、故障诊断。5G AAU 中 RCU 功能已集成到 AAU 主控板中，不再独立。记住三个关键：① RET 精度 ±0.5° 是 3GPP 硬性要求 ② 波束切换 < 1ms 是用户体验底线 ③ 告警上报是运维的第一道防线。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[零部件-t-r模块transmit-receive-module]].html"><span class="ico">[</span><span>[零部件-T-R模块Transmit-Receive-Module]]</span></a>
+      <a class="rel-card" href="[[零部件-电调板electrical-tilt-board]].html"><span class="ico">[</span><span>[[零部件-电调板Electrical-Tilt-Board]]</span></a>
+      <a class="rel-card" href="[[零部件-波控板beam-control-board].html"><span class="ico">[</span><span>[[零部件-波控板Beam-Control-Board]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

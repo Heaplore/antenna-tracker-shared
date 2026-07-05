@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rogers 系列高频板材 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">Rogers 系列高频板材 <span class="en">Rogers</span></h1>
+  <p class="lede">Rogers 是美国罗杰斯公司生产的高频微波基板品牌——Dk（介电常数）稳定在 2.2-10.2 之间，Df（损耗角正切）低至 0.0009，是 5G 基站天线、毫米波天线和卫星通信的核心材料。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>Rogers 板材就像"航空级铝合金"——普通 PCB 用的 FR4 是"建筑钢材"，能用但性能一般；Rogers 是"航空铝"，贵但轻、强、稳定。在 3.5GHz 以上，FR4 的损耗会让信号"跑不动"，Rogers 能让信号"高速公路"畅通无阻。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、Rogers 材料体系</h2>
+    <h3>1.1 主要产品线</h3>
+    <div class="tw"><table>
+    <thead><tr><th>产品</th><th>Dk（@10GHz）</th><th>Df（@10GHz）</th><th>适用频段</th><th>典型应用</th></tr></thead>
+    <tbody>
+    <tr><td>RO3003</td><td>3.00</td><td>0.0013</td><td>Sub-6GHz</td><td>基站天线</td></tr>
+    <tr><td>RO3006</td><td>6.15</td><td>0.0016</td><td>Sub-6GHz</td><td>滤波器/耦合器</td></tr>
+    <tr><td>RO3010</td><td>10.2</td><td>0.0015</td><td>Sub-6GHz</td><td>高集成度电路</td></tr>
+    <tr><td>RO4000C</td><td>3.55</td><td>0.0027</td><td>Sub-6GHz</td><td>基站天线/馈电网络</td></tr>
+    <tr><td>RO4350B</td><td>3.48</td><td>0.0037</td><td>Sub-6GHz</td><td>基站天线（性价比）</td></tr>
+    <tr><td>RT/duroid 5880</td><td>2.20</td><td>0.0009</td><td>Sub-6GHz/毫米波</td><td>测试天线/雷达</td></tr>
+    <tr><td>RO3000 系列</td><td>3.0/6.2/10.2</td><td>0.001-0.002</td><td>Sub-6GHz</td><td>5G AAU</td></tr>
+    </tbody></table></div>
+    <h3>1.2 材料结构</h3>
+    <pre><code>Rogers 层压板结构：
+      ┌──────────────────┐ ← 铜箔（EP/RA）
+      ├──────────────────┤ ← 介质层（PTFE+陶瓷填料）
+      └──────────────────┘
+      
+    铜箔类型：
+      EP（Electroplated）：粗糙度 Ra=3-5μm
+      RA（Rolled Annealed）：粗糙度 Ra=1-2μm
+      
+    介质层：
+      PTFE（聚四氟乙烯）基体
+      + 陶瓷填料（控制 Dk）
+      + 玻璃纤维布（增强）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、关键参数详解</h2>
+    <h3>2.1 介电常数 Dk</h3>
+    <pre><code>Dk 定义：
+      Dk = ε_r = C_material / C_vacuum
+      
+    Dk 稳定性：
+      Rogers：ΔDk &lt; ±0.05（-40°C to +85°C）
+      FR4：ΔDk = ±0.5（温度敏感）
+      
+    Dk 对天线的影响：
+      λ_g = λ_0 / √Dk
+      Dk 越稳定 → 中心频率越稳定
+      Dk 漂移 → 天线谐振频率偏移</code></pre>
+    <h3>2.2 损耗角正切 Df</h3>
+    <pre><code>Df 定义：
+      Df = tanδ = 介质损耗 / 存储能量
+      
+    信号衰减：
+      α = (2πf/c)·√Dk·Df （Np/m）
+      
+    5GHz 时衰减对比（1m 微带线）：
+      FR4（Df=0.02）：~3dB
+      RO4350B（Df=0.0037）：~0.5dB
+      RO3003（Df=0.0013）：~0.2dB
+      RT5880（Df=0.0009）：~0.1dB</code></pre>
+    <h3>2.3 其他关键参数</h3>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>RO4350B</th><th>RO3003</th><th>RT5880</th></tr></thead>
+    <tbody>
+    <tr><td>吸水率</td><td>0.1%</td><td>0.02%</td><td>0.02%</td></tr>
+    <tr><td>CTE（Z轴）</td><td>28ppm/°C</td><td>14ppm/°C</td><td>14ppm/°C</td></tr>
+    <tr><td>导热率</td><td>0.62 W/m·K</td><td>1.0 W/m·K</td><td>0.46 W/m·K</td></tr>
+    <tr><td>阻燃性</td><td>UL94 V-0</td><td>UL94 V-0</td><td>N/A</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>三、Rogers 在天线中的应用</h2>
+    <h3>3.1 5G Sub-6GHz 天线</h3>
+    <pre><code>RO4350B / RO3003 应用：
+      - 微带贴片天线阵列
+      - 馈电网络（Wilkinson/分支线）
+      - 巴伦（Balun）
+      
+    典型设计：
+      频段：3.5GHz（n78）
+      基板：RO4350B，厚度 0.8mm
+      铜厚：35μm（1oz）
+      天线：64 单元贴片阵列
+      增益：22-24dBi</code></pre>
+    <h3>3.2 毫米波天线</h3>
+    <pre><code>RO3003 / RT5880 应用：
+      - 28GHz/39GHz 贴片阵列
+      - 波导缝隙天线
+      - AiP 封装基板
+      
+    典型设计：
+      频段：28GHz
+      基板：RO3003，厚度 0.254mm
+      铜厚：17μm（0.5oz）
+      天线：256 单元 AiP 阵列
+      增益：23-26dBi</code></pre>
+    <h3>3.3 馈电网络</h3>
+    <pre><code>RO4350B 馈电网络：
+      - Wilkinson 功分器
+      - 分支线耦合器
+      - 移相器
+      
+    优势：
+      - 低损耗（Df=0.0037）
+      - 相位稳定（Dk 温度系数小）
+      - 幅度平衡好（±0.2dB）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>四、Rogers vs FR4 vs LCP</h2>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>FR4</th><th>Rogers RO4350B</th><th>Rogers RO3003</th><th>LCP</th></tr></thead>
+    <tbody>
+    <tr><td>Dk</td><td>4.4</td><td>3.48</td><td>3.0</td><td>2.9-3.0</td></tr>
+    <tr><td>Df</td><td>0.02</td><td>0.0037</td><td>0.0013</td><td>0.001-0.004</td></tr>
+    <tr><td>成本</td><td>低</td><td>中</td><td>高</td><td>中高</td></tr>
+    <tr><td>加工性</td><td>好</td><td>好</td><td>中</td><td>差（吸湿）</td></tr>
+    <tr><td>适用频段</td><td><2GHz</td><td><6GHz</td><td><6GHz</td><td><6GHz</td></tr>
+    <tr><td>吸水率</td><td>0.8%</td><td>0.1%</td><td>0.02%</td><td>0.4%</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>五、一句话总结</h2>
+    <p>Rogers 是高频天线的"黄金材料"——RO4350B 性价比高（Sub-6GHz 基站主流），RO3003 性能更好（毫米波/AiP），RT5880 最低损耗（测试/雷达）。记住：3.5GHz 以上，FR4 的损耗会让信号"跑不动"，Rogers 是必选项。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[材料-lcp液晶聚合物基板]].html"><span class="ico">[</span><span>[材料-LCP液晶聚合物基板]]</span></a>
+      <a class="rel-card" href="[[零部件-天线基板substrate]].html"><span class="ico">[</span><span>[[零部件-天线基板Substrate]]</span></a>
+      <a class="rel-card" href="[[零部件-天线罩radome深度解读].html"><span class="ico">[</span><span>[[零部件-天线罩Radome深度解读]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

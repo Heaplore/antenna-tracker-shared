@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A+P 天线（Active + Passive Hybrid Antenna） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">A+P 天线 <span class="en">Active + Passive Hybrid Antenna</span></h1>
+  <p class="lede">A+P 天线是 5G 基站天线的"混搭方案"——有源层（AAU）负责高频段（3.5GHz）提供容量，无源层（平板天线）负责低频段（700/2.6GHz）提供覆盖，两层共用一个支架，节省站址资源。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>A+P 就像双层汉堡包——上层 AAU 是"肉饼"（高频高容量），下层平板是"面包"（低频广覆盖），共用一个"托盘"（安装支架）。比单独装两套天线省空间、省成本。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、A+P 的基本架构</h2>
+    <h3>1.1 分层结构</h3>
+    <pre><code>顶层：AAU（有源层）
+      - 频段：3.5GHz（n78）
+      - 通道：64T64R
+      - 功能：高容量数据
+      - 供电：48V DC，200-500W
+      
+    中层：馈电/隔离层
+      - 频段隔离（700MHz ↔ 3.5GHz）
+      - 结构支撑
+      
+    底层：平板天线（无源层）
+      - 频段：700MHz（n28）+ 2.6GHz（n41）
+      - 通道：2T2R 或 4T4R
+      - 功能：广覆盖 + 容量补充
+      - 供电：不需要</code></pre>
+    <h3>1.2 天线共装</h3>
+    <pre><code>传统方案（分开安装）：
+      700MHz 天线 → 独立抱杆
+      3.5GHz AAU → 独立抱杆
+      占用 2 个站址或 2 组抱杆
+      
+    A+P 方案（共装）：
+      700MHz 天线 + 3.5GHz AAU → 同一抱杆
+      占用 1 个站址，1 组抱杆
+      节省站址成本 30-50%</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、频段隔离</h2>
+    <h3>2.1 隔离需求</h3>
+    <pre><code>700MHz ↔ 3.5GHz 隔离度要求：
+      - 互调抑制：&gt; 80dB
+      - 耦合抑制：&gt; 60dB
+      - 防止 700MHz 信号进入 3.5GHz 接收机
+      
+    2.6GHz ↔ 3.5GHz 隔离度要求：
+      - 互调抑制：&gt; 70dB
+      - 耦合抑制：&gt; 50dB</code></pre>
+    <h3>2.2 隔离方法</h3>
+    <pre><code>1. 物理间距
+       - 700MHz ↔ 3.5GHz：≥ 0.5m
+       - 2.6GHz ↔ 3.5GHz：≥ 0.3m
+       
+    2. 极化隔离
+       - 底层：±45° 极化
+       - 顶层：±45° 极化（错开 90°）
+       
+    3. 滤波隔离
+       - 底层加带通滤波器
+       - 顶层加带通滤波器</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、A+P 的优势与挑战</h2>
+    <h3>3.1 优势</h3>
+    <div class="tw"><table>
+    <thead><tr><th>优势</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>站址节省</td><td>共装一套抱杆，节省 30-50% 站址成本</td></tr>
+    <tr><td>覆盖+容量</td><td>低频广覆盖 + 高频高容量</td></tr>
+    <tr><td>运维简化</td><td>一套站点，统一运维</td></tr>
+    <tr><td>快速部署</td><td>5G 快速覆盖，无需新建站址</td></tr>
+    </tbody></table></div>
+    <h3>3.2 挑战</h3>
+    <div class="tw"><table>
+    <thead><tr><th>挑战</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>重量负担</td><td>总重可达 50-70kg，抱杆需加固</td></tr>
+    <tr><td>风载增加</td><td>迎风面积增加 50-100%，风载加倍</td></tr>
+    <tr><td>频段隔离</td><td>需要足够的物理间距和滤波</td></tr>
+    <tr><td>散热</td><td>AAU 发热 + 密闭空间 = 散热挑战</td></tr>
+    <tr><td>安装难度</td><td>需要更大抱杆和更强支架</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>四、典型配置</h2>
+    <h3>4.1 中国移动 A+P</h3>
+    <pre><code>底层：700MHz n28（中国移动）
+      - 天线：2T2R 平板
+      - 增益：17dBi
+      - 功率：43dBm
+      
+    顶层：3.5GHz n78（中国电信/联通）
+      - AAU：64T64R
+      - 增益：24dBi
+      - 功率：200W（每通道）
+      
+    间距：≥ 0.8m</code></pre>
+    <h3>4.2 欧洲 A+P</h3>
+    <pre><code>底层：800MHz（运营商 A）
+      - 2T2R 平板
+      - 覆盖层
+      
+    中层：1.8GHz（运营商 A）
+      - 4T4R 平板
+      - 容量层
+      
+    顶层：3.5GHz（运营商 B）
+      - 64T64R AAU
+      - 5G 容量层
+      
+    间距：≥ 0.5m（每层）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>五、一句话总结</h2>
+    <p>A+P 是 5G 部署的"务实方案"——有源层做容量，无源层做覆盖，共用抱杆省站址。核心挑战是重量和风载（总重 50-70kg），抱杆必须加固。记住：A+P 不是"新技术"，而是工程上的"聪明组合"。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[零部件-平板天线panel-antenna]].html"><span class="ico">[</span><span>[零部件-平板天线Panel-Antenna]]</span></a>
+      <a class="rel-card" href="[[零部件-t-r模块transmit-receive-module]].html"><span class="ico">[</span><span>[[零部件-T-R模块Transmit-Receive-Module]]</span></a>
+      <a class="rel-card" href="[[技术概念-毫米波天线millimeter-wave-antenna].html"><span class="ico">[</span><span>[[技术概念-毫米波天线Millimeter-Wave-Antenna]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天线振子 Dipole Element（天线单元） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">天线振子 Dipole Element（天线单元） <span class="en">Dipole-Element</span></h1>
+  <p class="lede">天线振子是天线辐射能量的最基本单元——半波偶极子是最经典的振子（增益 2.15dBi），贴片单元是毫米波最常用的振子（增益 6-8dBi）。所有天线阵列都是由这些基本单元"排列组合"出来的。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>天线振子就像乐高积木的基本块——单个积木块能力有限（增益只有 2-8dBi），但把它们按特定方式排列组合（阵列），就能搭出各种形状和功能的建筑（高增益相控阵天线）。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、定义与功能</h2>
+    <h3>1.1 振子的角色</h3>
+    <pre><code>振子 = 天线的&quot;最小辐射单元&quot;
+      - 接收：将电磁波转换为电信号
+      - 发射：将电信号转换为电磁波
+      
+    阵列 = N 个振子 + 馈电网络 + 移相器</code></pre>
+    <h3>1.2 常见振子类型</h3>
+    <div class="tw"><table>
+    <thead><tr><th>类型</th><th>尺寸</th><th>增益</th><th>带宽</th><th>适用频段</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>半波偶极子</td><td>λ/2</td><td>2.15dBi</td><td>宽</td><td>DC-6GHz</td><td>经典</td></tr>
+    <tr><td>V 偶极子</td><td>λ/2×2</td><td>2-5dBi</td><td>宽</td><td>1-6GHz</td><td>基站常用</td></tr>
+    <tr><td>微带贴片</td><td>λ/2×λ/2</td><td>6-8dBi</td><td>窄</td><td>> 3GHz</td><td>5G 毫米波</td></tr>
+    <tr><td>折叠偶极子</td><td>λ/2</td><td>2-4dBi</td><td>宽</td><td>1-6GHz</td><td>WiFi/TV</td></tr>
+    <tr><td>螺旋振子</td><td>-</td><td>10-15dBi</td><td>中</td><td>> 1GHz</td><td>卫星</td></tr>
+    <tr><td>喇叭单元</td><td>-</td><td>10-15dBi</td><td>宽</td><td>> 10GHz</td><td>毫米波阵列</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>二、半波偶极子（Half-Wave Dipole）</h2>
+    <h3>2.1 结构</h3>
+    <pre><code>        λ/4          λ/4
+        ───────●══════●───────
+               ↑      ↑
+             馈电点  开路端
+             
+    总长度 L = λ/2
+    馈电点：中心馈电（50Ω）</code></pre>
+    <h3>2.2 方向图</h3>
+    <pre><code>E 面（垂直于振子）：
+        ╱╲
+       ╱  ╲
+      ╱    ╲
+     ╱      ╲
+    ──────────
+      8字形
+    
+    H 面（平行于振子）：
+      圆形（全向）</code></pre>
+    <h3>2.3 关键参数</h3>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>值</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>增益</td><td>2.15dBi</td><td>经典值</td></tr>
+    <tr><td>输入阻抗</td><td>73+j42.5Ω</td><td>谐振时 ≈ 73Ω</td></tr>
+    <tr><td>带宽</td><td>~5-10%</td><td>取决于粗细</td></tr>
+    <tr><td>VSWR < 2:1 带宽</td><td>~8%</td><td>实用带宽</td></tr>
+    <tr><td>波束宽度</td><td>78°（E 面）</td><td>3dB 波束宽度</td></tr>
+    </tbody></table></div>
+    <h3>2.4 阻抗匹配</h3>
+    <pre><code>偶极子阻抗 73Ω → 需要匹配到 50Ω
+    
+    匹配方法：
+      1. 折叠偶极子：阻抗 ≈ 300Ω → 用 4:1 巴伦
+      2. 加匹配网络：LC 匹配到 50Ω
+      3. 调整臂长：微调谐振频率</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、微带贴片单元（Patch Element）</h2>
+    <h3>3.1 结构</h3>
+    <pre><code>    ┌──────────────────┐
+        │     金属贴片      │  ← 辐射体（宽 W，长 L ≈ λ/2）
+        ├──────────────────┤
+        │     介质基板      │  ← ε_r = 2.2-10
+        ├──────────────────┤
+        │     接地层        │  ← 金属地
+        └──────────────────┘</code></pre>
+    <h3>3.2 关键参数</h3>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>值</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>增益</td><td>6-8dBi（单贴片）</td><td>比偶极子高</td></tr>
+    <tr><td>输入阻抗</td><td>可调（馈电位置）</td><td>30-200Ω</td></tr>
+    <tr><td>带宽</td><td>1-5%（窄！）</td><td>主要缺点</td></tr>
+    <tr><td>极化</td><td>线极化</td><td>取决于馈电</td></tr>
+    <tr><td>剖面</td><td>< λ/10（超薄）</td><td>主要优点</td></tr>
+    </tbody></table></div>
+    <h3>3.3 带宽提升方法</h3>
+    <pre><code>单贴片带宽：1-3%
+    
+    提升方法：
+      1. 加厚基板 → 带宽 ↑，但可能出现表面波
+      2. 降低 ε_r → 带宽 ↑，但尺寸 ↑
+      3. 叠层贴片（stacked patch）→ 带宽 10-20%
+      4. 边缘馈电 + 探针 → 带宽 5-10%
+      5. 缝隙耦合 → 带宽 10-15%</code></pre>
+    <h3>3.4 5G 毫米波贴片单元</h3>
+    <pre><code>28GHz 贴片单元：
+      尺寸：≈ 5.4mm × 5.4mm（λ = 10.7mm）
+      增益：7-9dBi（单贴片）
+      带宽：3-5%（足够 5G NR 的 400MHz 带宽）
+      基板：LCP，h = 0.1mm，ε_r = 3.0</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>四、振子在阵列中的应用</h2>
+    <h3>4.1 阵列中的单元间距</h3>
+    <pre><code>d = λ/2（最常见）
+    d = 0.7λ（需要宽扫描）
+    d = 0.4λ（避免栅瓣，但互耦大）</code></pre>
+    <h3>4.2 有源单元方向图（AUP）</h3>
+    <pre><code>单个振子孤立时的方向图 ≠ 阵列中的方向图
+    
+    原因：互耦效应
+      - 相邻振子反射功率
+      - 表面波
+      - 共同辐射阻抗
+    
+    AUP = 阵列中单个振子在有源环境下的方向图</code></pre>
+    <h3>4.3 单元增益 vs 阵列增益</h3>
+    <pre><code>单个振子增益：G_elem
+    阵列增益：G_array = N × G_elem × η_array
+    
+    η_array = 阵列效率（馈电损耗、互耦、量化误差）
+    
+    64 单元阵列：
+      G_elem = 7dBi（贴片）
+      G_array = 7 + 10·log₁₀(64) + 损耗
+              = 7 + 18 - 2（馈电损耗）
+              = 23dBi（典型）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>五、振子选择指南</h2>
+    <h3>5.1 按频段选择</h3>
+    <pre><code>f &lt; 1GHz → 偶极子/折叠偶极子（尺寸合理）
+    1-6GHz → 偶极子/V 偶极子/贴片
+    6-30GHz → 贴片/喇叭单元
+    &gt; 30GHz → 贴片/SIW 单元/AiP</code></pre>
+    <h3>5.2 按应用选择</h3>
+    <div class="tw"><table>
+    <thead><tr><th>应用</th><th>推荐振子</th><th>原因</th></tr></thead>
+    <tbody>
+    <tr><td>5G 基站</td><td>贴片阵列</td><td>高增益、超薄、易集成</td></tr>
+    <tr><td>WiFi</td><td>偶极子/PCB 天线</td><td>低成本、宽带</td></tr>
+    <tr><td>卫星</td><td>螺旋/喇叭</td><td>高增益、圆极化</td></tr>
+    <tr><td>车载雷达</td><td>Vivaldi/贴片</td><td>宽带、低剖面</td></tr>
+    <tr><td>手机</td><td>贴片/LDS</td><td>超薄、小尺寸</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>六、一句话总结</h2>
+    <p>振子是天线的基本"砖块"——半波偶极子增益 2.15dBi、带宽宽，贴片单元增益 6-8dBi、超薄但带宽窄。5G 毫米波基站用贴片单元组成 64 元阵列，单单元增益 7dBi，阵列总增益 23-25dBi。记住：单个振子的性能决定了整个阵列的上限——再好的阵列算法也弥补不了差的单元。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[技术概念-天线阵列antenna-array]].html"><span class="ico">[</span><span>[技术概念-天线阵列Antenna-Array]]</span></a>
+      <a class="rel-card" href="[[零部件-天线基板substrate]].html"><span class="ico">[</span><span>[[零部件-天线基板Substrate]]</span></a>
+      <a class="rel-card" href="[[零部件-连接器connector].html"><span class="ico">[</span><span>[[零部件-连接器Connector]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

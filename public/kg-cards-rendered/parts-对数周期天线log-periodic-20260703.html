@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>对数周期天线（Log-Periodic Dipole Array, LPDA） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">对数周期天线（Log-Periodic Dipole Array, LPDA） <span class="en">Log-Periodic</span></h1>
+  <p class="lede">对数周期天线是"宽频定向天线之王"——通过一系列尺寸按比例缩放的偶极子，在 10:1 甚至更高的频带内保持稳定的增益和方向图，是天线测试和频谱监测的主力。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>对数周期天线就像一把"钢琴键盘"——每根偶极子对应一个音符（频率），但只有当前演奏的那个音符对应的偶极子在工作，其他偶极子只是"旁观者"。换频率时，工作的那根偶极子沿着天线移动。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、LPDA 的基本结构</h2>
+    <h3>1.1 单元排列</h3>
+    <pre><code>    ← 方向图主瓣 →
+        
+        ● ← 尖端（短偶极子，高频）
+       / \
+      ●   ●
+     /     \
+    ●       ●
+     \     /
+      ●   ●
+       \ /
+        ● ← 尾部（长偶极子，低频）
+        
+    单元间距：d_n = τ · d_{n+1}
+    单元长度：l_n = τ · l_{n+1}
+      
+    τ = 比例因子（通常 0.05-0.2）
+    σ = 馈电角（通常 10-30°）</code></pre>
+    <h3>1.2 工作原理</h3>
+    <pre><code>每个频率只有一小部分单元&quot;活跃&quot;：
+      - 高频：靠近尖端的短单元工作
+      - 低频：靠近尾部的长单元工作
+      - 中间频率：中间单元工作
+      
+    &quot;活跃区&quot;宽度：约 2-3 个单元
+    其余单元处于&quot;静止&quot;状态（感应但不辐射）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、关键参数</h2>
+    <h3>2.1 带宽</h3>
+    <pre><code>LPDA 带宽：10:1 到 20:1
+    
+    举例：
+      30MHz - 3000MHz（100:1）
+      100MHz - 10GHz（100:1）
+      500MHz - 5GHz（10:1）
+      
+    对比：
+      八木天线：~20% 带宽
+      偶极子：~10% 带宽
+      LPDA：~1000% 带宽（王者）</code></pre>
+    <h3>2.2 增益</h3>
+    <pre><code>LPDA 增益：6-14dBi
+    
+    典型值：
+      低频端：6-8dBi
+      中频段：8-10dBi
+      高频端：10-14dBi
+      
+    对比：
+      八木（3单元）：7dBi
+      八木（10单元）：13dBi
+      平板天线：17-19dBi</code></pre>
+    <h3>2.3 方向图</h3>
+    <pre><code>E 面：单向（沿轴向）
+    H 面：近似全向（略有方向性）
+    前后比：&gt; 20dB</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、LPDA 的应用</h2>
+    <h3>3.1 天线测试</h3>
+    <pre><code>为什么用 LPDA 做测试天线？
+      1. 宽频（覆盖 30MHz-40GHz）
+      2. 增益稳定（6-10dBi）
+      3. 方向图稳定
+      4. 成本低（相比喇叭天线）
+      
+    典型测试频段：
+      30MHz-1GHz：大型 LPDA
+      1-18GHz：小型 LPDA
+      18-40GHz：波导 LPDA</code></pre>
+    <h3>3.2 频谱监测</h3>
+    <pre><code>应用场景：
+      - 无线电管理
+      - 电磁环境评估
+      - 干扰定位
+      
+    优势：
+      - 一台天线覆盖多个频段
+      - 无需频繁更换天线</code></pre>
+    <h3>3.3 TV/广播接收</h3>
+    <pre><code>经典应用：
+      VHF/UHF 电视天线
+      FM 广播天线
+      
+    特点：
+      - 便宜
+      - 宽频
+      - 增益适中（8-10dBi）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>四、一句话总结</h2>
+    <p>LPDA 是"宽频定向天线的王者"——10:1 以上的带宽、稳定的增益和方向图，是天线测试和频谱监测的主力。记住：LPDA 不是"每根偶极子都工作"，而是"每根偶极子轮流工作"，这就是"对数周期"的含义。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[零部件-八木天线yagi-uda-antenna]].html"><span class="ico">[</span><span>[零部件-八木天线Yagi-Uda-Antenna]]</span></a>
+      <a class="rel-card" href="[[零部件-平板天线panel-antenna].html"><span class="ico">[</span><span>[[零部件-平板天线Panel-Antenna]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

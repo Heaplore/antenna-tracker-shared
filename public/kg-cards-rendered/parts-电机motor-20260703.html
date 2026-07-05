@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电机 Motor（机械下倾执行器） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
+  @media (max-width:760px){main{column-count:1}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">电机 Motor（机械下倾执行器） <span class="en">Motor</span></h1>
+  <p class="lede">电机是基站天线机械下倾的"手臂"——它驱动天线物理倾斜，改变波束指向。虽然 5G AAU 主要用电调下倾，但电机仍然是 4G 混合天线和室外安装的重要部件。</p>
+</header>
+
+<main>
+
+  <article class="card">
+    <h2>一、电机类型</h2>
+    <h3>1.1 步进电机（主流）</h3>
+    <pre><code>步进电机特点：
+      - 开环控制（不需要编码器反馈）
+      - 精度高（1.8°/步或 0.9°/步）
+      - 扭矩大
+      - 功耗低（保持时无功耗）
+      
+    典型规格：
+      步距角：1.8°
+      保持扭矩：0.5-2N·m
+      工作电压：12-24V DC
+      功耗：&lt; 2W（保持）</code></pre>
+    <h3>1.2 伺服电机</h3>
+    <pre><code>伺服电机特点：
+      - 闭环控制（需要编码器反馈）
+      - 精度更高（0.1°）
+      - 响应更快
+      - 功耗高
+      
+    适用场景：
+      - 大型抛物面天线
+      - 需要频繁调节的场景</code></pre>
+    <h3>1.3 直流电机 + 减速器</h3>
+    <pre><code>特点：
+      - 成本低
+      - 精度低（需限位开关）
+      - 需要反馈
+      
+    适用场景：
+      - 低端 4G 天线
+      - 一次性安装</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、机械下倾参数</h2>
+    <h3>2.1 下倾范围</h3>
+    <pre><code>典型机械下倾范围：
+      小型天线：0-10°
+      中型天线：0-15°
+      大型天线：0-20°
+      
+    步进电机精度：
+      1.8°/步 → 10 档（0-18°）
+      0.9°/步 → 20 档（0-18°）</code></pre>
+    <h3>2.2 下倾方式</h3>
+    <pre><code>混合下倾（4G 常见）：
+      机械下倾：0-5°（基础角度）
+      电调下倾：0-15°（精细调节）
+      总下倾 = 机械 + 电调
+      
+    纯电调（5G AAU 主流）：
+      无机械下倾
+      全部靠 RET 控制</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、电机控制</h2>
+    <h3>3.1 控制接口</h3>
+    <pre><code>电机控制信号：
+      1. 脉冲+方向（主流）
+         - PUL+：步进脉冲
+         - DIR+：方向控制
+         
+      2. PWM 控制（伺服）
+         - PWM 占空比 → 速度
+         - 相位 → 位置
+         
+      3. 串口控制（智能电机）
+         - RS485 指令
+         - 内置 MCU 控制</code></pre>
+    <h3>3.2 控制流程</h3>
+    <pre><code>1. 网管下发下倾角指令
+    2. RCU 转换为电机控制信号
+    3. 电机驱动器接收指令
+    4. 电机转动到目标位置
+    5. 限位开关确认位置</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>四、工程参数</h2>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>典型值</th></tr></thead>
+    <tbody>
+    <tr><td>工作电压</td><td>12-24V DC</td></tr>
+    <tr><td>保持扭矩</td><td>0.5-2N·m</td></tr>
+    <tr><td>转速</td><td>1-5°/s</td></tr>
+    <tr><td>精度</td><td>±0.5°</td></tr>
+    <tr><td>寿命</td><td>10 万次循环</td></tr>
+    <tr><td>防护等级</td><td>IP65</td></tr>
+    <tr><td>工作温度</td><td>-40°C to +70°C</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>五、一句话总结</h2>
+    <p>电机是机械下倾的执行机构——步进电机最常用（1.8°/步，0.5-2N·m 扭矩），5G AAU 已逐渐淘汰机械下倾，全面转向电调下倾（RET）。但在 4G 混合天线中，电机仍是标配。记住：步进电机精度 ±0.5°，寿命 10 万次循环，足够 10 年运维。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[零部件-retelectrical-tilt]].html"><span class="ico">[</span><span>[零部件-RETElectrical-Tilt]]</span></a>
+      <a class="rel-card" href="[[零部件-电调板electrical-tilt-board]].html"><span class="ico">[</span><span>[[零部件-电调板Electrical-Tilt-Board]]</span></a>
+      <a class="rel-card" href="[[零部件-安装支架mounting-bracket].html"><span class="ico">[</span><span>[[零部件-安装支架Mounting-Bracket]</span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
