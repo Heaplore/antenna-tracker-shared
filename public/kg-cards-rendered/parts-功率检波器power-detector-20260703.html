@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>类比入口</h2>
@@ -289,5 +300,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>

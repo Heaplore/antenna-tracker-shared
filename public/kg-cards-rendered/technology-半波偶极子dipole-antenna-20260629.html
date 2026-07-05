@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>一、基本结构与原理</h2>
@@ -302,14 +313,6 @@
     <p>---</p>
   </article>
 
-  <article class="card">
-    <h2>八、自检清单</h2>
-    <p>写这篇解读时，我重点确认了：</p>
-    <ul><li>[x] 半波偶极子基本结构（λ/2，两段 λ/4）</li><li>[x] 电流正弦分布公式 I(z) = I₀ × sin(k(L/2-|z|))</li><li>[x] 辐射方向图（甜甜圈，HPBW 78°，方向性 1.64 = 2.15dBi）</li><li>[x] 输入阻抗（73+j42.5Ω @λ/2，谐振 ~70Ω）</li><li>[x] 五种变种（折叠/V型/蝴蝶结/磁电/印刷）</li><li>[x] 折叠偶极子阻抗变换（4× = 292Ω，需 4:1 巴伦）</li><li>[x] 磁电偶极子 MED（5G mmWave 主力，带宽>100%）</li><li>[x] 2023 IEEE TAP 平行折叠偶极子（64% 带宽，17.5dBi 阵列）</li><li>[x] 2026 MDPI 超表面偶极子（23.2-45.3GHz，8.02dBi）</li><li>[x] Yagi-Uda 八木天线（偶极子+反射器+引向器，7-11dBi）</li><li>[x] 共线阵列（每翻倍 +3dB，8 单元 11dBi）</li><li>[x] 基站扇区天线（8-16 单元堆叠，20-25dBi）</li><li>[x] 偶极子 vs 单极子对比（阻抗/增益/方向图）</li><li>[x] 5G mmWave 偶极子阵列挑战与方案</li><li>[x] 典型参数对照表（半波/折叠/短/全波）</li></ul>
-    <p>---</p>
-    <p><b>适用读者</b>: 天线初学者、射频工程师、5G 部署人员 <b>延伸阅读</b>:</p>
-    <ul><li><span class="wl">笔记-天线增益Antenna Gain深度解读-20260629</span></li><li><span class="wl">笔记-阻抗匹配Impedance Matching深度解读-20260629</span></li><li>Wikipedia: Dipole antenna</li><li>RF Essentials: What is a Dipole Antenna?</li><li>IEEE TAP 2023: Parallel Folded Dipole Antenna for 5G mmWave</li><li>MDPI 2024: Metamaterial-Integrated Dipole Array for 5G mmWave</li><li>Ansys: The Half-Wave Dipole: Design</li><li>ARRL Antenna Book (25th Ed.)</li></ul>
-  </article>
 
 </main>
 
@@ -321,5 +324,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>

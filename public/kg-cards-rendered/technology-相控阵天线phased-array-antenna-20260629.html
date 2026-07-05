@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>一、相控阵基本原理</h2>
@@ -313,14 +324,6 @@
     <p>---</p>
   </article>
 
-  <article class="card">
-    <h2>八、自检清单</h2>
-    <p>写这篇解读时，我重点确认了：</p>
-    <ul><li>[x] 阵列因子 AF(θ) 公式与波束指向角 sin(θ₀) = -Δφ/(kd)</li><li>[x] 栅瓣条件与最大间距（d ≤ λ/(1+|sinθ_max|)）</li><li>[x] 波束倾斜 Beam Squint（相位移相 vs 真延时 TTD）</li><li>[x] 三种架构对比（模拟/数字/混合）</li><li>[x] 混合波束赋形：5G mmWave 事实标准，子阵列划分</li><li>[x] T/R 模块 6 大功能（PA/LNA/移相器/衰减器/开关/环行器）</li><li>[x] T/R 模块指标（增益 20-30dB, P1dB 15-25dBm, PAE 15-35%）</li><li>[x] 2024 IOP 24-30GHz 8 元 TRX（OP1dB=20.8dBm, NF=4.1dB）</li><li>[x] 2026 IEEE JSSC D-band AiP（142-164GHz, 56Gbps, ILTPS）</li><li>[x] GaN vs CMOS vs SiGe 对比</li><li>[x] 波束宽度公式 HPBW ≈ 65°×λ/(Nd)</li><li>[x] 阵列增益公式与损耗来源</li><li>[x] 旁瓣控制（Taylor/Chebyshev/Hamming 加权）</li><li>[x] 扫描损失 Scan_Loss ≈ -10log(cosθ)</li><li>[x] 移相器位数与指向精度（3/5/6/8-bit）</li><li>[x] 六大应用（5G/AESA/汽车雷达/Starlink/6G THz/RIS）</li><li>[x] 76.5GHz 汽车雷达（±60°/±25° FoV, SLL<-30dBc）</li><li>[x] RIS + 深度学习波束跟踪（RNN+GNN）</li><li>[x] 四大挑战（互耦/热管理/校准/成本）</li></ul>
-    <p>---</p>
-    <p><b>适用读者</b>: 射频工程师、5G 网络规划师、雷达工程师、6G 研究人员 <b>延伸阅读</b>:</p>
-    <ul><li><span class="wl">笔记-波束赋形Beamforming深度解读-20260618</span></li><li><span class="wl">笔记-MIMO天线技术解读-20260616</span></li><li>Qorvo: mmWave Beamforming and Phased Array Basics</li><li>Analog Dialogue: Phased Array Patterns (Grating Lobes & Beam Squint)</li><li>IEEE JSSC 2026: 142-164GHz Phased-Array AiP for 6G UE</li><li>IOP 2024: 24-30GHz 8-element TRX for 5G FR2</li><li>IEEE EUMC 2025: 76.5GHz Grating-Lobe-Free Automotive Radar</li><li>arXiv 2024: Active Sensing for RIS-assisted Multiuser Beam Tracking</li><li>Keysight: Designing Phased Arrays - Key Principles and Challenges</li></ul>
-  </article>
 
 </main>
 
@@ -332,5 +335,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>

@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>一、方向图的几何解剖</h2>
@@ -304,14 +315,6 @@
     <p>---</p>
   </article>
 
-  <article class="card">
-    <h2>九、自检清单</h2>
-    <p>写这篇解读时，我重点确认了：</p>
-    <ul><li>[x] 方向图的三大瓣区（主瓣/旁瓣/后瓣）完整解剖</li><li>[x] 四大关键参数（HPBW/SLL/前后比/零点深度）+ 典型值</li><li>[x] 方向性与增益的区别 + 积分关系</li><li>[x] 3D 方向图与 FD-MIMO（从 2D 到 3D 的革命）</li><li>[x] 3GPP 3D 信道模型（复杂度增加 3 倍+）</li><li>[x] 电下倾 vs 机械下倾对比</li><li>[x] Null Steering 原理 + 3GPP Rel-18 EIRP 评估（11dB 抑制/3.5-4.5dB SNR 损失）</li><li>[x] 旁瓣抑制方法（Taylor 分布/Raised Cosine/神经网络）</li><li>[x] PMC 2025 最新研究成果（15 元 ULA SLL 从 -13dB 降到 -25dB）</li><li>[x] 五大应用场景（5G 基站/毫米波稀疏阵列/卫星/雷达/6G）</li><li>[x] 方向图测量方法（暗室 vs 近场扫描）</li><li>[x] 5G 广播波束设计约束（36° 波束宽度/13.8dB 旁瓣抑制）</li></ul>
-    <p>---</p>
-    <p><b>适用读者</b>: 天线工程师、5G 网络规划师、射频设计师 <b>延伸阅读</b>:</p>
-    <ul><li><span class="wl">笔记-MIMO天线技术解读-20260616</span></li><li><span class="wl">笔记-AAU有源天线单元深度解读-20260622</span></li><li><span class="wl">笔记-波束赋形Beamforming深度解读-20260618</span></li><li>arXiv 2026: Evaluation of 3GPP Rel-18 3D EIRP Profile with Beam Nulling</li><li>PMC 2025: Hybrid Analytical-Optimization Framework for Sidelobe Suppression</li><li>MDPI Antennas 2025: Taylor-Series + Neural Network Array Synthesis</li><li>3GPP TR 38.901: 3D Channel Model for NR</li></ul>
-  </article>
 
 </main>
 
@@ -323,5 +326,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>

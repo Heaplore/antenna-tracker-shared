@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>一、为什么需要它？——从&quot;全向散射&quot;到&quot;精准投送&quot;</h2>
@@ -312,14 +323,6 @@
     <p>---</p>
   </article>
 
-  <article class="card">
-    <h2>九、自检清单</h2>
-    <p>写这篇解读时，我重点确认了：</p>
-    <ul><li>[x] 波束赋形核心原理（干涉、复权重、波束宽度公式）</li><li>[x] 三种实现方式（模拟/数字/混合）的完整对比</li><li>[x] 五大领域横向打通（5G基站/卫星/Wi-Fi 7/微波回传/6G近场）</li><li>[x] 5G Massive MIMO CSI 反馈机制（Type I/Type II 码本、SSB/CSI-RS）</li><li>[x] Starlink 终端深度解剖（1200 单元、33dBi、$400 成本、微秒级切换）</li><li>[x] Wi-Fi 7 MU-MIMO 波束赋形（16×16、MLO、DMPS）</li><li>[x] 微波回传工程算例（18GHz、10km、30-35dB Fade Margin）</li><li>[x] 6G XL-MIMO 近场挑战（球面波建模、空间非平稳性）</li><li>[x] 工程三大坑（校准/互耦/实时性）</li><li>[x] 五大趋势（XL-MIMO/RIS/AI 波束管理/近场/AIP）</li><li>[x] RIS 实验数据（QUB 2025、220GHz 太赫兹）</li><li>[x] ZTE 2026 年深度学习 CSI 压缩论文</li><li>[x] 波束赋形 vs 传统增益的本质区别</li></ul>
-    <p>---</p>
-    <p><b>适用读者</b>: 天线工程师、5G/6G 网络设计师、卫星通信工程师 <b>延伸阅读</b>:</p>
-    <ul><li><span class="wl">笔记-MIMO天线技术解读-20260616</span></li><li><span class="wl">笔记-AAU有源天线单元深度解读-20260622</span></li><li><span class="wl">笔记-菲涅尔区天线深度解读-20260617</span></li><li>ZTE Communications 2026: Deep CSI Compression and Feedback for Massive MIMO</li><li>EuCAP 2025: Experimental Verification of Broadband mmWave RIS</li><li>IEEE: 16-Channel 3.1-25.5GHz Phased-Array BFIC for SATCOM</li><li>Starlink Technology Deep Dive: Inside the Dishy McFlatface</li></ul>
-  </article>
 
 </main>
 
@@ -331,5 +334,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>

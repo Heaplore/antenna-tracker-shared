@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>一、S 参数的物理意义：散射矩阵</h2>
@@ -310,14 +321,6 @@
     <p>---</p>
   </article>
 
-  <article class="card">
-    <h2>九、自检清单</h2>
-    <p>写这篇解读时，我重点确认了：</p>
-    <ul><li>[x] S 参数的物理定义（散射矩阵，复数幅度+相位）</li><li>[x] 4 个 S 参数（S11/S21/S12/S22）的逐一解读 + 类比</li><li>[x] N 端口 Massive MIMO 的 16384 个 S 参数挑战</li><li>[x] S11 与 Return Loss / VSWR 的换算公式 + 典型值表</li><li>[x] Smith Chart 原理（Γ 平面映射，阻抗/导纳可视化）</li><li>[x] 阻抗匹配设计流程（L/Pi/T/Stub 网络拓扑）</li><li>[x] 互耦效应对 MIMO 性能的影响（秩下降/方向图畸变/效率降低）</li><li>[x] OTA 校准（Vieira/Rusek/Tufvesson 互耦校准方法）</li><li>[x] TDD 互易性校准（3GPP 统一框架/分组方法/非相干累积）</li><li>[x] 深度学习辅助校准（Deep Reciprocity, IEEE TWC 2024）</li><li>[x] VNA 测量原理（SOLT 校准流程，多端口挑战）</li><li>[x] S 参数与其他参数的关系（Γ/VSWR/RL/Z/Y/T 参数转换）</li><li>[x] 6G XL-MIMO OTA 校准实验（128+64 元阵列，±5ns 同步精度）</li></ul>
-    <p>---</p>
-    <p><b>适用读者</b>: 射频工程师、天线设计师、5G/6G 网络规划师 <b>延伸阅读</b>:</p>
-    <ul><li><span class="wl">笔记-MIMO天线技术解读-20260616</span></li><li><span class="wl">笔记-天线隔离度Antenna-Isolation-20260619</span></li><li><span class="wl">笔记-AAU有源天线单元深度解读-20260622</span></li><li>Rohde & Schwarz: Understanding S-parameters</li><li>IEEE TWC 2024: Deep Reciprocity Calibration for TDD mmWave Massive MIMO</li><li>Lund University: Transceiver Calibration using Mutual Coupling (Vieira/Rusek/Tufvesson)</li><li>3GPP TR 38.901: Channel Model for NR (FR1/FR2 S-parameter measurement scenarios)</li><li>VTC 2025: Heterogeneous Array XL-MIMO Channel Sounder OTA Calibration</li></ul>
-  </article>
 
 </main>
 
@@ -329,5 +332,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>

@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>一、MIMO 的底层数学：香农公式的空间扩展</h2>
@@ -331,14 +342,6 @@
     <p>---</p>
   </article>
 
-  <article class="card">
-    <h2>十一、自检清单</h2>
-    <p>写这篇解读时，我重点确认了：</p>
-    <ul><li>[x] 香农容量公式的 MIMO 扩展（Telatar 1999）</li><li>[x] 三大核心技术（空间复用/空间分集/波束赋形）的深度拆解</li><li>[x] 三代演进（SISO → 传统 MIMO → Massive MIMO）</li><li>[x] 3GPP TS 38.214 协议详解（天线端口/RI-PMI-CQI/码本类型）</li><li>[x] SU-MIMO vs MU-MIMO 对比 + 预编码算法（ZF/MMSE/RZF）</li><li>[x] 信道相关性分析 + Weichselberger 模型</li><li>[x] 不同频段表现（Sub-6GHz/毫米波/太赫兹）</li><li>[x] MIMO + RIS 结合实验数据</li><li>[x] 6G UM-MIMO（空间域→波束域转换/近场 MIMO）</li><li>[x] 工程三大挑战（CSI 开销/互耦校准/计算复杂度）</li><li>[x] 爱立信实测数据（710Mbps → 5.2Gbps）</li></ul>
-    <p>---</p>
-    <p><b>适用读者</b>: 通信工程师、无线网络规划师、5G/6G 技术研究者 <b>延伸阅读</b>:</p>
-    <ul><li><span class="wl">笔记-AAU有源天线单元深度解读-20260622</span></li><li><span class="wl">笔记-波束赋形Beamforming深度解读-20260618</span></li><li><span class="wl">笔记-天线隔离度Antenna-Isolation-20260619</span></li><li><a href="https://www.3gpp.org/technologies/standards-info/3gpp-standards" target="_blank">3GPP TS 38.214 V19.x: Physical Layer Procedures for Data</a></li><li><a href="https://www.zte.com.cn" target="_blank">ZTE Communications 2026: Deep CSI Compression and Feedback for Massive MIMO</a></li><li><a href="https://www.ericsson.com" target="_blank">Ericsson: Massive MIMO for 5G Networks (White Paper)</a></li><li><a href="https://www.ieee.org" target="_blank">IEEE: Capacity Scaling of Massive MIMO in Strong Spatial Correlation</a></li></ul>
-  </article>
 
 </main>
 
@@ -350,5 +353,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>

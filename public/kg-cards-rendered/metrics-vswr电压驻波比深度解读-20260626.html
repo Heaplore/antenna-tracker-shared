@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>一、VSWR 的物理本质：驻波的形成</h2>
@@ -308,14 +319,6 @@
     <p>---</p>
   </article>
 
-  <article class="card">
-    <h2>十、自检清单</h2>
-    <p>写这篇解读时，我重点确认了：</p>
-    <ul><li>[x] VSWR 物理本质（驻波形成，V_max/V_min）</li><li>[x] VSWR ↔ Γ ↔ Return Loss 完整换算表（1.0-∞）</li><li>[x] 失配损耗公式 + 与插入损耗的区别</li><li>[x] 四大影响（效率下降/功放损坏/信号劣化/测量误差）</li><li>[x] 5G AAU VSWR 要求（≤1.5）+ 为什么比 4G 更严</li><li>[x] 波束指向对 VSWR 的影响 + 边缘波束功率回退</li><li>[x] 四种测量方法（VNA/定向耦合器/基站内置/MAX2016 芯片）</li><li>[x] 电缆损耗的"伪装效应"（必须在天线端测量）</li><li>[x] 连接器 VSWR 对比（N-type vs 7/16 vs SMA vs 2.92mm）</li><li>[x] 改善方法（匹配网络/结构调整/隔离器/预失真）</li><li>[x] 5G AAU 不用隔离器的原因（成本/体积/高温性能）</li></ul>
-    <p>---</p>
-    <p><b>适用读者</b>: 射频工程师、天线工程师、5G 网络运维人员 <b>延伸阅读</b>:</p>
-    <ul><li><span class="wl">笔记-S参数S-Parameters深度解读-20260626</span></li><li><span class="wl">笔记-AAU有源天线单元深度解读-20260622</span></li><li>Rohde & Schwarz: VSWR and Return Loss</li><li>RF Cafe: VSWR to Return Loss Conversion Tables</li><li>LG Patent: Apparatus and method for measuring VSWR in base station antenna</li><li>Analog Devices: VSWR Definition and Formula</li><li>Maxim MAX2016: VSWR Monitoring System</li></ul>
-  </article>
 
 </main>
 
@@ -327,5 +330,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>

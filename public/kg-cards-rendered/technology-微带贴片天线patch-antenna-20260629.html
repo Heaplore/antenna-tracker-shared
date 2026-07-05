@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>一、基本结构与工作原理</h2>
@@ -336,14 +347,6 @@
     <p>---</p>
   </article>
 
-  <article class="card">
-    <h2>九、自检清单</h2>
-    <p>写这篇解读时，我重点确认了：</p>
-    <ul><li>[x] 基本结构（贴片+基板+接地层）</li><li>[x] 谐振腔模型（TM₁₀ 模，L ≈ λ_g/2）</li><li>[x] 缝隙辐射模型（两个边缘缝隙叠加）</li><li>[x] 四种馈电技术（探针/边缘/耦合缝隙/近场耦合）</li><li>[x] 馈电技术对比表（带宽/复杂度/适用频率）</li><li>[x] 性能参数（增益 6-9dBi，带宽 1-5%，VSWR<2:1）</li><li>[x] 带宽瓶颈分析（Q 值公式，提高带宽 5 种方法）</li><li>[x] 阵列增益公式（G_array = G_element + 10logN）</li><li>[x] 串联 vs 并行馈电</li><li>[x] 三个 2024-2025 毫米波阵列案例数据</li><li>[x] 互耦问题与去耦技术（EBG/DGS/超表面/隔离柱）</li><li>[x] 2023 IEEE 16端口 Massive MIMO 隔离设计</li><li>[x] 2018 Nature MAAD 超表面去耦</li><li>[x] 六种贴片变种（圆形/三角/环形/堆叠/柔性/八边形）</li><li>[x] 优缺点全面总结</li></ul>
-    <p>---</p>
-    <p><b>适用读者</b>: 射频工程师、PCB 设计师、5G 部署人员 <b>延伸阅读</b>:</p>
-    <ul><li><span class="wl">笔记-半波偶极子Dipole Antenna深度解读-20260629</span></li><li><span class="wl">笔记-天线隔离度Antenna Isolation深度解读-20260619</span></li><li>IOP Science 2025: High-Gain Patch Arrays for 28GHz 5G</li><li>IEEE TAP 2023: 16-Port Massive MIMO with NIM Isolation</li><li>Nature Sci Rep 2018: MAAD Metasurface Decoupling</li><li>MDPI 2024: ML-Assisted Patch Antenna Design</li><li>JPIER 2020: Closely Spaced Dual-Band MIMO Patch</li></ul>
-  </article>
 
 </main>
 
@@ -355,5 +358,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>

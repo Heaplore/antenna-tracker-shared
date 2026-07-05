@@ -33,11 +33,21 @@
   }
   .canvas {
     padding: 20px 24px 28px;
-    column-count: 2;
-    column-gap: 12px;
+  }
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .masonry-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
   .canvas .hero {
-    column-span: all;
     margin-bottom: 12px;
   }
 
@@ -92,21 +102,18 @@
     display: flex; flex-direction: column;
     overflow: hidden;
     break-inside: avoid;
-    margin-bottom: 12px;
+    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
   }
   .block.section-table, .block.section-comparison {
-    /* 不再 column-span: all，只占一列宽度 */
+    /* 占一列宽度，不再 column-span */
   }
   .block.section-text {
-    column-span: all;
-    width: 100%;
+    /* 参与贪心分列，不再 column-span */
   }
-  .block:last-child.related-block {
-    flex: 1 1 100%;
-    column-span: all;
-    width: 100%;
-    height: auto;
+  .block.related-block {
+    /* 跨两列独立成行 */
     margin-top: 24px;
+    width: 100%;
   }
   .block.section-timeline    { border-left-color: var(--primary); }
   .block.section-table        { border-left-color: var(--highlight); }
@@ -271,6 +278,12 @@
     {% endif %}
   </div>
 
+  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
+  <div class="masonry">
+    <div class="masonry-col col-left"></div>
+    <div class="masonry-col col-right"></div>
+  </div>
+
   {% for section in sections %}
     {% set stype = section.type | default('text') %}
 
@@ -370,6 +383,29 @@
 </div>
 
 </div>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  var canvas = document.querySelector('.canvas');
+  if (!canvas) return;
+  var leftCol  = canvas.querySelector('.col-left');
+  var rightCol = canvas.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+
+  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
+  var blocks = Array.prototype.slice.call(
+    canvas.querySelectorAll('.block')
+  ).filter(function(b){ return !b.classList.contains('related-block'); });
+
+  // 贪心：哪边矮 append 到哪边
+  blocks.forEach(function(block){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(block);
+  });
+})();
+</script>
 
 </body>
 </html>

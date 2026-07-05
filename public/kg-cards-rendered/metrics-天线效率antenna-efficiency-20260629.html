@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>一、三种效率的定义</h2>
@@ -292,14 +303,6 @@
     <p>---</p>
   </article>
 
-  <article class="card">
-    <h2>八、自检清单</h2>
-    <p>写这篇解读时，我重点确认了：</p>
-    <ul><li>[x] 三种效率定义（辐射/匹配/总效率）</li><li>[x] 损耗来源详解（导体/介质/表面波/馈电网络）</li><li>[x] 趋肤深度公式 + 各频段典型值（1MHz-350GHz）</li><li>[x] 常见基板材料 tan δ 对比（FR-4 vs Rogers vs PTFE）</li><li>[x] 效率与增益关系（G = η × D）</li><li>[x] 5G 毫米波效率挑战（28GHz 趋肤深度 0.39μm）</li><li>[x] 华为白皮书效率数据（Sub-6GHz 85-92% / mmWave 70-85%）</li><li>[x] 五种测量方法（Wheeler Cap/两天线法/方向图积分/OTA/TRP/DAR）</li><li>[x] 2025 IEEE OJAP 对 Wheeler Cap 局限性的警告</li><li>[x] IMS 2026 混响室 EVM+TRP 联合测量</li><li>[x] 链路预算中的效率影响（效率减半 → 覆盖缩小 30%）</li></ul>
-    <p>---</p>
-    <p><b>适用读者</b>: 天线设计师、射频工程师、网络规划师 <b>延伸阅读</b>:</p>
-    <ul><li><span class="wl">笔记-天线增益Antenna Gain深度解读-20260629</span></li><li><span class="wl">笔记-VSWR电压驻波比深度解读-20260626</span></li><li>Huawei: Generalized Antenna Efficiency White Paper</li><li>IEEE OJAP 2025: Survey of Fixed-Geometry Wheeler Cap Method</li><li>IMS 2026: Antennex Reverberation Chamber EVM+TRP</li><li>Analog Devices: VSWR and Efficiency Calculations</li><li>RF Elements: Antenna Radiation Efficiency</li></ul>
-  </article>
 
 </main>
 
@@ -311,5 +314,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>

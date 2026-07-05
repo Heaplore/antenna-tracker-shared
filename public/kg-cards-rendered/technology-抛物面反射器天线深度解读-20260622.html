@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>一、数学之美：为什么偏偏是抛物线？</h2>
@@ -311,14 +322,6 @@
     <p>---</p>
   </article>
 
-  <article class="card">
-    <h2>十一、自检清单</h2>
-    <p>写这篇解读时，我重点确认了：</p>
-    <ul><li>[x] 抛物线的几何性质和数学原理讲清楚了</li><li>[x] 四种馈电架构（前馈/卡塞格林/格里高利/偏馈）逐一对比，含口径效率数据</li><li>[x] 馈源类型和边缘衰减（edge taper）概念解释到位</li><li>[x] 增益公式和波束宽度公式 + 典型算例</li><li>[x] 口径效率的七大损耗机制逐一列出</li><li>[x] 五大应用场景（卫星通信、微波回传、射电天文、GPS、雷达）</li><li>[x] 工程四大挑战（风载荷、指向精度、降雨衰减、制造精度）</li><li>[x] 3D 打印抛物面天线的最新进展（2025-2026）</li><li>[x] 与相控阵天线的对比分析</li><li>[x] 与 AAU、波束赋形笔记形成"有源 vs 无源"的知识对照</li></ul>
-    <p>---</p>
-    <p><b>适用读者</b>: 天线工程师、通信专业学生、卫星通信从业者 <b>延伸阅读</b>:</p>
-    <ul><li><span class="wl">笔记-AAU有源天线单元深度解读-20260622</span></li><li><span class="wl">笔记-天线增益Antenna-Gain-20260626</span></li><li><span class="wl">笔记-波束赋形Beamforming深度解读-20260618</span></li><li>NASA DSN Technical Report: Deep Space Communications</li><li>IEEE Trans. Antennas Propagation: 3D Printed Metasurface Reflector Antennas</li></ul>
-  </article>
 
 </main>
 
@@ -330,5 +333,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>

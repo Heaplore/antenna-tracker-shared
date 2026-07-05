@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>一、圆极化的物理本质</h2>
@@ -292,14 +303,6 @@
     <p>---</p>
   </article>
 
-  <article class="card">
-    <h2>七、自检清单</h2>
-    <p>写这篇解读时，我重点确认了：</p>
-    <ul><li>[x] 圆极化物理本质（正交等幅 90° 相位差）</li><li>[x] RHCP vs LHCP 定义（从波源看顺时针/逆时针）</li><li>[x] 轴比 AR 定义与标准（0dB 理想，3dB 工程阈值）</li><li>[x] 3dB AR 带宽概念</li><li>[x] 五种实现方法（正交馈电贴片/螺旋/缝隙/四线螺旋/行波螺旋）</li><li>[x] 螺旋天线增益公式 G ≈ 15N(C/λ)²SA</li><li>[x] 2014 清华贴片-螺旋混合天线（小地平面，13.35dBic）</li><li>[x] 极化失配 PLF 公式</li><li>[x] 圆-圆匹配表（同旋向 0dB，反旋向 >20dB 隔离）</li><li>[x] 圆-线匹配（恒损 3dB）</li><li>[x] GNSS 应用（多径抑制、半球覆盖、2025 海洋定位天线）</li><li>[x] 5G mmWave 圆极化 MIMO（25-33GHz，ECC<10⁻²）</li><li>[x] RCS 降低原理（反射反转旋向，ΔRCS = 20logAR）</li><li>[x] 超表面隐身（带外 RCS 降低 15-20dB）</li><li>[x] 可穿戴 CP MIMO 优势</li><li>[x] 圆极化 vs 线极化全面对比表</li></ul>
-    <p>---</p>
-    <p><b>适用读者</b>: 卫星通信工程师、GNSS 设计人员、雷达工程师、5G mmWave 研发 <b>延伸阅读</b>:</p>
-    <ul><li><span class="wl">笔记-极化分集Polarization Diversity深度解读-20260623</span></li><li><span class="wl">笔记-微带贴片天线Patch Antenna深度解读-20260629</span></li><li>MDPI 2023: Quad-Band CP Antenna for GNSS, 5G and WIFI-6E</li><li>JPIER 2019: Compact Dual-Band CP Patch for BDS</li><li>Tsinghua AWPL 2014: Patch-Helix Hybrid CP Antenna</li><li>PMC 2024: AF-SIW CP Slot Array for 5G mmWave</li><li>IEEE 2025: CP MIMO for 5G mmWave with Sectoral Slots</li><li>ScienceDirect 2024: Dual-Broadband Low-RCS Shared Aperture CP</li></ul>
-  </article>
 
 </main>
 
@@ -311,5 +314,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>

@@ -40,8 +40,14 @@
   .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
   .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
   .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  main{max-width:1200px;margin:0 auto;padding:28px;column-count:2;column-gap:20px}
-  @media (max-width:760px){main{column-count:1}}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
@@ -93,6 +99,11 @@
 </header>
 
 <main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
 
   <article class="card">
     <h2>一、天线测量的核心参数</h2>
@@ -293,14 +304,6 @@
     <p>---</p>
   </article>
 
-  <article class="card">
-    <h2>八、自检清单</h2>
-    <p>写这篇解读时，我重点确认了：</p>
-    <ul><li>[x] 核心测量参数（S 参数/方向图/增益/效率/轴比）</li><li>[x] 远场 Fraunhofer 距离 R_ff ≥ 2D²/λ（5G AAU 3.5GHz 需要 57m）</li><li>[x] 近场扫描（平面/圆柱/球面），Anritsu 3λ 处计划近场</li><li>[x] 电波暗室结构（吸波材料/安静区/场均匀性）</li><li>[x] 缩尺暗室 CATR（抛物面反射镜产生平面波）</li><li>[x] 混响室 RC（≥100 独立瑞利样本，3GPP 认可）</li><li>[x] 3GPP TR 38.810 OTA 三种方法（DFF/IFF/NFTF）</li><li>[x] TRP/TIS/EIRP 定义与 CTIA 测量流程（266 点球面采样）</li><li>[x] 3GPP TS 38.561 Release 18（消声室参考，RC 替代）</li><li>[x] VNA 四种校准方法（SOLT/TRL/ECal/SOLR）对比</li><li>[x] TRL 自校准原理与 8:1 带宽限制</li><li>[x] 5G mmWave 测量挑战（110GHz VNA/波导接口/64T 多端口）</li><li>[x] IMS 2026 Antennex EVM+TRP 联合测量</li><li>[x] 天线罩插入损耗影响（3mm PBT @28GHz ≈ 0.1-0.3dB）</li><li>[x] 测量不确定度来源与控制方法</li><li>[x] NIST 互比对原则</li></ul>
-    <p>---</p>
-    <p><b>适用读者</b>: 射频测试工程师、OTA 实验室技术人员、5G 认证测试人员 <b>延伸阅读</b>:</p>
-    <ul><li><span class="wl">笔记-S参数S-Parameters深度解读-20260626</span></li><li><span class="wl">笔记-VSWR电压驻波比深度解读-20260626</span></li><li><span class="wl">笔记-天线增益Antenna Gain深度解读-20260629</span></li><li>3GPP TR 38.810: OTA Test Methods for NR</li><li>3GPP TS 38.561 Release 18: UE TRP/TRS Requirements</li><li>CTIA OTA Test Plan v4.0</li><li>NIST: OTA Measurement Uncertainty</li><li>Anritsu: Near-Field vs Far-Field Antenna Testing</li><li>Rohde & Schwarz: VNA Calibration Techniques</li><li>TI: mmWave Radar Radome Design Guide</li></ul>
-  </article>
 
 </main>
 
@@ -312,5 +315,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
 </body>
 </html>
