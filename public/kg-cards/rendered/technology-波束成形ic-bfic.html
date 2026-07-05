@@ -504,12 +504,14 @@
     <div class="text-body"><p>BFIC 通过控制每个通道的相位偏移来实现波束扫描：</p>
 <pre><code>ψ_n = -2π·d·sin(θ₀)·n/λ
 </code></pre>
-<p>其中：<br />
-- ψ_n 是第 n 个通道的相位偏移<br />
-- d 是单元间距<br />
-- θ₀ 是目标波束指向角<br />
-- λ 是工作波长<br />
-- n 是通道序号</p>
+<p>其中：</p>
+<ul>
+<li>ψ_n 是第 n 个通道的相位偏移</li>
+<li>d 是单元间距</li>
+<li>θ₀ 是目标波束指向角</li>
+<li>λ 是工作波长</li>
+<li>n 是通道序号</li>
+</ul>
 <p>BFIC 需要在离散相位状态中选择最接近 ψ_n 的值，这就引入了量化误差。</p></div>
   </div>
 
@@ -569,10 +571,12 @@
     <div class="text-body"><p>BFIC 的功耗主要由以下部分组成：</p>
 <pre><code>P_total = P_phase_shifter × N_channels + P_attenuator × N_channels + P_VGA × N_channels + P_control + P_interface
 </code></pre>
-<p>典型值：<br />
-- 单通道模拟 BFIC：10-50 mW（4-8 GHz）<br />
-- 单通道 mmWave BFIC：50-200 mW（28 GHz）<br />
-- 16 通道 BFIC 芯片：200-800 mW</p></div>
+<p>典型值：</p>
+<ul>
+<li>单通道模拟 BFIC：10-50 mW（4-8 GHz）</li>
+<li>单通道 mmWave BFIC：50-200 mW（28 GHz）</li>
+<li>16 通道 BFIC 芯片：200-800 mW</li>
+</ul></div>
   </div>
 
     
@@ -624,11 +628,13 @@
 </tr>
 </tbody>
 </table>
-<p><strong>CMOS 成为 5G BFIC 主流工艺的原因</strong>：<br />
-- 成本最低（标准晶圆代工）<br />
-- 集成度最高（可在单芯片上集成数百通道）<br />
-- 功耗可控（16nm 工艺下单通道 &lt; 10mW）<br />
-- 缺点：输出功率和噪声系数不如 GaAs/SiGe</p></div>
+<p><strong>CMOS 成为 5G BFIC 主流工艺的原因</strong>：</p>
+<ul>
+<li>成本最低（标准晶圆代工）</li>
+<li>集成度最高（可在单芯片上集成数百通道）</li>
+<li>功耗可控（16nm 工艺下单通道 &lt; 10mW）</li>
+<li>缺点：输出功率和噪声系数不如 GaAs/SiGe</li>
+</ul></div>
   </div>
 
     
@@ -985,15 +991,19 @@
     
   <div class="block section-text">
     <div class="block-title">6.1 相位误差累积</div>
-    <div class="text-body"><p>BFIC 的移相器不是理想的——每个通道的相位误差会累积：<br />
-- 制造公差：±1-2°<br />
-- 温度漂移：±0.5°/°C<br />
-- 电压波动：±0.3°</p>
+    <div class="text-body"><p>BFIC 的移相器不是理想的——每个通道的相位误差会累积：</p>
+<ul>
+<li>制造公差：±1-2°</li>
+<li>温度漂移：±0.5°/°C</li>
+<li>电压波动：±0.3°</li>
+</ul>
 <p>对于一个 64 通道阵列，最大累积相位误差可达 ±20°，导致波束指向偏移 1-2°——在 28GHz 毫米波下，这可能意味着信号损失 3-5 dB。</p>
-<p><strong>对策</strong>：<br />
-- 出厂校准：逐个通道测量相位误差，写入查找表<br />
-- 在线自校准：通过反馈环路实时调整<br />
-- 温度补偿：内置温度传感器，动态调整</p></div>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>出厂校准：逐个通道测量相位误差，写入查找表</li>
+<li>在线自校准：通过反馈环路实时调整</li>
+<li>温度补偿：内置温度传感器，动态调整</li>
+</ul></div>
   </div>
 
     
@@ -1003,13 +1013,17 @@
     
   <div class="block section-text">
     <div class="block-title">6.2 通道间串扰（Crosstalk）</div>
-    <div class="text-body"><p>模拟 BFIC 中多个通道共享电源和地线，通道之间的信号会通过电源噪声耦合：<br />
-- 通道间隔离度不足会导致波束畸形<br />
-- 在高密度阵列中（如 256 通道 AAU），串扰问题尤为严重</p>
-<p><strong>对策</strong>：<br />
-- 电源去耦：每个通道配独立去耦电容<br />
-- 接地优化：星型接地布局<br />
-- 通道间屏蔽：金属隔离墙</p></div>
+    <div class="text-body"><p>模拟 BFIC 中多个通道共享电源和地线，通道之间的信号会通过电源噪声耦合：</p>
+<ul>
+<li>通道间隔离度不足会导致波束畸形</li>
+<li>在高密度阵列中（如 256 通道 AAU），串扰问题尤为严重</li>
+</ul>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>电源去耦：每个通道配独立去耦电容</li>
+<li>接地优化：星型接地布局</li>
+<li>通道间屏蔽：金属隔离墙</li>
+</ul></div>
   </div>
 
     
@@ -1020,11 +1034,13 @@
   <div class="block section-text">
     <div class="block-title">6.3 散热——高密度集成的噩梦</div>
     <div class="text-body"><p>一个 64 通道 BFIC 在 28GHz 下的总功耗可达 5-10W，集中在一个几毫米见方的芯片上，功率密度超过 100W/cm²。这比 CPU 的功率密度还高。</p>
-<p><strong>对策</strong>：<br />
-- 背面散热焊盘（Exposed Pad）<br />
-- 导热过孔（Thermal Via）阵列<br />
-- 金属盖板（Metal Lid）传导散热<br />
-- 高阶方案：嵌入式散热层</p></div>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>背面散热焊盘（Exposed Pad）</li>
+<li>导热过孔（Thermal Via）阵列</li>
+<li>金属盖板（Metal Lid）传导散热</li>
+<li>高阶方案：嵌入式散热层</li>
+</ul></div>
   </div>
 
     
@@ -1034,9 +1050,11 @@
     
   <div class="block section-text">
     <div class="block-title">6.4 多波束形成的限制</div>
-    <div class="text-body"><p>模拟 BFIC 通常只能形成 1 个波束（因为所有通道合路后输出到单一 RF 链）。如果需要同时形成多个波束（多用户 MIMO），需要：<br />
-- 多个 BFIC 通道组（每组形成 1 个波束）<br />
-- 或者切换到混合/数字波束成形架构</p>
+    <div class="text-body"><p>模拟 BFIC 通常只能形成 1 个波束（因为所有通道合路后输出到单一 RF 链）。如果需要同时形成多个波束（多用户 MIMO），需要：</p>
+<ul>
+<li>多个 BFIC 通道组（每组形成 1 个波束）</li>
+<li>或者切换到混合/数字波束成形架构</li>
+</ul>
 <p>这在芯片面积和功耗上是巨大的开销。</p></div>
   </div>
 
@@ -1047,11 +1065,13 @@
     
   <div class="block section-text">
     <div class="block-title">6.5 校准复杂度</div>
-    <div class="text-body"><p>BFIC 的校准是一个系统工程：<br />
-- 每个通道的相位和幅度都需要单独校准<br />
-- 校准数据存储在非易失性存储器中<br />
-- 运行中需要定期重新校准（温度漂移）<br />
-- 对于 256 通道的 AAU，校准时间可能长达数小时</p></div>
+    <div class="text-body"><p>BFIC 的校准是一个系统工程：</p>
+<ul>
+<li>每个通道的相位和幅度都需要单独校准</li>
+<li>校准数据存储在非易失性存储器中</li>
+<li>运行中需要定期重新校准（温度漂移）</li>
+<li>对于 256 通道的 AAU，校准时间可能长达数小时</li>
+</ul></div>
   </div>
 
     

@@ -284,10 +284,12 @@
   <div class="block section-text">
     <div class="block-title">电磁波的极化方向</div>
     <div class="text-body"><p>电磁波在空间中传播时，电场矢量的振动方向就是极化方向。想象一根绳子，你上下抖它，波就是垂直极化的；左右抖它，波就是水平极化的。</p>
-<p><strong>三种基本极化</strong>：<br />
-- <strong>线性极化</strong>：电场矢量在一个固定平面内振动（+45°、-45°、水平、垂直）<br />
-- <strong>圆极化</strong>：电场矢量端点随时间画出一个圆（左旋或右旋）<br />
-- <strong>椭圆极化</strong>：电场矢量端点随时间画出一个椭圆（最general的情况）</p></div>
+<p><strong>三种基本极化</strong>：</p>
+<ul>
+<li><strong>线性极化</strong>：电场矢量在一个固定平面内振动（+45°、-45°、水平、垂直）</li>
+<li><strong>圆极化</strong>：电场矢量端点随时间画出一个圆（左旋或右旋）</li>
+<li><strong>椭圆极化</strong>：电场矢量端点随时间画出一个椭圆（最general的情况）</li>
+</ul></div>
   </div>
 
     
@@ -325,12 +327,12 @@
 <pre><code>XPD (dB) = 10 × log₁₀(P_co / P_xp)
 </code></pre>
 <p>其中 P_co 是同极化功率，P_xp 是交叉极化功率。</p>
-<p><strong>典型 XPD 值</strong>：<br />
-| 场景 | XPD (dB) | 说明 |<br />
-|------|---------|------|<br />
-| 开阔地带 LOS | 25-30dB | 信号极化保持极好 |<br />
-| 城市郊区 NLOS | 15-20dB | 少量反射，极化有一定旋转 |<br />
-| 城市峡谷 | 8-15dB | 多次反射，极化严重退化 |<br />
+<p><strong>典型 XPD 值</strong>：
+| 场景 | XPD (dB) | 说明 |
+|------|---------|------|
+| 开阔地带 LOS | 25-30dB | 信号极化保持极好 |
+| 城市郊区 NLOS | 15-20dB | 少量反射，极化有一定旋转 |
+| 城市峡谷 | 8-15dB | 多次反射，极化严重退化 |
 | 室内密集多径 | 5-10dB | 极化几乎完全随机 |</p>
 <p><strong>核心规律</strong>：XPD 越高，信号极化保持得越好，极化分集的效果越差（因为两根天线收到的信号高度相关）。XPD 越低，极化分集的效果越好（因为两根天线收到的信号更独立）。</p>
 <hr /></div>
@@ -343,9 +345,11 @@
     
   <div class="block section-text">
     <div class="block-title">原因 1：人体手持手机姿态随机</div>
-    <div class="text-body"><p>用户可能横握、竖握、斜握手机，手机天线的极化方向随之变化。如果是水平/垂直双极化：<br />
-- 用户竖握手机 → 垂直极化天线匹配好，水平极化天线几乎收不到信号<br />
-- 用户横握手机 → 反过来</p>
+    <div class="text-body"><p>用户可能横握、竖握、斜握手机，手机天线的极化方向随之变化。如果是水平/垂直双极化：</p>
+<ul>
+<li>用户竖握手机 → 垂直极化天线匹配好，水平极化天线几乎收不到信号</li>
+<li>用户横握手机 → 反过来</li>
+</ul>
 <p>±45° 双极化对任意手持姿态都有较好的兼容性，避免了水平/垂直方案在某些姿态下极端恶化的风险。</p>
 <p><strong>量化对比</strong>：</p>
 <pre><code>水平/垂直双极化：
@@ -481,11 +485,13 @@
     <div class="block-title">场景 2：手机天线</div>
     <div class="text-body"><p>现代旗舰手机的内部空间被压缩到极致，天线之间的间距常常不足几毫米（远小于 λ/2）。通过极化分集，手机可以在不增加天线数量的前提下，依然获得足够的分集增益来对抗多径衰落。</p>
 <p><strong>实际体验</strong>：这就是为什么你的手机在电梯里、地下车库、高楼密集区，虽然信号格数不多，但通话和上网一般不会完全断掉——极化分集在默默干活。</p>
-<p><strong>手机天线设计挑战</strong>：<br />
-- 间距 &lt; 5mm（远低于 λ/2）<br />
-- 金属边框干扰极化方向<br />
-- 人手握持改变天线谐振特性<br />
-- 需要同时支持 4G/5G/Wi-Fi/蓝牙/NFC 多个频段</p></div>
+<p><strong>手机天线设计挑战</strong>：</p>
+<ul>
+<li>间距 &lt; 5mm（远低于 λ/2）</li>
+<li>金属边框干扰极化方向</li>
+<li>人手握持改变天线谐振特性</li>
+<li>需要同时支持 4G/5G/Wi-Fi/蓝牙/NFC 多个频段</li>
+</ul></div>
   </div>
 
     
@@ -496,12 +502,14 @@
   <div class="block section-text">
     <div class="block-title">场景 3：铁路专网</div>
     <div class="text-body"><p>2026 年最新研究：针对 5G 铁路专网的扇形波束极化分集天线。</p>
-<p><strong>论文概要</strong>（Nature Scientific Reports, 2026）：<br />
-- 采用高阶模贴片天线辐射单元<br />
-- 旋转 45° 构成倾斜双极化结构<br />
-- 增益 12.8dBi，阵列峰值增益 18.6dBi<br />
-- 水平 HPBW 6°，垂直 HPBW 38°（扇形波束贴合铁轨走向）<br />
-- 在高速移动场景下提供极化鲁棒性</p>
+<p><strong>论文概要</strong>（Nature Scientific Reports, 2026）：</p>
+<ul>
+<li>采用高阶模贴片天线辐射单元</li>
+<li>旋转 45° 构成倾斜双极化结构</li>
+<li>增益 12.8dBi，阵列峰值增益 18.6dBi</li>
+<li>水平 HPBW 6°，垂直 HPBW 38°（扇形波束贴合铁轨走向）</li>
+<li>在高速移动场景下提供极化鲁棒性</li>
+</ul>
 <p><strong>为什么铁路需要极化分集</strong>：列车高速移动（350km/h）导致多普勒频移和极化快速变化，单极化天线容易遭遇深衰落。极化分集提供额外的分集维度，确保链路可靠性。</p>
 <hr /></div>
   </div>
@@ -513,9 +521,11 @@
     
   <div class="block section-text">
     <div class="block-title">基站天线 XPD 标准</div>
-    <div class="text-body"><p>中国移动对 ±45° 双极化基站天线的 XPD 技术指标要求：<br />
-- <strong>主波束方向（boresight）</strong>：XPD &gt; 20dB<br />
-- <strong>主瓣 ±60° 范围内</strong>：XPD &gt; 10dB</p>
+    <div class="text-body"><p>中国移动对 ±45° 双极化基站天线的 XPD 技术指标要求：</p>
+<ul>
+<li><strong>主波束方向（boresight）</strong>：XPD &gt; 20dB</li>
+<li><strong>主瓣 ±60° 范围内</strong>：XPD &gt; 10dB</li>
+</ul>
 <p><strong>为什么有这个标准</strong>：XPD 越高，极化复用效果越好，MIMO 容量越高。如果 XPD 太低，两根极化天线收到的信号高度相关，极化分集增益大幅下降。</p></div>
   </div>
 
@@ -545,11 +555,13 @@
   <div class="block section-text">
     <div class="block-title">局限 1：城市峡谷中的极化退化</div>
     <div class="text-body"><p>在密集建筑群中，多次反射会让信号极化特性变得杂乱，XPD 急剧下降到 5-10dB。此时两根正交极化天线收到的信号高度相关，分集增益大打折扣。</p>
-<p><strong>量化</strong>：<br />
-- 开阔地带（XPD = 25dB）：极化分集增益约 4-5dB<br />
-- 城市郊区（XPD = 15dB）：极化分集增益约 3-4dB<br />
-- 城市峡谷（XPD = 8dB）：极化分集增益约 1-2dB<br />
-- 室内密集（XPD = 5dB）：极化分集增益约 0.5-1dB</p></div>
+<p><strong>量化</strong>：</p>
+<ul>
+<li>开阔地带（XPD = 25dB）：极化分集增益约 4-5dB</li>
+<li>城市郊区（XPD = 15dB）：极化分集增益约 3-4dB</li>
+<li>城市峡谷（XPD = 8dB）：极化分集增益约 1-2dB</li>
+<li>室内密集（XPD = 5dB）：极化分集增益约 0.5-1dB</li>
+</ul></div>
   </div>
 
     
@@ -574,12 +586,14 @@
 <pre><code>极化失配损耗 (dB) = -10 × log₁₀(cos²(Δθ))
 </code></pre>
 <p>其中 Δθ 是两极化方向的夹角偏差。</p>
-<p><strong>典型值</strong>：<br />
-- Δθ = 0°（完美正交）：损耗 0dB<br />
-- Δθ = 5°：损耗 0.2dB<br />
-- Δθ = 10°：损耗 0.8dB<br />
-- Δθ = 15°：损耗 1.8dB<br />
-- Δθ = 30°：损耗 6dB（严重）</p>
+<p><strong>典型值</strong>：</p>
+<ul>
+<li>Δθ = 0°（完美正交）：损耗 0dB</li>
+<li>Δθ = 5°：损耗 0.2dB</li>
+<li>Δθ = 10°：损耗 0.8dB</li>
+<li>Δθ = 15°：损耗 1.8dB</li>
+<li>Δθ = 30°：损耗 6dB（严重）</li>
+</ul>
 <hr /></div>
   </div>
 
@@ -612,10 +626,12 @@
   <div class="block section-text">
     <div class="block-title">通感一体化中的极化分集</div>
     <div class="text-body"><p>6G 通感一体化（ISAC）利用极化分集同时获取目标的极化散射特性。不同材质、形状的目标对不同极化波的散射特性不同，通过分析极化散射矩阵（PolSAR），可以实现更精细的目标识别。</p>
-<p><strong>应用</strong>：<br />
-- 区分无人机和飞鸟（极化散射特征不同）<br />
-- 识别车辆类型（金属车身 vs 人体）<br />
-- 检测天气现象（雨滴 vs 冰雹 vs 雪花）</p>
+<p><strong>应用</strong>：</p>
+<ul>
+<li>区分无人机和飞鸟（极化散射特征不同）</li>
+<li>识别车辆类型（金属车身 vs 人体）</li>
+<li>检测天气现象（雨滴 vs 冰雹 vs 雪花）</li>
+</ul>
 <hr /></div>
   </div>
 

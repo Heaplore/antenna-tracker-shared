@@ -29,10 +29,18 @@ def md_to_html(md_text: str) -> str:
     """将 Markdown 原文转为 HTML，保留所有格式。"""
     if not md_text:
         return ""
-    # 用 markdown 库转 HTML，启用表格/代码块/粗体等扩展
+    # 预处理：在代码块结束符后加空行，确保列表能被正确识别
+    # markdown 库要求列表前有空行分隔
+    text = re.sub(r'```\n```\n', '```\n\n```\n\n', md_text)
+    # 在段落和列表之间加空行
+    text = re.sub(r'([：:。！!])\n-', r'\1\n\n-', text)
+    text = re.sub(r'([：:。！!])\n(\d+\.)', r'\1\n\n\2', text)
+    # 在代码块结束和列表之间加空行
+    text = re.sub(r'```\n\n- ', '```\n\n\n- ', text)
+
     return markdown.markdown(
-        md_text,
-        extensions=["tables", "fenced_code", "nl2br"],
+        text,
+        extensions=["tables", "fenced_code"],
     )
 
 

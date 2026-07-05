@@ -296,10 +296,12 @@
 │   Ground Plane       │  ← 底层：连续金属接地层
 └──────────────────────┘
 </code></pre>
-<p><strong>关键尺寸</strong>：<br />
-- 单元间距：d ≤ λ/2（避免栅瓣）<br />
-- 单元尺寸：a ≈ λ/4 - λ/2<br />
-- 介质层厚度：h ≈ λ/20 - λ/10</p></div>
+<p><strong>关键尺寸</strong>：</p>
+<ul>
+<li>单元间距：d ≤ λ/2（避免栅瓣）</li>
+<li>单元尺寸：a ≈ λ/4 - λ/2</li>
+<li>介质层厚度：h ≈ λ/20 - λ/10</li>
+</ul></div>
   </div>
 
     
@@ -368,11 +370,13 @@
   <div class="block section-text">
     <div class="block-title">2.1 PIN 二极管</div>
     <div class="text-body"><p><strong>原理</strong>：正向偏置时导通（短路），反向偏置时截止（开路）。</p>
-<p><strong>特点</strong>：<br />
-- 开关速度：纳秒级（10-100ns）<br />
-- 插入损耗：0.5-2dB<br />
-- 控制功率：低（只需直流偏置）<br />
-- 寿命：长（&gt; 10⁹ 次开关）</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>开关速度：纳秒级（10-100ns）</li>
+<li>插入损耗：0.5-2dB</li>
+<li>控制功率：低（只需直流偏置）</li>
+<li>寿命：长（&gt; 10⁹ 次开关）</li>
+</ul>
 <p><strong>相位调控</strong>：</p>
 <table>
 <thead>
@@ -407,11 +411,13 @@
   <div class="block section-text">
     <div class="block-title">2.2 变容二极管（Varactor）</div>
     <div class="text-body"><p><strong>原理</strong>：通过改变反向偏置电压，调节结电容 C_j。</p>
-<p><strong>特点</strong>：<br />
-- 连续相位调控：0-360° 连续可调<br />
-- 响应速度：微秒级（1-10μs）<br />
-- 插入损耗：0.2-1dB<br />
-- 调谐范围：50-200%</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>连续相位调控：0-360° 连续可调</li>
+<li>响应速度：微秒级（1-10μs）</li>
+<li>插入损耗：0.2-1dB</li>
+<li>调谐范围：50-200%</li>
+</ul>
 <p><strong>电容-电压特性</strong>：</p>
 <pre><code>C_j(V) = C_0 / (1 + V/V_0)^γ
 </code></pre>
@@ -426,16 +432,20 @@
   <div class="block section-text">
     <div class="block-title">2.3 MEMS（微机电系统）</div>
     <div class="text-body"><p><strong>原理</strong>：通过静电力或热力驱动微机械结构移动。</p>
-<p><strong>特点</strong>：<br />
-- 极低损耗：&lt; 0.1dB<br />
-- 连续相位调控<br />
-- 寿命：10⁷-10⁹ 次循环<br />
-- 响应速度：毫秒级（1-10ms）<br />
-- 驱动电压：50-200V（需要高压驱动器）</p>
-<p><strong>类型</strong>：<br />
-- 悬臂梁式：一端固定，一端可移动<br />
-- 夹持式：两端固定，中间可移动<br />
-- 翻转盖式：整个盖板翻转</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>极低损耗：&lt; 0.1dB</li>
+<li>连续相位调控</li>
+<li>寿命：10⁷-10⁹ 次循环</li>
+<li>响应速度：毫秒级（1-10ms）</li>
+<li>驱动电压：50-200V（需要高压驱动器）</li>
+</ul>
+<p><strong>类型</strong>：</p>
+<ul>
+<li>悬臂梁式：一端固定，一端可移动</li>
+<li>夹持式：两端固定，中间可移动</li>
+<li>翻转盖式：整个盖板翻转</li>
+</ul></div>
   </div>
 
     
@@ -446,11 +456,13 @@
   <div class="block section-text">
     <div class="block-title">2.4 液晶（Liquid Crystal）</div>
     <div class="text-body"><p><strong>原理</strong>：电场改变液晶分子的取向 → 介电常数各向异性 → 相位变化。</p>
-<p><strong>特点</strong>：<br />
-- 连续相位调控：0-360°<br />
-- 极低功耗：只需维持电压（不切换时零功耗）<br />
-- 响应速度慢：毫秒到秒级<br />
-- 工作温度范围窄：-20°C 到 60°C</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>连续相位调控：0-360°</li>
+<li>极低功耗：只需维持电压（不切换时零功耗）</li>
+<li>响应速度慢：毫秒到秒级</li>
+<li>工作温度范围窄：-20°C 到 60°C</li>
+</ul></div>
   </div>
 
     
@@ -612,15 +624,19 @@
     <div class="text-body"><p>相邻单元之间的电磁耦合是超表面设计的核心挑战：</p>
 <pre><code>Z_effective = Z_self + Σ_{neighbors} Z_coupling
 </code></pre>
-<p><strong>影响</strong>：<br />
-- 一个单元的控制会影响相邻单元的响应<br />
-- 相位-幅度耦合：调相位时幅度也会变化<br />
-- 设计复杂度：N 个单元不再是 N 个独立问题，而是 N² 耦合问题</p>
-<p><strong>缓解方法</strong>：<br />
-- 单元间距 ≥ λ/2（降低耦合）<br />
-- 单元之间加隔离槽（decoupling slots）<br />
-- 预补偿算法（在控制信号中补偿互耦）<br />
-- 全波仿真优化（HFSS/CST）</p></div>
+<p><strong>影响</strong>：</p>
+<ul>
+<li>一个单元的控制会影响相邻单元的响应</li>
+<li>相位-幅度耦合：调相位时幅度也会变化</li>
+<li>设计复杂度：N 个单元不再是 N 个独立问题，而是 N² 耦合问题</li>
+</ul>
+<p><strong>缓解方法</strong>：</p>
+<ul>
+<li>单元间距 ≥ λ/2（降低耦合）</li>
+<li>单元之间加隔离槽（decoupling slots）</li>
+<li>预补偿算法（在控制信号中补偿互耦）</li>
+<li>全波仿真优化（HFSS/CST）</li>
+</ul></div>
   </div>
 
     
@@ -722,10 +738,12 @@ Layer 5: 底层接地
 magnetic response:  M_s = σ_m · H_inc
 </code></pre>
 <p>当 σ_e = σ_m 时，可以实现 100% 透射或反射，且相位覆盖 0-2π。</p>
-<p><strong>优势</strong>：<br />
-- 高效率（&gt; 90%）<br />
-- 任意波前调控<br />
-- 低互耦</p></div>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>高效率（&gt; 90%）</li>
+<li>任意波前调控</li>
+<li>低互耦</li>
+</ul></div>
   </div>
 
     
@@ -938,10 +956,12 @@ magnetic response:  M_s = σ_m · H_inc
 <li>4-bit：4N 条 GPIO 线</li>
 </ul>
 <p>对于 10000 单元的 RIS，4-bit 需要 40000 条控制线——这不现实。</p>
-<p><strong>解决方案</strong>：<br />
-- 行列复用（Row-Column Multiplexing）：N² 单元只需 2N 条线<br />
-- 级联控制：通过少数控制线驱动多个单元<br />
-- FPGA/ASIC 专用控制器</p></div>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>行列复用（Row-Column Multiplexing）：N² 单元只需 2N 条线</li>
+<li>级联控制：通过少数控制线驱动多个单元</li>
+<li>FPGA/ASIC 专用控制器</li>
+</ul></div>
   </div>
 
     

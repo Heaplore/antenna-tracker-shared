@@ -293,10 +293,12 @@
   <div class="block section-text">
     <div class="block-title">第三代：BBU + DU/CU + AAU（5G NR 时代）</div>
     <div class="text-body"><p>AAU 把 RRU 的射频功能 + 波束赋形芯片 + 大规模天线阵列，全部集成到一个户外单元里。天线不再是被动辐射体，而是能实时调整波束方向的"智能辐射体"。</p>
-<p><strong>架构变化</strong>：<br />
-- BBU 被拆分为 DU（分布式单元）和 CU（集中式单元）<br />
-- DU 负责实时调度和物理层处理，靠近 AAU 部署<br />
-- CU 负责非实时功能和核心网对接，集中在机房</p>
+<p><strong>架构变化</strong>：</p>
+<ul>
+<li>BBU 被拆分为 DU（分布式单元）和 CU（集中式单元）</li>
+<li>DU 负责实时调度和物理层处理，靠近 AAU 部署</li>
+<li>CU 负责非实时功能和核心网对接，集中在机房</li>
+</ul>
 <pre><code>4G:  BBU(机房) ---光纤--- RRU(塔上) ---馈线--- 无源天线(塔上)
 5G:  CU(机房) ---光纤--- DU(机房/塔下) ---光纤--- AAU(塔上，集成天线)
 </code></pre>
@@ -323,10 +325,12 @@
   <div class="block section-text">
     <div class="block-title">2. 功率放大器（PA）</div>
     <div class="text-body"><p>这是 AAU 最耗电的部件，占总功耗的 <strong>50%-70%</strong>。64T64R 的 AAU 满载功耗 1000-1400W，其中功放就吃了大半。</p>
-<p><strong>材料演进</strong>：<br />
-- <strong>4G 时代</strong>：硅基 LDMOS 功放，效率约 30-40%<br />
-- <strong>5G 初期</strong>：GaAs（砷化镓）功放，效率提升到 45-50%<br />
-- <strong>2025-2026 主流</strong>：GaN（氮化镓）功放，效率达到 55-60%，同时功率密度更高、耐高温</p>
+<p><strong>材料演进</strong>：</p>
+<ul>
+<li><strong>4G 时代</strong>：硅基 LDMOS 功放，效率约 30-40%</li>
+<li><strong>5G 初期</strong>：GaAs（砷化镓）功放，效率提升到 45-50%</li>
+<li><strong>2025-2026 主流</strong>：GaN（氮化镓）功放，效率达到 55-60%，同时功率密度更高、耐高温</li>
+</ul>
 <p><strong>GaN 的优势</strong>：氮化镓的禁带宽度比硅大 3 倍，能在更高电压、更高频率下工作而不击穿。这意味着同样的输出功率，GaN 功放体积更小、发热更少、效率更高。</p></div>
   </div>
 
@@ -349,9 +353,11 @@
   <div class="block section-text">
     <div class="block-title">4. 天线阵列（Radiating Elements）</div>
     <div class="text-body"><p>这是 AAU 的"面子"。64T64R 的 AAU 通常包含 192-384 个辐射单元（每个通道由多个单元组成阵列，以提升增益）。</p>
-<p><strong>排列方式</strong>：<br />
-- <strong>一维排列</strong>：早期 4T4R/8T8R 天线，只在水平方向形成波束<br />
-- <strong>二维排列</strong>：5G Massive MIMO 的标准配置，在水平和垂直方向同时形成波束，实现 3D 波束赋形</p>
+<p><strong>排列方式</strong>：</p>
+<ul>
+<li><strong>一维排列</strong>：早期 4T4R/8T8R 天线，只在水平方向形成波束</li>
+<li><strong>二维排列</strong>：5G Massive MIMO 的标准配置，在水平和垂直方向同时形成波束，实现 3D 波束赋形</li>
+</ul>
 <p><strong>尺寸</strong>：一副典型的 64T64R AAU 尺寸约为 250mm × 300mm × 100mm，重量 15-25kg，挂在铁塔上像一个白色的长方形面板。</p></div>
   </div>
 
@@ -362,10 +368,12 @@
     
   <div class="block section-text">
     <div class="block-title">5. 散热系统</div>
-    <div class="text-body"><p>64 通道功放堆在一起，满载时发热量巨大。AAU 内部采用：<br />
-- <strong>铝合金外壳</strong>：兼作散热器，表面积大<br />
-- <strong>导热凝胶</strong>：填充芯片与外壳之间的空隙，降低热阻<br />
-- <strong>无风扇设计</strong>：户外部署不能用风扇（灰尘、雨水），靠自然对流和辐射散热</p>
+    <div class="text-body"><p>64 通道功放堆在一起，满载时发热量巨大。AAU 内部采用：</p>
+<ul>
+<li><strong>铝合金外壳</strong>：兼作散热器，表面积大</li>
+<li><strong>导热凝胶</strong>：填充芯片与外壳之间的空隙，降低热阻</li>
+<li><strong>无风扇设计</strong>：户外部署不能用风扇（灰尘、雨水），靠自然对流和辐射散热</li>
+</ul>
 <p><strong>温度控制</strong>：AAU 内部设有多个温度传感器，当温度超过阈值时，会自动降低发射功率（thermal throttling），防止过热损坏。夏季铁塔表面温度可达 60°C 以上，AAU 的散热设计必须在最恶劣环境下仍能保证芯片结温不超过 105°C。</p></div>
   </div>
 
@@ -490,10 +498,12 @@
     
   <div class="block section-text">
     <div class="block-title">SDIF 架构：信号直注馈电（华为 MetaAAU 首创）</div>
-    <div class="text-body"><p>SDIF（Signal Direct Injection Feeding）取消了中间的无源功分网络，每个收发通道直接连接到专属的辐射子阵列。好处：<br />
-- 消除 CFN 插入损耗，辐射效率提升<br />
-- 减少单元间互耦，波束纯度更高<br />
-- 简化内部布线，降低制造成本</p>
+    <div class="text-body"><p>SDIF（Signal Direct Injection Feeding）取消了中间的无源功分网络，每个收发通道直接连接到专属的辐射子阵列。好处：</p>
+<ul>
+<li>消除 CFN 插入损耗，辐射效率提升</li>
+<li>减少单元间互耦，波束纯度更高</li>
+<li>简化内部布线，降低制造成本</li>
+</ul>
 <p>华为 MetaAAU 采用 SDIF + 384 偶极子阵列（是传统 64T64R 的 2 倍），实现上下行覆盖各提升 3dB，小区半径扩展 18-20%，同时能耗降低约 30%。</p></div>
   </div>
 
@@ -504,10 +514,12 @@
     
   <div class="block section-text">
     <div class="block-title">UWB 超宽带架构：一机多频</div>
-    <div class="text-body"><p>华为 UWB AAU 系列通过宽带介质滤波器和多频段偶极子技术，在同一副天线面板上集成多个频段（如 3.5GHz + 4.9GHz）。相比传统方案：<br />
-- 不增加尺寸和重量就能新增频段<br />
-- 减少铁塔上的设备数量，降低风载和租金<br />
-- 功耗降低约 15%</p>
+    <div class="text-body"><p>华为 UWB AAU 系列通过宽带介质滤波器和多频段偶极子技术，在同一副天线面板上集成多个频段（如 3.5GHz + 4.9GHz）。相比传统方案：</p>
+<ul>
+<li>不增加尺寸和重量就能新增频段</li>
+<li>减少铁塔上的设备数量，降低风载和租金</li>
+<li>功耗降低约 15%</li>
+</ul>
 <p>全球已部署超过 150 个运营商网络。秘鲁案例：TDD 双频 AAU 部署后覆盖提升 30%，平均功耗降低 30%。</p>
 <hr /></div>
   </div>
@@ -520,11 +532,13 @@
   <div class="block section-text">
     <div class="block-title">五、PanoAAU：2026 年的新物种</div>
     <div class="text-body"><p>华为在 2026 年推出了 PanoAAU（全景天线），这是 AAU 的又一次进化。核心创新：</p>
-<p><strong>从 120° 扇区到 180° 广角覆盖</strong>。传统基站每站分 3 个扇区（每个 120°），PanoAAU 通过超大规模天线阵列 + 广角波束管理算法，一个单元就能覆盖 180°。这意味着：<br />
-- 原来 3 个扇区的站点，现在 2 个就够了<br />
-- 铁塔上的设备减少 33%<br />
-- 功耗和租金同步下降<br />
-- 在农村等 ROI 偏低的场景，让原本不划算的站点变得可行</p>
+<p><strong>从 120° 扇区到 180° 广角覆盖</strong>。传统基站每站分 3 个扇区（每个 120°），PanoAAU 通过超大规模天线阵列 + 广角波束管理算法，一个单元就能覆盖 180°。这意味着：</p>
+<ul>
+<li>原来 3 个扇区的站点，现在 2 个就够了</li>
+<li>铁塔上的设备减少 33%</li>
+<li>功耗和租金同步下降</li>
+<li>在农村等 ROI 偏低的场景，让原本不划算的站点变得可行</li>
+</ul>
 <p><strong>类比</strong>：传统基站像一个三个扇面的折扇，PanoAAU 把它展开成半圆——少一把扇子，照样遮住同样的面积。</p>
 <p>早期部署案例：赞比亚 MTN 与华为合作的双频段 AAU 部署，解决了塔上空间有限、4G/5G 共站、能耗高等问题。</p>
 <hr /></div>
@@ -602,10 +616,12 @@
     
   <div class="block section-text">
     <div class="block-title">坑 1：散热</div>
-    <div class="text-body"><p>64 通道功放堆在一起，满载时发热量惊人。AAU 的散热设计面临三重挑战：<br />
-- <strong>环境温度高</strong>：夏季铁塔表面温度可达 60-70°C<br />
-- <strong>密闭空间</strong>：户外防水设计（IP65）意味着散热不能靠通风<br />
-- <strong>功率密度大</strong>：1400W 塞在 0.02 立方米的空间里，功率密度超过 60kW/m³</p>
+    <div class="text-body"><p>64 通道功放堆在一起，满载时发热量惊人。AAU 的散热设计面临三重挑战：</p>
+<ul>
+<li><strong>环境温度高</strong>：夏季铁塔表面温度可达 60-70°C</li>
+<li><strong>密闭空间</strong>：户外防水设计（IP65）意味着散热不能靠通风</li>
+<li><strong>功率密度大</strong>：1400W 塞在 0.02 立方米的空间里，功率密度超过 60kW/m³</li>
+</ul>
 <p>解决方案：铝合金外壳 + 导热凝胶 + 内部散热鳍片。但即便如此，高温天高峰期仍可能出现 thermal throttling（过热降频），导致用户感知速率下降。</p></div>
   </div>
 
@@ -616,10 +632,12 @@
     
   <div class="block section-text">
     <div class="block-title">坑 2：供电</div>
-    <div class="text-body"><p>AAU 的功耗是 4G RRU 的 3 倍，这对站点供电系统提出了全新挑战：<br />
-- <strong>传统 4G 站点</strong>：平均功耗 6kW，电池后备 8 小时<br />
-- <strong>5G C-band 站点</strong>：平均功耗 11.5-14kW，峰值可达 19kW<br />
-- <strong>后备电池_runtime</strong>：同样容量的电池，runtime 从 8 小时降到 3-4 小时</p>
+    <div class="text-body"><p>AAU 的功耗是 4G RRU 的 3 倍，这对站点供电系统提出了全新挑战：</p>
+<ul>
+<li><strong>传统 4G 站点</strong>：平均功耗 6kW，电池后备 8 小时</li>
+<li><strong>5G C-band 站点</strong>：平均功耗 11.5-14kW，峰值可达 19kW</li>
+<li><strong>后备电池_runtime</strong>：同样容量的电池，runtime 从 8 小时降到 3-4 小时</li>
+</ul>
 <p>更麻烦的是长距离供电时的电压降。AAU 通常工作在 -48V DC，如果供电电缆超过 50 米，线损导致的电压降可能让 AAU 端电压低于工作下限。华为在杭州萧山站点的实测中就遇到了这个问题，最终采用了智能升压技术。</p></div>
   </div>
 
@@ -630,10 +648,12 @@
     
   <div class="block section-text">
     <div class="block-title">坑 3：O-RAN 互操作性</div>
-    <div class="text-body"><p>O-RAN 的愿景是让不同厂商的 AAU 和 DU 能混用，打破华为/爱立信/诺基亚的封闭生态。但现实是：<br />
-- 各家的 Open fronthaul 接口标准还没完全对齐<br />
-- 64T64R 的波束赋形算法高度依赖芯片和固件的配合<br />
-- 运营商不敢轻易换——毕竟基站是网络的命脉</p>
+    <div class="text-body"><p>O-RAN 的愿景是让不同厂商的 AAU 和 DU 能混用，打破华为/爱立信/诺基亚的封闭生态。但现实是：</p>
+<ul>
+<li>各家的 Open fronthaul 接口标准还没完全对齐</li>
+<li>64T64R 的波束赋形算法高度依赖芯片和固件的配合</li>
+<li>运营商不敢轻易换——毕竟基站是网络的命脉</li>
+</ul>
 <p>目前主流方案仍然是"封闭盒子"：华为 AAU + 华为 DU，爱立信 AAU + 爱立信 DU。O-RAN 的开放愿景很美，但落地还需要时间。</p>
 <hr /></div>
   </div>

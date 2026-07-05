@@ -295,10 +295,12 @@
   <div class="block section-text">
     <div class="block-title">新解法：波束赋形</div>
     <div class="text-body"><p>让能量"指哪打哪"，从"全向灯泡"升级成"手电筒"。</p>
-<p><strong>量化收益</strong>：<br />
-- 同一条基站的频谱效率提升 <strong>3-5 倍</strong><br />
-- 边缘用户速率提升 <strong>10 倍以上</strong><br />
-- 同频干扰降低 <strong>15-20dB</strong></p>
+<p><strong>量化收益</strong>：</p>
+<ul>
+<li>同一条基站的频谱效率提升 <strong>3-5 倍</strong></li>
+<li>边缘用户速率提升 <strong>10 倍以上</strong></li>
+<li>同频干扰降低 <strong>15-20dB</strong></li>
+</ul>
 <p><strong>类比</strong>：以前基站像一个永远开着 16 盏灯的办公室，不管有多少人上班。波束赋形像一个智能照明系统——来几个人开几盏灯，每盏灯精准照向每个人。</p>
 <hr /></div>
   </div>
@@ -310,9 +312,11 @@
     
   <div class="block section-text">
     <div class="block-title">两个石子的比喻</div>
-    <div class="text-body"><p>在湖面同时扔两颗石子，产生两组水波。两组波纹相遇时：<br />
-- 某些点<strong>叠加变高</strong>（波峰遇波峰）<br />
-- 某些点<strong>相互抵消变平</strong>（波峰遇波谷）</p>
+    <div class="text-body"><p>在湖面同时扔两颗石子，产生两组水波。两组波纹相遇时：</p>
+<ul>
+<li>某些点<strong>叠加变高</strong>（波峰遇波峰）</li>
+<li>某些点<strong>相互抵消变平</strong>（波峰遇波谷）</li>
+</ul>
 <p>如果<strong>精确控制"扔下去的时间差"</strong>，就能让水波在某个方向"堆"得特别高，其他方向"塌"得很平。</p>
 <p><strong>把"石子"换成"天线"，"水波"换成"无线电波"，"时间差"换成"相位差"——这就是波束赋形。</strong></p></div>
   </div>
@@ -351,13 +355,13 @@
 <pre><code>θ ≈ λ / D  （弧度）
 </code></pre>
 <p>其中 λ 是波长，D 是天线孔径。</p>
-<p><strong>典型值</strong>：<br />
-| 场景 | 频率 | 孔径 | 波束宽度 |<br />
-|------|------|------|---------|<br />
-| 4G 基站 | 2GHz | 0.5m | ~70° |<br />
-| 5G AAU (64T64R) | 3.5GHz | 2m | ~6° |<br />
-| 5G mmWave (256T256R) | 28GHz | 0.5m | ~3° |<br />
-| Starlink 终端 | 14GHz | 0.3m | ~2° |<br />
+<p><strong>典型值</strong>：
+| 场景 | 频率 | 孔径 | 波束宽度 |
+|------|------|------|---------|
+| 4G 基站 | 2GHz | 0.5m | ~70° |
+| 5G AAU (64T64R) | 3.5GHz | 2m | ~6° |
+| 5G mmWave (256T256R) | 28GHz | 0.5m | ~3° |
+| Starlink 终端 | 14GHz | 0.3m | ~2° |
 | 6G ELAA (1024T1024R) | 6GHz | 10m | ~0.3° |</p>
 <p><strong>关键判断</strong>：天线越多、孔径越大，波束越窄，指向性越强，但跟踪难度也越大。</p>
 <hr /></div>
@@ -418,16 +422,22 @@
   <div class="block section-text">
     <div class="block-title">模拟波束赋形</div>
     <div class="text-body"><p><strong>原理</strong>：所有天线共用一组 RF 链（ADC/DAC），通过移相器控制相位。</p>
-<p><strong>优点</strong>：<br />
-- 硬件成本最低（1 组 RF 链控制 N 根天线）<br />
-- 功耗低</p>
-<p><strong>缺点</strong>：<br />
-- 一次只能形成一个波束<br />
-- 无法同时服务多个用户<br />
-- 灵活性差</p>
-<p><strong>典型应用</strong>：<br />
-- 毫米波 5G 手机的 AIP（Antenna-in-Package）<br />
-- 低功耗 IoT 传感器</p></div>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>硬件成本最低（1 组 RF 链控制 N 根天线）</li>
+<li>功耗低</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>一次只能形成一个波束</li>
+<li>无法同时服务多个用户</li>
+<li>灵活性差</li>
+</ul>
+<p><strong>典型应用</strong>：</p>
+<ul>
+<li>毫米波 5G 手机的 AIP（Antenna-in-Package）</li>
+<li>低功耗 IoT 传感器</li>
+</ul></div>
   </div>
 
     
@@ -438,17 +448,23 @@
   <div class="block section-text">
     <div class="block-title">数字波束赋形</div>
     <div class="text-body"><p><strong>原理</strong>：每根天线都有独立的 RF 链（ADC/DAC），在数字域完成波束赋形。</p>
-<p><strong>优点</strong>：<br />
-- 每根天线可以独立控制幅度和相位<br />
-- 可以同时形成多个波束，服务多个用户<br />
-- 灵活性最高</p>
-<p><strong>缺点</strong>：<br />
-- 硬件成本极高（N 根天线 = N 组 RF 链）<br />
-- 功耗大<br />
-- 发热严重</p>
-<p><strong>典型应用</strong>：<br />
-- 5G 基站 64T64R、128T128R<br />
-- Wi-Fi 7 高端 AP（8×8 MU-MIMO）</p></div>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>每根天线可以独立控制幅度和相位</li>
+<li>可以同时形成多个波束，服务多个用户</li>
+<li>灵活性最高</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>硬件成本极高（N 根天线 = N 组 RF 链）</li>
+<li>功耗大</li>
+<li>发热严重</li>
+</ul>
+<p><strong>典型应用</strong>：</p>
+<ul>
+<li>5G 基站 64T64R、128T128R</li>
+<li>Wi-Fi 7 高端 AP（8×8 MU-MIMO）</li>
+</ul></div>
   </div>
 
     
@@ -459,16 +475,22 @@
   <div class="block section-text">
     <div class="block-title">混合波束赋形（主流方案）</div>
     <div class="text-body"><p><strong>原理</strong>：模拟 + 数字的折中。比如 128 根天线只配 16-32 组 RF 链，先用数字域形成少量波束，再用模拟移相器微调。</p>
-<p><strong>优点</strong>：<br />
-- 成本可控（RF 链数量减少 4-8 倍）<br />
-- 灵活性尚可（同时服务 8-16 个用户）<br />
-- 功耗适中</p>
-<p><strong>缺点</strong>：<br />
-- 波束数量受限于 RF 链数量<br />
-- 模拟域和数字域的联合优化复杂</p>
-<p><strong>典型应用</strong>：<br />
-- 5G Sub-6GHz 基站（128T128R，32 组 RF 链）<br />
-- 5G mmWave 基站（64T64R，16 组 RF 链）</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>成本可控（RF 链数量减少 4-8 倍）</li>
+<li>灵活性尚可（同时服务 8-16 个用户）</li>
+<li>功耗适中</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>波束数量受限于 RF 链数量</li>
+<li>模拟域和数字域的联合优化复杂</li>
+</ul>
+<p><strong>典型应用</strong>：</p>
+<ul>
+<li>5G Sub-6GHz 基站（128T128R，32 组 RF 链）</li>
+<li>5G mmWave 基站（64T64R，16 组 RF 链）</li>
+</ul>
 <p><strong>关键判断</strong>：混合波束赋形是当前 5G 部署的主流方案，因为它在性能和成本之间取得了最佳平衡。</p>
 <hr /></div>
   </div>
@@ -480,27 +502,31 @@
     
   <div class="block section-text">
     <div class="block-title">4.1 5G 基站 Massive MIMO（核心战场）</div>
-    <div class="text-body"><p><strong>典型规模</strong>：<br />
-| 代际 | 天线规模 | 波束赋形方式 | 同时服务用户数 |<br />
-|------|---------|------------|-------------|<br />
-| 4G | 4T4R / 8T8R | 模拟 | 1-2 |<br />
-| 5G Sub-6GHz | 64T64R | 混合 | 8-12 |<br />
-| 5G Sub-6GHz | 128T128R | 混合 | 12-16 |<br />
-| 5G mmWave | 64T64R / 256T256R | 数字 | 4-8 |<br />
+    <div class="text-body"><p><strong>典型规模</strong>：
+| 代际 | 天线规模 | 波束赋形方式 | 同时服务用户数 |
+|------|---------|------------|-------------|
+| 4G | 4T4R / 8T8R | 模拟 | 1-2 |
+| 5G Sub-6GHz | 64T64R | 混合 | 8-12 |
+| 5G Sub-6GHz | 128T128R | 混合 | 12-16 |
+| 5G mmWave | 64T64R / 256T256R | 数字 | 4-8 |
 | 6G (预期) | 256T256R / 1024T1024R | 数字 | 16-32+ |</p>
 <p><strong>核心能力</strong>：<strong>用户专属波束</strong>——同一小区 12+ 用户各占独立波束同时服务。</p>
 <p><strong>频谱效率</strong>：相比 4G 4T4R 提升 <strong>3-5 倍</strong>。</p>
-<p><strong>CSI 反馈机制</strong>：<br />
-- 5G NR 引入基于 SSB（同步信号块）和 CSI-RS（信道状态信息参考信号）的新型波束管理<br />
-- SSB 波束扫描：{4, 8, 64} 种配置，每种限制 240 个子帧<br />
-- CSI 反馈：UE 上报 RI（秩指示）、PMI（预编码矩阵指示）、CQI（信道质量指示）<br />
-- Type I 码本：粗粒度反馈，开销小<br />
-- Type II 码本：精细反馈，支持子带振幅和相位，开销大 3-5 倍<br />
-- <strong>ZTE 2026 年论文</strong>：基于深度学习的 CSI 压缩和反馈，可将反馈开销降低 60-80%</p>
-<p><strong>核心难点</strong>：<br />
-1. <strong>CSI 反馈开销大</strong>：128 根天线的完整 CSI 需要数千比特，UE 上报压力大<br />
-2. <strong>用户间干扰</strong>：同频同时服务多个用户，波束之间需要正交化<br />
-3. <strong>信道估计的实时性</strong>：高速移动场景下信道快速变化，CSI 必须实时更新</p></div>
+<p><strong>CSI 反馈机制</strong>：</p>
+<ul>
+<li>5G NR 引入基于 SSB（同步信号块）和 CSI-RS（信道状态信息参考信号）的新型波束管理</li>
+<li>SSB 波束扫描：{4, 8, 64} 种配置，每种限制 240 个子帧</li>
+<li>CSI 反馈：UE 上报 RI（秩指示）、PMI（预编码矩阵指示）、CQI（信道质量指示）</li>
+<li>Type I 码本：粗粒度反馈，开销小</li>
+<li>Type II 码本：精细反馈，支持子带振幅和相位，开销大 3-5 倍</li>
+<li><strong>ZTE 2026 年论文</strong>：基于深度学习的 CSI 压缩和反馈，可将反馈开销降低 60-80%</li>
+</ul>
+<p><strong>核心难点</strong>：</p>
+<ol>
+<li><strong>CSI 反馈开销大</strong>：128 根天线的完整 CSI 需要数千比特，UE 上报压力大</li>
+<li><strong>用户间干扰</strong>：同频同时服务多个用户，波束之间需要正交化</li>
+<li><strong>信道估计的实时性</strong>：高速移动场景下信道快速变化，CSI 必须实时更新</li>
+</ol></div>
   </div>
 
     
@@ -523,18 +549,24 @@
 <li><strong>硅集成</strong>：波束形成芯片从 ~80 颗降到 ~6 颗（Gen 1 → Gen 3）</li>
 <li><strong>PCB 材料</strong>：混用昂贵 RF 层板和廉价 FR-4</li>
 </ul>
-<p><strong>关键技术</strong>：<br />
-- <strong>混合相控阵</strong>：模拟子阵列 + 数字波束赋形，平衡性能和成本<br />
-- <strong>软件定义校准</strong>：通过算法补偿温度漂移和元件公差<br />
-- <strong>波束跳频（Beam Hopping）</strong>：单颗卫星可生成上千个独立波束，动态分配给用户</p>
-<p><strong>卫星端波束策略</strong>：<br />
-- Starlink LEO 卫星使用波束切换策略维持最大 SNR<br />
-- 地面站（Gateway）使用大型跟踪碟形天线，工作在 Ka-band（17.8-19.3GHz / 27.5-30GHz）<br />
-- 新一代卫星搭载激光星间链路，可在卫星之间转发流量，无需经过地面站</p>
-<p><strong>其他卫星终端</strong>：<br />
-- Amazon Kuiper：Ka-band，计划 3,236 颗 LEO 卫星<br />
-- 16 通道 3.1-25.5GHz 相控阵接收波束形成 IC（SiGe BiCMOS 工艺），NF &lt; 2.0dB（C/X/Ku 波段）<br />
-- 2025 年 Ka-band 用户终端原型：QPSK + LDPC，最大传输速率 300Mbps</p></div>
+<p><strong>关键技术</strong>：</p>
+<ul>
+<li><strong>混合相控阵</strong>：模拟子阵列 + 数字波束赋形，平衡性能和成本</li>
+<li><strong>软件定义校准</strong>：通过算法补偿温度漂移和元件公差</li>
+<li><strong>波束跳频（Beam Hopping）</strong>：单颗卫星可生成上千个独立波束，动态分配给用户</li>
+</ul>
+<p><strong>卫星端波束策略</strong>：</p>
+<ul>
+<li>Starlink LEO 卫星使用波束切换策略维持最大 SNR</li>
+<li>地面站（Gateway）使用大型跟踪碟形天线，工作在 Ka-band（17.8-19.3GHz / 27.5-30GHz）</li>
+<li>新一代卫星搭载激光星间链路，可在卫星之间转发流量，无需经过地面站</li>
+</ul>
+<p><strong>其他卫星终端</strong>：</p>
+<ul>
+<li>Amazon Kuiper：Ka-band，计划 3,236 颗 LEO 卫星</li>
+<li>16 通道 3.1-25.5GHz 相控阵接收波束形成 IC（SiGe BiCMOS 工艺），NF &lt; 2.0dB（C/X/Ku 波段）</li>
+<li>2025 年 Ka-band 用户终端原型：QPSK + LDPC，最大传输速率 300Mbps</li>
+</ul></div>
   </div>
 
     
@@ -546,15 +578,19 @@
     <div class="block-title">4.3 Wi-Fi 7（802.11be）</div>
     <div class="text-body"><p><strong>规模</strong>：家用路由器 4-8 根天线，企业级 AP 16-64 根天线。</p>
 <p><strong>核心能力</strong>：路由器"看见"你的手机在哪 → 把信号<strong>怼</strong>过去。</p>
-<p><strong>Wi-Fi 7 新增</strong>：<br />
-- 320MHz 信道带宽<br />
-- 4096-QAM 调制<br />
-- 16×16 MU-MIMO（每链路最多 8 流，MLO 下可达 16 流）<br />
-- <strong>多链路操作（MLO）</strong>：三频段同时工作，波束赋形在每个频段独立进行</p>
-<p><strong>MU-MIMO 波束赋形</strong>：<br />
-- 下行：AP 同时对多个用户发送独立波束<br />
-- 上行：多个用户同时向 AP 发送，AP 用波束赋形分离信号<br />
-- Wi-Fi 6 支持 4×4 UL MU-MIMO，Wi-Fi 7 扩展到 8×8</p>
+<p><strong>Wi-Fi 7 新增</strong>：</p>
+<ul>
+<li>320MHz 信道带宽</li>
+<li>4096-QAM 调制</li>
+<li>16×16 MU-MIMO（每链路最多 8 流，MLO 下可达 16 流）</li>
+<li><strong>多链路操作（MLO）</strong>：三频段同时工作，波束赋形在每个频段独立进行</li>
+</ul>
+<p><strong>MU-MIMO 波束赋形</strong>：</p>
+<ul>
+<li>下行：AP 同时对多个用户发送独立波束</li>
+<li>上行：多个用户同时向 AP 发送，AP 用波束赋形分离信号</li>
+<li>Wi-Fi 6 支持 4×4 UL MU-MIMO，Wi-Fi 7 扩展到 8×8</li>
+</ul>
 <p><strong>Dynamic MIMO Power Saving (DMPS)</strong>：单用户时降为单流，关闭多余天线通道。</p></div>
   </div>
 
@@ -566,22 +602,26 @@
   <div class="block section-text">
     <div class="block-title">4.4 微波回传（5G Backhaul）</div>
     <div class="text-body"><p><strong>场景</strong>：5G 基站密度大，光纤铺不到的地方用微波。</p>
-<p><strong>频段</strong>：<br />
-| 频段 | 频率 | 特点 |<br />
-|------|------|------|<br />
-| E-band | 70-80GHz | 免许可，超高带宽，雨衰严重 |<br />
-| V-band | 50-75GHz | 免许可，中等带宽 |<br />
+<p><strong>频段</strong>：
+| 频段 | 频率 | 特点 |
+|------|------|------|
+| E-band | 70-80GHz | 免许可，超高带宽，雨衰严重 |
+| V-band | 50-75GHz | 免许可，中等带宽 |
 | 11-18GHz | 许可 | 成熟可靠，中等带宽 |</p>
 <p><strong>能力</strong>：自适应对准，抗风荷。</p>
-<p><strong>核心难点</strong>：<br />
-- <strong>雨衰严重</strong>：E-band 在暴雨中衰减可达 10-20dB/km<br />
-- <strong>波束极窄</strong>：度级波束宽度，易受振动影响<br />
-- <strong>视距要求严格</strong>：菲涅尔区净空必须达标</p>
-<p><strong>工程算例</strong>：<br />
-- 18GHz 微波回传，10km 链路，0.6m 碟形天线（38dBi）<br />
-- FSPL = 141.6dB<br />
-- 需要 30-35dB Fade Margin 才能达到 99.99% 可用性<br />
-- 雨衰在湿热地区贡献 6-12dB 的额外损耗</p></div>
+<p><strong>核心难点</strong>：</p>
+<ul>
+<li><strong>雨衰严重</strong>：E-band 在暴雨中衰减可达 10-20dB/km</li>
+<li><strong>波束极窄</strong>：度级波束宽度，易受振动影响</li>
+<li><strong>视距要求严格</strong>：菲涅尔区净空必须达标</li>
+</ul>
+<p><strong>工程算例</strong>：</p>
+<ul>
+<li>18GHz 微波回传，10km 链路，0.6m 碟形天线（38dBi）</li>
+<li>FSPL = 141.6dB</li>
+<li>需要 30-35dB Fade Margin 才能达到 99.99% 可用性</li>
+<li>雨衰在湿热地区贡献 6-12dB 的额外损耗</li>
+</ul></div>
   </div>
 
     
@@ -596,14 +636,18 @@
 <pre><code>传统波束赋形: y = Σ w_i · s_i  （只控制相位 φ_i）
 近场波束赋形: y = Σ w_i(r, θ) · s_i  （同时控制相位 φ_i 和幅度 a_i(r)）
 </code></pre>
-<p><strong>球面波建模</strong>：<br />
-- 传统远场：平面波近似（wavefront 是平的）<br />
-- 近场：球面波（wavefront 是弯曲的）<br />
-- 3GPP Rel-19 提出对 TR 38.901 信道模型进行近场扩展</p>
-<p><strong>空间非平稳性</strong>：<br />
-- XL-MIMO 孔径上不同单元看到的传播环境可能完全不同<br />
-- 一部分单元被遮挡，另一部分没有<br />
-- 信号强度可在孔径上波动 10dB+</p>
+<p><strong>球面波建模</strong>：</p>
+<ul>
+<li>传统远场：平面波近似（wavefront 是平的）</li>
+<li>近场：球面波（wavefront 是弯曲的）</li>
+<li>3GPP Rel-19 提出对 TR 38.901 信道模型进行近场扩展</li>
+</ul>
+<p><strong>空间非平稳性</strong>：</p>
+<ul>
+<li>XL-MIMO 孔径上不同单元看到的传播环境可能完全不同</li>
+<li>一部分单元被遮挡，另一部分没有</li>
+<li>信号强度可在孔径上波动 10dB+</li>
+</ul>
 <hr /></div>
   </div>
 
@@ -620,10 +664,12 @@
 <li><strong>出厂前</strong>和<strong>部署前</strong>必须校准</li>
 <li>否则永远齐不起来步——波束指向用户方向，实际"飘"到隔壁小区</li>
 </ul>
-<p><strong>校准方法</strong>：<br />
-- 内校准：通过耦合器采集每根天线的发射信号，反馈到基带处理<br />
-- 外校准：利用 TDD 上下行信道互易性，通过上行信道估计下行波束权重<br />
-- 互易性校准：校准 RF 链的前后向互易性偏差</p></div>
+<p><strong>校准方法</strong>：</p>
+<ul>
+<li>内校准：通过耦合器采集每根天线的发射信号，反馈到基带处理</li>
+<li>外校准：利用 TDD 上下行信道互易性，通过上行信道估计下行波束权重</li>
+<li>互易性校准：校准 RF 链的前后向互易性偏差</li>
+</ul></div>
   </div>
 
     
@@ -638,14 +684,18 @@
 <li>独立士兵变成<strong>互相拉扯的群体</strong></li>
 <li>数学模型不再干净，经典阵列理论失效</li>
 </ul>
-<p><strong>互耦的影响</strong>：<br />
-- 波束指向偏移 2-5°<br />
-- 波束宽度展宽 10-20%<br />
-- 增益下降 1-3dB</p>
-<p><strong>解决方案</strong>：<br />
-- 互耦补偿算法（在波束赋形权重中预补偿）<br />
-- 去耦结构（DGS、EMBC、Defected Ground Structure）<br />
-- 增加天线间距（牺牲阵列孔径）</p></div>
+<p><strong>互耦的影响</strong>：</p>
+<ul>
+<li>波束指向偏移 2-5°</li>
+<li>波束宽度展宽 10-20%</li>
+<li>增益下降 1-3dB</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>互耦补偿算法（在波束赋形权重中预补偿）</li>
+<li>去耦结构（DGS、EMBC、Defected Ground Structure）</li>
+<li>增加天线间距（牺牲阵列孔径）</li>
+</ul></div>
   </div>
 
     
@@ -662,10 +712,12 @@
 <li>算法必须在硬件上跑得动（FPGA/ASIC）</li>
 </ul>
 <p><strong>5G 标准要求</strong>：CSI 反馈时延 &lt; 5ms。</p>
-<p><strong>实际挑战</strong>：<br />
-- 128T128R 的 CSI 计算量是 4T4R 的 64 倍<br />
-- 波束切换时间必须 &lt; 1ms（否则用户感知卡顿）<br />
-- 高速移动场景（300km/h 高铁）下，信道相干时间仅 1-2ms</p>
+<p><strong>实际挑战</strong>：</p>
+<ul>
+<li>128T128R 的 CSI 计算量是 4T4R 的 64 倍</li>
+<li>波束切换时间必须 &lt; 1ms（否则用户感知卡顿）</li>
+<li>高速移动场景（300km/h 高铁）下，信道相干时间仅 1-2ms</li>
+</ul>
 <hr /></div>
   </div>
 
@@ -697,14 +749,18 @@
 <li><strong>无源器件</strong>，成本低，易部署</li>
 <li>解决覆盖盲区（电梯、地下车库）</li>
 </ul>
-<p><strong>实验数据</strong>：<br />
-- QUB 2025 年 EuCAP 论文：27-29.5GHz 双极化 RIS，近场和远场均验证<br />
-- 增益增强：13.2-16.3dB（取决于频率和角度）<br />
-- 平均增益增强：13.9dB（27-29.5GHz 范围）<br />
-- 220GHz 太赫兹 RIS：单波束模式接收功率增益 ≥10dB，多波束模式 ≥5dB</p>
-<p><strong>RIS 的两种形态</strong>：<br />
-- <strong>被动 RIS</strong>：无源反射，仅控制相位，增益增强 ~10-16dB<br />
-- <strong>主动 RIS</strong>：有源放大，增益增强提升 130%（对比被动 RIS 的 22%）</p>
+<p><strong>实验数据</strong>：</p>
+<ul>
+<li>QUB 2025 年 EuCAP 论文：27-29.5GHz 双极化 RIS，近场和远场均验证</li>
+<li>增益增强：13.2-16.3dB（取决于频率和角度）</li>
+<li>平均增益增强：13.9dB（27-29.5GHz 范围）</li>
+<li>220GHz 太赫兹 RIS：单波束模式接收功率增益 ≥10dB，多波束模式 ≥5dB</li>
+</ul>
+<p><strong>RIS 的两种形态</strong>：</p>
+<ul>
+<li><strong>被动 RIS</strong>：无源反射，仅控制相位，增益增强 ~10-16dB</li>
+<li><strong>主动 RIS</strong>：有源放大，增益增强提升 130%（对比被动 RIS 的 22%）</li>
+</ul>
 <p><strong>2026 年专利态势</strong>：RIS 技术专利爆发，华为、中兴、诺基亚、三星均有大量布局。</p></div>
   </div>
 
@@ -720,11 +776,13 @@
 <li><strong>提前 100ms 调相</strong>，波束"等"用户</li>
 <li>降低 CSI 反馈开销（从全反馈到预测反馈）</li>
 </ul>
-<p><strong>ZTE 2026 年论文</strong>（《Deep CSI Compression and Feedback for Massive MIMO》）：<br />
-- 深度学习压缩 CSI 反馈，开销降低 60-80%<br />
-- 自适应导频长度（毫米波 MIMO 场景）<br />
-- 双时间尺度网络（快速 CSI + 慢速 CSI 分开处理）<br />
-- 深度数据隐藏（Deep Data Hiding）：消除 CSI 反馈开销</p></div>
+<p><strong>ZTE 2026 年论文</strong>（《Deep CSI Compression and Feedback for Massive MIMO》）：</p>
+<ul>
+<li>深度学习压缩 CSI 反馈，开销降低 60-80%</li>
+<li>自适应导频长度（毫米波 MIMO 场景）</li>
+<li>双时间尺度网络（快速 CSI + 慢速 CSI 分开处理）</li>
+<li>深度数据隐藏（Deep Data Hiding）：消除 CSI 反馈开销</li>
+</ul></div>
   </div>
 
     
@@ -739,10 +797,12 @@
 <li>波束不再只跟角度走，<strong>还带距离维度</strong></li>
 <li>球面波模型替代平面波</li>
 </ul>
-<p><strong>3GPP Rel-19 进展</strong>：<br />
-- 引入球面波源距离概念替代直接物理散射体距离<br />
-- 近场信道模型修正相位近似误差<br />
-- 支持子太赫兹（sub-THz）频率下的近场传播</p></div>
+<p><strong>3GPP Rel-19 进展</strong>：</p>
+<ul>
+<li>引入球面波源距离概念替代直接物理散射体距离</li>
+<li>近场信道模型修正相位近似误差</li>
+<li>支持子太赫兹（sub-THz）频率下的近场传播</li>
+</ul></div>
   </div>
 
     

@@ -291,9 +291,11 @@
 [...] = [...            ...] · [...]
 [VN]   [ZN1  ZN2  ... ZNN]   [IN]
 </code></pre>
-<p>其中：<br />
-- Z_nn 是自阻抗（self-impedance）<br />
-- Z_nm (n≠m) 是<strong>互阻抗（mutual impedance）</strong></p>
+<p>其中：</p>
+<ul>
+<li>Z_nn 是自阻抗（self-impedance）</li>
+<li>Z_nm (n≠m) 是<strong>互阻抗（mutual impedance）</strong></li>
+</ul>
 <p><strong>关键关系</strong>：</p>
 <pre><code>Z₁₂ = Z₂₁  （互易定理，无源阵列）
 </code></pre></div>
@@ -311,13 +313,17 @@
 [...] = [...            ...] · [...]
 [bN]   [SN1  SN2  ... SNN]   [aN]
 </code></pre>
-<p>其中：<br />
-- S_nm = b_n / a_m |_{a_k=0, k≠m} 是端口 m 到端口 n 的传输系数<br />
-- |S_nm|² 表示从端口 m 耦合到端口 n 的<strong>功率比例</strong></p>
-<p><strong>工程意义</strong>：<br />
-- S₁₂ = -20dB → 5% 的能量从端口 2 耦合到端口 1<br />
-- S₁₂ = -30dB → 0.1% 的能量耦合<br />
-- S₁₂ = -40dB → 0.01% 的能量耦合</p></div>
+<p>其中：</p>
+<ul>
+<li>S_nm = b_n / a_m |_{a_k=0, k≠m} 是端口 m 到端口 n 的传输系数</li>
+<li>|S_nm|² 表示从端口 m 耦合到端口 n 的<strong>功率比例</strong></li>
+</ul>
+<p><strong>工程意义</strong>：</p>
+<ul>
+<li>S₁₂ = -20dB → 5% 的能量从端口 2 耦合到端口 1</li>
+<li>S₁₂ = -30dB → 0.1% 的能量耦合</li>
+<li>S₁₂ = -40dB → 0.01% 的能量耦合</li>
+</ul></div>
   </div>
 
     
@@ -339,18 +345,24 @@
     └──────────────────────────────┘
          通过基板/接地面传播
 </code></pre>
-<p><strong>空间耦合</strong>：<br />
-- 距离衰减：∝ 1/r²（远场）或 1/r³（近场）<br />
-- 与波长相关：d &gt; λ/2 时显著降低<br />
-- 与极化相关：正交极化耦合更低</p>
-<p><strong>表面波耦合</strong>：<br />
-- 在介质基板中传播，衰减较慢<br />
-- 在高介电常数基板（如硅、LTCC）中更强<br />
-- 与基板厚度、介电常数、损耗角正切相关</p>
-<p><strong>馈电网络耦合</strong>：<br />
-- 通过公共馈电线传播<br />
-- 在功分器/合路器中形成间接耦合路径<br />
-- 与馈电网络的隔离度相关</p></div>
+<p><strong>空间耦合</strong>：</p>
+<ul>
+<li>距离衰减：∝ 1/r²（远场）或 1/r³（近场）</li>
+<li>与波长相关：d &gt; λ/2 时显著降低</li>
+<li>与极化相关：正交极化耦合更低</li>
+</ul>
+<p><strong>表面波耦合</strong>：</p>
+<ul>
+<li>在介质基板中传播，衰减较慢</li>
+<li>在高介电常数基板（如硅、LTCC）中更强</li>
+<li>与基板厚度、介电常数、损耗角正切相关</li>
+</ul>
+<p><strong>馈电网络耦合</strong>：</p>
+<ul>
+<li>通过公共馈电线传播</li>
+<li>在功分器/合路器中形成间接耦合路径</li>
+<li>与馈电网络的隔离度相关</li>
+</ul></div>
   </div>
 
     
@@ -363,10 +375,12 @@
     <div class="text-body"><p>互耦导致每个单元的输入阻抗随阵列状态变化：</p>
 <pre><code>Z_in,n = Z_nn + Σ(m≠n) (I_m/I_n) · Z_nm
 </code></pre>
-<p><strong>后果</strong>：<br />
-- 单个单元的 50Ω 匹配在阵列中可能变成 30+j20Ω<br />
-- 波束扫描时阻抗随扫描角变化（scan impedance variation）<br />
-- VSWR 恶化，反射损耗增加</p>
+<p><strong>后果</strong>：</p>
+<ul>
+<li>单个单元的 50Ω 匹配在阵列中可能变成 30+j20Ω</li>
+<li>波束扫描时阻抗随扫描角变化（scan impedance variation）</li>
+<li>VSWR 恶化，反射损耗增加</li>
+</ul>
 <p><strong>典型数据</strong>：</p>
 <table>
 <thead>
@@ -412,11 +426,13 @@
 <pre><code>AF_active(θ) = Σ w_n · exp(jk·r_n) · F_element(θ) · (1 + Σ_m≠n Γ_nm)
 </code></pre>
 <p>其中 Γ_nm 是单元 m 对单元 n 的耦合系数。</p>
-<p><strong>后果</strong>：<br />
-- 主瓣增益变化（通常降低 0.5-2dB）<br />
-- 旁瓣电平升高（3-10dB）<br />
-- 波束指向偏移（0.1-1°）<br />
-- 扫描盲区（scan blindness）</p></div>
+<p><strong>后果</strong>：</p>
+<ul>
+<li>主瓣增益变化（通常降低 0.5-2dB）</li>
+<li>旁瓣电平升高（3-10dB）</li>
+<li>波束指向偏移（0.1-1°）</li>
+<li>扫描盲区（scan blindness）</li>
+</ul></div>
   </div>
 
     
@@ -431,10 +447,12 @@
 H_coupling = K_c · H_free_space
 </code></pre>
 <p>其中 K_c 是耦合矩阵。</p>
-<p><strong>后果</strong>：<br />
-- 信道矩阵列之间相关性增加<br />
-- 空间复用增益下降<br />
-- MIMO 容量降低 10-30%</p>
+<p><strong>后果</strong>：</p>
+<ul>
+<li>信道矩阵列之间相关性增加</li>
+<li>空间复用增益下降</li>
+<li>MIMO 容量降低 10-30%</li>
+</ul>
 <p><strong>但</strong>：在某些情况下，互耦可以增加相关性从而提高容量（当空间自由度受限时）。</p></div>
   </div>
 
@@ -448,10 +466,12 @@ H_coupling = K_c · H_free_space
     <div class="text-body"><p>互耦导致波束赋形向量偏离预期：</p>
 <pre><code>w_actual = (I + K_c) · w_desired
 </code></pre>
-<p><strong>后果</strong>：<br />
-- 零陷深度恶化<br />
-- 旁瓣不对称<br />
-- 波束指向误差</p></div>
+<p><strong>后果</strong>：</p>
+<ul>
+<li>零陷深度恶化</li>
+<li>旁瓣不对称</li>
+<li>波束指向误差</li>
+</ul></div>
   </div>
 
     
@@ -585,12 +605,14 @@ H_coupling = K_c · H_free_space
     
   <div class="block section-text">
     <div class="block-title">4.2 去耦结构</div>
-    <div class="text-body"><p>详见 [[技术概念-MIMO天线去耦Decoupling]]：<br />
-- DGS（缺陷Ground结构）<br />
-- EBG（电磁带隙）<br />
-- 中和线（Neutralization Line）<br />
-- 超材料/超表面<br />
-- 隔离腔体</p></div>
+    <div class="text-body"><p>详见 [[技术概念-MIMO天线去耦Decoupling]]：</p>
+<ul>
+<li>DGS（缺陷Ground结构）</li>
+<li>EBG（电磁带隙）</li>
+<li>中和线（Neutralization Line）</li>
+<li>超材料/超表面</li>
+<li>隔离腔体</li>
+</ul></div>
   </div>
 
     
@@ -616,14 +638,18 @@ S₁₂ (cross-pol) = -30dB
     <div class="text-body"><p>在数字波束赋形中，通过预矫正矩阵消除互耦影响：</p>
 <pre><code>w_compensated = (I + K_c)^{-1} · w_desired
 </code></pre>
-<p><strong>优势</strong>：<br />
-- 不需要物理修改<br />
-- 可以自适应更新<br />
-- 补偿高阶互耦</p>
-<p><strong>挑战</strong>：<br />
-- 需要精确测量 K_c<br />
-- 计算复杂度 O(N³)<br />
-- 温度/频率漂移需要重新校准</p></div>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>不需要物理修改</li>
+<li>可以自适应更新</li>
+<li>补偿高阶互耦</li>
+</ul>
+<p><strong>挑战</strong>：</p>
+<ul>
+<li>需要精确测量 K_c</li>
+<li>计算复杂度 O(N³)</li>
+<li>温度/频率漂移需要重新校准</li>
+</ul></div>
   </div>
 
     
@@ -690,6 +716,7 @@ S₁₂ (cross-pol) = -30dB
     <div class="block-title">6.1 S 参数测量</div>
     <div class="text-body"><p>使用 VNA（矢量网络分析仪）测量多端口 S 参数矩阵：</p>
 <pre><code>步骤：
+
 1. 将所有端口接 50Ω 负载
 2. 逐端口激励，测量所有端口的 S 参数
 3. 得到 N×N 的 S 矩阵
@@ -706,11 +733,13 @@ S₁₂ (cross-pol) = -30dB
     <div class="block-title">6.2 全波仿真</div>
     <div class="text-body"><p>使用 HFSS、CST 等工具仿真阵列的 S 参数：</p>
 <pre><code>优势：
+
 - 可以分离空间耦合和表面波耦合
 - 可以研究互耦随扫描角的变化
 - 可以优化去耦结构
 
 劣势：
+
 - 大规模阵列（N &gt; 100）计算成本高
 - 需要网格收敛性验证
 </code></pre></div>
@@ -780,10 +809,12 @@ S₁₂ (cross-pol) = -30dB
 <pre><code>η_surface ≈ 1 - exp(-2π·h/λ·√(ε_r - 1))
 </code></pre>
 <p>其中 h 是基板厚度。</p>
-<p><strong>对策</strong>：<br />
-- 使用薄基板<br />
-- 使用低介电常数材料（LCP ε_r = 3.5）<br />
-- 使用 EBG/DGS 抑制表面波</p></div>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>使用薄基板</li>
+<li>使用低介电常数材料（LCP ε_r = 3.5）</li>
+<li>使用 EBG/DGS 抑制表面波</li>
+</ul></div>
   </div>
 
     

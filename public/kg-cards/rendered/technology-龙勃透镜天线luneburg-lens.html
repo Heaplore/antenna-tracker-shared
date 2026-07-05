@@ -274,11 +274,13 @@
     <div class="text-body"><p>理想龙勃透镜的相对介电常数径向分布：</p>
 <pre><code>ε_r(r) = 2 - (r/R)²
 </code></pre>
-<p>其中：<br />
-- r 是从球心到球面的径向距离<br />
-- R 是球半径<br />
-- r = 0（球心）：ε_r = 2<br />
-- r = R（球面）：ε_r = 1（等于空气）</p>
+<p>其中：</p>
+<ul>
+<li>r 是从球心到球面的径向距离</li>
+<li>R 是球半径</li>
+<li>r = 0（球心）：ε_r = 2</li>
+<li>r = R（球面）：ε_r = 1（等于空气）</li>
+</ul>
 <p><strong>折射率分布曲线</strong>：</p>
 <pre><code>ε_r
  2.0 │●
@@ -300,20 +302,26 @@
     
   <div class="block section-text">
     <div class="block-title">1.2 工作原理</div>
-    <div class="text-body"><p><strong>发射模式</strong>：<br />
-1. 馈源置于球面某点 F₁<br />
-2. 球面波进入透镜<br />
-3. 由于折射率梯度，波前被逐渐弯曲<br />
-4. 从球面正对面 F₂ 射出时变成平行波束<br />
-5. 波束方向指向 F₁ 的对跖点</p>
-<p><strong>接收模式</strong>：<br />
-1. 来自 F₁ 对跖点方向的平面波入射<br />
-2. 透镜将平面波聚焦到球面 F₂ 点<br />
-3. 馈源在 F₂ 点接收聚焦能量</p>
-<p><strong>波束扫描</strong>：<br />
-- 将多个馈源排列在球面的"焦平面"上<br />
-- 切换不同的馈源 → 波束指向改变<br />
-- 扫描范围：理论上 ±90°（实际 ±60-70°）</p></div>
+    <div class="text-body"><p><strong>发射模式</strong>：</p>
+<ol>
+<li>馈源置于球面某点 F₁</li>
+<li>球面波进入透镜</li>
+<li>由于折射率梯度，波前被逐渐弯曲</li>
+<li>从球面正对面 F₂ 射出时变成平行波束</li>
+<li>波束方向指向 F₁ 的对跖点</li>
+</ol>
+<p><strong>接收模式</strong>：</p>
+<ol>
+<li>来自 F₁ 对跖点方向的平面波入射</li>
+<li>透镜将平面波聚焦到球面 F₂ 点</li>
+<li>馈源在 F₂ 点接收聚焦能量</li>
+</ol>
+<p><strong>波束扫描</strong>：</p>
+<ul>
+<li>将多个馈源排列在球面的"焦平面"上</li>
+<li>切换不同的馈源 → 波束指向改变</li>
+<li>扫描范围：理论上 ±90°（实际 ±60-70°）</li>
+</ul></div>
   </div>
 
     
@@ -462,10 +470,12 @@ Layer 5 (surface): ε_r = 1.05
 中层：中等单元 → 中等 ε_r
 内层：大单元、高填充率 → 高 ε_r
 </code></pre>
-<p><strong>优势</strong>：<br />
-- 逼近理想折射率分布<br />
-- 可实现任意曲面（非球形）<br />
-- 轻量化</p></div>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>逼近理想折射率分布</li>
+<li>可实现任意曲面（非球形）</li>
+<li>轻量化</li>
+</ul></div>
   </div>
 
     
@@ -478,9 +488,11 @@ Layer 5 (surface): ε_r = 1.05
     <div class="text-body"><p>通过共形变换光学设计，将球形透镜"压扁"成任意形状：</p>
 <pre><code>理想球形 → 准形变换 → 扁平/圆柱形透镜
 </code></pre>
-<p><strong>应用</strong>：<br />
-- 卫星表面贴装（减轻重量和气动阻力）<br />
-- 车辆集成（低剖面）</p></div>
+<p><strong>应用</strong>：</p>
+<ul>
+<li>卫星表面贴装（减轻重量和气动阻力）</li>
+<li>车辆集成（低剖面）</li>
+</ul></div>
   </div>
 
     
@@ -701,14 +713,18 @@ Layer 5 (surface): ε_r = 1.05
     
   <div class="block section-text">
     <div class="block-title">5.2 制造工艺</div>
-    <div class="text-body"><p><strong>传统方法</strong>：<br />
-1. 分层球壳加工（每层不同 ε_r 的材料）<br />
-2. 球壳组装（胶合或机械固定）<br />
-3. 表面精加工（抛光）</p>
-<p><strong>现代方法</strong>：<br />
-1. 3D 打印梯度介电结构<br />
-2. 超材料单元排列（等效 ε_r）<br />
-3. 注塑成型（大批量低成本）</p></div>
+    <div class="text-body"><p><strong>传统方法</strong>：</p>
+<ol>
+<li>分层球壳加工（每层不同 ε_r 的材料）</li>
+<li>球壳组装（胶合或机械固定）</li>
+<li>表面精加工（抛光）</li>
+</ol>
+<p><strong>现代方法</strong>：</p>
+<ol>
+<li>3D 打印梯度介电结构</li>
+<li>超材料单元排列（等效 ε_r）</li>
+<li>注塑成型（大批量低成本）</li>
+</ol></div>
   </div>
 
     
@@ -768,10 +784,12 @@ Layer 5 (surface): ε_r = 1.05
 <pre><code>D &gt; 10λ  （保证高增益）
 </code></pre>
 <p>在 28GHz（λ = 10.7mm）时，D &gt; 107mm。在 10GHz 时，D &gt; 300mm。</p>
-<p><strong>解决方案</strong>：<br />
-- 使用半透镜（Half-Luneburg）减小体积<br />
-- 使用高 ε_r 核心材料缩小波长等效尺寸<br />
-- 超材料 GRIN 实现轻薄化</p></div>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用半透镜（Half-Luneburg）减小体积</li>
+<li>使用高 ε_r 核心材料缩小波长等效尺寸</li>
+<li>超材料 GRIN 实现轻薄化</li>
+</ul></div>
   </div>
 
     
@@ -784,10 +802,12 @@ Layer 5 (surface): ε_r = 1.05
     <div class="text-body"><p>多个馈源紧密排列在球面上时，馈源之间会互相耦合：</p>
 <pre><code>S_feeder_coupling &gt; -15dB  （典型值）
 </code></pre>
-<p><strong>解决方案</strong>：<br />
-- 馈源之间加隔离墙<br />
-- 使用低增益馈源（减少能量泄漏到相邻馈源）<br />
-- 馈源间距 ≥ 2λ</p></div>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>馈源之间加隔离墙</li>
+<li>使用低增益馈源（减少能量泄漏到相邻馈源）</li>
+<li>馈源间距 ≥ 2λ</li>
+</ul></div>
   </div>
 
     

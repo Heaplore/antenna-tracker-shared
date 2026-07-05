@@ -339,10 +339,12 @@ subject to  fᵢ(x) ≤ bᵢ   （凸不等式约束）
             Ax = c       （线性等式约束）
 </code></pre>
 <p><strong>关键性质</strong>：任何局部最优解都是全局最优解。</p>
-<p>对于方向图综合，这意味着：<br />
-- 不会陷入局部最优（旁瓣假峰）<br />
-- 可以在同一问题中同时优化多个指标<br />
-- 有成熟的求解器（CVX、MOSEK、SeDuMi）</p></div>
+<p>对于方向图综合，这意味着：</p>
+<ul>
+<li>不会陷入局部最优（旁瓣假峰）</li>
+<li>可以在同一问题中同时优化多个指标</li>
+<li>有成熟的求解器（CVX、MOSEK、SeDuMi）</li>
+</ul></div>
   </div>
 
     
@@ -387,10 +389,12 @@ subject to  ||w||₂ ≤ P_max
 <p>每个约束都是二阶锥形式：</p>
 <pre><code>||Ax + b||₂ ≤ cᵀx + d
 </code></pre>
-<p><strong>优势</strong>：<br />
-- 比 SDP 计算效率高（无矩阵分解）<br />
-- 求解器成熟（CVX + ECOS/SCS）<br />
-- 适合实时波束赋形</p></div>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>比 SDP 计算效率高（无矩阵分解）</li>
+<li>求解器成熟（CVX + ECOS/SCS）</li>
+<li>适合实时波束赋形</li>
+</ul></div>
   </div>
 
     
@@ -405,7 +409,7 @@ subject to  ||w||₂ ≤ P_max
 subject to  AF(θ_null,i) = 0,  i = 1,...,K
             |AF(θ_sidelobe)| ≤ ε
 </code></pre>
-<p><strong>优势</strong>：计算最快，适合大规模阵列（N &gt; 1000）。<br />
+<p><strong>优势</strong>：计算最快，适合大规模阵列（N &gt; 1000）。
 <strong>劣势</strong>：表达能力有限，只能处理线性约束。</p></div>
   </div>
 
@@ -439,10 +443,12 @@ subject to  AF(θ_interfere,i) = 0,    （零陷约束）
             |AF(θ_main)| ≥ G_min,     （主瓣增益约束）
             ||w||² ≤ P_max            （功率约束）
 </code></pre>
-<p><strong>效果</strong>：<br />
-- 旁瓣压低到 -30dB 或更低<br />
-- 零陷深度 -60dB 或更低<br />
-- 主瓣宽度可控</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>旁瓣压低到 -30dB 或更低</li>
+<li>零陷深度 -60dB 或更低</li>
+<li>主瓣宽度可控</li>
+</ul>
 <p><strong>对比 Chebyshev</strong>：Chebyshev 只能优化旁瓣，零陷需要额外处理（如 Longman 方法），效果不如联合优化。</p></div>
   </div>
 
@@ -786,10 +792,12 @@ disp(['Peak SLL: ', num2str(20*log10(cvx_optval), '%.2f'), ' dB']);
 <pre><code>θ_sampled = [-90, -89, ..., 90]  （1° 间隔）
 </code></pre>
 <p>如果实际旁瓣峰出现在 0.5° 处，采样点会错过它。</p>
-<p><strong>对策</strong>：<br />
-- 加密采样（0.1° 间隔）<br />
-- 随机采样 + 多次优化<br />
-- 解析约束（不依赖采样）</p></div>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>加密采样（0.1° 间隔）</li>
+<li>随机采样 + 多次优化</li>
+<li>解析约束（不依赖采样）</li>
+</ul></div>
   </div>
 
     
@@ -803,10 +811,12 @@ disp(['Peak SLL: ', num2str(20*log10(cvx_optval), '%.2f'), ' dB']);
 <pre><code>R_opt 的特征值：[λ₁, λ₂, ..., λ_N]
 如果 λ₂ &gt;&gt; 0 → 松弛间隙大 → 恢复的 w 质量差
 </code></pre>
-<p><strong>对策</strong>：<br />
-- 使用随机化方法（Randomized Rounding）<br />
-- 添加秩约束的凸近似<br />
-- 改用 SOCP 形式（天然保证 rank-1）</p></div>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>使用随机化方法（Randomized Rounding）</li>
+<li>添加秩约束的凸近似</li>
+<li>改用 SOCP 形式（天然保证 rank-1）</li>
+</ul></div>
   </div>
 
     
@@ -817,10 +827,12 @@ disp(['Peak SLL: ', num2str(20*log10(cvx_optval), '%.2f'), ' dB']);
   <div class="block section-text">
     <div class="block-title">6.3 实时性</div>
     <div class="text-body"><p>凸优化求解通常需要秒级时间，不适合实时波束赋形：</p>
-<p><strong>对策</strong>：<br />
-- 离线优化 + 在线查找（Codebook 预计算）<br />
-- 热启动（Warm Start）：利用上一次解作为初始值<br />
-- 一阶方法（ADMM）：适合大规模问题，收敛快但精度低</p></div>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>离线优化 + 在线查找（Codebook 预计算）</li>
+<li>热启动（Warm Start）：利用上一次解作为初始值</li>
+<li>一阶方法（ADMM）：适合大规模问题，收敛快但精度低</li>
+</ul></div>
   </div>
 
     
@@ -836,10 +848,12 @@ disp(['Peak SLL: ', num2str(20*log10(cvx_optval), '%.2f'), ' dB']);
 约束 3：波束宽度 &lt; 2°
 </code></pre>
 <p>这三个约束可能无法同时满足。</p>
-<p><strong>对策</strong>：<br />
-- 优先级排序：主瓣 &gt; 零陷 &gt; 旁瓣<br />
-- 软约束：将硬性约束改为惩罚项<br />
-- Pareto 优化：找最优折中</p></div>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>优先级排序：主瓣 &gt; 零陷 &gt; 旁瓣</li>
+<li>软约束：将硬性约束改为惩罚项</li>
+<li>Pareto 优化：找最优折中</li>
+</ul></div>
   </div>
 
     

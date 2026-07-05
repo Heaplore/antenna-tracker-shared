@@ -408,10 +408,12 @@
 </tr>
 </tbody>
 </table>
-<p><strong>芯片天线的核心问题</strong>：<br />
-- <strong>硅衬底损耗</strong>：普通硅的电阻率低，会吸收大量辐射能量<br />
-- <strong>解决方案</strong>：使用高阻硅（High-Resistivity Silicon, ρ &gt; 10kΩ·cm）<br />
-- <strong>金属损耗</strong>：THz 下趋肤深度极小（~1μm），表面粗糙度影响巨大</p></div>
+<p><strong>芯片天线的核心问题</strong>：</p>
+<ul>
+<li><strong>硅衬底损耗</strong>：普通硅的电阻率低，会吸收大量辐射能量</li>
+<li><strong>解决方案</strong>：使用高阻硅（High-Resistivity Silicon, ρ &gt; 10kΩ·cm）</li>
+<li><strong>金属损耗</strong>：THz 下趋肤深度极小（~1μm），表面粗糙度影响巨大</li>
+</ul></div>
   </div>
 
     
@@ -422,14 +424,18 @@
   <div class="block section-text">
     <div class="block-title">2.2 封装天线（Package-Level THz Antenna）</div>
     <div class="text-body"><p><strong>原理</strong>：天线做在封装基板（LTCC/有机基板/玻璃）上，通过极短互连连接到芯片。</p>
-<p><strong>优势</strong>：<br />
-- 可以使用更复杂的结构（阵列、波导）<br />
-- 封装基板损耗低于硅衬底<br />
-- 兼容标准封装工艺</p>
-<p><strong>典型方案</strong>：<br />
-- LTCC SIW 天线：10 dBi @ 210GHz<br />
-- 玻璃基板天线：12-15 dBi @ 200-300GHz<br />
-- FOWLP（扇出型晶圆级封装）天线：8-10 dBi</p></div>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>可以使用更复杂的结构（阵列、波导）</li>
+<li>封装基板损耗低于硅衬底</li>
+<li>兼容标准封装工艺</li>
+</ul>
+<p><strong>典型方案</strong>：</p>
+<ul>
+<li>LTCC SIW 天线：10 dBi @ 210GHz</li>
+<li>玻璃基板天线：12-15 dBi @ 200-300GHz</li>
+<li>FOWLP（扇出型晶圆级封装）天线：8-10 dBi</li>
+</ul></div>
   </div>
 
     
@@ -444,14 +450,18 @@
 <pre><code>G_lens ≈ G_chip × (n_si)²
 </code></pre>
 <p>其中 n_si ≈ 3.4 是硅的折射率。理论上增益可以提升 ~11dB！</p>
-<p><strong>实际效果</strong>：<br />
-- 无透镜芯片天线：2-3 dBi<br />
-- 加硅透镜：12-15 dBi<br />
-- 效率：50-65%</p>
-<p><strong>关键设计参数</strong>：<br />
-- 透镜形状：半球形、超半球形、高斯形<br />
-- 天线-透镜间距：必须精确对准焦点（误差 &lt; 10μm）<br />
-- 抗反射涂层：减少硅-空气界面的反射（可提升 2-3dB）</p></div>
+<p><strong>实际效果</strong>：</p>
+<ul>
+<li>无透镜芯片天线：2-3 dBi</li>
+<li>加硅透镜：12-15 dBi</li>
+<li>效率：50-65%</li>
+</ul>
+<p><strong>关键设计参数</strong>：</p>
+<ul>
+<li>透镜形状：半球形、超半球形、高斯形</li>
+<li>天线-透镜间距：必须精确对准焦点（误差 &lt; 10μm）</li>
+<li>抗反射涂层：减少硅-空气界面的反射（可提升 2-3dB）</li>
+</ul></div>
   </div>
 
     
@@ -462,18 +472,24 @@
   <div class="block section-text">
     <div class="block-title">2.4 太赫兹波导天线（THz Waveguide Antenna）</div>
     <div class="text-body"><p><strong>原理</strong>：使用金属波导（矩形波导、圆波导）传输 THz 能量，末端开口辐射。</p>
-<p><strong>典型类型</strong>：<br />
-- <strong>角锥喇叭（Pyramidal Horn）</strong>：10-15 dBi，带宽 20-30%<br />
-- <strong>锥面喇叭（Conical Horn）</strong>：12-18 dBi，波束对称性好<br />
-- <strong>缝隙天线（Slot Antenna）</strong>：集成在波导壁上</p>
-<p><strong>优势</strong>：<br />
-- 损耗极低（金属波导在 THz 下仍有很好的导电性）<br />
-- 增益高（15-25 dBi）<br />
-- 波束对称性好</p>
-<p><strong>缺点</strong>：<br />
-- 体积大（相对于芯片尺寸）<br />
-- 加工精度要求极高（线宽 &lt; 10μm）<br />
-- 与芯片的耦合效率低</p></div>
+<p><strong>典型类型</strong>：</p>
+<ul>
+<li><strong>角锥喇叭（Pyramidal Horn）</strong>：10-15 dBi，带宽 20-30%</li>
+<li><strong>锥面喇叭（Conical Horn）</strong>：12-18 dBi，波束对称性好</li>
+<li><strong>缝隙天线（Slot Antenna）</strong>：集成在波导壁上</li>
+</ul>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>损耗极低（金属波导在 THz 下仍有很好的导电性）</li>
+<li>增益高（15-25 dBi）</li>
+<li>波束对称性好</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>体积大（相对于芯片尺寸）</li>
+<li>加工精度要求极高（线宽 &lt; 10μm）</li>
+<li>与芯片的耦合效率低</li>
+</ul></div>
   </div>
 
     
@@ -484,15 +500,19 @@
   <div class="block section-text">
     <div class="block-title">2.5 太赫兹 SIW 阵列天线</div>
     <div class="text-body"><p><strong>原理</strong>：使用 SIW（基片集成波导）技术构建太赫兹频段的多单元阵列。</p>
-<p><strong>SIW 在太赫兹的优势</strong>：<br />
-- 金属壁提供低损耗传输（相比微带线）<br />
-- 与平面工艺兼容<br />
-- 可以实现复杂的馈电网络</p>
-<p><strong>典型性能</strong>：<br />
-- 频率：200-300GHz<br />
-- 单元数：16-64<br />
-- 增益：15-22 dBi<br />
-- 效率：30-50%</p></div>
+<p><strong>SIW 在太赫兹的优势</strong>：</p>
+<ul>
+<li>金属壁提供低损耗传输（相比微带线）</li>
+<li>与平面工艺兼容</li>
+<li>可以实现复杂的馈电网络</li>
+</ul>
+<p><strong>典型性能</strong>：</p>
+<ul>
+<li>频率：200-300GHz</li>
+<li>单元数：16-64</li>
+<li>增益：15-22 dBi</li>
+<li>效率：30-50%</li>
+</ul></div>
   </div>
 
     
@@ -503,11 +523,13 @@
   <div class="block section-text">
     <div class="block-title">2.6 太赫兹超表面天线（Metasurface THz Antenna）</div>
     <div class="text-body"><p><strong>原理</strong>：使用超材料/超表面结构控制 THz 波的辐射方向和波束形状。</p>
-<p><strong>特点</strong>：<br />
-- 超低剖面（厚度 &lt;&lt; λ）<br />
-- 可动态调谐（通过相变材料或 MEMS）<br />
-- 增益 8-15 dBi<br />
-- 带宽窄（5-10%）</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>超低剖面（厚度 &lt;&lt; λ）</li>
+<li>可动态调谐（通过相变材料或 MEMS）</li>
+<li>增益 8-15 dBi</li>
+<li>带宽窄（5-10%）</li>
+</ul>
 <p><strong>应用</strong>：可重构 THz 天线、波束扫描天线</p></div>
   </div>
 
@@ -725,14 +747,18 @@
     
   <div class="block section-text">
     <div class="block-title">5.1 加工精度——微米级的噩梦</div>
-    <div class="text-body"><p>在 200GHz 下，波长仅 1.5mm。一个 10μm 的加工误差就是波长的 0.67%，足以导致：<br />
-- 谐振频率偏移 5-10GHz<br />
-- 增益下降 3-5dB<br />
-- 波束指向偏移 2-5°</p>
-<p><strong>对策</strong>：<br />
-- 使用 MEMS 加工工艺（线宽精度 &lt; 1μm）<br />
-- 电子束光刻（E-beam Lithography）<br />
-- 聚焦离子束（FIB）加工</p></div>
+    <div class="text-body"><p>在 200GHz 下，波长仅 1.5mm。一个 10μm 的加工误差就是波长的 0.67%，足以导致：</p>
+<ul>
+<li>谐振频率偏移 5-10GHz</li>
+<li>增益下降 3-5dB</li>
+<li>波束指向偏移 2-5°</li>
+</ul>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>使用 MEMS 加工工艺（线宽精度 &lt; 1μm）</li>
+<li>电子束光刻（E-beam Lithography）</li>
+<li>聚焦离子束（FIB）加工</li>
+</ul></div>
   </div>
 
     
@@ -746,10 +772,12 @@
 <pre><code>R_ac ≈ R_dc · (1 + 2·σ_rms / δ)
 </code></pre>
 <p>其中 σ_rms 是表面粗糙度的 RMS 值。</p>
-<p><strong>对策</strong>：<br />
-- 电镀金（粗糙度 &lt; 0.1μm）<br />
-- 化学抛光<br />
-- 使用超导材料（低温下）</p></div>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>电镀金（粗糙度 &lt; 0.1μm）</li>
+<li>化学抛光</li>
+<li>使用超导材料（低温下）</li>
+</ul></div>
   </div>
 
     
@@ -763,10 +791,12 @@
 <pre><code>焦点位置误差 &lt; λ/10 = 150μm @ 200GHz
 </code></pre>
 <p>实际上，由于透镜的折射率均匀性误差和加工公差，对准精度需要达到 ±5-10μm。</p>
-<p><strong>对策</strong>：<br />
-- 晶圆级对准（Wafer-Level Alignment）<br />
-- 自对准封装结构<br />
-- 主动对准 + 胶水固化</p></div>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>晶圆级对准（Wafer-Level Alignment）</li>
+<li>自对准封装结构</li>
+<li>主动对准 + 胶水固化</li>
+</ul></div>
   </div>
 
     
@@ -777,14 +807,18 @@
   <div class="block section-text">
     <div class="block-title">5.4 热管理——功率密度极高</div>
     <div class="text-body"><p>THz 芯片天线的功率密度极高（天线尺寸 &lt; 1mm²，功率 10-100mW），局部温升可达 50-100°C。</p>
-<p><strong>影响</strong>：<br />
-- 硅的电阻率随温度变化 → 天线效率下降<br />
-- 透镜的热膨胀导致对准偏移<br />
-- 可靠性问题</p>
-<p><strong>对策</strong>：<br />
-- 芯片级散热通道（Through-Silicon Thermal Via）<br />
-- 高热导率封装材料<br />
-- 功率限制</p></div>
+<p><strong>影响</strong>：</p>
+<ul>
+<li>硅的电阻率随温度变化 → 天线效率下降</li>
+<li>透镜的热膨胀导致对准偏移</li>
+<li>可靠性问题</li>
+</ul>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>芯片级散热通道（Through-Silicon Thermal Via）</li>
+<li>高热导率封装材料</li>
+<li>功率限制</li>
+</ul></div>
   </div>
 
     

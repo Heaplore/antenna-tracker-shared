@@ -315,22 +315,28 @@
   <div class="block section-text">
     <div class="block-title">1. 机械转向（Mechanical Steering）</div>
     <div class="text-body"><p><strong>原理</strong>：用伺服电机、舵机或步进电机带动整个天线阵列转动，改变天线的物理朝向。</p>
-<p><strong>特点</strong>：<br />
-- <strong>转向范围</strong>：360° 水平 + ±90° 俯仰（全向）<br />
-- <strong>响应速度</strong>：慢，度/秒级（典型 1-10°/s）<br />
-- <strong>成本</strong>：低，舵机/电机几百元到几千元<br />
-- <strong>功耗</strong>：仅在转向时消耗，静止时为零<br />
-- <strong>寿命</strong>：机械磨损是主要限制，典型寿命 10 万小时</p>
-<p><strong>典型配置</strong>：<br />
-- 水平转向：±180° 或 360° 旋转<br />
-- 俯仰转向：-90° 到 +90°（全仰角覆盖）<br />
-- 精度：0.1°-1°（取决于编码器分辨率）</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><strong>转向范围</strong>：360° 水平 + ±90° 俯仰（全向）</li>
+<li><strong>响应速度</strong>：慢，度/秒级（典型 1-10°/s）</li>
+<li><strong>成本</strong>：低，舵机/电机几百元到几千元</li>
+<li><strong>功耗</strong>：仅在转向时消耗，静止时为零</li>
+<li><strong>寿命</strong>：机械磨损是主要限制，典型寿命 10 万小时</li>
+</ul>
+<p><strong>典型配置</strong>：</p>
+<ul>
+<li>水平转向：±180° 或 360° 旋转</li>
+<li>俯仰转向：-90° 到 +90°（全仰角覆盖）</li>
+<li>精度：0.1°-1°（取决于编码器分辨率）</li>
+</ul>
 <p><strong>类比</strong>：摇头风扇。电机带动整个扇头转动，范围广但反应慢。</p>
-<p><strong>应用场景</strong>：<br />
-- 大型基站天线（铁塔上的 AAU）<br />
-- 卫星通信地球站<br />
-- 雷达系统<br />
-- 低空经济中的无人机追踪基站</p></div>
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li>大型基站天线（铁塔上的 AAU）</li>
+<li>卫星通信地球站</li>
+<li>雷达系统</li>
+<li>低空经济中的无人机追踪基站</li>
+</ul></div>
   </div>
 
     
@@ -341,22 +347,28 @@
   <div class="block section-text">
     <div class="block-title">2. 电子转向（Electronic Steering / Beamforming）</div>
     <div class="text-body"><p><strong>原理</strong>：不移动天线本身，通过调节阵列内各元件的信号相位和幅度，实现波束的"虚拟转向"。这就是波束赋形的核心能力。</p>
-<p><strong>特点</strong>：<br />
-- <strong>转向范围</strong>：受限于阵列几何和单元间距，通常 ±60°<br />
-- <strong>响应速度</strong>：极快，微秒级（μs）<br />
-- <strong>成本</strong>：高，每根通道都需要移相器和控制电路<br />
-- <strong>功耗</strong>：持续消耗（移相器和功放始终在工作）<br />
-- <strong>寿命</strong>：无机械磨损，理论上无限</p>
-<p><strong>典型配置</strong>：<br />
-- 64T64R Massive MIMO：波束宽度 5°-10°<br />
-- 256T256R XL-MIMO：波束宽度 2°-5°<br />
-- 扫描范围：±60°（水平）+ ±30°（俯仰）</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><strong>转向范围</strong>：受限于阵列几何和单元间距，通常 ±60°</li>
+<li><strong>响应速度</strong>：极快，微秒级（μs）</li>
+<li><strong>成本</strong>：高，每根通道都需要移相器和控制电路</li>
+<li><strong>功耗</strong>：持续消耗（移相器和功放始终在工作）</li>
+<li><strong>寿命</strong>：无机械磨损，理论上无限</li>
+</ul>
+<p><strong>典型配置</strong>：</p>
+<ul>
+<li>64T64R Massive MIMO：波束宽度 5°-10°</li>
+<li>256T256R XL-MIMO：波束宽度 2°-5°</li>
+<li>扫描范围：±60°（水平）+ ±30°（俯仰）</li>
+</ul>
 <p><strong>类比</strong>：探照灯内部用镜片组改变光束方向，灯头本身不动。</p>
-<p><strong>应用场景</strong>：<br />
-- 5G 基站 AAU（已在大规模商用）<br />
-- 相控阵卫星通信（Starlink 用户终端）<br />
-- 军用雷达<br />
-- 毫米波回传</p></div>
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li>5G 基站 AAU（已在大规模商用）</li>
+<li>相控阵卫星通信（Starlink 用户终端）</li>
+<li>军用雷达</li>
+<li>毫米波回传</li>
+</ul></div>
   </div>
 
     
@@ -367,22 +379,26 @@
   <div class="block section-text">
     <div class="block-title">3. 混合转向（Hybrid Steering）</div>
     <div class="text-body"><p><strong>原理</strong>：机械负责大范围粗调，电子负责小范围精调。两者协同工作，取长补短。</p>
-<p><strong>特点</strong>：<br />
-- <strong>转向范围</strong>：机械提供 360° 粗调 + 电子提供 ±60° 精调 = 理论无死角<br />
-- <strong>响应速度</strong>：机械慢（秒级）+ 电子快（μs级）= 两级响应<br />
-- <strong>成本</strong>：中等（比纯电子便宜，比纯机械贵）<br />
-- <strong>功耗</strong>：机械静止时无功耗，电子部分持续消耗<br />
-- <strong>复杂度</strong>：需要协调算法控制两级转向</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><strong>转向范围</strong>：机械提供 360° 粗调 + 电子提供 ±60° 精调 = 理论无死角</li>
+<li><strong>响应速度</strong>：机械慢（秒级）+ 电子快（μs级）= 两级响应</li>
+<li><strong>成本</strong>：中等（比纯电子便宜，比纯机械贵）</li>
+<li><strong>功耗</strong>：机械静止时无功耗，电子部分持续消耗</li>
+<li><strong>复杂度</strong>：需要协调算法控制两级转向</li>
+</ul>
 <p><strong>工作机制</strong>：</p>
 <pre><code>第一步（粗调）：根据用户分布统计，机械转动天线到大致方向
 第二步（精调）：波束赋形在 ±60° 范围内微调，精准对准用户
 第三步（跟踪）：用户移动时，电子波束快速跟随；超出范围时，机械再粗调
 </code></pre>
 <p><strong>类比</strong>：你用手指指东西。手臂先转到大致方向（机械粗调），手指再微调指向（电子精调）。</p>
-<p><strong>典型架构</strong>：<br />
-- <strong>6DMA（6D Movable Antenna）</strong>：天线阵列可在三维空间中沿导轨移动 + 旋转，实现 6 个自由度的位置调整<br />
-- <strong>环形导轨架构</strong>：多个天线阵列安装在环形导轨上，电机带动整个环旋转，每个阵列内部再做电子波束赋形<br />
-- <strong>云台+阵列架构</strong>：天线阵列安装在二维云台上（azimuth + elevation），云台提供大范围转向，阵列内部做精细波束控制</p>
+<p><strong>典型架构</strong>：</p>
+<ul>
+<li><strong>6DMA（6D Movable Antenna）</strong>：天线阵列可在三维空间中沿导轨移动 + 旋转，实现 6 个自由度的位置调整</li>
+<li><strong>环形导轨架构</strong>：多个天线阵列安装在环形导轨上，电机带动整个环旋转，每个阵列内部再做电子波束赋形</li>
+<li><strong>云台+阵列架构</strong>：天线阵列安装在二维云台上（azimuth + elevation），云台提供大范围转向，阵列内部做精细波束控制</li>
+</ul>
 <hr /></div>
   </div>
 
@@ -394,10 +410,12 @@
   <div class="block section-text">
     <div class="block-title">1. 覆盖扩展</div>
     <div class="text-body"><p>机械转向让天线可以"回头看"，消除了固定天线的覆盖盲区。</p>
-<p><strong>实测数据</strong>：<br />
-- 传统 120° 扇区基站：盲区约 120°（两个扇区交界处）<br />
-- 可转向天线：360° 全覆盖，盲区 &lt; 5°（机械转向死区）<br />
-- 小区半径扩展：18-25%（波束更精准对准用户，等效增益提升）</p></div>
+<p><strong>实测数据</strong>：</p>
+<ul>
+<li>传统 120° 扇区基站：盲区约 120°（两个扇区交界处）</li>
+<li>可转向天线：360° 全覆盖，盲区 &lt; 5°（机械转向死区）</li>
+<li>小区半径扩展：18-25%（波束更精准对准用户，等效增益提升）</li>
+</ul></div>
   </div>
 
     
@@ -408,10 +426,12 @@
   <div class="block section-text">
     <div class="block-title">2. 干扰抑制</div>
     <div class="text-body"><p>天线转向可以智能规避干扰方向，而不是在信号层面"擦屁股"。</p>
-<p><strong>机制</strong>：<br />
-- 在干扰方向形成波束零点（null steering）<br />
-- 机械转向让天线主瓣远离干扰源<br />
-- 电子波束赋形在干扰方向形成深度零点（-30dB 以下）</p>
+<p><strong>机制</strong>：</p>
+<ul>
+<li>在干扰方向形成波束零点（null steering）</li>
+<li>机械转向让天线主瓣远离干扰源</li>
+<li>电子波束赋形在干扰方向形成深度零点（-30dB 以下）</li>
+</ul>
 <p><strong>效果</strong>：同频干扰降低 15-25dB，小区边缘 SINR 提升 3-6dB。</p></div>
   </div>
 
@@ -435,14 +455,18 @@
     <div class="block-title">4. 通感一体化（ISAC）</div>
     <div class="text-body"><p>这是可转向天线在 6G 时代最大的想象空间。</p>
 <p><strong>通感一体化</strong>：同一套天线硬件同时做两件事——通信（传输数据）和感知（雷达探测）。</p>
-<p><strong>感知能力</strong>：<br />
-- 追踪移动目标的位置、速度、方向<br />
-- 生成周围环境的"雷达图像"<br />
-- 检测障碍物、行人、车辆</p>
-<p><strong>通信能力</strong>：<br />
-- 基于感知结果，预判用户移动轨迹<br />
-- 提前调整波束方向，实现"等用户来"的无缝切换<br />
-- 感知数据还可以用于环境建模，优化覆盖策略</p>
+<p><strong>感知能力</strong>：</p>
+<ul>
+<li>追踪移动目标的位置、速度、方向</li>
+<li>生成周围环境的"雷达图像"</li>
+<li>检测障碍物、行人、车辆</li>
+</ul>
+<p><strong>通信能力</strong>：</p>
+<ul>
+<li>基于感知结果，预判用户移动轨迹</li>
+<li>提前调整波束方向，实现"等用户来"的无缝切换</li>
+<li>感知数据还可以用于环境建模，优化覆盖策略</li>
+</ul>
 <p><strong>类比</strong>：你的眼睛和耳朵。眼睛看东西（感知），嘴巴说话（通信）。可转向天线就是 6G 基站的"眼睛+嘴巴"——一边看一边说，看到的用来指导说的方向。</p>
 <hr /></div>
   </div>
@@ -467,6 +491,7 @@
     <div class="text-body"><p><strong>第一阶段：粗估计（Coarse Estimation）</strong></p>
 <p>通过低速扫描（机械转动 + 低分辨率波束），快速锁定用户的大致方向。</p>
 <pre><code>步骤：
+
 1. 机械天线转到 0°, 60°, 120°, 180°, 240°, 300°（6 个方向）
 2. 每个方向用宽波束（30°）发送探测信号
 3. 接收端反馈信号强度（RSRP）
@@ -476,6 +501,7 @@
 <p><strong>第二阶段：精估计（Fine Estimation）</strong></p>
 <p>在粗估计的基础上，用高分辨率波束赋形精确对准用户。</p>
 <pre><code>步骤：
+
 1. 机械天线停在粗估计方向
 2. 电子波束赋形在 ±30° 范围内扫描 12-24 个精细波束
 3. 选择 SINR 最高的波束作为最终对准方向
@@ -509,12 +535,14 @@
     
   <div class="block section-text">
     <div class="block-title">原型成本（实验室阶段）</div>
-    <div class="text-body"><p>之前的原型验证显示，一套 4 单元可转向天线阵列的硬件成本约 1624 元：<br />
-- 天线单元 × 4：582 元<br />
-- 舵机云台 × 4：137 元<br />
-- FPGA 开发板：419 元<br />
-- 无人机（测试平台）：399 元<br />
-- 其他配件：87 元</p></div>
+    <div class="text-body"><p>之前的原型验证显示，一套 4 单元可转向天线阵列的硬件成本约 1624 元：</p>
+<ul>
+<li>天线单元 × 4：582 元</li>
+<li>舵机云台 × 4：137 元</li>
+<li>FPGA 开发板：419 元</li>
+<li>无人机（测试平台）：399 元</li>
+<li>其他配件：87 元</li>
+</ul></div>
   </div>
 
     
@@ -579,11 +607,13 @@
   <div class="block section-text">
     <div class="block-title">Kymeta 电子转向平板天线</div>
     <div class="text-body"><p>Kymeta 是全球领先的电子转向天线公司，其产品基于 metamaterial（超材料）技术，无需机械运动即可实现波束转向。</p>
-<p><strong>最新进展（2025-2026）</strong>：<br />
-- <strong>KuKa 8 Series</strong>：全球首款 Ku 波段 + Ka 波段多频并发电子转向天线<br />
-- 四波束全双工同时运行（Ku 发 + Ku 收 + Ka 发 + Ka 收）<br />
-- 应用于海军舰艇、无人系统、应急服务<br />
-- 美国海军 ONR 合同验证中</p>
+<p><strong>最新进展（2025-2026）</strong>：</p>
+<ul>
+<li><strong>KuKa 8 Series</strong>：全球首款 Ku 波段 + Ka 波段多频并发电子转向天线</li>
+<li>四波束全双工同时运行（Ku 发 + Ku 收 + Ka 发 + Ka 收）</li>
+<li>应用于海军舰艇、无人系统、应急服务</li>
+<li>美国海军 ONR 合同验证中</li>
+</ul>
 <p><strong>技术路线</strong>：Kymeta 走的是纯电子转向路线（无机械部件），优势是响应极快、无磨损、外形扁平。劣势是带宽和增益不如机械转向方案。</p></div>
   </div>
 
@@ -720,11 +750,13 @@
   <div class="block section-text">
     <div class="block-title">挑战 1：机械可靠性</div>
     <div class="text-body"><p>户外部署的天线需要承受风载、雨雪、温差。机械转向机构的密封性和耐久性是关键。</p>
-<p><strong>解决方案</strong>：<br />
-- IP67 防护等级（防尘防水）<br />
-- 伺服电机 + 谐波减速器（高精度、长寿命）<br />
-- 编码器闭环控制（实时反馈实际角度）<br />
-- 自动归位：断电后弹簧复位到安全角度</p></div>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>IP67 防护等级（防尘防水）</li>
+<li>伺服电机 + 谐波减速器（高精度、长寿命）</li>
+<li>编码器闭环控制（实时反馈实际角度）</li>
+<li>自动归位：断电后弹簧复位到安全角度</li>
+</ul></div>
   </div>
 
     
@@ -735,14 +767,18 @@
   <div class="block section-text">
     <div class="block-title">挑战 2：控制复杂度</div>
     <div class="text-body"><p>机械转向和电子波束赋形的协同控制需要复杂的算法。</p>
-<p><strong>难点</strong>：<br />
-- 两级转向的切换时机（什么时候该机械转，什么时候该电子调？）<br />
-- 切换过程中的服务中断（机械转动时通信不能断）<br />
-- 多用户场景下的资源分配（不同用户可能需要不同方向）</p>
-<p><strong>解决方案</strong>：<br />
-- 两层时间尺度的解耦优化（机械：秒级；电子：毫秒级）<br />
-- 过渡期波束保持（机械转动时，电子波束暂时覆盖更大范围）<br />
-- AI 预测用户轨迹，提前规划转向策略</p></div>
+<p><strong>难点</strong>：</p>
+<ul>
+<li>两级转向的切换时机（什么时候该机械转，什么时候该电子调？）</li>
+<li>切换过程中的服务中断（机械转动时通信不能断）</li>
+<li>多用户场景下的资源分配（不同用户可能需要不同方向）</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>两层时间尺度的解耦优化（机械：秒级；电子：毫秒级）</li>
+<li>过渡期波束保持（机械转动时，电子波束暂时覆盖更大范围）</li>
+<li>AI 预测用户轨迹，提前规划转向策略</li>
+</ul></div>
   </div>
 
     
@@ -753,10 +789,12 @@
   <div class="block section-text">
     <div class="block-title">挑战 3：风载与结构</div>
     <div class="text-body"><p>可转向天线在强风下需要保持指向精度。</p>
-<p><strong>解决方案</strong>：<br />
-- 风速传感器 + 自动进入"安全模式"（转向顺风方向减小受力）<br />
-- 高强度铝合金结构<br />
-- 主动风载补偿（风力作用时，电子波束微调抵消指向偏差）</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>风速传感器 + 自动进入"安全模式"（转向顺风方向减小受力）</li>
+<li>高强度铝合金结构</li>
+<li>主动风载补偿（风力作用时，电子波束微调抵消指向偏差）</li>
+</ul>
 <hr /></div>
   </div>
 

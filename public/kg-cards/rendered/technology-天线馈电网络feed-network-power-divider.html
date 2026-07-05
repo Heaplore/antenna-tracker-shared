@@ -274,14 +274,18 @@
     <div class="text-body"><p>最基本的功能：将输入信号分成 N 路等幅（或不等幅）输出：</p>
 <pre><code>输入 1 路 → 输出 N 路
 </code></pre>
-<p><strong>等幅分配</strong>（最常见）：<br />
-- 所有输出端口功率相等<br />
-- 用于均匀照射的阵列<br />
-- 典型应用：波束赋形阵列、相控阵</p>
-<p><strong>不等幅分配</strong>（渐削照射）：<br />
-- 中心单元功率高，边缘单元功率低<br />
-- 用于降低旁瓣电平<br />
-- 典型应用：射电望远镜、卫星通信</p></div>
+<p><strong>等幅分配</strong>（最常见）：</p>
+<ul>
+<li>所有输出端口功率相等</li>
+<li>用于均匀照射的阵列</li>
+<li>典型应用：波束赋形阵列、相控阵</li>
+</ul>
+<p><strong>不等幅分配</strong>（渐削照射）：</p>
+<ul>
+<li>中心单元功率高，边缘单元功率低</li>
+<li>用于降低旁瓣电平</li>
+<li>典型应用：射电望远镜、卫星通信</li>
+</ul></div>
   </div>
 
     
@@ -295,10 +299,12 @@
 <pre><code>Δφ_n = n · d · sin(θ₀) · 2π/λ
 </code></pre>
 <p>其中 d 是单元间距，θ₀ 是目标波束指向。</p>
-<p><strong>用途</strong>：<br />
-- 波束指向控制（相控阵）<br />
-- 波束倾斜（机械/电子倾角）<br />
-- 多波束生成</p></div>
+<p><strong>用途</strong>：</p>
+<ul>
+<li>波束指向控制（相控阵）</li>
+<li>波束倾斜（机械/电子倾角）</li>
+<li>多波束生成</li>
+</ul></div>
   </div>
 
     
@@ -312,10 +318,12 @@
 <pre><code>Z_in = Z₀（输入匹配）
 Z_out_n = Z₀（输出匹配）
 </code></pre>
-<p>匹配不好会导致：<br />
-- 反射增大 → S11 恶化<br />
-- 功率损耗 → 效率下降<br />
-- 谐波失真 → 信号质量下降</p></div>
+<p>匹配不好会导致：</p>
+<ul>
+<li>反射增大 → S11 恶化</li>
+<li>功率损耗 → 效率下降</li>
+<li>谐波失真 → 信号质量下降</li>
+</ul></div>
   </div>
 
     
@@ -328,10 +336,12 @@ Z_out_n = Z₀（输出匹配）
     <div class="text-body"><p>输出端口之间需要足够的隔离度：</p>
 <pre><code>S_ij &lt; -20dB（i ≠ j，输出端口间）
 </code></pre>
-<p>隔离度差会导致：<br />
-- 互耦增大 → 方向图畸变<br />
-- 功率在端口间泄露 → 效率下降<br />
-- 多径效应加剧 → MIMO 性能下降</p></div>
+<p>隔离度差会导致：</p>
+<ul>
+<li>互耦增大 → 方向图畸变</li>
+<li>功率在端口间泄露 → 效率下降</li>
+<li>多径效应加剧 → MIMO 性能下降</li>
+</ul></div>
   </div>
 
     
@@ -349,18 +359,20 @@ Input ────┤╬├──── Output 1
 Output 2 ─┤╬├──── Output 3
          Z₀·√2, θ₀
 </code></pre>
-<p><strong>原理</strong>：<br />
-- 两段 λ/4 阻抗变换线（Z = Z₀√2）<br />
-- 中心隔离电阻 R = 2Z₀ = 100Ω（50Ω 系统）<br />
-- 当两输出端匹配时，电阻上无电流 → 不耗散功率<br />
-- 当输出失配时，电阻吸收反射功率 → 提高隔离</p>
-<p><strong>性能指标</strong>：<br />
-| 参数 | 典型值 |<br />
-|------|--------|<br />
-| 插入损耗 | 0.1-0.3dB |<br />
-| 隔离度 | &gt; 20dB |<br />
-| 带宽 | 10-20% |<br />
-| 幅度平衡 | ±0.5° |<br />
+<p><strong>原理</strong>：</p>
+<ul>
+<li>两段 λ/4 阻抗变换线（Z = Z₀√2）</li>
+<li>中心隔离电阻 R = 2Z₀ = 100Ω（50Ω 系统）</li>
+<li>当两输出端匹配时，电阻上无电流 → 不耗散功率</li>
+<li>当输出失配时，电阻吸收反射功率 → 提高隔离</li>
+</ul>
+<p><strong>性能指标</strong>：
+| 参数 | 典型值 |
+|------|--------|
+| 插入损耗 | 0.1-0.3dB |
+| 隔离度 | &gt; 20dB |
+| 带宽 | 10-20% |
+| 幅度平衡 | ±0.5° |
 | 相位平衡 | ±0.1dB |</p>
 <p><strong>多路扩展</strong>（树状结构）：</p>
 <pre><code>1→2 功分器
@@ -405,20 +417,26 @@ Input ──┤
         ├─── 臂 C ──→ 单元 17-24
         └─── 臂 D ──→ 单元 25-32
 </code></pre>
-<p><strong>优势</strong>：<br />
-- 损耗极低（比微带低 5-10 倍）<br />
-- 功率容量大（kW 级）<br />
-- 高频性能好（毫米波/太赫兹）<br />
-- 屏蔽性好（无辐射损耗）</p>
-<p><strong>劣势</strong>：<br />
-- 体积大、重量大<br />
-- 加工成本高<br />
-- 难以集成</p>
-<p><strong>常见波导功分器</strong>：<br />
-- E 面 T 接头<br />
-- H 面 T 接头<br />
-- 交叉波导（Magic Tee）<br />
-- Rat-Race 环形电桥</p></div>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>损耗极低（比微带低 5-10 倍）</li>
+<li>功率容量大（kW 级）</li>
+<li>高频性能好（毫米波/太赫兹）</li>
+<li>屏蔽性好（无辐射损耗）</li>
+</ul>
+<p><strong>劣势</strong>：</p>
+<ul>
+<li>体积大、重量大</li>
+<li>加工成本高</li>
+<li>难以集成</li>
+</ul>
+<p><strong>常见波导功分器</strong>：</p>
+<ul>
+<li>E 面 T 接头</li>
+<li>H 面 T 接头</li>
+<li>交叉波导（Magic Tee）</li>
+<li>Rat-Race 环形电桥</li>
+</ul></div>
   </div>
 
     
@@ -435,10 +453,12 @@ Middle Stripline ← 馈电网络藏在此层
 Dielectric
 Bottom Microstrip ← 天线单元在此层
 </code></pre>
-<p><strong>优势</strong>：<br />
-- 双面布局（馈线和天线分开）<br />
-- 屏蔽好（无辐射损耗）<br />
-- 适合多层 PCB</p></div>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>双面布局（馈线和天线分开）</li>
+<li>屏蔽好（无辐射损耗）</li>
+<li>适合多层 PCB</li>
+</ul></div>
   </div>
 
     
@@ -473,10 +493,12 @@ Chip Mid:  馈电网络（硅基底内）
             │
 Chip Bot:  驱动 IC（BFIC）
 </code></pre>
-<p><strong>优势</strong>：<br />
-- 超薄剖面<br />
-- 高频损耗低<br />
-- 适合大规模量产</p></div>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>超薄剖面</li>
+<li>高频损耗低</li>
+<li>适合大规模量产</li>
+</ul></div>
   </div>
 
     
@@ -504,11 +526,13 @@ Chip Bot:  驱动 IC（BFIC）
   <div class="block section-text">
     <div class="block-title">2.7 X 型全波导馈电网络（X-Type Full-Corporate Waveguide）</div>
     <div class="text-body"><p>2022 年提出的新型毫米波馈电拓扑：</p>
-<p><strong>特点</strong>：<br />
-- 级数减半（相比传统树状）<br />
-- 带宽提升 2 倍<br />
-- 插入损耗降低 3dB<br />
-- 适合 28/39GHz 大规模阵列</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>级数减半（相比传统树状）</li>
+<li>带宽提升 2 倍</li>
+<li>插入损耗降低 3dB</li>
+<li>适合 28/39GHz 大规模阵列</li>
+</ul></div>
   </div>
 
     
@@ -533,11 +557,11 @@ Chip Bot:  驱动 IC（BFIC）
  └──┬──┘     └──┬──┘
    1   2       3   4    （4 单元阵列）
 </code></pre>
-<p><strong>优缺点</strong>：<br />
-| 优点 | 缺点 |<br />
-|------|------|<br />
-| 设计简单 | 级数多时损耗大 |<br />
-| 幅度/相位一致性好 | 级联越多，累积误差越大 |<br />
+<p><strong>优缺点</strong>：
+| 优点 | 缺点 |
+|------|------|
+| 设计简单 | 级数多时损耗大 |
+| 幅度/相位一致性好 | 级联越多，累积误差越大 |
 | 易于仿真和优化 | 故障扩散（一级坏了全废） |</p></div>
   </div>
 
@@ -553,11 +577,11 @@ Chip Bot:  驱动 IC（BFIC）
         │         │         │
       Unit 1    Unit 2   Unit 3
 </code></pre>
-<p><strong>优缺点</strong>：<br />
-| 优点 | 缺点 |<br />
-|------|------|<br />
-| 结构简单 | 馈线损耗大（沿程衰减） |<br />
-| 无级联损耗 | 幅度不一致（边缘单元弱） |<br />
+<p><strong>优缺点</strong>：
+| 优点 | 缺点 |
+|------|------|
+| 结构简单 | 馈线损耗大（沿程衰减） |
+| 无级联损耗 | 幅度不一致（边缘单元弱） |
 | 故障不影响其他 | 阻抗变化大 |</p></div>
   </div>
 
@@ -571,7 +595,7 @@ Chip Bot:  驱动 IC（BFIC）
     <div class="text-body"><p>树状 + 并行结合：</p>
 <pre><code>输入 → 树状分配（4 路）→ 每路并行馈给 8 个单元
 </code></pre>
-<p><strong>优点</strong>：兼顾简单性和均匀性<br />
+<p><strong>优点</strong>：兼顾简单性和均匀性
 <strong>缺点</strong>：设计复杂</p></div>
   </div>
 
@@ -643,10 +667,12 @@ Chip Bot:  驱动 IC（BFIC）
     <div class="block-title">4.2 幅度平衡（Amplitude Balance）</div>
     <div class="text-body"><pre><code>ΔP = |P_out1 - P_out2| &lt; 0.5dB（典型要求）
 </code></pre>
-<p>幅度不平衡会导致：<br />
-- 旁瓣电平升高<br />
-- 波束指向偏移<br />
-- 极化隔离度下降</p></div>
+<p>幅度不平衡会导致：</p>
+<ul>
+<li>旁瓣电平升高</li>
+<li>波束指向偏移</li>
+<li>极化隔离度下降</li>
+</ul></div>
   </div>
 
     
@@ -658,10 +684,12 @@ Chip Bot:  驱动 IC（BFIC）
     <div class="block-title">4.3 相位平衡（Phase Balance）</div>
     <div class="text-body"><pre><code>Δφ = |φ_out1 - φ_out2| &lt; 5°（典型要求）
 </code></pre>
-<p>相位不平衡的后果更严重：<br />
-- 波束指向误差：Δθ ≈ Δφ / (180°/N)<br />
-- 64 单元阵列中，Δφ = 5° → Δθ ≈ 4.5°<br />
-- 可能导致链路中断</p></div>
+<p>相位不平衡的后果更严重：</p>
+<ul>
+<li>波束指向误差：Δθ ≈ Δφ / (180°/N)</li>
+<li>64 单元阵列中，Δφ = 5° → Δθ ≈ 4.5°</li>
+<li>可能导致链路中断</li>
+</ul></div>
   </div>
 
     
@@ -673,10 +701,12 @@ Chip Bot:  驱动 IC（BFIC）
     <div class="block-title">4.4 隔离度（Isolation）</div>
     <div class="text-body"><pre><code>S_isolation = 20·log₁₀(|V_reflected| / |V_incident|) &lt; -20dB
 </code></pre>
-<p>隔离度不足的影响：<br />
-- 单元间互耦<br />
-- 方向图畸变<br />
-- MIMO 信道相关性增加</p></div>
+<p>隔离度不足的影响：</p>
+<ul>
+<li>单元间互耦</li>
+<li>方向图畸变</li>
+<li>MIMO 信道相关性增加</li>
+</ul></div>
   </div>
 
     
@@ -730,10 +760,12 @@ Chip Bot:  驱动 IC（BFIC）
     <div class="text-body"><p>趋肤深度 δ 随频率升高而减小：</p>
 <pre><code>δ = √(2ρ/ωμ)
 </code></pre>
-<p>28GHz 时铜的 δ ≈ 0.35μm，意味着：<br />
-- PCB 铜厚至少 3δ ≈ 1μm（镀金层）<br />
-- 表面粗糙度影响显著<br />
-- Ra &lt; 0.5μm 是目标</p></div>
+<p>28GHz 时铜的 δ ≈ 0.35μm，意味着：</p>
+<ul>
+<li>PCB 铜厚至少 3δ ≈ 1μm（镀金层）</li>
+<li>表面粗糙度影响显著</li>
+<li>Ra &lt; 0.5μm 是目标</li>
+</ul></div>
   </div>
 
     
@@ -780,14 +812,17 @@ Chip Bot:  驱动 IC（BFIC）
     <div class="block-title">5.4 双频/多频馈电</div>
     <div class="text-body"><p>5G 毫米波通常覆盖多个频段（如 28GHz + 39GHz）：</p>
 <pre><code>双频 Wilkinson 设计：
+
 - 使用多节阻抗变换
 - 每节针对一个频段优化
 - 带宽扩展技术（inter-stage phase optimization）
 </code></pre>
-<p>2024 年天津大学提出的 16 路双频功分器：<br />
-- 28GHz 带宽：23-32GHz（32.1%）<br />
-- 39GHz 带宽：34-46.5GHz（32.1%）<br />
-- 采用级间相位优化技术</p></div>
+<p>2024 年天津大学提出的 16 路双频功分器：</p>
+<ul>
+<li>28GHz 带宽：23-32GHz（32.1%）</li>
+<li>39GHz 带宽：34-46.5GHz（32.1%）</li>
+<li>采用级间相位优化技术</li>
+</ul></div>
   </div>
 
     

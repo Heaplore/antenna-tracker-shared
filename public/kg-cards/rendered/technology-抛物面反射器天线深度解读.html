@@ -415,11 +415,13 @@
         ╲___╱
 </code></pre>
 <p><strong>原理</strong>：从馈源发出的信号打到双曲面上，被反射到抛物面主面，再反射成平行波射出。</p>
-<p><strong>优势</strong>：<br />
-- 馈源在主面后面，消除了遮挡损失<br />
-- 等效焦距变长，波束更窄<br />
-- 交叉极化更低<br />
-- 馈线损耗小（馈源靠近电子设备）</p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>馈源在主面后面，消除了遮挡损失</li>
+<li>等效焦距变长，波束更窄</li>
+<li>交叉极化更低</li>
+<li>馈线损耗小（馈源靠近电子设备）</li>
+</ul>
 <p><strong>口径效率</strong>：65-70%。</p>
 <p><strong>典型应用</strong>：卫星通信地球站、深空通信（NASA 的 DSN）、高端微波回传。</p></div>
   </div>
@@ -439,10 +441,12 @@
        │  锅 │  ← 抛物面主反射面
         ╲___╱
 </code></pre>
-<p><strong>与卡塞格林的区别</strong>：<br />
-- 卡塞格林副面是凸双曲面，格里高利副面是凹椭球面<br />
-- 格里高利的副面离主面更远，需要更长的支撑结构<br />
-- 格里高利的交叉极化更低，但系统更复杂</p>
+<p><strong>与卡塞格林的区别</strong>：</p>
+<ul>
+<li>卡塞格林副面是凸双曲面，格里高利副面是凹椭球面</li>
+<li>格里高利的副面离主面更远，需要更长的支撑结构</li>
+<li>格里高利的交叉极化更低，但系统更复杂</li>
+</ul>
 <p><strong>口径效率</strong>：70%+（最优可达 75%）。</p>
 <p><strong>典型应用</strong>：射电天文（如 FAST 的部分配置）、对交叉极化要求极高的卫星通信。</p></div>
   </div>
@@ -461,13 +465,17 @@
      │     │
       ╲___╱
 </code></pre>
-<p><strong>优势</strong>：<br />
-- <strong>零遮挡</strong>：馈源和支撑臂完全不在波束路径上<br />
-- <strong>不积水</strong>：锅是斜的，下雨不会积水（北方冻融循环是天线杀手）<br />
-- 地面噪声低（副面不"看到"暖地面）</p>
-<p><strong>劣势</strong>：<br />
-- 制造复杂，不对称的抛物面需要定制模具<br />
-- 极化纯度略差（因为照射不对称）</p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li><strong>零遮挡</strong>：馈源和支撑臂完全不在波束路径上</li>
+<li><strong>不积水</strong>：锅是斜的，下雨不会积水（北方冻融循环是天线杀手）</li>
+<li>地面噪声低（副面不"看到"暖地面）</li>
+</ul>
+<p><strong>劣势</strong>：</p>
+<ul>
+<li>制造复杂，不对称的抛物面需要定制模具</li>
+<li>极化纯度略差（因为照射不对称）</li>
+</ul>
 <p><strong>典型应用</strong>：DISH Network 卫星电视（偏馈 LNB）、星链用户终端、低轨卫星通信地面站。</p>
 <hr /></div>
   </div>
@@ -486,12 +494,14 @@ G(dBi) = 10 × log₁₀(η) + 20 × log₁₀(D) + 20 × log₁₀(f) + 20 × l
 <p>简化版（D 单位 m，f 单位 GHz）：</p>
 <pre><code>G(dBi) ≈ 10 × log₁₀(η) + 20 × log₁₀(D) + 20 × log₁₀(f) + 20
 </code></pre>
-<p><strong>典型值</strong>：<br />
-- 0.6m 天线 @ 12GHz，η=0.55 → <strong>38 dBi</strong><br />
-- 1.2m 天线 @ 12GHz，η=0.60 → <strong>43 dBi</strong><br />
-- 3.0m 天线 @ 14GHz，η=0.65 → <strong>49 dBi</strong><br />
-- 5.0m 天线 @ 14GHz，η=0.70 → <strong>52 dBi</strong><br />
--  FAST 500m @ 1.4GHz，η=0.33 → <strong>74 dBi</strong></p></div>
+<p><strong>典型值</strong>：</p>
+<ul>
+<li>0.6m 天线 @ 12GHz，η=0.55 → <strong>38 dBi</strong></li>
+<li>1.2m 天线 @ 12GHz，η=0.60 → <strong>43 dBi</strong></li>
+<li>3.0m 天线 @ 14GHz，η=0.65 → <strong>49 dBi</strong></li>
+<li>5.0m 天线 @ 14GHz，η=0.70 → <strong>52 dBi</strong></li>
+<li>FAST 500m @ 1.4GHz，η=0.33 → <strong>74 dBi</strong></li>
+</ul></div>
   </div>
 
     
@@ -505,10 +515,12 @@ G(dBi) = 10 × log₁₀(η) + 20 × log₁₀(D) + 20 × log₁₀(f) + 20 × l
 <pre><code>HPBW(°) ≈ 70 × λ / D = 70 / (D × f)
 (D 单位 m, f 单位 GHz)
 </code></pre>
-<p><strong>直观感受</strong>：<br />
-- 0.6m @ 12GHz → HPBW ≈ 1°（相当于一根针的尖端）<br />
-- 3.0m @ 14GHz → HPBW ≈ 0.17°（比一根头发丝的视角还窄）<br />
-- 500m @ 1.4GHz → HPBW ≈ 0.17°（FAST 的波束也很窄）</p>
+<p><strong>直观感受</strong>：</p>
+<ul>
+<li>0.6m @ 12GHz → HPBW ≈ 1°（相当于一根针的尖端）</li>
+<li>3.0m @ 14GHz → HPBW ≈ 0.17°（比一根头发丝的视角还窄）</li>
+<li>500m @ 1.4GHz → HPBW ≈ 0.17°（FAST 的波束也很窄）</li>
+</ul>
 <p><strong>安装精度要求</strong>：波束越窄，对准越难。一副 3 米天线在 12GHz 的波束宽度不到 0.5°，安装误差超过 0.25° 就会损失 3dB 增益——相当于信号强度减半。</p>
 <p><strong>类比</strong>：用激光笔照 1 公里外的硬币。激光笔的波束越窄（增益越高），你手抖一下，光斑就跳到硬币外面去了。</p>
 <hr /></div>
@@ -646,11 +658,13 @@ G(dBi) = 10 × log₁₀(η) + 20 × log₁₀(D) + 20 × log₁₀(f) + 20 × l
   <div class="block section-text">
     <div class="block-title">挑战 1：风载荷</div>
     <div class="text-body"><p>抛物面越大，迎风面积越大。一副 3 米天线在 8 级风下的受力相当于一堵墙在推你。</p>
-<p><strong>解决方案</strong>：<br />
-- 加固支架和底座<br />
-- 设计顺风旋转结构（风来时自动转向侧面减小受力）<br />
-- 选用多孔结构（网格抛物面），风可以从网孔穿过<br />
-- 安装风速传感器，超强风时自动进入"安全模式"</p></div>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>加固支架和底座</li>
+<li>设计顺风旋转结构（风来时自动转向侧面减小受力）</li>
+<li>选用多孔结构（网格抛物面），风可以从网孔穿过</li>
+<li>安装风速传感器，超强风时自动进入"安全模式"</li>
+</ul></div>
   </div>
 
     
@@ -661,10 +675,12 @@ G(dBi) = 10 × log₁₀(η) + 20 × log₁₀(D) + 20 × log₁₀(f) + 20 × l
   <div class="block section-text">
     <div class="block-title">挑战 2：指向精度</div>
     <div class="text-body"><p>3 米天线在 12GHz 的波束宽度不到 0.5°。安装误差超过 0.25° 就损失 3dB 增益。</p>
-<p><strong>解决方案</strong>：<br />
-- 高精度 azimuth/elevation 转台（精度 0.01°）<br />
-- 自动对准算法：微调角度，最大化接收信号强度<br />
-- 温度补偿：金属热胀冷缩会改变指向，需要实时校正</p></div>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>高精度 azimuth/elevation 转台（精度 0.01°）</li>
+<li>自动对准算法：微调角度，最大化接收信号强度</li>
+<li>温度补偿：金属热胀冷缩会改变指向，需要实时校正</li>
+</ul></div>
   </div>
 
     
@@ -675,10 +691,12 @@ G(dBi) = 10 × log₁₀(η) + 20 × log₁₀(D) + 20 × log₁₀(f) + 20 × l
   <div class="block section-text">
     <div class="block-title">挑战 3：降雨衰减</div>
     <div class="text-body"><p>雨水会吸收和散射电磁波，尤其在高频率段（10GHz 以上）更严重。</p>
-<p><strong>解决方案</strong>：<br />
-- 链路预算中预留"降雨余量"（rain margin），通常 3-10dB<br />
-- 自适应功率控制：雨大时自动增加发射功率<br />
-- 前向纠错（FEC）：接收端自动纠正部分误码</p></div>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>链路预算中预留"降雨余量"（rain margin），通常 3-10dB</li>
+<li>自适应功率控制：雨大时自动增加发射功率</li>
+<li>前向纠错（FEC）：接收端自动纠正部分误码</li>
+</ul></div>
   </div>
 
     
@@ -689,11 +707,13 @@ G(dBi) = 10 × log₁₀(η) + 20 × log₁₀(D) + 20 × log₁₀(f) + 20 × l
   <div class="block section-text">
     <div class="block-title">挑战 4：制造精度</div>
     <div class="text-body"><p>反射面的形状精度必须达到 λ/20 以下（即表面起伏不超过波长的 1/20）。对于 12GHz（λ=25mm），意味着表面精度要达到 1.25mm。</p>
-<p><strong>解决方案</strong>：<br />
-- CNC 精密加工金属反射面<br />
-- 拉伸成型（stretch forming）：用液压机把金属膜拉伸到模具上<br />
-- 碳纤维复合材料：轻、强度高、热膨胀系数低<br />
-- <strong>3D 打印</strong>：新兴方案，见下文</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>CNC 精密加工金属反射面</li>
+<li>拉伸成型（stretch forming）：用液压机把金属膜拉伸到模具上</li>
+<li>碳纤维复合材料：轻、强度高、热膨胀系数低</li>
+<li><strong>3D 打印</strong>：新兴方案，见下文</li>
+</ul>
 <hr /></div>
   </div>
 

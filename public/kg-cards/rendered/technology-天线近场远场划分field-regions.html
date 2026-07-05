@@ -278,15 +278,19 @@
 r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
 </code></pre>
 <p>其中 D 是天线的最大尺寸。</p>
-<p><strong>特征</strong>：<br />
-- 场强随距离快速衰减（1/r² 或 1/r³）<br />
-- 电场和磁场相位相差 90°（无功功率）<br />
-- 方向图不稳定，随距离变化剧烈<br />
-- 无法进行有意义的方向图测量</p>
-<p><strong>工程意义</strong>：<br />
-- 天线与馈线之间的过渡区<br />
-- 近场天线耦合（如 NFC/RFID）<br />
-- 人体贴近天线时的 SAR（比吸收率）评估</p></div>
+<p><strong>特征</strong>：</p>
+<ul>
+<li>场强随距离快速衰减（1/r² 或 1/r³）</li>
+<li>电场和磁场相位相差 90°（无功功率）</li>
+<li>方向图不稳定，随距离变化剧烈</li>
+<li>无法进行有意义的方向图测量</li>
+</ul>
+<p><strong>工程意义</strong>：</p>
+<ul>
+<li>天线与馈线之间的过渡区</li>
+<li>近场天线耦合（如 NFC/RFID）</li>
+<li>人体贴近天线时的 SAR（比吸收率）评估</li>
+</ul></div>
   </div>
 
     
@@ -300,11 +304,13 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
 <p><strong>边界</strong>：</p>
 <pre><code>0.62·√(D³/λ) &lt; r &lt; 2D²/λ
 </code></pre>
-<p><strong>特征</strong>：<br />
-- 场强随距离按 1/r 衰减（辐射场）<br />
-- 波前为球面（相位非线性）<br />
-- 方向图随距离变化（但未稳定）<br />
-- 可以进行波束聚焦（beamfocusing）</p>
+<p><strong>特征</strong>：</p>
+<ul>
+<li>场强随距离按 1/r 衰减（辐射场）</li>
+<li>波前为球面（相位非线性）</li>
+<li>方向图随距离变化（但未稳定）</li>
+<li>可以进行波束聚焦（beamfocusing）</li>
+</ul>
 <p><strong>子区域</strong>（2024 年新研究补充）：</p>
 <table>
 <thead>
@@ -328,10 +334,12 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
 </tbody>
 </table>
 <p>其中 NA = D/λ 是数值孔径。</p>
-<p><strong>工程意义</strong>：<br />
-- 6G XL-MIMO 的主要工作区<br />
-- 近场波束赋形、波束聚焦<br />
-- 近场天线测量</p></div>
+<p><strong>工程意义</strong>：</p>
+<ul>
+<li>6G XL-MIMO 的主要工作区</li>
+<li>近场波束赋形、波束聚焦</li>
+<li>近场天线测量</li>
+</ul></div>
   </div>
 
     
@@ -351,15 +359,19 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
 <p><strong>相位误差更宽松的定义</strong>（相位误差 &lt; π/2）：</p>
 <pre><code>r &gt; D²/(2λ)
 </code></pre>
-<p><strong>特征</strong>：<br />
-- 场强按 1/r 衰减<br />
-- 波前为平面（相位线性）<br />
-- 方向图稳定，不随距离变化<br />
-- 角度和幅度独立</p>
-<p><strong>工程意义</strong>：<br />
-- 传统天线测量的标准条件<br />
-- 5G Massive MIMO 的典型工作区<br />
-- 卫星通信、雷达的远场目标</p></div>
+<p><strong>特征</strong>：</p>
+<ul>
+<li>场强按 1/r 衰减</li>
+<li>波前为平面（相位线性）</li>
+<li>方向图稳定，不随距离变化</li>
+<li>角度和幅度独立</li>
+</ul>
+<p><strong>工程意义</strong>：</p>
+<ul>
+<li>传统天线测量的标准条件</li>
+<li>5G Massive MIMO 的典型工作区</li>
+<li>卫星通信、雷达的远场目标</li>
+</ul></div>
   </div>
 
     
@@ -535,11 +547,13 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
   <div class="block section-text">
     <div class="block-title">3.1 远场测量</div>
     <div class="text-body"><p><strong>条件</strong>：r &gt; 2D²/λ</p>
-<p><strong>方法</strong>：<br />
-- 室外开阔场（OATS）<br />
-- 室内暗室（anechoic chamber），满足 r &gt; 2D²/λ<br />
-- 缩距暗室（利用透镜压缩等效距离）</p>
-<p><strong>优点</strong>：平面波近似成立，测量简单<br />
+<p><strong>方法</strong>：</p>
+<ul>
+<li>室外开阔场（OATS）</li>
+<li>室内暗室（anechoic chamber），满足 r &gt; 2D²/λ</li>
+<li>缩距暗室（利用透镜压缩等效距离）</li>
+</ul>
+<p><strong>优点</strong>：平面波近似成立，测量简单
 <strong>缺点</strong>：需要很长的测量距离（XL-MIMO 需要数公里）</p></div>
   </div>
 
@@ -551,15 +565,17 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
   <div class="block section-text">
     <div class="block-title">3.2 近场测量</div>
     <div class="text-body"><p><strong>条件</strong>：R_Fresnel &lt; r &lt; R_F</p>
-<p><strong>方法</strong>：<br />
-- <strong>平面近场</strong>：在平面上扫描，通过傅里叶变换得到远场方向图<br />
-- <strong>圆柱近场</strong>：在圆柱面上扫描<br />
-- <strong>球面近场</strong>：在球面上扫描，最精确但最复杂</p>
+<p><strong>方法</strong>：</p>
+<ul>
+<li><strong>平面近场</strong>：在平面上扫描，通过傅里叶变换得到远场方向图</li>
+<li><strong>圆柱近场</strong>：在圆柱面上扫描</li>
+<li><strong>球面近场</strong>：在球面上扫描，最精确但最复杂</li>
+</ul>
 <p><strong>原理</strong>：</p>
 <pre><code>E_FF(θ,φ) = FT[E_NF(x,y)]
 </code></pre>
 <p>其中 FT 是傅里叶变换。</p>
-<p><strong>优点</strong>：测量距离短（只需几米）<br />
+<p><strong>优点</strong>：测量距离短（只需几米）
 <strong>缺点</strong>：数据处理复杂，需要精密扫描机构</p></div>
   </div>
 
@@ -571,9 +587,11 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
   <div class="block section-text">
     <div class="block-title">3.3 OTA 测量（Over-The-Air）</div>
     <div class="text-body"><p><strong>条件</strong>：适用于无法通过电缆连接的天线（如手机、IoT 设备）</p>
-<p><strong>方法</strong>：<br />
-- DFF（Direct Far-Field）：在远场直接测量<br />
-- 缩距法：利用多探头阵列在近场合成远场</p></div>
+<p><strong>方法</strong>：</p>
+<ul>
+<li>DFF（Direct Far-Field）：在远场直接测量</li>
+<li>缩距法：利用多探头阵列在近场合成远场</li>
+</ul></div>
   </div>
 
     
@@ -586,10 +604,12 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
     <div class="text-body"><p><strong>模型</strong>：平面波</p>
 <pre><code>w_FF(θ) = steer_vec_FF(θ) = [1, exp(j·ψ), ..., exp(j·(N-1)·ψ)]^T
 </code></pre>
-<p><strong>适用场景</strong>：<br />
-- 5G Massive MIMO（用户通常在远场）<br />
-- 卫星通信<br />
-- 雷达（目标通常在远场）</p></div>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>5G Massive MIMO（用户通常在远场）</li>
+<li>卫星通信</li>
+<li>雷达（目标通常在远场）</li>
+</ul></div>
   </div>
 
     
@@ -602,10 +622,12 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
     <div class="text-body"><p><strong>模型</strong>：球面波</p>
 <pre><code>w_NF(r, θ) = steer_vec_NF(r, θ) = [1/r₁·exp(-jk·r₁), ...]^T
 </code></pre>
-<p><strong>适用场景</strong>：<br />
-- 6G XL-MIMO（大部分用户在近场）<br />
-- 近场成像<br />
-- 能量收集</p></div>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>6G XL-MIMO（大部分用户在近场）</li>
+<li>近场成像</li>
+<li>能量收集</li>
+</ul></div>
   </div>
 
     
@@ -674,10 +696,12 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
 <pre><code>Δφ ≈ π·1/(4·0.086·10) ≈ 0.91 rad ≈ 52°
 </code></pre>
 <p>52° 的相位误差会导致方向图严重失真。</p>
-<p><strong>对策</strong>：<br />
-- 使用近场测量 + 傅里叶变换<br />
-- 使用缩距暗室（透镜）<br />
-- 增加测量距离</p></div>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>使用近场测量 + 傅里叶变换</li>
+<li>使用缩距暗室（透镜）</li>
+<li>增加测量距离</li>
+</ul></div>
   </div>
 
     
@@ -690,10 +714,12 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
     <div class="text-body"><p>近场测量更容易受到反射和多径干扰的影响，因为反射波的路径差较小：</p>
 <pre><code>Δτ_reflected ≈ 2·d_mirror / c
 </code></pre>
-<p><strong>对策</strong>：<br />
-- 高质量的吸波材料（反射损耗 &gt; 40dB）<br />
-- 近场扫描时使用门控技术<br />
-- 多径消除算法</p></div>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>高质量的吸波材料（反射损耗 &gt; 40dB）</li>
+<li>近场扫描时使用门控技术</li>
+<li>多径消除算法</li>
+</ul></div>
   </div>
 
     
@@ -716,10 +742,12 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
     
   <div class="block section-text">
     <div class="block-title">6.4 6G XL-MIMO 的特殊挑战</div>
-    <div class="text-body"><p>XL-MIMO 的 R_F 可达数公里，这意味着：<br />
-- 传统远场测量方法几乎不可行<br />
-- 近场测量成为唯一选择<br />
-- 需要新的测量标准和协议</p></div>
+    <div class="text-body"><p>XL-MIMO 的 R_F 可达数公里，这意味着：</p>
+<ul>
+<li>传统远场测量方法几乎不可行</li>
+<li>近场测量成为唯一选择</li>
+<li>需要新的测量标准和协议</li>
+</ul></div>
   </div>
 
     

@@ -411,10 +411,12 @@
 <p><strong>3）趋肤效应</strong>：</p>
 <pre><code>δ_skin = √(2ρ/ωμ)
 </code></pre>
-<p>28GHz 时铜的趋肤深度仅 ~0.35μm，而 3.5GHz 时为 ~1.1μm。这意味着：<br />
-- 导体损耗大幅增加<br />
-- 镀金/镀银层厚度必须 &gt; 3δ ≈ 1μm<br />
-- PCB 表面处理工艺至关重要（ENEIG vs HASL）</p></div>
+<p>28GHz 时铜的趋肤深度仅 ~0.35μm，而 3.5GHz 时为 ~1.1μm。这意味着：</p>
+<ul>
+<li>导体损耗大幅增加</li>
+<li>镀金/镀银层厚度必须 &gt; 3δ ≈ 1μm</li>
+<li>PCB 表面处理工艺至关重要（ENEIG vs HASL）</li>
+</ul></div>
   </div>
 
     
@@ -433,16 +435,20 @@
 │        [GND]                 │
 └──────────────────────────────┘
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 28GHz 增益：15-20dBi（4×4 阵列）<br />
-- 带宽：2-5%（窄带）<br />
-- 剖面薄：1-2mm<br />
-- 可集成于 PCB 或 AiP</p>
-<p><strong>馈电方式</strong>：<br />
-- 边缘馈电：简单，但损耗大<br />
-- 探针馈电：隔离好，但加工难<br />
-- 耦合馈电：带宽略宽<br />
-- 波导馈电：损耗最低，适合基站</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>28GHz 增益：15-20dBi（4×4 阵列）</li>
+<li>带宽：2-5%（窄带）</li>
+<li>剖面薄：1-2mm</li>
+<li>可集成于 PCB 或 AiP</li>
+</ul>
+<p><strong>馈电方式</strong>：</p>
+<ul>
+<li>边缘馈电：简单，但损耗大</li>
+<li>探针馈电：隔离好，但加工难</li>
+<li>耦合馈电：带宽略宽</li>
+<li>波导馈电：损耗最低，适合基站</li>
+</ul></div>
   </div>
 
     
@@ -458,11 +464,13 @@
 Dielectric
 Signal:   ─────────────   ← 微带馈线
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 双面辐射（上下对称）<br />
-- 易于集成于多层 PCB<br />
-- 带宽优于贴片（5-10%）<br />
-- 增益：10-15dBi（4×4 阵列）</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>双面辐射（上下对称）</li>
+<li>易于集成于多层 PCB</li>
+<li>带宽优于贴片（5-10%）</li>
+<li>增益：10-15dBi（4×4 阵列）</li>
+</ul></div>
   </div>
 
     
@@ -481,12 +489,14 @@ Signal:   ─────────────   ← 微带馈线
 │  馈电端口              │
 └──────────────────────┘
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 损耗极低（波导导体损耗 &lt; 贴片 PCB 的 1/10）<br />
-- 增益：25-35dBi<br />
-- 带宽：5-10%<br />
-- 体积大、成本高<br />
-- 典型应用：5G 基站 AAU、卫星通信</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>损耗极低（波导导体损耗 &lt; 贴片 PCB 的 1/10）</li>
+<li>增益：25-35dBi</li>
+<li>带宽：5-10%</li>
+<li>体积大、成本高</li>
+<li>典型应用：5G 基站 AAU、卫星通信</li>
+</ul></div>
   </div>
 
     
@@ -497,11 +507,13 @@ Signal:   ─────────────   ← 微带馈线
   <div class="block section-text">
     <div class="block-title">2.4 漏波天线（Leaky-Wave Antenna）</div>
     <div class="text-body"><p>详见 [[技术概念-漏波天线Leaky-Wave-Antenna]]</p>
-<p><strong>特点</strong>：<br />
-- 频率扫描波束（无需移相器）<br />
-- 高增益（15-25dBi）<br />
-- 宽带（10-40%）<br />
-- 集成度高（SIW 实现）</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>频率扫描波束（无需移相器）</li>
+<li>高增益（15-25dBi）</li>
+<li>宽带（10-40%）</li>
+<li>集成度高（SIW 实现）</li>
+</ul></div>
   </div>
 
     
@@ -512,11 +524,13 @@ Signal:   ─────────────   ← 微带馈线
   <div class="block section-text">
     <div class="block-title">2.5 封装天线 AiP（Antenna-in-Package）</div>
     <div class="text-body"><p>详见 [[技术概念-封装天线Antenna-in-Package-AiP]]</p>
-<p><strong>特点</strong>：<br />
-- 天线集成于芯片封装<br />
-- 单元尺寸极小（毫米级）<br />
-- 需要 LCP/玻璃基板<br />
-- 5G 手机主流方案</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>天线集成于芯片封装</li>
+<li>单元尺寸极小（毫米级）</li>
+<li>需要 LCP/玻璃基板</li>
+<li>5G 手机主流方案</li>
+</ul></div>
   </div>
 
     
@@ -600,10 +614,12 @@ Signal:   ─────────────   ← 微带馈线
     
   <div class="block section-text">
     <div class="block-title">3.2 互耦加剧</div>
-    <div class="text-body"><p>毫米波波长极短（28GHz 时 λ ≈ 10.7mm），单元间距仅需 λ/2 ≈ 5.3mm。密集排列导致：<br />
-- 表面波耦合增强<br />
-- 馈电网络互耦显著<br />
-- 需要精密的去耦设计</p></div>
+    <div class="text-body"><p>毫米波波长极短（28GHz 时 λ ≈ 10.7mm），单元间距仅需 λ/2 ≈ 5.3mm。密集排列导致：</p>
+<ul>
+<li>表面波耦合增强</li>
+<li>馈电网络互耦显著</li>
+<li>需要精密的去耦设计</li>
+</ul></div>
   </div>
 
     
@@ -619,10 +635,12 @@ Signal:   ─────────────   ← 微带馈线
 <p>对于 100W RF 输出、η_PA = 15%：</p>
 <pre><code>P_heat = 100/0.15 - 100 = 567W
 </code></pre>
-<p><strong>散热方案</strong>：<br />
-- 金属散热底座（Cu-W, Cu-Mo）<br />
-- 热通孔阵列（Thermal Via Array）<br />
-- 微通道液冷（高端基站）</p></div>
+<p><strong>散热方案</strong>：</p>
+<ul>
+<li>金属散热底座（Cu-W, Cu-Mo）</li>
+<li>热通孔阵列（Thermal Via Array）</li>
+<li>微通道液冷（高端基站）</li>
+</ul></div>
   </div>
 
     
@@ -677,13 +695,15 @@ Signal:   ─────────────   ← 微带馈线
     <div class="text-body"><p>大规模阵列的馈电网络本身就是损耗大户：</p>
 <pre><code>总损耗 = 分配损耗 + 导体损耗 + 接头损耗
 </code></pre>
-<p>对于 64 单元阵列：<br />
-- 树状分配：6 级（64 = 2⁶）<br />
-- 每级 Wilkinson 损耗：~0.1dB<br />
-- 总分配损耗：0.6dB<br />
-- 导体损耗（28GHz）：1-3dB<br />
-- 接头/过渡损耗：0.5-1dB<br />
-- <strong>总计：2-5dB</strong></p></div>
+<p>对于 64 单元阵列：</p>
+<ul>
+<li>树状分配：6 级（64 = 2⁶）</li>
+<li>每级 Wilkinson 损耗：~0.1dB</li>
+<li>总分配损耗：0.6dB</li>
+<li>导体损耗（28GHz）：1-3dB</li>
+<li>接头/过渡损耗：0.5-1dB</li>
+<li><strong>总计：2-5dB</strong></li>
+</ul></div>
   </div>
 
     
@@ -747,11 +767,13 @@ Level 3: 8 路输出（每个再分 8 路 → 64 单元）
          ↓
 天线阵列（64 单元）
 </code></pre>
-<p><strong>关键参数</strong>：<br />
-- 移相器位数：3-8 bit<br />
-- 幅度控制：4-8 bit<br />
-- 波束切换时间：&lt; 1μs<br />
-- 波束指向精度：&lt; 0.5°</p></div>
+<p><strong>关键参数</strong>：</p>
+<ul>
+<li>移相器位数：3-8 bit</li>
+<li>幅度控制：4-8 bit</li>
+<li>波束切换时间：&lt; 1μs</li>
+<li>波束指向精度：&lt; 0.5°</li>
+</ul></div>
   </div>
 
     
@@ -765,10 +787,12 @@ Level 3: 8 路输出（每个再分 8 路 → 64 单元）
 <pre><code>Δphase_per_channel &lt; 5°
 Δgain_per_channel &lt; 0.5dB
 </code></pre>
-<p><strong>校准方法</strong>：<br />
-- 内置校准网络（Coupler + Directional Detector）<br />
-- 外部互易校准（利用信道互易性）<br />
-- 数字域自适应校准（基于导频信号）</p></div>
+<p><strong>校准方法</strong>：</p>
+<ul>
+<li>内置校准网络（Coupler + Directional Detector）</li>
+<li>外部互易校准（利用信道互易性）</li>
+<li>数字域自适应校准（基于导频信号）</li>
+</ul></div>
   </div>
 
     

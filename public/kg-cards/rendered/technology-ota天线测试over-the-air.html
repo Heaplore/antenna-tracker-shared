@@ -483,14 +483,18 @@ TIS = 1 / [ (1/N) · Σ(1/各方向灵敏度) ]
 </tr>
 </tbody>
 </table>
-<p><strong>优点</strong>：<br />
-- 设备简单（暗室 + 两台信号发生器 + 两台接收机）<br />
-- 测量精度高<br />
-- 可直接获得方向图</p>
-<p><strong>缺点</strong>：<br />
-- 低频时需要很大的远场距离（Sub-6GHz 可能需要 10m+ 暗室）<br />
-- 不适合 MIMO（只能一次测一个端口）<br />
-- 不能模拟多径信道</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>设备简单（暗室 + 两台信号发生器 + 两台接收机）</li>
+<li>测量精度高</li>
+<li>可直接获得方向图</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>低频时需要很大的远场距离（Sub-6GHz 可能需要 10m+ 暗室）</li>
+<li>不适合 MIMO（只能一次测一个端口）</li>
+<li>不能模拟多径信道</li>
+</ul>
 <p><strong>适用场景</strong>：单端口天线方向图测量、TRP/TIS 基础测量。</p></div>
   </div>
 
@@ -509,18 +513,24 @@ TIS = 1 / [ (1/N) · Σ(1/各方向灵敏度) ]
 <p><strong>平面波区尺寸</strong>：</p>
 <pre><code>λ_z / λ &lt; 1/16  （相位误差 &lt; 22.5°）
 </code></pre>
-<p><strong>优点</strong>：<br />
-- 可以在较短距离内实现远场测量<br />
-- 适合大尺寸天线（如卫星天线、AAU）<br />
-- 精度高（相位均匀性好）</p>
-<p><strong>缺点</strong>：<br />
-- 设备昂贵（大型抛物面反射器 + 精密定位系统）<br />
-- 暗室体积仍然很大<br />
-- 不适合 MIMO 多端口同时测试</p>
-<p><strong>典型应用</strong>：<br />
-- 卫星天线测试（口径 1-10m）<br />
-- 5G AAU 测试（3.5-39GHz）<br />
-- 机载雷达天线测试</p></div>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>可以在较短距离内实现远场测量</li>
+<li>适合大尺寸天线（如卫星天线、AAU）</li>
+<li>精度高（相位均匀性好）</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>设备昂贵（大型抛物面反射器 + 精密定位系统）</li>
+<li>暗室体积仍然很大</li>
+<li>不适合 MIMO 多端口同时测试</li>
+</ul>
+<p><strong>典型应用</strong>：</p>
+<ul>
+<li>卫星天线测试（口径 1-10m）</li>
+<li>5G AAU 测试（3.5-39GHz）</li>
+<li>机载雷达天线测试</li>
+</ul></div>
   </div>
 
     
@@ -531,25 +541,33 @@ TIS = 1 / [ (1/N) · Σ(1/各方向灵敏度) ]
   <div class="block section-text">
     <div class="block-title">2.3 近场扫描法（NF-FF）</div>
     <div class="text-body"><p><strong>原理</strong>：在靠近天线的区域内扫描电磁场（电场或磁场），然后通过傅里叶变换计算远场方向图。</p>
-<p><strong>扫描类型</strong>：<br />
-- <strong>平面近场</strong>：扫描平面，适合方向性强的天线<br />
-- <strong>圆柱近场</strong>：扫描圆柱面，适合垂直极化天线<br />
-- <strong>球面近场</strong>：扫描球面，最通用但最复杂</p>
+<p><strong>扫描类型</strong>：</p>
+<ul>
+<li><strong>平面近场</strong>：扫描平面，适合方向性强的天线</li>
+<li><strong>圆柱近场</strong>：扫描圆柱面，适合垂直极化天线</li>
+<li><strong>球面近场</strong>：扫描球面，最通用但最复杂</li>
+</ul>
 <p><strong>FFT 变换公式</strong>：</p>
 <pre><code>E_ff(θ,φ) = FFT[E_near(x,y)]
 </code></pre>
-<p><strong>优点</strong>：<br />
-- 测量距离短（不需要远场距离）<br />
-- 精度高（可以测量相位和幅度）<br />
-- 适合各种天线类型</p>
-<p><strong>缺点</strong>：<br />
-- 需要精密扫描系统（三维运动平台）<br />
-- 数据处理复杂<br />
-- 不适合 MIMO 或多端口同时测试</p>
-<p><strong>典型应用</strong>：<br />
-- 高精度天线方向图测量<br />
-- 反射面天线测试<br />
-- 相控阵天线校准</p></div>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>测量距离短（不需要远场距离）</li>
+<li>精度高（可以测量相位和幅度）</li>
+<li>适合各种天线类型</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>需要精密扫描系统（三维运动平台）</li>
+<li>数据处理复杂</li>
+<li>不适合 MIMO 或多端口同时测试</li>
+</ul>
+<p><strong>典型应用</strong>：</p>
+<ul>
+<li>高精度天线方向图测量</li>
+<li>反射面天线测试</li>
+<li>相控阵天线校准</li>
+</ul></div>
   </div>
 
     
@@ -564,23 +582,31 @@ TIS = 1 / [ (1/N) · Σ(1/各方向灵敏度) ]
 <pre><code>f &gt; 2.5 · f_c
 </code></pre>
 <p>其中 f_c 是混响室的截止频率（最低有效模态频率）。</p>
-<p><strong>搅拌方式</strong>：<br />
-- 机械搅拌：旋转金属叶片<br />
-- 电子搅拌：可调匹配网络<br />
-- 位置搅拌：移动 EUT 位置</p>
-<p><strong>优点</strong>：<br />
-- 设备紧凑（3-5m³ 即可）<br />
-- 测试速度快（TRP 测量 &lt; 5 分钟）<br />
-- 适合 MIMO 设备的批量测试<br />
-- 可以模拟多径环境</p>
-<p><strong>缺点</strong>：<br />
-- 不能获得方向图（统计均匀场）<br />
-- 精度低于远场方法（不确定度较大）<br />
-- 不适合高频（&gt; 20GHz）</p>
-<p><strong>典型应用</strong>：<br />
-- 手机/TRP/TIS 批量测试<br />
-- WiFi/蓝牙 MIMO 设备测试<br />
-- 电磁兼容性（EMC）预兼容性测试</p></div>
+<p><strong>搅拌方式</strong>：</p>
+<ul>
+<li>机械搅拌：旋转金属叶片</li>
+<li>电子搅拌：可调匹配网络</li>
+<li>位置搅拌：移动 EUT 位置</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>设备紧凑（3-5m³ 即可）</li>
+<li>测试速度快（TRP 测量 &lt; 5 分钟）</li>
+<li>适合 MIMO 设备的批量测试</li>
+<li>可以模拟多径环境</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>不能获得方向图（统计均匀场）</li>
+<li>精度低于远场方法（不确定度较大）</li>
+<li>不适合高频（&gt; 20GHz）</li>
+</ul>
+<p><strong>典型应用</strong>：</p>
+<ul>
+<li>手机/TRP/TIS 批量测试</li>
+<li>WiFi/蓝牙 MIMO 设备测试</li>
+<li>电磁兼容性（EMC）预兼容性测试</li>
+</ul></div>
   </div>
 
     
@@ -591,25 +617,35 @@ TIS = 1 / [ (1/N) · Σ(1/各方向灵敏度) ]
   <div class="block section-text">
     <div class="block-title">2.5 多探头暗室法（MPAC）</div>
     <div class="text-body"><p><strong>原理</strong>：在暗室中围绕 EUT 布置多根探头天线（通常 8-16 根），每根天线从不同方向发射/接收信号，模拟真实的空中多径信道。</p>
-<p><strong>3GPP 标准配置</strong>：<br />
-- FR1（Sub-6GHz）：16 根双极化探头 = 32 通道<br />
-- FR2（毫米波）：8 根双极化探头 = 16 通道</p>
-<p><strong>信道模型模拟</strong>：<br />
-- UMi CDL-C（城市微蜂窝）<br />
-- UMa CDL-C（城市宏蜂窝）<br />
-- RMa CDL-C（农村）</p>
-<p><strong>优点</strong>：<br />
-- 可以模拟真实的空中信道（多径、衰落、多普勒）<br />
-- 支持 MIMO 性能测试（吞吐量、ECC、MCR）<br />
-- 符合 3GPP 标准</p>
-<p><strong>缺点</strong>：<br />
-- 设备昂贵（多通道信号发生器 + 暗室）<br />
-- 校准复杂<br />
-- 测试时间长</p>
-<p><strong>典型应用</strong>：<br />
-- 5G NR UE MIMO OTA 测试（3GPP TS 38.551）<br />
-- Massive MIMO 基站 OTA 测试（3GPP TS 38.810）<br />
-- 信道模型验证</p></div>
+<p><strong>3GPP 标准配置</strong>：</p>
+<ul>
+<li>FR1（Sub-6GHz）：16 根双极化探头 = 32 通道</li>
+<li>FR2（毫米波）：8 根双极化探头 = 16 通道</li>
+</ul>
+<p><strong>信道模型模拟</strong>：</p>
+<ul>
+<li>UMi CDL-C（城市微蜂窝）</li>
+<li>UMa CDL-C（城市宏蜂窝）</li>
+<li>RMa CDL-C（农村）</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>可以模拟真实的空中信道（多径、衰落、多普勒）</li>
+<li>支持 MIMO 性能测试（吞吐量、ECC、MCR）</li>
+<li>符合 3GPP 标准</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>设备昂贵（多通道信号发生器 + 暗室）</li>
+<li>校准复杂</li>
+<li>测试时间长</li>
+</ul>
+<p><strong>典型应用</strong>：</p>
+<ul>
+<li>5G NR UE MIMO OTA 测试（3GPP TS 38.551）</li>
+<li>Massive MIMO 基站 OTA 测试（3GPP TS 38.810）</li>
+<li>信道模型验证</li>
+</ul></div>
   </div>
 
     
@@ -816,10 +852,12 @@ TIS = 1 / [ (1/N) · Σ(1/各方向灵敏度) ]
 <pre><code>R &gt; 2D²/λ = 2 × 1² / 0.086 = 23.3m
 </code></pre>
 <p>这意味着需要一个至少 25m 长的暗室——这在大多数测试实验室中是不现实的。</p>
-<p><strong>解决方案</strong>：<br />
-- 使用 CATR（紧缩场）：可以在 10m 内实现等效远场<br />
-- 使用近场扫描 + FFT<br />
-- 使用中近场方法（Near-to-Far-Field Transformation）</p></div>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用 CATR（紧缩场）：可以在 10m 内实现等效远场</li>
+<li>使用近场扫描 + FFT</li>
+<li>使用中近场方法（Near-to-Far-Field Transformation）</li>
+</ul></div>
   </div>
 
     
@@ -830,10 +868,12 @@ TIS = 1 / [ (1/N) · Σ(1/各方向灵敏度) ]
   <div class="block section-text">
     <div class="block-title">5.2 毫米波 OTA 的对准难题</div>
     <div class="text-body"><p>28GHz 下波束宽度仅 2-5°，EUT 和测试天线的对准误差 0.5° 就可能导致 3dB 的测量误差。</p>
-<p><strong>解决方案</strong>：<br />
-- 使用精密旋转台（角度分辨率 &lt; 0.01°）<br />
-- 自动对准算法<br />
-- 多位置平均</p></div>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用精密旋转台（角度分辨率 &lt; 0.01°）</li>
+<li>自动对准算法</li>
+<li>多位置平均</li>
+</ul></div>
   </div>
 
     
@@ -844,10 +884,12 @@ TIS = 1 / [ (1/N) · Σ(1/各方向灵敏度) ]
   <div class="block section-text">
     <div class="block-title">5.3 MIMO 通道校准</div>
     <div class="text-body"><p>MPAC 中 32 根探头天线的幅度和相位必须精确校准，否则 MIMO 性能测试结果不可信。</p>
-<p><strong>校准方法</strong>：<br />
-- 点对点校准（每对探头之间）<br />
-- 使用校准天线（Calibration Antenna）<br />
-- 定期重新校准（建议每 6 个月）</p></div>
+<p><strong>校准方法</strong>：</p>
+<ul>
+<li>点对点校准（每对探头之间）</li>
+<li>使用校准天线（Calibration Antenna）</li>
+<li>定期重新校准（建议每 6 个月）</li>
+</ul></div>
   </div>
 
     

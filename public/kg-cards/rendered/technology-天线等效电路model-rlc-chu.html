@@ -340,9 +340,11 @@ Q = f₀/Δf = (1/R)·√(L/C)
 <p><strong>输入导纳</strong>：</p>
 <pre><code>Y_in(f) = 1/R_r + 1/R_s + j(2πfC - 1/(2πfL))
 </code></pre>
-<p><strong>适用场景</strong>：<br />
-- 并联馈电天线（如微带贴片）<br />
-- 阵列天线的单元等效</p></div>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>并联馈电天线（如微带贴片）</li>
+<li>阵列天线的单元等效</li>
+</ul></div>
   </div>
 
     
@@ -376,10 +378,12 @@ Z_in =              +──[R₂]-[L₂]-[C₂]──┤
                     +──[Rₙ]-[Lₙ]-[Cₙ]──┘
 </code></pre>
 <p>每个 RLC 支路对应天线的一个谐振模。</p>
-<p><strong>提取方法</strong>：<br />
-1. 全波仿真或测量获得 Z_in(f)<br />
-2. 在多个谐振频率附近拟合 RLC 参数<br />
-3. 优化所有参数使电路响应与仿真一致</p></div>
+<p><strong>提取方法</strong>：</p>
+<ol>
+<li>全波仿真或测量获得 Z_in(f)</li>
+<li>在多个谐振频率附近拟合 RLC 参数</li>
+<li>优化所有参数使电路响应与仿真一致</li>
+</ol></div>
   </div>
 
     
@@ -419,11 +423,13 @@ Z_in =              +──[R₂]-[L₂]-[C₂]──┤
 ...
 段 N: [R_N]-[L_N]-[C_N]
 </code></pre>
-<p><strong>优势</strong>：<br />
-- 宽带（DC 到 THz）<br />
-- 频率无关的参数<br />
-- 物理意义清晰<br />
-- 可用于瞬态响应分析</p></div>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>宽带（DC 到 THz）</li>
+<li>频率无关的参数</li>
+<li>物理意义清晰</li>
+<li>可用于瞬态响应分析</li>
+</ul></div>
   </div>
 
     
@@ -445,9 +451,11 @@ Z_in =              +──[R₂]-[L₂]-[C₂]──┤
 <pre><code>Q_min = 1/(ka)³ + 1/(ka)
 </code></pre>
 <p>其中 k = 2π/λ, a = 天线所在球壳半径。</p>
-<p><strong>物理意义</strong>：<br />
-- ka &lt;&lt; 1（电小天线）：Q_min ≈ 1/(ka)³ → Q 很大，带宽很窄<br />
-- ka &gt;&gt; 1（电大天线）：Q_min ≈ 1/(ka) → Q 很小，带宽很宽</p></div>
+<p><strong>物理意义</strong>：</p>
+<ul>
+<li>ka &lt;&lt; 1（电小天线）：Q_min ≈ 1/(ka)³ → Q 很大，带宽很窄</li>
+<li>ka &gt;&gt; 1（电大天线）：Q_min ≈ 1/(ka) → Q 很小，带宽很宽</li>
+</ul></div>
   </div>
 
     
@@ -509,10 +517,12 @@ Z_in =              +──[R₂]-[L₂]-[C₂]──┤
 <pre><code>D_max ≤ (2l_max + 1)² / l_max
 </code></pre>
 <p>其中 l_max 是可以有效激发的球模阶数。</p>
-<p><strong>与 Chu 极限的关系</strong>：<br />
-- Chu 限制带宽（Q 值）<br />
-- Harrington 限制直接性（增益）<br />
-- 两者结合 → 直接性-带宽-效率的"Pozar 三角"</p></div>
+<p><strong>与 Chu 极限的关系</strong>：</p>
+<ul>
+<li>Chu 限制带宽（Q 值）</li>
+<li>Harrington 限制直接性（增益）</li>
+<li>两者结合 → 直接性-带宽-效率的"Pozar 三角"</li>
+</ul></div>
   </div>
 
     

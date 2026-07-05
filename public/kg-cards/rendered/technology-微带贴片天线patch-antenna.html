@@ -312,11 +312,13 @@ W ≈ c / (2f) × √(2/(ε_r+1))  （优化辐射效率）
     
   <div class="block section-text">
     <div class="block-title">1.2 工作原理：谐振腔模型</div>
-    <div class="text-body"><p><strong>物理图像</strong>：<br />
-- 贴片和接地层构成一个"开放谐振腔"<br />
-- 电磁波在贴片边缘来回反射<br />
-- 当腔长 = λ_g/2 时，形成谐振<br />
-- 能量从贴片边缘的缝隙辐射出去</p>
+    <div class="text-body"><p><strong>物理图像</strong>：</p>
+<ul>
+<li>贴片和接地层构成一个"开放谐振腔"</li>
+<li>电磁波在贴片边缘来回反射</li>
+<li>当腔长 = λ_g/2 时，形成谐振</li>
+<li>能量从贴片边缘的缝隙辐射出去</li>
+</ul>
 <p><strong>电场分布</strong>（矩形贴片 TM₁₀ 模）：</p>
 <pre><code>E_z(x) ∝ cos(πx/L)
 </code></pre>
@@ -335,9 +337,11 @@ W ≈ c / (2f) × √(2/(ε_r+1))  （优化辐射效率）
     <div class="text-body"><p><strong>每个短边等效为一个缝隙</strong>：</p>
 <pre><code>E_edge ∝ V_gap / d
 </code></pre>
-<p><strong>两个缝隙的辐射叠加</strong>：<br />
-- 相位相同 → 法向（broadside）辐射最强<br />
-- 方向图 = 单缝隙方向图 × 阵列因子</p>
+<p><strong>两个缝隙的辐射叠加</strong>：</p>
+<ul>
+<li>相位相同 → 法向（broadside）辐射最强</li>
+<li>方向图 = 单缝隙方向图 × 阵列因子</li>
+</ul>
 <hr /></div>
   </div>
 
@@ -357,10 +361,12 @@ W ≈ c / (2f) × √(2/(ε_r+1))  （优化辐射效率）
     │  GND  │
     └───────┘
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 优点：结构简单，易于加工，阻抗匹配好<br />
-- 缺点：引入寄生电感，带宽窄（1-2%）<br />
-- 适用：单贴片、小规模阵列</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：结构简单，易于加工，阻抗匹配好</li>
+<li>缺点：引入寄生电感，带宽窄（1-2%）</li>
+<li>适用：单贴片、小规模阵列</li>
+</ul>
 <p><strong>阻抗变换</strong>：通过调节探针插入位置（从中心到边缘，阻抗从 ~300Ω 降到 ~50Ω）。</p></div>
   </div>
 
@@ -379,10 +385,12 @@ W ≈ c / (2f) × √(2/(ε_r+1))  （优化辐射效率）
     │  Line     │
     └───────────┘
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 优点：与 PCB 工艺兼容，易于集成馈电网络<br />
-- 缺点：表面波损耗，谐波辐射<br />
-- 适用：阵列天线，5G 毫米波主流方案</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：与 PCB 工艺兼容，易于集成馈电网络</li>
+<li>缺点：表面波损耗，谐波辐射</li>
+<li>适用：阵列天线，5G 毫米波主流方案</li>
+</ul></div>
   </div>
 
     
@@ -405,10 +413,12 @@ W ≈ c / (2f) × √(2/(ε_r+1))  （优化辐射效率）
     │  Feed │     ← 馈线层（反向）
     └───────┘
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 优点：无表面波，隔离度高，可多层设计<br />
-- 缺点：结构复杂，加工成本高<br />
-- 适用：双极化天线，MIMO 阵列</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：无表面波，隔离度高，可多层设计</li>
+<li>缺点：结构复杂，加工成本高</li>
+<li>适用：双极化天线，MIMO 阵列</li>
+</ul></div>
   </div>
 
     
@@ -429,10 +439,12 @@ W ≈ c / (2f) × √(2/(ε_r+1))  （优化辐射效率）
     │  GND  │
     └───────┘
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 优点：无穿孔，表面平整<br />
-- 缺点：设计复杂<br />
-- 适用：高频（&gt; 30GHz）</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：无穿孔，表面平整</li>
+<li>缺点：设计复杂</li>
+<li>适用：高频（&gt; 30GHz）</li>
+</ul></div>
   </div>
 
     
@@ -544,12 +556,14 @@ W ≈ c / (2f) × √(2/(ε_r+1))  （优化辐射效率）
 <pre><code>Q ≈ √ε_r × (λ₀/h)
 BW ≈ f₀/Q
 </code></pre>
-<p><strong>提高带宽的方法</strong>：<br />
-1. <strong>增加基板厚度 h</strong>：Q 降低 → BW 增加（但引入表面波）<br />
-2. <strong>降低介电常数 ε_r</strong>：Q 降低 → BW 增加<br />
-3. <strong>使用激子层（Exciter Layer）</strong>：双层贴片<br />
-4. <strong>开槽/刻蚀</strong>：引入多谐振模式<br />
-5. <strong>使用 EBG 结构</strong>：抑制表面波，提高效率</p></div>
+<p><strong>提高带宽的方法</strong>：</p>
+<ol>
+<li><strong>增加基板厚度 h</strong>：Q 降低 → BW 增加（但引入表面波）</li>
+<li><strong>降低介电常数 ε_r</strong>：Q 降低 → BW 增加</li>
+<li><strong>使用激子层（Exciter Layer）</strong>：双层贴片</li>
+<li><strong>开槽/刻蚀</strong>：引入多谐振模式</li>
+<li><strong>使用 EBG 结构</strong>：抑制表面波，提高效率</li>
+</ol></div>
   </div>
 
     
@@ -620,9 +634,11 @@ BW ≈ f₀/Q
     └───┴───┴───┘
         馈线
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 优点：结构简单，无功分器损耗<br />
-- 缺点：带宽窄，波束扫描时频率偏移</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：结构简单，无功分器损耗</li>
+<li>缺点：带宽窄，波束扫描时频率偏移</li>
+</ul></div>
   </div>
 
     
@@ -641,9 +657,11 @@ BW ≈ f₀/Q
     │ │ │ │ │ │
     └─┘ └─┘ └─┘ └─┘
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 优点：带宽宽，波束扫描性能好<br />
-- 缺点：功分器引入损耗，结构复杂</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：带宽宽，波束扫描性能好</li>
+<li>缺点：功分器引入损耗，结构复杂</li>
+</ul></div>
   </div>
 
     
@@ -653,22 +671,28 @@ BW ≈ f₀/Q
     
   <div class="block section-text">
     <div class="block-title">4.3 5G 毫米波贴片阵列案例</div>
-    <div class="text-body"><p><strong>2025 IOP Science 28GHz 阵列</strong>：<br />
-- 基板：RT5880（ε_r = 2.2, tanδ = 0.0009）<br />
-- 1×2 阵列：增益 11.1dBi，回波损耗 -31dB<br />
-- 4×1 阵列：增益 13.8dBi，回波损耗 -41.4dB<br />
-- 馈电：微带线边缘馈电</p>
-<p><strong>2025 紧凑高效 1×6 线性阵列</strong>：<br />
-- 工作频率：28GHz<br />
-- 峰值增益：11.5dBi<br />
-- 阻抗带宽：30.21%（-10dB）<br />
-- 馈电：Wilkinson-like 功分器<br />
-- 单元间距：0.5λ（避免栅瓣）</p>
-<p><strong>2024 六元阵列（5/6G）</strong>：<br />
-- 频率：28.8GHz<br />
-- 增益：9.19dBi<br />
-- 基板：ROGER 3003<br />
-- 特点：无 inset cut、无寄生贴片、无过孔</p>
+    <div class="text-body"><p><strong>2025 IOP Science 28GHz 阵列</strong>：</p>
+<ul>
+<li>基板：RT5880（ε_r = 2.2, tanδ = 0.0009）</li>
+<li>1×2 阵列：增益 11.1dBi，回波损耗 -31dB</li>
+<li>4×1 阵列：增益 13.8dBi，回波损耗 -41.4dB</li>
+<li>馈电：微带线边缘馈电</li>
+</ul>
+<p><strong>2025 紧凑高效 1×6 线性阵列</strong>：</p>
+<ul>
+<li>工作频率：28GHz</li>
+<li>峰值增益：11.5dBi</li>
+<li>阻抗带宽：30.21%（-10dB）</li>
+<li>馈电：Wilkinson-like 功分器</li>
+<li>单元间距：0.5λ（避免栅瓣）</li>
+</ul>
+<p><strong>2024 六元阵列（5/6G）</strong>：</p>
+<ul>
+<li>频率：28.8GHz</li>
+<li>增益：9.19dBi</li>
+<li>基板：ROGER 3003</li>
+<li>特点：无 inset cut、无寄生贴片、无过孔</li>
+</ul>
 <hr /></div>
   </div>
 
@@ -680,10 +704,12 @@ BW ≈ f₀/Q
   <div class="block section-text">
     <div class="block-title">5.1 互耦问题</div>
     <div class="text-body"><p><strong>原因</strong>：贴片之间的近场电磁耦合。</p>
-<p><strong>影响</strong>：<br />
-- 阻抗失配（S11 恶化）<br />
-- 方向图畸变<br />
-- MIMO 相关性增加 → 容量下降</p>
+<p><strong>影响</strong>：</p>
+<ul>
+<li>阻抗失配（S11 恶化）</li>
+<li>方向图畸变</li>
+<li>MIMO 相关性增加 → 容量下降</li>
+</ul>
 <p><strong>耦合强度</strong>：</p>
 <pre><code>|S₂₁|_coupling ∝ exp(-d/δ_c)
 </code></pre>
@@ -747,17 +773,23 @@ BW ≈ f₀/Q
     
   <div class="block section-text">
     <div class="block-title">5.3 MIMO 贴片阵列隔离设计</div>
-    <div class="text-body"><p><strong>2023 IEEE 16端口 Massive MIMO</strong>：<br />
-- 负折射率材料（NIM）隔离<br />
-- 端口间隔离 &gt; 25dB<br />
-- 通道相关系数 &lt; 0.1</p>
-<p><strong>2020 JPIER 双频 MIMO</strong>：<br />
-- C 形寄生元件隔离<br />
-- 双频段（Sub-6 + mmWave）<br />
-- 隔离改善 15dB</p>
-<p><strong>2018 Nature 超表面去耦（MAAD）</strong>：<br />
-- Meta-Surface Antenna Array Decoupling<br />
-- 极小间距（&lt; 0.3λ）下仍保持 &gt; 20dB 隔离</p>
+    <div class="text-body"><p><strong>2023 IEEE 16端口 Massive MIMO</strong>：</p>
+<ul>
+<li>负折射率材料（NIM）隔离</li>
+<li>端口间隔离 &gt; 25dB</li>
+<li>通道相关系数 &lt; 0.1</li>
+</ul>
+<p><strong>2020 JPIER 双频 MIMO</strong>：</p>
+<ul>
+<li>C 形寄生元件隔离</li>
+<li>双频段（Sub-6 + mmWave）</li>
+<li>隔离改善 15dB</li>
+</ul>
+<p><strong>2018 Nature 超表面去耦（MAAD）</strong>：</p>
+<ul>
+<li>Meta-Surface Antenna Array Decoupling</li>
+<li>极小间距（&lt; 0.3λ）下仍保持 &gt; 20dB 隔离</li>
+</ul>
 <hr /></div>
   </div>
 
@@ -768,10 +800,12 @@ BW ≈ f₀/Q
     
   <div class="block section-text">
     <div class="block-title">6.1 圆形贴片</div>
-    <div class="text-body"><p><strong>特点</strong>：<br />
-- 支持圆极化（正交模激发）<br />
-- 带宽比矩形略高<br />
-- 尺寸：D = c/(f√ε_r)</p></div>
+    <div class="text-body"><p><strong>特点</strong>：</p>
+<ul>
+<li>支持圆极化（正交模激发）</li>
+<li>带宽比矩形略高</li>
+<li>尺寸：D = c/(f√ε_r)</li>
+</ul></div>
   </div>
 
     
@@ -781,10 +815,12 @@ BW ≈ f₀/Q
     
   <div class="block section-text">
     <div class="block-title">6.2 三角/六边形贴片</div>
-    <div class="text-body"><p><strong>特点</strong>：<br />
-- 降低互耦（紧密排列）<br />
-- 带宽略低<br />
-- 适合蜂窝阵列</p></div>
+    <div class="text-body"><p><strong>特点</strong>：</p>
+<ul>
+<li>降低互耦（紧密排列）</li>
+<li>带宽略低</li>
+<li>适合蜂窝阵列</li>
+</ul></div>
   </div>
 
     
@@ -794,9 +830,11 @@ BW ≈ f₀/Q
     
   <div class="block section-text">
     <div class="block-title">6.3 环形/八边形贴片</div>
-    <div class="text-body"><p><strong>特点</strong>：<br />
-- 多谐振模式 → 宽带<br />
-- 2025 研究：八边形环状贴片，23-29GHz 带宽</p></div>
+    <div class="text-body"><p><strong>特点</strong>：</p>
+<ul>
+<li>多谐振模式 → 宽带</li>
+<li>2025 研究：八边形环状贴片，23-29GHz 带宽</li>
+</ul></div>
   </div>
 
     
@@ -815,10 +853,12 @@ BW ≈ f₀/Q
     │ GND │
     └─────┘
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 带宽可提升至 10-20%<br />
-- 增益提高 1-2dB<br />
-- 成本增加</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>带宽可提升至 10-20%</li>
+<li>增益提高 1-2dB</li>
+<li>成本增加</li>
+</ul></div>
   </div>
 
     
@@ -829,10 +869,12 @@ BW ≈ f₀/Q
   <div class="block section-text">
     <div class="block-title">6.5 柔性贴片天线</div>
     <div class="text-body"><p><strong>基板</strong>：PI（聚酰亚胺）、PET、LCP（液态晶体聚合物）</p>
-<p><strong>特点</strong>：<br />
-- 可弯曲、可折叠<br />
-- 适用于可穿戴设备<br />
-- 损耗略高于刚性基板</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>可弯曲、可折叠</li>
+<li>适用于可穿戴设备</li>
+<li>损耗略高于刚性基板</li>
+</ul>
 <hr /></div>
   </div>
 

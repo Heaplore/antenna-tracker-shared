@@ -328,13 +328,13 @@ E_y = E₀ cos(ωt ± π/2) = ±E₀ sin(ωt)
 AR_dB = 20 × log₁₀(AR_linear)
 </code></pre>
 <p><strong>理想圆极化</strong>：AR = 1（0dB）</p>
-<p><strong>工程标准</strong>：<br />
-| AR (dB) | 极化质量 | 应用场景 |<br />
-|---------|---------|---------|<br />
-| 0-1 | 优秀 | 高精度卫星导航 |<br />
-| 1-3 | 良好 | GNSS 接收 |<br />
-| 3-6 | 一般 | 卫星通信 |<br />
-| 6-10 | 较差 | 宽带应用可接受 |<br />
+<p><strong>工程标准</strong>：
+| AR (dB) | 极化质量 | 应用场景 |
+|---------|---------|---------|
+| 0-1 | 优秀 | 高精度卫星导航 |
+| 1-3 | 良好 | GNSS 接收 |
+| 3-6 | 一般 | 卫星通信 |
+| 6-10 | 较差 | 宽带应用可接受 |
 | &gt; 10 | 接近线极化 | 不认为是 CP |</p>
 <p><strong>3dB AR 带宽</strong>：AR &lt; 3dB 的频率范围，是圆极化天线的有效工作带宽。</p>
 <hr /></div>
@@ -355,14 +355,18 @@ AR_dB = 20 × log₁₀(AR_linear)
        90°  0°
          │   │
 </code></pre>
-<p><strong>实现 90° 相位差的方法</strong>：<br />
-1. <strong>quadrature hybrid（3dB 电桥）</strong>：如分支线耦合器、Lange 耦合器<br />
-2. <strong>不等长馈线</strong>：利用传输线相位延迟<br />
-3. <strong>激励端口位置偏移</strong>：在贴片对角线两侧激励</p>
-<p><strong>特点</strong>：<br />
-- 优点：平面结构，易于集成<br />
-- 缺点：AR 带宽窄（通常 2-5%）<br />
-- 适用：卫星通信终端、GPS 接收</p></div>
+<p><strong>实现 90° 相位差的方法</strong>：</p>
+<ol>
+<li><strong>quadrature hybrid（3dB 电桥）</strong>：如分支线耦合器、Lange 耦合器</li>
+<li><strong>不等长馈线</strong>：利用传输线相位延迟</li>
+<li><strong>激励端口位置偏移</strong>：在贴片对角线两侧激励</li>
+</ol>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：平面结构，易于集成</li>
+<li>缺点：AR 带宽窄（通常 2-5%）</li>
+<li>适用：卫星通信终端、GPS 接收</li>
+</ul></div>
   </div>
 
     
@@ -392,14 +396,16 @@ AR_dB = 20 × log₁₀(AR_linear)
 <pre><code>G ≈ 15 × N × (C/λ)² × SA  （dBi）
 </code></pre>
 <p>其中 SA 是轴比效率（SA = 1/[1+(AR²)]，理想圆极化时 SA ≈ 0.81）。</p>
-<p><strong>特点</strong>：<br />
-- 优点：纯圆极化（AR &lt; 1dB），增益高（N=3-5 时 12-15dBi）<br />
-- 缺点：体积大，轴向安装<br />
-- 适用：卫星通信、深空探测（NASA 经典选择）</p>
-<p><strong>2014 清华突破</strong>：贴片-螺旋混合天线<br />
-- 寄生贴片 + 10 匝螺旋<br />
-- 小地平面下增益 13.35dBic<br />
-- 阻抗带宽 22%（5.05-6.30GHz）<br />
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：纯圆极化（AR &lt; 1dB），增益高（N=3-5 时 12-15dBi）</li>
+<li>缺点：体积大，轴向安装</li>
+<li>适用：卫星通信、深空探测（NASA 经典选择）</li>
+</ul>
+<p><strong>2014 清华突破</strong>：贴片-螺旋混合天线
+- 寄生贴片 + 10 匝螺旋
+- 小地平面下增益 13.35dBic
+- 阻抗带宽 22%（5.05-6.30GHz）
 - 螺旋电流均匀分布，不受地平面限制</p></div>
   </div>
 
@@ -411,16 +417,20 @@ AR_dB = 20 × log₁₀(AR_linear)
   <div class="block section-text">
     <div class="block-title">2.3 缝隙天线（Slot Antenna）</div>
     <div class="text-body"><p><strong>结构</strong>：在金属面上蚀刻特定形状的缝隙。</p>
-<p><strong>常见形状</strong>：<br />
-- 十字形缝隙（cross-slot）：天然正交<br />
-- S 形缝隙：紧凑设计<br />
-- 阶梯形缝隙：多频谐振</p>
-<p><strong>2024 PMC 空气填充 SIW 圆极化缝隙阵列</strong>：<br />
-- 1×8 阵列，34.5-41.5GHz<br />
-- 阻抗带宽 18.4%<br />
-- 3dB AR 带宽 16.4%（36.5-43GHz）<br />
-- 峰值增益 18dBic<br />
-- 金属腔体辐射，S 形缝隙产生 CP</p></div>
+<p><strong>常见形状</strong>：</p>
+<ul>
+<li>十字形缝隙（cross-slot）：天然正交</li>
+<li>S 形缝隙：紧凑设计</li>
+<li>阶梯形缝隙：多频谐振</li>
+</ul>
+<p><strong>2024 PMC 空气填充 SIW 圆极化缝隙阵列</strong>：</p>
+<ul>
+<li>1×8 阵列，34.5-41.5GHz</li>
+<li>阻抗带宽 18.4%</li>
+<li>3dB AR 带宽 16.4%（36.5-43GHz）</li>
+<li>峰值增益 18dBic</li>
+<li>金属腔体辐射，S 形缝隙产生 CP</li>
+</ul></div>
   </div>
 
     
@@ -437,11 +447,13 @@ AR_dB = 20 × log₁₀(AR_linear)
   ╰─╮  ╭──╮  ╭─╯
     ╰─╯    ╰─╯
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 半球形覆盖（hemispherical）<br />
-- AR 带宽宽（&gt; 20%）<br />
-- 增益 6-9dBi<br />
-- <strong>GNSS 天线经典选择</strong>（GPS/GLONASS/BDS 接收）</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>半球形覆盖（hemispherical）</li>
+<li>AR 带宽宽（&gt; 20%）</li>
+<li>增益 6-9dBi</li>
+<li><strong>GNSS 天线经典选择</strong>（GPS/GLONASS/BDS 接收）</li>
+</ul></div>
   </div>
 
     
@@ -452,11 +464,13 @@ AR_dB = 20 × log₁₀(AR_linear)
   <div class="block section-text">
     <div class="block-title">2.5 螺旋天线（Travelling-Wave Spiral）</div>
     <div class="text-body"><p><strong>结构</strong>：平面阿基米德螺旋或对数螺旋。</p>
-<p><strong>特点</strong>：<br />
-- 超宽带（&gt; 10:1 频率比）<br />
-- 圆极化纯度好<br />
-- 增益恒定（~8dBi）在整个频带<br />
-- 适用：频谱监测、电子战</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>超宽带（&gt; 10:1 频率比）</li>
+<li>圆极化纯度好</li>
+<li>增益恒定（~8dBi）在整个频带</li>
+<li>适用：频谱监测、电子战</li>
+</ul>
 <hr /></div>
   </div>
 
@@ -523,10 +537,12 @@ AR_dB = 20 × log₁₀(AR_linear)
     <div class="text-body"><pre><code>PLF = 0.5（-3dB）
 </code></pre>
 <p><strong>无论线极化方向如何，圆极化天线接收线极化波总是损失 3dB</strong>。</p>
-<p><strong>实际意义</strong>：<br />
-- GPS 卫星用 RHCP 发射<br />
-- 手机天线是线极化 → 理论损失 3dB<br />
-- 但好处是：手机怎么拿都不会信号骤降（因为线极化方向随机变化时，圆极化接收稳定）</p></div>
+<p><strong>实际意义</strong>：</p>
+<ul>
+<li>GPS 卫星用 RHCP 发射</li>
+<li>手机天线是线极化 → 理论损失 3dB</li>
+<li>但好处是：手机怎么拿都不会信号骤降（因为线极化方向随机变化时，圆极化接收稳定）</li>
+</ul></div>
   </div>
 
     
@@ -587,24 +603,26 @@ AR_dB = 20 × log₁₀(AR_linear)
     
   <div class="block section-text">
     <div class="block-title">4.1 GNSS 卫星导航（GPS/BDS/GLONASS/Galileo）</div>
-    <div class="text-body"><p><strong>为什么用圆极化？</strong><br />
-- 卫星在轨道上会翻滚/姿态变化 → 线极化会失效<br />
-- 圆极化不受卫星姿态影响<br />
+    <div class="text-body"><p><strong>为什么用圆极化？</strong>
+- 卫星在轨道上会翻滚/姿态变化 → 线极化会失效
+- 圆极化不受卫星姿态影响
 - 多径抑制：地面反射波会反转旋向（RHCP → LHCP），被天线天然抑制</p>
-<p><strong>典型参数</strong>：<br />
-| 参数 | 数值 |<br />
-|------|------|<br />
-| 频率 | L1: 1575.42MHz, L2: 1227.60MHz, L5: 1176.45MHz |<br />
-| 极化 | 卫星发 RHCP，接收机天线 RHCP |<br />
-| 增益 | 6-9dBi |<br />
-| 3dB AR 波束宽度 | &gt; 200°（半球覆盖） |<br />
-| 前后比 | &gt; 20dB |<br />
+<p><strong>典型参数</strong>：
+| 参数 | 数值 |
+|------|------|
+| 频率 | L1: 1575.42MHz, L2: 1227.60MHz, L5: 1176.45MHz |
+| 极化 | 卫星发 RHCP，接收机天线 RHCP |
+| 增益 | 6-9dBi |
+| 3dB AR 波束宽度 | &gt; 200°（半球覆盖） |
+| 前后比 | &gt; 20dB |
 | 多径抑制 | 10-15dB |</p>
-<p><strong>2025 高精度海洋定位 GNSS 天线</strong>：<br />
-- 八根短路销钉围绕贴片 → 扩宽 3dB AR 波束<br />
-- 两组弯曲金属分支在接地层 → 前后比提升<br />
-- 重叠带宽 &gt; 45%（10dB 回波损耗 + 3dB AR）<br />
-- 覆盖 GPS L1/L2, BDS B1/B2, GLONASS, Galileo</p></div>
+<p><strong>2025 高精度海洋定位 GNSS 天线</strong>：</p>
+<ul>
+<li>八根短路销钉围绕贴片 → 扩宽 3dB AR 波束</li>
+<li>两组弯曲金属分支在接地层 → 前后比提升</li>
+<li>重叠带宽 &gt; 45%（10dB 回波损耗 + 3dB AR）</li>
+<li>覆盖 GPS L1/L2, BDS B1/B2, GLONASS, Galileo</li>
+</ul></div>
   </div>
 
     
@@ -614,14 +632,18 @@ AR_dB = 20 × log₁₀(AR_linear)
     
   <div class="block section-text">
     <div class="block-title">4.2 卫星通信</div>
-    <div class="text-body"><p><strong>应用场景</strong>：<br />
-- 北斗/GPS 导航卫星发射天线<br />
-- 通信卫星星载天线<br />
-- 地面站接收天线<br />
-- 无人机/导弹导引头</p>
-<p><strong>特点</strong>：<br />
-- 卫星姿态不确定 → 必须圆极化<br />
-- 远距离传输 → 线极化旋转（Faraday 旋转）→ 圆极化不受影响</p></div>
+    <div class="text-body"><p><strong>应用场景</strong>：</p>
+<ul>
+<li>北斗/GPS 导航卫星发射天线</li>
+<li>通信卫星星载天线</li>
+<li>地面站接收天线</li>
+<li>无人机/导弹导引头</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>卫星姿态不确定 → 必须圆极化</li>
+<li>远距离传输 → 线极化旋转（Faraday 旋转）→ 圆极化不受影响</li>
+</ul></div>
   </div>
 
     
@@ -631,17 +653,21 @@ AR_dB = 20 × log₁₀(AR_linear)
     
   <div class="block section-text">
     <div class="block-title">4.3 5G 毫米波通信</div>
-    <div class="text-body"><p><strong>2024 研究热点</strong>：<br />
-- 圆极化 MIMO：降低通道相关性，提升容量<br />
-- 圆极化阵列：RCS 降低（隐身应用）<br />
-- 正交圆极化复用：RHCP + LHCP = 双倍频谱效率</p>
-<p><strong>2025 5G mmWave 圆极化 MIMO</strong>：<br />
-- 频段：25.45-32.92GHz<br />
-- AR 带宽：26.24-29.88GHz（3.64GHz）<br />
-- 增益：&gt; 5.8dBi<br />
-- 辐射效率：&gt; 91.72%<br />
-- ECC &lt; 10⁻²（极低相关性）<br />
-- 设计：圆形贴片 + 扇形槽 + 半月形槽</p></div>
+    <div class="text-body"><p><strong>2024 研究热点</strong>：</p>
+<ul>
+<li>圆极化 MIMO：降低通道相关性，提升容量</li>
+<li>圆极化阵列：RCS 降低（隐身应用）</li>
+<li>正交圆极化复用：RHCP + LHCP = 双倍频谱效率</li>
+</ul>
+<p><strong>2025 5G mmWave 圆极化 MIMO</strong>：</p>
+<ul>
+<li>频段：25.45-32.92GHz</li>
+<li>AR 带宽：26.24-29.88GHz（3.64GHz）</li>
+<li>增益：&gt; 5.8dBi</li>
+<li>辐射效率：&gt; 91.72%</li>
+<li>ECC &lt; 10⁻²（极低相关性）</li>
+<li>设计：圆形贴片 + 扇形槽 + 半月形槽</li>
+</ul></div>
   </div>
 
     
@@ -656,10 +682,12 @@ AR_dB = 20 × log₁₀(AR_linear)
 <pre><code>ΔRCS = 20 × log₁₀(AR)  （dB）
 </code></pre>
 <p>对于 AR = 3dB 的天线，RCS 可降低 <strong>~12dB</strong>（功率降低 98.4%）。</p>
-<p><strong>2019-2025 研究进展</strong>：<br />
-- 超表面（Metasurface）加载贴片阵列 → 带外 RCS 降低 15-20dB<br />
-- 圆极化序贯旋转阵列 → 宽频 RCS 降低<br />
-- 极化转换超表面 + CP 阵列 → 联合优化 RCS 和辐射性能</p></div>
+<p><strong>2019-2025 研究进展</strong>：</p>
+<ul>
+<li>超表面（Metasurface）加载贴片阵列 → 带外 RCS 降低 15-20dB</li>
+<li>圆极化序贯旋转阵列 → 宽频 RCS 降低</li>
+<li>极化转换超表面 + CP 阵列 → 联合优化 RCS 和辐射性能</li>
+</ul></div>
   </div>
 
     
@@ -669,10 +697,12 @@ AR_dB = 20 × log₁₀(AR_linear)
     
   <div class="block section-text">
     <div class="block-title">4.5 可穿戴设备</div>
-    <div class="text-body"><p><strong>优势</strong>：<br />
-- 用户头部/身体转动不影响天线极化匹配<br />
-- 降低人体组织吸收导致的极化畸变<br />
-- MIMO + CP → 高隔离、低相关性</p>
+    <div class="text-body"><p><strong>优势</strong>：</p>
+<ul>
+<li>用户头部/身体转动不影响天线极化匹配</li>
+<li>降低人体组织吸收导致的极化畸变</li>
+<li>MIMO + CP → 高隔离、低相关性</li>
+</ul>
 <hr /></div>
   </div>
 

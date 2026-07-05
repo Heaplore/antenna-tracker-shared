@@ -291,10 +291,12 @@
 <p>阵列因子的数学表达式（均匀线性阵列）：</p>
 <pre><code>AF(θ) = Σ(n=0 to N-1) [An · exp(j·n·ψ)]
 </code></pre>
-<p>其中：<br />
-- N = 阵列单元数量<br />
-- An = 第n个单元的激励幅度<br />
-- ψ = kd·cos(θ) + α，k为波数（2π/λ），d为单元间距，α为相邻单元间的相位差</p>
+<p>其中：</p>
+<ul>
+<li>N = 阵列单元数量</li>
+<li>An = 第n个单元的激励幅度</li>
+<li>ψ = kd·cos(θ) + α，k为波数（2π/λ），d为单元间距，α为相邻单元间的相位差</li>
+</ul>
 <p>这个公式揭示了天线阵列的本质：<strong>它是一个空间采样系统</strong>，单元间距d决定了空间采样率，相位差α决定了波束指向。</p></div>
   </div>
 
@@ -380,10 +382,12 @@
     
   <div class="block section-text">
     <div class="block-title">2.3 互耦效应（Mutual Coupling）</div>
-    <div class="text-body"><p>阵列中相邻单元之间通过近场耦合相互影响，导致：<br />
-- 单元输入阻抗随扫描角变化（Active Impedance Variation）<br />
-- 方向图畸变<br />
-- 增益下降</p>
+    <div class="text-body"><p>阵列中相邻单元之间通过近场耦合相互影响，导致：</p>
+<ul>
+<li>单元输入阻抗随扫描角变化（Active Impedance Variation）</li>
+<li>方向图畸变</li>
+<li>增益下降</li>
+</ul>
 <p>互耦效应在密集阵列（d &lt; 0.5λ）中尤为显著，是工程设计的核心挑战之一。</p></div>
   </div>
 
@@ -620,10 +624,12 @@
     
   <div class="block section-text">
     <div class="block-title">6.2 互耦引起的阻抗失配</div>
-    <div class="text-body"><p>阵列中单元越密，互耦越强，导致：<br />
-- 单元输入阻抗偏离设计值（通常从50Ω漂移）<br />
-- VSWR恶化，反射增大<br />
-- 实际增益低于理论值</p>
+    <div class="text-body"><p>阵列中单元越密，互耦越强，导致：</p>
+<ul>
+<li>单元输入阻抗偏离设计值（通常从50Ω漂移）</li>
+<li>VSWR恶化，反射增大</li>
+<li>实际增益低于理论值</li>
+</ul>
 <p><strong>解决方案</strong>：去耦结构设计（如defected ground structure、电磁带隙EBG结构）、单元间距优化。</p></div>
   </div>
 
@@ -634,10 +640,12 @@
     
   <div class="block section-text">
     <div class="block-title">6.3 相位误差累积</div>
-    <div class="text-body"><p>实际系统中，每个T/R通道的相位和幅度不可能完全一致：<br />
-- 电缆长度差异引入相位偏差<br />
-- 温度变化导致移相器漂移<br />
-- ADC/DAC量化精度有限</p>
+    <div class="text-body"><p>实际系统中，每个T/R通道的相位和幅度不可能完全一致：</p>
+<ul>
+<li>电缆长度差异引入相位偏差</li>
+<li>温度变化导致移相器漂移</li>
+<li>ADC/DAC量化精度有限</li>
+</ul>
 <p>相位误差会导致波束指向偏移、旁瓣升高。<strong>校准</strong>是关键环节，通常在出厂时做一次全通道校准，运行中定期自校准。</p></div>
   </div>
 

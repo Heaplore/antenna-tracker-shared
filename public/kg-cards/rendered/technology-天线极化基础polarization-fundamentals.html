@@ -274,10 +274,12 @@
     <div class="text-body"><p>电磁波的电场可以分解为两个正交分量：</p>
 <pre><code>E(z,t) = E_x·cos(ωt - kz + φ_x)·x̂ + E_y·cos(ωt - kz + φ_y)·ŷ
 </code></pre>
-<p>极化由三个参数决定：<br />
-- <strong>幅度比</strong>：E_y / E_x<br />
-- <strong>相位差</strong>：Δφ = φ_y - φ_x<br />
-- <strong>传播方向</strong>：k（通常取 +z 方向）</p></div>
+<p>极化由三个参数决定：</p>
+<ul>
+<li><strong>幅度比</strong>：E_y / E_x</li>
+<li><strong>相位差</strong>：Δφ = φ_y - φ_x</li>
+<li><strong>传播方向</strong>：k（通常取 +z 方向）</li>
+</ul></div>
   </div>
 
     
@@ -340,9 +342,11 @@ AR = ∞ → 线极化（短轴=0）
 AR = 1 → 圆极化（长轴=短轴）
 AR = 1.5 → 椭圆极化（接近圆）
 </code></pre>
-<p>AR_dB 的定义有两种常见方式：<br />
-1. <strong>线性尺度</strong>：AR（无量纲比值）<br />
-2. <strong>dB 尺度</strong>：AR_dB = 20·log₁₀(AR)，圆极化 = 0dB，线极化 = ∞dB</p>
+<p>AR_dB 的定义有两种常见方式：</p>
+<ol>
+<li><strong>线性尺度</strong>：AR（无量纲比值）</li>
+<li><strong>dB 尺度</strong>：AR_dB = 20·log₁₀(AR)，圆极化 = 0dB，线极化 = ∞dB</li>
+</ol>
 <p>工程中常用"轴比 ≤ 3dB"作为圆极化天线的验收标准。</p></div>
   </div>
 
@@ -364,16 +368,18 @@ E_y / E_x = 常数
       │
       ↓
 </code></pre>
-<p><strong>分类</strong>：<br />
-| 类型 | Δφ | 方向 | 示例 |<br />
-|------|-----|------|------|<br />
-| 水平线极化（HPol） | 0 | 平行于地面 | FM 广播 |<br />
-| 垂直线极化（VPol） | 0 | 垂直于地面 | 对讲机 |<br />
+<p><strong>分类</strong>：
+| 类型 | Δφ | 方向 | 示例 |
+|------|-----|------|------|
+| 水平线极化（HPol） | 0 | 平行于地面 | FM 广播 |
+| 垂直线极化（VPol） | 0 | 垂直于地面 | 对讲机 |
 | ±45° 线极化 | 0 或 π | 倾斜 45° | 5G MIMO 基站 |</p>
-<p><strong>特点</strong>：<br />
-- 最简单、最常用<br />
-- 基站天线几乎都用 ±45° 线极化<br />
-- 极化隔离度：理论 ∞（正交极化完全不干扰），实际 20-35dB</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>最简单、最常用</li>
+<li>基站天线几乎都用 ±45° 线极化</li>
+<li>极化隔离度：理论 ∞（正交极化完全不干扰），实际 20-35dB</li>
+</ul></div>
   </div>
 
     
@@ -391,20 +397,26 @@ E_y / E_x = 常数
     ← ↑ →
       ↻
 </code></pre>
-<p><strong>旋向定义</strong>（IEEE 标准）：<br />
-- <strong>RHCP（Right-Hand CP）</strong>：观察者面向波传播方向，电场顺时针旋转<br />
-- <strong>LHCP（Left-Hand CP）</strong>：观察者面向波传播方向，电场逆时针旋转</p>
+<p><strong>旋向定义</strong>（IEEE 标准）：</p>
+<ul>
+<li><strong>RHCP（Right-Hand CP）</strong>：观察者面向波传播方向，电场顺时针旋转</li>
+<li><strong>LHCP（Left-Hand CP）</strong>：观察者面向波传播方向，电场逆时针旋转</li>
+</ul>
 <p><strong>注意</strong>：天线学界有两种定义方式（IEEE vs 光学），务必确认标准！</p>
-<p><strong>圆极化的优势</strong>：<br />
-1. <strong>不受天线取向影响</strong>：接收天线旋转不影响信号强度<br />
-2. <strong>抑制多径干扰</strong>：反射波会翻转旋向，RHCP 天线接收 LHCP 反射波时被抑制<br />
-3. <strong>雨衰较小</strong>：对降水引起的极化旋转不敏感</p>
-<p><strong>应用场景</strong>：<br />
-- GPS/GLONASS/Galileo（卫星信号）<br />
-- 卫星通信（DVB-S2）<br />
-- 气象雷达（区分雨滴和冰雹）<br />
-- RFID（标签取向不确定）<br />
-- 军事通信（抗干扰）</p></div>
+<p><strong>圆极化的优势</strong>：</p>
+<ol>
+<li><strong>不受天线取向影响</strong>：接收天线旋转不影响信号强度</li>
+<li><strong>抑制多径干扰</strong>：反射波会翻转旋向，RHCP 天线接收 LHCP 反射波时被抑制</li>
+<li><strong>雨衰较小</strong>：对降水引起的极化旋转不敏感</li>
+</ol>
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li>GPS/GLONASS/Galileo（卫星信号）</li>
+<li>卫星通信（DVB-S2）</li>
+<li>气象雷达（区分雨滴和冰雹）</li>
+<li>RFID（标签取向不确定）</li>
+<li>军事通信（抗干扰）</li>
+</ul></div>
   </div>
 
     
@@ -424,10 +436,12 @@ E_y / E_x = 常数
     ╲       ╱
       ╲───╱
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 线极化和圆极化都是椭圆极化的特例<br />
-- 实际天线辐射的几乎都是椭圆极化（不完美）<br />
-- 轴比 AR 是衡量"有多椭圆"的指标</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>线极化和圆极化都是椭圆极化的特例</li>
+<li>实际天线辐射的几乎都是椭圆极化（不完美）</li>
+<li>轴比 AR 是衡量"有多椭圆"的指标</li>
+</ul></div>
   </div>
 
     
@@ -549,17 +563,19 @@ E_y / E_x = 常数
 <pre><code>总辐射 = co-pol + cross-pol
 XPD（交叉极化比）= co-pol / cross-pol
 </code></pre>
-<p><strong>交叉极化的来源</strong>：<br />
-1. 天线结构不对称<br />
-2. 反射面散射<br />
-3. 馈源极化不纯<br />
-4. 传播过程中的极化旋转（电离层、降雨）</p>
-<p><strong>XPD 的典型值</strong>：<br />
-| 场景 | XPD |<br />
-|------|-----|<br />
-| 理想天线 | &gt; 30dB |<br />
-| 实际基站天线 | 20-25dB |<br />
-| 雨中对流层链路 | 10-15dB |<br />
+<p><strong>交叉极化的来源</strong>：</p>
+<ol>
+<li>天线结构不对称</li>
+<li>反射面散射</li>
+<li>馈源极化不纯</li>
+<li>传播过程中的极化旋转（电离层、降雨）</li>
+</ol>
+<p><strong>XPD 的典型值</strong>：
+| 场景 | XPD |
+|------|-----|
+| 理想天线 | &gt; 30dB |
+| 实际基站天线 | 20-25dB |
+| 雨中对流层链路 | 10-15dB |
 | 电离层传播 | 5-10dB |</p></div>
   </div>
 
@@ -574,10 +590,12 @@ XPD（交叉极化比）= co-pol / cross-pol
 <pre><code>天线 A：+45° 线极化 → 数据流 1
 天线 B：-45° 线极化 → 数据流 2
 </code></pre>
-<p><strong>效果</strong>：<br />
-- 容量翻倍（在低互耦条件下）<br />
-- 无需额外频谱<br />
-- 实际互耦 20-30dB → 容量提升 30-50%</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>容量翻倍（在低互耦条件下）</li>
+<li>无需额外频谱</li>
+<li>实际互耦 20-30dB → 容量提升 30-50%</li>
+</ul>
 <p><strong>已有笔记</strong>：[[技术概念-极化分集Polarization-Diversity]]</p></div>
   </div>
 
@@ -596,10 +614,12 @@ XPD（交叉极化比）= co-pol / cross-pol
   │-45°  │  ← 端口 B
   └──────┘
 </code></pre>
-<p><strong>为什么用 ±45° 而不是 V/H</strong>：<br />
-- ±45° 在用户手持设备中更鲁棒（手机旋转时两个极化都有信号）<br />
-- V/H 极化在手机横屏/竖屏时可能一个极化完全对准、另一个完全正交<br />
-- ±45° 提供更稳定的分集增益</p></div>
+<p><strong>为什么用 ±45° 而不是 V/H</strong>：</p>
+<ul>
+<li>±45° 在用户手持设备中更鲁棒（手机旋转时两个极化都有信号）</li>
+<li>V/H 极化在手机横屏/竖屏时可能一个极化完全对准、另一个完全正交</li>
+<li>±45° 提供更稳定的分集增益</li>
+</ul></div>
   </div>
 
     
@@ -632,10 +652,12 @@ XPD（交叉极化比）= co-pol / cross-pol
                     ↓
 反射地面 → LHCP 信号（旋向翻转）→ 被 RHCP 天线抑制
 </code></pre>
-<p><strong>好处</strong>：<br />
-- 卫星姿态变化不影响信号（圆极化不受旋转影响）<br />
-- 多径反射被抑制（反射改变旋向）<br />
-- 室内/城市峡谷中仍有较好接收</p></div>
+<p><strong>好处</strong>：</p>
+<ul>
+<li>卫星姿态变化不影响信号（圆极化不受旋转影响）</li>
+<li>多径反射被抑制（反射改变旋向）</li>
+<li>室内/城市峡谷中仍有较好接收</li>
+</ul></div>
   </div>
 
     
@@ -696,10 +718,12 @@ XPD（交叉极化比）= co-pol / cross-pol
     <div class="text-body"><p>降雨会使线极化波发生旋转：</p>
 <pre><code>旋转角 ∝ 降雨率 × 传播距离 × f²
 </code></pre>
-<p><strong>影响</strong>：<br />
-- Ku 波段（12GHz）：小雨可忽略，大雨旋转 5-10°<br />
-- Ka 波段（30GHz）：小雨旋转 10-20°<br />
-- 100GHz+：旋转可达 45°+</p>
+<p><strong>影响</strong>：</p>
+<ul>
+<li>Ku 波段（12GHz）：小雨可忽略，大雨旋转 5-10°</li>
+<li>Ka 波段（30GHz）：小雨旋转 10-20°</li>
+<li>100GHz+：旋转可达 45°+</li>
+</ul>
 <p><strong>对策</strong>：使用圆极化（不受旋转影响）或自适应极化补偿</p></div>
   </div>
 
@@ -714,9 +738,11 @@ XPD（交叉极化比）= co-pol / cross-pol
 <pre><code>旋转角 ∝ TEC × f⁻²
 </code></pre>
 <p>TEC 是总电子含量，随太阳活动变化。</p>
-<p><strong>影响</strong>：<br />
-- GPS L1（1.57GHz）：旋转 5-20°<br />
-- 使用 RHCP 可消除影响</p></div>
+<p><strong>影响</strong>：</p>
+<ul>
+<li>GPS L1（1.57GHz）：旋转 5-20°</li>
+<li>使用 RHCP 可消除影响</li>
+</ul></div>
   </div>
 
     
@@ -740,14 +766,18 @@ XPD（交叉极化比）= co-pol / cross-pol
     
   <div class="block section-text">
     <div class="block-title">7.1 轴比测量</div>
-    <div class="text-body"><p><strong>旋转天线法</strong>：<br />
-1. 固定发射天线（RHCP）<br />
-2. 旋转接收天线，记录功率变化<br />
-3. 最大功率与最小功率之比 = AR²</p>
-<p><strong>两点法</strong>：<br />
-1. 测量两个正交线极化分量<br />
-2. 计算相位差和幅度比<br />
-3. 推导轴比</p></div>
+    <div class="text-body"><p><strong>旋转天线法</strong>：</p>
+<ol>
+<li>固定发射天线（RHCP）</li>
+<li>旋转接收天线，记录功率变化</li>
+<li>最大功率与最小功率之比 = AR²</li>
+</ol>
+<p><strong>两点法</strong>：</p>
+<ol>
+<li>测量两个正交线极化分量</li>
+<li>计算相位差和幅度比</li>
+<li>推导轴比</li>
+</ol></div>
   </div>
 
     
@@ -775,10 +805,12 @@ XPD（交叉极化比）= co-pol / cross-pol
     <div class="text-body"><p>在暗室中使用可旋转极化的参考天线：</p>
 <pre><code>方位角 θ → 旋转接收天线极化 → 记录 co-pol 和 cross-pol 方向图
 </code></pre>
-<p>输出：<br />
-- co-pol 方向图（期望极化）<br />
-- cross-pol 方向图（交叉极化）<br />
-- 轴比方向图（全空间 AR 分布）</p></div>
+<p>输出：</p>
+<ul>
+<li>co-pol 方向图（期望极化）</li>
+<li>cross-pol 方向图（交叉极化）</li>
+<li>轴比方向图（全空间 AR 分布）</li>
+</ul></div>
   </div>
 
     

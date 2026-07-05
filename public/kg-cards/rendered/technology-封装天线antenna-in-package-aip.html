@@ -272,9 +272,11 @@
   <div class="block section-text">
     <div class="block-title">1.1 定义</div>
     <div class="text-body"><p>封装天线（Antenna-in-Package, AiP）是一种将辐射天线或天线阵列直接集成到集成电路封装基板中的先进封装技术。它将天线功能与传统的封装功能融合，使得射频信号在芯片封装内部就完成了辐射或接收，无需通过外部连接器或长线传输。</p>
-<p><strong>AiP 与 AoP 的区别</strong>：<br />
-- <strong>AiP（Antenna-in-Package）</strong>：天线嵌入在封装基板<strong>内部</strong>（多层基板中），天线导体被封装材料包裹<br />
-- <strong>AoP（Antenna-on-Package）</strong>：天线制作在封装基板<strong>表面</strong>（顶层），天线暴露在空气中</p>
+<p><strong>AiP 与 AoP 的区别</strong>：</p>
+<ul>
+<li><strong>AiP（Antenna-in-Package）</strong>：天线嵌入在封装基板<strong>内部</strong>（多层基板中），天线导体被封装材料包裹</li>
+<li><strong>AoP（Antenna-on-Package）</strong>：天线制作在封装基板<strong>表面</strong>（顶层），天线暴露在空气中</li>
+</ul>
 <p>两种方案各有优劣：AiP 保护性好、尺寸小；AoP 散热好、易于调试。实际应用中两者的界限越来越模糊，业界常统称为 "AiP/AoP"。</p></div>
   </div>
 
@@ -404,11 +406,13 @@
 </tr>
 </tbody>
 </table>
-<p><strong>LCP 成为手机毫米波主流材料的原因</strong>：<br />
-- 低吸湿性（&lt; 0.02%）：不像 PI 那样吸水后 Dk 漂移<br />
-- 柔韧性好：适合手机弯曲场景<br />
-- 加工温度低（290°C）：兼容标准封装工艺<br />
-- 28GHz 下 Df 极低，传输损耗小</p></div>
+<p><strong>LCP 成为手机毫米波主流材料的原因</strong>：</p>
+<ul>
+<li>低吸湿性（&lt; 0.02%）：不像 PI 那样吸水后 Dk 漂移</li>
+<li>柔韧性好：适合手机弯曲场景</li>
+<li>加工温度低（290°C）：兼容标准封装工艺</li>
+<li>28GHz 下 Df 极低，传输损耗小</li>
+</ul></div>
   </div>
 
     
@@ -917,11 +921,13 @@
   <div class="block section-text">
     <div class="block-title">6.2 散热——毫米波的隐形杀手</div>
     <div class="text-body"><p>毫米波 AiP 的功率密度极高（一个手机 AiP 模组内含 8-16 个 BFIC 通道，总功耗 2-5W），而封装材料（LCP/PI）的热导率远低于金属或陶瓷。</p>
-<p><strong>对策</strong>：<br />
-- 在封装内集成热通孔（Thermal Via）<br />
-- 使用金属盖板（Metal Lid）传导散热<br />
-- 封装底部涂导热硅脂接触 PCB 散热<br />
-- 高阶方案：嵌入式散热层（Embedded Heat Spreader）</p></div>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>在封装内集成热通孔（Thermal Via）</li>
+<li>使用金属盖板（Metal Lid）传导散热</li>
+<li>封装底部涂导热硅脂接触 PCB 散热</li>
+<li>高阶方案：嵌入式散热层（Embedded Heat Spreader）</li>
+</ul></div>
   </div>
 
     
@@ -931,10 +937,12 @@
     
   <div class="block section-text">
     <div class="block-title">6.3 封装精度与波束指向</div>
-    <div class="text-body"><p>毫米波波长短（28GHz 波长约 10.7mm），封装制造的微小偏差就会显著影响波束指向：<br />
-- 线宽偏差 ±5μm → 阻抗变化 → 反射增大<br />
-- 层叠对准偏差 ±10μm → 耦合变化 → 方向图畸变<br />
-- 基板翘曲 &gt;0.5% → 天线谐振频率偏移</p>
+    <div class="text-body"><p>毫米波波长短（28GHz 波长约 10.7mm），封装制造的微小偏差就会显著影响波束指向：</p>
+<ul>
+<li>线宽偏差 ±5μm → 阻抗变化 → 反射增大</li>
+<li>层叠对准偏差 ±10μm → 耦合变化 → 方向图畸变</li>
+<li>基板翘曲 &gt;0.5% → 天线谐振频率偏移</li>
+</ul>
 <p><strong>工程要求</strong>：毫米波 AiP 的封装精度通常需要控制在 ±5-10μm 以内。</p></div>
   </div>
 
@@ -945,11 +953,13 @@
     
   <div class="block section-text">
     <div class="block-title">6.4 测试与校准复杂性</div>
-    <div class="text-body"><p>AiP 天线的测试比传统天线困难得多：<br />
-- 天线在封装内部，无法直接探头测量<br />
-- 需要专门的测试夹具（Test Fixture）<br />
-- 近场扫描 + 变换是主流方案<br />
-- 批量生产时需要快速测试（每个模组 &lt; 30 秒）</p></div>
+    <div class="text-body"><p>AiP 天线的测试比传统天线困难得多：</p>
+<ul>
+<li>天线在封装内部，无法直接探头测量</li>
+<li>需要专门的测试夹具（Test Fixture）</li>
+<li>近场扫描 + 变换是主流方案</li>
+<li>批量生产时需要快速测试（每个模组 &lt; 30 秒）</li>
+</ul></div>
   </div>
 
     

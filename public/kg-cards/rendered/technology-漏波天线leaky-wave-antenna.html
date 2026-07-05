@@ -384,15 +384,19 @@ sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 0° 扫到 90°
     <div class="text-body"><p>当 β → 0 时（broadside 方向，θ₀ = 90°），LWA 出现"开放阻带"：</p>
 <pre><code>β = 0 → sin(θ₀) = 0 → θ₀ = 90°（broadside）
 </code></pre>
-<p>此时：<br />
-- 波束无限宽（无法形成定向波束）<br />
-- 增益骤降（5-10dB）<br />
-- 输入匹配恶化</p>
-<p><strong>抑制 OSB 的方法</strong>：<br />
-- 非周期性结构（打破 β = 0 的条件）<br />
-- 弯曲波导（蛇形线）<br />
-- 非对称缝隙<br />
-- 慢波结构（增强 β，避免 β → 0）</p></div>
+<p>此时：</p>
+<ul>
+<li>波束无限宽（无法形成定向波束）</li>
+<li>增益骤降（5-10dB）</li>
+<li>输入匹配恶化</li>
+</ul>
+<p><strong>抑制 OSB 的方法</strong>：</p>
+<ul>
+<li>非周期性结构（打破 β = 0 的条件）</li>
+<li>弯曲波导（蛇形线）</li>
+<li>非对称缝隙</li>
+<li>慢波结构（增强 β，避免 β → 0）</li>
+</ul></div>
   </div>
 
     
@@ -409,12 +413,14 @@ sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 0° 扫到 90°
 │ ●● ●● ●● ●● ●● ●● ●● ●●    │ ← 接地层通孔
 └─────────────────────────────┘
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 集成于 PCB，成本低<br />
-- 30-46GHz 工作（5G FR2）<br />
-- 带宽：20-40%<br />
-- 增益：10-18dBi<br />
-- 扫描范围：±30°</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>集成于 PCB，成本低</li>
+<li>30-46GHz 工作（5G FR2）</li>
+<li>带宽：20-40%</li>
+<li>增益：10-18dBi</li>
+<li>扫描范围：±30°</li>
+</ul></div>
   </div>
 
     
@@ -432,11 +438,13 @@ sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 0° 扫到 90°
 │ ──┴──┴──┴──┴──┴──   │ ← 接地层
 └──────────────────────┘
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 最简单结构<br />
-- 带宽较窄（5-15%）<br />
-- 增益较低（8-12dBi）<br />
-- 适合低频段</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>最简单结构</li>
+<li>带宽较窄（5-15%）</li>
+<li>增益较低（8-12dBi）</li>
+<li>适合低频段</li>
+</ul></div>
   </div>
 
     
@@ -448,10 +456,12 @@ sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 0° 扫到 90°
     <div class="block-title">2.3 共面波导漏波天线（CPW LWA）</div>
     <div class="text-body"><pre><code>信号线在顶层，接地在两侧，无底层地平面
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 双面辐射<br />
-- 易于集成有源器件<br />
-- 损耗高于 SIW</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>双面辐射</li>
+<li>易于集成有源器件</li>
+<li>损耗高于 SIW</li>
+</ul></div>
   </div>
 
     
@@ -465,10 +475,12 @@ sin(θ₀) = β/k₀ &gt; 0 → θ₀ 从 0° 扫到 90°
 <pre><code>周期 Λ → 满足光栅方程：
 sin(θ_m) = m·λ/Λ - β/k₀
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 精确控制辐射方向<br />
-- 可用于太赫兹频段<br />
-- 加工精度要求高</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>精确控制辐射方向</li>
+<li>可用于太赫兹频段</li>
+<li>加工精度要求高</li>
+</ul></div>
   </div>
 
     
@@ -481,10 +493,12 @@ sin(θ_m) = m·λ/Λ - β/k₀
     <div class="text-body"><p>利用人工表面波（Surface Wave on Artificial Dielectric）：</p>
 <pre><code>金属柱阵列 → 等效表面波 → 周期性辐射
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 超低剖面<br />
-- 适合室内覆盖<br />
-- 扫描范围大（±60°）</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>超低剖面</li>
+<li>适合室内覆盖</li>
+<li>扫描范围大（±60°）</li>
+</ul></div>
   </div>
 
     
@@ -500,11 +514,13 @@ sin(θ_m) = m·λ/Λ - β/k₀
   │          │          │
   └──[L_L]──┬──[C_L]──┘
 </code></pre>
-<p><strong>特点</strong>：<br />
-- 双向扫描（backward + forward）<br />
-- broadside 辐射无 OSB<br />
-- 带宽极宽（&gt; 100%）<br />
-- 设计复杂</p></div>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>双向扫描（backward + forward）</li>
+<li>broadside 辐射无 OSB</li>
+<li>带宽极宽（&gt; 100%）</li>
+<li>设计复杂</li>
+</ul></div>
   </div>
 
     
@@ -595,10 +611,12 @@ sin(θ_m) = m·λ/Λ - β/k₀
   <div class="block section-text">
     <div class="block-title">3.3 波束纯度</div>
     <div class="text-body"><p>LWA 的旁瓣通常较高（-10 到 -15dB），因为辐射沿传输线均匀分布（类似均匀照射的口径）：</p>
-<p><strong>降低旁瓣的方法</strong>：<br />
-- 非均匀单元设计（改变每个单元的泄漏率）<br />
-- 振幅加权（渐削照射）<br />
-- 多 LWA 组合</p></div>
+<p><strong>降低旁瓣的方法</strong>：</p>
+<ul>
+<li>非均匀单元设计（改变每个单元的泄漏率）</li>
+<li>振幅加权（渐削照射）</li>
+<li>多 LWA 组合</li>
+</ul></div>
   </div>
 
     
@@ -742,10 +760,12 @@ sin(θ_m) = m·λ/Λ - β/k₀
     <div class="text-body"><p>broadside 方向的 OSB 是 LWA 最大的痛点：</p>
 <pre><code>频率 f_OSbroadside → 波束无限宽 → 增益崩溃
 </code></pre>
-<p><strong>抑制方法</strong>：<br />
-- 蛇形波导（增加有效长度，避免 β = 0）<br />
-- 非对称结构（打破对称性）<br />
-- CRLH 结构（同时支持 forward/backward）</p></div>
+<p><strong>抑制方法</strong>：</p>
+<ul>
+<li>蛇形波导（增加有效长度，避免 β = 0）</li>
+<li>非对称结构（打破对称性）</li>
+<li>CRLH 结构（同时支持 forward/backward）</li>
+</ul></div>
   </div>
 
     
@@ -755,13 +775,17 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
   <div class="block section-text">
     <div class="block-title">6.2 频率-波束耦合</div>
-    <div class="text-body"><p>LWA 的波束指向依赖于频率，这意味着：<br />
-- 通信时频率变化 → 波束偏移 → 链路中断<br />
-- 需要频率稳定或波束跟踪</p>
-<p><strong>解决方案</strong>：<br />
-- 窄带通信（频率变化小）<br />
-- 反馈控制（检测波束偏移并补偿）<br />
-- 多 LWA 冗余覆盖</p></div>
+    <div class="text-body"><p>LWA 的波束指向依赖于频率，这意味着：</p>
+<ul>
+<li>通信时频率变化 → 波束偏移 → 链路中断</li>
+<li>需要频率稳定或波束跟踪</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>窄带通信（频率变化小）</li>
+<li>反馈控制（检测波束偏移并补偿）</li>
+<li>多 LWA 冗余覆盖</li>
+</ul></div>
   </div>
 
     

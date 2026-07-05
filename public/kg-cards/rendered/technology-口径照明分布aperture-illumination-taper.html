@@ -274,9 +274,11 @@
     <div class="text-body"><p>口径照明分布（Aperture Illumination / Taper Distribution）是指天线辐射孔径上场强的空间分布函数：</p>
 <pre><code>E_aperture(x, y) = A(x, y) · exp[j·φ(x, y)]
 </code></pre>
-<p>其中：<br />
-- A(x, y) 是幅度分布（taper）<br />
-- φ(x, y) 是相位分布</p>
+<p>其中：</p>
+<ul>
+<li>A(x, y) 是幅度分布（taper）</li>
+<li>φ(x, y) 是相位分布</li>
+</ul>
 <p>方向图是口径场的<strong>傅里叶变换</strong>：</p>
 <pre><code>F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)] dx dy
 </code></pre>
@@ -332,7 +334,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>优点</strong>：增益最大、波束最窄。<br />
+<p><strong>优点</strong>：增益最大、波束最窄。
 <strong>缺点</strong>：旁瓣太高（-13.2dB），容易受到杂散信号干扰。</p></div>
   </div>
 
@@ -718,10 +720,12 @@
 <pre><code>A_tapered(x) = (1-p) · A_distribution(x) + p · A_uniform(x)
 </code></pre>
 <p>其中 p 是 pedestal 比例（0 ≤ p ≤ 1）。</p>
-<p><strong>效果</strong>：<br />
-- p = 0：纯 taper 分布（旁瓣低，波束宽）<br />
-- p = 1：均匀分布（旁瓣高，波束窄）<br />
-- p = 0.1-0.2：折中方案（旁瓣稍高，波束稍窄）</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>p = 0：纯 taper 分布（旁瓣低，波束宽）</li>
+<li>p = 1：均匀分布（旁瓣高，波束窄）</li>
+<li>p = 0.1-0.2：折中方案（旁瓣稍高，波束稍窄）</li>
+</ul>
 <p><strong>应用</strong>：卫星通信天线常用 p ≈ 0.15 的 Taylor-pedestal 组合。</p></div>
   </div>
 
@@ -938,9 +942,11 @@
     <div class="text-body"><p>抛物面天线的口径照明由馈源决定：</p>
 <pre><code>A_aperture(θ_feed) = G_feed(θ_feed)
 </code></pre>
-<p>馈源的方向图通常不是理想的 taper 分布，导致：<br />
-- 边缘溢出（spillover）：馈源能量照射到反射面之外<br />
-- 中心过亮或过暗：导致口径效率下降</p>
+<p>馈源的方向图通常不是理想的 taper 分布，导致：</p>
+<ul>
+<li>边缘溢出（spillover）：馈源能量照射到反射面之外</li>
+<li>中心过亮或过暗：导致口径效率下降</li>
+</ul>
 <p><strong>优化方法</strong>：选择合适焦距直径比（f/D）和馈源方向图。</p></div>
   </div>
 

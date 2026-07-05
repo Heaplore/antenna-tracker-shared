@@ -276,9 +276,11 @@
 或
 sinc(x) = sin(πx)/(πx)  （工程定义，零点在整数处）
 </code></pre>
-<p><strong>在天线中的应用</strong>：<br />
-- 矩形孔径均匀照明 → 方向图 = sinc 函数<br />
-- 线性阵列均匀激励 → 阵列因子 = Dirichlet 核（周期 sinc）</p>
+<p><strong>在天线中的应用</strong>：</p>
+<ul>
+<li>矩形孔径均匀照明 → 方向图 = sinc 函数</li>
+<li>线性阵列均匀激励 → 阵列因子 = Dirichlet 核（周期 sinc）</li>
+</ul>
 <p><strong>关键性质</strong>：</p>
 <pre><code>零点：x = ±π, ±2π, ±3π, ...
 第一旁瓣：-13.2 dB
@@ -300,9 +302,11 @@ sinc(x) = sin(πx)/(πx)  （工程定义，零点在整数处）
     <div class="text-body"><p><strong>定义</strong>（一阶）：</p>
 <pre><code>J₁(x) = Σ(k=0 to ∞) [(-1)ᵏ · (x/2)^(2k+1)] / [k! · (k+1)!]
 </code></pre>
-<p><strong>在天线中的应用</strong>：<br />
-- 圆形孔径均匀照明 → 方向图 = 2·J₁(x)/x<br />
-- 抛物面天线的馈源方向图</p>
+<p><strong>在天线中的应用</strong>：</p>
+<ul>
+<li>圆形孔径均匀照明 → 方向图 = 2·J₁(x)/x</li>
+<li>抛物面天线的馈源方向图</li>
+</ul>
 <p><strong>关键性质</strong>：</p>
 <pre><code>第一零点：x ≈ 3.832
 第一旁瓣：-17.6 dB（比矩形孔径更高）
@@ -334,11 +338,13 @@ T_n(x) = cosh(n·arccosh(x)), |x| &gt; 1
 T_1(x) = x
 T_{n+1}(x) = 2x·T_n(x) - T_{n-1}(x)
 </code></pre>
-<p><strong>关键性质</strong>：<br />
-- 在 [-1, 1] 区间内，|T_n(x)| ≤ 1（等振荡）<br />
-- 在 |x| &gt; 1 时，T_n(x) 单调递增<br />
-- 等旁瓣特性 → 用于 Dolph-Chebyshev 天线设计</p>
-<p><strong>在天线中的应用</strong>：<br />
+<p><strong>关键性质</strong>：</p>
+<ul>
+<li>在 [-1, 1] 区间内，|T_n(x)| ≤ 1（等振荡）</li>
+<li>在 |x| &gt; 1 时，T_n(x) 单调递增</li>
+<li>等旁瓣特性 → 用于 Dolph-Chebyshev 天线设计</li>
+</ul>
+<p><strong>在天线中的应用</strong>：
 Dolph-Chebyshev 阵列的方向图：</p>
 <pre><code>AF(ψ) = T_{N-1}[cos(ψ₀)·cos(ψ/2)] / T_{N-1}[cos(ψ₀)]
 </code></pre>
@@ -363,10 +369,12 @@ P_1(x) = x
 P_2(x) = (3x²-1)/2
 P_3(x) = (5x³-3x)/2
 </code></pre>
-<p><strong>在天线中的应用</strong>：<br />
-- 球面波展开<br />
-- 球面天线（如卫星天线）的方向图分析<br />
-- 球坐标系中的角度函数</p></div>
+<p><strong>在天线中的应用</strong>：</p>
+<ul>
+<li>球面波展开</li>
+<li>球面天线（如卫星天线）的方向图分析</li>
+<li>球坐标系中的角度函数</li>
+</ul></div>
   </div>
 
     
@@ -379,9 +387,11 @@ P_3(x) = (5x³-3x)/2
     <div class="text-body"><p><strong>定义</strong>：</p>
 <pre><code>D_N(x) = sin((N+½)x) / sin(x/2)
 </code></pre>
-<p><strong>在天线中的应用</strong>：<br />
-- 均匀线性阵列的方向图（有限单元数 N）<br />
-- 当 N → ∞ 时，D_N(x) → 周期 sinc 函数</p>
+<p><strong>在天线中的应用</strong>：</p>
+<ul>
+<li>均匀线性阵列的方向图（有限单元数 N）</li>
+<li>当 N → ∞ 时，D_N(x) → 周期 sinc 函数</li>
+</ul>
 <p><strong>关键性质</strong>：</p>
 <pre><code>主瓣宽度：4π/N
 第一旁瓣：-13.2 dB
