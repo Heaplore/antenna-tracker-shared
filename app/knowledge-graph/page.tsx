@@ -595,7 +595,7 @@ function Modal({
         style={{
           position: 'fixed',
           inset: 0,
-          background: 'rgba(0,0,0,0.5)',
+          background: 'rgba(0,0,0,0.6)',
           zIndex: 40,
           display: 'flex',
           alignItems: 'center',
@@ -607,11 +607,11 @@ function Modal({
           onClick={(e) => e.stopPropagation()}
           style={{
             background: '#fff',
-            borderRadius: 12,
-            boxShadow: '0 24px 80px rgba(0,0,0,0.25)',
-            width: '90vw',
-            maxWidth: 1200,
-            maxHeight: '90vh',
+            borderRadius: 16,
+            boxShadow: '0 32px 100px rgba(0,0,0,0.3)',
+            width: '92vw',
+            maxWidth: 1600,
+            maxHeight: '95vh',
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
@@ -624,7 +624,7 @@ function Modal({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              padding: '12px 20px',
+              padding: '14px 24px',
               borderBottom: `2px solid ${TYPE_COLORS[node.type]}`,
               flexShrink: 0,
             }}
@@ -633,8 +633,8 @@ function Modal({
               <span
                 style={{
                   display: 'inline-block',
-                  padding: '2px 8px',
-                  fontSize: 11,
+                  padding: '3px 10px',
+                  fontSize: 12,
                   background: TYPE_COLORS[node.type],
                   color: '#fff',
                   borderRadius: 10,
@@ -642,7 +642,7 @@ function Modal({
               >
                 {TYPE_ICONS[node.type]} {TYPE_LABELS[node.type]}
               </span>
-              <span style={{ fontSize: 16, fontWeight: 700, color: '#111827' }}>
+              <span style={{ fontSize: 17, fontWeight: 700, color: '#111827' }}>
                 {node.name}
               </span>
             </div>
@@ -651,7 +651,7 @@ function Modal({
               style={{
                 background: 'transparent',
                 border: 'none',
-                fontSize: 22,
+                fontSize: 24,
                 color: '#9ca3af',
                 cursor: 'pointer',
                 padding: '4px 8px',
@@ -670,49 +670,10 @@ function Modal({
               flex: 1,
               width: '100%',
               border: 'none',
-              minHeight: 400,
+              minHeight: 700,
             }}
             sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"
           />
-
-          {/* 底部关联信息 */}
-          {(node.outgoing.length > 0 || inNeighborIds.size > 0) && (
-            <div
-              style={{
-                padding: '10px 20px',
-                borderTop: '1px solid #f3f4f6',
-                background: '#fafafa',
-                flexShrink: 0,
-              }}
-            >
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#6b7280', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                关联笔记 ({inNeighborIds.size + outNeighborIds.size})
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                {[...node.outgoing.map(o => allNodesById.get(o.targetId)).filter(Boolean) as KGNode[], ...Array.from(inNeighborIds).map(id => allNodesById.get(id)).filter(Boolean) as KGNode[]].slice(0, 12).map(n => (
-                  <button
-                    key={n.id}
-                    onClick={() => onNodeClick(n.id)}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 4,
-                      padding: '3px 8px',
-                      fontSize: 11,
-                      background: '#fff',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: 6,
-                      cursor: 'pointer',
-                      color: '#374151',
-                    }}
-                  >
-                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: TYPE_COLORS[n.type], flexShrink: 0 }} />
-                    {n.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
 

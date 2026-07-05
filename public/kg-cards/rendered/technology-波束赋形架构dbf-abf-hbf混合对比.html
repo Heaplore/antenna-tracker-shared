@@ -345,10 +345,10 @@
     
   <div class="block section-code">
     <div class="block-title">1.4 局限性 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 只能形成单波束 → 无法多用户复用
-2. 波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
-3. 移相器相位量化误差 → 波束指向精度受限
-4. 无法自适应零陷 → 干扰抑制能力弱</code></pre>
+    <pre class="code-body"><code>只能形成单波束 → 无法多用户复用
+波束倾斜（Beam Squint）→ 宽带信号下不同频率波束指向不同
+移相器相位量化误差 → 波束指向精度受限
+无法自适应零陷 → 干扰抑制能力弱</code></pre>
   </div>
 
     
@@ -478,20 +478,20 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
     
   <div class="block section-code">
     <div class="block-title">3.2 三种连接架构 <span style="margin-left:auto;font-size:10px;opacity:0.7;">markdown</span></div>
-    <pre class="code-body"><code>1. 全连接架构（Fully Connected）
+    <pre class="code-body"><code>全连接架构（Fully Connected）
    每条 RF 链路连接所有天线单元
    - 性能好（逼近 DBF）
    - 移相器数量：K × N
    - 功耗高
    - 复杂度最高
    
-2. 部分连接架构（Partially Connected / Subarray）
+部分连接架构（Partially Connected / Subarray）
    每条 RF 链路连接一组天线（子阵）
    - 移相器数量：N
    - 功耗中
    - 5G 基站主流方案
    
-3. 动态子阵架构（Dynamic Subarray）
+动态子阵架构（Dynamic Subarray）
    射频链路可以动态分配到不同子阵
    - 灵活性最高
    - 需要 RF 开关网络
@@ -566,7 +566,7 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
     
   <div class="block section-text">
     <div class="block-title">四、波束倾斜（Beam Squint）问题</div>
-    <div class="text-body">```
+    <div class="text-body">`
 问题：
   模拟/混合波束赋形使用相位移相器
   → 相位权重与频率相关
@@ -595,7 +595,7 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
   3. 数字波束赋形
      - 数字域补偿
      - 最彻底但最贵
-```</div>
+`</div>
   </div>
 
     

@@ -283,16 +283,16 @@
         
         <div class="desc">给定天线阵列的几何结构和期望的方向图，求解每个单元的激励幅度和相位：
 
-```
+`
 已知：阵列几何 G = {r₁, r₂, ..., r_N}
 求解：激励向量 w = [w₁, w₂, ..., w_N]^T
 使得：AF(θ,φ) ≈ F_desired(θ,φ)
-```
+`
 
 其中 AF 是阵列因子：
-```
+`
 AF(θ,φ) = Σ(n=1 to N) w_n · exp(jk·r_n · [sinθcosφ, sinθsinφ, cosθ])
-```</div>
+`</div>
         
         
       </div>
@@ -322,7 +322,7 @@ AF(θ,φ) = Σ(n=1 to N) w_n · exp(jk·r_n · [sinθcosφ, sinθsinφ, cosθ])
 | Dolph-Chebyshev | 等旁瓣，旁瓣可控 | 只能优化旁瓣，不能放零陷 |
 | Taylor | 旁瓣+零陷平衡 | 参数选择复杂，零陷位置受限 |
 | Woodward-Lawson | 灵活 | 旁瓣不均匀 |
-| **凸优化** | **多约束同时优化，全局最优** | 计算量大 |</div>
+| 凸优化 | 多约束同时优化，全局最优 | 计算量大 |</div>
         
         
       </div>
@@ -346,20 +346,20 @@ AF(θ,φ) = Σ(n=1 to N) w_n · exp(jk·r_n · [sinθcosφ, sinθsinφ, cosθ])
         
         
         
-        <div class="desc">**凸优化问题的定义**：
+        <div class="desc">凸优化问题的定义：
 
-```
+`
 minimize    f₀(x)        （凸目标函数）
 subject to  fᵢ(x) ≤ bᵢ   （凸不等式约束）
             Ax = c       （线性等式约束）
-```
+`
 
-**关键性质**：任何局部最优解都是全局最优解。
+关键性质：任何局部最优解都是全局最优解。
 
 对于方向图综合，这意味着：
-- 不会陷入局部最优（旁瓣假峰）
-- 可以在同一问题中同时优化多个指标
-- 有成熟的求解器（CVX、MOSEK、SeDuMi）</div>
+不会陷入局部最优（旁瓣假峰）
+可以在同一问题中同时优化多个指标
+有成熟的求解器（CVX、MOSEK、SeDuMi）</div>
         
         
       </div>
@@ -383,27 +383,27 @@ subject to  fᵢ(x) ≤ bᵢ   （凸不等式约束）
         
         
         
-        <div class="desc">**核心思想**：将非凸的二次问题转化为凸的半定规划（SDP）。
+        <div class="desc">核心思想：将非凸的二次问题转化为凸的半定规划（SDP）。
 
 原始问题（非凸）：
-```
+`
 minimize    ||AF(θ) - F_desired(θ)||²
 subject to  |w_n|² ≤ P_max
-```
+`
 
 SDR 变换：
-```
+`
 令 R = wwᴴ    （秩为 1 的半正定矩阵）
 则 w_n·w_m* = R_nm
-```
+`
 
 转化后的 SDP：
-```
+`
 minimize    tr(A₀R) + b₀
 subject to  tr(AᵢR) ≤ bᵢ,  i = 1,...,m
             R ⪰ 0           （R 半正定）
             rank(R) = 1     （非凸，需松弛）
-```
+`
 
 松弛掉 rank(R) = 1 约束后，问题变为凸 SDP，求解后再通过随机化或特征分解恢复 w。</div>
         
@@ -431,23 +431,23 @@ subject to  tr(AᵢR) ≤ bᵢ,  i = 1,...,m
         
         <div class="desc">适合处理范数约束和波束方向图约束：
 
-```
+`
 minimize    t
 subject to  ||w||₂ ≤ P_max
             |AF(θ_null,i)| ≤ ε,  i = 1,...,K    （零陷约束）
             AF(θ_main,j) ≥ G_min,  j = 1,...,M  （主瓣约束）
             PSLL(θ) ≤ SLL_max                     （旁瓣约束）
-```
+`
 
 每个约束都是二阶锥形式：
-```
+`
 ||Ax + b||₂ ≤ cᵀx + d
-```
+`
 
-**优势**：
-- 比 SDP 计算效率高（无矩阵分解）
-- 求解器成熟（CVX + ECOS/SCS）
-- 适合实时波束赋形</div>
+优势：
+比 SDP 计算效率高（无矩阵分解）
+求解器成熟（CVX + ECOS/SCS）
+适合实时波束赋形</div>
         
         
       </div>
@@ -473,14 +473,14 @@ subject to  ||w||₂ ≤ P_max
         
         <div class="desc">最简单的凸优化形式，适合处理绝对值约束：
 
-```
+`
 minimize    Σ_n |w_n|
 subject to  AF(θ_null,i) = 0,  i = 1,...,K
             |AF(θ_sidelobe)| ≤ ε
-```
+`
 
-**优势**：计算最快，适合大规模阵列（N &gt; 1000）。
-**劣势**：表达能力有限，只能处理线性约束。</div>
+优势：计算最快，适合大规模阵列（N &gt; 1000）。
+劣势：表达能力有限，只能处理线性约束。</div>
         
         
       </div>
@@ -506,15 +506,15 @@ subject to  AF(θ_null,i) = 0,  i = 1,...,K
         
         <div class="desc">目标函数为二次型，约束为线性：
 
-```
+`
 minimize    wᴴQw + cᵀw + d
 subject to  Aw ≤ b
-```
+`
 
 适合最小化方向图与期望方向图的均方误差：
-```
+`
 Q = ∫ AF(θ)·AF*(θ) dΩ  （方向图自相关矩阵）
-```</div>
+`</div>
         
         
       </div>
@@ -538,22 +538,22 @@ Q = ∫ AF(θ)·AF*(θ) dΩ  （方向图自相关矩阵）
         
         
         
-        <div class="desc">**问题**：同时压低旁瓣并在干扰方向放置零陷。
+        <div class="desc">问题：同时压低旁瓣并在干扰方向放置零陷。
 
-```
+`
 minimize    max_θ∈SLL |AF(θ)|          （最小化最大旁瓣）
 subject to  AF(θ_interfere,i) = 0,    （零陷约束）
             i = 1,...,K
             |AF(θ_main)| ≥ G_min,     （主瓣增益约束）
             ||w||² ≤ P_max            （功率约束）
-```
+`
 
-**效果**：
-- 旁瓣压低到 -30dB 或更低
-- 零陷深度 -60dB 或更低
-- 主瓣宽度可控
+效果：
+旁瓣压低到 -30dB 或更低
+零陷深度 -60dB 或更低
+主瓣宽度可控
 
-**对比 Chebyshev**：Chebyshev 只能优化旁瓣，零陷需要额外处理（如 Longman 方法），效果不如联合优化。</div>
+对比 Chebyshev：Chebyshev 只能优化旁瓣，零陷需要额外处理（如 Longman 方法），效果不如联合优化。</div>
         
         
       </div>
@@ -573,7 +573,7 @@ subject to  ||w||² ≤ P_max
 
 其中 BW 是 3dB 波束宽度，λ 是权重系数。
 
-**Pareto 前沿**：通过调整 λ，可以得到一系列 (SLL, BW) 的 Pareto 最优解。</code></pre>
+Pareto 前沿：通过调整 λ，可以得到一系列 (SLL, BW) 的 Pareto 最优解。</code></pre>
   </div>
 
     
@@ -595,18 +595,18 @@ subject to  ||w||² ≤ P_max
         
         <div class="desc">实际阵列中，幅相误差不可避免：
 
-```
+`
 w_actual = w_designed + Δw
 Δw ~ CN(0, σ²)
-```
+`
 
 鲁棒优化考虑最坏情况：
 
-```
+`
 minimize    max_{||Δw||≤ε} max_θ∈SLL |AF(θ, w+Δw)|
-```
+`
 
-**效果**：综合出的方向图对幅相误差不敏感，旁瓣在误差存在时仍能保持低位。</div>
+效果：综合出的方向图对幅相误差不敏感，旁瓣在误差存在时仍能保持低位。</div>
         
         
       </div>
@@ -632,10 +632,10 @@ minimize    max_{||Δw||≤ε} max_θ∈SLL |AF(θ, w+Δw)|
         
         <div class="desc">近场波束赋形需要同时优化焦点位置和方向图：
 
-```
+`
 minimize    ||AF_NF(r_focus, θ_focus) - F_desired||²
 subject to  ||w||² ≤ P_max
-```
+`
 
 其中 AF_NF 是近场阵列因子（球面波模型）。</div>
         
@@ -663,10 +663,10 @@ subject to  ||w||² ≤ P_max
         
         <div class="desc">双极化阵列需要同时优化两个极化通道的方向图：
 
-```
+`
 minimize    ||AF_V(θ) - F_V_desired||² + ||AF_H(θ) - F_H_desired||²
 subject to  |w_V,n|² + |w_H,n|² ≤ P_max,n
-```</div>
+`</div>
         
         
       </div>
@@ -811,12 +811,12 @@ w = w_real + 1j*w_imag;
 % 阵列因子
 AF_sll = zeros(length(theta_sll), 1);
 for i = 1:length(theta_sll)
-    AF_sll(i) = sum(w .* exp(1j*2*pi*(0:N-1)*sin(theta_sll(i)*pi/180)));
+    AF_sll(i) = sum(w . exp(1j2pi(0:N-1)sin(theta_sll(i)pi/180)));
 end
 
 AF_null = zeros(length(theta_null), 1);
 for i = 1:length(theta_null)
-    AF_null(i) = sum(w .* exp(1j*2*pi*(0:N-1)*sin(theta_null(i)*pi/180)));
+    AF_null(i) = sum(w . exp(1j2pi(0:N-1)sin(theta_null(i)pi/180)));
 end
 
 % 优化问题
@@ -883,16 +883,16 @@ disp([&#39;Peak SLL: &#39;, num2str(20*log10(cvx_optval), &#39;%.2f&#39;), &#39;
         
         <div class="desc">方向图约束需要在连续角度上定义，但实际只能采样离散点：
 
-```
+`
 θ_sampled = [-90, -89, ..., 90]  （1° 间隔）
-```
+`
 
 如果实际旁瓣峰出现在 0.5° 处，采样点会错过它。
 
-**对策**：
-- 加密采样（0.1° 间隔）
-- 随机采样 + 多次优化
-- 解析约束（不依赖采样）</div>
+对策：
+加密采样（0.1° 间隔）
+随机采样 + 多次优化
+解析约束（不依赖采样）</div>
         
         
       </div>
@@ -918,15 +918,15 @@ disp([&#39;Peak SLL: &#39;, num2str(20*log10(cvx_optval), &#39;%.2f&#39;), &#39;
         
         <div class="desc">SDR 松弛掉 rank(R) = 1 约束后，可能存在松弛间隙（Relaxation Gap）：
 
-```
+`
 R_opt 的特征值：[λ₁, λ₂, ..., λ_N]
 如果 λ₂ &gt;&gt; 0 → 松弛间隙大 → 恢复的 w 质量差
-```
+`
 
-**对策**：
-- 使用随机化方法（Randomized Rounding）
-- 添加秩约束的凸近似
-- 改用 SOCP 形式（天然保证 rank-1）</div>
+对策：
+使用随机化方法（Randomized Rounding）
+添加秩约束的凸近似
+改用 SOCP 形式（天然保证 rank-1）</div>
         
         
       </div>
@@ -952,10 +952,10 @@ R_opt 的特征值：[λ₁, λ₂, ..., λ_N]
         
         <div class="desc">凸优化求解通常需要秒级时间，不适合实时波束赋形：
 
-**对策**：
-- 离线优化 + 在线查找（Codebook 预计算）
-- 热启动（Warm Start）：利用上一次解作为初始值
-- 一阶方法（ADMM）：适合大规模问题，收敛快但精度低</div>
+对策：
+离线优化 + 在线查找（Codebook 预计算）
+热启动（Warm Start）：利用上一次解作为初始值
+一阶方法（ADMM）：适合大规模问题，收敛快但精度低</div>
         
         
       </div>
@@ -981,18 +981,18 @@ R_opt 的特征值：[λ₁, λ₂, ..., λ_N]
         
         <div class="desc">多个约束可能相互矛盾：
 
-```
+`
 约束 1：旁瓣 &lt; -30dB
 约束 2：零陷深度 &lt; -60dB
 约束 3：波束宽度 &lt; 2°
-```
+`
 
 这三个约束可能无法同时满足。
 
-**对策**：
-- 优先级排序：主瓣 &gt; 零陷 &gt; 旁瓣
-- 软约束：将硬性约束改为惩罚项
-- Pareto 优化：找最优折中</div>
+对策：
+优先级排序：主瓣 &gt; 零陷 &gt; 旁瓣
+软约束：将硬性约束改为惩罚项
+Pareto 优化：找最优折中</div>
         
         
       </div>
@@ -1024,14 +1024,14 @@ R_opt 的特征值：[λ₁, λ₂, ..., λ_N]
     
   <div class="block section-text">
     <div class="block-title">八、技术演进</div>
-    <div class="text-body">- **1940s-1950s**：傅里叶变换法、 Woodward-Lawson 法
-- **1950s-1960s**：Dolph-Chebyshev、Taylor 方法建立
-- **1970s-1980s**：Longman 零陷方法、Bernstein 多项式
-- **1990s**：Boyd 等人将凸优化引入天线设计
-- **2000s**：SDR 在波束赋形中的应用
-- **2010s**：SOCP 在实时波束赋形中的应用
-- **2020s**：深度学习辅助凸优化（Learning to Optimize）
-- **2025年**：AI + 凸优化混合方法，端到端可微优化</div>
+    <div class="text-body">1940s-1950s：傅里叶变换法、 Woodward-Lawson 法
+1950s-1960s：Dolph-Chebyshev、Taylor 方法建立
+1970s-1980s：Longman 零陷方法、Bernstein 多项式
+1990s：Boyd 等人将凸优化引入天线设计
+2000s：SDR 在波束赋形中的应用
+2010s：SOCP 在实时波束赋形中的应用
+2020s：深度学习辅助凸优化（Learning to Optimize）
+2025年：AI + 凸优化混合方法，端到端可微优化</div>
   </div>
 
     

@@ -8,6 +8,7 @@
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -23,11 +24,32 @@ RENDERED_DIR = ROOT / "public/kg-cards/rendered"
 KG_FILE = ROOT / "app/_data/knowledge-graph.json"
 
 
+def strip_markdown(text: str) -> str:
+    """Strip common markdown formatting for HTML card rendering."""
+    if not text:
+        return ""
+    # Strip bold/italic markers
+    text = re.sub(r'\*\*(.+?)\*\*', r'\1', text)
+    text = re.sub(r'\*(.+?)\*', r'\1', text)
+    text = re.sub(r'__(.+?)__', r'\1', text)
+    text = re.sub(r'`(.+?)`', r'\1', text)
+    text = re.sub(r'```[\s\S]*?```', '', text)  # code fences
+    text = re.sub(r'^[-*+] ', '', text, flags=re.MULTILINE)  # list bullets
+    text = re.sub(r'^\d+\. ', '', text, flags=re.MULTILINE)  # numbered lists
+    text = text.strip()
+    return text
+
+
 def normalize_node(node: dict) -> dict:
     """把 KG JSON 节点映射成 technology.html 模板需要的字段。"""
     sections = []
     for s in node.get("sections", []):
-        sec = {"title": s.get("title", "")}
+        # 过滤掉 自检清单 等作者元数据
+        title = s.get("title", "")
+        if "自检清单" in title or "TODO" in title or "Checklist" in title:
+            continue
+
+        sec = {"title": strip_markdown(title)}
         level = s.get("level", 2)
         raw = s.get("raw", "") or ""
         content = s.get("content", "") or ""
@@ -40,7 +62,7 @@ def normalize_node(node: dict) -> dict:
             # 代码块 → code 类型
             if raw.strip().startswith("```"):
                 sec["type"] = "code"
-                sec["content"] = raw.strip().replace("```", "").strip()
+                sec["content"] = strip_markdown(raw.strip().replace("```", "").strip())
                 sec["code_language"] = "markdown"
             # 表格 → comparison 类型
             elif "┌" in raw or "│" in raw or "─" in raw:
@@ -48,13 +70,13 @@ def normalize_node(node: dict) -> dict:
                 # 解析 ASCII 表格
                 lines = [l for l in raw.split("\n") if l.strip() and not l.strip().startswith("┌") and not l.strip().startswith("└")]
                 sec["table_headers"] = ["内容"]
-                sec["table_rows"] = [[l.strip()] for l in lines]
+                sec["table_rows"] = [[strip_markdown(l.strip())] for l in lines]
             else:
                 sec["type"] = "list"
-                sec["entries"] = [{"name": sec["title"], "desc": raw}]
+                sec["entries"] = [{"name": sec["title"], "desc": strip_markdown(raw)}]
         else:
             sec["type"] = "text"
-            sec["content"] = raw.strip()
+            sec["content"] = strip_markdown(raw.strip())
 
         sections.append(sec)
 

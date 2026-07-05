@@ -303,9 +303,9 @@
     <div class="block-title">核心痛点</div>
     <div class="text-body">申工最初对AI在天线设计中的应用持怀疑态度，原因有三：
 
-1. **天线性能受环境影响极大**：不仅取决于天线自身结构，还受设备安装载体（车辆/手机等）周围结构和介质变化的影响
-2. **缺乏训练大数据**：天线领域没有像计算机视觉那样海量的标注数据
-3. **非线性映射复杂**：即使通过有限元方法（FEM）求解器获得仿真数据，输入设计变量与输出结果之间呈现高维非线性关系，传统数学建模难以拟合</div>
+天线性能受环境影响极大：不仅取决于天线自身结构，还受设备安装载体（车辆/手机等）周围结构和介质变化的影响
+缺乏训练大数据：天线领域没有像计算机视觉那样海量的标注数据
+非线性映射复杂：即使通过有限元方法（FEM）求解器获得仿真数据，输入设计变量与输出结果之间呈现高维非线性关系，传统数学建模难以拟合</div>
   </div>
 
     
@@ -325,10 +325,10 @@
     
   <div class="block section-text">
     <div class="block-title">关键成果</div>
-    <div class="text-body">- **效率提升**：大幅减少了需要反复运行数百次的CST分析流程
-- **候选设计筛选**：在初始设计阶段即可筛选出高概率满足规格的设计候选方案
-- **开发周期缩短**：将开发lead time缩短了数十倍
-- **小数据集可行性**：证明了即使在有限数据集条件下，也能构建可靠的预测元模型（predictive metamodel）</div>
+    <div class="text-body">效率提升：大幅减少了需要反复运行数百次的CST分析流程
+候选设计筛选：在初始设计阶段即可筛选出高概率满足规格的设计候选方案
+开发周期缩短：将开发lead time缩短了数十倍
+小数据集可行性：证明了即使在有限数据集条件下，也能构建可靠的预测元模型（predictive metamodel）</div>
   </div>
 
     
@@ -362,9 +362,9 @@
     <div class="block-title">核心创新</div>
     <div class="text-body">将传统的&#34;数据湖&#34;（仅存放报告文件）升级为定量数值数据库，且不改变工程师的工作方式：
 
-- 工程师只需上传现有的PPT报告
-- 系统自动提取图表数据并转化为结构化数据库
-- 引入视觉语言模型 **Qwen3-VL** 处理PPT中复杂的表格和对象数据</div>
+工程师只需上传现有的PPT报告
+系统自动提取图表数据并转化为结构化数据库
+引入视觉语言模型 Qwen3-VL 处理PPT中复杂的表格和对象数据</div>
   </div>
 
     
@@ -374,10 +374,10 @@
     
   <div class="block section-text">
     <div class="block-title">四阶段数据提取流程</div>
-    <div class="text-body">1. PPT报告上传（工程师零额外操作）
-2. Qwen3-VL视觉分析提取表格和数值
-3. 数据清洗与结构化
-4. 存入定量数据库</div>
+    <div class="text-body">PPT报告上传（工程师零额外操作）
+Qwen3-VL视觉分析提取表格和数值
+数据清洗与结构化
+存入定量数据库</div>
   </div>
 
     
@@ -387,9 +387,9 @@
     
   <div class="block section-text">
     <div class="block-title">应用场景</div>
-    <div class="text-body">- 异常值分析（outlier analysis）
-- 设计模式分析（design pattern analysis）
-- 趋势分析（trend analysis）</div>
+    <div class="text-body">异常值分析（outlier analysis）
+设计模式分析（design pattern analysis）
+趋势分析（trend analysis）</div>
   </div>
 
     
@@ -408,7 +408,7 @@
 
     
   <div class="block section-text">
-    <div class="block-title">1. 预测模型可以弥补小数据短板</div>
+    <div class="block-title">预测模型可以弥补小数据短板</div>
     <div class="text-body">三星案例证明，即使在天线这种数据稀缺领域，通过仿真数据（CST/FEM）生成训练集，配合合适的ML算法，也能构建可靠的预测元模型。这对我们QMS-BI系统的来料检验数据不足场景有直接参考价值。</div>
   </div>
 
@@ -418,7 +418,7 @@
 
     
   <div class="block section-text">
-    <div class="block-title">2. 仿真自动化是AI落地的第一步</div>
+    <div class="block-title">仿真自动化是AI落地的第一步</div>
     <div class="text-body">申工的PoC项目核心是先构建&#34;分析自动化流程&#34;，再用AI加速。这意味着我们不需要一步到位做端到端的AI系统，可以从仿真脚本自动化开始，逐步引入预测模型。</div>
   </div>
 
@@ -428,7 +428,7 @@
 
     
   <div class="block section-text">
-    <div class="block-title">3. 数据管道比模型本身更重要</div>
+    <div class="block-title">数据管道比模型本身更重要</div>
     <div class="text-body">LG电子的案例表明，最大的瓶颈往往不是算法，而是数据获取。将非结构化报告（PPT/Excel）自动转化为结构化数据库，这一步的价值可能比最终的AI模型更大。</div>
   </div>
 
@@ -438,7 +438,7 @@
 
     
   <div class="block section-text">
-    <div class="block-title">4. 工程师主导的AI pipeline是可持续的</div>
+    <div class="block-title">工程师主导的AI pipeline是可持续的</div>
     <div class="text-body">两个案例都强调&#34;工程师控制AI流水线&#34;而非&#34;AI取代工程师&#34;。这与我们&#34;QMS-BI辅助决策而非替代质检员&#34;的理念一致。</div>
   </div>
 
@@ -489,9 +489,9 @@
         
         
         
-        <div class="desc">- [DigitalToday: Engineering AI applications spread from antenna design to CAE database building](https://www.digitaltoday.co.kr/en/view/64576/engineering-ai-applications-spread-from-antenna-design-to-cae-db-building) (2026-06-11)
-- [TEKsystems: Top Manufacturing Trends in 2026](https://www.teksystems.com/en/insights/article/manufacturing-trends-2026) (2026-05-08)
-- TU Delft: Machine Learning in Pre- and Post-Manufacturing Stages of Active Array Antennas</div>
+        <div class="desc">[DigitalToday: Engineering AI applications spread from antenna design to CAE database building](https://www.digitaltoday.co.kr/en/view/64576/engineering-ai-applications-spread-from-antenna-design-to-cae-db-building) (2026-06-11)
+[TEKsystems: Top Manufacturing Trends in 2026](https://www.teksystems.com/en/insights/article/manufacturing-trends-2026) (2026-05-08)
+TU Delft: Machine Learning in Pre- and Post-Manufacturing Stages of Active Array Antennas</div>
         
         
       </div>

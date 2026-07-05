@@ -267,7 +267,7 @@
     
   <div class="block section-text">
     <div class="block-title">主题概述</div>
-    <div class="text-body">MIT林肯实验室于2026年6月26日发布了一款名为 **HoNi BAJR**（Hosted Nimble Beamforming Anti-Jam Reflectarray）的扫描反射面天线原型。专为pLEO（ proliferated Low Earth Orbit，大规模低轨卫星星座）环境设计，核心目标是：**在极低功耗条件下实现抗干扰战术卫星通信**。关键指标——相比传统相控阵天线降低约95%功耗，且尺寸可适配典型小型卫星平台。</div>
+    <div class="text-body">MIT林肯实验室于2026年6月26日发布了一款名为 HoNi BAJR（Hosted Nimble Beamforming Anti-Jam Reflectarray）的扫描反射面天线原型。专为pLEO（ proliferated Low Earth Orbit，大规模低轨卫星星座）环境设计，核心目标是：在极低功耗条件下实现抗干扰战术卫星通信。关键指标——相比传统相控阵天线降低约95%功耗，且尺寸可适配典型小型卫星平台。</div>
   </div>
 
     
@@ -277,22 +277,22 @@
     
   <div class="block section-text">
     <div class="block-title">核心技术/原理</div>
-    <div class="text-body">**反射面天线（Reflectarray）vs 相控阵（Phased Array）**
+    <div class="text-body">反射面天线（Reflectarray）vs 相控阵（Phased Array）
 
 传统相控阵的每个天线单元后面都需要一个独立的功率放大器（PA），单元越多、功耗越大。HoNi BAJR采用的是反射面架构：
 
-- 天线表面由大量可独立控制的反射单元组成
-- 信号到达反射面后，各单元通过调节相位偏移来控制波束形成
-- **所有信号最终汇聚到一个馈源天线（feed antenna）**，由这个单一馈源完成信号的放大和组合
-- 不需要每个单元后面都放放大器，大幅降低SWaP（尺寸、重量、功耗）
+天线表面由大量可独立控制的反射单元组成
+信号到达反射面后，各单元通过调节相位偏移来控制波束形成
+所有信号最终汇聚到一个馈源天线（feed antenna），由这个单一馈源完成信号的放大和组合
+不需要每个单元后面都放放大器，大幅降低SWaP（尺寸、重量、功耗）
 
-**抗干扰机制**
+抗干扰机制
 
-- **旁瓣抑制**：传统相控阵通过&#34;零点形成&#34;（null steering）对抗干扰——在干扰方向上形成信号零点。但HoNi BAJR面对的是pLEO环境中大量快速变化的干扰源，来不及逐个对准。解决方案：通过整形波束旁瓣来创建&#34;干扰抑制区域&#34;，而不是针对单个干扰点。
-- **自适应波束赋形**：基于DESRa（可展开电子扫描反射面）和PhAB（模拟相位波束赋形）两个内部研发项目的技术积累，能够在实时信号环境中适应干扰。
-- **多峰值波束合成**：可将波束分裂为多个峰值，同时服务多个用户而不损失信息。
+旁瓣抑制：传统相控阵通过&#34;零点形成&#34;（null steering）对抗干扰——在干扰方向上形成信号零点。但HoNi BAJR面对的是pLEO环境中大量快速变化的干扰源，来不及逐个对准。解决方案：通过整形波束旁瓣来创建&#34;干扰抑制区域&#34;，而不是针对单个干扰点。
+自适应波束赋形：基于DESRa（可展开电子扫描反射面）和PhAB（模拟相位波束赋形）两个内部研发项目的技术积累，能够在实时信号环境中适应干扰。
+多峰值波束合成：可将波束分裂为多个峰值，同时服务多个用户而不损失信息。
 
-**关键性能**
+关键性能
 
 | 指标 | 数值 |
 |------|------|
@@ -310,17 +310,17 @@
     
   <div class="block section-text">
     <div class="block-title">行业应用</div>
-    <div class="text-body">**核心应用场景**：
+    <div class="text-body">核心应用场景：
 
-1. **战术卫星通信**：军事/政府场景下，低轨卫星需要在强干扰环境中保持可靠通信链路
-2. **pLEO星座**：Starlink、OneWeb等大规模星座中的卫星之间或卫星与地面之间的抗干扰通信
-3. **边缘覆盖**：适合低功率用户终端，在 proliferation jamming（大规模干扰）环境下仍能工作
+战术卫星通信：军事/政府场景下，低轨卫星需要在强干扰环境中保持可靠通信链路
+pLEO星座：Starlink、OneWeb等大规模星座中的卫星之间或卫星与地面之间的抗干扰通信
+边缘覆盖：适合低功率用户终端，在 proliferation jamming（大规模干扰）环境下仍能工作
 
-**与现有方案的差异**：
+与现有方案的差异：
 
-- 相比传统相控阵：功耗降低95%，但波束切换速度较慢（反射面调节 vs 电子切换）
-- 相比PARSA（可展开反射面天线）：HoNi BAJR更紧凑，专为小型卫星平台优化
-- 适合&#34;计划性通信场景&#34;（scheduled communication），不太适合需要毫秒级波束切换的动态场景</div>
+相比传统相控阵：功耗降低95%，但波束切换速度较慢（反射面调节 vs 电子切换）
+相比PARSA（可展开反射面天线）：HoNi BAJR更紧凑，专为小型卫星平台优化
+适合&#34;计划性通信场景&#34;（scheduled communication），不太适合需要毫秒级波束切换的动态场景</div>
   </div>
 
     
@@ -346,15 +346,15 @@
     
   <div class="block section-text">
     <div class="block-title">趋势判断</div>
-    <div class="text-body">**1. 反射面天线在卫星通信中的复兴**
+    <div class="text-body">反射面天线在卫星通信中的复兴
 
 反射面天线并非新技术（二战时期就有），但在卫星通信领域，随着pLEO星座对SWaC的极致追求，反射面架构重新获得关注。HoNi BAJR证明了它在抗干扰场景下的可行性。未来可能在小型卫星/立方星领域成为主流方案。
 
-**2. 抗干扰从&#34;点对点&#34;到&#34;区域化&#34;**
+抗干扰从&#34;点对点&#34;到&#34;区域化&#34;
 
 传统相控阵的抗干扰方式是逐个干扰源形成零点（null steering），这在干扰源少的场景有效。但pLEO环境中的干扰可能是大规模、快速变化的。HoNi BAJR的&#34;区域抑制&#34;思路——通过旁瓣整形创建干扰抑制区——更适合这种场景。这是一个重要的方法论转变。
 
-**3. 95%功耗降低意味着什么**
+95%功耗降低意味着什么
 
 对于卫星来说，功耗直接决定了太阳能板面积、散热需求和有效载荷空间。95%的功耗降低意味着：同样大小的卫星可以搭载更多功能载荷，或者用更小的卫星平台实现同等通信能力。这对降低发射成本有直接贡献。</div>
   </div>
@@ -366,9 +366,9 @@
     
   <div class="block section-text">
     <div class="block-title">与老大的关联</div>
-    <div class="text-body">1. **卫星通信天线技术追踪**：HoNi BAJR代表了卫星天线的一条差异化技术路线——反射面 vs 相控阵。中兴在卫星通信领域如果有布局，这个方向值得持续关注。
-2. **与银河航天的对比**：银河航天走的是相控阵+ASIC路线（功耗降20%），MIT走的是反射面路线（功耗降95%）。两条路线各有优劣，反映的是不同的工程权衡。
-3. **MWC上海2026的延伸**：MWC上海发布的银河航天、华为方案都是地面/近地场景，HoNi BAJR则是太空场景的抗干扰方案，三者共同勾勒出6G空天地一体化的天线技术版图。</div>
+    <div class="text-body">卫星通信天线技术追踪：HoNi BAJR代表了卫星天线的一条差异化技术路线——反射面 vs 相控阵。中兴在卫星通信领域如果有布局，这个方向值得持续关注。
+与银河航天的对比：银河航天走的是相控阵+ASIC路线（功耗降20%），MIT走的是反射面路线（功耗降95%）。两条路线各有优劣，反映的是不同的工程权衡。
+MWC上海2026的延伸：MWC上海发布的银河航天、华为方案都是地面/近地场景，HoNi BAJR则是太空场景的抗干扰方案，三者共同勾勒出6G空天地一体化的天线技术版图。</div>
   </div>
 
     
@@ -378,10 +378,10 @@
     
   <div class="block section-text">
     <div class="block-title">参考资料</div>
-    <div class="text-body">- [Antenna array could provide protected tactical satellite communications in low-Earth orbit](https://news.mit.edu/2026/antenna-array-could-provide-protected-tactical-satellite-communications-low-earth-orbit-0626), MIT News, 2026-06-26
-- [MIT Antenna Enhances Secure Satellite Communications](https://modernmechanics24.com/post/mit-anti-jam-satellite-antenna-system/), Modern Mechanics, 2026
-- [New satellite antenna counters jamming while using 95% less power](https://interestingengineering.com/military/reflectarray-satellite-antenna-jamming), Interesting Engineering, 2026-06-08
-- [Prototype Reflectarray Antenna Demonstrates Low-SWaP Anti-Jam Tactical SATCOM](https://www.mobilityengineeringtech.com/component/content/article/55361-prototype-reflectarray-antenna-demonstrates-low-swap-anti-jam-tactical-satcom), Mobility Engineering Tech</div>
+    <div class="text-body">[Antenna array could provide protected tactical satellite communications in low-Earth orbit](https://news.mit.edu/2026/antenna-array-could-provide-protected-tactical-satellite-communications-low-earth-orbit-0626), MIT News, 2026-06-26
+[MIT Antenna Enhances Secure Satellite Communications](https://modernmechanics24.com/post/mit-anti-jam-satellite-antenna-system/), Modern Mechanics, 2026
+[New satellite antenna counters jamming while using 95% less power](https://interestingengineering.com/military/reflectarray-satellite-antenna-jamming), Interesting Engineering, 2026-06-08
+[Prototype Reflectarray Antenna Demonstrates Low-SWaP Anti-Jam Tactical SATCOM](https://www.mobilityengineeringtech.com/component/content/article/55361-prototype-reflectarray-antenna-demonstrates-low-swap-anti-jam-tactical-satcom), Mobility Engineering Tech</div>
   </div>
 
     
