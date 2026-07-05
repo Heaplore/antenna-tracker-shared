@@ -29,6 +29,13 @@ jobs:
       - name: Build static site
         run: npm run export
 
+      - name: Copy static HTML assets to out/
+        run: |
+          echo "Copying public/kg-cards-rendered/ to out/kg-cards-rendered/..."
+          mkdir -p out/kg-cards-rendered
+          cp -r public/kg-cards-rendered/* out/kg-cards-rendered/
+          echo "Copied $(ls out/kg-cards-rendered/ | wc -l) HTML files"
+
       - name: Configure coscmd
         run: |
           pip install coscmd
