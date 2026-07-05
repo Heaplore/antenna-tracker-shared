@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -343,41 +343,69 @@ S/N = 信噪比
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.2 空间分集（Spatial Diversity）—— 稳</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>类型</th><th>实现方式</th><th>典型增益</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.2 空间分集（Spatial Diversity）—— 稳</div>
+        <tr>
+          
+          <td>空间分集</td>
+          
+          <td>多根天线不同位置</td>
+          
+          <td>3-6dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化分集</td>
+          
+          <td>±45° 双极化</td>
+          
+          <td>20-30% 速率提升</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>角度分集</td>
+          
+          <td>不同到达角</td>
+          
+          <td>2-4dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>时间分集</td>
+          
+          <td>重传机制</td>
+          
+          <td>1-3dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>频率分集</td>
+          
+          <td>不同频点</td>
+          
+          <td>1-2dB</td>
+          
+        </tr>
         
-        <div class="desc">原理：同一份数据通过多根天线发送（或同一信号被多根天线接收），利用多径传播中不同路径衰落的独立性，确保至少有一条路径信号质量好。
-
-类比：多条路送同一封信，只要有一条路没堵车，信就到了。
-
-效果：
-误码率降低：分集阶数为 N 时，误码率下降约 N 倍
-覆盖范围扩大：同等误码率下，覆盖半径可增加 20-30%
-抗衰落能力提升：瑞利衰落信道中，多径分集是唯一的抗衰落手段
-
-分集类型：
-| 类型 | 实现方式 | 典型增益 |
-|------|---------|---------|
-| 空间分集 | 多根天线不同位置 | 3-6dB |
-| 极化分集 | ±45° 双极化 | 20-30% 速率提升 |
-| 角度分集 | 不同到达角 | 2-4dB |
-| 时间分集 | 重传机制 | 1-3dB |
-| 频率分集 | 不同频点 | 1-2dB |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -508,61 +536,124 @@ S/N = 信噪比
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.1 天线端口（Antenna Ports）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>端口号范围</th><th>用途</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.1 天线端口（Antenna Ports）</div>
+        <tr>
+          
+          <td>0-3</td>
+          
+          <td>PSS/SSS</td>
+          
+          <td>同步信号</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>4</td>
+          
+          <td>PBCH DM-RS</td>
+          
+          <td>广播信道解调参考信号</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>0-11</td>
+          
+          <td>PDSCH DM-RS</td>
+          
+          <td>物理下行共享信道解调参考信号</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>15-22</td>
+          
+          <td>CSI-RS</td>
+          
+          <td>信道状态信息参考信号</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>3000+</td>
+          
+          <td>Type II PMI</td>
+          
+          <td>高精度 CSI 反馈</td>
+          
+        </tr>
         
-        <div class="desc">5G NR 定义了多种天线端口，用于不同目的的参考信号传输：
-
-| 端口号范围 | 用途 | 说明 |
-|-----------|------|------|
-| 0-3 | PSS/SSS | 同步信号 |
-| 4 | PBCH DM-RS | 广播信道解调参考信号 |
-| 0-11 | PDSCH DM-RS | 物理下行共享信道解调参考信号 |
-| 15-22 | CSI-RS | 信道状态信息参考信号 |
-| 3000+ | Type II PMI | 高精度 CSI 反馈 |
-
-关键概念：天线端口不是物理天线，而是逻辑端口。一个端口可以对应多根物理天线通过波束赋形形成的&#34;虚拟天线&#34;。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">关键概念：天线端口不是物理天线，而是逻辑端口。一个端口可以对应多根物理天线通过波束赋形形成的&#34;虚拟天线&#34;。</div>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.2 RI / PMI / CQI 反馈三角</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>参数</th><th>全称</th><th>含义</th><th>反馈周期</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.2 RI / PMI / CQI 反馈三角</div>
+        <tr>
+          
+          <td>RI</td>
+          
+          <td>Rank Indicator</td>
+          
+          <td>信道秩（可并行的空间流数）</td>
+          
+          <td>10-160ms</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>PMI</td>
+          
+          <td>Precoding Matrix Indicator</td>
+          
+          <td>预编码矩阵指示</td>
+          
+          <td>与 RI 同步</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>CQI</td>
+          
+          <td>Channel Quality Indicator</td>
+          
+          <td>信道质量指示（推荐调制编码）</td>
+          
+          <td>5-80ms</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">UE 需要向基站上报三个关键参数：
-
-| 参数 | 全称 | 含义 | 反馈周期 |
-|------|------|------|---------|
-| RI | Rank Indicator | 信道秩（可并行的空间流数） | 10-160ms |
-| PMI | Precoding Matrix Indicator | 预编码矩阵指示 | 与 RI 同步 |
-| CQI | Channel Quality Indicator | 信道质量指示（推荐调制编码） | 5-80ms |
-
-反馈流程：
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">反馈流程：
 `
 基站发送 CSI-RS（参考信号）
 UE 测量信道矩阵 H
@@ -572,99 +663,176 @@ UE 计算 CQI（基于选定的 PMI）
 UE 上报 RI/PMI/CQI 给基站
 基站根据反馈选择波束赋形权重和数据流数
 `</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.3 码本类型（Codebook）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>码本类型</th><th>特点</th><th>开销</th><th>精度</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.3 码本类型（Codebook）</div>
+        <tr>
+          
+          <td>Type I</td>
+          
+          <td>粗粒度，单面板</td>
+          
+          <td>低</td>
+          
+          <td>一般</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Type I Multi-Panel</td>
+          
+          <td>多面板扩展</td>
+          
+          <td>中</td>
+          
+          <td>较好</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Type II</td>
+          
+          <td>精细粒度，线性组合</td>
+          
+          <td>高</td>
+          
+          <td>优秀</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Type II Port Selection</td>
+          
+          <td>端口选择 + 线性组合</td>
+          
+          <td>中高</td>
+          
+          <td>优秀</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Enhanced Type II</td>
+          
+          <td>Rel-16 增强</td>
+          
+          <td>高</td>
+          
+          <td>最佳</td>
+          
+        </tr>
         
-        <div class="desc">3GPP TS 38.214 定义了多种码本：
-
-| 码本类型 | 特点 | 开销 | 精度 |
-|---------|------|------|------|
-| Type I | 粗粒度，单面板 | 低 | 一般 |
-| Type I Multi-Panel | 多面板扩展 | 中 | 较好 |
-| Type II | 精细粒度，线性组合 | 高 | 优秀 |
-| Type II Port Selection | 端口选择 + 线性组合 | 中高 | 优秀 |
-| Enhanced Type II | Rel-16 增强 | 高 | 最佳 |
-
-Type II 码本：
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">Type II 码本：
 支持子带振幅和相位反馈
 精度比 Type I 高 30-50%
 反馈开销大 3-5 倍
 适合高速移动场景和毫米波频段
-
 Rel-19 新增：
 Predicted PMI（预测 PMI）：基于历史 CSI 预测未来信道
 CJT（Coordinated Multi-Point Joint Transmission）：多点联合传输</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.4 SU-MIMO vs MU-MIMO</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>维度</th><th>SU-MIMO</th><th>MU-MIMO</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.4 SU-MIMO vs MU-MIMO</div>
+        <tr>
+          
+          <td>服务对象</td>
+          
+          <td>单用户</td>
+          
+          <td>多用户</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>空间流数</td>
+          
+          <td>≤ min(Nt, Nr)</td>
+          
+          <td>各用户共享频谱</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>干扰管理</td>
+          
+          <td>无</td>
+          
+          <td>需要预编码消除用户间干扰</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>典型配置</td>
+          
+          <td>4×4, 8×8</td>
+          
+          <td>64T64R 服务 8-16 用户</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>复杂度</td>
+          
+          <td>低</td>
+          
+          <td>高</td>
+          
+        </tr>
         
-        <div class="desc">| 维度 | SU-MIMO | MU-MIMO |
-|------|---------|---------|
-| 服务对象 | 单用户 | 多用户 |
-| 空间流数 | ≤ min(Nt, Nr) | 各用户共享频谱 |
-| 干扰管理 | 无 | 需要预编码消除用户间干扰 |
-| 典型配置 | 4×4, 8×8 | 64T64R 服务 8-16 用户 |
-| 复杂度 | 低 | 高 |
-
-MU-MIMO 的核心挑战：如何在同一频率、同一时间服务多个用户，同时消除用户间干扰。
-
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">MU-MIMO 的核心挑战：如何在同一频率、同一时间服务多个用户，同时消除用户间干扰。
 解决方案：预编码（Precoding）。基站根据各用户的 CSI，计算预编码矩阵 W，使得：
 `
 y_k = h_k^T W s + n_k
 `
 其中 h_k 是用户 k 的信道向量，W 的第 k 列与 h_j (j≠k) 正交，从而实现用户间干扰消除。
-
 常用预编码算法：
 ZF（Zero-Forcing）：完全消除干扰，但放大噪声
 MMSE（Minimum Mean Square Error）：折中干扰和噪声
 RZF（Regularized ZF）：正则化 ZF，5G Massive MIMO 推荐算法
-
 ---</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -698,30 +866,59 @@ RZF（Regularized ZF）：正则化 ZF，5G Massive MIMO 推荐算法
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.2 降低相关性的方法</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>方法</th><th>原理</th><th>效果</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.2 降低相关性的方法</div>
+        <tr>
+          
+          <td>增大天线间距</td>
+          
+          <td>空间采样更丰富</td>
+          
+          <td>间距 &gt; 0.5λ 时相关性显著下降</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化分集</td>
+          
+          <td>±45° 双极化天线</td>
+          
+          <td>相关性从 0.9 降到 0.5-0.7</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>多径丰富环境</td>
+          
+          <td>城市/室内多反射</td>
+          
+          <td>自然降低相关性</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>均匀矩形阵列（URA）</td>
+          
+          <td>二维排列而非一维</td>
+          
+          <td>比 ULA 相关性低 20-30%</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 方法 | 原理 | 效果 |
-|------|------|------|
-| 增大天线间距 | 空间采样更丰富 | 间距 &gt; 0.5λ 时相关性显著下降 |
-| 极化分集 | ±45° 双极化天线 | 相关性从 0.9 降到 0.5-0.7 |
-| 多径丰富环境 | 城市/室内多反射 | 自然降低相关性 |
-| 均匀矩形阵列（URA） | 二维排列而非一维 | 比 ULA 相关性低 20-30% |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -908,29 +1105,61 @@ RIS 是无源的，不能主动发射信号，只能反射
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">8.1 从 Massive 到 Ultra-Massive</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>代际</th><th>天线规模</th><th>孔径</th><th>波束宽度</th><th>同时用户数</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">8.1 从 Massive 到 Ultra-Massive</div>
+        <tr>
+          
+          <td>4G</td>
+          
+          <td>4-8</td>
+          
+          <td>&lt; 0.5m</td>
+          
+          <td>&gt; 30°</td>
+          
+          <td>1-2</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>5G</td>
+          
+          <td>64-128</td>
+          
+          <td>1-2m</td>
+          
+          <td>5-10°</td>
+          
+          <td>8-16</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>6G</td>
+          
+          <td>256-1024+</td>
+          
+          <td>5-10m</td>
+          
+          <td>&lt; 1°</td>
+          
+          <td>16-32+</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 代际 | 天线规模 | 孔径 | 波束宽度 | 同时用户数 |
-|------|---------|------|---------|----------|
-| 4G | 4-8 | &lt; 0.5m | &gt; 30° | 1-2 |
-| 5G | 64-128 | 1-2m | 5-10° | 8-16 |
-| 6G | 256-1024+ | 5-10m | &lt; 1° | 16-32+ |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

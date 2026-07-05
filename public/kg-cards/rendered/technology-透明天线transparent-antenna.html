@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,32 +269,115 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.1 材料对比</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>材料</th><th>光学透明度</th><th>方块电阻</th><th>柔性</th><th>成本</th><th>成熟度</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.1 材料对比</div>
+        <tr>
+          
+          <td>ITO（氧化铟锡）</td>
+          
+          <td>85-90%</td>
+          
+          <td>10-100Ω/□</td>
+          
+          <td>脆</td>
+          
+          <td>高</td>
+          
+          <td>成熟</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>石墨烯</td>
+          
+          <td>97.7%</td>
+          
+          <td>30-200Ω/□</td>
+          
+          <td>极好</td>
+          
+          <td>很高</td>
+          
+          <td>实验室</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>银纳米线</td>
+          
+          <td>85-92%</td>
+          
+          <td>5-50Ω/□</td>
+          
+          <td>好</td>
+          
+          <td>中</td>
+          
+          <td>原型</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>导电聚合物（PEDOT:PSS）</td>
+          
+          <td>70-85%</td>
+          
+          <td>100-1000Ω/□</td>
+          
+          <td>极好</td>
+          
+          <td>低</td>
+          
+          <td>原型</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>金属网格（Ag Mesh）</td>
+          
+          <td>80-90%</td>
+          
+          <td>1-10Ω/□</td>
+          
+          <td>好</td>
+          
+          <td>中</td>
+          
+          <td>商用过渡</td>
+          
+        </tr>
         
-        <div class="desc">| 材料 | 光学透明度 | 方块电阻 | 柔性 | 成本 | 成熟度 |
-|------|----------|---------|------|------|--------|
-| ITO（氧化铟锡） | 85-90% | 10-100Ω/□ | 脆 | 高 | 成熟 |
-| 石墨烯 | 97.7% | 30-200Ω/□ | 极好 | 很高 | 实验室 |
-| 银纳米线 | 85-92% | 5-50Ω/□ | 好 | 中 | 原型 |
-| 导电聚合物（PEDOT:PSS） | 70-85% | 100-1000Ω/□ | 极好 | 低 | 原型 |
-| 金属网格（Ag Mesh） | 80-90% | 1-10Ω/□ | 好 | 中 | 商用过渡 |
-| IZO/IZO/Al-ZnO | 80-90% | 20-200Ω/□ | 脆 | 中 | 原型 |</div>
+        <tr>
+          
+          <td>IZO/IZO/Al-ZnO</td>
+          
+          <td>80-90%</td>
+          
+          <td>20-200Ω/□</td>
+          
+          <td>脆</td>
+          
+          <td>中</td>
+          
+          <td>原型</td>
+          
+        </tr>
         
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -768,42 +851,79 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 透明度 vs 电导率</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>透明度</th><th>方块电阻</th><th>增益损失</th><th>适用场景</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 透明度 vs 电导率</div>
+        <tr>
+          
+          <td>95%</td>
+          
+          <td>200Ω/□</td>
+          
+          <td>-3dB</td>
+          
+          <td>装饰性 WiFi</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>90%</td>
+          
+          <td>50Ω/□</td>
+          
+          <td>-1.5dB</td>
+          
+          <td>车载天线</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>85%</td>
+          
+          <td>20Ω/□</td>
+          
+          <td>-0.5dB</td>
+          
+          <td>5G 手机屏幕</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>80%</td>
+          
+          <td>10Ω/□</td>
+          
+          <td>0dB</td>
+          
+          <td>高性能场景</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>&lt; 70%</td>
+          
+          <td>&lt; 5Ω/□</td>
+          
+          <td>无</td>
+          
+          <td>不再&#34;透明&#34;</td>
+          
+        </tr>
         
-        <div class="desc">这是透明天线设计的核心矛盾：
-
-`
-透明度 T ≈ 1 - σ·d
-电导率 σ_cond ∝ n·e·μ ∝ (1-T)
-`
-
-其中 d 是厚度，n 是载流子浓度。
-
-透明度-增益权衡：
-
-| 透明度 | 方块电阻 | 增益损失 | 适用场景 |
-|--------|---------|---------|---------|
-| 95% | 200Ω/□ | -3dB | 装饰性 WiFi |
-| 90% | 50Ω/□ | -1.5dB | 车载天线 |
-| 85% | 20Ω/□ | -0.5dB | 5G 手机屏幕 |
-| 80% | 10Ω/□ | 0dB | 高性能场景 |
-| &lt; 70% | &lt; 5Ω/□ | 无 | 不再&#34;透明&#34; |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -975,31 +1095,69 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.1 关键设计参数</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>参数</th><th>典型值</th><th>影响</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.1 关键设计参数</div>
+        <tr>
+          
+          <td>贴片尺寸</td>
+          
+          <td>λ/2 ≈ 5-15mm（Sub-6GHz）</td>
+          
+          <td>谐振频率</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>基板厚度</td>
+          
+          <td>0.5-3mm（玻璃）</td>
+          
+          <td>阻抗、带宽</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>透明材料方块电阻</td>
+          
+          <td>10-200Ω/□</td>
+          
+          <td>效率、带宽</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>馈电方式</td>
+          
+          <td>微带线/探针/耦合</td>
+          
+          <td>匹配、透明度</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化</td>
+          
+          <td>线极化（最常见）</td>
+          
+          <td>方向图</td>
+          
+        </tr>
         
-        <div class="desc">| 参数 | 典型值 | 影响 |
-|------|--------|------|
-| 贴片尺寸 | λ/2 ≈ 5-15mm（Sub-6GHz） | 谐振频率 |
-| 基板厚度 | 0.5-3mm（玻璃） | 阻抗、带宽 |
-| 透明材料方块电阻 | 10-200Ω/□ | 效率、带宽 |
-| 馈电方式 | 微带线/探针/耦合 | 匹配、透明度 |
-| 极化 | 线极化（最常见） | 方向图 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

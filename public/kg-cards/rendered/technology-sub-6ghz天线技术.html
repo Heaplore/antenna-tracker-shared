@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -294,31 +294,89 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.2 频段对比</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>频段</th><th>波长</th><th>覆盖半径</th><th>单载波带宽</th><th>典型增益</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.2 频段对比</div>
+        <tr>
+          
+          <td>700MHz</td>
+          
+          <td>429mm</td>
+          
+          <td>8-10km</td>
+          
+          <td>20MHz</td>
+          
+          <td>15-17dBi</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>2.6GHz</td>
+          
+          <td>115mm</td>
+          
+          <td>2-3km</td>
+          
+          <td>100MHz</td>
+          
+          <td>17-19dBi</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>3.5GHz</td>
+          
+          <td>86mm</td>
+          
+          <td>1-2km</td>
+          
+          <td>100MHz</td>
+          
+          <td>20-22dBi</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>4.9GHz</td>
+          
+          <td>61mm</td>
+          
+          <td>0.8-1km</td>
+          
+          <td>100MHz</td>
+          
+          <td>20-22dBi</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>6.5GHz</td>
+          
+          <td>46mm</td>
+          
+          <td>1km</td>
+          
+          <td>400MHz</td>
+          
+          <td>22-24dBi</td>
+          
+        </tr>
         
-        <div class="desc">| 频段 | 波长 | 覆盖半径 | 单载波带宽 | 典型增益 |
-|------|------|---------|-----------|---------|
-| 700MHz | 429mm | 8-10km | 20MHz | 15-17dBi |
-| 2.6GHz | 115mm | 2-3km | 100MHz | 17-19dBi |
-| 3.5GHz | 86mm | 1-2km | 100MHz | 20-22dBi |
-| 4.9GHz | 61mm | 0.8-1km | 100MHz | 20-22dBi |
-| 6.5GHz | 46mm | 1km | 400MHz | 22-24dBi |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

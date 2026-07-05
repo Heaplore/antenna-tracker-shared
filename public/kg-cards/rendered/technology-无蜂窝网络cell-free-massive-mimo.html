@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -304,30 +304,51 @@ Cell-Free Massive MIMO：
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.3 关键组件</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>组件</th><th>功能</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.3 关键组件</div>
+        <tr>
+          
+          <td>AP（Access Point）</td>
+          
+          <td>分布式天线单元（4-16 天线）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>CPU（Central Processing Unit）</td>
+          
+          <td>集中处理波束赋形和信号合并</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>前传链路</td>
+          
+          <td>连接 AP 和 CPU（光纤）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>用户设备</td>
+          
+          <td>普通手机/终端</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 组件 | 功能 |
-|------|------|
-| AP（Access Point） | 分布式天线单元（4-16 天线） |
-| CPU（Central Processing Unit） | 集中处理波束赋形和信号合并 |
-| 前传链路 | 连接 AP 和 CPU（光纤） |
-| 用户设备 | 普通手机/终端 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

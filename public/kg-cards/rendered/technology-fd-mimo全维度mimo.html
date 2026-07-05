@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -413,30 +413,83 @@ Rel-17/18（5G-A）：
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.2 典型配置</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>配置</th><th>天线数</th><th>射频链路</th><th>垂直单元</th><th>水平单元</th><th>典型场景</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.2 典型配置</div>
+        <tr>
+          
+          <td>8T8R</td>
+          
+          <td>16</td>
+          
+          <td>8</td>
+          
+          <td>2</td>
+          
+          <td>4</td>
+          
+          <td>热点覆盖</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>32T32R</td>
+          
+          <td>64</td>
+          
+          <td>32</td>
+          
+          <td>4</td>
+          
+          <td>4</td>
+          
+          <td>城市宏站</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>64T64R</td>
+          
+          <td>128</td>
+          
+          <td>64</td>
+          
+          <td>8</td>
+          
+          <td>4</td>
+          
+          <td>主流宏站</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>128T128R</td>
+          
+          <td>256</td>
+          
+          <td>128</td>
+          
+          <td>16</td>
+          
+          <td>8</td>
+          
+          <td>容量热点</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 配置 | 天线数 | 射频链路 | 垂直单元 | 水平单元 | 典型场景 |
-|------|--------|---------|---------|---------|---------|
-| 8T8R | 16 | 8 | 2 | 4 | 热点覆盖 |
-| 32T32R | 64 | 32 | 4 | 4 | 城市宏站 |
-| 64T64R | 128 | 64 | 8 | 4 | 主流宏站 |
-| 128T128R | 256 | 128 | 16 | 8 | 容量热点 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

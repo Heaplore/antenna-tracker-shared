@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -509,42 +509,67 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.3 阶梯折射率透镜（Stepped-Index）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>层数</th><th>增益损失</th><th>扫描角误差</th><th>制造难度</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.3 阶梯折射率透镜（Stepped-Index）</div>
+        <tr>
+          
+          <td>3</td>
+          
+          <td>-2dB</td>
+          
+          <td>±5°</td>
+          
+          <td>低</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>5</td>
+          
+          <td>-0.5dB</td>
+          
+          <td>±2°</td>
+          
+          <td>中</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>10</td>
+          
+          <td>-0.1dB</td>
+          
+          <td>±0.5°</td>
+          
+          <td>高</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>∞（理想）</td>
+          
+          <td>0</td>
+          
+          <td>0</td>
+          
+          <td>不可能</td>
+          
+        </tr>
         
-        
-        <div class="desc">理想 ε_r(r) 是连续函数，实际用多层球壳近似：
-
-`
-Layer 1 (core):    ε_r = 1.95
-Layer 2:           ε_r = 1.80
-Layer 3:           ε_r = 1.55
-Layer 4:           ε_r = 1.30
-Layer 5 (surface): ε_r = 1.05
-`
-
-层数 vs 性能：
-
-| 层数 | 增益损失 | 扫描角误差 | 制造难度 |
-|------|---------|----------|---------|
-| 3 | -2dB | ±5° | 低 |
-| 5 | -0.5dB | ±2° | 中 |
-| 10 | -0.1dB | ±0.5° | 高 |
-| ∞（理想） | 0 | 0 | 不可能 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -839,31 +864,89 @@ Ku/Ka 波段（12-40GHz）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.1 材料选择</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>材料</th><th>ε_r (core)</th><th>密度</th><th>成本</th><th>适用频段</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.1 材料选择</div>
+        <tr>
+          
+          <td>聚苯乙烯泡沫</td>
+          
+          <td>1.05</td>
+          
+          <td>极低</td>
+          
+          <td>低</td>
+          
+          <td>UHF/VHF</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>PVC 泡沫</td>
+          
+          <td>1.5-2.5</td>
+          
+          <td>低</td>
+          
+          <td>低</td>
+          
+          <td>L/S/C 波段</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>陶瓷粉末复合材料</td>
+          
+          <td>1.5-2.0</td>
+          
+          <td>中</td>
+          
+          <td>中</td>
+          
+          <td>X/Ka 波段</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>3D 打印梯度材料</td>
+          
+          <td>可调</td>
+          
+          <td>中</td>
+          
+          <td>高</td>
+          
+          <td>毫米波</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>超材料/超表面</td>
+          
+          <td>可调</td>
+          
+          <td>低</td>
+          
+          <td>很高</td>
+          
+          <td>毫米波/THz</td>
+          
+        </tr>
         
-        <div class="desc">| 材料 | ε_r (core) | 密度 | 成本 | 适用频段 |
-|------|-----------|------|------|---------|
-| 聚苯乙烯泡沫 | 1.05 | 极低 | 低 | UHF/VHF |
-| PVC 泡沫 | 1.5-2.5 | 低 | 低 | L/S/C 波段 |
-| 陶瓷粉末复合材料 | 1.5-2.0 | 中 | 中 | X/Ka 波段 |
-| 3D 打印梯度材料 | 可调 | 中 | 高 | 毫米波 |
-| 超材料/超表面 | 可调 | 低 | 很高 | 毫米波/THz |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -901,32 +984,67 @@ Ku/Ka 波段（12-40GHz）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.3 馈源设计</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>馈源类型</th><th>带宽</th><th>增益</th><th>适用场景</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.3 馈源设计</div>
+        <tr>
+          
+          <td>角锥喇叭</td>
+          
+          <td>1-2oct</td>
+          
+          <td>8-12dBi</td>
+          
+          <td>基站/卫星</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>贴片天线</td>
+          
+          <td>&lt; 5%</td>
+          
+          <td>5-8dBi</td>
+          
+          <td>手机集成</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Vivaldi</td>
+          
+          <td>&gt; 3oct</td>
+          
+          <td>10-15dBi</td>
+          
+          <td>超宽带</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>螺旋天线</td>
+          
+          <td>1-2oct</td>
+          
+          <td>8-12dBi</td>
+          
+          <td>圆极化</td>
+          
+        </tr>
         
-        
-        <div class="desc">馈源是龙勃透镜的天线&#34;嘴巴&#34;，直接决定了性能：
-
-| 馈源类型 | 带宽 | 增益 | 适用场景 |
-|---------|------|------|---------|
-| 角锥喇叭 | 1-2oct | 8-12dBi | 基站/卫星 |
-| 贴片天线 | &lt; 5% | 5-8dBi | 手机集成 |
-| Vivaldi | &gt; 3oct | 10-15dBi | 超宽带 |
-| 螺旋天线 | 1-2oct | 8-12dBi | 圆极化 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

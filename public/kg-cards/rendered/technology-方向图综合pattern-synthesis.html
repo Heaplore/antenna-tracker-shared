@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -301,35 +301,56 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.2 方向图综合的分类</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>分类维度</th><th>类型</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.2 方向图综合的分类</div>
+        <tr>
+          
+          <td>按自由度</td>
+          
+          <td>等间距阵列综合</td>
+          
+          <td>单元间距固定，只调激励</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>按目标</td>
+          
+          <td>笔形波束（Pattern Synthesis）</td>
+          
+          <td>单一主瓣，低旁瓣</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>按方法</td>
+          
+          <td>解析法</td>
+          
+          <td>闭式解，如 Chebyshev、Taylor</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 分类维度 | 类型 | 说明 |
-|---------|------|------|
-| 按自由度 | 等间距阵列综合 | 单元间距固定，只调激励 |
-| | 非等间距阵列综合 | 间距可调，可消除栅瓣 |
-| 按目标 | 笔形波束（Pattern Synthesis） | 单一主瓣，低旁瓣 |
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">| | 非等间距阵列综合 | 间距可调，可消除栅瓣 |
 | | 扇形波束 | 某一角度范围内均匀照射 |
 | | 平顶波束（Flat-top） | 主瓣顶部平坦 |
 | | 零陷波束 | 特定方向放置零点对准干扰 |
-| 按方法 | 解析法 | 闭式解，如 Chebyshev、Taylor |
 | | 数值优化法 | 迭代求解，如凸优化、遗传算法 |
 | | 傅里叶法 | 窗函数法，简单直观 |</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -477,52 +498,115 @@ N 很大时，边缘单元的激励非常小，信噪比差</div>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.3 Taylor 分布法</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>参数</th><th>含义</th><th>典型值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.3 Taylor 分布法</div>
+        <tr>
+          
+          <td>SLL_target</td>
+          
+          <td>目标旁瓣电平</td>
+          
+          <td>-20 至 -30 dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>n_bar</td>
+          
+          <td>虚零点数量</td>
+          
+          <td>N/2 到 N-3</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>σ</td>
+          
+          <td>过渡参数</td>
+          
+          <td>由 SLL 和 n_bar 决定</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>特性</td>
+          
+          <td>Chebyshev</td>
+          
+          <td>Taylor</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>------</td>
+          
+          <td>-----------</td>
+          
+          <td>--------</td>
+          
+        </tr>
         
-        <div class="desc">原理：由 Richard Taylor 于 1960 年提出，通过在复平面上放置&#34;虚零点&#34;（Barren Zeros）来控制旁瓣分布。
-
-Taylor 分布的特点：
-主瓣附近旁瓣低，远处旁瓣逐渐升高
-旁瓣高度由参数 n_bar（barren zeros 的数量）和 SLL_target 决定
-更适合实际应用，因为远处旁瓣通常不重要（被大气衰减或地面遮挡）
-
-关键参数：
-
-| 参数 | 含义 | 典型值 |
-|------|------|--------|
-| SLL_target | 目标旁瓣电平 | -20 至 -30 dB |
-| n_bar | 虚零点数量 | N/2 到 N-3 |
-| σ | 过渡参数 | 由 SLL 和 n_bar 决定 |
-
-与 Chebyshev 的对比：
-
-| 特性 | Chebyshev | Taylor |
-|------|-----------|--------|
-| 旁瓣分布 | 全部等高 | 近旁瓣低，远旁瓣渐升 |
-| 最优性 | 给定 SLL 下波束最窄 | 给定 SLL 下波束稍宽 |
-| 实用性 | 理论最优 | 工程更常用 |
-| 计算复杂度 | 简单 | 中等 |
-
+        <tr>
+          
+          <td>旁瓣分布</td>
+          
+          <td>全部等高</td>
+          
+          <td>近旁瓣低，远旁瓣渐升</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>最优性</td>
+          
+          <td>给定 SLL 下波束最窄</td>
+          
+          <td>给定 SLL 下波束稍宽</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>实用性</td>
+          
+          <td>理论最优</td>
+          
+          <td>工程更常用</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>计算复杂度</td>
+          
+          <td>简单</td>
+          
+          <td>中等</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">与 Chebyshev 的对比：
 典型结果（N = 20，SLL = -26dB）：
 近旁瓣（前 5 个）：-26 dB
 远旁瓣（第 10 个以后）：-20 至 -15 dB（逐渐升高）
 HPBW 比 Chebyshev 宽约 5-10%</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -873,61 +957,137 @@ Flat-top 零點放置法（ZPFT）：
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.1 综合方向图的关键指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>典型要求</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.1 综合方向图的关键指标</div>
+        <tr>
+          
+          <td>旁瓣电平（SLL）</td>
+          
+          <td>最大旁瓣与主瓣之比</td>
+          
+          <td>&lt;-20 dB（通信）/&lt;-30 dB（雷达）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束宽度（HPBW）</td>
+          
+          <td>半功率点之间的角度</td>
+          
+          <td>根据覆盖需求确定</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>第一旁瓣抑制</td>
+          
+          <td>第一个旁瓣与主瓣之比</td>
+          
+          <td>比平均 SLL 高 2-3 dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>零陷深度</td>
+          
+          <td>零陷方向的衰减</td>
+          
+          <td>&lt;-40 dB（干扰抑制）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>平顶波动</td>
+          
+          <td>平顶区域内的增益变化</td>
+          
+          <td>&lt; ±0.5 dB</td>
+          
+        </tr>
         
-        <div class="desc">| 指标 | 定义 | 典型要求 |
-|------|------|---------|
-| 旁瓣电平（SLL） | 最大旁瓣与主瓣之比 | &lt;-20 dB（通信）/&lt;-30 dB（雷达） |
-| 波束宽度（HPBW） | 半功率点之间的角度 | 根据覆盖需求确定 |
-| 第一旁瓣抑制 | 第一个旁瓣与主瓣之比 | 比平均 SLL 高 2-3 dB |
-| 零陷深度 | 零陷方向的衰减 | &lt;-40 dB（干扰抑制） |
-| 平顶波动 | 平顶区域内的增益变化 | &lt; ±0.5 dB |
-| 方向图对称性 | 主瓣左右对称程度 | 不对称度 &lt; 1 dB |</div>
+        <tr>
+          
+          <td>方向图对称性</td>
+          
+          <td>主瓣左右对称程度</td>
+          
+          <td>不对称度 &lt; 1 dB</td>
+          
+        </tr>
         
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.2 激励系数的工程约束</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>约束</th><th>说明</th><th>工程影响</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.2 激励系数的工程约束</div>
+        <tr>
+          
+          <td>幅度范围比</td>
+          
+          <td>最大/最小激励幅度</td>
+          
+          <td>&gt; 20:1 时边缘单元信噪比差</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>相位量化误差</td>
+          
+          <td>移相器位数限制</td>
+          
+          <td>6-bit → RMS 相位误差 ~1.6°</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>幅度量化误差</td>
+          
+          <td>衰减器位数限制</td>
+          
+          <td>6-bit → RMS 幅度误差 ~0.3dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>激励对称性</td>
+          
+          <td>阵列对称时的激励对称</td>
+          
+          <td>不对称 → 方向图畸变</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 约束 | 说明 | 工程影响 |
-|------|------|---------|
-| 幅度范围比 | 最大/最小激励幅度 | &gt; 20:1 时边缘单元信噪比差 |
-| 相位量化误差 | 移相器位数限制 | 6-bit → RMS 相位误差 ~1.6° |
-| 幅度量化误差 | 衰减器位数限制 | 6-bit → RMS 幅度误差 ~0.3dB |
-| 激励对称性 | 阵列对称时的激励对称 | 不对称 → 方向图畸变 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -313,50 +313,45 @@ r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.2 辐射式近场 / Fresnel 区（Radiative Near-Field）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>子区域</th><th>距离范围</th><th>特征</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.2 辐射式近场 / Fresnel 区（Radiative Near-Field）</div>
+        <tr>
+          
+          <td>深度聚焦区</td>
+          
+          <td>r &lt; λ/(10·NA²)</td>
+          
+          <td>径向波束聚焦可行</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>深度聚焦区以外</td>
+          
+          <td>λ/(10·NA²) &lt; r &lt; 2D²/λ</td>
+          
+          <td>角度波束赋形为主</td>
+          
+        </tr>
         
-        
-        
-        
-        <div class="desc">定义：波已经开始辐射但仍保持球面波前特性的区域。
-
-边界：
-`
-0.62·√(D³/λ) &lt; r &lt; 2D²/λ
-`
-
-特征：
-场强随距离按 1/r 衰减（辐射场）
-波前为球面（相位非线性）
-方向图随距离变化（但未稳定）
-可以进行波束聚焦（beamfocusing）
-
-子区域（2024 年新研究补充）：
-
-| 子区域 | 距离范围 | 特征 |
-|--------|---------|------|
-| 深度聚焦区 | r &lt; λ/(10·NA²) | 径向波束聚焦可行 |
-| 深度聚焦区以外 | λ/(10·NA²) &lt; r &lt; 2D²/λ | 角度波束赋形为主 |
-
-其中 NA = D/λ 是数值孔径。
-
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">其中 NA = D/λ 是数值孔径。
 工程意义：
 6G XL-MIMO 的主要工作区
 近场波束赋形、波束聚焦
 近场天线测量</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     

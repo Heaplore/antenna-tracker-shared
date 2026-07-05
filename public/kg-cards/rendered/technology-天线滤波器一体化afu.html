@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -415,61 +415,147 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 滤波器指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>参数</th><th>要求</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 滤波器指标</div>
+        <tr>
+          
+          <td>插入损耗</td>
+          
+          <td>&lt; 0.3dB</td>
+          
+          <td>越低越好</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>带外抑制</td>
+          
+          <td>&gt; 60dB</td>
+          
+          <td>抑制邻频干扰</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>PIM</td>
+          
+          <td>&lt; -155dBc</td>
+          
+          <td>双三载波</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>功率容量</td>
+          
+          <td>&gt; 50W</td>
+          
+          <td>每通道</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>温度稳定性</td>
+          
+          <td>±5MHz（-40~85°C）</td>
+          
+          <td>频偏控制</td>
+          
+        </tr>
         
-        <div class="desc">| 参数 | 要求 | 说明 |
-|------|------|------|
-| 插入损耗 | &lt; 0.3dB | 越低越好 |
-| 带外抑制 | &gt; 60dB | 抑制邻频干扰 |
-| PIM | &lt; -155dBc | 双三载波 |
-| 功率容量 | &gt; 50W | 每通道 |
-| 温度稳定性 | ±5MHz（-40~85°C） | 频偏控制 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.2 AFU 整体指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>参数</th><th>传统方案</th><th>AFU</th><th>改善</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.2 AFU 整体指标</div>
+        <tr>
+          
+          <td>馈线损耗</td>
+          
+          <td>3-4dB</td>
+          
+          <td>&lt; 1dB</td>
+          
+          <td>-70%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>连接器数</td>
+          
+          <td>6-8 个</td>
+          
+          <td>2-4 个</td>
+          
+          <td>-50%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>PIM 源</td>
+          
+          <td>6-8 个</td>
+          
+          <td>2-4 个</td>
+          
+          <td>-50%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>重量</td>
+          
+          <td>+5-10kg</td>
+          
+          <td>基准</td>
+          
+          <td>-50%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>安装时间</td>
+          
+          <td>30min</td>
+          
+          <td>15min</td>
+          
+          <td>-50%</td>
+          
+        </tr>
         
-        <div class="desc">| 参数 | 传统方案 | AFU | 改善 |
-|------|---------|-----|------|
-| 馈线损耗 | 3-4dB | &lt; 1dB | -70% |
-| 连接器数 | 6-8 个 | 2-4 个 | -50% |
-| PIM 源 | 6-8 个 | 2-4 个 | -50% |
-| 重量 | +5-10kg | 基准 | -50% |
-| 安装时间 | 30min | 15min | -50% |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
 

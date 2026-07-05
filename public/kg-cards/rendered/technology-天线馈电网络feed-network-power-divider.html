@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -665,97 +665,39 @@ Ground ────┘ ──── Ground
     
 
     
-  <div class="block section-table">
+  <div class="block section-list ">
     <div class="block-title">2.5 硅通孔馈电网络（Through-Silicon Via, TSV）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <tr>
-          
-          <td>用于 AiP 和芯片级集成：</td>
-          
-        </tr>
+        <div class="name">2.5 硅通孔馈电网络（Through-Silicon Via, TSV）</div>
         
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>Chip Top:  天线单元</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>│</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>TSV:       ▼▼▼▼▼▼  ← 垂直互连</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>Chip Mid:  馈电网络（硅基底内）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Chip Bot:  驱动 IC（BFIC）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优势：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>超薄剖面</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>高频损耗低</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>适合大规模量产</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-  </div>
+        <div class="desc">用于 AiP 和芯片级集成：
 
+`
+Chip Top:  天线单元
+            │
+TSV:       ▼▼▼▼▼▼  ← 垂直互连
+Chip Mid:  馈电网络（硅基底内）
+            │
+Chip Bot:  驱动 IC（BFIC）
+`
+
+优势：
+超薄剖面
+高频损耗低
+适合大规模量产</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
     
   
     
@@ -823,101 +765,35 @@ Ground ────┘ ──── Ground
     
 
     
-  <div class="block section-table">
+  <div class="block section-comparison">
     <div class="block-title">3.1 树状馈电（Corporate Feed）</div>
     <table class="tbl">
       <thead><tr>
-        <th>内容</th>
+        <th>优点</th><th>缺点</th>
       </tr></thead>
       <tbody>
         
         <tr>
           
-          <td>最经典的分配方式：</td>
+          <td>设计简单</td>
+          
+          <td>级数多时损耗大</td>
           
         </tr>
         
         <tr>
           
-          <td>`</td>
+          <td>幅度/相位一致性好</td>
+          
+          <td>级联越多，累积误差越大</td>
           
         </tr>
         
         <tr>
           
-          <td>Input</td>
+          <td>易于仿真和优化</td>
           
-        </tr>
-        
-        <tr>
-          
-          <td>│</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│ 1→2 │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│ 1→2 │     │ 1→2 │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│1→2  │     │1→2  │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>1   2       3   4    （4 单元阵列）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优缺点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 优点 | 缺点 |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>|------|------|</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 设计简单 | 级数多时损耗大 |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 幅度/相位一致性好 | 级联越多，累积误差越大 |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 易于仿真和优化 | 故障扩散（一级坏了全废） |</td>
+          <td>故障扩散（一级坏了全废）</td>
           
         </tr>
         
@@ -931,83 +807,35 @@ Ground ────┘ ──── Ground
     
 
     
-  <div class="block section-table">
+  <div class="block section-comparison">
     <div class="block-title">3.2 并行馈电（Parallel Feed / Bus Feed）</div>
     <table class="tbl">
       <thead><tr>
-        <th>内容</th>
+        <th>优点</th><th>缺点</th>
       </tr></thead>
       <tbody>
         
         <tr>
           
-          <td>所有单元并联到同一根馈线上：</td>
+          <td>结构简单</td>
+          
+          <td>馈线损耗大（沿程衰减）</td>
           
         </tr>
         
         <tr>
           
-          <td>`</td>
+          <td>无级联损耗</td>
+          
+          <td>幅度不一致（边缘单元弱）</td>
           
         </tr>
         
         <tr>
           
-          <td>Input ────────────────────────────────</td>
+          <td>故障不影响其他</td>
           
-        </tr>
-        
-        <tr>
-          
-          <td>│         │         │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Unit 1    Unit 2   Unit 3</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优缺点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 优点 | 缺点 |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>|------|------|</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 结构简单 | 馈线损耗大（沿程衰减） |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 无级联损耗 | 幅度不一致（边缘单元弱） |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 故障不影响其他 | 阻抗变化大 |</td>
+          <td>阻抗变化大</td>
           
         </tr>
         

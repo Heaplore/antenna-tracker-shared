@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -491,196 +491,54 @@ Sub-6GHz 基站 Massive MIMO（64T64R）
     
 
     
-  <div class="block section-table">
+  <div class="block section-comparison">
     <div class="block-title">2.3 混合波束赋形（Hybrid Beamforming）⭐</div>
     <table class="tbl">
       <thead><tr>
-        <th>内容</th>
+        <th>场景</th><th>天线数</th><th>RF 链数</th><th>子阵列大小</th>
       </tr></thead>
       <tbody>
         
         <tr>
           
-          <td>结构：</td>
+          <td>5G gNB (n257)</td>
+          
+          <td>64</td>
+          
+          <td>4-8</td>
+          
+          <td>8-16</td>
           
         </tr>
         
         <tr>
           
-          <td>`</td>
+          <td>5G UE (mmWave)</td>
+          
+          <td>8-16</td>
+          
+          <td>1-2</td>
+          
+          <td>8-16</td>
           
         </tr>
         
         <tr>
           
-          <td>天线单元 → 模拟子阵列 → RF 链 → 数字波束赋形 → 多数据流</td>
+          <td>汽车雷达</td>
           
-        </tr>
-        
-        <tr>
+          <td>32-64</td>
           
-          <td>`</td>
+          <td>4</td>
           
-        </tr>
-        
-        <tr>
-          
-          <td>原理：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>阵列分成若干子阵列（sub-array）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>每个子阵列做模拟波束赋形（形成宽波束）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>每个子阵列配一个 RF 链</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>数字域做精细波束赋形（在模拟波束内形成多个窄波束）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>Qorvo 白皮书图示：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>模拟子阵列波束（宽）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>╭──────────────╮</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>╭╯              ╰╮</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>╭╯                ╰╮</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  数字波束1  数字波束2  │  ← 在模拟波束内进一步分割</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>╰──────────────────╯</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>特点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>5G mmWave 基站的事实标准</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>成本/性能/功耗的折中</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>支持多流传输（空间复用）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>子阵列级模拟波束有 squint，但子阵列波束宽 → 容忍度高</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>典型配置：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 场景 | 天线数 | RF 链数 | 子阵列大小 |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>|------|-------|--------|----------|</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 5G gNB (n257) | 64 | 4-8 | 8-16 |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 5G UE (mmWave) | 8-16 | 1-2 | 8-16 |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 汽车雷达 | 32-64 | 4 | 8-16 |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>---</td>
+          <td>8-16</td>
           
         </tr>
         
       </tbody>
     </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">---</div>
     
   </div>
 
@@ -719,33 +577,89 @@ T/R 开关（SPDT）：切换收发
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.2 关键技术指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>典型值</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.2 关键技术指标</div>
+        <tr>
+          
+          <td>增益</td>
+          
+          <td>20-30dB</td>
+          
+          <td>PA+LNA 总增益</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>P1dB</td>
+          
+          <td>15-25dBm</td>
+          
+          <td>1dB 压缩点（线性度）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>PAE</td>
+          
+          <td>15-35%</td>
+          
+          <td>功率附加效率</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>相位精度</td>
+          
+          <td>±2.25°（6-bit）</td>
+          
+          <td>决定波束指向精度</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>幅度精度</td>
+          
+          <td>±0.5dB</td>
+          
+          <td>决定旁瓣电平</td>
+          
+        </tr>
         
-        <div class="desc">| 指标 | 典型值 | 说明 |
-|------|-------|------|
-| 增益 | 20-30dB | PA+LNA 总增益 |
-| P1dB | 15-25dBm | 1dB 压缩点（线性度） |
-| PAE | 15-35% | 功率附加效率 |
-| 相位精度 | ±2.25°（6-bit） | 决定波束指向精度 |
-| 幅度精度 | ±0.5dB | 决定旁瓣电平 |
-| 尺寸 | 5×5mm - 20×20mm | MMIC 芯片级 |
-| 功耗 | 1-5W/模块 | 散热是关键挑战 |</div>
+        <tr>
+          
+          <td>尺寸</td>
+          
+          <td>5×5mm - 20×20mm</td>
+          
+          <td>MMIC 芯片级</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>功耗</td>
+          
+          <td>1-5W/模块</td>
+          
+          <td>散热是关键挑战</td>
+          
+        </tr>
         
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -788,31 +702,63 @@ RX NF = 4.1dB
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.4 GaN vs CMOS vs SiGe</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>工艺</th><th>频率</th><th>功率</th><th>成本</th><th>适用</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.4 GaN vs CMOS vs SiGe</div>
+        <tr>
+          
+          <td>GaN</td>
+          
+          <td>Sub-6GHz/mmWave</td>
+          
+          <td>高（&gt;30dBm）</td>
+          
+          <td>高</td>
+          
+          <td>基站 PA、雷达</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>CMOS</td>
+          
+          <td>mmWave/THz</td>
+          
+          <td>中（15-25dBm）</td>
+          
+          <td>低</td>
+          
+          <td>终端、集成 TRX</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>SiGe</td>
+          
+          <td>mmWave</td>
+          
+          <td>中</td>
+          
+          <td>中</td>
+          
+          <td>汽车雷达</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 工艺 | 频率 | 功率 | 成本 | 适用 |
-|------|------|------|------|------|
-| GaN | Sub-6GHz/mmWave | 高（&gt;30dBm） | 高 | 基站 PA、雷达 |
-| CMOS | mmWave/THz | 中（15-25dBm） | 低 | 终端、集成 TRX |
-| SiGe | mmWave | 中 | 中 | 汽车雷达 |
-
----</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">---</div>
+    
   </div>
+
     
   
     
@@ -854,104 +800,169 @@ T/R 模块损耗（0.5-1dB/级）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.3 旁瓣电平（SLL）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>加权方式</th><th>SLL (dB)</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.3 旁瓣电平（SLL）</div>
+        <tr>
+          
+          <td>均匀</td>
+          
+          <td>-13.2</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Taylor (n=4)</td>
+          
+          <td>-25</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Chebyshev</td>
+          
+          <td>-20 to -40（可调）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Hamming</td>
+          
+          <td>-43</td>
+          
+        </tr>
         
-        
-        <div class="desc">控制方法：
-幅度加权（Taylor / Chebyshev / Hamming 分布）
-稀疏阵列（thinned array）→ 降低单元数但提高 SLL
-栅瓣消除器（grating lobe canceller）→ 2024 汽车雷达
-
-典型 SLL：
-| 加权方式 | SLL (dB) |
-|---------|---------|
-| 均匀 | -13.2 |
-| Taylor (n=4) | -25 |
-| Chebyshev | -20 to -40（可调） |
-| Hamming | -43 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.4 扫描损失（Scan Loss）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>扫描角</th><th>扫描损失</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.4 扫描损失（Scan Loss）</div>
+        <tr>
+          
+          <td>0°</td>
+          
+          <td>0dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>30°</td>
+          
+          <td>0.5dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>45°</td>
+          
+          <td>1.5dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>60°</td>
+          
+          <td>3.0dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>70°</td>
+          
+          <td>4.9dB</td>
+          
+        </tr>
         
-        <div class="desc">定义：波束偏离法向时的增益下降。
-
-`
-Scan_Loss(θ) ≈ -10×log₁₀(cosθ)
-`
-
-| 扫描角 | 扫描损失 |
-|-------|---------|
-| 0° | 0dB |
-| 30° | 0.5dB |
-| 45° | 1.5dB |
-| 60° | 3.0dB |
-| 70° | 4.9dB |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.5 波束指向精度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>位数</th><th>步进角度</th><th>指向精度</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.5 波束指向精度</div>
+        <tr>
+          
+          <td>3-bit</td>
+          
+          <td>45°</td>
+          
+          <td>粗扫</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>5-bit</td>
+          
+          <td>11.25°</td>
+          
+          <td>中扫</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>6-bit</td>
+          
+          <td>5.625°</td>
+          
+          <td>精扫（5G 常用）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>8-bit</td>
+          
+          <td>1.406°</td>
+          
+          <td>超精（雷达/AESA）</td>
+          
+        </tr>
         
-        
-        <div class="desc">取决于移相器位数：
-| 位数 | 步进角度 | 指向精度 |
-|------|---------|---------|
-| 3-bit | 45° | 粗扫 |
-| 5-bit | 11.25° | 中扫 |
-| 6-bit | 5.625° | 精扫（5G 常用） |
-| 8-bit | 1.406° | 超精（雷达/AESA） |
-
----</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">---</div>
+    
   </div>
+
     
   
     

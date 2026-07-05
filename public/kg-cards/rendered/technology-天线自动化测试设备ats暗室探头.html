@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -313,36 +313,119 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.2 关键设备参数</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>设备</th><th>参数</th><th>5G AAU 要求</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.2 关键设备参数</div>
+        <tr>
+          
+          <td>VNA</td>
+          
+          <td>频率范围</td>
+          
+          <td>DC-6.5GHz（Sub-6GHz）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>VNA</td>
+          
+          <td>端口数</td>
+          
+          <td>4-8 端口（多端口校准）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>信号发生器</td>
+          
+          <td>频率</td>
+          
+          <td>DC-6.5GHz</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>信号发生器</td>
+          
+          <td>通道数</td>
+          
+          <td>≥ 64（Massive MIMO）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>转台</td>
+          
+          <td>精度</td>
+          
+          <td>&lt; 0.01°</td>
+          
+        </tr>
         
-        <div class="desc">| 设备 | 参数 | 5G AAU 要求 |
-|------|------|------------|
-| VNA | 频率范围 | DC-6.5GHz（Sub-6GHz） |
-| VNA | 端口数 | 4-8 端口（多端口校准） |
-| 信号发生器 | 频率 | DC-6.5GHz |
-| 信号发生器 | 通道数 | ≥ 64（Massive MIMO） |
-| 转台 | 精度 | &lt; 0.01° |
-| 转台 | 承重 | &gt; 100kg（AAU 很重） |
-| 探头天线 | 频率 | 多频段探头 |
-| 探头天线 | 极化 | ±45° 可切换 |
-| 暗室 | 截止频率 | &gt; 6.5GHz |
-| 暗室 | 尺寸 | ≥ 6m × 4m × 3m |</div>
+        <tr>
+          
+          <td>转台</td>
+          
+          <td>承重</td>
+          
+          <td>&gt; 100kg（AAU 很重）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>探头天线</td>
+          
+          <td>频率</td>
+          
+          <td>多频段探头</td>
+          
+        </tr>
         
-      </div>
-      
-    </div>
+        <tr>
+          
+          <td>探头天线</td>
+          
+          <td>极化</td>
+          
+          <td>±45° 可切换</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>暗室</td>
+          
+          <td>截止频率</td>
+          
+          <td>&gt; 6.5GHz</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>暗室</td>
+          
+          <td>尺寸</td>
+          
+          <td>≥ 6m × 4m × 3m</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -495,34 +495,67 @@ D_N(x) = sin((N+½)x) / sin(x/2)
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.1 傅里叶变换对</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>口径分布</th><th>方向图</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.1 傅里叶变换对</div>
+        <tr>
+          
+          <td>矩形（均匀）</td>
+          
+          <td>sinc</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>余弦</td>
+          
+          <td>sinc²</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>高斯</td>
+          
+          <td>高斯</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>三角形</td>
+          
+          <td>sinc²</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Bartlett</td>
+          
+          <td>sinc²</td>
+          
+        </tr>
         
-        <div class="desc">天线方向图计算的核心——方向图是口径场的傅里叶变换：
-
-| 口径分布 | 方向图 |
-|---------|--------|
-| 矩形（均匀） | sinc |
-| 余弦 | sinc² |
-| 高斯 | 高斯 |
-| 三角形 | sinc² |
-| Bartlett | sinc² |
-| 圆形均匀 | 2·J₁(x)/x |</div>
+        <tr>
+          
+          <td>圆形均匀</td>
+          
+          <td>2·J₁(x)/x</td>
+          
+        </tr>
         
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -599,89 +632,177 @@ d/dx[J₀(x)] = -J₁(x)
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.1 波束宽度公式</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>孔径形状</th><th>照明分布</th><th>HPBW</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.1 波束宽度公式</div>
+        <tr>
+          
+          <td>矩形</td>
+          
+          <td>均匀</td>
+          
+          <td>0.886·λ/L</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>矩形</td>
+          
+          <td>余弦</td>
+          
+          <td>1.21·λ/L</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>矩形</td>
+          
+          <td>高斯</td>
+          
+          <td>1.03·λ/L</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>圆形</td>
+          
+          <td>均匀</td>
+          
+          <td>1.02·λ/D</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>圆形</td>
+          
+          <td>高斯</td>
+          
+          <td>1.20·λ/D</td>
+          
+        </tr>
         
-        <div class="desc">| 孔径形状 | 照明分布 | HPBW |
-|---------|---------|------|
-| 矩形 | 均匀 | 0.886·λ/L |
-| 矩形 | 余弦 | 1.21·λ/L |
-| 矩形 | 高斯 | 1.03·λ/L |
-| 圆形 | 均匀 | 1.02·λ/D |
-| 圆形 | 高斯 | 1.20·λ/D |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.2 方向性系数公式</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>孔径形状</th><th>照明分布</th><th>D</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.2 方向性系数公式</div>
+        <tr>
+          
+          <td>矩形</td>
+          
+          <td>均匀</td>
+          
+          <td>4·A/λ²</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>矩形</td>
+          
+          <td>余弦</td>
+          
+          <td>2.34·A/λ²</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>圆形</td>
+          
+          <td>均匀</td>
+          
+          <td>2.45·π·(D/2)²/λ²</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>圆形</td>
+          
+          <td>高斯</td>
+          
+          <td>~2·π·(D/2)²/λ²</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 孔径形状 | 照明分布 | D |
-|---------|---------|---|
-| 矩形 | 均匀 | 4·A/λ² |
-| 矩形 | 余弦 | 2.34·A/λ² |
-| 圆形 | 均匀 | 2.45·π·(D/2)²/λ² |
-| 圆形 | 高斯 | ~2·π·(D/2)²/λ² |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.3 第一旁瓣位置</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>函数</th><th>第一旁瓣位置</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.3 第一旁瓣位置</div>
+        <tr>
+          
+          <td>sinc(x)</td>
+          
+          <td>x ≈ 1.43π</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>2J₁(x)/x</td>
+          
+          <td>x ≈ 5.14</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>sinc²(x)</td>
+          
+          <td>x ≈ 1.43π</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>高斯</td>
+          
+          <td>无旁瓣</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 函数 | 第一旁瓣位置 |
-|------|------------|
-| sinc(x) | x ≈ 1.43π |
-| 2J₁(x)/x | x ≈ 5.14 |
-| sinc²(x) | x ≈ 1.43π |
-| 高斯 | 无旁瓣 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
 

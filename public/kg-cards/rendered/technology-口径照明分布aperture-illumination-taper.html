@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -309,45 +309,72 @@ F(θ, φ) = ∬ E_aperture(x, y) · exp[jk·(x·sinθ·cosφ + y·sinθ·sinφ)]
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.2 均匀分布（Uniform / Rectangular）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>值</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.2 均匀分布（Uniform / Rectangular）</div>
+        <tr>
+          
+          <td>峰值旁瓣电平</td>
+          
+          <td>-13.2 dB</td>
+          
+          <td>第一旁瓣</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>旁瓣总数</td>
+          
+          <td>无穷</td>
+          
+          <td>sinc 函数有无穷多个旁瓣</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>3dB 波束宽度</td>
+          
+          <td>0.886·λ/L</td>
+          
+          <td>最窄</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>口径效率</td>
+          
+          <td>100%</td>
+          
+          <td>理论最大</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>增益</td>
+          
+          <td>最大</td>
+          
+          <td>所有能量集中</td>
+          
+        </tr>
         
-        <div class="desc">孔径上场强处处相等：
-
-`
-A_uniform(x, y) = 1,  对于所有 (x, y) ∈ 孔径
-`
-
-方向图（矩形孔径）：
-`
-F(θ) = sinc(k·L·sinθ/2) = sin(πL·sinθ/λ) / (πL·sinθ/λ)
-`
-
-| 指标 | 值 | 说明 |
-|------|------|------|
-| 峰值旁瓣电平 | -13.2 dB | 第一旁瓣 |
-| 旁瓣总数 | 无穷 | sinc 函数有无穷多个旁瓣 |
-| 3dB 波束宽度 | 0.886·λ/L | 最窄 |
-| 口径效率 | 100% | 理论最大 |
-| 增益 | 最大 | 所有能量集中 |
-
-优点：增益最大、波束最窄。
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">优点：增益最大、波束最窄。
 缺点：旁瓣太高（-13.2dB），容易受到杂散信号干扰。</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -432,78 +459,109 @@ F(θ) = sinc(k·L·sinθ/2) = sin(πL·sinθ/λ) / (πL·sinθ/λ)
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.7 Dolph-Chebyshev 分布</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>旁瓣目标</th><th>波束展宽因子</th><th>增益损失</th><th>口径效率</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.7 Dolph-Chebyshev 分布</div>
+        <tr>
+          
+          <td>-20 dB</td>
+          
+          <td>1.15</td>
+          
+          <td>-0.8 dB</td>
+          
+          <td>78%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>-30 dB</td>
+          
+          <td>1.35</td>
+          
+          <td>-1.5 dB</td>
+          
+          <td>65%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>-40 dB</td>
+          
+          <td>1.60</td>
+          
+          <td>-2.5 dB</td>
+          
+          <td>50%</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">Chebyshev 多项式构造的分布，在所有单元等旁瓣的前提下实现最窄波束：
-
-`
-A_CE(θ) = T_N(cos(ψ)·cos(ψ₀)) / T_N(cos(θ₀)·cos(ψ₀))
-`
-
-其中 T_N 是 N 阶 Chebyshev 多项式，ψ₀ 控制旁瓣电平。
-
-| 旁瓣目标 | 波束展宽因子 | 增益损失 | 口径效率 |
-|---------|-------------|---------|---------|
-| -20 dB | 1.15 | -0.8 dB | 78% |
-| -30 dB | 1.35 | -1.5 dB | 65% |
-| -40 dB | 1.60 | -2.5 dB | 50% |
-
-核心优势：在给定旁瓣电平下，波束最窄。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">核心优势：在给定旁瓣电平下，波束最窄。</div>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.8 Taylor 分布</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.8 Taylor 分布</div>
+        <tr>
+          
+          <td>旁瓣特性</td>
+          
+          <td>内圈等高，外圈滚降</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束宽度</td>
+          
+          <td>介于 Chebyshev 和高斯之间</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>口径效率</td>
+          
+          <td>60-75%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>灵活性</td>
+          
+          <td>高（可调 N_bar 和 S）</td>
+          
+        </tr>
         
-        
-        <div class="desc">Taylor 分布在前 N 个旁瓣保持等高水平，然后按 sinc 函数滚降：
-
-`
-A_Taylor(θ) = [sin(π·N·u) / (π·N·u)] · [1 + 2·Σ(n=1 to N_bar) cos(2πn·u/S)]
-`
-
-其中 S 是旁瓣控制参数，N_bar 是保持等高的旁瓣数量。
-
-| 指标 | 值 |
-|------|------|
-| 旁瓣特性 | 内圈等高，外圈滚降 |
-| 波束宽度 | 介于 Chebyshev 和高斯之间 |
-| 口径效率 | 60-75% |
-| 灵活性 | 高（可调 N_bar 和 S） |
-
-特点：Taylor 是工程中最常用的分布之一——兼顾旁瓣抑制和口径效率。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">特点：Taylor 是工程中最常用的分布之一——兼顾旁瓣抑制和口径效率。</div>
+    
   </div>
+
     
   
     
@@ -527,41 +585,49 @@ A_Taylor(θ) = [sin(π·N·u) / (π·N·u)] · [1 + 2·Σ(n=1 to N_bar) cos(2πn
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 物理定律：不可能三角</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>选择</th><th>牺牲</th><th>代表分布</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 物理定律：不可能三角</div>
+        <tr>
+          
+          <td>窄波束 + 高增益</td>
+          
+          <td>旁瓣高</td>
+          
+          <td>均匀</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>低旁瓣 + 高增益</td>
+          
+          <td>波束宽</td>
+          
+          <td>高斯</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>窄波束 + 低旁瓣</td>
+          
+          <td>增益低</td>
+          
+          <td>Chebyshev/Taylor</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">口径照明分布存在一个不可逾越的权衡三角：
-
-`
-       低旁瓣
-         /\
-        /  \
-       /    \
-  窄波束 ------ 高增益
-`
-
-你只能同时满足其中两个，第三个必然妥协：
-
-| 选择 | 牺牲 | 代表分布 |
-|------|------|---------|
-| 窄波束 + 高增益 | 旁瓣高 | 均匀 |
-| 低旁瓣 + 高增益 | 波束宽 | 高斯 |
-| 窄波束 + 低旁瓣 | 增益低 | Chebyshev/Taylor |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -663,53 +729,89 @@ p = 0.1-0.2：折中方案（旁瓣稍高，波束稍窄）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.3 像差相位（Aberration）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>RMS 相位误差</th><th>增益损失</th><th>旁瓣升高</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.3 像差相位（Aberration）</div>
+        <tr>
+          
+          <td>0°</td>
+          
+          <td>0dB</td>
+          
+          <td>无</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>10°</td>
+          
+          <td>0.05dB</td>
+          
+          <td>+1dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>20°</td>
+          
+          <td>0.2dB</td>
+          
+          <td>+3dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>30°</td>
+          
+          <td>0.5dB</td>
+          
+          <td>+6dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>45°</td>
+          
+          <td>1.2dB</td>
+          
+          <td>+10dB</td>
+          
+        </tr>
         
-        <div class="desc">实际系统中，相位不均匀是常态：
-
-`
-φ_actual(x, y) = φ_desired(x, y) + φ_error(x, y)
-`
-
-相位误差对方向图的影响：
-
-| RMS 相位误差 | 增益损失 | 旁瓣升高 |
-|-------------|---------|---------|
-| 0° | 0dB | 无 |
-| 10° | 0.05dB | +1dB |
-| 20° | 0.2dB | +3dB |
-| 30° | 0.5dB | +6dB |
-| 45° | 1.2dB | +10dB |
-| 60° | 2.5dB | +15dB |
-
-Ruze 公式（表面精度与增益的关系）：
-
+        <tr>
+          
+          <td>60°</td>
+          
+          <td>2.5dB</td>
+          
+          <td>+15dB</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">Ruze 公式（表面精度与增益的关系）：
 `
 η_phase = exp[-(4π·σ/λ)²]
 `
-
 其中 σ 是表面 RMS 误差。
-
 对于 λ = 3cm（10GHz），σ = 1mm：
 `
 η_phase = exp[-(4π·0.1/3)²] = exp[-0.175] ≈ 84%  (-0.76dB)
 `</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     

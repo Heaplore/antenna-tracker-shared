@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,31 +269,69 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.1 从远场到近场：传播模型的范式转移</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>特性</th><th>远场（FF）</th><th>近场（NF）</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.1 从远场到近场：传播模型的范式转移</div>
+        <tr>
+          
+          <td>波前模型</td>
+          
+          <td>平面波（Plane Wave）</td>
+          
+          <td>球面波（Spherical Wave）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>相位分布</td>
+          
+          <td>线性变化</td>
+          
+          <td>二次方变化（抛物线）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>幅度分布</td>
+          
+          <td>恒定（归一化）</td>
+          
+          <td>随距离衰减（1/r）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>自由度</td>
+          
+          <td>角度（θ, φ）</td>
+          
+          <td>角度 + 距离（θ, φ, r）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束行为</td>
+          
+          <td>平行波束</td>
+          
+          <td>聚焦波束</td>
+          
+        </tr>
         
-        <div class="desc">| 特性 | 远场（FF） | 近场（NF） |
-|------|----------|----------|
-| 波前模型 | 平面波（Plane Wave） | 球面波（Spherical Wave） |
-| 相位分布 | 线性变化 | 二次方变化（抛物线） |
-| 幅度分布 | 恒定（归一化） | 随距离衰减（1/r） |
-| 自由度 | 角度（θ, φ） | 角度 + 距离（θ, φ, r） |
-| 波束行为 | 平行波束 | 聚焦波束 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -341,37 +379,45 @@ R_Rayleigh = 2 × 20² / 0.086 ≈ 9.3km
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.3 近场区的细分</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>区域</th><th>距离范围</th><th>特征</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.3 近场区的细分</div>
+        <tr>
+          
+          <td>菲涅尔区（Fresnel / Radiative Near-Field）</td>
+          
+          <td>λ &lt; r &lt; 2D²/λ</td>
+          
+          <td>辐射场，波束聚焦可用</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>夫琅禾费区（Fraunhofer / Far-Field）</td>
+          
+          <td>r &gt; 2D²/λ</td>
+          
+          <td>平面波近似成立</td>
+          
+        </tr>
         
-        
-        
-        
-        <div class="desc">近场本身还可以分为两个子区域：
-
-| 区域 | 距离范围 | 特征 |
-|------|---------|------|
-| 菲涅尔区（Fresnel / Radiative Near-Field） | λ &lt; r &lt; 2D²/λ | 辐射场，波束聚焦可用 |
-| 夫琅禾费区（Fraunhofer / Far-Field） | r &gt; 2D²/λ | 平面波近似成立 |
-
-注意：有些文献将近场进一步细分为：
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">注意：有些文献将近场进一步细分为：
 反应式近场（Reactive Near-Field）：r &lt; λ/2π，储能为主，无辐射
 辐射式近场（Radiative Near-Field / Fresnel）：λ/2π &lt; r &lt; 2D²/λ
 远场（Fraunhofer）：r &gt; 2D²/λ
-
 通信中主要关注辐射式近场。</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -536,32 +582,59 @@ w_angle = ZF([w_range · steer_vec_FF(θ₁), ...])
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.4 近场波束赋形的容量增益</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>场景</th><th>容量增益</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.4 近场波束赋形的容量增益</div>
+        <tr>
+          
+          <td>单用户</td>
+          
+          <td>1-3dB</td>
+          
+          <td>聚焦增益</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>多用户（同角度不同距离）</td>
+          
+          <td>2-5×</td>
+          
+          <td>距离维度复用</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>多用户（不同角度）</td>
+          
+          <td>0-1dB</td>
+          
+          <td>增益有限</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>高密度用户</td>
+          
+          <td>3-10×</td>
+          
+          <td>三维空间复用</td>
+          
+        </tr>
         
-        
-        <div class="desc">研究表明，近场波束赋形相比远场波束赋形：
-
-| 场景 | 容量增益 | 说明 |
-|------|---------|------|
-| 单用户 | 1-3dB | 聚焦增益 |
-| 多用户（同角度不同距离） | 2-5× | 距离维度复用 |
-| 多用户（不同角度） | 0-1dB | 增益有限 |
-| 高密度用户 | 3-10× | 三维空间复用 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -701,87 +774,165 @@ J(x,y) = A(x,y) · exp(-jk·√((x-x₀)² + (y-y₀)² + r₀²))
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.1 近场/远场判断</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>公式</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.1 近场/远场判断</div>
+        <tr>
+          
+          <td>Rayleigh 距离</td>
+          
+          <td>近/远场分界</td>
+          
+          <td>2D²/λ</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Fresnel 距离</td>
+          
+          <td>反应式/辐射式近场分界</td>
+          
+          <td>λ/2π</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>MIMO-ARD</td>
+          
+          <td>XL-MIMO 专用近场边界</td>
+          
+          <td>4D_t·D_r/λ</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 指标 | 定义 | 公式 |
-|------|------|------|
-| Rayleigh 距离 | 近/远场分界 | 2D²/λ |
-| Fresnel 距离 | 反应式/辐射式近场分界 | λ/2π |
-| MIMO-ARD | XL-MIMO 专用近场边界 | 4D_t·D_r/λ |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.2 波束聚焦性能</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>目标值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.2 波束聚焦性能</div>
+        <tr>
+          
+          <td>聚焦增益</td>
+          
+          <td>近场聚焦相比远场指向的增益</td>
+          
+          <td>+3-6dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>聚焦深度分辨率</td>
+          
+          <td>可区分的最小距离差</td>
+          
+          <td>&lt; λ·r/(2D·√SNR)</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>焦区长度</td>
+          
+          <td>增益保持在峰值 -3dB 的距离范围</td>
+          
+          <td>&lt; 10m（XL-MIMO）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>旁瓣电平（距离域）</td>
+          
+          <td>焦点外的最小增益</td>
+          
+          <td>&lt;-15dB</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 指标 | 定义 | 目标值 |
-|------|------|--------|
-| 聚焦增益 | 近场聚焦相比远场指向的增益 | +3-6dB |
-| 聚焦深度分辨率 | 可区分的最小距离差 | &lt; λ·r/(2D·√SNR) |
-| 焦区长度 | 增益保持在峰值 -3dB 的距离范围 | &lt; 10m（XL-MIMO） |
-| 旁瓣电平（距离域） | 焦点外的最小增益 | &lt;-15dB |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.3 波束赋形性能</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>目标值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.3 波束赋形性能</div>
+        <tr>
+          
+          <td>波束赋形开销</td>
+          
+          <td>训练/反馈所需信令</td>
+          
+          <td>&lt; O(1)（理想）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束赋形增益</td>
+          
+          <td>实际增益 vs 理论最大值</td>
+          
+          <td>&gt; 95%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>多用户隔离度</td>
+          
+          <td>不同距离用户的干扰抑制</td>
+          
+          <td>&gt; 20dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束切换时间</td>
+          
+          <td>从一个焦点切换到另一个的时间</td>
+          
+          <td>&lt; 1ms</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 指标 | 定义 | 目标值 |
-|------|------|--------|
-| 波束赋形开销 | 训练/反馈所需信令 | &lt; O(1)（理想） |
-| 波束赋形增益 | 实际增益 vs 理论最大值 | &gt; 95% |
-| 多用户隔离度 | 不同距离用户的干扰抑制 | &gt; 20dB |
-| 波束切换时间 | 从一个焦点切换到另一个的时间 | &lt; 1ms |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -952,39 +1103,61 @@ XL-MIMO 孔径：10-20m
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">6.2 相位误差的敏感性</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>相位误差 RMS</th><th>聚焦增益损失</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">6.2 相位误差的敏感性</div>
+        <tr>
+          
+          <td>1°</td>
+          
+          <td>&lt; 0.1dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>5°</td>
+          
+          <td>0.5dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>10°</td>
+          
+          <td>1.5dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>20°</td>
+          
+          <td>4dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>45°</td>
+          
+          <td>10dB</td>
+          
+        </tr>
         
-        <div class="desc">近场波束赋形对相位误差极其敏感——因为依赖精确的二次相位补偿：
-
-`
-相位误差 Δφ → 聚焦增益下降 ∝ exp(-Δφ²/2)
-`
-
-| 相位误差 RMS | 聚焦增益损失 |
-|-------------|-------------|
-| 1° | &lt; 0.1dB |
-| 5° | 0.5dB |
-| 10° | 1.5dB |
-| 20° | 4dB |
-| 45° | 10dB |
-
-对比：远场波束赋形对相位误差的容忍度更高（10° 误差仅损失 ~0.3dB）。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">对比：远场波束赋形对相位误差的容忍度更高（10° 误差仅损失 ~0.3dB）。</div>
+    
   </div>
+
     
   
     

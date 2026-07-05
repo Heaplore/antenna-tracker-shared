@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -422,33 +422,79 @@ U-Net：超分辨率重建方向图
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.3 传感器融合</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>传感器类型</th><th>监测参数</th><th>采样率</th><th>用途</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.3 传感器融合</div>
+        <tr>
+          
+          <td>温度传感器</td>
+          
+          <td>天线表面温度</td>
+          
+          <td>10Hz</td>
+          
+          <td>热变形补偿</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>应变计</td>
+          
+          <td>结构应力/形变</td>
+          
+          <td>100Hz</td>
+          
+          <td>几何误差校正</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>加速度计</td>
+          
+          <td>振动/风载荷</td>
+          
+          <td>1kHz</td>
+          
+          <td>动态性能评估</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>VNA 模块</td>
+          
+          <td>S 参数</td>
+          
+          <td>10Hz</td>
+          
+          <td>阻抗匹配监测</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>环行器+检波器</td>
+          
+          <td>反射功率</td>
+          
+          <td>100Hz</td>
+          
+          <td>驻波比监测</td>
+          
+        </tr>
         
-        <div class="desc">物理天线部署多种传感器采集实时数据：
-
-| 传感器类型 | 监测参数 | 采样率 | 用途 |
-|-----------|---------|--------|------|
-| 温度传感器 | 天线表面温度 | 10Hz | 热变形补偿 |
-| 应变计 | 结构应力/形变 | 100Hz | 几何误差校正 |
-| 加速度计 | 振动/风载荷 | 1kHz | 动态性能评估 |
-| VNA 模块 | S 参数 | 10Hz | 阻抗匹配监测 |
-| 环行器+检波器 | 反射功率 | 100Hz | 驻波比监测 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

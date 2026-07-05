@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -386,31 +386,69 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.2 拓扑天线的解决方案</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>维度</th><th>传统THz天线</th><th>拓扑漏波天线</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.2 拓扑天线的解决方案</div>
+        <tr>
+          
+          <td>覆盖范围</td>
+          
+          <td>窄波束，几乎零三维覆盖</td>
+          
+          <td>锥形辐射，覆盖75%三维空间</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>数据速率</td>
+          
+          <td>受限于波束对准精度</td>
+          
+          <td>72 Gbps（实测）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>制造容差</td>
+          
+          <td>敏感，缺陷导致性能骤降</td>
+          
+          <td>拓扑保护，抗缺陷</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>集成度</td>
+          
+          <td>分立元件，体积大</td>
+          
+          <td>芯片级单片集成</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>双向能力</td>
+          
+          <td>收发分离</td>
+          
+          <td>可同时收发</td>
+          
+        </tr>
         
-        <div class="desc">| 维度 | 传统THz天线 | 拓扑漏波天线 |
-|------|------------|-------------|
-| 覆盖范围 | 窄波束，几乎零三维覆盖 | 锥形辐射，覆盖75%三维空间 |
-| 数据速率 | 受限于波束对准精度 | 72 Gbps（实测） |
-| 制造容差 | 敏感，缺陷导致性能骤降 | 拓扑保护，抗缺陷 |
-| 集成度 | 分立元件，体积大 | 芯片级单片集成 |
-| 双向能力 | 收发分离 | 可同时收发 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

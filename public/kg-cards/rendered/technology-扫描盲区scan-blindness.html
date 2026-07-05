@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -435,66 +435,111 @@ sin(θ_b) = √(ε_r) - 1  （近似，当 d ≈ λ₀/2 时）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.1 基板厚度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>基板厚度</th><th>扫描盲区出现概率</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.1 基板厚度</div>
+        <tr>
+          
+          <td>很薄（d &lt; 0.05λ₀）</td>
+          
+          <td>不会出现</td>
+          
+          <td>表面波无法有效激发</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>薄（0.05λ₀ &lt; d &lt; 0.1λ₀）</td>
+          
+          <td>可能出现</td>
+          
+          <td>盲区角度接近边缘扫描</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>中等（0.1λ₀ &lt; d &lt; 0.2λ₀）</td>
+          
+          <td>经常出现</td>
+          
+          <td>盲区在 ±30°-60° 范围</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>厚（d &gt; 0.2λ₀）</td>
+          
+          <td>必然出现</td>
+          
+          <td>多个盲区角度，严重影响扫描</td>
+          
+        </tr>
         
-        
-        <div class="desc">基板厚度是影响扫描盲区的最关键参数：
-
-| 基板厚度 | 扫描盲区出现概率 | 说明 |
-|---------|----------------|------|
-| 很薄（d &lt; 0.05λ₀） | 不会出现 | 表面波无法有效激发 |
-| 薄（0.05λ₀ &lt; d &lt; 0.1λ₀） | 可能出现 | 盲区角度接近边缘扫描 |
-| 中等（0.1λ₀ &lt; d &lt; 0.2λ₀） | 经常出现 | 盲区在 ±30°-60° 范围 |
-| 厚（d &gt; 0.2λ₀） | 必然出现 | 多个盲区角度，严重影响扫描 |
-
-工程启示：微带阵列的基板越薄，越不容易出现扫描盲区。这也是为什么 5G mmWave AiP 通常使用薄 LCP 基板（~0.1-0.2mm）的原因之一。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">工程启示：微带阵列的基板越薄，越不容易出现扫描盲区。这也是为什么 5G mmWave AiP 通常使用薄 LCP 基板（~0.1-0.2mm）的原因之一。</div>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.2 介电常数</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>ε_r</th><th>盲区出现角度</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.2 介电常数</div>
+        <tr>
+          
+          <td>2.2 (Rogers)</td>
+          
+          <td>&gt; ±60°</td>
+          
+          <td>盲区出现在边缘，影响小</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>4.4 (FR4)</td>
+          
+          <td>±40°-50°</td>
+          
+          <td>中等影响</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>10 (RT/duroid 10)</td>
+          
+          <td>±20°-30°</td>
+          
+          <td>严重影响</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">基板的相对介电常数 ε_r 越大，表面波传播常数越大，扫描盲区角度越小（即在更小的扫描角就会出现盲区）：
-
-| ε_r | 盲区出现角度 | 说明 |
-|-----|------------|------|
-| 2.2 (Rogers) | &gt; ±60° | 盲区出现在边缘，影响小 |
-| 4.4 (FR4) | ±40°-50° | 中等影响 |
-| 10 (RT/duroid 10) | ±20°-30° | 严重影响 |
-
-工程启示：低介电常数基板有利于扩大扫描范围。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">工程启示：低介电常数基板有利于扩大扫描范围。</div>
+    
   </div>
+
     
   
     
@@ -584,31 +629,69 @@ sin(θ_b) ∝ λ₀/d ∝ 1/f
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 性能影响</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>影响</th><th>程度</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 性能影响</div>
+        <tr>
+          
+          <td>反射系数飙升</td>
+          
+          <td>严重</td>
+          
+          <td>TARC 从 -15dB 升至 -3dB 以上</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>增益骤降</td>
+          
+          <td>严重</td>
+          
+          <td>盲区附近增益下降 10-20dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束指向偏移</td>
+          
+          <td>中等</td>
+          
+          <td>波束在盲区附近&#34;断裂&#34;</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>旁瓣升高</td>
+          
+          <td>严重</td>
+          
+          <td>盲区附近旁瓣可达 -5dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>VSWR 恶化</td>
+          
+          <td>严重</td>
+          
+          <td>有源 VSWR &gt; 10:1</td>
+          
+        </tr>
         
-        <div class="desc">| 影响 | 程度 | 说明 |
-|------|------|------|
-| 反射系数飙升 | 严重 | TARC 从 -15dB 升至 -3dB 以上 |
-| 增益骤降 | 严重 | 盲区附近增益下降 10-20dB |
-| 波束指向偏移 | 中等 | 波束在盲区附近&#34;断裂&#34; |
-| 旁瓣升高 | 严重 | 盲区附近旁瓣可达 -5dB |
-| VSWR 恶化 | 严重 | 有源 VSWR &gt; 10:1 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -897,61 +980,127 @@ DGS（缺陷接地结构）也可以抑制表面波
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.1 测量方法</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>方法</th><th>原理</th><th>适用场景</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.1 测量方法</div>
+        <tr>
+          
+          <td>波导模拟器</td>
+          
+          <td>用波导模拟无限大阵列，测量扫描阻抗</td>
+          
+          <td>X/Ku 波段</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>近场扫描</td>
+          
+          <td>测量近场后变换到远场，提取 ARC</td>
+          
+          <td>全频段</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>单单元激励法</td>
+          
+          <td>激励中心单元，测量 S11 随扫描角变化</td>
+          
+          <td>有限阵列</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>TARC 测量</td>
+          
+          <td>测量总有源反射系数随扫描角变化</td>
+          
+          <td>5G MIMO OTA</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 方法 | 原理 | 适用场景 |
-|------|------|---------|
-| 波导模拟器 | 用波导模拟无限大阵列，测量扫描阻抗 | X/Ku 波段 |
-| 近场扫描 | 测量近场后变换到远场，提取 ARC | 全频段 |
-| 单单元激励法 | 激励中心单元，测量 S11 随扫描角变化 | 有限阵列 |
-| TARC 测量 | 测量总有源反射系数随扫描角变化 | 5G MIMO OTA |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.2 仿真方法</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>方法</th><th>工具</th><th>精度</th><th>计算量</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.2 仿真方法</div>
+        <tr>
+          
+          <td>无限阵列模型（Floquet 模式）</td>
+          
+          <td>HFSS Periodic Boundary</td>
+          
+          <td>高</td>
+          
+          <td>低（只仿真 1 单元）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>矩量法（MoM）</td>
+          
+          <td>IE3D, FEKO</td>
+          
+          <td>极高</td>
+          
+          <td>中</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>全波仿真（有限阵列）</td>
+          
+          <td>HFSS, CST</td>
+          
+          <td>高</td>
+          
+          <td>极高</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>等效电路模型</td>
+          
+          <td>MATLAB</td>
+          
+          <td>低</td>
+          
+          <td>极低</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 方法 | 工具 | 精度 | 计算量 |
-|------|------|------|--------|
-| 无限阵列模型（Floquet 模式） | HFSS Periodic Boundary | 高 | 低（只仿真 1 单元） |
-| 矩量法（MoM） | IE3D, FEKO | 极高 | 中 |
-| 全波仿真（有限阵列） | HFSS, CST | 高 | 极高 |
-| 等效电路模型 | MATLAB | 低 | 极低 |
-
-无限阵列模型是最常用的快速检测方法——只需要仿真一个单元加上周期性边界条件，就可以计算出整个无限阵列的扫描阻抗随角度的变化。如果 S11 在某个角度急剧增大，就预示着扫描盲区的存在。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">无限阵列模型是最常用的快速检测方法——只需要仿真一个单元加上周期性边界条件，就可以计算出整个无限阵列的扫描阻抗随角度的变化。如果 S11 在某个角度急剧增大，就预示着扫描盲区的存在。</div>
+    
   </div>
+
     
   
     

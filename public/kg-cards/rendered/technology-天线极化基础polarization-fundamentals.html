@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -332,32 +332,54 @@ E(z,t) = E_x·cos(ωt - kz + φ_x)·x̂ + E_y·cos(ωt - kz + φ_y)·ŷ
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.3 极化椭圆的几何参数</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>参数</th><th>符号</th><th>含义</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.3 极化椭圆的几何参数</div>
+        <tr>
+          
+          <td>倾角（Tilt Angle）</td>
+          
+          <td>τ</td>
+          
+          <td>椭圆长轴与 x 轴的夹角，-90° ≤ τ ≤ 90°</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>轴比（Axial Ratio）</td>
+          
+          <td>AR</td>
+          
+          <td>长轴/短轴之比，线性极化 AR=∞，圆极化 AR=1</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>旋向（Handedness）</td>
+          
+          <td>LHCP/RHCP</td>
+          
+          <td>顺时针/逆时针旋转</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 参数 | 符号 | 含义 |
-|------|------|------|
-| 倾角（Tilt Angle） | τ | 椭圆长轴与 x 轴的夹角，-90° ≤ τ ≤ 90° |
-| 轴比（Axial Ratio） | AR | 长轴/短轴之比，线性极化 AR=∞，圆极化 AR=1 |
-| 旋向（Handedness） | LHCP/RHCP | 顺时针/逆时针旋转 |
-
-轴比的 dB 表示：
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">轴比的 dB 表示：
 `
 AR_dB = 20·log₁₀(AR)
 `
 AR = 1（线性）→ AR_dB = 0dB ❌ 不对，AR=∞ 是线极化
 AR = 1（圆）→ AR_dB = 0dB ✅
 AR = 3 → AR_dB = 9.5dB ❌ 也不对
-
 纠正：
 `
 AR = 长轴 / 短轴
@@ -365,18 +387,13 @@ AR = ∞ → 线极化（短轴=0）
 AR = 1 → 圆极化（长轴=短轴）
 AR = 1.5 → 椭圆极化（接近圆）
 `
-
 AR_dB 的定义有两种常见方式：
 线性尺度：AR（无量纲比值）
 dB 尺度：AR_dB = 20·log₁₀(AR)，圆极化 = 0dB，线极化 = ∞dB
-
 工程中常用&#34;轴比 ≤ 3dB&#34;作为圆极化天线的验收标准。</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -612,78 +629,93 @@ PLF = |ρ̂_t · ρ̂_r|²
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.2 极化隔离度（Polarization Isolation）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>极化类型</th><th>典型隔离度</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.2 极化隔离度（Polarization Isolation）</div>
+        <tr>
+          
+          <td>±45° 线极化</td>
+          
+          <td>20-35dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>圆极化（同旋向 vs 反旋向）</td>
+          
+          <td>20-30dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>高隔离度基站天线</td>
+          
+          <td>&gt; 30dB</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">衡量天线抑制交叉极化的能力：
-
-`
-PI = 10·log₁₀(P_co-pol / P_cross-pol) [dB]
-`
-
-| 极化类型 | 典型隔离度 |
-|---------|----------|
-| ±45° 线极化 | 20-35dB |
-| 圆极化（同旋向 vs 反旋向） | 20-30dB |
-| 高隔离度基站天线 | &gt; 30dB |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.3 交叉极化（Cross-Polarization）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>场景</th><th>XPD</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.3 交叉极化（Cross-Polarization）</div>
+        <tr>
+          
+          <td>理想天线</td>
+          
+          <td>&gt; 30dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>实际基站天线</td>
+          
+          <td>20-25dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>雨中对流层链路</td>
+          
+          <td>10-15dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>电离层传播</td>
+          
+          <td>5-10dB</td>
+          
+        </tr>
         
-        
-        <div class="desc">理想情况下，天线只辐射期望的极化（co-pol），但实际上总会有少量交叉极化（cross-pol）：
-
-`
-总辐射 = co-pol + cross-pol
-XPD（交叉极化比）= co-pol / cross-pol
-`
-
-交叉极化的来源：
-天线结构不对称
-反射面散射
-馈源极化不纯
-传播过程中的极化旋转（电离层、降雨）
-
-XPD 的典型值：
-| 场景 | XPD |
-|------|-----|
-| 理想天线 | &gt; 30dB |
-| 实际基站天线 | 20-25dB |
-| 雨中对流层链路 | 10-15dB |
-| 电离层传播 | 5-10dB |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

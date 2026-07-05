@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,113 +269,224 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.1 5G FR2 频段分配</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>频段</th><th>频率范围</th><th>典型用途</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.1 5G FR2 频段分配</div>
+        <tr>
+          
+          <td>n257</td>
+          
+          <td>26.5-29.5 GHz</td>
+          
+          <td>5G 商用</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>n258</td>
+          
+          <td>24.25-27.5 GHz</td>
+          
+          <td>5G 商用（北美）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>n260</td>
+          
+          <td>39.25-45.75 GHz</td>
+          
+          <td>5G 全球主流</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>n261</td>
+          
+          <td>27.5-28.35 GHz</td>
+          
+          <td>5G 商用（美国）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>FR2-2</td>
+          
+          <td>52.6-71 GHz</td>
+          
+          <td>6G 预研</td>
+          
+        </tr>
         
-        <div class="desc">| 频段 | 频率范围 | 典型用途 |
-|------|---------|---------|
-| n257 | 26.5-29.5 GHz | 5G 商用 |
-| n258 | 24.25-27.5 GHz | 5G 商用（北美） |
-| n260 | 39.25-45.75 GHz | 5G 全球主流 |
-| n261 | 27.5-28.35 GHz | 5G 商用（美国） |
-| FR2-2 | 52.6-71 GHz | 6G 预研 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.2 毫米波 vs Sub-6GHz 对比</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>特性</th><th>Sub-6GHz</th><th>毫米波（28/39GHz）</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.2 毫米波 vs Sub-6GHz 对比</div>
+        <tr>
+          
+          <td>自由空间损耗（100m）</td>
+          
+          <td>~90dB</td>
+          
+          <td>~115dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>雨衰（1km）</td>
+          
+          <td>可忽略</td>
+          
+          <td>5-15dB/km</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>天线尺寸（λ/2）</td>
+          
+          <td>~4cm（3.5GHz）</td>
+          
+          <td>~5mm（28GHz）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>阵列规模</td>
+          
+          <td>4-8 单元</td>
+          
+          <td>64-256+ 单元</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>增益需求</td>
+          
+          <td>6-10dBi</td>
+          
+          <td>20-30dBi</td>
+          
+        </tr>
         
-        <div class="desc">| 特性 | Sub-6GHz | 毫米波（28/39GHz） |
-|------|---------|-------------------|
-| 自由空间损耗（100m） | ~90dB | ~115dB |
-| 雨衰（1km） | 可忽略 | 5-15dB/km |
-| 天线尺寸（λ/2） | ~4cm（3.5GHz） | ~5mm（28GHz） |
-| 阵列规模 | 4-8 单元 | 64-256+ 单元 |
-| 增益需求 | 6-10dBi | 20-30dBi |
-| 功放效率 | 30-40% | 10-20% |
-| 传播距离 | 数百米-数公里 | 50-200米 |</div>
+        <tr>
+          
+          <td>功放效率</td>
+          
+          <td>30-40%</td>
+          
+          <td>10-20%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>传播距离</td>
+          
+          <td>数百米-数公里</td>
+          
+          <td>50-200米</td>
+          
+        </tr>
         
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.3 毫米波特有挑战</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>障碍物</th><th>Sub-6GHz 损耗</th><th>毫米波损耗</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.3 毫米波特有挑战</div>
+        <tr>
+          
+          <td>玻璃窗</td>
+          
+          <td>2-3dB</td>
+          
+          <td>5-10dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>树叶</td>
+          
+          <td>1-2dB</td>
+          
+          <td>10-30dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>人体</td>
+          
+          <td>1-2dB</td>
+          
+          <td>15-30dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>墙壁</td>
+          
+          <td>10-20dB</td>
+          
+          <td>&gt; 40dB</td>
+          
+        </tr>
         
-        
-        <div class="desc">1）大气吸收峰：
-
-`
-23.8 GHz  → H₂O 吸收峰
-60 GHz    → O₂ 吸收峰（最强）
-118.75 GHz → O₂ 吸收峰
-`
-
-2）穿透损耗：
-
-| 障碍物 | Sub-6GHz 损耗 | 毫米波损耗 |
-|--------|-------------|----------|
-| 玻璃窗 | 2-3dB | 5-10dB |
-| 树叶 | 1-2dB | 10-30dB |
-| 人体 | 1-2dB | 15-30dB |
-| 墙壁 | 10-20dB | &gt; 40dB |
-
-3）趋肤效应：
-
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">3）趋肤效应：
 `
 δ_skin = √(2ρ/ωμ)
 `
-
 28GHz 时铜的趋肤深度仅 ~0.35μm，而 3.5GHz 时为 ~1.1μm。这意味着：
 导体损耗大幅增加
 镀金/镀银层厚度必须 &gt; 3δ ≈ 1μm
 PCB 表面处理工艺至关重要（ENEIG vs HASL）</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -507,91 +618,38 @@ PCB 表面处理工艺至关重要（ENEIG vs HASL）</div>
     
 
     
-  <div class="block section-table">
+  <div class="block section-list ">
     <div class="block-title">2.2 缝隙天线（Slot Antenna）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <tr>
-          
-          <td>在金属接地层上刻蚀缝隙作为辐射体：</td>
-          
-        </tr>
+        <div class="name">2.2 缝隙天线（Slot Antenna）</div>
         
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>GND 层:  ──╫══╫══╫══╫──</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>▒  ▒  ▒  ▒     ← 缝隙（辐射体）</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>Dielectric</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>Signal:   ─────────────   ← 微带馈线</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>特点：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>双面辐射（上下对称）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>易于集成于多层 PCB</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>带宽优于贴片（5-10%）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>增益：10-15dBi（4×4 阵列）</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-  </div>
+        <div class="desc">在金属接地层上刻蚀缝隙作为辐射体：
 
+`
+GND 层:  ──╫══╫══╫══╫──
+           ▒  ▒  ▒  ▒     ← 缝隙（辐射体）
+Dielectric
+Signal:   ─────────────   ← 微带馈线
+`
+
+特点：
+双面辐射（上下对称）
+易于集成于多层 PCB
+带宽优于贴片（5-10%）
+增益：10-15dBi（4×4 阵列）</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
     
   
     
@@ -786,46 +844,89 @@ PCB 表面处理工艺至关重要（ENEIG vs HASL）</div>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 基板损耗</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>基板材料</th><th>ε_r</th><th>tanδ @ 28GHz</th><th>适用场景</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 基板损耗</div>
+        <tr>
+          
+          <td>FR4</td>
+          
+          <td>4.4</td>
+          
+          <td>0.02-0.03</td>
+          
+          <td>❌ 不适用</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Rogers RO3003</td>
+          
+          <td>3.0</td>
+          
+          <td>0.0013</td>
+          
+          <td>✅ 基站</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Rogers RO4350B</td>
+          
+          <td>3.48</td>
+          
+          <td>0.0037</td>
+          
+          <td>✅ 通用</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>LCP</td>
+          
+          <td>3.0</td>
+          
+          <td>0.002-0.004</td>
+          
+          <td>✅ 手机 AiP</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>玻璃</td>
+          
+          <td>5-7</td>
+          
+          <td>0.005-0.01</td>
+          
+          <td>✅ 透明天线</td>
+          
+        </tr>
         
-        <div class="desc">毫米波频段的介质损耗角正切（tanδ）影响巨大：
-
-| 基板材料 | ε_r | tanδ @ 28GHz | 适用场景 |
-|---------|-----|-------------|---------|
-| FR4 | 4.4 | 0.02-0.03 | ❌ 不适用 |
-| Rogers RO3003 | 3.0 | 0.0013 | ✅ 基站 |
-| Rogers RO4350B | 3.48 | 0.0037 | ✅ 通用 |
-| LCP | 3.0 | 0.002-0.004 | ✅ 手机 AiP |
-| 玻璃 | 5-7 | 0.005-0.01 | ✅ 透明天线 |
-
-导体损耗计算：
-
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">导体损耗计算：
 `
 α_c = (R_s / (Z_0 · w)) · (l/g)  [dB/cm]
 `
-
 其中 R_s 是表面电阻：
 `
 R_s = √(πfμ/σ)
 `
-
 28GHz 时铜的 R_s ≈ 0.027Ω，比 3.5GHz 时的 0.009Ω 高 3 倍。</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -896,34 +997,61 @@ P_heat = 100/0.15 - 100 = 567W
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.4 加工精度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>频率</th><th>λ</th><th>允许公差（相位误差 &lt; 10°）</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.4 加工精度</div>
+        <tr>
+          
+          <td>3.5GHz</td>
+          
+          <td>86mm</td>
+          
+          <td>±0.5mm</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>28GHz</td>
+          
+          <td>10.7mm</td>
+          
+          <td>±0.06mm</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>39GHz</td>
+          
+          <td>7.7mm</td>
+          
+          <td>±0.04mm</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>77GHz</td>
+          
+          <td>3.9mm</td>
+          
+          <td>±0.02mm</td>
+          
+        </tr>
         
-        
-        <div class="desc">毫米波天线对加工公差的敏感度极高：
-
-| 频率 | λ | 允许公差（相位误差 &lt; 10°） |
-|------|---|------------------------|
-| 3.5GHz | 86mm | ±0.5mm |
-| 28GHz | 10.7mm | ±0.06mm |
-| 39GHz | 7.7mm | ±0.04mm |
-| 77GHz | 3.9mm | ±0.02mm |
-
-±0.04mm 的公差需要精密 CNC 加工或光刻工艺，PCB 厂的标准公差（±0.1mm）不够用。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">±0.04mm 的公差需要精密 CNC 加工或光刻工艺，PCB 厂的标准公差（±0.1mm）不够用。</div>
+    
   </div>
+
     
   
     

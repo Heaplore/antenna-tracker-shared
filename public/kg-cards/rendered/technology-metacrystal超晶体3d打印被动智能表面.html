@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -334,41 +334,71 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">行业应用</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>维度</th><th>RIS（主动式）</th><th>Metacrystal（被动式）</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">行业应用</div>
+        <tr>
+          
+          <td>调谐能力</td>
+          
+          <td>实时动态调整</td>
+          
+          <td>固定几何结构</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>适用场景</td>
+          
+          <td>快速变化的环境</td>
+          
+          <td>静态/慢变环境</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>成本</td>
+          
+          <td>高（电路+控制）</td>
+          
+          <td>低（3D打印塑料）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>复杂度</td>
+          
+          <td>需要持续维护</td>
+          
+          <td>安装后无需维护</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>频率上限</td>
+          
+          <td>通常低于100GHz</td>
+          
+          <td>可达100GHz</td>
+          
+        </tr>
         
-        <div class="desc">最适用的场景（来自Aalto大学博士研究者Mahdi Asgari）：
-
-静态/慢变环境：工厂、仓库、长走廊——这些地方的无线环境布局固定，一次设计长期有效
-室内覆盖增强：地下室、隧道、大型建筑内部——6G高频段信号容易被墙体阻挡
-建筑一体化：未来可嵌入墙壁、天花板、家具中，成为&#34;隐形基础设施&#34;
-
-与RIS的分工：
-
-| 维度 | RIS（主动式） | Metacrystal（被动式） |
-|------|-------------|---------------------|
-| 调谐能力 | 实时动态调整 | 固定几何结构 |
-| 适用场景 | 快速变化的环境 | 静态/慢变环境 |
-| 成本 | 高（电路+控制） | 低（3D打印塑料） |
-| 复杂度 | 需要持续维护 | 安装后无需维护 |
-| 频率上限 | 通常低于100GHz | 可达100GHz |
-
-两者不是替代关系，而是互补关系。RIS适合动态场景（如移动基站覆盖），Metacrystal适合静态场景（如厂房固定覆盖）。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">两者不是替代关系，而是互补关系。RIS适合动态场景（如移动基站覆盖），Metacrystal适合静态场景（如厂房固定覆盖）。</div>
+    
   </div>
+
     
   
     

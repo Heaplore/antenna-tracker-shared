@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -284,34 +284,83 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.2 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>特性</th><th>值/说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.2 特点</div>
+        <tr>
+          
+          <td>射频链路数</td>
+          
+          <td>1</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>空间流数</td>
+          
+          <td>1（单用户）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>移相器位数</td>
+          
+          <td>2-6 bit（步进 90°-5.6°）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束切换速度</td>
+          
+          <td>μs 级（模拟域）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>功耗</td>
+          
+          <td>极低（1 条 RF 链路）</td>
+          
+        </tr>
         
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | 1 |
-| 空间流数 | 1（单用户） |
-| 移相器位数 | 2-6 bit（步进 90°-5.6°） |
-| 波束切换速度 | μs 级（模拟域） |
-| 功耗 | 极低（1 条 RF 链路） |
-| 成本 | 最低 |
-| 灵活性 | 低（只能形成预置波束） |
-| 适用场景 | 毫米波初始接入、卫星通信、4G 传统天线 |</div>
+        <tr>
+          
+          <td>成本</td>
+          
+          <td>最低</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>灵活性</td>
+          
+          <td>低（只能形成预置波束）</td>
+          
+        </tr>
         
-      </div>
-      
-    </div>
+        <tr>
+          
+          <td>适用场景</td>
+          
+          <td>毫米波初始接入、卫星通信、4G 传统天线</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -371,34 +420,83 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.2 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>特性</th><th>值/说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.2 特点</div>
+        <tr>
+          
+          <td>射频链路数</td>
+          
+          <td>N（等于天线数）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>空间流数</td>
+          
+          <td>最多 N 流</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束形成</td>
+          
+          <td>数字域预编码矩阵 W ∈ C^(N×K)</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束切换速度</td>
+          
+          <td>ns 级（数字信号处理）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>功耗</td>
+          
+          <td>高（N 条 RF 链路）</td>
+          
+        </tr>
         
-        <div class="desc">| 特性 | 值/说明 |
-|------|---------|
-| 射频链路数 | N（等于天线数） |
-| 空间流数 | 最多 N 流 |
-| 波束形成 | 数字域预编码矩阵 W ∈ C^(N×K) |
-| 波束切换速度 | ns 级（数字信号处理） |
-| 功耗 | 高（N 条 RF 链路） |
-| 成本 | 最高 |
-| 灵活性 | 最高（每根天线独立控制） |
-| 适用场景 | Sub-6GHz 基站、实验室验证 |</div>
+        <tr>
+          
+          <td>成本</td>
+          
+          <td>最高</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>灵活性</td>
+          
+          <td>最高（每根天线独立控制）</td>
+          
+        </tr>
         
-      </div>
-      
-    </div>
+        <tr>
+          
+          <td>适用场景</td>
+          
+          <td>Sub-6GHz 基站、实验室验证</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -503,62 +601,177 @@ K &lt;&lt; N（射频链路数远小于天线数）</code></pre>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.3 特点</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>特性</th><th>ABF</th><th>HBF（子阵）</th><th>DBF</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.3 特点</div>
+        <tr>
+          
+          <td>射频链路数</td>
+          
+          <td>1</td>
+          
+          <td>K（12-64）</td>
+          
+          <td>N（64-128）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>空间流数</td>
+          
+          <td>1</td>
+          
+          <td>K</td>
+          
+          <td>N</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>频谱效率</td>
+          
+          <td>基准</td>
+          
+          <td>85-95%</td>
+          
+          <td>100%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>功耗</td>
+          
+          <td>基准</td>
+          
+          <td>60-70%</td>
+          
+          <td>100%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>成本</td>
+          
+          <td>基准</td>
+          
+          <td>50-60%</td>
+          
+          <td>100%</td>
+          
+        </tr>
         
-        <div class="desc">| 特性 | ABF | HBF（子阵） | DBF |
-|------|-----|------------|-----|
-| 射频链路数 | 1 | K（12-64） | N（64-128） |
-| 空间流数 | 1 | K | N |
-| 频谱效率 | 基准 | 85-95% | 100% |
-| 功耗 | 基准 | 60-70% | 100% |
-| 成本 | 基准 | 50-60% | 100% |
-| 波束灵活性 | 低 | 中 | 高 |
-| 5G 主流 | ❌ | ✅ | 实验室 |</div>
+        <tr>
+          
+          <td>波束灵活性</td>
+          
+          <td>低</td>
+          
+          <td>中</td>
+          
+          <td>高</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>5G 主流</td>
+          
+          <td>❌</td>
+          
+          <td>✅</td>
+          
+          <td>实验室</td>
+          
+        </tr>
         
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.4 5G 基站 HBF 典型配置</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>厂商</th><th>产品</th><th>天线数</th><th>RF 链路数</th><th>架构</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.4 5G 基站 HBF 典型配置</div>
+        <tr>
+          
+          <td>华为</td>
+          
+          <td>AAU 64T64R</td>
+          
+          <td>192（64 端口双极化）</td>
+          
+          <td>64</td>
+          
+          <td>子阵</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>爱立信</td>
+          
+          <td>AIR 6488</td>
+          
+          <td>128（64 端口）</td>
+          
+          <td>64</td>
+          
+          <td>子阵</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>中兴</td>
+          
+          <td>64T64R AAU</td>
+          
+          <td>384（64 端口）</td>
+          
+          <td>32-64</td>
+          
+          <td>子阵</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>三星</td>
+          
+          <td>MMB-H13（28GHz）</td>
+          
+          <td>128</td>
+          
+          <td>32</td>
+          
+          <td>子阵</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 厂商 | 产品 | 天线数 | RF 链路数 | 架构 |
-|------|------|--------|----------|------|
-| 华为 | AAU 64T64R | 192（64 端口双极化） | 64 | 子阵 |
-| 爱立信 | AIR 6488 | 128（64 端口） | 64 | 子阵 |
-| 中兴 | 64T64R AAU | 384（64 端口） | 32-64 | 子阵 |
-| 三星 | MMB-H13（28GHz） | 128 | 32 | 子阵 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

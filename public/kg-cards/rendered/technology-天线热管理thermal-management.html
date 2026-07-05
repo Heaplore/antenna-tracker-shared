@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -340,30 +340,83 @@ R_th 组成：
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.2 散热方案对比</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>方案</th><th>适用场景</th><th>散热能力</th><th>重量</th><th>成本</th><th>可靠性</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.2 散热方案对比</div>
+        <tr>
+          
+          <td>自然对流（无风扇）</td>
+          
+          <td>Sub-6GHz AAU</td>
+          
+          <td>200-500W</td>
+          
+          <td>轻</td>
+          
+          <td>低</td>
+          
+          <td>高（无运动件）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>风扇散热</td>
+          
+          <td>毫米波 AAU</td>
+          
+          <td>300-800W</td>
+          
+          <td>中</td>
+          
+          <td>中</td>
+          
+          <td>中（风扇寿命）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>液冷</td>
+          
+          <td>未来 6G AAU</td>
+          
+          <td>500-1500W</td>
+          
+          <td>重</td>
+          
+          <td>高</td>
+          
+          <td>高</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>热管/VC</td>
+          
+          <td>高密度 AAU</td>
+          
+          <td>300-600W</td>
+          
+          <td>中</td>
+          
+          <td>中</td>
+          
+          <td>高</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 方案 | 适用场景 | 散热能力 | 重量 | 成本 | 可靠性 |
-|------|---------|---------|------|------|--------|
-| 自然对流（无风扇） | Sub-6GHz AAU | 200-500W | 轻 | 低 | 高（无运动件） |
-| 风扇散热 | 毫米波 AAU | 300-800W | 中 | 中 | 中（风扇寿命） |
-| 液冷 | 未来 6G AAU | 500-1500W | 重 | 高 | 高 |
-| 热管/VC | 高密度 AAU | 300-600W | 中 | 中 | 高 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

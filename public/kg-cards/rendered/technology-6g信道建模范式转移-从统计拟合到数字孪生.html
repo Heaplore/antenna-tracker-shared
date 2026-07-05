@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -413,29 +413,55 @@ GBSMC 模型：Geometry-Based Stochastic Multi-Cluster 模型
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">四、关键性能指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>ChannelLM</th><th>传统小模型</th><th>提升幅度</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">四、关键性能指标</div>
+        <tr>
+          
+          <td>CSI 预测误差（未见环境）</td>
+          
+          <td>降低 4.23 dB</td>
+          
+          <td>基准</td>
+          
+          <td>-4.23 dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>端到端推理延迟</td>
+          
+          <td>70 ms</td>
+          
+          <td>不适用</td>
+          
+          <td>实时可用</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>环境泛化能力</td>
+          
+          <td>强（大模型）</td>
+          
+          <td>弱（场景绑定）</td>
+          
+          <td>质的飞跃</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 指标 | ChannelLM | 传统小模型 | 提升幅度 |
-|------|-----------|-----------|---------|
-| CSI 预测误差（未见环境） | 降低 4.23 dB | 基准 | -4.23 dB |
-| 端到端推理延迟 | 70 ms | 不适用 | 实时可用 |
-| 环境泛化能力 | 强（大模型） | 弱（场景绑定） | 质的飞跃 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

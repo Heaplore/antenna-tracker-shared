@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -381,43 +381,59 @@ S₁₂ = -40dB → 0.01% 的能量耦合</div>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.1 对阻抗的影响</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>单元间距</th><th>S₁₂ (dB)</th><th>阻抗偏移</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.1 对阻抗的影响</div>
+        <tr>
+          
+          <td>0.5λ</td>
+          
+          <td>-10dB</td>
+          
+          <td>±15Ω</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>0.7λ</td>
+          
+          <td>-18dB</td>
+          
+          <td>±8Ω</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>1.0λ</td>
+          
+          <td>-25dB</td>
+          
+          <td>±3Ω</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>1.5λ</td>
+          
+          <td>-35dB</td>
+          
+          <td>±1Ω</td>
+          
+        </tr>
         
-        
-        <div class="desc">互耦导致每个单元的输入阻抗随阵列状态变化：
-
-`
-Z_in,n = Z_nn + Σ(m≠n) (I_m/I_n) · Z_nm
-`
-
-后果：
-单个单元的 50Ω 匹配在阵列中可能变成 30+j20Ω
-波束扫描时阻抗随扫描角变化（scan impedance variation）
-VSWR 恶化，反射损耗增加
-
-典型数据：
-
-| 单元间距 | S₁₂ (dB) | 阻抗偏移 |
-|---------|---------|---------|
-| 0.5λ | -10dB | ±15Ω |
-| 0.7λ | -18dB | ±8Ω |
-| 1.0λ | -25dB | ±3Ω |
-| 1.5λ | -35dB | ±1Ω |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -530,96 +546,134 @@ w_actual = (I + K_c) · w_desired
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 耦合系数</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>典型值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 耦合系数</div>
+        <tr>
+          
+          <td>S₁₂</td>
+          
+          <td>相邻单元传输系数</td>
+          
+          <td>-10 到 -40dB</td>
+          
+        </tr>
         
-        
-        
-        
-        
-        <div class="desc">| 指标 | 定义 | 典型值 |
-|------|------|--------|
-| S₁₂ | 相邻单元传输系数 | -10 到 -40dB |
-| 耦合效率 η_c | |S₁₂|² | 0.01%-10% |
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">| 耦合效率 η_c | |S₁₂|² | 0.01%-10% |
 | 隔离度 ISO | -20·log₁₀|S₁₂| | 10-40dB |
 | 互阻抗比 | |Z₁₂|/|Z₁₁| | 0.01-0.5 |</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.2 阵列级指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>目标</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.2 阵列级指标</div>
+        <tr>
+          
+          <td>耦合引起的增益变化</td>
+          
+          <td>ΔG_coupling</td>
+          
+          <td>&lt;-1dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>耦合引起的方向图误差</td>
+          
+          <td>ΔAF_coupling</td>
+          
+          <td>&lt;-3dB</td>
+          
+        </tr>
         
-        
-        
-        
-        <div class="desc">| 指标 | 定义 | 目标 |
-|------|------|------|
-| 平均耦合 | (1/N(N-1)) · Σ|S_nm|² | &lt;-0.01 |
-| 最大耦合 | max|S_nm| | &lt;-20dB |
-| 耦合引起的增益变化 | ΔG_coupling | &lt;-1dB |
-| 耦合引起的方向图误差 | ΔAF_coupling | &lt;-3dB |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">| 平均耦合 | (1/N(N-1)) · Σ|S_nm|² | &lt;-0.01 |
+| 最大耦合 | max|S_nm| | &lt;-20dB |</div>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.1 增加单元间距</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>间距</th><th>S₁₂</th><th>阵列尺寸</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.1 增加单元间距</div>
+        <tr>
+          
+          <td>0.5λ</td>
+          
+          <td>-10dB</td>
+          
+          <td>最小</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>0.7λ</td>
+          
+          <td>-18dB</td>
+          
+          <td>紧凑</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>1.0λ</td>
+          
+          <td>-25dB</td>
+          
+          <td>适中</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>1.5λ</td>
+          
+          <td>-35dB</td>
+          
+          <td>较大</td>
+          
+        </tr>
         
-        
-        <div class="desc">最简单的办法，但有局限性：
-
-`
-S₁₂ ∝ exp(-π·d/λ)  （近似）
-`
-
-| 间距 | S₁₂ | 阵列尺寸 |
-|------|-----|---------|
-| 0.5λ | -10dB | 最小 |
-| 0.7λ | -18dB | 紧凑 |
-| 1.0λ | -25dB | 适中 |
-| 1.5λ | -35dB | 较大 |
-
-代价：阵列尺寸增大，可能出现栅瓣（d &gt; λ 时）。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">代价：阵列尺寸增大，可能出现栅瓣（d &gt; λ 时）。</div>
+    
   </div>
+
     
   
     

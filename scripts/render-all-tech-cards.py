@@ -40,6 +40,92 @@ def strip_markdown(text: str) -> str:
     return text
 
 
+def parse_pipe_table(raw: str) -> tuple[list[str], list[list[str]], str | None]:
+    """Parse pipe-style markdown tables. Returns (headers, rows, footer_or_none)."""
+    lines = [l.strip() for l in raw.strip().split('\n') if l.strip()]
+    if not lines:
+        return [], [], None
+
+    # Find header line (must have at least 2 pipes)
+    header_line = None
+    separator_idx = None
+    for i, line in enumerate(lines):
+        parts = [p.strip() for p in line.split('|') if p.strip() != '']
+        if len(parts) >= 2:
+            header_line = parts
+            # Find separator line (---, |---|---|, etc.)
+            for j in range(i + 1, len(lines)):
+                sep = lines[j]
+                sep_parts = [p.strip() for p in sep.split('|') if p.strip() != '']
+                if all(re.match(r'^[-:]+$', p) for p in sep_parts):
+                    separator_idx = j
+                    break
+            break
+
+    if header_line is None:
+        return [], [], None
+
+    rows = []
+    footer_parts = []
+    for i, line in enumerate(lines):
+        if i <= separator_idx:
+            continue
+        parts = [p.strip() for p in line.split('|') if p.strip() != '']
+        if len(parts) == len(header_line):
+            rows.append(parts)
+        else:
+            footer_parts.append(line)
+
+    footer = '\n'.join(footer_parts) if footer_parts else None
+    return header_line, rows, footer
+
+
+def detect_and_parse_table(raw: str) -> dict | None:
+    """Detect if raw text is a table (pipe or ASCII box) and parse it.
+    Returns normalized section dict, or None if not a table."""
+    raw_stripped = raw.strip()
+
+    # 1. Check for pipe-style markdown table
+    pipe_lines = [l for l in raw_stripped.split('\n') if l.strip() and '|' in l]
+    if len(pipe_lines) >= 3:
+        # At least 3 lines with pipes (header + separator + 1 data row minimum)
+        header_match = False
+        sep_found = False
+        for i, line in enumerate(pipe_lines):
+            parts = [p.strip() for p in line.split('|') if p.strip() != '']
+            if len(parts) >= 2:
+                header_match = True
+                # Check if next line is a separator
+                if i + 1 < len(pipe_lines):
+                    next_parts = [p.strip() for p in pipe_lines[i+1].split('|') if p.strip() != '']
+                    if all(re.match(r'^[-:]+$', p) for p in next_parts):
+                        sep_found = True
+                        break
+        if header_match and sep_found:
+            headers, rows, footer = parse_pipe_table(raw_stripped)
+            if rows:
+                result = {
+                    "type": "comparison",
+                    "table_headers": headers,
+                    "table_rows": [[strip_markdown(cell) for cell in row] for row in rows],
+                }
+                if footer:
+                    result["table_footer"] = strip_markdown(footer)
+                return result
+
+    # 2. Check for ASCII box-drawing table
+    if "┌" in raw_stripped or ("│" in raw_stripped and "─" in raw_stripped):
+        lines = [l for l in raw_stripped.split('\n') if l.strip() and not l.strip().startswith('┌') and not l.strip().startswith('└')]
+        if lines:
+            return {
+                "type": "table",
+                "table_headers": ["内容"],
+                "table_rows": [[strip_markdown(l.strip())] for l in lines],
+            }
+
+    return None
+
+
 def normalize_node(node: dict) -> dict:
     """把 KG JSON 节点映射成 technology.html 模板需要的字段。"""
     sections = []
@@ -64,16 +150,14 @@ def normalize_node(node: dict) -> dict:
                 sec["type"] = "code"
                 sec["content"] = strip_markdown(raw.strip().replace("```", "").strip())
                 sec["code_language"] = "markdown"
-            # 表格 → comparison 类型
-            elif "┌" in raw or "│" in raw or "─" in raw:
-                sec["type"] = "table"
-                # 解析 ASCII 表格
-                lines = [l for l in raw.split("\n") if l.strip() and not l.strip().startswith("┌") and not l.strip().startswith("└")]
-                sec["table_headers"] = ["内容"]
-                sec["table_rows"] = [[strip_markdown(l.strip())] for l in lines]
             else:
-                sec["type"] = "list"
-                sec["entries"] = [{"name": sec["title"], "desc": strip_markdown(raw)}]
+                # 尝试检测是否为表格（优先 pipe 表格，其次 ASCII 表格）
+                table_result = detect_and_parse_table(raw)
+                if table_result:
+                    sec.update(table_result)
+                else:
+                    sec["type"] = "list"
+                    sec["entries"] = [{"name": sec["title"], "desc": strip_markdown(raw)}]
         else:
             sec["type"] = "text"
             sec["content"] = strip_markdown(raw.strip())

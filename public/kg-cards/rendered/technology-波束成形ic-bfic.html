@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -351,111 +351,269 @@ BFIC 在数字域做波束成形（DSP/FPGA/ASIC）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.3 BFIC 与相关芯片的区别</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>芯片类型</th><th>缩写</th><th>功能</th><th>位置</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.3 BFIC 与相关芯片的区别</div>
+        <tr>
+          
+          <td>波束成形 IC</td>
+          
+          <td>BFIC</td>
+          
+          <td>相位/幅度控制</td>
+          
+          <td>T/R 模块之后，合路之前</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>射频前端模块</td>
+          
+          <td>FEM</td>
+          
+          <td>功放、低噪放、开关</td>
+          
+          <td>天线单元处</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>毫米波收发 IC</td>
+          
+          <td>mmWave Transceiver</td>
+          
+          <td>上/下变频、ADC/DAC</td>
+          
+          <td>基带和 RF 之间</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>基带处理器</td>
+          
+          <td>BBU/DSP</td>
+          
+          <td>数字信号处理</td>
+          
+          <td>基带域</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 芯片类型 | 缩写 | 功能 | 位置 |
-|---------|------|------|------|
-| 波束成形 IC | BFIC | 相位/幅度控制 | T/R 模块之后，合路之前 |
-| 射频前端模块 | FEM | 功放、低噪放、开关 | 天线单元处 |
-| 毫米波收发 IC | mmWave Transceiver | 上/下变频、ADC/DAC | 基带和 RF 之间 |
-| 基带处理器 | BBU/DSP | 数字信号处理 | 基带域 |
-
-BFIC 通常与 FEM 和 Transceiver IC 协同工作，构成完整的相控阵射频链路。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">BFIC 通常与 FEM 和 Transceiver IC 协同工作，构成完整的相控阵射频链路。</div>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.1 模拟 BFIC 内部架构</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>参数</th><th>典型值</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.1 模拟 BFIC 内部架构</div>
+        <tr>
+          
+          <td>移相器位数</td>
+          
+          <td>5-bit / 6-bit / 7-bit</td>
+          
+          <td>6-bit = 64 个相位状态</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>相位分辨率</td>
+          
+          <td>5.625° (6-bit)</td>
+          
+          <td>360°/2^n</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>RMS 相位误差</td>
+          
+          <td>&lt; 5°</td>
+          
+          <td>影响波束指向精度</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>衰减器位数</td>
+          
+          <td>4-bit / 5-bit / 6-bit</td>
+          
+          <td>6-bit = 0.5dB 分辨率</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>幅度误差</td>
+          
+          <td>&lt; ±0.5dB</td>
+          
+          <td>影响旁瓣电平</td>
+          
+        </tr>
         
-        <div class="desc">典型的模拟 BFIC 包含以下功能块：
-
-`
-通道 1:  LNA → VGA → 移相器 → 衰减器 → 合路器 → RF Out
-通道 2:  LNA → VGA → 移相器 → 衰减器 → 合路器 ↗
-通道 N:  LNA → VGA → 移相器 → 衰减器 → 合路器 ↗
-`
-
-关键参数：
-
-| 参数 | 典型值 | 说明 |
-|------|--------|------|
-| 移相器位数 | 5-bit / 6-bit / 7-bit | 6-bit = 64 个相位状态 |
-| 相位分辨率 | 5.625° (6-bit) | 360°/2^n |
-| RMS 相位误差 | &lt; 5° | 影响波束指向精度 |
-| 衰减器位数 | 4-bit / 5-bit / 6-bit | 6-bit = 0.5dB 分辨率 |
-| 幅度误差 | &lt; ±0.5dB | 影响旁瓣电平 |
-| VGA 增益范围 | 0-30 dB | 动态范围控制 |
-| 增益分辨率 | 0.5 dB | 与衰减器位数对应 |
-| 插入损耗 | 2-5 dB | 模拟通路固有损耗 |
-| 工作频率 | 4-40 GHz | 覆盖 Sub-6 到 mmWave |</div>
+        <tr>
+          
+          <td>VGA 增益范围</td>
+          
+          <td>0-30 dB</td>
+          
+          <td>动态范围控制</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>增益分辨率</td>
+          
+          <td>0.5 dB</td>
+          
+          <td>与衰减器位数对应</td>
+          
+        </tr>
         
-      </div>
-      
-    </div>
+        <tr>
+          
+          <td>插入损耗</td>
+          
+          <td>2-5 dB</td>
+          
+          <td>模拟通路固有损耗</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td>工作频率</td>
+          
+          <td>4-40 GHz</td>
+          
+          <td>覆盖 Sub-6 到 mmWave</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.2 相位控制精度与波束质量</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>位数</th><th>相位步进</th><th>RMS 相位误差</th><th>适用场景</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.2 相位控制精度与波束质量</div>
+        <tr>
+          
+          <td>3-bit</td>
+          
+          <td>45°</td>
+          
+          <td>~12.9°</td>
+          
+          <td>低端雷达</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>4-bit</td>
+          
+          <td>22.5°</td>
+          
+          <td>~6.5°</td>
+          
+          <td>简单通信</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>5-bit</td>
+          
+          <td>11.25°</td>
+          
+          <td>~3.2°</td>
+          
+          <td>5G Sub-6</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>6-bit</td>
+          
+          <td>5.625°</td>
+          
+          <td>~1.6°</td>
+          
+          <td>5G mmWave / 中端雷达</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>7-bit</td>
+          
+          <td>2.81°</td>
+          
+          <td>~0.8°</td>
+          
+          <td>高端雷达 / 卫星通信</td>
+          
+        </tr>
         
-        <div class="desc">移相器的位数直接决定了波束控制的精度：
-
-| 位数 | 相位步进 | RMS 相位误差 | 适用场景 |
-|------|---------|-------------|---------|
-| 3-bit | 45° | ~12.9° | 低端雷达 |
-| 4-bit | 22.5° | ~6.5° | 简单通信 |
-| 5-bit | 11.25° | ~3.2° | 5G Sub-6 |
-| 6-bit | 5.625° | ~1.6° | 5G mmWave / 中端雷达 |
-| 7-bit | 2.81° | ~0.8° | 高端雷达 / 卫星通信 |
-| 8-bit | 1.41° | ~0.4° | 精密雷达 / 射电天文 |
-
-6-bit 是 5G mmWave 的主流选择——它在性能和成本之间取得了最佳平衡。</div>
+        <tr>
+          
+          <td>8-bit</td>
+          
+          <td>1.41°</td>
+          
+          <td>~0.4°</td>
+          
+          <td>精密雷达 / 射电天文</td>
+          
+        </tr>
         
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">6-bit 是 5G mmWave 的主流选择——它在性能和成本之间取得了最佳平衡。</div>
+    
   </div>
+
     
   
     
@@ -498,32 +656,67 @@ BFIC 需要在离散相位状态中选择最接近 ψ_n 的值，这就引入了
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.4 旁瓣电平与幅度加权</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>窗函数</th><th>旁瓣电平</th><th>波束宽度</th><th>BFIC 实现难度</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.4 旁瓣电平与幅度加权</div>
+        <tr>
+          
+          <td>均匀加权</td>
+          
+          <td>-13.2 dB</td>
+          
+          <td>最窄</td>
+          
+          <td>最简单（全通道等幅）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>泰勒加权</td>
+          
+          <td>-25 dB</td>
+          
+          <td>稍宽</td>
+          
+          <td>中等（6-bit 衰减器）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>切比雪夫</td>
+          
+          <td>-30 dB</td>
+          
+          <td>更宽</td>
+          
+          <td>中等</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>汉宁/海明</td>
+          
+          <td>-44 dB</td>
+          
+          <td>最宽</td>
+          
+          <td>较高（需要精细幅度控制）</td>
+          
+        </tr>
         
-        
-        <div class="desc">为了实现低旁瓣，BFIC 需要对各通道施加不同的幅度加权（窗函数）：
-
-| 窗函数 | 旁瓣电平 | 波束宽度 | BFIC 实现难度 |
-|--------|---------|---------|-------------|
-| 均匀加权 | -13.2 dB | 最窄 | 最简单（全通道等幅） |
-| 泰勒加权 | -25 dB | 稍宽 | 中等（6-bit 衰减器） |
-| 切比雪夫 | -30 dB | 更宽 | 中等 |
-| 汉宁/海明 | -44 dB | 最宽 | 较高（需要精细幅度控制） |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -562,96 +755,221 @@ P_total = P_phase_shifter × N_channels + P_attenuator × N_channels + P_VGA × 
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 按工艺分类</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>工艺</th><th>特点</th><th>频率范围</th><th>代表厂商</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 按工艺分类</div>
+        <tr>
+          
+          <td>GaAs MMIC</td>
+          
+          <td>高功率、成熟工艺</td>
+          
+          <td>DC-40 GHz</td>
+          
+          <td>Qorvo, MACOM, Avago</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>SiGe BiCMOS</td>
+          
+          <td>低功耗、高集成</td>
+          
+          <td>DC-100 GHz</td>
+          
+          <td>Analog Devices, NXP</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>CMOS 28nm</td>
+          
+          <td>低成本、大规模集成</td>
+          
+          <td>DC-40 GHz</td>
+          
+          <td>Samsung, TI, NEC</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>CMOS 16nm</td>
+          
+          <td>更高集成、更低功耗</td>
+          
+          <td>DC-60 GHz</td>
+          
+          <td>先进 5G/6G BFIC</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>InP HBT</td>
+          
+          <td>最高频率性能</td>
+          
+          <td>DC-300 GHz</td>
+          
+          <td>科研/卫星</td>
+          
+        </tr>
         
-        <div class="desc">| 工艺 | 特点 | 频率范围 | 代表厂商 |
-|------|------|---------|---------|
-| GaAs MMIC | 高功率、成熟工艺 | DC-40 GHz | Qorvo, MACOM, Avago |
-| SiGe BiCMOS | 低功耗、高集成 | DC-100 GHz | Analog Devices, NXP |
-| CMOS 28nm | 低成本、大规模集成 | DC-40 GHz | Samsung, TI, NEC |
-| CMOS 16nm | 更高集成、更低功耗 | DC-60 GHz | 先进 5G/6G BFIC |
-| InP HBT | 最高频率性能 | DC-300 GHz | 科研/卫星 |
-
-CMOS 成为 5G BFIC 主流工艺的原因：
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">CMOS 成为 5G BFIC 主流工艺的原因：
 成本最低（标准晶圆代工）
 集成度最高（可在单芯片上集成数百通道）
 功耗可控（16nm 工艺下单通道 &lt; 10mW）
 缺点：输出功率和噪声系数不如 GaAs/SiGe</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.2 按功能分类</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>类型</th><th>功能</th><th>典型通道数</th><th>应用</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.2 按功能分类</div>
+        <tr>
+          
+          <td>纯模拟 BFIC</td>
+          
+          <td>移相 + 衰减 + VGA</td>
+          
+          <td>4-16</td>
+          
+          <td>5G 基站</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>收发一体 BFIC</td>
+          
+          <td>发射 + 接收通道</td>
+          
+          <td>8-32</td>
+          
+          <td>雷达</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>数字 BFIC</td>
+          
+          <td>DSP/FPGA 波束成形</td>
+          
+          <td>N/A</td>
+          
+          <td>军用 AESA</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>混合 BFIC</td>
+          
+          <td>模拟前端 + 数字后端</td>
+          
+          <td>4-64</td>
+          
+          <td>5G-Advanced</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>多波束 BFIC</td>
+          
+          <td>同时形成多个波束</td>
+          
+          <td>8-32</td>
+          
+          <td>卫星通信</td>
+          
+        </tr>
         
-        <div class="desc">| 类型 | 功能 | 典型通道数 | 应用 |
-|------|------|-----------|------|
-| 纯模拟 BFIC | 移相 + 衰减 + VGA | 4-16 | 5G 基站 |
-| 收发一体 BFIC | 发射 + 接收通道 | 8-32 | 雷达 |
-| 数字 BFIC | DSP/FPGA 波束成形 | N/A | 军用 AESA |
-| 混合 BFIC | 模拟前端 + 数字后端 | 4-64 | 5G-Advanced |
-| 多波束 BFIC | 同时形成多个波束 | 8-32 | 卫星通信 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.3 按封装形式分类</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>形式</th><th>特点</th><th>适用场景</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.3 按封装形式分类</div>
+        <tr>
+          
+          <td>裸芯片（Die）</td>
+          
+          <td>最小尺寸，需外部封装</td>
+          
+          <td>AiP 模组内集成</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>LGA/QFN 封装</td>
+          
+          <td>标准封装，便于 SMT</td>
+          
+          <td>模组级集成</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>SiP 封装</td>
+          
+          <td>含无源元件和散热结构</td>
+          
+          <td>基站 AAU</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>模块级</td>
+          
+          <td>含匹配网络和测试点</td>
+          
+          <td>研发/原型</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 形式 | 特点 | 适用场景 |
-|------|------|---------|
-| 裸芯片（Die） | 最小尺寸，需外部封装 | AiP 模组内集成 |
-| LGA/QFN 封装 | 标准封装，便于 SMT | 模组级集成 |
-| SiP 封装 | 含无源元件和散热结构 | 基站 AAU |
-| 模块级 | 含匹配网络和测试点 | 研发/原型 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -803,119 +1121,253 @@ CMOS 成为 5G BFIC 主流工艺的原因：
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.1 射频性能</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>典型值</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.1 射频性能</div>
+        <tr>
+          
+          <td>工作频率</td>
+          
+          <td>DC-110 GHz</td>
+          
+          <td>覆盖 Sub-6 到 W-band</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>通道数</td>
+          
+          <td>1-64</td>
+          
+          <td>单芯片最大通道数</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>插入损耗</td>
+          
+          <td>2-8 dB</td>
+          
+          <td>信号通过 BFIC 的损耗</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>隔离度（通道间）</td>
+          
+          <td>&gt;30 dB</td>
+          
+          <td>串扰抑制</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>线性度（IP3）</td>
+          
+          <td>+20 to +35 dBm</td>
+          
+          <td>多信号场景下的线性度</td>
+          
+        </tr>
         
-        <div class="desc">| 指标 | 典型值 | 说明 |
-|------|--------|------|
-| 工作频率 | DC-110 GHz | 覆盖 Sub-6 到 W-band |
-| 通道数 | 1-64 | 单芯片最大通道数 |
-| 插入损耗 | 2-8 dB | 信号通过 BFIC 的损耗 |
-| 隔离度（通道间） | &gt;30 dB | 串扰抑制 |
-| 线性度（IP3） | +20 to +35 dBm | 多信号场景下的线性度 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.2 波束控制精度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>典型值</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.2 波束控制精度</div>
+        <tr>
+          
+          <td>移相器位数</td>
+          
+          <td>5-8 bit</td>
+          
+          <td>6-bit 最常见</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>衰减器位数</td>
+          
+          <td>4-6 bit</td>
+          
+          <td>6-bit 对应 0.5dB 步进</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>RMS 相位误差</td>
+          
+          <td>&lt; 3° (6-bit)</td>
+          
+          <td>决定波束指向精度</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>RMS 幅度误差</td>
+          
+          <td>&lt; 0.3dB (6-bit)</td>
+          
+          <td>决定旁瓣电平</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束指向分辨率</td>
+          
+          <td>0.1-1.0°</td>
+          
+          <td>取决于移相器位数</td>
+          
+        </tr>
         
-        <div class="desc">| 指标 | 典型值 | 说明 |
-|------|--------|------|
-| 移相器位数 | 5-8 bit | 6-bit 最常见 |
-| 衰减器位数 | 4-6 bit | 6-bit 对应 0.5dB 步进 |
-| RMS 相位误差 | &lt; 3° (6-bit) | 决定波束指向精度 |
-| RMS 幅度误差 | &lt; 0.3dB (6-bit) | 决定旁瓣电平 |
-| 波束指向分辨率 | 0.1-1.0° | 取决于移相器位数 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.3 功耗与热</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>典型值</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.3 功耗与热</div>
+        <tr>
+          
+          <td>单通道功耗</td>
+          
+          <td>5-200 mW</td>
+          
+          <td>取决于频率和通道数</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>芯片总功耗</td>
+          
+          <td>50mW - 2W</td>
+          
+          <td>4通道到64通道</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>热阻</td>
+          
+          <td>10-50°C/W</td>
+          
+          <td>取决于封装</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>结温</td>
+          
+          <td>&lt; 125°C</td>
+          
+          <td>商业级 / &lt; 175°C 军用级</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 指标 | 典型值 | 说明 |
-|------|--------|------|
-| 单通道功耗 | 5-200 mW | 取决于频率和通道数 |
-| 芯片总功耗 | 50mW - 2W | 4通道到64通道 |
-| 热阻 | 10-50°C/W | 取决于封装 |
-| 结温 | &lt; 125°C | 商业级 / &lt; 175°C 军用级 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.4 控制接口</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>接口</th><th>速率</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.4 控制接口</div>
+        <tr>
+          
+          <td>SPI</td>
+          
+          <td>10-50 MHz</td>
+          
+          <td>最常用，配置移相器/衰减器</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>I2C</td>
+          
+          <td>1-400 kHz</td>
+          
+          <td>简单配置</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>LVDS</td>
+          
+          <td>&gt; 1 Gbps</td>
+          
+          <td>高速波束扫描控制</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>并行</td>
+          
+          <td>&gt; 100 MHz</td>
+          
+          <td>超大阵列（256+ 通道）</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 接口 | 速率 | 说明 |
-|------|------|------|
-| SPI | 10-50 MHz | 最常用，配置移相器/衰减器 |
-| I2C | 1-400 kHz | 简单配置 |
-| LVDS | &gt; 1 Gbps | 高速波束扫描控制 |
-| 并行 | &gt; 100 MHz | 超大阵列（256+ 通道） |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,31 +269,69 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.1 从离散到连续：天线范式的根本转变</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>维度</th><th>离散阵列（SPDA）</th><th>连续孔径（CAPA）</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.1 从离散到连续：天线范式的根本转变</div>
+        <tr>
+          
+          <td>辐射体</td>
+          
+          <td>离散的天线单元（N 个）</td>
+          
+          <td>连续的电磁表面</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>自由度</td>
+          
+          <td>N 个（有限）</td>
+          
+          <td>无限个（理论）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束控制</td>
+          
+          <td>通过离散单元的幅相加权</td>
+          
+          <td>通过表面电流分布 J(x,y)</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>方向图</td>
+          
+          <td>AF(θ) = Σ I_n · exp(j·n·ψ)</td>
+          
+          <td>F(θ) = ∬ J(x,y) · exp(j·k·r) dx dy</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>物理实现</td>
+          
+          <td>天线单元 + 移相器</td>
+          
+          <td>超表面 / RIS / 可编程金属表面</td>
+          
+        </tr>
         
-        <div class="desc">| 维度 | 离散阵列（SPDA） | 连续孔径（CAPA） |
-|------|----------------|-----------------|
-| 辐射体 | 离散的天线单元（N 个） | 连续的电磁表面 |
-| 自由度 | N 个（有限） | 无限个（理论） |
-| 波束控制 | 通过离散单元的幅相加权 | 通过表面电流分布 J(x,y) |
-| 方向图 | AF(θ) = Σ I_n · exp(j·n·ψ) | F(θ) = ∬ J(x,y) · exp(j·k·r) dx dy |
-| 物理实现 | 天线单元 + 移相器 | 超表面 / RIS / 可编程金属表面 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -366,30 +404,67 @@ F(k_x, k_y) = ∬∬ J(x,y) · exp[j·(k_x·x + k_y·y)] dx dy
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.4 CAPA 的实现方式</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>方式</th><th>原理</th><th>成熟度</th><th>特点</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.4 CAPA 的实现方式</div>
+        <tr>
+          
+          <td>超表面（Metasurface）</td>
+          
+          <td>亚波长单元组成的可编程表面</td>
+          
+          <td>原型</td>
+          
+          <td>超薄、轻量、可重构</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>智能反射面（RIS）</td>
+          
+          <td>大规模被动反射单元阵列</td>
+          
+          <td>商用初期</td>
+          
+          <td>成本低、无需电源</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>可编程金属表面</td>
+          
+          <td>连续金属表面 + 电子开关</td>
+          
+          <td>研究</td>
+          
+          <td>真正的连续孔径</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>介电谐振器阵列</td>
+          
+          <td>高介电常数谐振器排列</td>
+          
+          <td>研究</td>
+          
+          <td>低损耗、高增益</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 方式 | 原理 | 成熟度 | 特点 |
-|------|------|--------|------|
-| 超表面（Metasurface） | 亚波长单元组成的可编程表面 | 原型 | 超薄、轻量、可重构 |
-| 智能反射面（RIS） | 大规模被动反射单元阵列 | 商用初期 | 成本低、无需电源 |
-| 可编程金属表面 | 连续金属表面 + 电子开关 | 研究 | 真正的连续孔径 |
-| 介电谐振器阵列 | 高介电常数谐振器排列 | 研究 | 低损耗、高增益 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -571,90 +646,213 @@ J(x,y) = F⁻¹[W_target(k_x, k_y)]
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 理论性能</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>离散 MIMO（最优）</th><th>CAPA（理论）</th><th>增益</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 理论性能</div>
+        <tr>
+          
+          <td>容量（相同面积）</td>
+          
+          <td>C</td>
+          
+          <td>2-5C</td>
+          
+          <td>2-5×</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>自由度</td>
+          
+          <td>N（有限）</td>
+          
+          <td>∞（无限）</td>
+          
+          <td>∞</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束数量</td>
+          
+          <td>有限（受限于 N）</td>
+          
+          <td>无限</td>
+          
+          <td>∞</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束形状灵活性</td>
+          
+          <td>受限（离散单元）</td>
+          
+          <td>任意（连续表面）</td>
+          
+          <td>∞</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>近场建模精度</td>
+          
+          <td>近似</td>
+          
+          <td>精确</td>
+          
+          <td>显著</td>
+          
+        </tr>
         
-        <div class="desc">| 指标 | 离散 MIMO（最优） | CAPA（理论） | 增益 |
-|------|-----------------|-------------|------|
-| 容量（相同面积） | C | 2-5C | 2-5× |
-| 自由度 | N（有限） | ∞（无限） | ∞ |
-| 波束数量 | 有限（受限于 N） | 无限 | ∞ |
-| 波束形状灵活性 | 受限（离散单元） | 任意（连续表面） | ∞ |
-| 近场建模精度 | 近似 | 精确 | 显著 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.2 实际性能（原型系统）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>原型 CAPA</th><th>64T64R Massive MIMO</th><th>比较</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.2 实际性能（原型系统）</div>
+        <tr>
+          
+          <td>单元数</td>
+          
+          <td>~1000（等效）</td>
+          
+          <td>128</td>
+          
+          <td>~8×</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>增益</td>
+          
+          <td>25-30 dBi</td>
+          
+          <td>22-25 dBi</td>
+          
+          <td>+3-5dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束数量</td>
+          
+          <td>10+</td>
+          
+          <td>4-8</td>
+          
+          <td>2-3×</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>功耗</td>
+          
+          <td>相似</td>
+          
+          <td>相似</td>
+          
+          <td>相当</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 指标 | 原型 CAPA | 64T64R Massive MIMO | 比较 |
-|------|----------|---------------------|------|
-| 单元数 | ~1000（等效） | 128 | ~8× |
-| 增益 | 25-30 dBi | 22-25 dBi | +3-5dB |
-| 波束数量 | 10+ | 4-8 | 2-3× |
-| 功耗 | 相似 | 相似 | 相当 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.3 成本对比</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>成本项</th><th>离散 Massive MIMO</th><th>CAPA</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.3 成本对比</div>
+        <tr>
+          
+          <td>T/R 模块</td>
+          
+          <td>128-256 个</td>
+          
+          <td>0 个（被动表面）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>移相器</td>
+          
+          <td>128-256 个</td>
+          
+          <td>集成在表面中</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>馈电网络</td>
+          
+          <td>复杂</td>
+          
+          <td>无（表面自馈电）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>散热</td>
+          
+          <td>复杂</td>
+          
+          <td>简单（无有源器件）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>单位面积成本</td>
+          
+          <td>高</td>
+          
+          <td>低（材料+制造）</td>
+          
+        </tr>
         
-        <div class="desc">| 成本项 | 离散 Massive MIMO | CAPA |
-|--------|------------------|------|
-| T/R 模块 | 128-256 个 | 0 个（被动表面） |
-| 移相器 | 128-256 个 | 集成在表面中 |
-| 馈电网络 | 复杂 | 无（表面自馈电） |
-| 散热 | 复杂 | 简单（无有源器件） |
-| 单位面积成本 | 高 | 低（材料+制造） |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -790,92 +988,203 @@ CAPA 的无限自由度可以最大化 ISAC 的 Pareto 最优区域</div>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.1 CAPA 性能指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>目标值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.1 CAPA 性能指标</div>
+        <tr>
+          
+          <td>等效单元数</td>
+          
+          <td>连续表面可区分的独立控制点数量</td>
+          
+          <td>&gt; 1000</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束数量</td>
+          
+          <td>可同时形成的独立波束数</td>
+          
+          <td>&gt; 10</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束形状自由度</td>
+          
+          <td>可生成的独立波前数量</td>
+          
+          <td>理论无限</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>相位分辨率</td>
+          
+          <td>表面单元的最小相位调控步进</td>
+          
+          <td>&lt; 5.6°（6-bit）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>响应时间</td>
+          
+          <td>从指令到波束重构完成的时间</td>
+          
+          <td>&lt; 1ms</td>
+          
+        </tr>
         
-        <div class="desc">| 指标 | 定义 | 目标值 |
-|------|------|--------|
-| 等效单元数 | 连续表面可区分的独立控制点数量 | &gt; 1000 |
-| 波束数量 | 可同时形成的独立波束数 | &gt; 10 |
-| 波束形状自由度 | 可生成的独立波前数量 | 理论无限 |
-| 相位分辨率 | 表面单元的最小相位调控步进 | &lt; 5.6°（6-bit） |
-| 响应时间 | 从指令到波束重构完成的时间 | &lt; 1ms |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.2 超表面指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>典型值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.2 超表面指标</div>
+        <tr>
+          
+          <td>单元尺寸</td>
+          
+          <td>超表面单个 meta-atom 的尺寸</td>
+          
+          <td>λ/4 - λ/2</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>单元间距</td>
+          
+          <td>相邻 meta-atom 的中心距</td>
+          
+          <td>&lt; λ/2</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>损耗</td>
+          
+          <td>每个单元的插入损耗</td>
+          
+          <td>&lt; 0.5dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>带宽</td>
+          
+          <td>有效工作带宽</td>
+          
+          <td>5-20%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化转换</td>
+          
+          <td>可实现的极化变换范围</td>
+          
+          <td>任意椭圆极化</td>
+          
+        </tr>
         
-        <div class="desc">| 指标 | 定义 | 典型值 |
-|------|------|--------|
-| 单元尺寸 | 超表面单个 meta-atom 的尺寸 | λ/4 - λ/2 |
-| 单元间距 | 相邻 meta-atom 的中心距 | &lt; λ/2 |
-| 损耗 | 每个单元的插入损耗 | &lt; 0.5dB |
-| 带宽 | 有效工作带宽 | 5-20% |
-| 极化转换 | 可实现的极化变换范围 | 任意椭圆极化 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">6.1 制造精度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>频段</th><th>λ</th><th>单元尺寸</th><th>加工要求</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">6.1 制造精度</div>
+        <tr>
+          
+          <td>3.5GHz</td>
+          
+          <td>86mm</td>
+          
+          <td>20-43mm</td>
+          
+          <td>标准 PCB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>28GHz</td>
+          
+          <td>10.7mm</td>
+          
+          <td>2.7-5.4mm</td>
+          
+          <td>精细 PCB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>100GHz</td>
+          
+          <td>3mm</td>
+          
+          <td>0.75-1.5mm</td>
+          
+          <td>MEMS / 光刻</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>300GHz</td>
+          
+          <td>1mm</td>
+          
+          <td>0.25-0.5mm</td>
+          
+          <td>半导体工艺</td>
+          
+        </tr>
         
-        
-        <div class="desc">CAPA 的表面单元尺寸通常在 λ/4 到 λ/2 之间：
-
-| 频段 | λ | 单元尺寸 | 加工要求 |
-|------|---|---------|---------|
-| 3.5GHz | 86mm | 20-43mm | 标准 PCB |
-| 28GHz | 10.7mm | 2.7-5.4mm | 精细 PCB |
-| 100GHz | 3mm | 0.75-1.5mm | MEMS / 光刻 |
-| 300GHz | 1mm | 0.25-0.5mm | 半导体工艺 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

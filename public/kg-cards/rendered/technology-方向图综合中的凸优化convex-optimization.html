@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -304,31 +304,69 @@ AF(θ,φ) = Σ(n=1 to N) w_n · exp(jk·r_n · [sinθcosφ, sinθsinφ, cosθ])
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.2 为什么经典方法不够？</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>方法</th><th>优点</th><th>缺点</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.2 为什么经典方法不够？</div>
+        <tr>
+          
+          <td>傅里叶变换法</td>
+          
+          <td>简单快速</td>
+          
+          <td>旁瓣高（-13dB），无法控制零陷</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Dolph-Chebyshev</td>
+          
+          <td>等旁瓣，旁瓣可控</td>
+          
+          <td>只能优化旁瓣，不能放零陷</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Taylor</td>
+          
+          <td>旁瓣+零陷平衡</td>
+          
+          <td>参数选择复杂，零陷位置受限</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Woodward-Lawson</td>
+          
+          <td>灵活</td>
+          
+          <td>旁瓣不均匀</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>凸优化</td>
+          
+          <td>多约束同时优化，全局最优</td>
+          
+          <td>计算量大</td>
+          
+        </tr>
         
-        <div class="desc">| 方法 | 优点 | 缺点 |
-|------|------|------|
-| 傅里叶变换法 | 简单快速 | 旁瓣高（-13dB），无法控制零陷 |
-| Dolph-Chebyshev | 等旁瓣，旁瓣可控 | 只能优化旁瓣，不能放零陷 |
-| Taylor | 旁瓣+零陷平衡 | 参数选择复杂，零陷位置受限 |
-| Woodward-Lawson | 灵活 | 旁瓣不均匀 |
-| 凸优化 | 多约束同时优化，全局最优 | 计算量大 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -678,120 +716,277 @@ subject to  |w_V,n|² + |w_H,n|² ≤ P_max,n
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.1 方向图性能指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>典型值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.1 方向图性能指标</div>
+        <tr>
+          
+          <td>PSLL</td>
+          
+          <td>峰值旁瓣电平</td>
+          
+          <td>&lt;-25dB（优化后）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>零陷深度</td>
+          
+          <td>干扰方向的增益</td>
+          
+          <td>&lt;-50dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>3dB 波束宽度</td>
+          
+          <td>主瓣半功率宽度</td>
+          
+          <td>根据应用确定</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>第一旁瓣间隔</td>
+          
+          <td>主瓣到第一旁瓣的角度</td>
+          
+          <td>&gt; 2°</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>方向图因子（DF）</td>
+          
+          <td>主瓣能量/总能量</td>
+          
+          <td>&gt; 80%</td>
+          
+        </tr>
         
-        <div class="desc">| 指标 | 定义 | 典型值 |
-|------|------|--------|
-| PSLL | 峰值旁瓣电平 | &lt;-25dB（优化后） |
-| 零陷深度 | 干扰方向的增益 | &lt;-50dB |
-| 3dB 波束宽度 | 主瓣半功率宽度 | 根据应用确定 |
-| 第一旁瓣间隔 | 主瓣到第一旁瓣的角度 | &gt; 2° |
-| 方向图因子（DF） | 主瓣能量/总能量 | &gt; 80% |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.2 优化性能指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.2 优化性能指标</div>
+        <tr>
+          
+          <td>求解时间</td>
+          
+          <td>优化器收敛所需时间</td>
+          
+          <td>秒级（SOCP），分钟级（SDP）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>全局最优性</td>
+          
+          <td>解是否为全局最优</td>
+          
+          <td>凸优化保证</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>约束满足度</td>
+          
+          <td>实际约束 vs 要求约束</td>
+          
+          <td>通常 &lt; 1% 违反</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>可扩展性</td>
+          
+          <td>N 增大时的计算复杂度</td>
+          
+          <td>SOCP: O(N³), SDP: O(N⁶)</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 指标 | 定义 | 说明 |
-|------|------|------|
-| 求解时间 | 优化器收敛所需时间 | 秒级（SOCP），分钟级（SDP） |
-| 全局最优性 | 解是否为全局最优 | 凸优化保证 |
-| 约束满足度 | 实际约束 vs 要求约束 | 通常 &lt; 1% 违反 |
-| 可扩展性 | N 增大时的计算复杂度 | SOCP: O(N³), SDP: O(N⁶) |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.3 鲁棒性指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>目标</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.3 鲁棒性指标</div>
+        <tr>
+          
+          <td>旁瓣敏感度</td>
+          
+          <td>幅相误差引起的旁瓣升高</td>
+          
+          <td>&lt; 3dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>零陷稳定性</td>
+          
+          <td>频率偏移引起的零陷漂移</td>
+          
+          <td>&lt; 0.5°</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束指向误差</td>
+          
+          <td>相位误差引起的波束偏移</td>
+          
+          <td>&lt; 0.1°</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 指标 | 定义 | 目标 |
-|------|------|------|
-| 旁瓣敏感度 | 幅相误差引起的旁瓣升高 | &lt; 3dB |
-| 零陷稳定性 | 频率偏移引起的零陷漂移 | &lt; 0.5° |
-| 波束指向误差 | 相位误差引起的波束偏移 | &lt; 0.1° |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.1 主流求解器</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>求解器</th><th>类型</th><th>适用问题</th><th>速度</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.1 主流求解器</div>
+        <tr>
+          
+          <td>MOSEK</td>
+          
+          <td>商业</td>
+          
+          <td>SDP/SOCP/QP</td>
+          
+          <td>快</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>SeDuMi</td>
+          
+          <td>开源</td>
+          
+          <td>SDP/SOCP</td>
+          
+          <td>中等</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>CVX</td>
+          
+          <td>开源（MATLAB）</td>
+          
+          <td>高层建模</td>
+          
+          <td>依赖底层</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>CVXPY</td>
+          
+          <td>开源（Python）</td>
+          
+          <td>高层建模</td>
+          
+          <td>依赖底层</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>ECOS</td>
+          
+          <td>开源</td>
+          
+          <td>SOCP</td>
+          
+          <td>很快</td>
+          
+        </tr>
         
-        <div class="desc">| 求解器 | 类型 | 适用问题 | 速度 |
-|--------|------|---------|------|
-| MOSEK | 商业 | SDP/SOCP/QP | 快 |
-| SeDuMi | 开源 | SDP/SOCP | 中等 |
-| CVX | 开源（MATLAB） | 高层建模 | 依赖底层 |
-| CVXPY | 开源（Python） | 高层建模 | 依赖底层 |
-| ECOS | 开源 | SOCP | 很快 |
-| SCS | 开源 | SOCP | 快（大规模） |
-| Gurobi | 商业 | QP/MILP | 快 |</div>
+        <tr>
+          
+          <td>SCS</td>
+          
+          <td>开源</td>
+          
+          <td>SOCP</td>
+          
+          <td>快（大规模）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Gurobi</td>
+          
+          <td>商业</td>
+          
+          <td>QP/MILP</td>
+          
+          <td>快</td>
+          
+        </tr>
         
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -840,30 +1035,67 @@ disp([&#39;Peak SLL: &#39;, num2str(20*log10(cvx_optval), &#39;%.2f&#39;), &#39;
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.3 计算复杂度</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>方法</th><th>N=64</th><th>N=256</th><th>N=1024</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.3 计算复杂度</div>
+        <tr>
+          
+          <td>Chebyshev（解析）</td>
+          
+          <td>&lt; 1ms</td>
+          
+          <td>&lt; 1ms</td>
+          
+          <td>&lt; 1ms</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>凸优化 SOCP</td>
+          
+          <td>~1s</td>
+          
+          <td>~10s</td>
+          
+          <td>~60s</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>凸优化 SDP</td>
+          
+          <td>~5s</td>
+          
+          <td>~60s</td>
+          
+          <td>~600s</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>遗传算法</td>
+          
+          <td>~10s</td>
+          
+          <td>~100s</td>
+          
+          <td>~1000s</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 方法 | N=64 | N=256 | N=1024 |
-|------|------|-------|--------|
-| Chebyshev（解析） | &lt; 1ms | &lt; 1ms | &lt; 1ms |
-| 凸优化 SOCP | ~1s | ~10s | ~60s |
-| 凸优化 SDP | ~5s | ~60s | ~600s |
-| 遗传算法 | ~10s | ~100s | ~1000s |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -520,30 +520,67 @@ I_corrected = C⁻¹ · I_measured
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 AEP 测量方法</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>方法</th><th>原理</th><th>优点</th><th>缺点</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 AEP 测量方法</div>
+        <tr>
+          
+          <td>单单元激励法</td>
+          
+          <td>只激励目标单元，其余端接50Ω</td>
+          
+          <td>简单直接</td>
+          
+          <td>需要大量测量（N次）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>近场扫描法</td>
+          
+          <td>测量近场后FFT变换到远场</td>
+          
+          <td>精度高，自动化</td>
+          
+          <td>设备昂贵</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波导模拟器法</td>
+          
+          <td>用波导模拟无限大阵列</td>
+          
+          <td>适合高频段</td>
+          
+          <td>体积大，不灵活</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>电磁仿真法</td>
+          
+          <td>HFSS/CST全波仿真</td>
+          
+          <td>无需实物</td>
+          
+          <td>计算量大，模型精度依赖</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 方法 | 原理 | 优点 | 缺点 |
-|------|------|------|------|
-| 单单元激励法 | 只激励目标单元，其余端接50Ω | 简单直接 | 需要大量测量（N次） |
-| 近场扫描法 | 测量近场后FFT变换到远场 | 精度高，自动化 | 设备昂贵 |
-| 波导模拟器法 | 用波导模拟无限大阵列 | 适合高频段 | 体积大，不灵活 |
-| 电磁仿真法 | HFSS/CST全波仿真 | 无需实物 | 计算量大，模型精度依赖 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -622,61 +659,137 @@ PNAEP = AEP / exp(j·φ_LO)
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.1 AEP 相关指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>典型要求</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.1 AEP 相关指标</div>
+        <tr>
+          
+          <td>有源 VSWR</td>
+          
+          <td>考虑互耦后的驻波比</td>
+          
+          <td>≤ 2:1（扫描范围内）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>TARC</td>
+          
+          <td>总反射系数</td>
+          
+          <td>≤ -10 dB（工程最低）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>扫描阻抗变化</td>
+          
+          <td>Z_active(θ) / Z_active(0°)</td>
+          
+          <td>变化 &lt; 20%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>AEP 增益偏差</td>
+          
+          <td>AEP增益 - 孤立单元增益</td>
+          
+          <td>&lt; ±1 dB（扫描±60°）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>旁瓣电平（有源）</td>
+          
+          <td>AEP 的最大旁瓣</td>
+          
+          <td>&lt; -15 dB</td>
+          
+        </tr>
         
-        <div class="desc">| 指标 | 定义 | 典型要求 |
-|------|------|---------|
-| 有源 VSWR | 考虑互耦后的驻波比 | ≤ 2:1（扫描范围内） |
-| TARC | 总反射系数 | ≤ -10 dB（工程最低） |
-| 扫描阻抗变化 | Z_active(θ) / Z_active(0°) | 变化 &lt; 20% |
-| AEP 增益偏差 | AEP增益 - 孤立单元增益 | &lt; ±1 dB（扫描±60°） |
-| 旁瓣电平（有源） | AEP 的最大旁瓣 | &lt; -15 dB |
-| 波束指向误差 | 实际波束角 - 理论波束角 | &lt; 0.1° |</div>
+        <tr>
+          
+          <td>波束指向误差</td>
+          
+          <td>实际波束角 - 理论波束角</td>
+          
+          <td>&lt; 0.1°</td>
+          
+        </tr>
         
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.2 TARC 接受准则</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>应用场景</th><th>TARC 要求</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.2 TARC 接受准则</div>
+        <tr>
+          
+          <td>5G Massive MIMO</td>
+          
+          <td>≤ -10 dB</td>
+          
+          <td>3GPP 建议值</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>卫星通信</td>
+          
+          <td>≤ -15 dB</td>
+          
+          <td>更高要求</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>军用雷达</td>
+          
+          <td>≤ -20 dB</td>
+          
+          <td>极端要求</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Wi-Fi MIMO</td>
+          
+          <td>≤ -8 dB</td>
+          
+          <td>宽松要求</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 应用场景 | TARC 要求 | 说明 |
-|---------|-----------|------|
-| 5G Massive MIMO | ≤ -10 dB | 3GPP 建议值 |
-| 卫星通信 | ≤ -15 dB | 更高要求 |
-| 军用雷达 | ≤ -20 dB | 极端要求 |
-| Wi-Fi MIMO | ≤ -8 dB | 宽松要求 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

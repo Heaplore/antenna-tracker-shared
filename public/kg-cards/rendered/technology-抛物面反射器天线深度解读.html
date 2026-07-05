@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -295,32 +295,69 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">抛物面 vs 其他形状：效率的碾压</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>形状</th><th>聚焦效果</th><th>口径效率</th><th>原因</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">抛物面 vs 其他形状：效率的碾压</div>
+        <tr>
+          
+          <td>抛物面</td>
+          
+          <td>完美汇聚到单一点</td>
+          
+          <td>55-75%</td>
+          
+          <td>所有从焦点发出的射线反射后严格平行</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>球面</td>
+          
+          <td>汇聚成一个区域（球差）</td>
+          
+          <td>30-50%</td>
+          
+          <td>不同位置的反射角不一致，边缘射线偏了</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>平板</td>
+          
+          <td>无聚焦能力</td>
+          
+          <td>&lt;10%</td>
+          
+          <td>没有反射面，信号直接散开</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>双曲面</td>
+          
+          <td>二次反射，汇聚到另一点</td>
+          
+          <td>60-70%</td>
+          
+          <td>卡塞格林/格里高利系统中的副面</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 形状 | 聚焦效果 | 口径效率 | 原因 |
-|------|---------|---------|------|
-| 抛物面 | 完美汇聚到单一点 | 55-75% | 所有从焦点发出的射线反射后严格平行 |
-| 球面 | 汇聚成一个区域（球差） | 30-50% | 不同位置的反射角不一致，边缘射线偏了 |
-| 平板 | 无聚焦能力 | &lt;10% | 没有反射面，信号直接散开 |
-| 双曲面 | 二次反射，汇聚到另一点 | 60-70% | 卡塞格林/格里高利系统中的副面 |
-
-关键判断：抛物面天线在&#34;简单&#34;和&#34;高效&#34;之间找到了最优平衡。它不需要电子控制就能获得高增益，这是它在卫星通信、射电天文、微波回传等领域不可替代的根本原因。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">关键判断：抛物面天线在&#34;简单&#34;和&#34;高效&#34;之间找到了最优平衡。它不需要电子控制就能获得高增益，这是它在卫星通信、射电天文、微波回传等领域不可替代的根本原因。</div>
+    
   </div>
+
     
   
     
@@ -437,427 +474,169 @@
     
 
     
-  <div class="block section-table">
+  <div class="block section-list ">
     <div class="block-title">前馈式（Front-Fed / Axial Feed）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <tr>
-          
-          <td>馈源直接放在焦点处，通过支撑臂固定在抛物面前方。最简单、成本最低，但存在馈源遮挡问题。</td>
-          
-        </tr>
+        <div class="name">前馈式（Front-Fed / Axial Feed）</div>
         
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>╱‾‾‾╲</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>│  锅 │</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>╲___╱</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>│</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>📢  ← 馈源（有遮挡）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>典型应用：家用卫星电视接收器（小锅）、WiFi 室外 CPE、低成本微波回传。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>口径效率：55-60%（受遮挡限制）。</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-  </div>
+        <div class="desc">馈源直接放在焦点处，通过支撑臂固定在抛物面前方。最简单、成本最低，但存在馈源遮挡问题。
 
+`
+        ╱‾‾‾╲
+       │  锅 │
+        ╲___╱
+         │
+        📢  ← 馈源（有遮挡）
+`
+
+典型应用：家用卫星电视接收器（小锅）、WiFi 室外 CPE、低成本微波回传。
+
+口径效率：55-60%（受遮挡限制）。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
     
   
     
 
     
-  <div class="block section-table">
+  <div class="block section-list ">
     <div class="block-title">卡塞格林式（Cassegrain）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <tr>
-          
-          <td>在主焦点处放一个双曲面副反射面（凸面），馈源放在主反射面后方，通过副面反射到主面。</td>
-          
-        </tr>
+        <div class="name">卡塞格林式（Cassegrain）</div>
         
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>📢  ← 馈源（在主面后面，无遮挡）</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>│</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>◉   ← 双曲面副反射面（凸面）</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>╱‾‾‾╲</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  锅 │  ← 抛物面主反射面（凹面）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>╲___╱</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>原理：从馈源发出的信号打到双曲面上，被反射到抛物面主面，再反射成平行波射出。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优势：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>馈源在主面后面，消除了遮挡损失</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>等效焦距变长，波束更窄</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>交叉极化更低</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>馈线损耗小（馈源靠近电子设备）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>口径效率：65-70%。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>典型应用：卫星通信地球站、深空通信（NASA 的 DSN）、高端微波回传。</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-  </div>
+        <div class="desc">在主焦点处放一个双曲面副反射面（凸面），馈源放在主反射面后方，通过副面反射到主面。
 
+`
+         📢  ← 馈源（在主面后面，无遮挡）
+          │
+         ◉   ← 双曲面副反射面（凸面）
+        ╱‾‾‾╲
+       │  锅 │  ← 抛物面主反射面（凹面）
+        ╲___╱
+`
+
+原理：从馈源发出的信号打到双曲面上，被反射到抛物面主面，再反射成平行波射出。
+
+优势：
+馈源在主面后面，消除了遮挡损失
+等效焦距变长，波束更窄
+交叉极化更低
+馈线损耗小（馈源靠近电子设备）
+
+口径效率：65-70%。
+
+典型应用：卫星通信地球站、深空通信（NASA 的 DSN）、高端微波回传。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
     
   
     
 
     
-  <div class="block section-table">
+  <div class="block section-list ">
     <div class="block-title">格里高利式（Gregorian）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <tr>
-          
-          <td>与卡塞格林类似，但副反射面是椭圆柱面（凹面）而非双曲面（凸面）。</td>
-          
-        </tr>
+        <div class="name">格里高利式（Gregorian）</div>
         
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>📢  ← 馈源</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>│</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>◉   ← 椭圆柱面副反射面（凹面）</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>╱‾‾‾╲</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>│  锅 │  ← 抛物面主反射面</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>╲___╱</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>与卡塞格林的区别：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>卡塞格林副面是凸双曲面，格里高利副面是凹椭球面</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>格里高利的副面离主面更远，需要更长的支撑结构</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>格里高利的交叉极化更低，但系统更复杂</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>口径效率：70%+（最优可达 75%）。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>典型应用：射电天文（如 FAST 的部分配置）、对交叉极化要求极高的卫星通信。</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-  </div>
+        <div class="desc">与卡塞格林类似，但副反射面是椭圆柱面（凹面）而非双曲面（凸面）。
 
+`
+         📢  ← 馈源
+          │
+         ◉   ← 椭圆柱面副反射面（凹面）
+        ╱‾‾‾╲
+       │  锅 │  ← 抛物面主反射面
+        ╲___╱
+`
+
+与卡塞格林的区别：
+卡塞格林副面是凸双曲面，格里高利副面是凹椭球面
+格里高利的副面离主面更远，需要更长的支撑结构
+格里高利的交叉极化更低，但系统更复杂
+
+口径效率：70%+（最优可达 75%）。
+
+典型应用：射电天文（如 FAST 的部分配置）、对交叉极化要求极高的卫星通信。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
     
   
     
 
     
-  <div class="block section-table">
+  <div class="block section-list ">
     <div class="block-title">偏馈式（Offset Feed）</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <tr>
-          
-          <td>馈源不在抛物面的轴线上，而是在侧面照射抛物面的一部分。</td>
-          
-        </tr>
+        <div class="name">偏馈式（Offset Feed）</div>
         
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>╱‾‾‾╲    ← 只用了抛物面的一部分（偏心）</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>│     │</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>│  📢  │  ← 馈源在侧面，无任何遮挡</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>│     │</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>╲___╱</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>优势：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>零遮挡：馈源和支撑臂完全不在波束路径上</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>不积水：锅是斜的，下雨不会积水（北方冻融循环是天线杀手）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>地面噪声低（副面不&#34;看到&#34;暖地面）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>劣势：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>制造复杂，不对称的抛物面需要定制模具</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>极化纯度略差（因为照射不对称）</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>典型应用：DISH Network 卫星电视（偏馈 LNB）、星链用户终端、低轨卫星通信地面站。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>---</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-  </div>
+        <div class="desc">馈源不在抛物面的轴线上，而是在侧面照射抛物面的一部分。
 
+`
+      ╱‾‾‾╲    ← 只用了抛物面的一部分（偏心）
+     │     │
+    │  📢  │  ← 馈源在侧面，无任何遮挡
+     │     │
+      ╲___╱
+`
+
+优势：
+零遮挡：馈源和支撑臂完全不在波束路径上
+不积水：锅是斜的，下雨不会积水（北方冻融循环是天线杀手）
+地面噪声低（副面不&#34;看到&#34;暖地面）
+
+劣势：
+制造复杂，不对称的抛物面需要定制模具
+极化纯度略差（因为照射不对称）
+
+典型应用：DISH Network 卫星电视（偏馈 LNB）、星链用户终端、低轨卫星通信地面站。
+
+---</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
     
   
     

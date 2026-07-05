@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -428,71 +428,100 @@ Z_s = R_s + jX_s = f(V_control)
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.4 相位调控的物理机制</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>机制</th><th>原理</th><th>典型单元</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.4 相位调控的物理机制</div>
+        <tr>
+          
+          <td>谐振相位</td>
+          
+          <td>改变贴片尺寸 → 谐振频率偏移 → 相位变化</td>
+          
+          <td>十字形贴片</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>干涉相位</td>
+          
+          <td>多层结构干涉 → 相位累积</td>
+          
+          <td>双层/三层贴片</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>传输线相位</td>
+          
+          <td>改变等效传输线长度 → 相位延迟</td>
+          
+          <td>蛇形线</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>光子晶体相位</td>
+          
+          <td>改变晶格常数 → 带隙偏移</td>
+          
+          <td>周期性孔阵列</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 机制 | 原理 | 典型单元 |
-|------|------|---------|
-| 谐振相位 | 改变贴片尺寸 → 谐振频率偏移 → 相位变化 | 十字形贴片 |
-| 干涉相位 | 多层结构干涉 → 相位累积 | 双层/三层贴片 |
-| 传输线相位 | 改变等效传输线长度 → 相位延迟 | 蛇形线 |
-| 光子晶体相位 | 改变晶格常数 → 带隙偏移 | 周期性孔阵列 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.1 PIN 二极管</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>状态</th><th>等效电路</th><th>反射相位</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.1 PIN 二极管</div>
+        <tr>
+          
+          <td>导通（ON）</td>
+          
+          <td>短路</td>
+          
+          <td>0°</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>截止（OFF）</td>
+          
+          <td>开路</td>
+          
+          <td>180°</td>
+          
+        </tr>
         
-        
-        
-        
-        <div class="desc">原理：正向偏置时导通（短路），反向偏置时截止（开路）。
-
-特点：
-开关速度：纳秒级（10-100ns）
-插入损耗：0.5-2dB
-控制功率：低（只需直流偏置）
-寿命：长（&gt; 10⁹ 次开关）
-
-相位调控：
-
-| 状态 | 等效电路 | 反射相位 |
-|------|---------|---------|
-| 导通（ON） | 短路 | 0° |
-| 截止（OFF） | 开路 | 180° |
-
-1-bit PIN 单元：只有 0° 和 180° 两种相位状态。
-
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">1-bit PIN 单元：只有 0° 和 180° 两种相位状态。
 2-bit PIN 单元：四个状态（0°, 90°, 180°, 270°），需要 2 个 PIN 管。</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -602,95 +631,227 @@ C_j(V) = C_0 / (1 + V/V_0)^γ
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.5 新型可调元件</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>元件</th><th>原理</th><th>特点</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.5 新型可调元件</div>
+        <tr>
+          
+          <td>GST（相变材料）</td>
+          
+          <td>晶态/非晶态切换</td>
+          
+          <td>非易失性，2 态</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>VO₂</td>
+          
+          <td>金属-绝缘体相变</td>
+          
+          <td>温度/电场触发</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>石墨烯</td>
+          
+          <td>费米能级调控</td>
+          
+          <td>超快（皮秒），太赫兹</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>铁电体</td>
+          
+          <td>极化方向切换</td>
+          
+          <td>非易失性，多态</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 元件 | 原理 | 特点 |
-|------|------|------|
-| GST（相变材料） | 晶态/非晶态切换 | 非易失性，2 态 |
-| VO₂ | 金属-绝缘体相变 | 温度/电场触发 |
-| 石墨烯 | 费米能级调控 | 超快（皮秒），太赫兹 |
-| 铁电体 | 极化方向切换 | 非易失性，多态 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 关键设计指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>目标值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 关键设计指标</div>
+        <tr>
+          
+          <td>相位范围</td>
+          
+          <td>可调相位跨度</td>
+          
+          <td>0-360°（≥ 2π）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>相位分辨率</td>
+          
+          <td>最小相位步进</td>
+          
+          <td>≤ 22.5°（4-bit）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>插入损耗</td>
+          
+          <td>信号通过单元的衰减</td>
+          
+          <td>&lt; 1dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>带宽</td>
+          
+          <td>有效工作频率范围</td>
+          
+          <td>&gt; 10%（中心频率）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化纯度</td>
+          
+          <td>主极化/交叉极化比</td>
+          
+          <td>&gt; 20dB</td>
+          
+        </tr>
         
-        <div class="desc">| 指标 | 定义 | 目标值 |
-|------|------|--------|
-| 相位范围 | 可调相位跨度 | 0-360°（≥ 2π） |
-| 相位分辨率 | 最小相位步进 | ≤ 22.5°（4-bit） |
-| 插入损耗 | 信号通过单元的衰减 | &lt; 1dB |
-| 带宽 | 有效工作频率范围 | &gt; 10%（中心频率） |
-| 极化纯度 | 主极化/交叉极化比 | &gt; 20dB |
-| 单元尺寸 | 物理面积 | ≤ (λ/2)² |</div>
+        <tr>
+          
+          <td>单元尺寸</td>
+          
+          <td>物理面积</td>
+          
+          <td>≤ (λ/2)²</td>
+          
+        </tr>
         
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.2 相位量化与性能</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>量化位数</th><th>相位状态</th><th>波束指向误差</th><th>增益损失</th><th>控制复杂度</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.2 相位量化与性能</div>
+        <tr>
+          
+          <td>1-bit</td>
+          
+          <td>2 种</td>
+          
+          <td>高</td>
+          
+          <td>2-6dB</td>
+          
+          <td>最低</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>2-bit</td>
+          
+          <td>4 种</td>
+          
+          <td>中高</td>
+          
+          <td>1-3dB</td>
+          
+          <td>低</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>3-bit</td>
+          
+          <td>8 种</td>
+          
+          <td>中</td>
+          
+          <td>0.5-1.5dB</td>
+          
+          <td>中</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>4-bit</td>
+          
+          <td>16 种</td>
+          
+          <td>低</td>
+          
+          <td>0.1-0.5dB</td>
+          
+          <td>中高</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>连续</td>
+          
+          <td>∞</td>
+          
+          <td>极低</td>
+          
+          <td>&lt; 0.1dB</td>
+          
+          <td>高</td>
+          
+        </tr>
         
-        <div class="desc">超表面单元的相位控制通常是离散的（受限于可控元件的位数）：
-
-| 量化位数 | 相位状态 | 波束指向误差 | 增益损失 | 控制复杂度 |
-|---------|---------|-------------|---------|----------|
-| 1-bit | 2 种 | 高 | 2-6dB | 最低 |
-| 2-bit | 4 种 | 中高 | 1-3dB | 低 |
-| 3-bit | 8 种 | 中 | 0.5-1.5dB | 中 |
-| 4-bit | 16 种 | 低 | 0.1-0.5dB | 中高 |
-| 连续 | ∞ | 极低 | &lt; 0.1dB | 高 |
-
-工程折中：大多数商用 RIS 采用 1-bit 或 2-bit，因为成本低、控制简单。高端场景（如全息 MIMO）采用 4-bit 或连续调控。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">工程折中：大多数商用 RIS 采用 1-bit 或 2-bit，因为成本低、控制简单。高端场景（如全息 MIMO）采用 4-bit 或连续调控。</div>
+    
   </div>
+
     
   
     
@@ -930,61 +1091,137 @@ magnetic response:  M_s = σ_m · H_inc
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.2 仿真工具</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>工具</th><th>优势</th><th>适用场景</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.2 仿真工具</div>
+        <tr>
+          
+          <td>HFSS</td>
+          
+          <td>精度高，频域求解</td>
+          
+          <td>单单元/小阵列</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>CST Studio</td>
+          
+          <td>时域求解，速度快</td>
+          
+          <td>大阵列/宽带</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>FEKO</td>
+          
+          <td>MoM，适合电大尺寸</td>
+          
+          <td>全表面仿真</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>COMSOL</td>
+          
+          <td>多物理场耦合</td>
+          
+          <td>MEMS/热/力学耦合</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>MATLAB + Python</td>
+          
+          <td>快速原型设计</td>
+          
+          <td>参数扫描/优化</td>
+          
+        </tr>
         
-        <div class="desc">| 工具 | 优势 | 适用场景 |
-|------|------|---------|
-| HFSS | 精度高，频域求解 | 单单元/小阵列 |
-| CST Studio | 时域求解，速度快 | 大阵列/宽带 |
-| FEKO | MoM，适合电大尺寸 | 全表面仿真 |
-| COMSOL | 多物理场耦合 | MEMS/热/力学耦合 |
-| MATLAB + Python | 快速原型设计 | 参数扫描/优化 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.3 优化方法</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>方法</th><th>原理</th><th>适用场景</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.3 优化方法</div>
+        <tr>
+          
+          <td>参数扫描</td>
+          
+          <td>逐个改变几何参数</td>
+          
+          <td>简单结构</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>遗传算法</td>
+          
+          <td>群体进化优化</td>
+          
+          <td>复杂结构</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>粒子群优化</td>
+          
+          <td>群体智能搜索</td>
+          
+          <td>多目标优化</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>深度学习</td>
+          
+          <td>逆向设计（目标 → 结构）</td>
+          
+          <td>大规模优化</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>伴随变量法</td>
+          
+          <td>梯度高效计算</td>
+          
+          <td>连续可调设计</td>
+          
+        </tr>
         
-        <div class="desc">| 方法 | 原理 | 适用场景 |
-|------|------|---------|
-| 参数扫描 | 逐个改变几何参数 | 简单结构 |
-| 遗传算法 | 群体进化优化 | 复杂结构 |
-| 粒子群优化 | 群体智能搜索 | 多目标优化 |
-| 深度学习 | 逆向设计（目标 → 结构） | 大规模优化 |
-| 伴随变量法 | 梯度高效计算 | 连续可调设计 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -1185,35 +1422,71 @@ FPGA/ASIC 专用控制器</div>
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">7.3 功耗</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>元件类型</th><th>静态功耗</th><th>切换功耗</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">7.3 功耗</div>
+        <tr>
+          
+          <td>PIN 二极管</td>
+          
+          <td>0（反向偏置）</td>
+          
+          <td>低</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>变容二极管</td>
+          
+          <td>0（反向偏置）</td>
+          
+          <td>低</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>MEMS</td>
+          
+          <td>0（保持位置）</td>
+          
+          <td>中（驱动高压）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>液晶</td>
+          
+          <td>极低（维持电压）</td>
+          
+          <td>极低</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>GST</td>
+          
+          <td>0（非易失性）</td>
+          
+          <td>高（加热相变）</td>
+          
+        </tr>
         
-        <div class="desc">每个可调元件都需要控制功耗：
-
-| 元件类型 | 静态功耗 | 切换功耗 |
-|---------|---------|---------|
-| PIN 二极管 | 0（反向偏置） | 低 |
-| 变容二极管 | 0（反向偏置） | 低 |
-| MEMS | 0（保持位置） | 中（驱动高压） |
-| 液晶 | 极低（维持电压） | 极低 |
-| GST | 0（非易失性） | 高（加热相变） |
-
-对于大规模 RIS（10000 单元），总控制功耗可能在 10-100W 量级。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">对于大规模 RIS（10000 单元），总控制功耗可能在 10-100W 量级。</div>
+    
   </div>
+
     
   
     

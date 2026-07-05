@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -743,41 +743,48 @@ RO5880 基板，0.5mm 厚
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 Yagi-Uda 天线（八木天线）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>单元数</th><th>增益</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 Yagi-Uda 天线（八木天线）</div>
+        <tr>
+          
+          <td>3 单元（1 反射+1 有源+1 引向）</td>
+          
+          <td>7-8 dBi</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>5 单元</td>
+          
+          <td>10-11 dBi</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>8 单元</td>
+          
+          <td>12-13 dBi</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">结构：偶极子（有源）+ 反射器 + 1-N 个引向器。
-
-`
-    ← 引向器 ← [偶极子] → 反射器 →
-`
-
-增益：
-| 单元数 | 增益 |
-|-------|------|
-| 3 单元（1 反射+1 有源+1 引向） | 7-8 dBi |
-| 5 单元 | 10-11 dBi |
-| 8 单元 | 12-13 dBi |
-
-特点：
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">特点：
 方向性强，前后比好
 带宽窄（~5%）
 电视天线、业余无线电经典选择</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -897,37 +904,69 @@ RO5880 基板，0.5mm 厚
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.3 基站扇区天线</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>参数</th><th>数值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.3 基站扇区天线</div>
+        <tr>
+          
+          <td>单元数</td>
+          
+          <td>64（4×16 阵列）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>单个偶极子增益</td>
+          
+          <td>2-3 dBi</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>阵列增益</td>
+          
+          <td>20-25 dBi</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>HPBW（水平）</td>
+          
+          <td>6-10°</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>HPBW（垂直）</td>
+          
+          <td>3-6°</td>
+          
+        </tr>
         
-        <div class="desc">结构：8-16 个偶极子（或其变种）堆叠 + 水平排列。
-
-典型参数（5G AAU）：
-| 参数 | 数值 |
-|------|------|
-| 单元数 | 64（4×16 阵列） |
-| 单个偶极子增益 | 2-3 dBi |
-| 阵列增益 | 20-25 dBi |
-| HPBW（水平） | 6-10° |
-| HPBW（垂直） | 3-6° |
-| 前后比 | &gt; 30dB |
-
----</div>
+        <tr>
+          
+          <td>前后比</td>
+          
+          <td>&gt; 30dB</td>
+          
+        </tr>
         
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">---</div>
+    
   </div>
+
     
   
     
@@ -1012,31 +1051,69 @@ RO5880 基板，0.5mm 厚
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">6.2 解决方案</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>技术</th><th>方法</th><th>效果</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">6.2 解决方案</div>
+        <tr>
+          
+          <td>MED（磁电偶极子）</td>
+          
+          <td>偶极子+贴片</td>
+          
+          <td>带宽&gt;100%，增益 6-8dBi</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>弯曲偶极子</td>
+          
+          <td>弧形单元</td>
+          
+          <td>端射辐射，前后比&gt;20dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>平行折叠偶极子</td>
+          
+          <td>双平行线+耦合槽</td>
+          
+          <td>带宽 64%，阻抗平坦</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>3D 打印波导馈电</td>
+          
+          <td>步进波导</td>
+          
+          <td>低损耗，适合 Ka 波段</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>超表面增强</td>
+          
+          <td>顶部加载 metamaterial</td>
+          
+          <td>增益提升 2-3dB</td>
+          
+        </tr>
         
-        <div class="desc">| 技术 | 方法 | 效果 |
-|------|------|------|
-| MED（磁电偶极子） | 偶极子+贴片 | 带宽&gt;100%，增益 6-8dBi |
-| 弯曲偶极子 | 弧形单元 | 端射辐射，前后比&gt;20dB |
-| 平行折叠偶极子 | 双平行线+耦合槽 | 带宽 64%，阻抗平坦 |
-| 3D 打印波导馈电 | 步进波导 | 低损耗，适合 Ka 波段 |
-| 超表面增强 | 顶部加载 metamaterial | 增益提升 2-3dB |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

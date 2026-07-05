@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,31 +269,51 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.1 从极化分集到极化波束赋形</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>技术</th><th>原理</th><th>容量增益</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.1 从极化分集到极化波束赋形</div>
+        <tr>
+          
+          <td>极化分集</td>
+          
+          <td>利用正交极化降低信号相关性</td>
+          
+          <td>1.2-1.5×</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化复用</td>
+          
+          <td>同一频率、不同极化传输独立数据流</td>
+          
+          <td>2×</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化波束赋形</td>
+          
+          <td>对不同极化通道独立赋形，形成极化依赖的波束</td>
+          
+          <td>2-4×</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 技术 | 原理 | 容量增益 |
-|------|------|---------|
-| 极化分集 | 利用正交极化降低信号相关性 | 1.2-1.5× |
-| 极化复用 | 同一频率、不同极化传输独立数据流 | 2× |
-| 极化波束赋形 | 对不同极化通道独立赋形，形成极化依赖的波束 | 2-4× |
-
-极化波束赋形是上述技术的综合——它不仅利用双极化来倍增容量，还对每个极化通道独立进行波束指向控制。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">极化波束赋形是上述技术的综合——它不仅利用双极化来倍增容量，还对每个极化通道独立进行波束指向控制。</div>
+    
   </div>
+
     
   
     
@@ -399,32 +419,59 @@ w = [w_V1, w_V2, ..., w_VN, w_H1, w_H2, ..., w_HN]^T
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.1 XL-MIMO 的极化挑战</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>挑战</th><th>原因</th><th>影响</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.1 XL-MIMO 的极化挑战</div>
+        <tr>
+          
+          <td>XPD 空间变化</td>
+          
+          <td>阵列不同位置的单元 XPD 不同</td>
+          
+          <td>极化隔离度下降</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>近场效应</td>
+          
+          <td>XL-MIMO 的近场区可达数百米</td>
+          
+          <td>极化状态随距离变化</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>去极化</td>
+          
+          <td>传播环境导致极化状态改变</td>
+          
+          <td>极化复用增益下降</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>校准复杂度</td>
+          
+          <td>2N 个端口的幅相校准</td>
+          
+          <td>校准时间大幅增加</td>
+          
+        </tr>
         
-        
-        <div class="desc">6G 的 XL-MIMO（超大规模 MIMO）天线阵列可能有 1024-4096 个单元，双极化后达到 2048-8192 个端口。极化波束赋形在此规模下面临独特挑战：
-
-| 挑战 | 原因 | 影响 |
-|------|------|------|
-| XPD 空间变化 | 阵列不同位置的单元 XPD 不同 | 极化隔离度下降 |
-| 近场效应 | XL-MIMO 的近场区可达数百米 | 极化状态随距离变化 |
-| 去极化 | 传播环境导致极化状态改变 | 极化复用增益下降 |
-| 校准复杂度 | 2N 个端口的幅相校准 | 校准时间大幅增加 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -645,122 +692,257 @@ w_V 和 w_H 的相位
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.4 极化波束量化</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>极化状态</th><th>τ (度)</th><th>Δφ (度)</th><th>对应极化</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.4 极化波束量化</div>
+        <tr>
+          
+          <td>1</td>
+          
+          <td>45</td>
+          
+          <td>0</td>
+          
+          <td>+45° 线性</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>2</td>
+          
+          <td>-45</td>
+          
+          <td>0</td>
+          
+          <td>-45° 线性</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>3</td>
+          
+          <td>45</td>
+          
+          <td>90</td>
+          
+          <td>右旋圆</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>4</td>
+          
+          <td>45</td>
+          
+          <td>-90</td>
+          
+          <td>左旋圆</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>5</td>
+          
+          <td>0</td>
+          
+          <td>0</td>
+          
+          <td>垂直线性</td>
+          
+        </tr>
         
-        <div class="desc">实际系统中，极化状态只能离散取值（受限于 BFIC 的移相器位数）：
-
-| 极化状态 | τ (度) | Δφ (度) | 对应极化 |
-|---------|--------|---------|---------|
-| 1 | 45 | 0 | +45° 线性 |
-| 2 | -45 | 0 | -45° 线性 |
-| 3 | 45 | 90 | 右旋圆 |
-| 4 | 45 | -90 | 左旋圆 |
-| 5 | 0 | 0 | 垂直线性 |
-| 6 | 90 | 0 | 水平线性 |
-
-6-bit BFIC 可以提供 64 种极化状态，足以近似任意极化椭圆。</div>
+        <tr>
+          
+          <td>6</td>
+          
+          <td>90</td>
+          
+          <td>0</td>
+          
+          <td>水平线性</td>
+          
+        </tr>
         
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">6-bit BFIC 可以提供 64 种极化状态，足以近似任意极化椭圆。</div>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.1 极化性能指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>目标值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.1 极化性能指标</div>
+        <tr>
+          
+          <td>XPD</td>
+          
+          <td>交叉极化鉴别率</td>
+          
+          <td>&gt; 25dB（基站）/ &gt; 20dB（手机）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化隔离度</td>
+          
+          <td>V/H 端口间的 S 参数</td>
+          
+          <td>&gt; 25dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化纯度</td>
+          
+          <td>主极化功率 / 总功率</td>
+          
+          <td>&gt; 95%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>轴比（AR）</td>
+          
+          <td>椭圆极化的长短轴比</td>
+          
+          <td>&lt; 3dB（圆极化）</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 指标 | 定义 | 目标值 |
-|------|------|--------|
-| XPD | 交叉极化鉴别率 | &gt; 25dB（基站）/ &gt; 20dB（手机） |
-| 极化隔离度 | V/H 端口间的 S 参数 | &gt; 25dB |
-| 极化纯度 | 主极化功率 / 总功率 | &gt; 95% |
-| 轴比（AR） | 椭圆极化的长短轴比 | &lt; 3dB（圆极化） |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.2 波束赋形指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>目标值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.2 波束赋形指标</div>
+        <tr>
+          
+          <td>极化波束数</td>
+          
+          <td>可同时形成的独立极化波束数</td>
+          
+          <td>≥ 2（V+H）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束切换时间</td>
+          
+          <td>从一个极化波束切换到另一个的时间</td>
+          
+          <td>&lt; 1ms</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化复用增益</td>
+          
+          <td>双极化相比单极化的容量增益</td>
+          
+          <td>1.5-2×</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化相关性</td>
+          
+          <td>V/H 通道之间的相关系数</td>
+          
+          <td>&lt; 0.3</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 指标 | 定义 | 目标值 |
-|------|------|--------|
-| 极化波束数 | 可同时形成的独立极化波束数 | ≥ 2（V+H） |
-| 波束切换时间 | 从一个极化波束切换到另一个的时间 | &lt; 1ms |
-| 极化复用增益 | 双极化相比单极化的容量增益 | 1.5-2× |
-| 极化相关性 | V/H 通道之间的相关系数 | &lt; 0.3 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.3 XL-MIMO 特有指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>目标值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.3 XL-MIMO 特有指标</div>
+        <tr>
+          
+          <td>XPD 均匀性</td>
+          
+          <td>阵列上各单元 XPD 的标准差</td>
+          
+          <td>&lt; 3dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>近场极化误差</td>
+          
+          <td>球面波极化假设与实际的偏差</td>
+          
+          <td>&lt; 2°</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化校准误差</td>
+          
+          <td>极化波束赋形向量与实际向量的偏差</td>
+          
+          <td>&lt; 0.5dB / &lt; 3°</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 指标 | 定义 | 目标值 |
-|------|------|--------|
-| XPD 均匀性 | 阵列上各单元 XPD 的标准差 | &lt; 3dB |
-| 近场极化误差 | 球面波极化假设与实际的偏差 | &lt; 2° |
-| 极化校准误差 | 极化波束赋形向量与实际向量的偏差 | &lt; 0.5dB / &lt; 3° |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

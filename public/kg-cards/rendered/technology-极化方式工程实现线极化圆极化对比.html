@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -377,31 +377,69 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.3 应用场景</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>应用</th><th>极化方式</th><th>原因</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.3 应用场景</div>
+        <tr>
+          
+          <td>GNSS（GPS/北斗）</td>
+          
+          <td>RHCP</td>
+          
+          <td>卫星信号经过大气反射后极化不变</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>卫星通信</td>
+          
+          <td>RHCP/LHCP</td>
+          
+          <td>减少极化失配（卫星姿态变化）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>RFID</td>
+          
+          <td>RHCP</td>
+          
+          <td>标签姿态不确定</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>车载毫米波雷达</td>
+          
+          <td>圆极化</td>
+          
+          <td>多径反射抑制</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>5G 基站</td>
+          
+          <td>❌ 不用</td>
+          
+          <td>线极化更高效</td>
+          
+        </tr>
         
-        <div class="desc">| 应用 | 极化方式 | 原因 |
-|------|---------|------|
-| GNSS（GPS/北斗） | RHCP | 卫星信号经过大气反射后极化不变 |
-| 卫星通信 | RHCP/LHCP | 减少极化失配（卫星姿态变化） |
-| RFID | RHCP | 标签姿态不确定 |
-| 车载毫米波雷达 | 圆极化 | 多径反射抑制 |
-| 5G 基站 | ❌ 不用 | 线极化更高效 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

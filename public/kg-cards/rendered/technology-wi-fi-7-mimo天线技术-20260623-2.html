@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -427,31 +427,57 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">频谱资源：哪里来的 320MHz？</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>频段</th><th>总带宽</th><th>可用 320MHz 信道数</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">频谱资源：哪里来的 320MHz？</div>
+        <tr>
+          
+          <td>2.4GHz</td>
+          
+          <td>83.5MHz</td>
+          
+          <td>0</td>
+          
+          <td>根本凑不出 320MHz</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>5GHz</td>
+          
+          <td>500MHz</td>
+          
+          <td>1-2</td>
+          
+          <td>取决于各国法规</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>6GHz</td>
+          
+          <td>1200MHz</td>
+          
+          <td>3</td>
+          
+          <td>最佳选择，Wi-Fi 6E/Wi-Fi 7 的新大陆</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 频段 | 总带宽 | 可用 320MHz 信道数 | 说明 |
-|------|--------|-------------------|------|
-| 2.4GHz | 83.5MHz | 0 | 根本凑不出 320MHz |
-| 5GHz | 500MHz | 1-2 | 取决于各国法规 |
-| 6GHz | 1200MHz | 3 | 最佳选择，Wi-Fi 6E/Wi-Fi 7 的新大陆 |
-
-关键判断：320MHz 的真正价值只能在 6GHz 频段释放。2.4GHz 和 5GHz 频段要么频谱不够，要么被 legacy 设备占用，无法提供干净的 320MHz 连续频谱。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">关键判断：320MHz 的真正价值只能在 6GHz 频段释放。2.4GHz 和 5GHz 频段要么频谱不够，要么被 legacy 设备占用，无法提供干净的 320MHz 连续频谱。</div>
+    
   </div>
+
     
   
     
@@ -525,38 +551,58 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">天线对 4096-QAM 的要求</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>SNR (dB)</th><th>启用调制</th><th>单流速率 (80MHz)</th><th>单流速率 (320MHz)</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">天线对 4096-QAM 的要求</div>
+        <tr>
+          
+          <td>&lt; 20</td>
+          
+          <td>256-QAM</td>
+          
+          <td>600Mbps</td>
+          
+          <td>2.4Gbps</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>20-25</td>
+          
+          <td>1024-QAM</td>
+          
+          <td>900Mbps</td>
+          
+          <td>3.6Gbps</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>&gt; 30</td>
+          
+          <td>4096-QAM</td>
+          
+          <td>1.2Gbps</td>
+          
+          <td>4.8Gbps</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">线性度：天线必须尽可能忠实地辐射和接收信号，不能引入额外的相位失真或幅度畸变。任何非线性都会让星座图&#34;散开&#34;，4096 个密集排列的点变成模糊的一团。
-
-相位一致性：多天线系统中的每个天线通道必须保持严格的相位一致性。如果两个通道的相位偏差超过 5°，4096-QAM 的误码率会急剧上升。
-
-实际表现：
-| SNR (dB) | 启用调制 | 单流速率 (80MHz) | 单流速率 (320MHz) |
-|----------|---------|-----------------|------------------|
-| &lt; 20 | 256-QAM | 600Mbps | 2.4Gbps |
-| 20-25 | 1024-QAM | 900Mbps | 3.6Gbps |
-| &gt; 30 | 4096-QAM | 1.2Gbps | 4.8Gbps |
-
-关键判断：4096-QAM 只在&#34;信号极好&#34;的情况下才会启用。当手机靠近 AP、周围没有干扰时，启用 4096-QAM 可以获得 20% 的速率提升。但一旦信号变差，AP 会果断回退到 1024-QAM 甚至更低——宁可降速保稳，也不冒险出错。
-
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">关键判断：4096-QAM 只在&#34;信号极好&#34;的情况下才会启用。当手机靠近 AP、周围没有干扰时，启用 4096-QAM 可以获得 20% 的速率提升。但一旦信号变差，AP 会果断回退到 1024-QAM 甚至更低——宁可降速保稳，也不冒险出错。
 ---</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -588,37 +634,69 @@ Wi-Fi 7 引入了 多链路设备（MLD） 的概念：一个 AP 可以同时工
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">MLO 的三种模式</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>模式</th><th>全称</th><th>原理</th><th>复杂度</th><th>采用情况</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">MLO 的三种模式</div>
+        <tr>
+          
+          <td>MLM-STR</td>
+          
+          <td>Multi-Link Multi-Radio STR</td>
+          
+          <td>每个链路独立 Radio，可同时收发</td>
+          
+          <td>高</td>
+          
+          <td>高端 AP</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>MLM-nSTR</td>
+          
+          <td>Multi-Link Multi-Radio nSTR</td>
+          
+          <td>多 Radio 但不能同时收发（IDC 干扰）</td>
+          
+          <td>中</td>
+          
+          <td>较少采用</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>EMLSR</td>
+          
+          <td>Enhanced Multi-Link Single Radio</td>
+          
+          <td>单 Radio 在不同链路间快速切换</td>
+          
+          <td>低</td>
+          
+          <td>主流方案</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 模式 | 全称 | 原理 | 复杂度 | 采用情况 |
-|------|------|------|--------|---------|
-| MLM-STR | Multi-Link Multi-Radio STR | 每个链路独立 Radio，可同时收发 | 高 | 高端 AP |
-| MLM-nSTR | Multi-Link Multi-Radio nSTR | 多 Radio 但不能同时收发（IDC 干扰） | 中 | 较少采用 |
-| EMLSR | Enhanced Multi-Link Single Radio | 单 Radio 在不同链路间快速切换 | 低 | 主流方案 |
-
-EMLSR 的工作原理：
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">EMLSR 的工作原理：
 `
 设备用一个 Radio 同时监听 5GHz 和 6GHz 两个链路
 当 6GHz 链路有空闲时，所有 Radio 切换到 6GHz 传输数据
 当 6GHz 被占用时，快速切换到 5GHz 传输
 切换时间在微秒级，应用层无感知
 `</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -659,38 +737,60 @@ EMLSR 模式下吞吐量提升 80%（210 → 380Mbps）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">天线实现：频段隔离是关键</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>频段对</th><th>频率间隔</th><th>所需隔离度</th><th>挑战</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">天线实现：频段隔离是关键</div>
+        <tr>
+          
+          <td>2.4GHz / 5GHz</td>
+          
+          <td>~2.5GHz</td>
+          
+          <td>&gt;30dB</td>
+          
+          <td>容易，滤波器即可</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>5GHz / 6GHz</td>
+          
+          <td>~900MHz</td>
+          
+          <td>&gt;35dB</td>
+          
+          <td>中等，需要腔体滤波器</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>2.4GHz / 6GHz</td>
+          
+          <td>~3.5GHz</td>
+          
+          <td>&gt;30dB</td>
+          
+          <td>容易</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">MLO 要求三组天线（2.4GHz、5GHz、6GHz）物理共存于同一设备中，同时保持足够的频段隔离。
-
-隔离要求：
-| 频段对 | 频率间隔 | 所需隔离度 | 挑战 |
-|--------|---------|-----------|------|
-| 2.4GHz / 5GHz | ~2.5GHz | &gt;30dB | 容易，滤波器即可 |
-| 5GHz / 6GHz | ~900MHz | &gt;35dB | 中等，需要腔体滤波器 |
-| 2.4GHz / 6GHz | ~3.5GHz | &gt;30dB | 容易 |
-
-商用方案：
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">商用方案：
 华为 AirEngine 8776 采用 5 个独立射频通道（2.4GHz 2×2 + 5GHz 4×4 + 5GHz 2×2 + 6GHz 4×4 + 6GHz 4×4），每个通道有独立的天线组和滤波器
 Intelbras AP 7739 采用 8 根全向天线（4 根 2.4GHz + 4 根 6GHz，5GHz 共用），通过天线极化分集降低频段间耦合
-
 ---</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     

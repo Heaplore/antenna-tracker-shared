@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -363,31 +363,69 @@ An = 第n个单元的激励幅度
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.1 关键公式</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>公式</th><th>含义</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.1 关键公式</div>
+        <tr>
+          
+          <td>波束指向角</td>
+          
+          <td>θ₀ = arccos(-α / kd)</td>
+          
+          <td>α为相邻单元相位差，d为单元间距</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>半功率波束宽度</td>
+          
+          <td>HPBW ≈ 0.886·λ / (N·d·cosθ₀)</td>
+          
+          <td>N为单元数，HPBW越小波束越窄</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>阵列增益</td>
+          
+          <td>G ≈ N·Ge</td>
+          
+          <td>理想情况下增益与单元数成正比（Ge为单元增益）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>栅瓣条件</td>
+          
+          <td>d/λ ≥ 1/(1+sinθₛ)</td>
+          
+          <td>超过此间距会出现栅瓣（Grating Lobe）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>第一零点波束宽度</td>
+          
+          <td>FNBW ≈ 2λ / (Nd)</td>
+          
+          <td>主瓣两侧第一个零点之间的角度</td>
+          
+        </tr>
         
-        <div class="desc">| 公式 | 含义 | 说明 |
-|------|------|------|
-| 波束指向角 | θ₀ = arccos(-α / kd) | α为相邻单元相位差，d为单元间距 |
-| 半功率波束宽度 | HPBW ≈ 0.886·λ / (N·d·cosθ₀) | N为单元数，HPBW越小波束越窄 |
-| 阵列增益 | G ≈ N·Ge | 理想情况下增益与单元数成正比（Ge为单元增益） |
-| 栅瓣条件 | d/λ ≥ 1/(1+sinθₛ) | 超过此间距会出现栅瓣（Grating Lobe） |
-| 第一零点波束宽度 | FNBW ≈ 2λ / (Nd) | 主瓣两侧第一个零点之间的角度 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -451,59 +489,117 @@ An = 第n个单元的激励幅度
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 按几何排列分类</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>类型</th><th>结构特征</th><th>典型应用</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 按几何排列分类</div>
+        <tr>
+          
+          <td>线性阵列（Linear Array）</td>
+          
+          <td>单元沿直线排列</td>
+          
+          <td>基站扇区覆盖、雷达扫描</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>平面阵列（Planar Array）</td>
+          
+          <td>单元在二维平面上排列</td>
+          
+          <td>卫星通信、5G Massive MIMO</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>圆形阵列（Circular Array）</td>
+          
+          <td>单元分布在圆周上</td>
+          
+          <td>全向扫描、测向系统</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>球形阵列（Spherical Array）</td>
+          
+          <td>单元分布在球面上</td>
+          
+          <td>360°全覆盖、近场测量</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>共形阵列（Conformal Array）</td>
+          
+          <td>贴合载体曲面</td>
+          
+          <td>飞机/导弹外壳天线</td>
+          
+        </tr>
         
-        <div class="desc">| 类型 | 结构特征 | 典型应用 |
-|------|---------|---------|
-| 线性阵列（Linear Array） | 单元沿直线排列 | 基站扇区覆盖、雷达扫描 |
-| 平面阵列（Planar Array） | 单元在二维平面上排列 | 卫星通信、5G Massive MIMO |
-| 圆形阵列（Circular Array） | 单元分布在圆周上 | 全向扫描、测向系统 |
-| 球形阵列（Spherical Array） | 单元分布在球面上 | 360°全覆盖、近场测量 |
-| 共形阵列（Conformal Array） | 贴合载体曲面 | 飞机/导弹外壳天线 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.2 按波束形成方式分类</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>类型</th><th>原理</th><th>优缺点</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.2 按波束形成方式分类</div>
+        <tr>
+          
+          <td>模拟波束赋形（Analog BF）</td>
+          
+          <td>用移相器和功分器在RF域形成波束</td>
+          
+          <td>硬件简单、成本低，但波束灵活性差</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>数字波束赋形（Digital BF）</td>
+          
+          <td>每个单元配独立RF链，在基带数字域处理</td>
+          
+          <td>波束灵活、可多波束，但成本高、功耗大</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>混合波束赋形（Hybrid BF）</td>
+          
+          <td>模拟+数字两级处理，折中方案</td>
+          
+          <td>5G mmWave主流方案，平衡成本和性能</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 类型 | 原理 | 优缺点 |
-|------|------|--------|
-| 模拟波束赋形（Analog BF） | 用移相器和功分器在RF域形成波束 | 硬件简单、成本低，但波束灵活性差 |
-| 数字波束赋形（Digital BF） | 每个单元配独立RF链，在基带数字域处理 | 波束灵活、可多波束，但成本高、功耗大 |
-| 混合波束赋形（Hybrid BF） | 模拟+数字两级处理，折中方案 | 5G mmWave主流方案，平衡成本和性能 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

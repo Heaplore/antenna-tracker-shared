@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -357,39 +357,57 @@ R 随频率三次方衰减 → 低频时 R 很小，屏蔽主要靠吸收
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.4 吸收损耗 A</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>材料</th><th>1 MHz</th><th>1 GHz</th><th>28 GHz</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.4 吸收损耗 A</div>
+        <tr>
+          
+          <td>铜</td>
+          
+          <td>66μm</td>
+          
+          <td>2.1μm</td>
+          
+          <td>0.38μm</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>铝</td>
+          
+          <td>83μm</td>
+          
+          <td>2.6μm</td>
+          
+          <td>0.47μm</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>钢(μ_r=100)</td>
+          
+          <td>6.6μm</td>
+          
+          <td>0.21μm</td>
+          
+          <td>0.038μm</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">公式：
-`
-A = 8.686 × t / δ = 8.686 × t × √(π×f×μ×σ)  [dB]
-`
-
-其中 δ = 趋肤深度 = 1/√(π×f×μ×σ)
-
-趋肤深度表：
-| 材料 | 1 MHz | 1 GHz | 28 GHz |
-|------|-------|-------|--------|
-| 铜 | 66μm | 2.1μm | 0.38μm |
-| 铝 | 83μm | 2.6μm | 0.47μm |
-| 钢(μ_r=100) | 6.6μm | 0.21μm | 0.038μm |
-
-关键洞察：毫米波频段趋肤深度仅几百纳米 → 极薄的镀层即可提供强吸收。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">关键洞察：毫米波频段趋肤深度仅几百纳米 → 极薄的镀层即可提供强吸收。</div>
+    
   </div>
+
     
   
     
@@ -427,30 +445,75 @@ A &gt; 60dB 时 M ≈ 0（可忽略）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.1 金属材料</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>材料</th><th>σ(S/m)</th><th>μ_r</th><th>优点</th><th>缺点</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.1 金属材料</div>
+        <tr>
+          
+          <td>铜</td>
+          
+          <td>5.8×10⁷</td>
+          
+          <td>1</td>
+          
+          <td>导电最好，R 大</td>
+          
+          <td>重，贵</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>铝</td>
+          
+          <td>3.5×10⁷</td>
+          
+          <td>1</td>
+          
+          <td>轻，便宜</td>
+          
+          <td>σ 较低</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>钢</td>
+          
+          <td>1×10⁷</td>
+          
+          <td>100-1000</td>
+          
+          <td>高 μ_r → A 大</td>
+          
+          <td>重，易锈</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Mu-metal</td>
+          
+          <td>1×10⁶</td>
+          
+          <td>20-100k</td>
+          
+          <td>超低频磁屏蔽之王</td>
+          
+          <td>极贵，难加工</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 材料 | σ(S/m) | μ_r | 优点 | 缺点 |
-|------|--------|-----|------|------|
-| 铜 | 5.8×10⁷ | 1 | 导电最好，R 大 | 重，贵 |
-| 铝 | 3.5×10⁷ | 1 | 轻，便宜 | σ 较低 |
-| 钢 | 1×10⁷ | 100-1000 | 高 μ_r → A 大 | 重，易锈 |
-| Mu-metal | 1×10⁶ | 20-100k | 超低频磁屏蔽之王 | 极贵，难加工 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -482,72 +545,127 @@ A &gt; 60dB 时 M ≈ 0（可忽略）
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.3 电磁屏蔽衬垫（Conductive Gasket）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>类型</th><th>结构</th><th>压缩比</th><th>SE</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.3 电磁屏蔽衬垫（Conductive Gasket）</div>
+        <tr>
+          
+          <td>指形簧片（fingerstock）</td>
+          
+          <td>金属弹簧片</td>
+          
+          <td>20-30%</td>
+          
+          <td>30-60dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>导电泡沫</td>
+          
+          <td>聚氨酯+镍/银涂层</td>
+          
+          <td>30-50%</td>
+          
+          <td>60-100dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>导电织物</td>
+          
+          <td>金属丝编织</td>
+          
+          <td>10-20%</td>
+          
+          <td>40-80dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>真空保持衬垫（VGS）</td>
+          
+          <td>软硅胶+金属纤维</td>
+          
+          <td>15-25%</td>
+          
+          <td>80-120dB</td>
+          
+        </tr>
         
-        
-        <div class="desc">作用：填补屏蔽罩接缝处的缝隙 → 防止泄漏。
-
-| 类型 | 结构 | 压缩比 | SE |
-|------|------|-------|-----|
-| 指形簧片（fingerstock） | 金属弹簧片 | 20-30% | 30-60dB |
-| 导电泡沫 | 聚氨酯+镍/银涂层 | 30-50% | 60-100dB |
-| 导电织物 | 金属丝编织 | 10-20% | 40-80dB |
-| 真空保持衬垫（VGS） | 软硅胶+金属纤维 | 15-25% | 80-120dB |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.4 蜂窝通风面板（Honeycomb Vent）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>孔径</th><th>f_cutoff</th><th>适用</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.4 蜂窝通风面板（Honeycomb Vent）</div>
+        <tr>
+          
+          <td>1.6mm</td>
+          
+          <td>94GHz</td>
+          
+          <td>5G mmWave</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>3.2mm</td>
+          
+          <td>47GHz</td>
+          
+          <td>WiFi 6E/7</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>6.4mm</td>
+          
+          <td>23.5GHz</td>
+          
+          <td>Sub-6GHz 5G</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>12.7mm</td>
+          
+          <td>11.8GHz</td>
+          
+          <td>LTE/WiFi</td>
+          
+        </tr>
         
-        
-        <div class="desc">原理：波导截止——孔径 &lt; λ/2 时电磁波无法通过。
-
-`
-f_cutoff ≈ c / (2 × d)
-`
-
-其中 d 为六角形孔径。
-
-典型规格：
-| 孔径 | f_cutoff | 适用 |
-|------|---------|------|
-| 1.6mm | 94GHz | 5G mmWave |
-| 3.2mm | 47GHz | WiFi 6E/7 |
-| 6.4mm | 23.5GHz | Sub-6GHz 5G |
-| 12.7mm | 11.8GHz | LTE/WiFi |
-
-设计规则：蜂窝深度 ≥ 3×孔径直径</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">设计规则：蜂窝深度 ≥ 3×孔径直径</div>
+    
   </div>
+
     
   
     

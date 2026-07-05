@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -780,64 +780,151 @@ E_edge ∝ V_gap / d
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.5 馈电技术对比</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>技术</th><th>带宽</th><th>复杂度</th><th>适用频率</th><th>5G 适用性</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.5 馈电技术对比</div>
+        <tr>
+          
+          <td>探针馈电</td>
+          
+          <td>1-2%</td>
+          
+          <td>低</td>
+          
+          <td>Sub-6GHz</td>
+          
+          <td>低</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>边缘馈电</td>
+          
+          <td>2-5%</td>
+          
+          <td>低</td>
+          
+          <td>Sub-6GHz/mmWave</td>
+          
+          <td>高</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>耦合缝隙</td>
+          
+          <td>5-15%</td>
+          
+          <td>中</td>
+          
+          <td>Sub-6GHz/mmWave</td>
+          
+          <td>中高</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>近场耦合</td>
+          
+          <td>5-20%</td>
+          
+          <td>高</td>
+          
+          <td>mmWave</td>
+          
+          <td>中</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 技术 | 带宽 | 复杂度 | 适用频率 | 5G 适用性 |
-|------|------|-------|---------|----------|
-| 探针馈电 | 1-2% | 低 | Sub-6GHz | 低 |
-| 边缘馈电 | 2-5% | 低 | Sub-6GHz/mmWave | 高 |
-| 耦合缝隙 | 5-15% | 中 | Sub-6GHz/mmWave | 中高 |
-| 近场耦合 | 5-20% | 高 | mmWave | 中 |
-
----</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">---</div>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 典型参数</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>参数</th><th>数值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 典型参数</div>
+        <tr>
+          
+          <td>增益</td>
+          
+          <td>6-9 dBi（单贴片）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>带宽</td>
+          
+          <td>1-5%（基本结构）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>VSWR</td>
+          
+          <td>&lt; 2:1</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化</td>
+          
+          <td>线性（取决于贴片形状）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>前后比</td>
+          
+          <td>20-30dB</td>
+          
+        </tr>
         
-        <div class="desc">| 参数 | 数值 |
-|------|------|
-| 增益 | 6-9 dBi（单贴片） |
-| 带宽 | 1-5%（基本结构） |
-| VSWR | &lt; 2:1 |
-| 极化 | 线性（取决于贴片形状） |
-| 前后比 | 20-30dB |
-| 剖面高度 | 0.01-0.05λ |
-| 重量 | 极轻（PCB 材料） |</div>
+        <tr>
+          
+          <td>剖面高度</td>
+          
+          <td>0.01-0.05λ</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>重量</td>
+          
+          <td>极轻（PCB 材料）</td>
+          
+        </tr>
         
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -1112,32 +1199,79 @@ MIMO 相关性增加 → 容量下降
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.2 去耦技术</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>技术</th><th>原理</th><th>隔离改善</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.2 去耦技术</div>
+        <tr>
+          
+          <td>EBG（电磁带隙）</td>
+          
+          <td>抑制表面波</td>
+          
+          <td>10-20dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Defected Ground Structure (DGS)</td>
+          
+          <td>破坏接地层连续性</td>
+          
+          <td>15-25dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>正交排列</td>
+          
+          <td>极化正交</td>
+          
+          <td>20-30dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>隔离柱/槽</td>
+          
+          <td>阻断表面电流</td>
+          
+          <td>10-15dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Metamaterial 超表面</td>
+          
+          <td>负折射/反相耦合</td>
+          
+          <td>20-30dB</td>
+          
+        </tr>
         
-        <div class="desc">| 技术 | 原理 | 隔离改善 |
-|------|------|---------|
-| EBG（电磁带隙） | 抑制表面波 | 10-20dB |
-| Defected Ground Structure (DGS) | 破坏接地层连续性 | 15-25dB |
-| 正交排列 | 极化正交 | 20-30dB |
-| 隔离柱/槽 | 阻断表面电流 | 10-15dB |
-| Metamaterial 超表面 | 负折射/反相耦合 | 20-30dB |
-| 空间间隔 0.5λ | 降低近场重叠 | 自然衰减 |</div>
+        <tr>
+          
+          <td>空间间隔 0.5λ</td>
+          
+          <td>降低近场重叠</td>
+          
+          <td>自然衰减</td>
+          
+        </tr>
         
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

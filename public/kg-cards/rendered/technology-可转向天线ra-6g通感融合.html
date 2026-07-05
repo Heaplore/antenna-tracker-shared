@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -748,37 +748,83 @@ FPGA 开发板：419 元
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">量产成本预估（2026-2028）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>组件</th><th>原型成本</th><th>量产预估</th><th>降本原因</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">量产成本预估（2026-2028）</div>
+        <tr>
+          
+          <td>天线阵列（64 单元）</td>
+          
+          <td>~2000 元</td>
+          
+          <td>~500 元</td>
+          
+          <td>批量采购 + 印刷电路板工艺</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>机械转向机构</td>
+          
+          <td>~500 元</td>
+          
+          <td>~150 元</td>
+          
+          <td>标准化电机 + 注塑齿轮</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>控制芯片</td>
+          
+          <td>~800 元</td>
+          
+          <td>~200 元</td>
+          
+          <td>ASIC 替代 FPGA</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>散热结构</td>
+          
+          <td>~200 元</td>
+          
+          <td>~100 元</td>
+          
+          <td>一体化压铸铝壳</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>合计</td>
+          
+          <td>~3500 元</td>
+          
+          <td>~950 元</td>
+          
+          <td>降本 73%</td>
+          
+        </tr>
         
-        <div class="desc">| 组件 | 原型成本 | 量产预估 | 降本原因 |
-|------|---------|---------|---------|
-| 天线阵列（64 单元） | ~2000 元 | ~500 元 | 批量采购 + 印刷电路板工艺 |
-| 机械转向机构 | ~500 元 | ~150 元 | 标准化电机 + 注塑齿轮 |
-| 控制芯片 | ~800 元 | ~200 元 | ASIC 替代 FPGA |
-| 散热结构 | ~200 元 | ~100 元 | 一体化压铸铝壳 |
-| 合计 | ~3500 元 | ~950 元 | 降本 73% |
-
-关键判断：量产成本约 1000 元/副，与传统 120° 固定扇区 AAU（约 3000-5000 元/副）相比，成本相当甚至更低——因为可转向天线可以用更少的物理站点实现同等覆盖。
-
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">关键判断：量产成本约 1000 元/副，与传统 120° 固定扇区 AAU（约 3000-5000 元/副）相比，成本相当甚至更低——因为可转向天线可以用更少的物理站点实现同等覆盖。
 商业价值：原来需要 3 副固定扇区 AAU 覆盖 360°，现在只需要 2 副可转向天线。CAPEX 降低 33%，OPEX（电费、租金）同步下降。
-
 ---</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     

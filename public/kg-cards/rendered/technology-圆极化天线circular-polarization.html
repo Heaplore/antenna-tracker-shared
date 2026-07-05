@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -281,115 +281,43 @@
     
 
     
-  <div class="block section-table">
+  <div class="block section-list ">
     <div class="block-title">1.1 线极化 vs 圆极化 vs 椭圆极化</div>
-    <table class="tbl">
-      <thead><tr>
-        <th>内容</th>
-      </tr></thead>
-      <tbody>
+    <div class="list-items ">
+      
+      <div class="list-item">
         
-        <tr>
-          
-          <td>线极化：电场矢量只在一个平面内振动。</td>
-          
-        </tr>
+        <div class="name">1.1 线极化 vs 圆极化 vs 椭圆极化</div>
         
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>↑</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>│ E</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>↓</td>
-          
-        </tr>
         
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>右旋圆极化（RHCP）：电场矢量端点在空间顺时针画圆（从波源看）。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>↻</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>↵   ↶</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>← E →</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>↶   ↵</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>↻</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>左旋圆极化（LHCP）：逆时针画圆。</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>椭圆极化：介于圆和线之间，电场矢量端点画椭圆。</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-    
-  </div>
+        <div class="desc">线极化：电场矢量只在一个平面内振动。
+`
+    ↑
+    │ E
+    ↓
+`
 
+右旋圆极化（RHCP）：电场矢量端点在空间顺时针画圆（从波源看）。
+`
+      ↻
+    ↵   ↶
+   ← E →
+    ↶   ↵
+      ↻
+`
+
+左旋圆极化（LHCP）：逆时针画圆。
+
+椭圆极化：介于圆和线之间，电场矢量端点画椭圆。</div>
+        
+        
+      </div>
+      
+    </div>
+  </div>
     
   
     
@@ -430,45 +358,72 @@ E_y = E₀ cos(ωt ± π/2) = ±E₀ sin(ωt)
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.3 轴比（Axial Ratio, AR）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>AR (dB)</th><th>极化质量</th><th>应用场景</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.3 轴比（Axial Ratio, AR）</div>
+        <tr>
+          
+          <td>0-1</td>
+          
+          <td>优秀</td>
+          
+          <td>高精度卫星导航</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>1-3</td>
+          
+          <td>良好</td>
+          
+          <td>GNSS 接收</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>3-6</td>
+          
+          <td>一般</td>
+          
+          <td>卫星通信</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>6-10</td>
+          
+          <td>较差</td>
+          
+          <td>宽带应用可接受</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>&gt; 10</td>
+          
+          <td>接近线极化</td>
+          
+          <td>不认为是 CP</td>
+          
+        </tr>
         
-        <div class="desc">定义：椭圆长轴与短轴之比（线性单位），或以 dB 表示。
-
-`
-AR_linear = a/b ≥ 1
-AR_dB = 20 × log₁₀(AR_linear)
-`
-
-理想圆极化：AR = 1（0dB）
-
-工程标准：
-| AR (dB) | 极化质量 | 应用场景 |
-|---------|---------|---------|
-| 0-1 | 优秀 | 高精度卫星导航 |
-| 1-3 | 良好 | GNSS 接收 |
-| 3-6 | 一般 | 卫星通信 |
-| 6-10 | 较差 | 宽带应用可接受 |
-| &gt; 10 | 接近线极化 | 不认为是 CP |
-
-3dB AR 带宽：AR &lt; 3dB 的频率范围，是圆极化天线的有效工作带宽。
-
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">3dB AR 带宽：AR &lt; 3dB 的频率范围，是圆极化天线的有效工作带宽。
 ---</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -969,32 +924,61 @@ S 形缝隙：紧凑设计
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.2 圆极化 - 圆极化匹配</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>发射</th><th>接收</th><th>PLF (dB)</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.2 圆极化 - 圆极化匹配</div>
+        <tr>
+          
+          <td>RHCP</td>
+          
+          <td>RHCP</td>
+          
+          <td>0dB（完美匹配）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>LHCP</td>
+          
+          <td>LHCP</td>
+          
+          <td>0dB（完美匹配）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>RHCP</td>
+          
+          <td>LHCP</td>
+          
+          <td>-∞dB（完全隔离！）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>LHCP</td>
+          
+          <td>RHCP</td>
+          
+          <td>-∞dB（完全隔离！）</td>
+          
+        </tr>
         
-        
-        <div class="desc">| 发射 | 接收 | PLF (dB) |
-|------|------|---------|
-| RHCP | RHCP | 0dB（完美匹配） |
-| LHCP | LHCP | 0dB（完美匹配） |
-| RHCP | LHCP | -∞dB（完全隔离！） |
-| LHCP | RHCP | -∞dB（完全隔离！） |
-
-关键洞察：圆极化的左右旋之间是完全隔离的！这意味着可以在同一频段、同一位置用 RHCP 发射、LHCP 接收，实现频率复用。</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">关键洞察：圆极化的左右旋之间是完全隔离的！这意味着可以在同一频段、同一位置用 RHCP 发射、LHCP 接收，实现频率复用。</div>
+    
   </div>
+
     
   
     
@@ -1018,77 +1002,153 @@ GPS 卫星用 RHCP 发射
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.4 极化损失总结</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>发射极化</th><th>接收极化</th><th>损失</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.4 极化损失总结</div>
+        <tr>
+          
+          <td>RHCP</td>
+          
+          <td>RHCP</td>
+          
+          <td>0dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>LHCP</td>
+          
+          <td>LHCP</td>
+          
+          <td>0dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>RHCP</td>
+          
+          <td>LHCP</td>
+          
+          <td>&gt; 20dB（隔离）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>线极化</td>
+          
+          <td>RHCP</td>
+          
+          <td>3dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>线极化</td>
+          
+          <td>线极化（同向）</td>
+          
+          <td>0dB</td>
+          
+        </tr>
         
-        <div class="desc">| 发射极化 | 接收极化 | 损失 |
-|---------|---------|------|
-| RHCP | RHCP | 0dB |
-| LHCP | LHCP | 0dB |
-| RHCP | LHCP | &gt; 20dB（隔离） |
-| 线极化 | RHCP | 3dB |
-| 线极化 | 线极化（同向） | 0dB |
-| 线极化 | 线极化（正交） | &gt; 20dB（隔离） |
-
----</div>
+        <tr>
+          
+          <td>线极化</td>
+          
+          <td>线极化（正交）</td>
+          
+          <td>&gt; 20dB（隔离）</td>
+          
+        </tr>
         
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">---</div>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">4.1 GNSS 卫星导航（GPS/BDS/GLONASS/Galileo）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>参数</th><th>数值</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">4.1 GNSS 卫星导航（GPS/BDS/GLONASS/Galileo）</div>
+        <tr>
+          
+          <td>频率</td>
+          
+          <td>L1: 1575.42MHz, L2: 1227.60MHz, L5: 1176.45MHz</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化</td>
+          
+          <td>卫星发 RHCP，接收机天线 RHCP</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>增益</td>
+          
+          <td>6-9dBi</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>3dB AR 波束宽度</td>
+          
+          <td>&gt; 200°（半球覆盖）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>前后比</td>
+          
+          <td>&gt; 20dB</td>
+          
+        </tr>
         
-        <div class="desc">为什么用圆极化？
-卫星在轨道上会翻滚/姿态变化 → 线极化会失效
-圆极化不受卫星姿态影响
-多径抑制：地面反射波会反转旋向（RHCP → LHCP），被天线天然抑制
-
-典型参数：
-| 参数 | 数值 |
-|------|------|
-| 频率 | L1: 1575.42MHz, L2: 1227.60MHz, L5: 1176.45MHz |
-| 极化 | 卫星发 RHCP，接收机天线 RHCP |
-| 增益 | 6-9dBi |
-| 3dB AR 波束宽度 | &gt; 200°（半球覆盖） |
-| 前后比 | &gt; 20dB |
-| 多径抑制 | 10-15dB |
-
-2025 高精度海洋定位 GNSS 天线：
+        <tr>
+          
+          <td>多径抑制</td>
+          
+          <td>10-15dB</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">2025 高精度海洋定位 GNSS 天线：
 八根短路销钉围绕贴片 → 扩宽 3dB AR 波束
 两组弯曲金属分支在接地层 → 前后比提升
 重叠带宽 &gt; 45%（10dB 回波损耗 + 3dB AR）
 覆盖 GPS L1/L2, BDS B1/B2, GLONASS, Galileo</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     

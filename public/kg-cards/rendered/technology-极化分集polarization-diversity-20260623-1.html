@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -351,43 +351,62 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">交叉极化鉴别度（XPD）</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>场景</th><th>XPD (dB)</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">交叉极化鉴别度（XPD）</div>
+        <tr>
+          
+          <td>开阔地带 LOS</td>
+          
+          <td>25-30dB</td>
+          
+          <td>信号极化保持极好</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>城市郊区 NLOS</td>
+          
+          <td>15-20dB</td>
+          
+          <td>少量反射，极化有一定旋转</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>城市峡谷</td>
+          
+          <td>8-15dB</td>
+          
+          <td>多次反射，极化严重退化</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>室内密集多径</td>
+          
+          <td>5-10dB</td>
+          
+          <td>极化几乎完全随机</td>
+          
+        </tr>
         
-        
-        <div class="desc">XPD（Cross-Polarization Discrimination）衡量的是信号中期望极化分量和非期望极化分量的比值：
-
-`
-XPD (dB) = 10 × log₁₀(P_co / P_xp)
-`
-
-其中 P_co 是同极化功率，P_xp 是交叉极化功率。
-
-典型 XPD 值：
-| 场景 | XPD (dB) | 说明 |
-|------|---------|------|
-| 开阔地带 LOS | 25-30dB | 信号极化保持极好 |
-| 城市郊区 NLOS | 15-20dB | 少量反射，极化有一定旋转 |
-| 城市峡谷 | 8-15dB | 多次反射，极化严重退化 |
-| 室内密集多径 | 5-10dB | 极化几乎完全随机 |
-
-核心规律：XPD 越高，信号极化保持得越好，极化分集的效果越差（因为两根天线收到的信号高度相关）。XPD 越低，极化分集的效果越好（因为两根天线收到的信号更独立）。
-
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">核心规律：XPD 越高，信号极化保持得越好，极化分集的效果越差（因为两根天线收到的信号高度相关）。XPD 越低，极化分集的效果越好（因为两根天线收到的信号更独立）。
 ---</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     

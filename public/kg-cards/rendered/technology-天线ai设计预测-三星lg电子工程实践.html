@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -447,31 +447,69 @@ Qwen3-VL视觉分析提取表格和数值
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">技术栈总结</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>组件</th><th>三星电子</th><th>LG电子</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">技术栈总结</div>
+        <tr>
+          
+          <td>仿真工具</td>
+          
+          <td>CST Studio (达索)</td>
+          
+          <td>Simulia (达索)</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>AI框架</td>
+          
+          <td>达索协助搭建</td>
+          
+          <td>达索SPDM平台</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>核心算法</td>
+          
+          <td>ML回归模型(ANN最优)</td>
+          
+          <td>Qwen3-VL视觉语言模型</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>数据源</td>
+          
+          <td>FEM仿真数据</td>
+          
+          <td>PPT报告图表</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>关键指标</td>
+          
+          <td>开发周期缩短数十倍</td>
+          
+          <td>100%自主数据提取</td>
+          
+        </tr>
         
-        <div class="desc">| 组件 | 三星电子 | LG电子 |
-|------|----------|--------|
-| 仿真工具 | CST Studio (达索) | Simulia (达索) |
-| AI框架 | 达索协助搭建 | 达索SPDM平台 |
-| 核心算法 | ML回归模型(ANN最优) | Qwen3-VL视觉语言模型 |
-| 数据源 | FEM仿真数据 | PPT报告图表 |
-| 关键指标 | 开发周期缩短数十倍 | 100%自主数据提取 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

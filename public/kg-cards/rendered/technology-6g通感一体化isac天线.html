@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -298,29 +298,55 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.2 ISAC 的三种实现架构</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>架构</th><th>描述</th><th>优点</th><th>缺点</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.2 ISAC 的三种实现架构</div>
+        <tr>
+          
+          <td>共址 ISAC（Co-located）</td>
+          
+          <td>同一基站同时服务通信用户和感知目标</td>
+          
+          <td>硬件共享最大化</td>
+          
+          <td>波形设计复杂</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>协作 ISAC（Collaborative）</td>
+          
+          <td>通信基站和雷达基站协同工作</td>
+          
+          <td>可分别优化</td>
+          
+          <td>硬件共享有限</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>网络 ISAC（Network）</td>
+          
+          <td>多个 ISAC 基站组网，联合通信和感知</td>
+          
+          <td>覆盖范围广</td>
+          
+          <td>系统复杂度高</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 架构 | 描述 | 优点 | 缺点 |
-|------|------|------|------|
-| 共址 ISAC（Co-located） | 同一基站同时服务通信用户和感知目标 | 硬件共享最大化 | 波形设计复杂 |
-| 协作 ISAC（Collaborative） | 通信基站和雷达基站协同工作 | 可分别优化 | 硬件共享有限 |
-| 网络 ISAC（Network） | 多个 ISAC 基站组网，联合通信和感知 | 覆盖范围广 | 系统复杂度高 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -427,37 +453,55 @@ ISAC 天线还需要关心：
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">2.2 感知性能指标：CRB</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>参数</th><th>CRB 公式</th><th>物理意义</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">2.2 感知性能指标：CRB</div>
+        <tr>
+          
+          <td>距离 R</td>
+          
+          <td>CRB_R ∝ λ² / (BW² · SNR)</td>
+          
+          <td>测距精度</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>角度 θ</td>
+          
+          <td>CRB_θ ∝ λ / (D · √SNR)</td>
+          
+          <td>测角精度</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>速度 v</td>
+          
+          <td>CRB_v ∝ λ / (T_coherent · √SNR)</td>
+          
+          <td>测速精度</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">Cramer-Rao Bound 是参数估计精度的理论下限。对于 ISAC 系统，主要估计的参数包括：
-
-| 参数 | CRB 公式 | 物理意义 |
-|------|---------|---------|
-| 距离 R | CRB_R ∝ λ² / (BW² · SNR) | 测距精度 |
-| 角度 θ | CRB_θ ∝ λ / (D · √SNR) | 测角精度 |
-| 速度 v | CRB_v ∝ λ / (T_coherent · √SNR) | 测速精度 |
-
-其中：
+      </tbody>
+    </table>
+    
+    <div style="background:var(--secondary-bg);font-size:10.5px;color:var(--fg-muted);font-style:italic;padding:8px 10px;line-height:1.5;word-break:break-word;margin-top:0;border-radius:0 0 8px 8px;">其中：
 BW 是信号带宽
 D 是阵列孔径
 T_coherent 是相干处理时间
 SNR 是信噪比</div>
-        
-        
-      </div>
-      
-    </div>
+    
   </div>
+
     
   
     
@@ -586,38 +630,67 @@ AF_total(θ) = AF_comm(θ) + α · AF_sense(θ)
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 大规模 MIMO 天线用于 ISAC</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>参数</th><th>通信优化</th><th>感知优化</th><th>折中</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 大规模 MIMO 天线用于 ISAC</div>
+        <tr>
+          
+          <td>波束宽度</td>
+          
+          <td>窄（聚焦用户）</td>
+          
+          <td>窄（高分辨率）</td>
+          
+          <td>中等</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>旁瓣电平</td>
+          
+          <td>&lt;-15dB</td>
+          
+          <td>&lt;-25dB</td>
+          
+          <td>&lt;-20dB</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>波束切换速度</td>
+          
+          <td>慢（稳定）</td>
+          
+          <td>快（实时更新）</td>
+          
+          <td>中等</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>极化方式</td>
+          
+          <td>双极化</td>
+          
+          <td>单极化（简化）</td>
+          
+          <td>双极化</td>
+          
+        </tr>
         
-        
-        <div class="desc">64T64R 或 256T256R Massive MIMO 天线天然适合 ISAC：
-
-高增益波束 → 高 SNR → 好感知精度
-多波束能力 → 同时服务多个通信用户 + 多个感知目标
-数字波束成形 → 灵活的通信/感知波束切换
-
-关键设计参数：
-
-| 参数 | 通信优化 | 感知优化 | 折中 |
-|------|---------|---------|------|
-| 波束宽度 | 窄（聚焦用户） | 窄（高分辨率） | 中等 |
-| 旁瓣电平 | &lt;-15dB | &lt;-25dB | &lt;-20dB |
-| 波束切换速度 | 慢（稳定） | 快（实时更新） | 中等 |
-| 极化方式 | 双极化 | 单极化（简化） | 双极化 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -842,87 +915,165 @@ ISAC 方案：同一副天线同时用于通信和感知。
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.1 通信指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>目标值</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.1 通信指标</div>
+        <tr>
+          
+          <td>峰值速率</td>
+          
+          <td>&gt; 100 Gbps</td>
+          
+          <td>6G 目标</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>频谱效率</td>
+          
+          <td>&gt; 30 bps/Hz</td>
+          
+          <td>XL-MIMO + ISAC</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>连接密度</td>
+          
+          <td>&gt; 10⁷ devices/km²</td>
+          
+          <td>IoT 场景</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 指标 | 目标值 | 说明 |
-|------|--------|------|
-| 峰值速率 | &gt; 100 Gbps | 6G 目标 |
-| 频谱效率 | &gt; 30 bps/Hz | XL-MIMO + ISAC |
-| 连接密度 | &gt; 10⁷ devices/km² | IoT 场景 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.2 感知指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>目标值</th><th>说明</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.2 感知指标</div>
+        <tr>
+          
+          <td>测距精度</td>
+          
+          <td>&lt; 10cm</td>
+          
+          <td>3GHz 频段</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>测角精度</td>
+          
+          <td>&lt; 0.1°</td>
+          
+          <td>64T64R 阵列</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>测速精度</td>
+          
+          <td>&lt; 0.01 m/s</td>
+          
+          <td>多普勒分辨</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>探测范围</td>
+          
+          <td>&gt; 500m</td>
+          
+          <td>suburban 场景</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>目标分辨率</td>
+          
+          <td>&lt; 5cm</td>
+          
+          <td>高分辨率成像</td>
+          
+        </tr>
         
-        <div class="desc">| 指标 | 目标值 | 说明 |
-|------|--------|------|
-| 测距精度 | &lt; 10cm | 3GHz 频段 |
-| 测角精度 | &lt; 0.1° | 64T64R 阵列 |
-| 测速精度 | &lt; 0.01 m/s | 多普勒分辨 |
-| 探测范围 | &gt; 500m |  suburban 场景 |
-| 目标分辨率 | &lt; 5cm | 高分辨率成像 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">5.3 通信-感知联合指标</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>指标</th><th>定义</th><th>目标</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">5.3 通信-感知联合指标</div>
+        <tr>
+          
+          <td>CRB-Rate Region</td>
+          
+          <td>通信速率和感知 CRB 的可行区域</td>
+          
+          <td>最大化</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>Pareto 最优</td>
+          
+          <td>无法在不损害一方的前提下改善另一方</td>
+          
+          <td>达到</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>自干扰抑制</td>
+          
+          <td>发射信号对自身接收机的抑制</td>
+          
+          <td>&gt; 100dB</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">| 指标 | 定义 | 目标 |
-|------|------|------|
-| CRB-Rate Region | 通信速率和感知 CRB 的可行区域 | 最大化 |
-| Pareto 最优 | 无法在不损害一方的前提下改善另一方 | 达到 |
-| 自干扰抑制 | 发射信号对自身接收机的抑制 | &gt; 100dB |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -964,32 +1115,67 @@ SI_power = P_TX - Isolation
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">6.2 波形兼容性</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>特性</th><th>OFDM</th><th>Chirp</th><th>ISAC 折中</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">6.2 波形兼容性</div>
+        <tr>
+          
+          <td>PAPR</td>
+          
+          <td>高（6-8dB）</td>
+          
+          <td>低（0dB）</td>
+          
+          <td>降低 OFDM PAPR</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>频谱特性</td>
+          
+          <td>带外泄漏大</td>
+          
+          <td>频谱干净</td>
+          
+          <td>加窗滤波</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>自相关</td>
+          
+          <td>差（旁瓣高）</td>
+          
+          <td>好（尖锐峰值）</td>
+          
+          <td>优化子载波分配</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>互相关</td>
+          
+          <td>N/A</td>
+          
+          <td>好</td>
+          
+          <td>正交子载波</td>
+          
+        </tr>
         
-        
-        <div class="desc">通信波形（OFDM）和传统雷达波形（线性调频 Chirp）的特性不同：
-
-| 特性 | OFDM | Chirp | ISAC 折中 |
-|------|------|-------|----------|
-| PAPR | 高（6-8dB） | 低（0dB） | 降低 OFDM PAPR |
-| 频谱特性 | 带外泄漏大 | 频谱干净 | 加窗滤波 |
-| 自相关 | 差（旁瓣高） | 好（尖锐峰值） | 优化子载波分配 |
-| 互相关 | N/A | 好 | 正交子载波 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     

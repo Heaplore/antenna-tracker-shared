@@ -24,11 +24,11 @@
 
   .card {
     width: 1378px;
-    height: 1080px;
+    min-height: 1080px;
+    height: auto;
     background: var(--bg);
     margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   .canvas {
@@ -269,95 +269,43 @@
     
 
     
-  <div class="block section-table">
+  <div class="block section-comparison">
     <div class="block-title">1.1 什么是漏波天线？</div>
     <table class="tbl">
       <thead><tr>
-        <th>内容</th>
+        <th>封闭结构天线</th><th>开放结构天线（LWA）</th>
       </tr></thead>
       <tbody>
         
         <tr>
           
-          <td>漏波天线是一种开放结构天线（Open-Structure Antenna），与传统的&#34;封闭结构&#34;（如微带贴片、偶极子）不同，LWA 的辐射体本身就是传输线：</td>
+          <td>能量在辐射体上建立驻波</td>
+          
+          <td>能量沿传输线行波传播</td>
           
         </tr>
         
         <tr>
           
-          <td>`</td>
+          <td>辐射集中在天线表面</td>
+          
+          <td>辐射沿整个传输线分布</td>
           
         </tr>
         
         <tr>
           
-          <td>信号输入 ──→ ════════════════════════→ 终端匹配</td>
+          <td>频率固定，波束固定</td>
+          
+          <td>频率改变，波束自动扫描</td>
           
         </tr>
         
         <tr>
           
-          <td>↑↑↑ ↑↑↑ ↑↑↑ ↑↑↑ ↑↑↑</td>
+          <td>带宽较窄</td>
           
-        </tr>
-        
-        <tr>
-          
-          <td>辐射  辐射  辐射  辐射  辐射</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>(沿传播方向不断泄漏)</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>`</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>核心区别：</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 封闭结构天线 | 开放结构天线（LWA） |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>|------------|------------------|</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 能量在辐射体上建立驻波 | 能量沿传输线行波传播 |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 辐射集中在天线表面 | 辐射沿整个传输线分布 |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 频率固定，波束固定 | 频率改变，波束自动扫描 |</td>
-          
-        </tr>
-        
-        <tr>
-          
-          <td>| 带宽较窄 | 带宽较宽 |</td>
+          <td>带宽较宽</td>
           
         </tr>
         
@@ -371,46 +319,55 @@
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">1.2 色散关系与波束指向</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>频率</th><th>β/k₀</th><th>sin(θ₀)</th><th>θ₀</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">1.2 色散关系与波束指向</div>
+        <tr>
+          
+          <td>f_low</td>
+          
+          <td>0.8k₀</td>
+          
+          <td>0.8</td>
+          
+          <td>53°（后向）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>f_mid</td>
+          
+          <td>0.3k₀</td>
+          
+          <td>0.3</td>
+          
+          <td>17°（近 broadside）</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>f_high</td>
+          
+          <td>0.05k₀</td>
+          
+          <td>0.05</td>
+          
+          <td>3°（前向）</td>
+          
+        </tr>
         
-        
-        
-        <div class="desc">LWA 的辐射方向由色散关系决定：
-
-`
-β(ω) = 传播常数（随频率变化）
-k₀(ω) = 自由空间波数 = ω/c
-`
-
-波束指向角：
-
-`
-sin(θ₀) = β(ω) / k₀(ω)
-`
-
-当频率 f 变化时，β 和 k₀ 都变化 → θ₀ 变化 → 波束扫描。
-
-典型扫描特性：
-
-| 频率 | β/k₀ | sin(θ₀) | θ₀ |
-|------|------|---------|-----|
-| f_low | 0.8k₀ | 0.8 | 53°（后向） |
-| f_mid | 0.3k₀ | 0.3 | 17°（近 broadside） |
-| f_high | 0.05k₀ | 0.05 | 3°（前向） |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
@@ -767,59 +724,117 @@ sin(θ_m) = m·λ/Λ - β/k₀
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.1 扫描范围</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>LWA 类型</th><th>扫描范围</th><th>带宽</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.1 扫描范围</div>
+        <tr>
+          
+          <td>SIW 缝隙 LWA</td>
+          
+          <td>±30°</td>
+          
+          <td>20-40%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>微带缝隙 LWA</td>
+          
+          <td>±20°</td>
+          
+          <td>10-20%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>CRLH LWA</td>
+          
+          <td>-60° to +60°</td>
+          
+          <td>&gt; 100%</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>蛇形波导 LWA</td>
+          
+          <td>-35° to +42°</td>
+          
+          <td>30%</td>
+          
+        </tr>
         
-        
-        <div class="desc">| LWA 类型 | 扫描范围 | 带宽 |
-|---------|---------|------|
-| SIW 缝隙 LWA | ±30° | 20-40% |
-| 微带缝隙 LWA | ±20° | 10-20% |
-| CRLH LWA | -60° to +60° | &gt; 100% |
-| 蛇形波导 LWA | -35° to +42° | 30% |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
 
     
-  <div class="block section-list ">
+  <div class="block section-comparison">
     <div class="block-title">3.2 增益</div>
-    <div class="list-items ">
-      
-      <div class="list-item">
+    <table class="tbl">
+      <thead><tr>
+        <th>LWA 类型</th><th>增益</th><th>单元数等效</th>
+      </tr></thead>
+      <tbody>
         
-        <div class="name">3.2 增益</div>
+        <tr>
+          
+          <td>SIW LWA（10单元）</td>
+          
+          <td>10-12dBi</td>
+          
+          <td>~10</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>SIW LWA（30单元）</td>
+          
+          <td>15-18dBi</td>
+          
+          <td>~30</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>微带 LWA（20单元）</td>
+          
+          <td>12-15dBi</td>
+          
+          <td>~20</td>
+          
+        </tr>
         
+        <tr>
+          
+          <td>CRLH LWA（40单元）</td>
+          
+          <td>16-20dBi</td>
+          
+          <td>~40</td>
+          
+        </tr>
         
-        
-        <div class="desc">| LWA 类型 | 增益 | 单元数等效 |
-|---------|------|----------|
-| SIW LWA（10单元） | 10-12dBi | ~10 |
-| SIW LWA（30单元） | 15-18dBi | ~30 |
-| 微带 LWA（20单元） | 12-15dBi | ~20 |
-| CRLH LWA（40单元） | 16-20dBi | ~40 |</div>
-        
-        
-      </div>
-      
-    </div>
+      </tbody>
+    </table>
+    
   </div>
+
     
   
     
