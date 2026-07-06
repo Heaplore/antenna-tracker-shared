@@ -678,19 +678,29 @@ function Modal({
             </button>
           </div>
 
-          {/* HTML 卡片 iframe */}
-          <iframe
-            key={node.id}
-            src={`/antenna-tracker/kg-cards-rendered/${encodeURIComponent(node.id)}.html`}
-            title={`${node.name} 科普卡片`}
-            style={{
-              flex: 1,
-              width: '100%',
-              border: 'none',
-              minHeight: 700,
-            }}
-            sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation allow-top-navigation-by-user-activation"
-          />
+          {/* ===== 主体：左 iframe + 右 关联笔记 ===== */}
+          <div style={{ display: 'flex', flex: 1, minHeight: 0, overflow: 'hidden' }}>
+            {/* 左：HTML 卡片 iframe */}
+            <iframe
+              key={node.id}
+              src={`/antenna-tracker/kg-cards-rendered/${encodeURIComponent(node.id)}.html`}
+              title={`${node.name} 科普卡片`}
+              style={{
+                flex: 1,
+                width: '100%',
+                border: 'none',
+                minHeight: 700,
+              }}
+              sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation allow-top-navigation-by-user-activation"
+            />
+
+            {/* 右：关联笔记侧栏（实时取自 KG 图谱数据，非 iframe 内的 top-3） */}
+            <RelatedNotesPanel
+              outgoingIds={Array.from(outNeighborIds)}
+              incomingIds={Array.from(inNeighborIds)}
+              onNodeClick={onNodeClick}
+            />
+          </div>
         </div>
       </div>
 
@@ -705,5 +715,225 @@ function Modal({
         }
       `}</style>
     </>
+  )
+}
+
+// ===== 关联笔记侧栏 =====
+
+function RelatedNotesPanel({
+  outgoingIds,
+  incomingIds,
+  onNodeClick,
+}: {
+  outgoingIds: string[]
+  incomingIds: string[]
+  onNodeClick: (id: string) => void
+}) {
+  const nodesById = useMemo(() => {
+    const m = new Map<string, KGNode>()
+    for (const n of kgData.nodes) m.set(n.id, n)
+    return m
+  }, [])
+
+  const [showAllOut, setShowAllOut] = useState(false)
+  const [showAllIn, setShowAllIn] = useState(false)
+
+  const outgoing = useMemo(
+    () => outgoingIds.map((id) => nodesById.get(id)).filter(Boolean) as KGNode[],
+    [outgoingIds, nodesById],
+  )
+  const incoming = useMemo(
+    () => incomingIds.map((id) => nodesById.get(id)).filter(Boolean) as KGNode[],
+    [incomingIds, nodesById],
+  )
+  const total = outgoing.length + incoming.length
+
+  if (total === 0) {
+    return (
+      <aside
+        style={{
+          width: 320,
+          flexShrink: 0,
+          borderLeft: '1px solid #e5e7eb',
+          background: '#f9fafb',
+          padding: 20,
+          fontSize: 13,
+          color: '#9ca3af',
+          textAlign: 'center',
+          overflowY: 'auto',
+        }}
+      >
+        📚 关联笔记
+        <div style={{ marginTop: 12, fontSize: 12 }}>暂无关联</div>
+      </aside>
+    )
+  }
+
+  const renderList = (list: KGNode[], expanded: boolean, toggle: () => void) => {
+    const visible = expanded ? list : list.slice(0, 9)
+    const hidden = list.length - visible.length
+    return (
+      <>
+        {visible.map((n) => (
+          <button
+            key={n.id}
+            onClick={() => onNodeClick(n.id)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              width: '100%',
+              padding: '8px 10px',
+              marginBottom: 4,
+              background: '#fff',
+              border: `1px solid ${TYPE_COLORS[n.type]}33`,
+              borderLeft: `3px solid ${TYPE_COLORS[n.type]}`,
+              borderRadius: 6,
+              textAlign: 'left',
+              cursor: 'pointer',
+              transition: 'all 0.15s',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = `${TYPE_COLORS[n.type]}11`
+              e.currentTarget.style.transform = 'translateX(2px)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#fff'
+              e.currentTarget.style.transform = 'translateX(0)'
+            }}
+            title={n.nameEn || n.name}
+          >
+            <span
+              style={{
+                color: TYPE_COLORS[n.type],
+                fontSize: 14,
+                flexShrink: 0,
+              }}
+            >
+              {TYPE_ICONS[n.type]}
+            </span>
+            <span
+              style={{
+                fontSize: 12.5,
+                color: '#374151',
+                lineHeight: 1.3,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                flex: 1,
+              }}
+            >
+              {n.name}
+            </span>
+          </button>
+        ))}
+        {hidden > 0 && (
+          <button
+            onClick={toggle}
+            style={{
+              width: '100%',
+              padding: '6px',
+              marginTop: 4,
+              background: 'transparent',
+              border: '1px dashed #d1d5db',
+              borderRadius: 6,
+              color: '#6b7280',
+              fontSize: 11.5,
+              cursor: 'pointer',
+            }}
+          >
+            ▼ 展开剩余 {hidden} 条
+          </button>
+        )}
+        {expanded && list.length > 9 && (
+          <button
+            onClick={toggle}
+            style={{
+              width: '100%',
+              padding: '6px',
+              marginTop: 4,
+              background: 'transparent',
+              border: '1px dashed #d1d5db',
+              borderRadius: 6,
+              color: '#6b7280',
+              fontSize: 11.5,
+              cursor: 'pointer',
+            }}
+          >
+            ▲ 收起
+          </button>
+        )}
+      </>
+    )
+  }
+
+  return (
+    <aside
+      style={{
+        width: 320,
+        flexShrink: 0,
+        borderLeft: '1px solid #e5e7eb',
+        background: '#f9fafb',
+        overflowY: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #e5e7eb',
+          background: '#fff',
+          position: 'sticky',
+          top: 0,
+          zIndex: 1,
+        }}
+      >
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>
+          📚 关联笔记 <span style={{ color: '#6b7280', fontWeight: 400 }}>({total})</span>
+        </div>
+        <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 3 }}>
+          实时取自 KG 图谱，非卡片内置 top-3
+        </div>
+      </div>
+
+      {outgoing.length > 0 && (
+        <section style={{ padding: '12px 12px 4px' }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#6b7280',
+              textTransform: 'uppercase',
+              letterSpacing: 0.5,
+              marginBottom: 8,
+              padding: '0 4px',
+            }}
+          >
+            ➤ 出向关联（此节点依赖 / 引用） · {outgoing.length}
+          </div>
+          {renderList(outgoing, showAllOut, () => setShowAllOut(!showAllOut))}
+        </section>
+      )}
+
+      {incoming.length > 0 && (
+        <section style={{ padding: '8px 12px 16px' }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#6b7280',
+              textTransform: 'uppercase',
+              letterSpacing: 0.5,
+              marginBottom: 8,
+              padding: '0 4px',
+            }}
+          >
+            ← 入向关联（被此节点引用） · {incoming.length}
+          </div>
+          {renderList(incoming, showAllIn, () => setShowAllIn(!showAllIn))}
+        </section>
+      )}
+    </aside>
   )
 }
