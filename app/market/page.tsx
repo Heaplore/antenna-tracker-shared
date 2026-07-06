@@ -69,10 +69,10 @@ const regionData = worldData ? Object.entries(worldData.regionalShare2024).map((
 // Vendor share bar
 const vendorData = worldData ? Object.entries(worldData.vendorMarketShare2024).map(([name, value]) => ({ name, value })) : []
 
-// Hot segment lines
-const massiveMIMOLine = [{ year: '2024', value: worldData?.hotSegments.massiveMIMO?.2024 || 0 }, { year: '2031E', value: worldData?.hotSegments.massiveMIMO?.['2031E'] || 0 }]
-const satelliteLine = [{ year: '2024', value: worldData?.hotSegments.satellitePhasedArray?.2024 || 0 }, { year: '2034E', value: worldData?.hotSegments.satellitePhasedArray?.['2034E'] || 0 }]
-const v2xLine = worldData ? Object.entries({ '2023': worldData.hotSegments.v2x?.2023 }).concat(Object.entries({ '2030E': worldData.hotSegments.v2x?.['2030E'] })).map(([k,v]) => ({ year: k, value: v })) : []
+// Hot segment lines — use bracket notation for numeric property access
+const massiveMIMOLine = [{ year: '2024', value: worldData?.hotSegments.massiveMIMO?.['2024'] || 0 }, { year: '2031E', value: worldData?.hotSegments.massiveMIMO?.['2031E'] || 0 }]
+const satelliteLine = [{ year: '2024', value: worldData?.hotSegments.satellitePhasedArray?.['2024'] || 0 }, { year: '2034E', value: worldData?.hotSegments.satellitePhasedArray?.['2034E'] || 0 }]
+const v2xLine = worldData ? Object.entries({ '2023': worldData.hotSegments.v2x?.['2023'] }).concat(Object.entries({ '2030E': worldData.hotSegments.v2x?.['2030E'] })).map(([k,v]) => ({ year: k, value: v })) : []
 
 // Tech maturity scatter
 const techData = worldData ? worldData.techMaturity.map(t => ({ name: t.name, x: t.commercialization, y: t.aspElasticity })) : []
@@ -313,7 +313,7 @@ export default function MarketPage() {
               </AreaChart>
             </ResponsiveContainer>
             <div style={{ fontSize: '0.75rem', color: '#666' }}>
-              CAGR <strong style={{ color: BRAND }}>{worldData?.hotSegments.massiveMIMO?.cagr}</strong> · 从{worldData?.hotSegments.massiveMIMO?.2024}亿增至{worldData?.hotSegments.massiveMIMO?.['2031E']}亿
+              CAGR <strong style={{ color: BRAND }}>{worldData?.hotSegments.massiveMIMO?.cagr}</strong> · 从{worldData?.hotSegments.massiveMIMO?.['2024']}亿增至{worldData?.hotSegments.massiveMIMO?.['2031E']}亿
             </div>
           </div>
           {/* Satellite Phased Array */}
@@ -329,7 +329,7 @@ export default function MarketPage() {
               </AreaChart>
             </ResponsiveContainer>
             <div style={{ fontSize: '0.75rem', color: '#666' }}>
-              CAGR <strong style={{ color: BRAND }}>{worldData?.hotSegments.satellitePhasedArray?.cagr}</strong> · 从{worldData?.hotSegments.satellitePhasedArray?.2024}亿增至{worldData?.hotSegments.satellitePhasedArray?.['2034E']}亿
+              CAGR <strong style={{ color: BRAND }}>{worldData?.hotSegments.satellitePhasedArray?.cagr}</strong> · 从{worldData?.hotSegments.satellitePhasedArray?.['2024']}亿增至{worldData?.hotSegments.satellitePhasedArray?.['2034E']}亿
             </div>
           </div>
           {/* V2X */}

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>极化分集（Polarization Diversity）深度解读 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">极化分集深度解读 <span class="en">Polarization Diversity</span></h1>
+  <p class="lede"><b>极化分集 = 在同一位置放两根正交极化的天线，不管信号怎么反射变形，总有一根能抓住它。它是移动通信中"花最小空间、换最大分集增益"的最优解。</b></p>
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+  <article class="card">
+    <h2>一、极化的本质：电磁波的&quot;舞蹈方向&quot;</h2>
+    <h3>电磁波的极化方向</h3>
+    <p>电磁波在空间中传播时，电场矢量的振动方向就是极化方向。想象一根绳子，你上下抖它，波就是垂直极化的；左右抖它，波就是水平极化的。</p>
+    <p><b>三种基本极化</b>：</p>
+    <ul><li><b>线性极化</b>：电场矢量在一个固定平面内振动（+45°、-45°、水平、垂直）</li><li><b>圆极化</b>：电场矢量端点随时间画出一个圆（左旋或右旋）</li><li><b>椭圆极化</b>：电场矢量端点随时间画出一个椭圆（最general的情况）</li></ul>
+    <h3>现实世界的残酷真相：极化不是固定的</h3>
+    <p>在实验室里，你可以精确控制发射和接收天线的极化方向，做到完美匹配。但在真实的移动通信环境中，信号从基站发射出去后，经过建筑反射、地面折射、树叶散射、人体吸收……到达手机时，极化方向早就面目全非了。</p>
+    <p><b>多径效应下的极化演变</b>：</p>
+    <pre><code>发射端：+45° 线性极化
+      ↓
+    直射路径：保持 +45°（变化很小）
+      ↓
+    反射路径1（大楼玻璃）：极化旋转约 30°
+      ↓
+    反射路径2（地面）：极化翻转约 90°，接近 -45°
+      ↓
+    散射路径（树叶/行人）：随机极化，接近椭圆极化
+      ↓
+    接收端：收到的信号是以上所有路径的叠加，极化状态完全不可预测</code></pre>
+    <p><b>关键判断</b>：在复杂的城市环境中，到达接收端的信号极化状态是随机的、时变的。指望单一极化天线"恰好对准"信号的极化方向？概率极低。</p>
+    <h3>交叉极化鉴别度（XPD）</h3>
+    <p>XPD（Cross-Polarization Discrimination）衡量的是信号中期望极化分量和非期望极化分量的比值：</p>
+    <pre><code>XPD (dB) = 10 × log₁₀(P_co / P_xp)</code></pre>
+    <p>其中 P_co 是同极化功率，P_xp 是交叉极化功率。</p>
+    <p><b>典型 XPD 值</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>场景</th><th>XPD (dB)</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>开阔地带 LOS</td><td>25-30dB</td><td>信号极化保持极好</td></tr>
+    <tr><td>城市郊区 NLOS</td><td>15-20dB</td><td>少量反射，极化有一定旋转</td></tr>
+    <tr><td>城市峡谷</td><td>8-15dB</td><td>多次反射，极化严重退化</td></tr>
+    <tr><td>室内密集多径</td><td>5-10dB</td><td>极化几乎完全随机</td></tr>
+    </tbody></table></div>
+    <p><b>核心规律</b>：XPD 越高，信号极化保持得越好，极化分集的效果越差（因为两根天线收到的信号高度相关）。XPD 越低，极化分集的效果越好（因为两根天线收到的信号更独立）。</p>
+    <p>---</p>
+  </article>
+
+  <article class="card">
+    <h2>二、±45° 双极化：为什么不是水平/垂直？</h2>
+    <p>你可能注意到了，5G 基站的天线阵列上，密密麻麻的小振子都是 ±45° 双极化设计的。为什么不是传统的水平/垂直极化？</p>
+    <h3>原因 1：人体手持手机姿态随机</h3>
+    <p>用户可能横握、竖握、斜握手机，手机天线的极化方向随之变化。如果是水平/垂直双极化：</p>
+    <ul><li>用户竖握手机 → 垂直极化天线匹配好，水平极化天线几乎收不到信号</li><li>用户横握手机 → 反过来</li></ul>
+    <p>±45° 双极化对任意手持姿态都有较好的兼容性，避免了水平/垂直方案在某些姿态下极端恶化的风险。</p>
+    <p><b>量化对比</b>：</p>
+    <pre><code>水平/垂直双极化：
+      竖握手机 → 最佳极化匹配 0°，最差 -90°
+      横握手机 → 最佳极化匹配 90°，最差 0°
+      平均性能：中等
+    
+    ±45° 双极化：
+      任意角度 → 最佳极化匹配 θ+45°，最差 θ-45°
+      最大极化失配：45°（恒定）
+      平均性能：优于水平/垂直</code></pre>
+    <h3>原因 2：空间复用（极化复用）</h3>
+    <p>两根正交极化天线可以使用同一频率、同一时间传输不同的数据流——这在 MIMO 系统中被称为"极化复用"。</p>
+    <p><b>类比</b>：两条高速公路，一条车道向上行驶，一条车道向下行驶，互不干扰。极化复用就是在同一片频谱上开辟两条"隐形车道"，不增加额外频率就能翻倍容量。</p>
+    <p><b>实测数据</b>：在 XPD > 20dB 的理想条件下，极化复用可以将 MIMO 信道容量提升 30-50%。在城市峡谷等 XPD 较低的场景，容量提升约 15-25%。</p>
+    <h3>原因 3：对称性</h3>
+    <p>±45° 双极化在物理结构上具有 90° 旋转对称性，天线面板无论怎么安装（正装或倒装），极化方向都不会改变。而水平/垂直双极化在安装时需要严格对准，否则极化方向会整体旋转 90°。</p>
+    <p>---</p>
+  </article>
+
+  <article class="card">
+    <h2>三、极化分集 vs 其他分集技术</h2>
+    <p>分集技术有很多种，极化分集只是其中之一。来做一个横向对比：</p>
+    <div class="tw"><table>
+    <thead><tr><th>分集类型</th><th>原理</th><th>空间需求</th><th>分集增益</th><th>复杂度</th><th>典型应用</th></tr></thead>
+    <tbody>
+    <tr><td><b>空间分集</b></td><td>天线物理间距 > λ/2</td><td>大（半波长以上）</td><td>★★★★★</td><td>低</td><td>宏基站、塔顶</td></tr>
+    <tr><td><b>极化分集</b></td><td>正交极化天线紧贴</td><td>极小（< λ/4）</td><td>★★★★</td><td>中</td><td>基站 AAU、手机</td></tr>
+    <tr><td><b>时间分集</b></td><td>同一信号不同时间发送</td><td>无</td><td>★★★</td><td>低</td><td>所有系统</td></tr>
+    <tr><td><b>频率分集</b></td><td>同一信号不同频率发送</td><td>无</td><td>★★★</td><td>低</td><td>OFDM 系统</td></tr>
+    <tr><td><b>路径分集</b></td><td>多径信号的极化/角度差异</td><td>无</td><td>★★★★</td><td>高</td><td>MIMO 系统</td></tr>
+    </tbody></table></div>
+    <p><b>极化分集的杀手锏</b>：<b>在极小的物理空间内实现了接近空间分集的效果</b>。对于体积寸土寸金的移动终端和密集部署的基站天线阵列来说，这是唯一可行的选择。</p>
+    <p><b>关键判断</b>：空间分集效果最好，但手机内部根本没有那么多空间放相距半波长的天线。极化分集用"正交极化"替代了"物理间距"，在同样的空间内获得了 80-90% 的空间分集增益。</p>
+    <p>---</p>
+  </article>
+
+  <article class="card">
+    <h2>四、极化分集的三大应用场景</h2>
+    <h3>场景 1：5G 基站 AAU</h3>
+    <p>一个典型的 64T64R Massive MIMO AAU 内部，包含 128 根 ±45° 双极化振子（64 对）。每对振子不仅承担分集接收的功能，还参与波束赋形的空间处理——一根天线同时干两份活。</p>
+    <p><b>工作原理</b>：</p>
+    <pre><code>发射端：
+      +45° 端口 → 数据流 A
+      -45° 端口 → 数据流 B
+      （极化复用，同一频率同时传输两路数据）
+    
+    接收端：
+      +45° 天线 → 接收信号 s1 = h11×A + h12×B + n1
+      -45° 天线 → 接收信号 s2 = h21×A + h22×B + n2
+      （MIMO 信号检测，分离 A 和 B）</code></pre>
+    <p><b>行业数据</b>：根据爱立信白皮书，双极化 Massive MIMO 相比单极化方案，小区容量提升 40-60%，频谱效率提升 30-50%。</p>
+    <h3>场景 2：手机天线</h3>
+    <p>现代旗舰手机的内部空间被压缩到极致，天线之间的间距常常不足几毫米（远小于 λ/2）。通过极化分集，手机可以在不增加天线数量的前提下，依然获得足够的分集增益来对抗多径衰落。</p>
+    <p><b>实际体验</b>：这就是为什么你的手机在电梯里、地下车库、高楼密集区，虽然信号格数不多，但通话和上网一般不会完全断掉——极化分集在默默干活。</p>
+    <p><b>手机天线设计挑战</b>：</p>
+    <ul><li>间距 < 5mm（远低于 λ/2）</li><li>金属边框干扰极化方向</li><li>人手握持改变天线谐振特性</li><li>需要同时支持 4G/5G/Wi-Fi/蓝牙/NFC 多个频段</li></ul>
+    <h3>场景 3：铁路专网</h3>
+    <p>2026 年最新研究：针对 5G 铁路专网的扇形波束极化分集天线。</p>
+    <p><b>论文概要</b>（Nature Scientific Reports, 2026）：</p>
+    <ul><li>采用高阶模贴片天线辐射单元</li><li>旋转 45° 构成倾斜双极化结构</li><li>增益 12.8dBi，阵列峰值增益 18.6dBi</li><li>水平 HPBW 6°，垂直 HPBW 38°（扇形波束贴合铁轨走向）</li><li>在高速移动场景下提供极化鲁棒性</li></ul>
+    <p><b>为什么铁路需要极化分集</b>：列车高速移动（350km/h）导致多普勒频移和极化快速变化，单极化天线容易遭遇深衰落。极化分集提供额外的分集维度，确保链路可靠性。</p>
+    <p>---</p>
+  </article>
+
+  <article class="card">
+    <h2>五、交叉极化鉴别度（XPD）的工程意义</h2>
+    <h3>基站天线 XPD 标准</h3>
+    <p>中国移动对 ±45° 双极化基站天线的 XPD 技术指标要求：</p>
+    <ul><li><b>主波束方向（boresight）</b>：XPD > 20dB</li><li><b>主瓣 ±60° 范围内</b>：XPD > 10dB</li></ul>
+    <p><b>为什么有这个标准</b>：XPD 越高，极化复用效果越好，MIMO 容量越高。如果 XPD 太低，两根极化天线收到的信号高度相关，极化分集增益大幅下降。</p>
+    <h3>提升 XPD 的技术手段</h3>
+    <p><b>手段 1：寄生单元（Parasitic Elements）</b></p>
+    <p>在 ±45° 双极化天线下方添加四个垂直寄生单元，形成正方形排列。这四个寄生单元不直接馈电，但会改变天线的近场电磁分布，提升 XPD。</p>
+    <p><b>效果</b>：在 ±60° 范围内，XPD 提升约 7dB（从最低 6.6dB 提升到 15.2dB）。</p>
+    <p><b>手段 2：高阶模压缩偶极子</b></p>
+    <p>结合非均匀压缩五阶模偶极子和基本模偶极子，通过弯曲 CPS（共面波导）调整相位，通过反射器和侧壁设计调整幅度。</p>
+    <p><b>效果</b>：主波束方向 XPD > 20dB，±60° 范围内 XPD > 10dB，满足工业标准，且不引入寄生结构。</p>
+    <p><b>手段 3：正交模变换器（OMT）</b></p>
+    <p>在馈电网络中使用 OMT，将线性极化转换为正交圆极化，进一步提升极化纯度。</p>
+    <p>---</p>
+  </article>
+
+  <article class="card">
+    <h2>六、极化分集的局限性</h2>
+    <h3>局限 1：城市峡谷中的极化退化</h3>
+    <p>在密集建筑群中，多次反射会让信号极化特性变得杂乱，XPD 急剧下降到 5-10dB。此时两根正交极化天线收到的信号高度相关，分集增益大打折扣。</p>
+    <p><b>量化</b>：</p>
+    <ul><li>开阔地带（XPD = 25dB）：极化分集增益约 4-5dB</li><li>城市郊区（XPD = 15dB）：极化分集增益约 3-4dB</li><li>城市峡谷（XPD = 8dB）：极化分集增益约 1-2dB</li><li>室内密集（XPD = 5dB）：极化分集增益约 0.5-1dB</li></ul>
+    <h3>局限 2：只能对抗极化相关的衰落</h3>
+    <p>极化分集对多径引起的空间和时间相关性无能为力。如果所有多径分量都以相同的极化状态到达（比如强 LOS 环境），两根极化天线收到的信号几乎相同，分集增益趋近于零。</p>
+    <p><b>解决方案</b>：与空间分集、时间分集组合使用，形成"多维分集"。</p>
+    <h3>局限 3：极化失配损耗</h3>
+    <p>如果发射端和接收端的极化方向不完全正交，会产生极化失配损耗：</p>
+    <pre><code>极化失配损耗 (dB) = -10 × log₁₀(cos²(Δθ))</code></pre>
+    <p>其中 Δθ 是两极化方向的夹角偏差。</p>
+    <p><b>典型值</b>：</p>
+    <ul><li>Δθ = 0°（完美正交）：损耗 0dB</li><li>Δθ = 5°：损耗 0.2dB</li><li>Δθ = 10°：损耗 0.8dB</li><li>Δθ = 15°：损耗 1.8dB</li><li>Δθ = 30°：损耗 6dB（严重）</li></ul>
+    <p>---</p>
+  </article>
+
+  <article class="card">
+    <h2>七、极化分集在 6G 中的新角色</h2>
+    <h3>6G XL-MIMO 中的 XPD 挑战</h3>
+    <p>6G 的 XL-MIMO（超大规模 MIMO）天线孔径极大（数米级别），近场效应显著。2025 年 arXiv 论文提出：双极化 XL-MIMO 的近远场边界需要考虑 XPD 差异，传统的近远场判据只考虑同极化信道分量，忽略了交叉极化分量的影响。</p>
+    <p><b>创新点</b>：引入"非均匀 XPD 距离"（non-uniform XPD distance）作为新的距离判据，考虑不同天线单元上的 XPD 变化，优化发射协方差矩阵。</p>
+    <h3>太赫兹通信中的芯片级极化分集</h3>
+    <p>太赫兹波段（0.1-10THz）波长极短（0.03-3mm），天线可以做得非常小。在芯片级集成数十甚至上百对极化分集天线，配合智能反射面（RIS）技术，实现前所未有的空间-极化联合波束赋形。</p>
+    <h3>通感一体化中的极化分集</h3>
+    <p>6G 通感一体化（ISAC）利用极化分集同时获取目标的极化散射特性。不同材质、形状的目标对不同极化波的散射特性不同，通过分析极化散射矩阵（PolSAR），可以实现更精细的目标识别。</p>
+    <p><b>应用</b>：</p>
+    <ul><li>区分无人机和飞鸟（极化散射特征不同）</li><li>识别车辆类型（金属车身 vs 人体）</li><li>检测天气现象（雨滴 vs 冰雹 vs 雪花）</li></ul>
+    <p>---</p>
+  </article>
+
+  <article class="card">
+    <h2>八、极化分集 vs 空间分集 vs 极化复用：一张表看懂</h2>
+    <div class="tw"><table>
+    <thead><tr><th>维度</th><th>极化分集</th><th>空间分集</th><th>极化复用</th></tr></thead>
+    <tbody>
+    <tr><td>目的</td><td>对抗衰落</td><td>对抗衰落</td><td>提升容量</td></tr>
+    <tr><td>原理</td><td>正交极化天线</td><td>物理间距 > λ/2</td><td>正交极化同时传不同数据</td></tr>
+    <tr><td>空间需求</td><td>小（< λ/4）</td><td>大（> λ/2）</td><td>小（< λ/4）</td></tr>
+    <tr><td>分集增益</td><td>3-5dB</td><td>5-10dB</td><td>N/A</td></tr>
+    <tr><td>容量增益</td><td>0</td><td>0</td><td>30-60%</td></tr>
+    <tr><td>典型 XPD 要求</td><td>>15dB</td><td>N/A</td><td>>20dB</td></tr>
+    <tr><td>适用场景</td><td>手机、密集基站</td><td>宏基站、塔顶</td><td>5G Massive MIMO</td></tr>
+    </tbody></table></div>
+    <p>---</p>
+  </article>
+
+  <article class="card">
+    <h2>九、给非专业读者的一句话总结</h2>
+    <div class="call"><b>极化分集是移动通信中最巧妙的"空间魔术"——在不增加天线数量和空间的前提下，通过正交极化获得额外的分集维度。它是 5G 基站和手机能够在狭小空间内实现高性能通信的关键技术之一。</b></div>
+    <p><b>金句</b>：极化分集告诉你一个道理——有时候，换个角度看世界（ literally 换 90° 角度），就能看到别人看不到的信号。</p>
+    <p>---</p>
+  </article>
+
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <span style="color:var(--ink-3);font-size:13px">暂无关联笔记</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

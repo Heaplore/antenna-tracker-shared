@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTFE（聚四氟乙烯） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">PTFE（聚四氟乙烯） <span class="en">PTFE</span></h1>
+  <p class="lede">PTFE（聚四氟乙烯，特氟龙 Teflon™）是已知介电性能最稳定的材料之一——Dk=2.1 几乎不随频率变化，Df=0.0002 是所有聚合物中最低的，但它太"滑"了，连胶水都粘不住。</p>
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>PTFE 就像电磁世界的"永动机"——信号在里面跑，几乎不损失能量，频率再高也不变色散。但它也是个"刺头"，表面能太低（18 mN/m），比荷叶（约 15 mN/m）还滑，铜箔在它上面贴不住，需要特殊的粗化处理。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、PTFE 基本特性</h2>
+    <h3>1.1 化学结构</h3>
+    <pre><code>PTFE 分子结构：
+      -[CF₂-CF₂]n-
+      
+    全氟化结构 → 所有氢原子被氟原子取代
+      → 分子对称性极高
+      → 偶极矩为零
+      → 电磁损耗极低
+      
+    这就是 PTFE 介电性能极佳的底层原因：
+      没有极性基团 → 电磁波穿过时没有偶极子翻转 → 无损耗</code></pre>
+    <h3>1.2 核心参数</h3>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>典型值</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>Dk（1MHz-40GHz）</td><td>2.10 ± 0.02</td><td>几乎无色散</td></tr>
+    <tr><td>Df（10GHz）</td><td>0.0002-0.0004</td><td>所有聚合物中最低</td></tr>
+    <tr><td>吸湿率</td><td>< 0.01%</td><td>完全不吸水</td></tr>
+    <tr><td>工作温度</td><td>-200°C to +260°C</td><td>极宽温域</td></tr>
+    <tr><td>表面能</td><td>18 mN/m</td><td>极低（不粘锅原理）</td></tr>
+    <tr><td>导热率</td><td>0.25 W/m·K</td><td>低</td></tr>
+    <tr><td>CTE</td><td>100-200 ppm/°C</td><td>较高（热膨胀大）</td></tr>
+    </tbody></table></div>
+    <h3>1.3 关键优势</h3>
+    <pre><code>1. 超低损耗：Df=0.0002，是 FR4 的 1/100
+    2. 极致稳定：Dk 从 1MHz 到 40GHz 几乎不变
+    3. 不吸水：吸湿率 &lt; 0.01%，湿度不影响性能
+    4. 耐化学：耐所有酸碱溶剂
+    5. 耐高温：-200°C to +260°C</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、PTFE 在天线中的应用</h2>
+    <h3>2.1 纯 PTFE（RT/duroid 系列）</h3>
+    <pre><code>代表产品：Rogers RT/duroid 5880
+      Dk = 2.20（@10GHz）
+      Df = 0.0009（@10GHz）
+      
+    应用：
+      - 测试天线（需要极致低损耗）
+      - 雷达天线罩
+      - 卫星通信天线
+      - 毫米波馈线
+      
+    优势：
+      - 目前商业化最低损耗的刚性基板
+      - 频率稳定性极佳</code></pre>
+    <h3>2.2 PTFE 复合材料</h3>
+    <pre><code>纯 PTFE 的缺点：
+      - CTE 太高（100-200 ppm/°C）
+      - 铜箔附着力差
+      - 加工困难
+      
+    解决方案：加入陶瓷填料/玻璃纤维
+      
+    常见 PTFE 复合材料：
+      
+      1. PTFE + 陶瓷微粉（Rogers RO3000 系列）
+         Dk = 3.0/6.2/10.2
+         Df = 0.001-0.002
+         CTE = 14-28 ppm/°C
+         
+      2. PTFE + 玻璃纤维（Taconic TLY/TLY-HY）
+         Dk = 2.2
+         Df = 0.001
+         成本低，适合大批量
+         
+      3. PTFE + 聚烯烃微球（发泡 PTFE）
+         Dk = 1.1-1.5（发泡后更低）
+         Df = 0.0005
+         用于天线罩/透波结构</code></pre>
+    <h3>2.3 PTFE 在 5G 中的具体应用</h3>
+    <pre><code>1. 基站天线馈线
+       - PTFE 同轴电缆（RG-405 等）
+       - 低损耗传输（3.5GHz 下 &lt; 0.5dB/m）
+       
+    2. AAU 内部连接
+       - PTFE 柔性电缆（FPC）
+       - 连接 AAU 与外部天线阵列
+       
+    3. 测试测量
+       - PTFE 校准标准件
+       - VNA 校准用的 Short/Open/Load/Through</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、PTFE vs 其他材料</h2>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>PTFE</th><th>LCP</th><th>Rogers PTFE</th><th>PI</th></tr></thead>
+    <tbody>
+    <tr><td>Dk</td><td>2.1</td><td>3.0</td><td>2.2</td><td>3.2</td></tr>
+    <tr><td>Df</td><td>0.0002</td><td>0.003</td><td>0.0009</td><td>0.004</td></tr>
+    <tr><td>吸湿率</td><td><0.01%</td><td>0.02%</td><td><0.01%</td><td>3-4%</td></tr>
+    <tr><td>柔性</td><td>差</td><td>优</td><td>差</td><td>优</td></tr>
+    <tr><td>成本</td><td>中</td><td>中</td><td>高</td><td>低</td></tr>
+    <tr><td>可加工性</td><td>差</td><td>优</td><td>中</td><td>优</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>四、一句话总结</h2>
+    <p>PTFE 是介电性能的"天花板"——Dk=2.1、Df=0.0002，在所有聚合物中无可匹敌。纯 PTFE 用于测试天线和雷达，PTFE 复合材料（RO3000/RT5880）用于 5G 基站和毫米波天线。记住：PTFE 的"滑"是双刃剑——电磁性能极致优秀，但加工困难、铜箔附着力差，需要特殊表面处理。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[材料-rogers系列高频板材]].html"><span class="ico">[</span><span>[材料-Rogers系列高频板材]]</span></a>
+      <a class="rel-card" href="[[材料-天线罩radome材料]].html"><span class="ico">[</span><span>[[材料-天线罩Radome材料]]</span></a>
+      <a class="rel-card" href="[[零部件-天线基板substrate].html"><span class="ico">[</span><span>[[零部件-天线基板Substrate]</span></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

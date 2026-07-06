@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>巴伦 Balun（Balance-Unbalance Converter） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">巴伦 Balun <span class="en">Balance-Unbalance Converter</span></h1>
+  <p class="lede">巴伦是平衡信号与不平衡信号之间的"翻译官"——它将单端信号（如 coax 电缆）转换为差分信号（如微带线），反之亦然。核心指标是幅度平衡、相位平衡和插入损耗。</p>
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>想象你有一根水管（同轴电缆，单端）要连接到两个对称的水管（差分线，平衡）。巴伦就是这个"三通接头"——它把一股水分成两股对称的水流，而且两股水流的方向相反（差分）。如果巴伦做得不好，两股水流就不对称（幅度不平衡）或者不同时到达（相位不平衡）。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、定义与功能</h2>
+    <h3>1.1 平衡 vs 不平衡</h3>
+    <pre><code>不平衡（Unbalanced）：
+      信号线 + 地线（参考面）
+      例：同轴电缆、单端微带线
+      
+    平衡（Balanced）：
+      两条对称的信号线
+      例：差分微带线、对称振子天线</code></pre>
+    <h3>1.2 巴伦的功能</h3>
+    <pre><code>单端输入 → 巴伦 → 差分输出
+      (50Ω)      ↑      (2 × 50Ω 差分)
+      
+    或反过来：
+    差分输入 → 巴伦 → 单端输出</code></pre>
+    <p><b>核心作用</b>：</p>
+    <ol><li><b>阻抗变换</b>：单端 50Ω → 差分 100Ω</li><li><b>信号对称</b>：输出两路幅度相等、相位差 180°</li><li><b>抑制共模</b>：阻止共模信号通过</li><li><b>防止共模电流</b>：在同轴电缆外皮上产生共模电流时会辐射干扰</li></ol>
+    <h3>1.3 巴伦 vs 功分器</h3>
+    <pre><code>功分器：1 路 → N 路（同相输出）
+    巴伦：1 路 → 2 路（180° 反相输出）
+    
+    功分器：幅度相等，相位相同
+    巴伦：幅度相等，相位相反（180°）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、巴伦的主要类型</h2>
+    <h3>2.1 传输线巴伦（Transmission Line Balun）</h3>
+    <h4>180° 传输线巴伦</h4>
+    <pre><code>结构：
+      两条平行传输线，一端交叉连接
+      
+    信号流向：
+      输入 → 传输线 A → 输出 +
+      输入 → 传输线 B（交叉）→ 输出 -
+      
+    相位差：180°</code></pre>
+    <h4>Marconi Balun（折叠式）</h4>
+    <pre><code>结构：
+      同轴电缆绕芯（共模扼流圈）
+      
+    原理：
+      共模电流被扼流圈抑制
+      差模信号正常通过</code></pre>
+    <h3>2.2 分支线耦合器巴伦（Branch-Line Coupler）</h3>
+    <pre><code>        Port 1（输入）
+             │
+        ┌────┴────┐
+        │         │
+        │  90°    │
+        │ Hybrid  │
+        │         │
+        └────┬────┘
+        Port 2    Port 3（90° 相位差）
+        
+    注意：这是 90° 巴伦，不是 180°！</code></pre>
+    <h3>2.3 环形桥巴伦（Rat-Race Coupler）</h3>
+    <pre><code>        Port 1（Σ 端口）
+             │
+        ┌────┴────┐
+        │         │
+        │ 180°    │
+        │ Hybrid  │
+        │         │
+        └────┬────┘
+        Port 2    Port 3（180° 相位差）
+             │
+        Port 4（隔离端口）</code></pre>
+    <h3>2.4 变压器巴伦（Transformer Balun）</h3>
+    <pre><code>结构：
+      磁芯 + 初级绕组 + 次级绕组（中心抽头）
+      
+    原理：
+      电磁感应实现平衡-不平衡转换
+      
+    优点：
+      宽带（DC 到 GHz）
+      阻抗变换灵活</code></pre>
+    <h3>2.5 功率合成巴伦（Power Combiner Balun）</h3>
+    <pre><code>结构：
+      两个晶体管差分对 + 传输线
+      
+    用途：
+      PA 中的差分功率合成
+      LNA 中的差分输入匹配</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、关键指标</h2>
+    <h3>3.1 相位平衡（Phase Balance）</h3>
+    <pre><code>Δφ = |φ_+ - φ_- - 180°|</code></pre>
+    <div class="tw"><table>
+    <thead><tr><th>巴伦类型</th><th>相位平衡</th></tr></thead>
+    <tbody>
+    <tr><td>传输线巴伦</td><td>±5-10°</td></tr>
+    <tr><td>变压器巴伦</td><td>±2-5°</td></tr>
+    <tr><td>分支线耦合器</td><td>±5°</td></tr>
+    <tr><td>Rat-Race</td><td>±3-5°</td></tr>
+    </tbody></table></div>
+    <h3>3.2 幅度平衡（Amplitude Balance）</h3>
+    <pre><code>ΔA = |A_+ - A_-| [dB]</code></pre>
+    <div class="tw"><table>
+    <thead><tr><th>巴伦类型</th><th>幅度平衡</th></tr></thead>
+    <tbody>
+    <tr><td>传输线巴伦</td><td>±0.5-1dB</td></tr>
+    <tr><td>变压器巴伦</td><td>±0.2-0.5dB</td></tr>
+    <tr><td>分支线耦合器</td><td>±0.5dB</td></tr>
+    <tr><td>Rat-Race</td><td>±0.3dB</td></tr>
+    </tbody></table></div>
+    <h3>3.3 插入损耗（Insertion Loss）</h3>
+    <pre><code>IL = IL_balun + IL_matching</code></pre>
+    <div class="tw"><table>
+    <thead><tr><th>巴伦类型</th><th>IL（典型）</th></tr></thead>
+    <tbody>
+    <tr><td>传输线巴伦</td><td>0.2-0.5dB</td></tr>
+    <tr><td>变压器巴伦</td><td>0.1-0.3dB</td></tr>
+    <tr><td>分支线耦合器</td><td>0.3-0.8dB</td></tr>
+    <tr><td>Rat-Race</td><td>0.5-1dB</td></tr>
+    </tbody></table></div>
+    <h3>3.4 带宽（Bandwidth）</h3>
+    <pre><code>BW = (f_high - f_low) / f_center</code></pre>
+    <div class="tw"><table>
+    <thead><tr><th>巴伦类型</th><th>带宽</th></tr></thead>
+    <tbody>
+    <tr><td>传输线巴伦</td><td>20-40%</td></tr>
+    <tr><td>变压器巴伦</td><td>1-2 个十倍频程</td></tr>
+    <tr><td>分支线耦合器</td><td>10-20%</td></tr>
+    <tr><td>Rat-Race</td><td>15-25%</td></tr>
+    </tbody></table></div>
+    <h3>3.5 隔离度（Isolation）</h3>
+    <pre><code>隔离度 = 两个输出端口之间的衰减</code></pre>
+    <div class="tw"><table>
+    <thead><tr><th>巴伦类型</th><th>隔离度</th></tr></thead>
+    <tbody>
+    <tr><td>传输线巴伦</td><td>15-25dB</td></tr>
+    <tr><td>变压器巴伦</td><td>20-30dB</td></tr>
+    <tr><td>Rat-Race</td><td>20-30dB</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>四、典型应用</h2>
+    <h3>4.1 差分 LNA 输入</h3>
+    <pre><code>单端天线 → 巴伦 → 差分 LNA
+                  ↑
+             抑制共模噪声</code></pre>
+    <h3>4.2 差分 PA 输出</h3>
+    <pre><code>差分 PA → 巴伦 → 单端天线
+                  ↑
+             功率合成</code></pre>
+    <h3>4.3 平衡混频器</h3>
+    <pre><code>LO（单端）→ 巴伦 → 差分 LO 输入
+    RF（单端）→ 巴伦 → 差分 RF 输入</code></pre>
+    <h3>4.4 平衡天线馈电</h3>
+    <pre><code>单端馈线 → 巴伦 → 对称振子天线
+                  ↑
+             防止共模电流</code></pre>
+    <h3>4.5 5G MIMO 天线</h3>
+    <pre><code>MIMO 天线阵列中每个通道都需要巴伦：
+      单端馈线 → 巴伦 → 差分天线单元</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>五、巴伦设计要点</h2>
+    <h3>5.1 频率选择</h3>
+    <pre><code>f &lt; 1GHz → 变压器巴伦（宽带好）
+    1-6GHz → 传输线巴伦（紧凑）
+    &gt; 6GHz → 微带/共面波导巴伦（集成）</code></pre>
+    <h3>5.2 阻抗匹配</h3>
+    <pre><code>单端阻抗 Z_0 = 50Ω
+    差分阻抗 Z_diff = 100Ω
+    
+    巴伦阻抗变换比：
+      1:2（50Ω → 100Ω 差分）
+      1:4（50Ω → 200Ω 差分，较少用）</code></pre>
+    <h3>5.3 共模抑制比（CMRR）</h3>
+    <pre><code>CMRR = 20·log₁₀(|A_diff| / |A_common|)</code></pre>
+    <div class="tw"><table>
+    <thead><tr><th>CMRR</th><th>效果</th></tr></thead>
+    <tbody>
+    <tr><td>> 30dB</td><td>良好</td></tr>
+    <tr><td>> 40dB</td><td>优秀</td></tr>
+    <tr><td>> 50dB</td><td>极佳</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>六、工程注意事项</h2>
+    <h3>6.1 巴伦的功率容量</h3>
+    <pre><code>PA 输出端巴伦：
+      手机：P &lt; 23dBm
+      基站：P &lt; 40dBm
+      
+    LNA 输入端巴伦：
+      功率很小，主要考虑线性度</code></pre>
+    <h3>6.2 温度稳定性</h3>
+    <pre><code>变压器巴伦的温度漂移：
+      Δf/f/ΔT ≈ 10-50 ppm/°C
+    
+    传输线巴伦的温度漂移：
+      Δf/f/ΔT ≈ 5-20 ppm/°C</code></pre>
+    <h3>6.3 尺寸与集成</h3>
+    <pre><code>Sub-6GHz 巴伦：1-3mm²（芯片级）
+    毫米波巴伦：0.5-1mm²（集成于 BFIC）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>七、一句话总结</h2>
+    <p>巴伦是平衡与不平衡信号之间的"翻译官"——把单端信号变成差分信号（或反过来），核心指标是相位平衡（±2-10°）、幅度平衡（±0.2-1dB）和插入损耗（0.1-1dB）。变压器巴伦宽带最好，传输线巴伦最紧凑，Rat-Race 和分支线耦合器常用于特定频率。记住：巴伦不是功分器——功分器输出同相，巴伦输出反相（180°）。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[零部件-滤波器filter]].html"><span class="ico">[</span><span>[零部件-滤波器Filter]]</span></a>
+      <a class="rel-card" href="[[零部件-功率放大器pa]].html"><span class="ico">[</span><span>[[零部件-功率放大器PA]]</span></a>
+      <a class="rel-card" href="[[零部件-低噪声放大器lna]].html"><span class="ico">[</span><span>[[零部件-低噪声放大器LNA]]</span></a>
+      <a class="rel-card" href="[[技术概念-天线极化基础polarization-fundamentals].html"><span class="ico">[</span><span>[[技术概念-天线极化基础Polarization-Fundamentals]</span></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

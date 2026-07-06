@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>传输线技术（微带线/带状线/空气带线/钣金） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">传输线技术（微带线/带状线/空气带线/钣金）</h1>
+  <p class="lede">传输线是 AAU 内部信号分配的"血管"——从 PCB 上的微带线到金属腔体内的空气带线/钣金带状线，核心矛盾是"损耗 vs 体积 vs 功率容量"。Sub-6GHz 用微带线够用，毫米波和大功率开始转向空气带线和钣金结构。</p>
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>传输线就像"水管"——信号是水，水管的形状决定了水流稳不稳。微带线是"塑料软管"（便宜、好做、但有点漏水）；空气带线是"不锈钢粗管"（几乎不漏、功率大、但笨重）；钣金带状线是"折边铁皮管"（介于两者之间）。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、微带线（Microstrip）</h2>
+    <h3>1.1 结构</h3>
+    <pre><code>微带线结构：
+      ┌──────────────┐ ← 信号线（铜，宽度 W）
+      │              │
+      │  介质基板    │ ← Dk=3.48（RO4350B）
+      │              │
+      └──────────────┘ ← 接地层（铜）
+    
+    关键尺寸：
+      W/H（线宽/基板厚）→ 决定特性阻抗 Z₀
+      Z₀ = 50Ω（通信标准）
+      
+    典型参数（RO4350B, H=0.81mm）：
+      50Ω 微带线：W ≈ 1.5mm
+      3.5GHz 损耗：~0.5dB/10cm</code></pre>
+    <h3>1.2 特点</h3>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>值/说明</th></tr></thead>
+    <tbody>
+    <tr><td>损耗</td><td>中等（0.3-1dB/10cm @3.5GHz）</td></tr>
+    <tr><td>功率容量</td><td>低（< 1W）</td></tr>
+    <tr><td>尺寸</td><td>最小（适合高密度）</td></tr>
+    <tr><td>成本</td><td>最低</td></tr>
+    <tr><td>加工</td><td>最简单（PCB 蚀刻）</td></tr>
+    <tr><td>适用频段</td><td>DC-6.5GHz</td></tr>
+    </tbody></table></div>
+    <h3>1.3 在 AAU 中的应用</h3>
+    <pre><code>微带线用于：
+      - T/R 模块内部信号分配
+      - 馈电网络（功分器/移相器）
+      - PCB 振子之间的连接
+      
+    局限：
+      - 损耗随频率升高急剧增加
+      - 28GHz 时 10cm 微带线损耗 &gt; 5dB
+      - 不适合毫米波长距离传输</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、带状线（Stripline）</h2>
+    <h3>2.1 结构</h3>
+    <pre><code>带状线结构：
+      ┌──────────────┐ ← 上层接地
+      │              │
+      │  ───────     │ ← 信号线（嵌在介质中间）
+      │  ───────     │   （宽度 W，离上下接地距离 H/2）
+      │              │
+      └──────────────┘ ← 下层接地
+    
+    特点：
+      - 信号线被接地层上下包围
+      - 电磁场完全封闭在介质内
+      - 无辐射损耗
+      - 比微带线损耗低 20-30%</code></pre>
+    <h3>2.2 微带线 vs 带状线</h3>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>微带线</th><th>带状线</th></tr></thead>
+    <tbody>
+    <tr><td>结构</td><td>信号线在上层</td><td>信号线在介质中间</td></tr>
+    <tr><td>损耗</td><td>较高（有辐射）</td><td>较低（无辐射）</td></tr>
+    <tr><td>尺寸</td><td>更小</td><td>更大（需要多层板）</td></tr>
+    <tr><td>耦合</td><td>有边缘耦合</td><td>隔离度更好</td></tr>
+    <tr><td>加工</td><td>简单</td><td>复杂（需要多层压合）</td></tr>
+    <tr><td>适用</td><td>Sub-6GHz</td><td>Sub-6GHz 高密度</td></tr>
+    </tbody></table></div>
+    <h3>2.3 在 AAU 中的应用</h3>
+    <pre><code>带状线用于：
+      - 64T64R AAU 的背板（多层 RO4350B）
+      - 需要高隔离度的信号分配
+      - 高密度布线（64 通道）
+      
+    优势：
+      - 通道间串扰 &lt; -30dB
+      - 比微带线更紧凑
+      - 适合 64 通道以上的密集布线</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、空气带线/空气微带线（Air Microstrip）</h2>
+    <h3>3.1 结构</h3>
+    <pre><code>空气带线结构：
+      ┌──────────────┐ ← 金属盖板
+      │              │
+      │  空气（Dk≈1）│ ← 介质是空气！
+      │              │
+      │  ───────     │ ← 信号线（铜）
+      │  ───────     │
+      └──────────────┘ ← 金属底板（接地）
+    
+    关键：
+      - 介质是空气（Dk=1.0）
+      - 有效 Dk ≈ 1.0-1.5（取决于盖板高度）
+      - 信号在空气中传播 → 损耗极低</code></pre>
+    <h3>3.2 特点</h3>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>值/说明</th></tr></thead>
+    <tbody>
+    <tr><td>损耗</td><td>极低（0.05-0.2dB/10cm @3.5GHz）</td></tr>
+    <tr><td>功率容量</td><td>高（空气散热好）</td></tr>
+    <tr><td>尺寸</td><td>中等（比微带线大）</td></tr>
+    <tr><td>成本</td><td>中（需要精密加工）</td></tr>
+    <tr><td>适用频段</td><td>DC-10GHz</td></tr>
+    </tbody></table></div>
+    <h3>3.3 在 AAU 中的应用</h3>
+    <pre><code>空气带线用于：
+      - 毫米波 AAU 内部馈线（28/39GHz）
+      - 高功率 Sub-6GHz 分配网络
+      - 低损耗相位一致性要求高的场景
+      
+    优势：
+      - 损耗比微带线低 5-10 倍
+      - 温度稳定性好（空气 Dk 不随温度变）
+      - 功率容量大（空气不发热）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>四、钣金传输线（Sheet Metal Transmission Line）</h2>
+    <h3>4.1 结构</h3>
+    <pre><code>钣金带状线结构：
+      ┌──────────────────┐ ← 金属上盖（铝/铜）
+      │                    │
+      │  ┌──────────────┐  │
+      │  │ 信号铜条     │  │ ← 信号导体（铜排）
+      │  │              │  │
+      │  │ 介质支撑柱   │  │ ← PTFE/陶瓷支撑
+      │  │              │  │
+      │  └──────────────┘  │
+      │                    │
+      └────────────────────┘ ← 金属底板（接地）
+    
+    加工方式：
+      - 钣金折弯/冲压形成金属腔体
+      - 铜排蚀刻/冲压形成信号线
+      - PTFE 支撑柱固定间距
+      
+    特点：
+      - 全金属结构 → 屏蔽极佳
+      - 功率容量大（铜排散热好）
+      - 损耗低（空气+PTFE 介质）</code></pre>
+    <h3>4.2 特点</h3>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>值/说明</th></tr></thead>
+    <tbody>
+    <tr><td>损耗</td><td>低（0.1-0.3dB/10cm @3.5GHz）</td></tr>
+    <tr><td>功率容量</td><td>很高（10-100W）</td></tr>
+    <tr><td>尺寸</td><td>较大（适合机架内）</td></tr>
+    <tr><td>成本</td><td>中（钣金加工）</td></tr>
+    <tr><td>适用频段</td><td>DC-6.5GHz</td></tr>
+    <tr><td>隔离度</td><td>> 40dB</td></tr>
+    </tbody></table></div>
+    <h3>4.3 在 AAU 中的应用</h3>
+    <pre><code>钣金传输线用于：
+      - 4G/5G 基站馈电网络（功分器/合路器）
+      - RRU 到 AAU 的内部连接
+      - 大功率分配网络
+      
+    优势：
+      - 比 PCB 微带线功率容量高 10-100 倍
+      - 比同轴电缆更紧凑
+      - 适合批量生产（钣金+组装）
+      
+    典型应用：
+      - 64 通道功分器（钣金腔体 + PCB 电路）
+      - 双频/三频合路器
+      - 滤波器腔体</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>五、四种传输线对比总结</h2>
+    <div class="tw"><table>
+    <thead><tr><th>特性</th><th>微带线</th><th>带状线</th><th>空气带线</th><th>钣金传输线</th></tr></thead>
+    <tbody>
+    <tr><td>损耗(@3.5GHz)</td><td>0.5dB/10cm</td><td>0.35dB/10cm</td><td>0.1dB/10cm</td><td>0.2dB/10cm</td></tr>
+    <tr><td>功率容量</td><td>< 1W</td><td>< 1W</td><td>1-5W</td><td>10-100W</td></tr>
+    <tr><td>尺寸</td><td>★★★★★(最小)</td><td>★★★★</td><td>★★★</td><td>★★(最大)</td></tr>
+    <tr><td>成本</td><td>★★★★★(最低)</td><td>★★★★</td><td>★★★</td><td>★★★</td></tr>
+    <tr><td>加工难度</td><td>低</td><td>中</td><td>高</td><td>中</td></tr>
+    <tr><td>适用频段</td><td>DC-6.5GHz</td><td>DC-6.5GHz</td><td>DC-10GHz</td><td>DC-6.5GHz</td></tr>
+    <tr><td>5G 应用场景</td><td>T/R 模块内</td><td>64T 背板</td><td>毫米波 AAU</td><td>功分器/合路器</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>六、5G AAU 传输线选型指南</h2>
+    <pre><code>Sub-6GHz AAU（3.5GHz）：
+      T/R 模块内部 → 微带线（PCB 集成）
+      64 通道分配 → 带状线（多层背板）
+      功分器/合路器 → 钣金传输线（功率大）
+      
+    毫米波 AAU（28GHz）：
+      BFIC 到 AiP → 空气带线/FFC（低损耗）
+      腔体内 → 波导（功率大/损耗最低）
+      
+    关键决策因素：
+      1. 频率 → 越高越需要低损耗结构
+      2. 功率 → 越大越需要金属结构
+      3. 尺寸 → 越小越需要 PCB 集成
+      4. 成本 → 越低越需要批量工艺</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>七、一句话总结</h2>
+    <p>传输线选型是"损耗-功率-尺寸-成本"的 trade-off——微带线最便宜最紧凑但损耗大，钣金传输线功率大损耗低但尺寸大，空气带线是毫米波的最佳折中。5G AAU 里通常四种都用：T/R 模块内用微带线、背板用带状线、功分器用钣金、毫米波用空气带线。记住：传输线不是"随便一条线"——64 通道之间的损耗差异必须控制在 0.1dB 以内，否则波束指向就会偏移。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[零部件-功分器合路器power-divider-combiner]].html"><span class="ico">[</span><span>[零部件-功分器合路器Power-Divider-Combiner]]</span></a>
+      <a class="rel-card" href="[[零部件-天线基板substrate]].html"><span class="ico">[</span><span>[[零部件-天线基板Substrate]]</span></a>
+      <a class="rel-card" href="[[技术概念-天线馈电网络feed-network-power-divider].html"><span class="ico">[</span><span>[[技术概念-天线馈电网络Feed-Network-Power-Divider]</span></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

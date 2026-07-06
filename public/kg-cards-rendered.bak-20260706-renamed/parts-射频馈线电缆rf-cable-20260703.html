@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>射频馈线/馈缆（RF Cable） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">射频馈线/馈缆 <span class="en">RF Cable</span></h1>
+  <p class="lede">射频馈线是 AAU 内部和 AAU 与外部天线之间的"信号高速公路"——从同轴电缆到波导再到柔性扁平电缆（FFC），核心指标就一个：损耗越低越好。5G 时代 Sub-6GHz 主流是低损耗同轴电缆（发泡聚乙烯绝缘），毫米波开始用波导和 FFC。</p>
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>馈线就像"水管"——信号是水，水管越长越细、内壁越粗糙，水就漏得越多。5G AAU 里 64 个通道各有自己的"水管"，每根水管的损耗差异不能超过 0.1dB，否则 64 个通道的"水量"就不均衡了，波束指向就会歪。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、馈线/馈缆分类</h2>
+    <h3>1.1 同轴电缆（Coaxial Cable）—— 最主流</h3>
+    <pre><code>结构：
+      中心导体（铜/铜包钢）
+      ── 绝缘层（PE/发泡 PE/PTFE）
+      ── 外导体（铜编织/铜管）
+      ── 护套（PVC/LSZH）
+    
+    类型对比：
+    
+      1. 硬同轴电缆（Semirigid）
+         绝缘：实心 PE
+         外径：1/8&quot; (3.2mm) / 1/4&quot; (6.4mm) / 7/16&quot; (11mm)
+         损耗：极低
+         适用：AAU 内部短距离连接
+         特点：不可弯曲，需专用压接端子
+         
+      2. 半柔性电缆（Semi-flexible）
+         绝缘：实心 PE/PTFE
+         外径：0.085&quot; (2.16mm) / 0.141&quot; (3.56mm) / 0.242&quot; (6.15mm)
+         适用：测试仪器连接线
+         特点：可轻微弯曲，多次插拔
+         
+      3. 柔性同轴电缆（Flexible）
+         绝缘：发泡 PE/PTFE
+         外径：1/2&quot; (12.7mm) / 7/8&quot; (22.2mm) / 1-5/8&quot; (41mm)
+         适用：AAU 到天线阵列的长距离馈线
+         特点：可弯曲安装
+         
+      4. 波纹电缆（Corrugated）
+         外导体：不锈钢波纹管
+         绝缘：发泡 PE/空气
+         外径：1-5/8&quot; (主流基站)
+         适用：RRU 到天线（长距离，&gt; 20m）
+         特点：弯曲半径小，损耗低，抗风载</code></pre>
+    <h3>1.2 波导（Waveguide）—— 毫米波主流</h3>
+    <pre><code>结构：
+      矩形/圆形金属管道
+      信号在管道内以电磁波形式传播
+      
+    尺寸（3.5GHz）：
+      WR-284：72.14mm × 34.30mm
+      
+    尺寸（28GHz）：
+      WR-28：7.11mm × 3.40mm
+      
+    优势：
+      - 损耗极低（同轴的 1/5-1/10）
+      - 功率容量大
+      - 屏蔽性好
+      
+    劣势：
+      - 体积大、重量大
+      - 不可弯曲
+      - 加工精度要求高
+      
+    适用场景：
+      - 毫米波 AAU 内部馈线
+      - 卫星通信
+      - 雷达系统</code></pre>
+    <h3>1.3 柔性扁平电缆（FFC/FPC）</h3>
+    <pre><code>结构：
+      多层 LCP/PI 薄膜
+      + 铜箔蚀刻传输线（带状线/微带线）
+      
+    优势：
+      - 超薄（0.5-2mm）
+      - 重量极轻
+      - 适合密集布线
+      - 阻抗可控（50Ω）
+      
+    劣势：
+      - 功率容量低（&lt; 1W）
+      - 长度受限（&lt; 1m）
+      
+    适用场景：
+      - AAU 内部 T/R 模块到天线阵列的短连接
+      - 毫米波 AiP 封装内部互联</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、关键指标</h2>
+    <h3>2.1 插入损耗（Insertion Loss）</h3>
+    <pre><code>损耗公式（同轴电缆）：
+      α = α_conductor + α_dielectric
+      
+    α_conductor（导体损耗）∝ √f
+    α_dielectric（介质损耗）∝ f·Df
+      
+    典型损耗对比（3.5GHz, 10m 长度）：
+    
+      电缆类型          损耗(dB/10m)
+      ──────────────────────────────
+      RG-213 (PE)       ~6.0
+      LMR-400 (发泡PE)   ~3.5
+      Times HiFlex 1/2&quot;  ~2.8
+      Times Superflex 7/8&quot; ~2.0
+      LDF5-50A (1-5/8&quot;)  ~1.2
+      波导 (WR-284)      ~0.3
+      
+    结论：
+      长距离馈线（&gt; 10m）必须用大直径低损耗电缆
+      1-5/8&quot; 超柔电缆是 RRU-天线连接的主流</code></pre>
+    <h3>2.2 其他关键指标</h3>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>典型值</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>特性阻抗</td><td>50Ω</td><td>通信标准</td></tr>
+    <tr><td>VSWR</td><td>< 1.3</td><td>反射系数</td></tr>
+    <tr><td>隔离度</td><td>> 40dB</td><td>双工馈线</td></tr>
+    <tr><td>功率容量</td><td>10-1000W</td><td>取决于电缆直径</td></tr>
+    <tr><td>工作温度</td><td>-40°C to +85°C</td><td>户外要求</td></tr>
+    <tr><td>弯曲半径</td><td>10×外径</td><td>安装要求</td></tr>
+    <tr><td>寿命（插拔）</td><td>> 500 次</td><td>连接器</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>三、5G AAU 中的馈线应用</h2>
+    <h3>3.1 Sub-6GHz AAU</h3>
+    <pre><code>AAU 内部馈线架构：
+      
+      RCU（主控）
+        │
+        ├─→ 背板（PCB 带状线）
+        │     │
+        │     ↓
+        │   T/R 模块（64 通道）
+        │     │
+        │     ↓
+        │   柔性扁平电缆（FFC）← 模块到天线阵列
+        │     │
+        │     ↓
+        │   天线振子（64 单元）
+        
+    关键设计：
+      - T/R 模块到天线阵列：FFC（&lt; 200mm，损耗 &lt; 0.3dB）
+      - 背板传输线：PCB 微带线（RO4350B，损耗 &lt; 0.5dB）
+      - 整机馈线总损耗：&lt; 2dB（含连接器）</code></pre>
+    <h3>3.2 RRU 到天线（分离式架构）</h3>
+    <pre><code>传统 4G/5G 分离架构：
+      
+      RRU（机房）
+        │
+        └─→ 1-5/8&quot; 低损耗同轴电缆（20-50m）
+              │
+              ↓
+            天线（铁塔）
+              
+    5G AAU 一体化：
+      AAU = RRU + 天线（集成在一起）
+      → 无长距离馈线
+      → 损耗降低 1-2dB
+      → 这是 5G 相比 4G 的核心优势之一</code></pre>
+    <h3>3.3 毫米波 AAU</h3>
+    <pre><code>28GHz AAU 内部：
+      
+      BFIC
+        │
+        ├─→ FFC（LCP 基板，50mm）
+        │     ↓
+        │   波导（100mm）← 低损耗传输
+        │     ↓
+        │   AiP 天线阵列（256 单元）
+        
+    挑战：
+      - 毫米波馈线损耗急剧增加
+      - 1m 普通同轴电缆在 28GHz 损耗 &gt; 20dB
+      - 必须用波导或 FFC（&lt; 300mm）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>四、连接器与电缆匹配</h2>
+    <h3>4.1 常用射频连接器</h3>
+    <div class="tw"><table>
+    <thead><tr><th>连接器类型</th><th>频率范围</th><th>适用场景</th></tr></thead>
+    <tbody>
+    <tr><td>N 型</td><td>DC-11GHz</td><td>Sub-6GHz 基站</td></tr>
+    <tr><td>7/16 DIN</td><td>DC-6GHz</td><td>大功率基站馈线</td></tr>
+    <tr><td>SMA</td><td>DC-18GHz</td><td>测试仪器</td></tr>
+    <tr><td>4.3-10</td><td>DC-6.5GHz</td><td>5G 基站（低 PIM）</td></tr>
+    <tr><td>2.92mm (K)</td><td>DC-40GHz</td><td>毫米波测试</td></tr>
+    <tr><td>1.85mm (V)</td><td>DC-65GHz</td><td>毫米波/太赫兹</td></tr>
+    </tbody></table></div>
+    <h3>4.2 低 PIM 连接器</h3>
+    <pre><code>5G 基站 PIM 要求：
+      双三载波：&lt; -150dBc
+      
+    连接器 PIM 来源：
+      1. 接触面氧化（铜/银氧化）
+      2. 螺纹加工精度不足
+      3. 密封圈材料非线性
+      
+    低 PIM 连接器设计：
+      - 镀镍+镀金双层（防氧化）
+      - 精密螺纹（±0.01mm）
+      - 硅胶密封圈（低 PIM 材料）
+      - 扭矩扳手安装（精确压力）</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>五、一句话总结</h2>
+    <p>馈线是 AAU 的"血管"——Sub-6GHz 用同轴电缆（1/2"-7/8"），毫米波用波导或 FFC。5G AAU 一体化设计的核心优势之一就是消除了 RRU 到天线的长距离馈线，节省 1-2dB 损耗。记住：馈线损耗 = 系统噪声系数恶化 + 发射功率下降，每一分损耗都要精打细算。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[零部件-连接器connector]].html"><span class="ico">[</span><span>[零部件-连接器Connector]]</span></a>
+      <a class="rel-card" href="[[零部件-功分器合路器power-divider-combiner]].html"><span class="ico">[</span><span>[[零部件-功分器合路器Power-Divider-Combiner]]</span></a>
+      <a class="rel-card" href="[[技术概念-天线馈电网络feed-network-power-divider].html"><span class="ico">[</span><span>[[技术概念-天线馈电网络Feed-Network-Power-Divider]</span></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

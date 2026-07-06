@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G/T 值（Figure of Merit） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">G/T 值 <span class="en">Figure of Merit</span></h1>
+  <p class="lede">G/T 值是接收系统的"综合性能指标"——它把天线增益 G 和系统噪声温度 T 压缩成一个数字，数字越高表示接收能力越强。它是卫星通信和雷达接收机性能的核心评判标准。</p>
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>G/T 就像汽车的"燃油经济性"——不是看发动机多大（G），也不是看油耗多低（T），而是把两者结合起来看"每升油能跑多远"。G 越高（天线越大越聚光），T 越低（噪声越小越安静），G/T 就越高，接收弱信号的能力就越强。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、定义与物理意义</h2>
+    <h3>1.1 G/T 值的定义</h3>
+    <pre><code>G/T = G_r / T_sys</code></pre>
+    <p>其中：</p>
+    <ul><li>G_r = 接收天线增益 [dBi 或线性]</li><li>T_sys = 接收系统总噪声温度 [K]</li></ul>
+    <h3>1.2 G/T 的 dB 表示</h3>
+    <pre><code>G/T(dB/K) = G_r(dBi) - 10·log₁₀(T_sys)</code></pre>
+    <p><b>注意</b>：G/T 的单位是 dB/K（分贝每开尔文），不是 dB。</p>
+    <h3>1.3 为什么 G/T 很重要？</h3>
+    <p>在卫星通信链路预算中：</p>
+    <pre><code>C/N₀ = EIRP + G/T - L_fs - L_other + 10·log₁₀(k)</code></pre>
+    <p>其中：</p>
+    <ul><li>C/N₀ = 载噪谱密度比 [dB-Hz]</li><li>EIRP = 发射端等效全向辐射功率</li><li>L_fs = 自由空间路径损耗</li><li>k = 玻尔兹曼常数</li></ul>
+    <p><b>核心洞察</b>：G/T 是唯一由<b>接收端</b>决定的链路参数。发射端靠 EIRP，接收端靠 G/T。要提高链路质量，要么加大发射功率/天线（EIRP↑），要么加大接收天线/降低噪声（G/T↑）。</p>
+  </article>
+
+  <article class="card">
+    <h2>二、G/T 的计算</h2>
+    <h3>2.1 系统噪声温度 T_sys</h3>
+    <pre><code>T_sys = T_ant + T_feeder + T_LNA/G_feeder + T_other/(G_feeder·G_LNA)</code></pre>
+    <h3>2.2 天线增益 G_r</h3>
+    <pre><code>G_r = η_a · (4π·A_e / λ²)</code></pre>
+    <p>其中 η_a 是天线效率。</p>
+    <h3>2.3 G/T 综合计算</h3>
+    <pre><code>G/T = G_r / T_sys
+    G/T(dB/K) = G_r(dBi) - 10·log₁₀(T_sys)</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、典型 G/T 值</h2>
+    <h3>3.1 不同接收系统</h3>
+    <div class="tw"><table>
+    <thead><tr><th>系统</th><th>G_r (dBi)</th><th>T_sys (K)</th><th>G/T (dB/K)</th></tr></thead>
+    <tbody>
+    <tr><td>手机（28GHz）</td><td>15</td><td>1000</td><td>15 - 30 = -15</td></tr>
+    <tr><td>5G 基站 AAU</td><td>28</td><td>500</td><td>28 - 27 = +1</td></tr>
+    <tr><td>VSAT 地面站（1.2m）</td><td>38</td><td>150</td><td>38 - 21.8 = +16.2</td></tr>
+    <tr><td>卫星通信（3.7m）</td><td>45</td><td>80</td><td>45 - 19 = +26</td></tr>
+    <tr><td>深空站（70m）</td><td>65</td><td>20</td><td>65 - 13 = +52</td></tr>
+    <tr><td>GPS 接收机</td><td>30</td><td>50</td><td>30 - 17 = +13</td></tr>
+    <tr><td>射电天文（Arecibo）</td><td>70</td><td>20</td><td>70 - 13 = +57</td></tr>
+    </tbody></table></div>
+    <h3>3.2 不同频段</h3>
+    <div class="tw"><table>
+    <thead><tr><th>频段</th><th>典型 G/T 范围</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>L 波段（1-2GHz）</td><td>+15 到 +40 dB/K</td><td>卫星导航</td></tr>
+    <tr><td>C 波段（4-8GHz）</td><td>+10 到 +35 dB/K</td><td>卫星通信</td></tr>
+    <tr><td>Ku 波段（12-18GHz）</td><td>+5 到 +30 dB/K</td><td>卫星通信</td></tr>
+    <tr><td>Ka 波段（26-40GHz）</td><td>0 到 +25 dB/K</td><td>高通量卫星</td></tr>
+    <tr><td>5G 毫米波（28GHz）</td><td>-15 到 +5 dB/K</td><td>基站/手机</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>四、G/T 优化</h2>
+    <h3>4.1 提高 G_r</h3>
+    <div class="tw"><table>
+    <thead><tr><th>方法</th><th>效果</th><th>代价</th></tr></thead>
+    <tbody>
+    <tr><td>增大天线直径</td><td>G ∝ D²</td><td>体积/重量/成本↑</td></tr>
+    <tr><td>提高口径效率</td><td>η: 50%→70%</td><td>加工精度↑</td></tr>
+    <tr><td>降低工作频率</td><td>λ↑ → G↑</td><td>天线尺寸↑</td></tr>
+    </tbody></table></div>
+    <p><b>抛物面天线增益公式</b>：</p>
+    <pre><code>G = η·(πD/λ)²
+    G(dBi) = 20·log₁₀(D/λ) + 10·log₁₀(η) + 9.5</code></pre>
+    <h3>4.2 降低 T_sys</h3>
+    <div class="tw"><table>
+    <thead><tr><th>方法</th><th>效果</th><th>代价</th></tr></thead>
+    <tbody>
+    <tr><td>使用低温 LNA</td><td>T_LNA: 100K→20K</td><td>冷却成本↑</td></tr>
+    <tr><td>缩短馈线</td><td>L_feeder↓</td><td>安装限制</td></tr>
+    <tr><td>低损耗馈线</td><td>波导替代同轴</td><td>成本/重量↑</td></tr>
+    <tr><td>优化天线指向</td><td>T_ant↓（避开地面）</td><td>跟踪系统</td></tr>
+    </tbody></table></div>
+    <h3>4.3 G/T 权衡</h3>
+    <pre><code>增大天线直径 D：
+    - G ∝ D² → G(dBi) ∝ 40·log₁₀(D)
+    - 但成本 ∝ D²，重量 ∝ D²
+    
+    所以 G/T 的增长是&quot;对数级&quot;的，而成本是&quot;平方级&quot;的。</code></pre>
+    <p><b>边际效益递减</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>天线直径</th><th>G (dBi)</th><th>T_sys (K)</th><th>G/T (dB/K)</th></tr></thead>
+    <tbody>
+    <tr><td>1m</td><td>33</td><td>100</td><td>+13</td></tr>
+    <tr><td>2m</td><td>39</td><td>100</td><td>+19</td></tr>
+    <tr><td>4m</td><td>45</td><td>100</td><td>+25</td></tr>
+    <tr><td>8m</td><td>51</td><td>100</td><td>+31</td></tr>
+    <tr><td>16m</td><td>57</td><td>100</td><td>+37</td></tr>
+    </tbody></table></div>
+    <p>直径翻 16 倍，G/T 只提高了 24dB（翻倍再翻倍）。</p>
+  </article>
+
+  <article class="card">
+    <h2>五、G/T 与链路性能</h2>
+    <h3>5.1 链路方程中的 G/T</h3>
+    <pre><code>C/N₀ = EIRP + G/T - L_psl - L_atm - 10·log₁₀(k)</code></pre>
+    <p><b>最小 G/T 要求</b>：</p>
+    <pre><code>G/T_min = C/N₀_required - EIRP + L_psl + L_atm + 10·log₁₀(k)</code></pre>
+    <h3>5.2 不同调制方式的 C/N₀ 要求</h3>
+    <div class="tw"><table>
+    <thead><tr><th>调制方式</th><th>数据速率</th><th>C/N₀ (dB-Hz)</th><th>典型 G/T 要求</th></tr></thead>
+    <tbody>
+    <tr><td>BPSK</td><td>1kbps</td><td>-150</td><td>+5 dB/K</td></tr>
+    <tr><td>QPSK</td><td>1Mbps</td><td>-130</td><td>+10 dB/K</td></tr>
+    <tr><td>8PSK</td><td>10Mbps</td><td>-120</td><td>+15 dB/K</td></tr>
+    <tr><td>16QAM</td><td>20Mbps</td><td>-110</td><td>+20 dB/K</td></tr>
+    <tr><td>64QAM</td><td>50Mbps</td><td>-100</td><td>+25 dB/K</td></tr>
+    <tr><td>256QAM</td><td>100Mbps</td><td>-90</td><td>+30 dB/K</td></tr>
+    </tbody></table></div>
+    <h3>5.3 雨衰对 G/T 的影响</h3>
+    <p>雨衰不仅降低 EIRP，还增加 T_ant：</p>
+    <pre><code>T_ant_rain = T_phys · (1 - e^(-τ_rain))
+    T_sys_rain = T_ant_rain + T_other
+    
+    G/T_rain = G_r / T_sys_rain &lt; G_r / T_sys_clear</code></pre>
+    <p><b>Ku 波段雨衰</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>降雨率</th><th>L_rain</th><th>ΔT_ant</th><th>Δ(G/T)</th></tr></thead>
+    <tbody>
+    <tr><td>0mm/h</td><td>0dB</td><td>0K</td><td>0dB</td></tr>
+    <tr><td>10mm/h</td><td>0.5dB</td><td>+5K</td><td>-0.2dB</td></tr>
+    <tr><td>30mm/h</td><td>2dB</td><td>+20K</td><td>-0.8dB</td></tr>
+    <tr><td>75mm/h</td><td>5dB</td><td>+50K</td><td>-2dB</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>六、测量方法</h2>
+    <h3>6.1 两天线法（标准方法）</h3>
+    <pre><code>步骤：
+    1. 用已知 EIRP 的卫星信号
+    2. 测量接收功率 P_1
+    3. 换一个已知 EIRP 的不同卫星
+    4. 测量接收功率 P_2
+    5. 联立方程求解 G/T</code></pre>
+    <h3>6.2 Y 因子法（LNA 部分）</h3>
+    <pre><code>步骤：
+    1. 用冷热负载测量 LNA 的噪声温度 T_LNA
+    2. 测量天线增益 G_r
+    3. G/T = G_r / T_LNA（忽略其他噪声源）</code></pre>
+    <h3>6.3 噪声源注入法</h3>
+    <pre><code>步骤：
+    1. 在天线输入端注入已知 ENR 噪声源
+    2. 测量接收功率变化
+    3. 计算系统噪声温度 T_sys
+    4. 独立测量 G_r
+    5. G/T = G_r / T_sys</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>七、与其他指标的关系</h2>
+    <div class="tw"><table>
+    <thead><tr><th>关联指标</th><th>关系类型</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>EIRP</td><td>C/N₀ = EIRP + G/T - L</td><td>链路两端的核心参数</td></tr>
+    <tr><td>噪声温度 T_sys</td><td>G/T = G_r/T_sys</td><td>直接定义</td></tr>
+    <tr><td>天线增益 G_r</td><td>G/T = G_r/T_sys</td><td>直接定义</td></tr>
+    <tr><td>信噪比 SNR</td><td>SNR = C/N₀ - 10·log₁₀(B)</td><td>G/T 决定 C/N₀</td></tr>
+    <tr><td>接收灵敏度</td><td>Sensitivity ∝ G/T</td><td>G/T 越高，灵敏度越好</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>八、一句话总结</h2>
+    <p>G/T 是接收系统的"综合战斗力指数"——天线增益越高、系统噪声越低，G/T 就越高，能接收的信号就越弱。它是卫星通信链路预算中接收端的唯一代表，单位 dB/K。记住公式：G/T(dB/K) = G_r(dBi) - 10·log₁₀(T_sys[K])。深空站的 G/T 能达到 +50dB/K 以上，而手机 5G 接收的 G/T 只有 -15dB/K——差了 65dB，也就是 300 万倍。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[指标术语-噪声温度noise-temperature]].html"><span class="ico">[</span><span>[指标术语-噪声温度Noise-Temperature]]</span></a>
+      <a class="rel-card" href="[[指标术语-天线增益antenna-gain]].html"><span class="ico">[</span><span>[[指标术语-天线增益Antenna-Gain]]</span></a>
+      <a class="rel-card" href="[[指标术语-eirp-erp]].html"><span class="ico">[</span><span>[[指标术语-EIRP-ERP]]</span></a>
+      <a class="rel-card" href="[[指标术语-friis传输方程friis-transmission-equation].html"><span class="ico">[</span><span>[[指标术语-Friis传输方程Friis-Transmission-Equation]</span></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

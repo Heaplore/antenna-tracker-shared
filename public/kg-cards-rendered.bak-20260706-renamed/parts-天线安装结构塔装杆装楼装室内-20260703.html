@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天线安装结构 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">天线安装结构</h1>
+  <p class="lede">基站天线安装分三种：塔装（抱杆/三脚架/平台）、楼装（壁挂/桅杆/屋顶）、室内分布（吸顶/面板）。核心约束是风载（抗 150km/h 台风）、抗震（8 度设防）、防雷（接闪器+接地）。</p>
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>天线安装就像"挂空调外机"——要稳、要抗风、要排水、要防雷。但天线更极端：要扛 150km/h 台风、-40°C 严寒、+65°C 暴晒，还要在 30 米高空挂 10 年不生锈。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、塔装天线</h2>
+    <h3>1.1 抱杆安装（Pole Mount）</h3>
+    <pre><code>结构：
+      天线 → 安装支架 → 抱箍 → 铁塔/杆体
+      
+    抱杆类型：
+      1. 圆形抱杆（Φ80-200mm）
+         - 最常见
+         - 抱箍紧固
+         - 可调角度
+         
+      2. 方形抱杆（100×100-200×200mm）
+         - 通信塔专用
+         - 螺栓固定
+         
+      3. 三管塔
+         - 三根钢管组成三角形
+         - 天线装在管上
+         
+    安装参数：
+      - 抱杆直径：Φ100-160mm（主流）
+      - 抱杆壁厚：4-8mm
+      - 安装高度：20-50m（宏站）
+      - 天线间距：≥ 0.5m（垂直隔离）</code></pre>
+    <h3>1.2 平台安装（Platform Mount）</h3>
+    <pre><code>结构：
+      天线固定在铁塔平台上
+      
+    适用场景：
+      - 多扇区基站（3 扇 × 1 AAU = 3 台）
+      - A+P 共站（4G+5G 天线同装）
+      
+    优势：
+      - 安装稳固
+      - 便于维护
+      
+    劣势：
+      - 平台承重有限
+      - 需要额外钢结构</code></pre>
+    <h3>1.3 三脚架/自立塔</h3>
+    <pre><code>结构：
+      三根钢管组成自立塔
+      顶部安装天线
+      
+    适用场景：
+      - 无铁塔的站点
+      - 微站/小站
+      - 临时应急通信
+      
+    高度：5-20m
+    风载设计：抗 150km/h 风速</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>二、楼装天线</h2>
+    <h3>2.1 壁挂安装（Wall Mount）</h3>
+    <pre><code>结构：
+      天线 → L 型支架 → 墙体膨胀螺栓
+      
+    墙体类型：
+      1. 混凝土墙（最强）
+         - M12 膨胀螺栓
+         - 承载力 &gt; 500kg
+         
+      2. 砖墙（中等）
+         - 化学锚栓
+         - 承载力 200-300kg
+         
+      3. 幕墙（最弱）
+         - 需要钢结构骨架
+         - 承载力需结构工程师核算
+         
+    安装要点：
+      - 下倾角：5-15°（避免信号直射地面）
+      - 距墙距离：0.3-1m（减少反射）
+      - 避雷：支架接地</code></pre>
+    <h3>2.2 桅杆安装（Monopole）</h3>
+    <pre><code>结构：
+      独立钢桅杆（10-30m）
+      天线通过抱箍固定在桅杆上
+      
+    适用场景：
+      - 无铁塔的楼顶
+      - 景观要求高的区域
+      
+    优势：
+      - 美观
+      - 承载力强
+      
+    劣势：
+      - 需要地基
+      - 成本高</code></pre>
+    <h3>2.3 屋顶安装</h3>
+    <pre><code>结构：
+      混凝土配重底座 → 桅杆 → 天线
+      
+    配重设计：
+      - 抗风载：混凝土配重 ≥ 天线风载荷的 2 倍
+      - 一般 200-500kg/根桅杆
+      
+    优势：
+      - 无需打孔（保护屋面防水）
+      
+    劣势：
+      - 占用屋顶空间
+      - 需要结构核算</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>三、室内分布天线</h2>
+    <h3>3.1 吸顶天线（Ceiling Mount）</h3>
+    <pre><code>结构：
+      圆盘/方盘天线
+      吸顶安装（3M 胶 + 膨胀管）
+      
+    参数：
+      - 直径：100-200mm
+      - 增益：2-5dBi
+      - 覆盖半径：5-15m
+      
+    适用场景：
+      - 办公楼
+      - 商场
+      - 酒店
+      - 地下停车场</code></pre>
+    <h3>3.2 面板天线（Panel Mount）</h3>
+    <pre><code>结构：
+      长方形面板（80×200mm）
+      墙面安装（类似开关面板）
+      
+    参数：
+      - 增益：3-6dBi
+      - 覆盖：走廊/房间
+      
+    适用场景：
+      - 酒店客房
+      - 办公室隔间
+      - 医院病房</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>四、关键设计约束</h2>
+    <h3>4.1 风载计算</h3>
+    <pre><code>风载公式：
+      F = 0.5 × ρ × v² × Cd × A
+      
+      其中：
+      ρ = 空气密度（1.225 kg/m³）
+      v = 风速（m/s）
+      Cd = 阻力系数（天线 ~1.5-2.0）
+      A = 迎风面积（m²）
+      
+    设计标准：
+      - 沿海/台风区：抗 150km/h（42m/s）
+      - 内陆：抗 120km/h（33m/s）
+      - 雪载：抗 1000Pa（东北/西北）
+      
+    示例：
+      64T64R AAU（1.2m × 0.3m × 0.2m）
+      风载面积：0.36m²（迎风面）
+      150km/h 风速 → F ≈ 540N ≈ 55kg
+      → 安装支架需承受 ≥ 110kg（2 倍安全系数）</code></pre>
+    <h3>4.2 抗震设计</h3>
+    <pre><code>设防标准：
+      - 8 度设防（中国大部分地区）
+      - 加速度：0.2-0.3g
+      
+    设计要求：
+      - 抱箍/支架有抗震垫片
+      - 螺栓防松（弹簧垫片+螺纹胶）
+      - 天线与抱杆之间有活动间隙（允许振动）</code></pre>
+    <h3>4.3 防雷设计</h3>
+    <pre><code>防雷措施：
+      1. 接闪器：塔顶安装避雷针
+      2. 接地：所有金属支架接地（&lt; 5Ω）
+      3. 等电位：天线与铁塔等电位连接
+      4. 馈线接地：馈线进入机房前接地（3 处）
+      
+    接地要求：
+      - 接地电阻 &lt; 5Ω（岩地区 &lt; 30Ω）
+      - 接地体：40×4mm 镀锌角钢，L=2.5m
+      - 接地线：≥ 35mm² 铜缆</code></pre>
+  </article>
+
+  <article class="card">
+    <h2>五、一句话总结</h2>
+    <p>天线安装不是"挂上去就行"——要扛台风（150km/h）、抗震（8 度）、防雷（< 5Ω 接地）、防腐（盐雾 500h）。塔装用抱箍/平台，楼装用 L 型支架/桅杆，室内用吸顶/面板。记住：安装质量直接影响天线性能——抱箍松动 = 天线偏移 = 波束指向错误 = 覆盖空洞。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[零部件-安装支架mounting-bracket]].html"><span class="ico">[</span><span>[零部件-安装支架Mounting-Bracket]]</span></a>
+      <a class="rel-card" href="[[零部件-工参installation-parameters]].html"><span class="ico">[</span><span>[[零部件-工参Installation-Parameters]]</span></a>
+      <a class="rel-card" href="[[零部件-天线罩radome深度解读].html"><span class="ico">[</span><span>[[零部件-天线罩Radome深度解读]</span></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

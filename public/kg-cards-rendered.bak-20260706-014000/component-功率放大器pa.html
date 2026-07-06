@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>功率放大器 PA（Power Amplifier） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">功率放大器 PA <span class="en">Power Amplifier</span></h1>
+  <p class="lede">PA 是发射链路的"发动机"——它把微弱的射频信号放大到足以辐射出去的功率水平。核心指标是输出功率、效率和线性度，三者之间是一个"不可能三角"。</p>
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>PA 就像音响系统的功率放大器——麦克风传来的声音信号只有几毫瓦，PA 把它放大到几十瓦驱动扬声器。但 PA 不只是"放大音量"那么简单：它还要保证放大后的声音不失真（线性度），还要省电（效率），还要能在不同音量下都能正常工作（back-off）。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、定义与作用</h2>
+    <h3>1.1 PA 在发射链路中的位置</h3>
+    <pre><code>基带信号 → DAC → 上变频 → 驱动级 PA → 末级 PA → 滤波器 → 天线
+                                        ↑
+                                  核心放大
+                                  （功率最大）</code></pre>
+    <h3>1.2 PA 的核心功能</h3>
+    <ol><li><b>功率放大</b>：将 mW 级信号放大到 W 级</li><li><b>保持线性</b>：不扭曲调制信号的幅度和相位</li><li><b>高效率</b>：减少电能浪费和发热</li><li><b>宽带工作</b>：覆盖 5G 多个频段</li></ol>
+  </article>
+
+  <article class="card">
+    <h2>二、关键指标</h2>
+    <h3>2.1 输出功率</h3>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>符号</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>饱和输出功率</td><td>P_sat</td><td>最大输出功率（非线性区）</td></tr>
+    <tr><td>1dB 压缩点</td><td>P1dB</td><td>增益下降 1dB 的输出功率</td></tr>
+    <tr><td>平均输出功率</td><td>P_avg</td><td>实际运行时的平均功率</td></tr>
+    <tr><td>峰值包络功率</td><td>PAPR</td><td>峰值与平均功率之比</td></tr>
+    </tbody></table></div>
+    <p><b>典型值</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>应用</th><th>P1dB</th><th>P_sat</th></tr></thead>
+    <tbody>
+    <tr><td>WiFi（2.4GHz）</td><td>15-20dBm</td><td>20-25dBm</td></tr>
+    <tr><td>5G 手机（Sub-6GHz）</td><td>20-25dBm</td><td>25-28dBm</td></tr>
+    <tr><td>5G 基站（Sub-6GHz）</td><td>35-45dBm</td><td>40-50dBm</td></tr>
+    <tr><td>5G 毫米波（28GHz）</td><td>20-30dBm</td><td>25-37dBm</td></tr>
+    <tr><td>卫星下行</td><td>30-50dBW</td><td>35-55dBW</td></tr>
+    </tbody></table></div>
+    <h3>2.2 效率</h3>
+    <pre><code>PAE = (P_out - P_in) / P_DC
+        = η · (1 - 1/G)</code></pre>
+    <p>其中 η 是功率效率，G 是增益。</p>
+    <p><b>不同工作模式的效率</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>工作类别</th><th>效率</th><th>线性度</th><th>适用场景</th></tr></thead>
+    <tbody>
+    <tr><td>Class A</td><td>50-60%</td><td>极好</td><td>极低功率</td></tr>
+    <tr><td>Class AB</td><td>30-50%</td><td>好</td><td>WiFi、手机</td></tr>
+    <tr><td>Class B</td><td>78.5%（理论）</td><td>一般</td><td>音频</td></tr>
+    <tr><td>Class C</td><td>70-85%</td><td>差</td><td>恒包络调制</td></tr>
+    <tr><td>Class D</td><td>> 90%</td><td>数字</td><td>射频开关</td></tr>
+    <tr><td>Class E</td><td>> 80%</td><td>数字</td><td>低频 RF</td></tr>
+    <tr><td>Class F</td><td>80-90%</td><td>数字</td><td>微波 PA</td></tr>
+    <tr><td>Doherty</td><td>50-70%（OBO）</td><td>好</td><td>5G 基站</td></tr>
+    </tbody></table></div>
+    <p><b>Doherty PA 的优势</b>（5G 基站核心）：</p>
+    <pre><code>传统 Class AB：
+      回退 6dB → 效率从 40% 降到 15%
+    
+    Doherty PA：
+      回退 6dB → 效率从 45% 降到 30%
+      回退 9dB → 效率仍保持 25%</code></pre>
+    <h3>2.3 线性度</h3>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>符号</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>三阶截点</td><td>OIP3/IIP3</td><td>衡量互调失真</td></tr>
+    <tr><td>邻道泄漏比</td><td>ACLR</td><td>相邻信道泄漏功率</td></tr>
+    <tr><td>误差矢量幅度</td><td>EVM</td><td>调制质量</td></tr>
+    <tr><td>动态 AM-AM/AM-PM</td><td>-</td><td>幅幅/幅相转换</td></tr>
+    </tbody></table></div>
+    <p><b>5G 对线性度的要求</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>调制方式</th><th>EVM 要求</th><th>ACLR 要求</th></tr></thead>
+    <tbody>
+    <tr><td>QPSK</td><td>< 8%</td><td>< -43dBc</td></tr>
+    <tr><td>16QAM</td><td>< 5%</td><td>< -45dBc</td></tr>
+    <tr><td>64QAM</td><td>< 3.5%</td><td>< -45dBc</td></tr>
+    <tr><td>256QAM</td><td>< 2%</td><td>< -47dBc</td></tr>
+    <tr><td>1024QAM</td><td>< 1.2%</td><td>< -50dBc</td></tr>
+    </tbody></table></div>
+    <h3>2.4 增益</h3>
+    <pre><code>G(dB) = P_out(dBm) - P_in(dBm) = S21(dB)</code></pre>
+    <div class="tw"><table>
+    <thead><tr><th>应用</th><th>典型增益</th></tr></thead>
+    <tbody>
+    <tr><td>手机 PA</td><td>20-30dB</td></tr>
+    <tr><td>基站 PA</td><td>25-35dB</td></tr>
+    <tr><td>毫米波 PA</td><td>15-25dB</td></tr>
+    <tr><td>驱动级 PA</td><td>10-15dB</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>三、PA 的主要类型</h2>
+    <h3>3.1 按半导体工艺</h3>
+    <div class="tw"><table>
+    <thead><tr><th>工艺</th><th>频率范围</th><th>功率</th><th>效率</th><th>成本</th><th>典型应用</th></tr></thead>
+    <tbody>
+    <tr><td>GaAs HBT</td><td>DC-40GHz</td><td>中</td><td>中</td><td>低</td><td>手机、WiFi</td></tr>
+    <tr><td>GaAs pHEMT</td><td>DC-60GHz</td><td>中</td><td>中</td><td>中</td><td>基站、卫星</td></tr>
+    <tr><td>GaN on SiC</td><td>DC-100GHz</td><td>高</td><td>高</td><td>高</td><td>基站、雷达</td></tr>
+    <tr><td>SiGe HBT</td><td>DC-300GHz</td><td>低-中</td><td>中</td><td>中</td><td>5G 毫米波</td></tr>
+    <tr><td>CMOS</td><td>DC-200GHz</td><td>低</td><td>低</td><td>最低</td><td>手机集成</td></tr>
+    <tr><td>FD-SOI</td><td>DC-110GHz</td><td>低-中</td><td>中</td><td>中</td><td>5G 毫米波</td></tr>
+    </tbody></table></div>
+    <h3>3.2 按拓扑结构</h3>
+    <h4>Doherty PA（5G 基站标配）</h4>
+    <pre><code>        ┌──[Offset Line]──┐
+    Main PA ──→ ──→ Combiner ──→ Output
+            │                   │
+            └──[Aux PA]──→──────┘
+                  ↑
+             回退 6dB 时激活</code></pre>
+    <p><b>工作原理</b>：</p>
+    <ul><li>Main PA 始终工作</li><li>Aux PA 在 Main PA 回退 6dB 时激活</li><li>通过阻抗调制，Aux 激活时 Main 的效率翻倍</li></ul>
+    <p><b>优势</b>：</p>
+    <ul><li>回退效率高（5G 高峰值比信号的关键）</li><li>平均效率比传统 PA 高 2-3 倍</li></ul>
+    <h4>LINC（Linear Amplifier with Non-Constant Envelope）</h4>
+    <pre><code>  输入信号 → 分解为两个恒包络信号
+                ↓
+      恒包络信号 1 → Class D/SAWPA → 合成 → 输出
+      恒包络信号 2 → Class D/SAWPA →</code></pre>
+    <p><b>优势</b>：</p>
+    <ul><li>可以用最高效的开关放大器</li><li>线性度好</li></ul>
+    <h4>Outphase（Chireix 组合）</h4>
+    <pre><code>  输入 → 相位分解 → 两个 Class C PA → 组合网络 → 输出</code></pre>
+    <h3>3.3 按工作频段</h3>
+    <div class="tw"><table>
+    <thead><tr><th>频段</th><th>典型 PA 技术</th><th>输出功率</th></tr></thead>
+    <tbody>
+    <tr><td>Sub-1GHz</td><td>LDMOS</td><td>10-100W</td></tr>
+    <tr><td>1-6GHz</td><td>GaAs HBT/pHEMT</td><td>1-10W</td></tr>
+    <tr><td>24-40GHz</td><td>GaN/MMIC/SiGe</td><td>0.1-5W</td></tr>
+    <tr><td>60-100GHz</td><td>GaN/InP MMIC</td><td>0.01-0.5W</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>四、PA 与 LNA 的对比</h2>
+    <div class="tw"><table>
+    <thead><tr><th>指标</th><th>PA</th><th>LNA</th></tr></thead>
+    <tbody>
+    <tr><td>功能</td><td>放大发射信号</td><td>放大接收信号</td></tr>
+    <tr><td>输出功率</td><td>10mW-100W</td><td>μW-mW</td></tr>
+    <tr><td>噪声系数</td><td>N/A</td><td>核心指标</td></tr>
+    <tr><td>效率</td><td>核心指标</td><td>N/A</td></tr>
+    <tr><td>线性度（EVM/ACLR）</td><td>核心指标</td><td>次要</td></tr>
+    <tr><td>P1dB</td><td>高（10-45dBm）</td><td>低（-10 到 10dBm）</td></tr>
+    <tr><td>OIP3</td><td>高（20-60dBm）</td><td>低（0-20dBm）</td></tr>
+    <tr><td>工艺</td><td>GaN/GaAs/SiGe</td><td>GaAs/SiGe/CMOS</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>五、典型 PA 芯片</h2>
+    <h3>5.1 Sub-6GHz PA</h3>
+    <div class="tw"><table>
+    <thead><tr><th>型号</th><th>厂商</th><th>频段</th><th>Pout</th><th>PAE</th><th>增益</th></tr></thead>
+    <tbody>
+    <tr><td>CGH40010F</td><td>Wolfspeed(GaN)</td><td>DC-4GHz</td><td>50W</td><td>60%</td><td>18dB</td></tr>
+    <tr><td>AT41489</td><td>Broadcom</td><td>1.7-2.2GHz</td><td>2W</td><td>55%</td><td>15dB</td></tr>
+    <tr><td>R3846L</td><td>Murata</td><td>700MHz-2.7GHz</td><td>28dBm</td><td>35%</td><td>18dB</td></tr>
+    </tbody></table></div>
+    <h3>5.2 毫米波 PA（28GHz）</h3>
+    <div class="tw"><table>
+    <thead><tr><th>型号</th><th>厂商</th><th>Pout</th><th>PAE</th><th>增益</th><th>工艺</th></tr></thead>
+    <tbody>
+    <tr><td>GT5508</td><td>Qorvo</td><td>27dBm</td><td>20%</td><td>18dB</td><td>GaN</td></tr>
+    <tr><td>HMC654ALP3E</td><td>Analog Devices</td><td>20dBm</td><td>15%</td><td>15dB</td><td>GaAs</td></tr>
+    <tr><td>MGA-91563</td><td>Broadcom</td><td>17dBm</td><td>12%</td><td>12dB</td><td>GaAs</td></tr>
+    </tbody></table></div>
+    <h3>5.3 Doherty PA（5G 基站）</h3>
+    <div class="tw"><table>
+    <thead><tr><th>参数</th><th>28nm CMOS Doherty</th><th>150nm GaN Doherty</th></tr></thead>
+    <tbody>
+    <tr><td>频段</td><td>24-29.5GHz</td><td>28-32GHz</td></tr>
+    <tr><td>Pout</td><td>27dBm</td><td>37dBm</td></tr>
+    <tr><td>PAE@OBO6dB</td><td>25%</td><td>30%</td></tr>
+    <tr><td>Gain</td><td>15dB</td><td>20dB</td></tr>
+    <tr><td>芯片面积</td><td>2mm²</td><td>5mm²</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>六、热管理</h2>
+    <h3>6.1 PA 的热挑战</h3>
+    <pre><code>输入 RF: 1W (30dBm)
+    输出 RF: 0.5W (27dBm)
+    PAE: 50%
+    DC 功耗: 1W → 全部转化为热</code></pre>
+    <p>对于 64T64R 基站：</p>
+    <pre><code>64 通道 × 1W = 64W 热功率
+    需要高效散热（液冷/热管/均热板）</code></pre>
+    <h3>6.2 散热方案</h3>
+    <div class="tw"><table>
+    <thead><tr><th>方案</th><th>散热能力</th><th>适用场景</th></tr></thead>
+    <tbody>
+    <tr><td>PCB 热通孔</td><td>5-10W</td><td>手机 PA</td></tr>
+    <tr><td>金属散热片</td><td>10-50W</td><td>WiFi/基站</td></tr>
+    <tr><td>热管</td><td>50-200W</td><td>基站 AAU</td></tr>
+    <tr><td>液冷</td><td>200-1000W</td><td>大规模 MIMO</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>七、工程注意事项</h2>
+    <h3>7.1 PA 回退（Back-off）</h3>
+    <pre><code>P_backoff = P_sat - BO</code></pre>
+    <p>5G 信号的 PAPR 高（10-12dB），PA 必须回退运行：</p>
+    <pre><code>P_sat = 40dBm
+    PAPR = 10dB
+    Back-off = 6dB
+    P_avg = 40 - 10 - 6 = 24dBm</code></pre>
+    <h3>7.2 预失真（DPD）</h3>
+    <p>数字预失真（DPD）是 5G 基站 PA 的标配：</p>
+    <pre><code>输入信号 → DPD → PA → 输出
+                  ↑
+             在线校准</code></pre>
+    <p><b>效果</b>：</p>
+    <ul><li>ACLR 改善 10-20dB</li><li>允许 PA 更接近饱和工作</li><li>效率提升 3-5dB</li></ul>
+    <h3>7.3 PA 与天线的匹配</h3>
+    <pre><code>VSWR &gt; 2:1 → PA 可能损坏（反射功率）
+    VSWR &gt; 3:1 → PA 必须关闭保护</code></pre>
+    <p><b>保护机制</b>：</p>
+    <ul><li>检波器监测反射功率</li><li>自动回退输出功率</li><li>紧急情况下切断 PA</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>八、技术成熟度</h2>
+    <ul><li><b>成熟度等级</b>：高度成熟（Sub-6GHz）→ 快速演进（毫米波）</li><li><b>说明</b>：Sub-6GHz PA 技术非常成熟（4G 积累）。毫米波 PA 随 5G FR2 快速成熟。Doherty PA 是 5G 基站的核心技术，GaN Doherty 已大规模商用。</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>九、一句话总结</h2>
+    <p>PA 是发射链路的"发动机"——输出功率决定信号能传多远，效率决定费多少电，线性度决定信号质量好不好。5G 基站 PA 的核心挑战是高峰值比信号（PAPR 10dB+）下的效率问题，Doherty 拓扑 + DPD 预失真是目前的最优解。记住：PA 和 LNA 是一对镜像——LNA 追求最低噪声，PA 追求最高效率；LNA 在前端，PA 在后端。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[技术概念-相控阵天线phased-array-antenna]].html"><span class="ico">[</span><span>[技术概念-相控阵天线Phased-Array-Antenna]]</span></a>
+      <a class="rel-card" href="[[零部件-低噪声放大器lna]].html"><span class="ico">[</span><span>[[零部件-低噪声放大器LNA]]</span></a>
+      <a class="rel-card" href="[[零部件-环形器隔离器]].html"><span class="ico">[</span><span>[[零部件-环形器隔离器]]</span></a>
+      <a class="rel-card" href="[[零部件-功分器合路器].html"><span class="ico">[</span><span>[[零部件-功分器合路器]</span></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

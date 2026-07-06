@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方向性系数 Directivity（D） · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:1200px;margin:0 auto;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:1200px;margin:0 auto;padding:28px}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  main > article.card{visibility:hidden}
+  main.masonry-ready > article.card{visibility:visible}
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  footer.page-foot{max-width:1200px;margin:0 auto;padding:8px 28px 40px}
+  .related{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;box-shadow:var(--shadow)}
+  .related h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <h1 class="title">方向性系数 Directivity <span class="en">D</span></h1>
+  <p class="lede">方向性系数衡量天线将辐射能量"集中"到某个方向的能力——定义为指定方向上的辐射强度与同等辐射功率下理想各向同性天线的平均辐射强度之比，与天线效率无关。</p>
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+  <article class="card">
+    <h2>类比入口</h2>
+    <p>方向性系数就像手电筒的聚光能力。同样功率的灯泡，裸泡发光向四面八方（各向同性，D = 1），加上反光罩后光集中在一个方向（高方向性，D = 100+）。方向性系数就是"加了反光罩后有多聚光"的度量——它不管反光罩本身吸了多少光（那是效率的事），只管"光往哪个方向打、打了多集中"。</p>
+  </article>
+
+  <article class="card">
+    <h2>一、定义与物理意义</h2>
+    <h3>1.1 数学定义</h3>
+    <pre><code>D(θ, φ) = U(θ, φ) / U_avg</code></pre>
+    <p>其中：</p>
+    <ul><li>U(θ, φ) = 指定方向的辐射强度 [W/sr]</li><li>U_avg = P_rad / 4π（平均辐射强度，P_rad 为总辐射功率）</li></ul>
+    <h3>1.2 方向性系数的 dB 表示</h3>
+    <pre><code>D(dBi) = 10·log₁₀(D)</code></pre>
+    <p>"i" 表示相对于各向同性辐射体（isotropic radiator）。</p>
+    <h3>1.3 方向性系数 vs 天线增益</h3>
+    <p>这是最容易混淆的概念：</p>
+    <pre><code>方向性系数 D = 几何集中度（不考虑损耗）
+    天线增益 G = 几何集中度 × 效率（考虑损耗）
+    
+    G(θ,φ) = η · D(θ,φ)
+    G(dBi) = D(dBi) + 10·log₁₀(η)</code></pre>
+    <p>其中 η 是天线总效率（0 < η ≤ 1）。</p>
+    <div class="tw"><table>
+    <thead><tr><th>天线</th><th>D(dBi)</th><th>η</th><th>G(dBi)</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>理想半波偶极子</td><td>2.15dBi</td><td>100%</td><td>2.15dBi</td><td>无损耗</td></tr>
+    <tr><td>实际半波偶极子</td><td>2.15dBi</td><td>95%</td><td>2.07dBi</td><td>导体/介质损耗</td></tr>
+    <tr><td>8×8 相控阵</td><td>20dBi</td><td>80%</td><td>19.0dBi</td><td>馈电损耗+互耦</td></tr>
+    <tr><td>抛物面天线</td><td>35dBi</td><td>55%</td><td>33.4dBi</td><td>遮挡/照射效率</td></tr>
+    </tbody></table></div>
+    <p><b>关键区别</b>：</p>
+    <ul><li>D 只取决于天线的<b>方向图形状</b></li><li>G 取决于方向图形状 <b>+</b> 天线的<b>效率</b></li><li>同一个天线，D 是固定的，但 G 随效率变化（温度、老化、频率漂移）</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>二、计算公式</h2>
+    <h3>2.1 从方向图积分计算</h3>
+    <pre><code>D_max = 4π / Ω_A</code></pre>
+    <p>其中 Ω_A 是波束立体角：</p>
+    <pre><code>Ω_A = ∫∫_4π P_n(θ,φ)·sin(θ) dθ dφ</code></pre>
+    <p>P_n(θ,φ) 是归一化方向图（最大值 = 1）。</p>
+    <h3>2.2 近似公式（主瓣近似）</h3>
+    <p>对于主瓣尖锐、旁瓣小的天线：</p>
+    <pre><code>D ≈ 41253 / (HPBW_θ · HPBW_φ)   （HPBW 单位：度）</code></pre>
+    <p>或更精确的：</p>
+    <pre><code>D ≈ K / (HPBW_θ · HPBW_φ)</code></pre>
+    <p>其中 K 是波束填充因子（0.8-1.0，取决于方向图形状）。</p>
+    <p><b>典型 K 值</b>：</p>
+    <div class="tw"><table>
+    <thead><tr><th>方向图</th><th>K</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>高斯型</td><td>0.96</td><td>抛物面天线</td></tr>
+    <tr><td>sinc² 型</td><td>0.88</td><td>均匀照射矩形口径</td></tr>
+    <tr><td>Taylor 型</td><td>0.92</td><td>低旁瓣照射</td></tr>
+    <tr><td>Chebyshev</td><td>0.90</td><td>等旁瓣照射</td></tr>
+    </tbody></table></div>
+    <h3>2.3 与有效孔径的关系</h3>
+    <pre><code>D = 4π · A_e / λ²</code></pre>
+    <p>其中 A_e 是有效孔径面积。</p>
+    <p><b>物理意义</b>：方向性系数正比于"天线抓光的面积"与"波长大小的比值平方"。</p>
+    <h3>2.4 阵列的方向性</h3>
+    <p>N 元均匀线阵：</p>
+    <pre><code>D_array ≈ N · D_element</code></pre>
+    <p>N 元均匀面阵（M×N）：</p>
+    <pre><code>D_array ≈ M·N · D_element</code></pre>
+    <p><b>举例</b>：</p>
+    <ul><li>64 单元阵列 × 单单元 D = 6dBi → 阵列 D ≈ 6 + 10·log₁₀(64) = 24dBi</li><li>实际 G = 22-23dBi（扣除效率和互耦损耗）</li></ul>
+  </article>
+
+  <article class="card">
+    <h2>三、典型值范围</h2>
+    <div class="tw"><table>
+    <thead><tr><th>天线类型</th><th>D(dBi)</th><th>备注</th></tr></thead>
+    <tbody>
+    <tr><td>半波偶极子</td><td>2.15</td><td>基准</td></tr>
+    <tr><td>各向同性辐射体</td><td>0</td><td>理论参考</td></tr>
+    <tr><td>微带贴片</td><td>6-9</td><td>单单元</td></tr>
+    <tr><td>八木天线</td><td>10-18</td><td>取决于引向器数量</td></tr>
+    <tr><td>抛物面（1m, 3GHz）</td><td>35-40</td><td></td></tr>
+    <tr><td>抛物面（1m, 28GHz）</td><td>47-52</td><td></td></tr>
+    <tr><td>8×8 相控阵</td><td>20-24</td><td></td></tr>
+    <tr><td>64×64  Massive MIMO</td><td>30-35</td><td></td></tr>
+    <tr><td>喇叭天线</td><td>10-20</td><td>取决于尺寸</td></tr>
+    <tr><td>螺旋天线</td><td>10-15</td><td>轴向模</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>四、测量方法</h2>
+    <h3>4.1 比较法（与标准增益天线对比）</h3>
+    <pre><code>步骤：
+    1. 用标准增益天线（已知 G_std）测量接收功率 P_std
+    2. 换上天线（AUT）测量接收功率 P_AUT
+    3. D_AUT = D_std · (P_AUT / P_std) / η_AUT</code></pre>
+    <h3>4.2 三点法（获取完整方向图后积分）</h3>
+    <pre><code>步骤：
+    1. 在消声室测量 AUT 的完整 3D 方向图
+    2. 数值积分计算 Ω_A
+    3. D = 4π / Ω_A</code></pre>
+    <h3>4.3 近场扫描法</h3>
+    <pre><code>步骤：
+    1. 近场扫描获取 E-field 分布
+    2. 傅里叶变换到远场
+    3. 计算方向图积分 → D</code></pre>
+    <p><b>优点</b>：精度高，无需远场暗室 <b>缺点</b>：数据处理复杂</p>
+  </article>
+
+  <article class="card">
+    <h2>五、与其他指标的关系</h2>
+    <div class="tw"><table>
+    <thead><tr><th>关联指标</th><th>关系类型</th><th>说明</th></tr></thead>
+    <tbody>
+    <tr><td>天线增益 G</td><td>G = η·D</td><td>增益 = 方向性 × 效率</td></tr>
+    <tr><td>有效孔径 A_e</td><td>D = 4πA_e/λ²</td><td>方向性与有效面积成正比</td></tr>
+    <tr><td>波束宽度 HPBW</td><td>D ≈ 41253/(HPBW_θ·HPBW_φ)</td><td>波束越窄，方向性越高</td></tr>
+    <tr><td>口径效率 ε_a</td><td>D = (4πA_phys/λ²)·ε_a</td><td>物理面积和效率决定方向性</td></tr>
+    <tr><td>天线效率 η</td><td>G = η·D</td><td>效率是 D 到 G 的桥梁</td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="card">
+    <h2>六、工程注意事项</h2>
+    <h3>6.1 D 和 G 的标注陷阱</h3>
+    <p>很多数据手册只写 "Gain" 但不标明是 D 还是 G：</p>
+    <ul><li>如果标注 "Directivity" 或 "D" → 是方向性系数（不含效率）</li><li>如果标注 "Gain" 或 "G" → 是增益（含效率）</li><li>有些厂家故意用 D 冒充 G 来"美化"数据</li></ul>
+    <p><b>判断方法</b>：如果 Gain > Directivity，一定是标错了（物理上不可能）。</p>
+    <h3>6.2 方向性随频率变化</h3>
+    <pre><code>D(f) ∝ (f/λ)² ∝ f²</code></pre>
+    <p>对于固定尺寸的抛物面天线：</p>
+    <ul><li>频率加倍 → D 变为 4 倍（+6dB）</li><li>但口径效率可能下降（表面精度要求更高）</li></ul>
+    <h3>6.3 方向性与波束宽度的互换</h3>
+    <pre><code>波束越窄 → D 越高 → 覆盖范围越小
+    波束越宽 → D 越低 → 覆盖范围越大</code></pre>
+    <p>这是天线设计的永恒权衡。</p>
+  </article>
+
+  <article class="card">
+    <h2>七、一句话总结</h2>
+    <p>方向性系数是天线"聚光能力"的纯几何度量——它不管天线损耗多少，只看能量往哪个方向集中。记住 D 和 G 的区别：D 是"理想状态下有多聚光"，G 是"实际状态下有多聚光"。中间差的就是效率 η。有了 D，乘以效率就是 G；有了 G，除以效率就是 D。</p>
+  </article>
+
+</main>
+
+<footer class="page-foot">
+  <div class="related">
+    <h3>关联笔记</h3>
+    <div class="related-grid">
+      <a class="rel-card" href="[指标术语-天线增益antenna-gain]].html"><span class="ico">[</span><span>[指标术语-天线增益Antenna-Gain]]</span></a>
+      <a class="rel-card" href="[[指标术语-口径效率aperture-efficiency]].html"><span class="ico">[</span><span>[[指标术语-口径效率Aperture-Efficiency]]</span></a>
+      <a class="rel-card" href="[[指标术语-天线方向图radiation-pattern]].html"><span class="ico">[</span><span>[[指标术语-天线方向图Radiation-Pattern]]</span></a>
+      <a class="rel-card" href="[[技术概念-天线阵列antenna-array].html"><span class="ico">[</span><span>[[技术概念-天线阵列Antenna-Array]</span></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>
