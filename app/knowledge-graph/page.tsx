@@ -392,6 +392,22 @@ export default function KnowledgeGraphPage() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
+  // ===== iframe 内部关联笔记跳转 → 在 modal 内换内容 + 顶部节点名同步 =====
+  useEffect(() => {
+    const onMsg = (e: MessageEvent) => {
+      const data: any = (e as any).data
+      if (!data || data.type !== 'kg-nav') return
+      const id = typeof data.id === 'string' ? data.id : ''
+      if (!id) return
+      // 验证 id 真实存在（避免跳转孤儿/空 KG 节点）
+      const exists = kgData.nodes.some((n) => n.id === id)
+      if (!exists) return
+      setSelectedId(id)
+    }
+    window.addEventListener('message', onMsg)
+    return () => window.removeEventListener('message', onMsg)
+  }, [])
+
   const toggleType = (t: NodeType) => {
     const next = new Set(activeTypes)
     if (next.has(t)) next.delete(t)
@@ -664,6 +680,7 @@ function Modal({
 
           {/* HTML 卡片 iframe */}
           <iframe
+            key={node.id}
             src={`/antenna-tracker/kg-cards-rendered/${encodeURIComponent(node.id)}.html`}
             title={`${node.name} 科普卡片`}
             style={{
