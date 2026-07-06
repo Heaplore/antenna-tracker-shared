@@ -260,7 +260,20 @@
           "content": "1. 蔡亦辰等，《Paradigm Shift from Statistical Channel Modeling to Digital Twin Prediction: An Environment-Generalizable ChannelLM for 6G AI-enabled Air Interface》，arXiv:2604.18021，2026\n2. 3GPP TR 38.901 v19.2.0，《Study on channel model for frequencies from 0.5 to 100 GHz》，2025\n3. 《Near-Field Propagation and Spatial Non-Stationarity Channel Model for 6–24 GHz (FR3) Extremely Large-Scale MIMO: Adopted by 3GPP for 6G》，IEEE JSAC，2026\n4. 王承信团队，《An enhanced 6G pervasive channel model towards standardization》，Science China Information Sciences，2025\n5. Keysight + NTT Docomo + NTT，《Advances in Realistic Channel Modeling and Wireless Simulation for 6G》，2026-06-01\n6. 《Near-Field Communications for 6G: Ten Key Issues》，IEEE Communications Theory，2025"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-6g通感一体化isac天线",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-全息mimo连续孔径capa",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-无蜂窝网络cell-free-massive-mimo",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-6g通感一体化isac天线",
@@ -793,7 +806,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 从 4G → 5G 架构演变的完整脉络（BBU/RRU → DU/CU/AAU）\n[x] AAU 内部六大核心组件逐一拆解（收发芯片、功放、移相器、天线阵列、散热、基带）\n[x] 功放材料演进（LDMOS → GaAs → GaN）及效率对比\n[x] 三层节能机制的详细数据（符号级/通道级/深度休眠的功耗和唤醒时间）\n[x] 行业案例（华为 MetaAAU/SDIF/UWB/PanoAAU、中兴休眠、联通极致休眠）\n[x] 工程三大坑（散热、供电、O-RAN 互操作性）\n[x] 未来趋势覆盖 2026 最新动态（MetaAAU、PanoAAU、AI 节能、6G 通感一体）\n[x] 与 MIMO、波束赋形、菲涅尔区笔记形成\"原理 → 工程 → 运维\"知识链\n\n--\n\n适用读者: 天线工程师、通信专业学生、质量管理从业者\n延伸阅读:\n[[笔记-MIMO天线技术解读-20260616]]\n[[笔记-波束赋形Beamforming深度解读-20260618]]\n[[笔记-天线隔离度Antenna-Isolation-20260619]]\n3GPP TS 38.802 Massive MIMO 系统架构\nHuawei MetaAAU White Paper 2024"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-波束赋形架构dbf-abf-hbf混合对比",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-fd-mimo全维度mimo",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-aau节能技术符号关断通道关断深度休眠",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-aau节能技术符号关断通道关断深度休眠",
@@ -1523,7 +1549,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 香农容量公式的 MIMO 扩展（Telatar 1999）\n[x] 三大核心技术（空间复用/空间分集/波束赋形）的深度拆解\n[x] 三代演进（SISO → 传统 MIMO → Massive MIMO）\n[x] 3GPP TS 38.214 协议详解（天线端口/RI-PMI-CQI/码本类型）\n[x] SU-MIMO vs MU-MIMO 对比 + 预编码算法（ZF/MMSE/RZF）\n[x] 信道相关性分析 + Weichselberger 模型\n[x] 不同频段表现（Sub-6GHz/毫米波/太赫兹）\n[x] MIMO + RIS 结合实验数据\n[x] 6G UM-MIMO（空间域→波束域转换/近场 MIMO）\n[x] 工程三大挑战（CSI 开销/互耦校准/计算复杂度）\n[x] 爱立信实测数据（710Mbps → 5.2Gbps）\n\n--\n\n适用读者: 通信工程师、无线网络规划师、5G/6G 技术研究者\n延伸阅读:\n[[笔记-AAU有源天线单元深度解读-20260622]]\n[[笔记-波束赋形Beamforming深度解读-20260618]]\n[[笔记-天线隔离度Antenna-Isolation-20260619]]\n3GPP TS 38.214 V19.x: Physical Layer Procedures for Data\nZTE Communications 2026: Deep CSI Compression and Feedback for Massive MIMO\nEricsson: Massive MIMO for 5G Networks (White Paper)\nIEEE: Capacity Scaling of Massive MIMO in Strong Spatial Correlation"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-fd-mimo全维度mimo",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-全息mimo连续孔径capa",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-sub-6ghz天线技术",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-mit-honibajr反射面天线低功耗抗干扰卫星通信",
@@ -1589,7 +1628,20 @@
           "content": "Antenna array could provide protected tactical satellite communications in low-Earth orbit, MIT News, 2026-06-26\nMIT Antenna Enhances Secure Satellite Communications, Modern Mechanics, 2026\nNew satellite antenna counters jamming while using 95% less power, Interesting Engineering, 2026-06-08\nPrototype Reflectarray Antenna Demonstrates Low-SWaP Anti-Jam Tactical SATCOM, Mobility Engineering Tech"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-天线阵列antenna-array",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-波束成形ic-bfic",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-sub-6ghz天线技术",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-metacrystal超晶体3d打印被动智能表面",
@@ -1653,7 +1705,20 @@
           "content": "Metacrystals: Inversely-designed 3D-printed intelligent panels for 6G communications, Nature Communications, 2026-06-08\nAalto University press release\nAalto University research page"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-极化波束赋形polarization-beamforming",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-近场波束赋形near-field-beamforming",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-频率选择表面fss",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-ota天线测试over-the-air",
@@ -2239,7 +2304,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 四根支柱（空间流/带宽/QAM/MLO）的完整拆解\n[x] 16×16 MU-MIMO 的实际商用配置（华为 AirEngine 8776 案例）\n[x] 320MHz 频谱资源分析（2.4/5/6GHz 各能容纳几个 320MHz 信道）\n[x] 宽带天线设计挑战（多谐振/阻抗渐变/寄生贴片）\n[x] 4096-QAM 的 SNR 要求和星座图对比\n[x] MLO 三种模式（MLM-STR/MLM-nSTR/EMLSR）对比\n[x] WBA/AT&T 实测数据（吞吐量 +76%/+116%，延迟 -85%）\n[x] 频段隔离需求和商用方案\n[x] Dynamic MIMO Power Saving 节能机制\n[x] 与 5G 基站天线技术的趋同对比\n[x] 三大工程挑战（6GHz 穿透/5G 共存干扰/高密度互干扰）\n[x] Wi-Fi 8 前瞻（相控阵/RIS/60GHz/AI 自优化）\n\n--\n\n适用读者: 无线网络工程师、AP 设备设计师、企业 IT 架构师\n延伸阅读:\n[[笔记-MIMO天线技术解读-20260616]]\n[[笔记-AAU有源天线单元深度解读-20260622]]\n[[笔记-极化分集Polarization-Diversity-20260623-1]]\nWBA Wi-Fi 7 Phase 2 MLO Enterprise Field Trials Report (2026)\nMediaTek Wi-Fi 7 MLO White Paper\nHuawei AirEngine 8776-X7F-T Product Datasheet\nMDPI Sensors 2025: Miniature Multi-Mode 4×4 MIMO Antenna for WiFi 7"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-fd-mimo全维度mimo",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-无蜂窝网络cell-free-massive-mimo",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-mimo天线去耦decoupling",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-传输线微带线带状线空气带线钣金",
@@ -2749,7 +2827,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 半波偶极子基本结构（λ/2，两段 λ/4）\n[x] 电流正弦分布公式 I(z) = I₀ × sin(k(L/2-|z|))\n[x] 辐射方向图（甜甜圈，HPBW 78°，方向性 1.64 = 2.15dBi）\n[x] 输入阻抗（73+j42.5Ω @λ/2，谐振 ~70Ω）\n[x] 五种变种（折叠/V型/蝴蝶结/磁电/印刷）\n[x] 折叠偶极子阻抗变换（4× = 292Ω，需 4:1 巴伦）\n[x] 磁电偶极子 MED（5G mmWave 主力，带宽>100%）\n[x] 2023 IEEE TAP 平行折叠偶极子（64% 带宽，17.5dBi 阵列）\n[x] 2026 MDPI 超表面偶极子（23.2-45.3GHz，8.02dBi）\n[x] Yagi-Uda 八木天线（偶极子+反射器+引向器，7-11dBi）\n[x] 共线阵列（每翻倍 +3dB，8 单元 11dBi）\n[x] 基站扇区天线（8-16 单元堆叠，20-25dBi）\n[x] 偶极子 vs 单极子对比（阻抗/增益/方向图）\n[x] 5G mmWave 偶极子阵列挑战与方案\n[x] 典型参数对照表（半波/折叠/短/全波）\n\n--\n\n适用读者: 天线初学者、射频工程师、5G 部署人员\n延伸阅读:\n[[笔记-天线增益Antenna Gain深度解读-20260629]]\n[[笔记-阻抗匹配Impedance Matching深度解读-20260629]]\nWikipedia: Dipole antenna\nRF Essentials: What is a Dipole Antenna?\nIEEE TAP 2023: Parallel Folded Dipole Antenna for 5G mmWave\nMDPI 2024: Metamaterial-Integrated Dipole Array for 5G mmWave\nAnsys: The Half-Wave Dipole: Design\nARRL Antenna Book (25th Ed.)"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-太赫兹天线terahertz-antenna",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-绿色天线green-antenna",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-透明天线transparent-antenna",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-口径照明分布aperture-illumination-taper",
@@ -3188,7 +3279,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 三种转向架构（机械/电子/混合）的原理和特点讲清楚了\n[x] 两阶段渐进式信道估计算法详细拆解（粗估计 + 精估计）\n[x] 交替优化算法（SCA）的原理说明\n[x] 成本分析从原型到量产的完整推演\n[x] 行业案例（Kymeta KuKa 8 Series、6DMA、低空经济 ISAC）\n[x] 与相控阵、固定天线的对比表\n[x] 工程三大挑战（可靠性、控制复杂度、风载）\n[x] 未来趋势覆盖 2026-2030 演进路径\n[x] 与 AAU、波束赋形、MIMO 笔记形成\"固定 → 电子 → 混合\"的知识递进\n\n--\n\n适用读者: 天线工程师、6G 研究者、低空经济从业者\n延伸阅读:\n[[笔记-AAU有源天线单元深度解读-20260622]]\n[[笔记-波束赋形Beamforming深度解读-20260618]]\nIEEE Trans. Wireless Commun.: Two-Timescale Optimization for Hybrid 6DMA\nKymeta KuKa 8 Series Technical Brief (2025)\nB. Zheng et al, \"Rotatable Antenna Enabled Wireless Communication and Sensing\", IEEE Wireless Commun., 2025"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-6g通感一体化isac天线",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-u6g-6g试验频谱",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-sub-6ghz天线技术",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-圆极化天线circular-polarization",
@@ -3351,7 +3455,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 圆极化物理本质（正交等幅 90° 相位差）\n[x] RHCP vs LHCP 定义（从波源看顺时针/逆时针）\n[x] 轴比 AR 定义与标准（0dB 理想，3dB 工程阈值）\n[x] 3dB AR 带宽概念\n[x] 五种实现方法（正交馈电贴片/螺旋/缝隙/四线螺旋/行波螺旋）\n[x] 螺旋天线增益公式 G ≈ 15N(C/λ)²SA\n[x] 2014 清华贴片-螺旋混合天线（小地平面，13.35dBic）\n[x] 极化失配 PLF 公式\n[x] 圆-圆匹配表（同旋向 0dB，反旋向 >20dB 隔离）\n[x] 圆-线匹配（恒损 3dB）\n[x] GNSS 应用（多径抑制、半球覆盖、2025 海洋定位天线）\n[x] 5G mmWave 圆极化 MIMO（25-33GHz，ECC<10⁻²）\n[x] RCS 降低原理（反射反转旋向，ΔRCS = 20logAR）\n[x] 超表面隐身（带外 RCS 降低 15-20dB）\n[x] 可穿戴 CP MIMO 优势\n[x] 圆极化 vs 线极化全面对比表\n\n--\n\n适用读者: 卫星通信工程师、GNSS 设计人员、雷达工程师、5G mmWave 研发\n延伸阅读:\n[[笔记-极化分集Polarization Diversity深度解读-20260623]]\n[[笔记-微带贴片天线Patch Antenna深度解读-20260629]]\nMDPI 2023: Quad-Band CP Antenna for GNSS, 5G and WIFI-6E\nJPIER 2019: Compact Dual-Band CP Patch for BDS\nTsinghua AWPL 2014: Patch-Helix Hybrid CP Antenna\nPMC 2024: AF-SIW CP Slot Array for 5G mmWave\nIEEE 2025: CP MIMO for 5G mmWave with Sectoral Slots\nScienceDirect 2024: Dual-Broadband Low-RCS Shared Aperture CP"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-方向图综合中的凸优化convex-optimization",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-口径照明分布aperture-illumination-taper",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-天线互耦mutual-coupling",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-基站天线多频段设计共口径",
@@ -3577,7 +3694,20 @@
           "content": "DigitalToday: Engineering AI applications spread from antenna design to CAE database building (2026-06-11)\nTEKsystems: Top Manufacturing Trends in 2026 (2026-05-08)\nTU Delft: Machine Learning in Pre- and Post-Manufacturing Stages of Active Array Antennas"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-极化方式工程实现线极化圆极化对比",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-龙勃透镜天线luneburg-lens",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-u6g-6g试验频谱",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-天线互耦mutual-coupling",
@@ -5916,7 +6046,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 基本结构（贴片+基板+接地层）\n[x] 谐振腔模型（TM₁₀ 模，L ≈ λ_g/2）\n[x] 缝隙辐射模型（两个边缘缝隙叠加）\n[x] 四种馈电技术（探针/边缘/耦合缝隙/近场耦合）\n[x] 馈电技术对比表（带宽/复杂度/适用频率）\n[x] 性能参数（增益 6-9dBi，带宽 1-5%，VSWR<2:1）\n[x] 带宽瓶颈分析（Q 值公式，提高带宽 5 种方法）\n[x] 阵列增益公式（G_array = G_element + 10logN）\n[x] 串联 vs 并行馈电\n[x] 三个 2024-2025 毫米波阵列案例数据\n[x] 互耦问题与去耦技术（EBG/DGS/超表面/隔离柱）\n[x] 2023 IEEE 16端口 Massive MIMO 隔离设计\n[x] 2018 Nature MAAD 超表面去耦\n[x] 六种贴片变种（圆形/三角/环形/堆叠/柔性/八边形）\n[x] 优缺点全面总结\n\n--\n\n适用读者: 射频工程师、PCB 设计师、5G 部署人员\n延伸阅读:\n[[笔记-半波偶极子Dipole Antenna深度解读-20260629]]\n[[笔记-天线隔离度Antenna Isolation深度解读-20260619]]\nIOP Science 2025: High-Gain Patch Arrays for 28GHz 5G\nIEEE TAP 2023: 16-Port Massive MIMO with NIM Isolation\nNature Sci Rep 2018: MAAD Metasurface Decoupling\nMDPI 2024: ML-Assisted Patch Antenna Design\nJPIER 2020: Closely Spaced Dual-Band MIMO Patch"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-太赫兹天线terahertz-antenna",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-绿色天线green-antenna",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-透明天线transparent-antenna",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-扫描盲区scan-blindness",
@@ -6358,7 +6501,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 抛物线的几何性质和数学原理讲清楚了\n[x] 四种馈电架构（前馈/卡塞格林/格里高利/偏馈）逐一对比，含口径效率数据\n[x] 馈源类型和边缘衰减（edge taper）概念解释到位\n[x] 增益公式和波束宽度公式 + 典型算例\n[x] 口径效率的七大损耗机制逐一列出\n[x] 五大应用场景（卫星通信、微波回传、射电天文、GPS、雷达）\n[x] 工程四大挑战（风载荷、指向精度、降雨衰减、制造精度）\n[x] 3D 打印抛物面天线的最新进展（2025-2026）\n[x] 与相控阵天线的对比分析\n[x] 与 AAU、波束赋形笔记形成\"有源 vs 无源\"的知识对照\n\n--\n\n适用读者: 天线工程师、通信专业学生、卫星通信从业者\n延伸阅读:\n[[笔记-AAU有源天线单元深度解读-20260622]]\n[[笔记-天线增益Antenna-Gain-20260626]]\n[[笔记-波束赋形Beamforming深度解读-20260618]]\nNASA DSN Technical Report: Deep Space Communications\nIEEE Trans. Antennas Propagation: 3D Printed Metasurface Reflector Antennas"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-天线口径效率分解",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-sub-6ghz天线技术",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-天线滤波器一体化afu",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-拓扑thz漏波天线-芯片级全空间覆盖",
@@ -6440,7 +6596,20 @@
           "content": "老大在中兴，GigaMIMO正是中兴在MWC 2026上发布的6G旗舰天线方案。拓扑THz天线提供了另一个维度的技术参照——当GigaMIMO还在做\"更大阵列\"时，拓扑天线做的是\"更小芯片\"。\n如果中兴在6G终端芯片方向有布局，这个拓扑光子学思路可能成为差异化竞争点。\n太赫兹频段的芯片级集成是6G终端 miniaturization 的关键瓶颈之一。\n\n--\n\n参考资料：\nW. Wang et al., \"On-chip topological leaky-wave antenna for full-space terahertz wireless connectivity,\" Nature Photonics (2026). DOI: 10.1038/s41566-025-01825-8\nCharles Q. Choi, \"Leaky 6G Chip Tech Beats Narrow Terahertz Beam Constraints,\" IEEE Spectrum, Feb 2026\nRanjan Singh, Terahertz Lab, University of Notre Dame\nphys.org coverage, Feb 2026"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-全息mimo连续孔径capa",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-6g通感一体化isac天线",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-无蜂窝网络cell-free-massive-mimo",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-数字孪生天线digital-twin-antenna",
@@ -7483,7 +7652,20 @@
           "content": "1. 《面向未来网络的智能超表面白皮书》（RIS 任务组, 2025-12）—— 最全面的产业白皮书\n2. 中兴通讯动态 RIS 2.0 发布（MWC Shanghai 2023）—— 产业进展里程碑\n3. 辽宁联通 RIS 2.0 外场验证（大连国际会议中心）—— 首个动态 RIS 现网验证数据\n4. arXiv:2506.19526 Reconfigurable Intelligent Surfaces for 6G and Beyond —— 学术研究综述\n5. 中信建投研报《6G 标准化启航》（2026-06-13）—— 产业投资视角"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-绿色天线green-antenna",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-aau节能技术符号关断通道关断深度休眠",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-频率选择表面fss",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-有源单元方向图active-element-pattern",
@@ -7833,7 +8015,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 极化的三种基本类型（线性/圆/椭圆）\n[x] 多径效应下的极化演变过程详解\n[x] XPD 的定义、公式、典型值和工程意义\n[x] ±45° 双极化的三大原因（手持姿态/空间复用/对称性）\n[x] 五种分集技术横向对比\n[x] 三大应用场景（5G AAU/手机/铁路专网）含最新论文数据\n[x] XPD 提升技术手段（寄生单元/高阶模偶极子/OMT）\n[x] 三大局限性量化分析\n[x] 6G 中的新角色（XL-MIMO XPD 挑战/太赫兹芯片级/ISAC 极化散射）\n[x] 极化分集 vs 空间分集 vs 极化复用对比表\n[x] 与 MIMO、AAU、波束赋形、隔离度笔记形成完整知识链\n\n--\n\n适用读者: 天线工程师、射频工程师、5G/6G 系统设计者\n延伸阅读:\n[[笔记-MIMO天线技术解读-20260616]]\n[[笔记-AAU有源天线单元深度解读-20260622]]\n[[笔记-波束赋形Beamforming深度解读-20260618]]\nNature Sci Rep (2026): High gain and slant dual-polarized antenna for private 5G railway\narXiv 2502.14694: Revisiting Near-Far Field Boundary in Dual-Polarized XL-MIMO\nEricsson White Paper: Massive MIMO for superior network performance (2026)"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-极化波束赋形polarization-beamforming",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-近场波束赋形near-field-beamforming",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-波束倾斜beam-tilt",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-极化方式工程实现线极化圆极化对比",
@@ -8982,7 +9177,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 波束赋形核心原理（干涉、复权重、波束宽度公式）\n[x] 三种实现方式（模拟/数字/混合）的完整对比\n[x] 五大领域横向打通（5G基站/卫星/Wi-Fi 7/微波回传/6G近场）\n[x] 5G Massive MIMO CSI 反馈机制（Type I/Type II 码本、SSB/CSI-RS）\n[x] Starlink 终端深度解剖（1200 单元、33dBi、$400 成本、微秒级切换）\n[x] Wi-Fi 7 MU-MIMO 波束赋形（16×16、MLO、DMPS）\n[x] 微波回传工程算例（18GHz、10km、30-35dB Fade Margin）\n[x] 6G XL-MIMO 近场挑战（球面波建模、空间非平稳性）\n[x] 工程三大坑（校准/互耦/实时性）\n[x] 五大趋势（XL-MIMO/RIS/AI 波束管理/近场/AIP）\n[x] RIS 实验数据（QUB 2025、220GHz 太赫兹）\n[x] ZTE 2026 年深度学习 CSI 压缩论文\n[x] 波束赋形 vs 传统增益的本质区别\n\n--\n\n适用读者: 天线工程师、5G/6G 网络设计师、卫星通信工程师\n延伸阅读:\n[[笔记-MIMO天线技术解读-20260616]]\n[[笔记-AAU有源天线单元深度解读-20260622]]\n[[笔记-菲涅尔区天线深度解读-20260617]]\nZTE Communications 2026: Deep CSI Compression and Feedback for Massive MIMO\nEuCAP 2025: Experimental Verification of Broadband mmWave RIS\nIEEE: 16-Channel 3.1-25.5GHz Phased-Array BFIC for SATCOM\nStarlink Technology Deep Dive: Inside the Dishy McFlatface"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-极化波束赋形polarization-beamforming",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-近场波束赋形near-field-beamforming",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-波束赋形架构dbf-abf-hbf混合对比",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-波束赋形架构dbf-abf-hbf混合对比",
@@ -9509,7 +9717,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 法拉第笼原理与 SE = R + A + M 公式\n[x] 反射损耗 R 的频率三次方衰减规律\n[x] 吸收损耗 A 与趋肤深度 δ 的关系（铜 28GHz δ=0.38μm）\n[x] 多次反射修正 M（A<15dB 时不可忽略）\n[x] 金属/导电聚合物/屏蔽衬垫/蜂窝面板/吸波材料对比\n[x] 导电泡沫压缩比 30-50%，SE 60-100dB\n[x] 蜂窝波导截止频率 f_cutoff ≈ c/(2d)\n[x] Laird 5G mmWave 吸波材料白皮书（腔体共振抑制）\n[x] 腔体共振问题（罩尺寸 > λ/2）+ 三种解决方案\n[x] 2024 Nano-Micro Letters SrM 铁氧体屏蔽膜（多波段超低反射 <5%，40-90GHz SE>30dB）\n[x] MXene 二维屏蔽材料（SE 90dB @ 10μm）\n[x] 屏蔽罩设计规则（接地过孔间距 ≤ λ_g/10，多排接地孔，吸波阻尼）\n[x] 双天线法 SE 测试（IEC 61000-4-21）\n[x] EMC 分层接地策略 + 电缆 360° 端接\n[x] 屏蔽失效模式排名（接缝泄漏 70%+）\n\n--\n\n适用读者: EMC 工程师、射频硬件设计师、5G 终端/基站研发人员\n延伸阅读:\n[[笔记-天线隔离度Antenna Isolation深度解读-20260619]]\n[[笔记-微带贴片天线Patch Antenna深度解读-20260629]]\nLaird: 5G mmWave Absorber Materials White Paper\nNano-Micro Letters 2024: Absorption-Dominant mmWave EMI Shielding Films with SrM\nAdvanced Materials 2024: Structural Design for EMI Shielding\nPCBway: EMI Shielded Enclosure Design Guide\nLearnEMC: Plane-Wave Shielding Theory\nALLPCB: EM Shielding Mechanisms for 5G Communications"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-近场波束赋形near-field-beamforming",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-天线互耦mutual-coupling",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-mimo天线去耦decoupling",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-相控阵天线phased-array-antenna",
@@ -9716,7 +9937,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 阵列因子 AF(θ) 公式与波束指向角 sin(θ₀) = -Δφ/(kd)\n[x] 栅瓣条件与最大间距（d ≤ λ/(1+|sinθ_max|)）\n[x] 波束倾斜 Beam Squint（相位移相 vs 真延时 TTD）\n[x] 三种架构对比（模拟/数字/混合）\n[x] 混合波束赋形：5G mmWave 事实标准，子阵列划分\n[x] T/R 模块 6 大功能（PA/LNA/移相器/衰减器/开关/环行器）\n[x] T/R 模块指标（增益 20-30dB, P1dB 15-25dBm, PAE 15-35%）\n[x] 2024 IOP 24-30GHz 8 元 TRX（OP1dB=20.8dBm, NF=4.1dB）\n[x] 2026 IEEE JSSC D-band AiP（142-164GHz, 56Gbps, ILTPS）\n[x] GaN vs CMOS vs SiGe 对比\n[x] 波束宽度公式 HPBW ≈ 65°×λ/(Nd)\n[x] 阵列增益公式与损耗来源\n[x] 旁瓣控制（Taylor/Chebyshev/Hamming 加权）\n[x] 扫描损失 Scan_Loss ≈ -10log(cosθ)\n[x] 移相器位数与指向精度（3/5/6/8-bit）\n[x] 六大应用（5G/AESA/汽车雷达/Starlink/6G THz/RIS）\n[x] 76.5GHz 汽车雷达（±60°/±25° FoV, SLL<-30dBc）\n[x] RIS + 深度学习波束跟踪（RNN+GNN）\n[x] 四大挑战（互耦/热管理/校准/成本）\n\n--\n\n适用读者: 射频工程师、5G 网络规划师、雷达工程师、6G 研究人员\n延伸阅读:\n[[笔记-波束赋形Beamforming深度解读-20260618]]\n[[笔记-MIMO天线技术解读-20260616]]\nQorvo: mmWave Beamforming and Phased Array Basics\nAnalog Dialogue: Phased Array Patterns (Grating Lobes & Beam Squint)\nIEEE JSSC 2026: 142-164GHz Phased-Array AiP for 6G UE\nIOP 2024: 24-30GHz 8-element TRX for 5G FR2\nIEEE EUMC 2025: 76.5GHz Grating-Lobe-Free Automotive Radar\narXiv 2024: Active Sensing for RIS-assisted Multiuser Beam Tracking\nKeysight: Designing Phased Arrays - Key Principles and Challenges"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-毫米波天线millimeter-wave-antenna",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-绿色天线green-antenna",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-太赫兹天线terahertz-antenna",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-绿色天线green-antenna",
@@ -10018,7 +10252,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 菲涅尔区的几何定义和数学构造（n·λ/2 路径差）\n[x] 各菲涅尔区的能量贡献占比（70%/25%/7%/1%）\n[x] 第一菲涅尔区半径公式 + 6 个典型场景算例\n[x] 60% 净空准则的原理和量化对比\n[x] 地球曲率 + K 因子修正（标准 K=4/3，极端 K=2/3 和 K=∞）\n[x] 链路预算中菲涅尔遮挡的位置（Fade Margin 项）\n[x] 印尼 IKN 5G 微波回传真实案例\n[x] 四大常见误区逐一破除\n[x] 与多径衰落的关联（地面反射模型、城市峡谷）\n[x] 6G XL-MIMO 近场菲涅尔区挑战（球面波建模、空间非平稳性）\n[x] 工程全流程（设计→施工→验收→运维）\n[x] 与其他天线概念的串联\n\n--\n\n适用读者: 微波工程师、无线链路规划师、5G/6G 网络设计师\n延伸阅读:\n[[笔记-AAU有源天线单元深度解读-20260622]]\n[[笔记-抛物面反射器天线深度解读-20260622]]\n3GPP TR 38.901 V19.x: 3D Channel Model for NR (含地面反射模型)\nMDPI Applied Sciences 2025: Availability and Fade Margin for 5G Microwave Anyhaul\nIEEE: Near-Field Extension of 3GPP GBSM for Sub-THz Communication (2025)\nRACOM RAy Link Calculator: Fresnel Zone and Link Budget"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-天线口径效率分解",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-sub-6ghz天线技术",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-天线滤波器一体化afu",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-超表面单元meta-atomunit-cell",
@@ -10375,7 +10622,20 @@
           "content": "这篇解读延续了老大近期的天线基础知识系列。之前已经覆盖了波束赋形、相控阵、增益、效率、VSWR、方向图等基础概念，超表面天线可以看作是这些技术的\"下一站\"——它本质上是一种新型波束赋形手段，但形态和成本结构完全不同。\n\n如果老大在做天线行业情报追踪，超表面值得加入重点关注清单。中信科移动2026年6月刚发了白皮书，中兴6月也申请了专利，这个赛道正在从实验室走向产业化。"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "technology-太赫兹天线terahertz-antenna",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-绿色天线green-antenna",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-透明天线transparent-antenna",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "technology-近场波束赋形near-field-beamforming",
@@ -11782,7 +12042,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] S 参数的物理定义（散射矩阵，复数幅度+相位）\n[x] 4 个 S 参数（S11/S21/S12/S22）的逐一解读 + 类比\n[x] N 端口 Massive MIMO 的 16384 个 S 参数挑战\n[x] S11 与 Return Loss / VSWR 的换算公式 + 典型值表\n[x] Smith Chart 原理（Γ 平面映射，阻抗/导纳可视化）\n[x] 阻抗匹配设计流程（L/Pi/T/Stub 网络拓扑）\n[x] 互耦效应对 MIMO 性能的影响（秩下降/方向图畸变/效率降低）\n[x] OTA 校准（Vieira/Rusek/Tufvesson 互耦校准方法）\n[x] TDD 互易性校准（3GPP 统一框架/分组方法/非相干累积）\n[x] 深度学习辅助校准（Deep Reciprocity, IEEE TWC 2024）\n[x] VNA 测量原理（SOLT 校准流程，多端口挑战）\n[x] S 参数与其他参数的关系（Γ/VSWR/RL/Z/Y/T 参数转换）\n[x] 6G XL-MIMO OTA 校准实验（128+64 元阵列，±5ns 同步精度）\n\n--\n\n适用读者: 射频工程师、天线设计师、5G/6G 网络规划师\n延伸阅读:\n[[笔记-MIMO天线技术解读-20260616]]\n[[笔记-天线隔离度Antenna-Isolation-20260619]]\n[[笔记-AAU有源天线单元深度解读-20260622]]\nRohde & Schwarz: Understanding S-parameters\nIEEE TWC 2024: Deep Reciprocity Calibration for TDD mmWave Massive MIMO\nLund University: Transceiver Calibration using Mutual Coupling (Vieira/Rusek/Tufvesson)\n3GPP TR 38.901: Channel Model for NR (FR1/FR2 S-parameter measurement scenarios)\nVTC 2025: Heterogeneous Array XL-MIMO Channel Sounder OTA Calibration"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "metric-噪声温度noise-temperature",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-friis传输方程friis-transmission-equation",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-前后比front-to-back-ratio",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "metric-vswr电压驻波比深度解读",
@@ -11973,7 +12246,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] VSWR 物理本质（驻波形成，V_max/V_min）\n[x] VSWR ↔ Γ ↔ Return Loss 完整换算表（1.0-∞）\n[x] 失配损耗公式 + 与插入损耗的区别\n[x] 四大影响（效率下降/功放损坏/信号劣化/测量误差）\n[x] 5G AAU VSWR 要求（≤1.5）+ 为什么比 4G 更严\n[x] 波束指向对 VSWR 的影响 + 边缘波束功率回退\n[x] 四种测量方法（VNA/定向耦合器/基站内置/MAX2016 芯片）\n[x] 电缆损耗的\"伪装效应\"（必须在天线端测量）\n[x] 连接器 VSWR 对比（N-type vs 7/16 vs SMA vs 2.92mm）\n[x] 改善方法（匹配网络/结构调整/隔离器/预失真）\n[x] 5G AAU 不用隔离器的原因（成本/体积/高温性能）\n\n--\n\n适用读者: 射频工程师、天线工程师、5G 网络运维人员\n延伸阅读:\n[[笔记-S参数S-Parameters深度解读-20260626]]\n[[笔记-AAU有源天线单元深度解读-20260622]]\nRohde & Schwarz: VSWR and Return Loss\nRF Cafe: VSWR to Return Loss Conversion Tables\nLG Patent: Apparatus and method for measuring VSWR in base station antenna\nAnalog Devices: VSWR Definition and Formula\nMaxim MAX2016: VSWR Monitoring System"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "metric-波束宽度beamwidth",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-eirp-erp",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-扫描范围scan-range",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "metric-互调imd-pim",
@@ -12914,7 +13200,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 方向性 vs 增益的本质区别（理想 vs 实际）\n[x] dBi vs dBd 换算（2.15dB 的来源）\n[x] 增益与有效口径关系（A_e = Gλ²/4π）\n[x] Friis 传输公式\n[x] 增益-波束宽度反比关系（41000/(HPBW_θ×HPBW_φ)）\n[x] 5G Massive MIMO 阵列增益（64 元 = +18dB）\n[x] 波束赋形增益对比（全向 vs 阵列 vs 波束赋形）\n[x] 四种增益测量方法（标准增益法/比较法/方向图积分/OTA）\n[x] EIRP 计算（P_tx + G_ant - L_cable）\n[x] 典型天线增益对照表（手机 0-2dBi → 抛物面 40dBi）\n\n--\n\n适用读者: 射频工程师、网络规划师、5G 部署人员\n延伸阅读:\n[[笔记-天线方向图Radiation-Pattern-20260626]]\n[[笔记-MIMO天线技术解读-20260616]]\n[[笔记-AAU有源天线单元深度解读-20260622]]\nWikipedia: Gain (antenna)\nAnsys: How to Calculate and Increase Antenna Gain\nCTIA OTA Test Plan\n3GPP TR 37.902: TRP and TRS Test Methodology\nMohamad Eladawi: 5G Massive MIMO Fundamentals"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "metric-扫描范围scan-range",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-轴比axial-ratio",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-口径效率aperture-efficiency",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "metric-天线带宽bandwidth深度解读",
@@ -13073,7 +13372,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 三种带宽定义（阻抗/辐射/波束带宽）\n[x] 3GPP FR1/FR2 频段带宽要求 + FBW 计算\n[x] Chu-Harrington 极限（带宽-尺寸 fundamental limit）\n[x] 宽带天线设计技术（多谐振/渐变结构/超表面/DRA）\n[x] Nature/IEEE/Springer 2025-2026 超表面宽带天线最新成果\n[x] 多频 vs 宽带对比\n[x] 增益-带宽积 Trade-off（\"不可能三角\"）\n[x] 5G Massive MIMO 带宽挑战（子阵列一致性/带内平坦度）\n[x] UWB 天线定义 + 6G 太赫兹应用\n[x] 典型天线 FBW 对比表（贴片 0.8% → 喇叭 1694%）\n\n--\n\n适用读者: 天线工程师、5G/6G 射频设计师、宽带天线研究者\n延伸阅读:\n[[笔记-MIMO天线技术解读-20260616]]\n[[笔记-S参数S-Parameters深度解读-20260626]]\n[[笔记-AAU有源天线单元深度解读-20260622]]\n3GPP TS 38.104: Base Station (BS) Radio Transmission and Reception\n3GPP TS 38.101-1: UE radio transmission and reception (FR1)\nNature Sci Rep 2026: Low-profile metasurface-backed wideband antenna array\nIEEE LAP 2026: Dual-band transparent metasurface for 5G mm-wave\nSpringer 2025: Compact SSRR metasurface antenna for mmWave 6G"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "metric-波束宽度beamwidth",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-friis传输方程friis-transmission-equation",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-前后比front-to-back-ratio",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "metric-天线效率antenna-efficiency",
@@ -13241,7 +13553,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 三种效率定义（辐射/匹配/总效率）\n[x] 损耗来源详解（导体/介质/表面波/馈电网络）\n[x] 趋肤深度公式 + 各频段典型值（1MHz-350GHz）\n[x] 常见基板材料 tan δ 对比（FR-4 vs Rogers vs PTFE）\n[x] 效率与增益关系（G = η × D）\n[x] 5G 毫米波效率挑战（28GHz 趋肤深度 0.39μm）\n[x] 华为白皮书效率数据（Sub-6GHz 85-92% / mmWave 70-85%）\n[x] 五种测量方法（Wheeler Cap/两天线法/方向图积分/OTA/TRP/DAR）\n[x] 2025 IEEE OJAP 对 Wheeler Cap 局限性的警告\n[x] IMS 2026 混响室 EVM+TRP 联合测量\n[x] 链路预算中的效率影响（效率减半 → 覆盖缩小 30%）\n\n--\n\n适用读者: 天线设计师、射频工程师、网络规划师\n延伸阅读:\n[[笔记-天线增益Antenna Gain深度解读-20260629]]\n[[笔记-VSWR电压驻波比深度解读-20260626]]\nHuawei: Generalized Antenna Efficiency White Paper\nIEEE OJAP 2025: Survey of Fixed-Geometry Wheeler Cap Method\nIMS 2026: Antennex Reverberation Chamber EVM+TRP\nAnalog Devices: VSWR and Efficiency Calculations\nRF Elements: Antenna Radiation Efficiency"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "metric-口径效率aperture-efficiency",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-方向性系数directivity",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-friis传输方程friis-transmission-equation",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "metric-天线方向图radiation-pattern",
@@ -13430,7 +13755,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 方向图的三大瓣区（主瓣/旁瓣/后瓣）完整解剖\n[x] 四大关键参数（HPBW/SLL/前后比/零点深度）+ 典型值\n[x] 方向性与增益的区别 + 积分关系\n[x] 3D 方向图与 FD-MIMO（从 2D 到 3D 的革命）\n[x] 3GPP 3D 信道模型（复杂度增加 3 倍+）\n[x] 电下倾 vs 机械下倾对比\n[x] Null Steering 原理 + 3GPP Rel-18 EIRP 评估（11dB 抑制/3.5-4.5dB SNR 损失）\n[x] 旁瓣抑制方法（Taylor 分布/Raised Cosine/神经网络）\n[x] PMC 2025 最新研究成果（15 元 ULA SLL 从 -13dB 降到 -25dB）\n[x] 五大应用场景（5G 基站/毫米波稀疏阵列/卫星/雷达/6G）\n[x] 方向图测量方法（暗室 vs 近场扫描）\n[x] 5G 广播波束设计约束（36° 波束宽度/13.8dB 旁瓣抑制）\n\n--\n\n适用读者: 天线工程师、5G 网络规划师、射频设计师\n延伸阅读:\n[[笔记-MIMO天线技术解读-20260616]]\n[[笔记-AAU有源天线单元深度解读-20260622]]\n[[笔记-波束赋形Beamforming深度解读-20260618]]\narXiv 2026: Evaluation of 3GPP Rel-18 3D EIRP Profile with Beam Nulling\nPMC 2025: Hybrid Analytical-Optimization Framework for Sidelobe Suppression\nMDPI Antennas 2025: Taylor-Series + Neural Network Array Synthesis\n3GPP TR 38.901: 3D Channel Model for NR"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "metric-噪声温度noise-temperature",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-扫描范围scan-range",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-轴比axial-ratio",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "metric-天线测量antenna-measurement",
@@ -13635,7 +13973,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 核心测量参数（S 参数/方向图/增益/效率/轴比）\n[x] 远场 Fraunhofer 距离 R_ff ≥ 2D²/λ（5G AAU 3.5GHz 需要 57m）\n[x] 近场扫描（平面/圆柱/球面），Anritsu 3λ 处计划近场\n[x] 电波暗室结构（吸波材料/安静区/场均匀性）\n[x] 缩尺暗室 CATR（抛物面反射镜产生平面波）\n[x] 混响室 RC（≥100 独立瑞利样本，3GPP 认可）\n[x] 3GPP TR 38.810 OTA 三种方法（DFF/IFF/NFTF）\n[x] TRP/TIS/EIRP 定义与 CTIA 测量流程（266 点球面采样）\n[x] 3GPP TS 38.561 Release 18（消声室参考，RC 替代）\n[x] VNA 四种校准方法（SOLT/TRL/ECal/SOLR）对比\n[x] TRL 自校准原理与 8:1 带宽限制\n[x] 5G mmWave 测量挑战（110GHz VNA/波导接口/64T 多端口）\n[x] IMS 2026 Antennex EVM+TRP 联合测量\n[x] 天线罩插入损耗影响（3mm PBT @28GHz ≈ 0.1-0.3dB）\n[x] 测量不确定度来源与控制方法\n[x] NIST 互比对原则\n\n--\n\n适用读者: 射频测试工程师、OTA 实验室技术人员、5G 认证测试人员\n延伸阅读:\n[[笔记-S参数S-Parameters深度解读-20260626]]\n[[笔记-VSWR电压驻波比深度解读-20260626]]\n[[笔记-天线增益Antenna Gain深度解读-20260629]]\n3GPP TR 38.810: OTA Test Methods for NR\n3GPP TS 38.561 Release 18: UE TRP/TRS Requirements\nCTIA OTA Test Plan v4.0\nNIST: OTA Measurement Uncertainty\nAnritsu: Near-Field vs Far-Field Antenna Testing\nRohde & Schwarz: VNA Calibration Techniques\nTI: mmWave Radar Radome Design Guide"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "metric-噪声温度noise-temperature",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-有效孔径effective-aperture",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-波束宽度beamwidth",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "metric-天线隔离度antenna-isolation",
@@ -13830,7 +14181,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] S21 参数的物理含义和典型值解读\n[x] 互耦的三种来源和四大危害\n[x] 四大影响因素（间距、极化、接地、频率）\n[x] 八大去耦技术逐一详解，含原理、效果、局限\n[x] Massive MIMO 时代的三个极端挑战（密度、多频、U6G）\n[x] 3GPP OTA 测试方法和暗室 vs 混响室对比\n[x] 隔离度不达标的三个工程后果（容量暴跌、波束失效、互调污染）\n[x] 未来趋势（AI 辅助设计、可重构超材料、量产化）\n[x] 与 MIMO、波束赋形、AAU 笔记形成\"隔离度 → MIMO 容量 → 波束精度 → 硬件集成\"的完整知识链\n\n--\n\n适用读者: 天线工程师、射频工程师、MIMO 系统设计师\n延伸阅读:\n[[笔记-MIMO天线技术解读-20260616]]\n[[笔记-波束赋形Beamforming深度解读-20260618]]\n[[笔记-AAU有源天线单元深度解读-20260622]]\n3GPP TR 38.884 OTA RF test for NR MIMO\nNature Scientific Reports 16, 12523 (2026): Ultra-compact 8×8 MIMO antenna\nScienceDirect: Metamaterial-engineered decoupling in ultra-compact MIMO (2026)"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "metric-轴比axial-ratio",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-friis传输方程friis-transmission-equation",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-前后比front-to-back-ratio",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "metric-扫描范围scan-range",
@@ -14958,7 +15322,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 最大功率传输定理（共轭匹配 vs 实数匹配）\n[x] Smith Chart 原理（z → Γ 变换）\n[x] Smith Chart 移动规则（串联/并联/传输线）\n[x] L 型网络（Q 值公式、设计公式、两种构型）\n[x] Pi 型和 T 型网络（虚拟电阻 R_v、Q 可控）\n[x] λ/4 变换器（Z_0 = √(Z_s × Z_L)、多级扩展）\n[x] 单枝节/双枝节匹配（传输线实现、微带线适用）\n[x] Q 值与带宽关系（BW = f/Q）\n[x] 阻抗比与匹配难度对照表\n[x] 5G 毫米波寄生效应（1nH @28GHz = j176Ω）\n[x] AiP 封装内匹配挑战\n[x] 宽带匹配方案（Chebyshev/Butterworth/渐变线）\n[x] 设计流程（测量→归一化→选型→计算→仿真→实测）\n[x] 设计工具推荐（Smith Chart Online/ADS/CST）\n\n--\n\n适用读者: 射频工程师、天线设计师、PCB Layout 工程师\n延伸阅读:\n[[笔记-VSWR电压驻波比深度解读-20260626]]\n[[笔记-S参数S-Parameters深度解读-20260626]]\n[[笔记-天线效率Antenna Efficiency深度解读-20260629]]\nAll About Circuits: Using Smith Chart to Design T and Pi Networks\nSilabs AN1275: Impedance Matching Network Architectures\nNext Antennas: Smith Chart Visualiser & Matching Solver\nKeysight ADS: Matching Network Design\nMATLAB RF Toolbox: Matching Network Designer"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "metric-扫描范围scan-range",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-轴比axial-ratio",
+          "label": "关联"
+        },
+        {
+          "targetId": "metric-口径效率aperture-efficiency",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "material-dbcaln陶瓷基板",
@@ -17921,7 +18298,20 @@
           "content": "写这篇解读时，我重点确认了：\n[x] 天线罩两大功能（保护 + 电磁透明）\n[x] 材料核心参数（Dk/Df/密度/强度/耐温）\n[x] 常见材料对比表（PTFE/Rogers/PBT/玻璃纤维/泡沫）\n[x] 2024 太赫兹材料突破（PTFE@PPS 纳米泡沫，Dk=1.19，传输距离 9 倍）\n[x] Furukawa SCB 发泡工程塑料（5G 基站首选）\n[x] 四种结构类型（单层/A 型夹层/C 型夹层/变厚度流线型）\n[x] A 型夹层相消干涉原理（两反射波 180° 反相）\n[x] TI 毫米波雷达天线罩设计指南（间距 H=λ/2 整数倍，厚度 D≤λ_c/8）\n[x] 插入损耗组成（反射/吸收/失配）\n[x] 波束指向误差 BSE（厚度不均 → 相位畸变）\n[x] 2019 IPD 校正方法（BSE 降低 50%+）\n[x] 方向图畸变案例（5mm 特氟龙 → 主瓣衰减 0.4dB）\n[x] 5G mmWave 特殊挑战（高频半波长仅 3mm、多层介质累积效应、散热、外观伪装）\n[x] 设计流程（8 步法）+ 仿真工具（HFSS/CST/FEKO）\n\n--\n\n适用读者: 射频工程师、天线结构设计人员、5G/6G 部署工程师\n延伸阅读:\n[[笔记-微带贴片天线Patch Antenna深度解读-20260629]]\n[[笔记-波束赋形Beamforming深度解读-20260618]]\nTexas Instruments SWRA705: mmWave Radar Radome Design Guide\nIEEE Access 2020: Multi-Layer Radome for mm-Wave\nLaird Technologies: Robust Low DK Radomes for 5G\nFurukawa Electric: SCB Low Dielectric Foam for Radomes\nIEEE TAP 2021: Variable-Thickness Streamlined Radomes with Graded Dielectric\nWiley 2019: IPD Correction for Variable-Thickness Radomes\nIntechOpen: Analysis and Design of Radome in Millimeter Wave Band"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "component-天线基板substrate",
+          "label": "关联"
+        },
+        {
+          "targetId": "component-功分器合路器power-divider-combiner",
+          "label": "关联"
+        },
+        {
+          "targetId": "component-工参installation-parameters",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "component-安装支架mounting-bracket",
@@ -19808,7 +20198,20 @@
           "content": "电调板是 RET 的执行层——MCU 解析 RCU 指令，驱动移相器改变相位差，编码器反馈角度形成闭环。数字移相器最快（10μs），MEMS 最准（0.01°）。记住：电调板的精度决定了整个 RET 系统的可靠性，编码器选型是关键。"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "targetId": "component-校准板calibration-board",
+          "label": "关联"
+        },
+        {
+          "targetId": "component-波控板beam-control-board",
+          "label": "关联"
+        },
+        {
+          "targetId": "component-retelectrical-tilt",
+          "label": "关联"
+        }
+      ]
     },
     {
       "id": "component-移相器phase-shifter",
