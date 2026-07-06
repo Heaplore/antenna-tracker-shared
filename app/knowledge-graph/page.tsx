@@ -672,7 +672,7 @@ function Modal({
               border: 'none',
               minHeight: 700,
             }}
-            sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation allow-top-navigation-by-user-activation"
           />
         </div>
       </div>
