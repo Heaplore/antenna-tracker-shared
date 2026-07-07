@@ -625,9 +625,10 @@ function Modal({
             background: '#fff',
             borderRadius: 16,
             boxShadow: '0 32px 100px rgba(0,0,0,0.3)',
-            width: '92vw',
-            maxWidth: 1600,
-            maxHeight: '95vh',
+            width: 'min(1360px, 96vw)',
+            height: 'min(1080px, 92vh)',
+            maxWidth: 'none',
+            maxHeight: 'none',
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
@@ -688,6 +689,7 @@ function Modal({
               style={{
                 flex: 1,
                 width: '100%',
+                height: '100%',
                 border: 'none',
               }}
               sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation allow-top-navigation-by-user-activation"
