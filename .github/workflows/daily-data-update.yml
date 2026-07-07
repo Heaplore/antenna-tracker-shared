@@ -20,6 +20,7 @@ env:
 permissions:
   contents: write
   actions: write  # 允许调 gh workflow run deploy-pages.yml
+  issues: write   # standards notify step 开 issue 通知 review/audit
 
 concurrency:
   group: daily-data
