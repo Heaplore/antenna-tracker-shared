@@ -106,7 +106,7 @@ def fetch_spot_prices():
 
 
 def update_price(data, cat_idx, mat_idx, new_price, unit, old_price):
-    """更新价格并计算涨跌."""
+    """更新价格并计算涨跌. 同步覆盖当月 historical 保持趋势图与卡片一致."""
     mat = data["categories"][cat_idx]["materials"][mat_idx]
     mat["currentPrice"] = round(new_price, 2)
     mat["date"] = datetime.now().strftime("%Y-%m-%d")
@@ -120,6 +120,21 @@ def update_price(data, cat_idx, mat_idx, new_price, unit, old_price):
     else:
         mat["change"] = "0.0%"
         mat["trend"] = "持平"
+
+    # 同步覆盖当月 historical, 避免趋势图显示月内 stale 历史值
+    # 策略: 用 currentPrice 直接覆盖当月最后一条 (YTD-07 例: 7月=108771 → 103260)
+    # idempotent: 同月跑多次, 持续同步到最新价; 月初价格被覆盖, 失去月内轨迹
+    # 替代方案 (待商): 保留月初价 + 追加 daily 数据点; 当前先保证页面一致
+    now_month = datetime.now().strftime("%Y-%m")
+    historical = mat.get("historical", [])
+    for entry in historical:
+        if entry.get("month", "").startswith(now_month):
+            entry["price"] = round(new_price, 2)
+            break
+    else:
+        # 该月还没有 historical 记录, append
+        historical.append({"month": now_month, "price": round(new_price, 2)})
+    mat["historical"] = historical
 
 
 def convert_usd_to_cny_g(oz_price_usd, usd_cny_rate):
