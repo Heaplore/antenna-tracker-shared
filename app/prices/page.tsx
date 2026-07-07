@@ -160,6 +160,7 @@ export default function PricesPage() {
                 </div>
               ))}
             </div>
+            </div>
 
             {/* 涨幅榜 */}
             <div style={{ minWidth: 0 }}>
