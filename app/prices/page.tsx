@@ -41,6 +41,7 @@ export default function PricesPage() {
   }
 
   // 分类统计
+  const totalMatCount = pricesData.categories.reduce((s, c) => s + c.materials.length, 0)
   const catStats = pricesData.categories.map(c => {
     const up = c.materials.filter(m => m.trend === '上涨').length
     const down = c.materials.filter(m => m.trend === '下跌').length
@@ -102,7 +103,7 @@ export default function PricesPage() {
           📡 基站天线BOM原材料价格
         </h1>
         <p style={{ margin: '10px 0 4px', opacity: 0.85, fontSize: '14px' }}>
-          天线制造主要原材料价格走势 · 27种核心材料
+          天线制造主要原材料价格走势 · {totalMatCount}种材料
         </p>
         <p style={{ margin: 0, opacity: 0.7, fontSize: '12px' }}>
           数据更新：{pricesData.lastUpdate} · 数据来源：web_search 公开信息
