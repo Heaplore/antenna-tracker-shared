@@ -56,9 +56,9 @@
             88.25,
             87.48,
             88.0,
-            88.03
+            88.19
           ],
-          "stockCurrent": 88.03,
+          "stockCurrent": 88.19,
           "stock52Low": 86.13,
           "stock52High": 98.219,
           "rank": 1
@@ -168,9 +168,9 @@
             4.06,
             4.07,
             4.11,
-            4.05
+            4.04
           ],
-          "stockCurrent": 4.05,
+          "stockCurrent": 4.04,
           "stock52Low": 4.0,
           "stock52High": 4.398,
           "rank": 3
@@ -300,9 +300,9 @@
             35.32,
             36.38,
             36.28,
-            36.02
+            36.04
           ],
-          "stockCurrent": 36.02,
+          "stockCurrent": 36.04,
           "stock52Low": 34.82,
           "stock52High": 39.43,
           "rank": 2
@@ -530,10 +530,10 @@
             1.0,
             1.0,
             0.96,
-            0.97
+            0.93
           ],
-          "stockCurrent": 0.97,
-          "stock52Low": 0.96,
+          "stockCurrent": 0.93,
+          "stock52Low": 0.93,
           "stock52High": 1.35,
           "rank": 4
         },
@@ -623,10 +623,10 @@
             35.23,
             36.64,
             33.37,
-            32.81
+            32.16
           ],
-          "stockCurrent": 32.81,
-          "stock52Low": 32.81,
+          "stockCurrent": 32.16,
+          "stock52Low": 32.16,
           "stock52High": 46.315,
           "rank": 6
         },
@@ -683,9 +683,9 @@
             0.175,
             0.178,
             0.178,
-            0.187
+            0.186
           ],
-          "stockCurrent": 0.187,
+          "stockCurrent": 0.186,
           "stock52Low": 0.173,
           "stock52High": 0.22,
           "rank": 7
@@ -743,9 +743,9 @@
             19.08,
             21.15,
             19.67,
-            20.66
+            20.07
           ],
-          "stockCurrent": 20.66,
+          "stockCurrent": 20.07,
           "stock52Low": 15.27,
           "stock52High": 21.15,
           "rank": 8
@@ -802,9 +802,9 @@
             1.92,
             1.85,
             1.84,
-            1.86
+            1.8
           ],
-          "stockCurrent": 1.86,
+          "stockCurrent": 1.8,
           "stock52Low": 1.43,
           "stock52High": 1.99,
           "rank": 9
@@ -863,9 +863,9 @@
             11.0,
             11.09,
             10.66,
-            10.36
+            10.19
           ],
-          "stockCurrent": 10.36,
+          "stockCurrent": 10.19,
           "stock52Low": 9.46,
           "stock52High": 11.77,
           "rank": 10
@@ -923,9 +923,9 @@
             51.58,
             50.22,
             48.03,
-            48.01
+            47.72
           ],
-          "stockCurrent": 48.01,
+          "stockCurrent": 47.72,
           "stock52Low": 39.05,
           "stock52High": 68.1,
           "rank": 11
@@ -1308,9 +1308,9 @@
             221.68,
             232.73,
             224.46,
-            224.87
+            224.88
           ],
-          "stockCurrent": 224.87,
+          "stockCurrent": 224.88,
           "stock52Low": 191.75,
           "stock52High": 275.8,
           "rank": 2
@@ -1369,10 +1369,10 @@
             92.52,
             96.77,
             95.29,
-            92.35
+            92.79
           ],
-          "stockCurrent": 92.35,
-          "stock52Low": 92.35,
+          "stockCurrent": 92.79,
+          "stock52Low": 92.52,
           "stock52High": 119.91,
           "rank": 3
         },
@@ -1465,9 +1465,9 @@
             60.9,
             64.44,
             62.88,
-            63.46
+            63.36
           ],
-          "stockCurrent": 63.46,
+          "stockCurrent": 63.36,
           "stock52Low": 60.9,
           "stock52High": 75.05,
           "rank": 5
@@ -1525,9 +1525,9 @@
             61.27,
             61.16,
             59.37,
-            59.7
+            59.4
           ],
-          "stockCurrent": 59.7,
+          "stockCurrent": 59.4,
           "stock52Low": 54.33,
           "stock52High": 70.23,
           "rank": 6
@@ -1586,9 +1586,9 @@
             464.37,
             475.08,
             441.94,
-            430.2
+            426.7
           ],
-          "stockCurrent": 430.2,
+          "stockCurrent": 426.7,
           "stock52Low": 363.93,
           "stock52High": 580.0,
           "rank": 7
@@ -1647,9 +1647,9 @@
             101.01,
             102.6,
             93.67,
-            94.52
+            93.86
           ],
-          "stockCurrent": 94.52,
+          "stockCurrent": 93.86,
           "stock52Low": 91.53,
           "stock52High": 119.25,
           "rank": 8
@@ -1706,9 +1706,9 @@
             0.175,
             0.178,
             0.178,
-            0.187
+            0.186
           ],
-          "stockCurrent": 0.187,
+          "stockCurrent": 0.186,
           "stock52Low": 0.173,
           "stock52High": 0.22,
           "rank": 9
@@ -1766,9 +1766,9 @@
             101.01,
             102.6,
             93.67,
-            94.52
+            93.86
           ],
-          "stockCurrent": 94.52,
+          "stockCurrent": 93.86,
           "stock52Low": 91.53,
           "stock52High": 119.25,
           "rank": 10
@@ -1825,10 +1825,10 @@
             35.23,
             36.64,
             33.37,
-            32.85
+            32.16
           ],
-          "stockCurrent": 32.85,
-          "stock52Low": 32.85,
+          "stockCurrent": 32.16,
+          "stock52Low": 32.16,
           "stock52High": 46.315,
           "rank": 11
         },
@@ -1881,10 +1881,10 @@
             35.23,
             36.64,
             33.37,
-            32.85
+            32.16
           ],
-          "stockCurrent": 32.85,
-          "stock52Low": 32.85,
+          "stockCurrent": 32.16,
+          "stock52Low": 32.16,
           "stock52High": 46.315,
           "rank": 12
         },
@@ -2025,9 +2025,9 @@
             82.22,
             85.09,
             76.58,
-            75.1
+            74.18
           ],
-          "stockCurrent": 75.1,
+          "stockCurrent": 74.18,
           "stock52Low": 58.8,
           "stock52High": 97.67,
           "rank": 16
@@ -2169,9 +2169,9 @@
             82.22,
             85.09,
             76.58,
-            75.1
+            74.18
           ],
-          "stockCurrent": 75.1,
+          "stockCurrent": 74.18,
           "stock52Low": 58.8,
           "stock52High": 97.67,
           "rank": 20
@@ -2309,10 +2309,10 @@
             8.31,
             8.71,
             8.2,
-            8.03
+            7.98
           ],
-          "stockCurrent": 8.03,
-          "stock52Low": 8.03,
+          "stockCurrent": 7.98,
+          "stock52Low": 7.98,
           "stock52High": 10.88,
           "rank": 3
         },
@@ -2433,9 +2433,9 @@
             32.83,
             32.67,
             29.12,
-            29.38
+            29.18
           ],
-          "stockCurrent": 29.38,
+          "stockCurrent": 29.18,
           "stock52Low": 26.71,
           "stock52High": 38.44,
           "rank": 5
@@ -2494,9 +2494,9 @@
             79.4,
             77.7,
             82.1,
-            82.56
+            85.39
           ],
-          "stockCurrent": 82.56,
+          "stockCurrent": 85.39,
           "stock52Low": 76.4,
           "stock52High": 96.8,
           "rank": 6
@@ -2553,10 +2553,10 @@
             4.88,
             4.75,
             4.64,
-            4.51
+            4.47
           ],
-          "stockCurrent": 4.51,
-          "stock52Low": 4.51,
+          "stockCurrent": 4.47,
+          "stock52Low": 4.47,
           "stock52High": 6.57,
           "rank": 7
         },
@@ -2615,10 +2615,10 @@
             37.38,
             36.88,
             34.92,
-            33.94
+            34.04
           ],
-          "stockCurrent": 33.94,
-          "stock52Low": 33.94,
+          "stockCurrent": 34.04,
+          "stock52Low": 34.04,
           "stock52High": 53.01,
           "rank": 8
         },
@@ -2736,10 +2736,10 @@
             9.52,
             9.55,
             9.02,
-            8.8
+            8.78
           ],
-          "stockCurrent": 8.8,
-          "stock52Low": 8.8,
+          "stockCurrent": 8.78,
+          "stock52Low": 8.78,
           "stock52High": 12.72,
           "rank": 11
         },
@@ -2795,9 +2795,9 @@
             70.81,
             68.63,
             65.51,
-            65.12
+            65.03
           ],
-          "stockCurrent": 65.12,
+          "stockCurrent": 65.03,
           "stock52Low": 62.2,
           "stock52High": 83.6,
           "rank": 12
@@ -2853,9 +2853,9 @@
             0.175,
             0.178,
             0.178,
-            0.187
+            0.186
           ],
-          "stockCurrent": 0.187,
+          "stockCurrent": 0.186,
           "stock52Low": 0.173,
           "stock52High": 0.22,
           "rank": 13
@@ -2914,9 +2914,9 @@
             44.11,
             42.35,
             43.79,
-            43.22
+            43.19
           ],
-          "stockCurrent": 43.22,
+          "stockCurrent": 43.19,
           "stock52Low": 35.33,
           "stock52High": 46.2,
           "rank": 14
@@ -3014,9 +3014,9 @@
             22.83,
             22.68,
             21.87,
-            21.53
+            21.21
           ],
-          "stockCurrent": 21.53,
+          "stockCurrent": 21.21,
           "stock52Low": 19.559,
           "stock52High": 26.38,
           "rank": 16
@@ -3071,9 +3071,9 @@
             0.175,
             0.178,
             0.178,
-            0.187
+            0.186
           ],
-          "stockCurrent": 0.187,
+          "stockCurrent": 0.186,
           "stock52Low": 0.173,
           "stock52High": 0.22,
           "rank": 17
@@ -3257,9 +3257,9 @@
             151.95,
             160.78,
             154.27,
-            151.26
+            149.86
           ],
-          "stockCurrent": 151.26,
+          "stockCurrent": 149.86,
           "stock52Low": 127.37,
           "stock52High": 187.2,
           "rank": 1
@@ -3357,9 +3357,9 @@
             196.0,
             199.99,
             186.53,
-            187.03
+            187.91
           ],
-          "stockCurrent": 187.03,
+          "stockCurrent": 187.91,
           "stock52Low": 118.51,
           "stock52High": 262.8,
           "rank": 3
@@ -3416,9 +3416,9 @@
             4.74,
             4.83,
             4.89,
-            4.81
+            4.82
           ],
-          "stockCurrent": 4.81,
+          "stockCurrent": 4.82,
           "stock52Low": 4.59,
           "stock52High": 5.6,
           "rank": 4
@@ -3471,9 +3471,9 @@
             1.32,
             1.39,
             1.35,
-            1.24
+            1.25
           ],
-          "stockCurrent": 1.24,
+          "stockCurrent": 1.25,
           "stock52Low": 1.22,
           "stock52High": 1.7,
           "rank": 5
@@ -3530,9 +3530,9 @@
             22.83,
             22.68,
             21.87,
-            21.53
+            21.21
           ],
-          "stockCurrent": 21.53,
+          "stockCurrent": 21.21,
           "stock52Low": 19.559,
           "stock52High": 26.38,
           "rank": 6
@@ -3589,9 +3589,9 @@
             20.94,
             21.77,
             20.34,
-            20.46
+            20.43
           ],
-          "stockCurrent": 20.46,
+          "stockCurrent": 20.43,
           "stock52Low": 17.9,
           "stock52High": 26.3,
           "rank": 7
@@ -3648,9 +3648,9 @@
             82.22,
             85.09,
             76.58,
-            75.25
+            74.18
           ],
-          "stockCurrent": 75.25,
+          "stockCurrent": 74.18,
           "stock52Low": 58.8,
           "stock52High": 97.67,
           "rank": 8
@@ -3706,10 +3706,10 @@
             27.61,
             27.97,
             25.65,
-            25.05
+            24.65
           ],
-          "stockCurrent": 25.05,
-          "stock52Low": 25.05,
+          "stockCurrent": 24.65,
+          "stock52Low": 24.65,
           "stock52High": 32.49,
           "rank": 9
         }
@@ -3995,9 +3995,9 @@
             67.82,
             70.9,
             63.81,
-            61.0
+            60.4
           ],
-          "stockCurrent": 61.0,
+          "stockCurrent": 60.4,
           "stock52Low": 35.56,
           "stock52High": 74.12,
           "rank": 1
@@ -4083,9 +4083,9 @@
             8.39,
             8.54,
             8.75,
-            8.52
+            8.43
           ],
-          "stockCurrent": 8.52,
+          "stockCurrent": 8.43,
           "stock52Low": 7.9,
           "stock52High": 9.17,
           "rank": 3
@@ -4145,9 +4145,9 @@
             14.53,
             15.75,
             14.39,
-            15.39
+            15.13
           ],
-          "stockCurrent": 15.39,
+          "stockCurrent": 15.13,
           "stock52Low": 10.46,
           "stock52High": 17.57,
           "rank": 4
@@ -4209,9 +4209,9 @@
             212.48,
             199.5,
             186.45,
-            191.14
+            187.59
           ],
-          "stockCurrent": 191.14,
+          "stockCurrent": 187.59,
           "stock52Low": 104.99,
           "stock52High": 236.09,
           "rank": 5
@@ -4269,9 +4269,9 @@
             28.89,
             29.96,
             27.41,
-            26.29
+            26.59
           ],
-          "stockCurrent": 26.29,
+          "stockCurrent": 26.59,
           "stock52Low": 12.795,
           "stock52High": 32.1,
           "rank": 6

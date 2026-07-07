@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-07-07 02:22",
+  "lastUpdate": "2026-07-07 04:47",
   "sources": {
     "metals": "长江有色金属网 ccmn.cn / 上海有色网 SMM",
     "precious": "金投网 gold.cngold.org",
@@ -15,8 +15,8 @@
         {
           "name": "电解铜",
           "unit": "元/吨",
-          "currentPrice": 103310.0,
-          "change": "-4.1%",
+          "currentPrice": 103260.0,
+          "change": "-4.2%",
           "trend": "下跌",
           "date": "2026-07-07",
           "impact": "天线导体主要成本，铜价每上涨10%约影响天线毛利率2-3个百分点",
@@ -64,8 +64,8 @@
         {
           "name": "铝锭",
           "unit": "元/吨",
-          "currentPrice": 22830.0,
-          "change": "-5.9%",
+          "currentPrice": 22930.0,
+          "change": "-5.5%",
           "trend": "下跌",
           "date": "2026-07-07",
           "impact": "天线支架、外壳、紧固件材料，铝价上涨压缩结构件利润",
@@ -158,8 +158,8 @@
         {
           "name": "金",
           "unit": "元/克",
-          "currentPrice": 906.2,
-          "change": "-10.7%",
+          "currentPrice": 904.58,
+          "change": "-10.9%",
           "trend": "下跌",
           "date": "2026-07-07",
           "impact": "高频连接器镀金层材料，金价上涨增加连接器原材料成本",
@@ -207,8 +207,8 @@
         {
           "name": "银",
           "unit": "元/克",
-          "currentPrice": 13.52,
-          "change": "-28.8%",
+          "currentPrice": 13.42,
+          "change": "-29.4%",
           "trend": "下跌",
           "date": "2026-07-07",
           "impact": "银浆用于天线PCB线路板导电镀层，用量较小影响有限",
