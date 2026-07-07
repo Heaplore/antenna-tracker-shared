@@ -422,7 +422,17 @@ function MaterialCard({ mat, fmtYAxis }: { mat: any; fmtYAxis: (v: number, u?: s
     const realHist = currentMonth
       ? historical.filter((h: any) => String(h.month || '').slice(0, 7) <= currentMonth)
       : historical
-    return realHist.slice(-6).map((h: any) => ({ month: h.month, price: h.price }))
+    const sliced = realHist.slice(-6).map((h: any) => ({ month: h.month, price: h.price }))
+    // 当月 (lastUpdate 月份) 用 currentPrice 覆盖, 保证趋势图与卡片今日价格一致
+    // 原因: daily update_prices_metals.py 只刷 currentPrice, 不动 historical,
+    //       避免图表显示月内 stale 历史值 (如铜 7月=108771 但 currentPrice=103260)
+    if (currentMonth && sliced.length > 0) {
+      const lastIdx = sliced.length - 1
+      if (String(sliced[lastIdx].month || '').slice(0, 7) === currentMonth) {
+        sliced[lastIdx] = { ...sliced[lastIdx], price: mat.currentPrice }
+      }
+    }
+    return sliced
   }
   const trendColor = mat.trend === '上涨' ? '#e74c3c' : mat.trend === '下跌' ? '#27ae60' : '#888'
 
