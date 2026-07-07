@@ -45,8 +45,6 @@
   .masonry{display:flex;gap:20px;align-items:flex-start}
   .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
   /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
-  main > article.card{visibility:hidden}
-  main.masonry-ready > article.card{visibility:visible}
   @media (max-width:760px){.masonry{flex-direction:column}}
   .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
