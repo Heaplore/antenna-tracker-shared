@@ -144,7 +144,19 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const data = JSON.parse(fs.readFileSync('scripts/standards_candidates.json', 'utf8'));
+            const path = 'scripts/standards_candidates.json';
+            let data;
+            try {
+              const raw = fs.readFileSync(path, 'utf8');
+              data = JSON.parse(raw);
+            } catch (err) {
+              core.warning(`standards_candidates.json 读取/解析失败 (跳过 issue 创建): ${err.message}`);
+              return;
+            }
+            if (!Array.isArray(data) || data.length === 0) {
+              core.warning(`standards_candidates.json 不是数组或为空 (${typeof data})，跳过 issue 创建`);
+              return;
+            }
             const lines = ['### 天线行业标准 · 自动抓取候选项', '', `**抓取时间**: ${new Date().toISOString()}`, `**候选数量**: ${data.length}`, ''];
             for (const r of data) {
               lines.push(`- **${r.name}** · ${r.organization} · ${r.publishDate || r.frozenDate || '-'}`);
