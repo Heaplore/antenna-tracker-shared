@@ -69,12 +69,20 @@ def extract_from_table(html, product, low, high):
 
 
 def update_price(data, cat_idx, mat_idx, new_price, unit):
-    """更新单一材料价格."""
+    """更新单一材料价格. 用 hist 上一月价格算环比, 不用 currentPrice."""
     mat = data["categories"][cat_idx]["materials"][mat_idx]
-    old = mat["currentPrice"]
+    # 关键: 倒序遍历 hist 找第一条 month < currentMonth 的作为环比基准
+    hist = mat.get("historical", [])
+    current_month = datetime.now().strftime("%Y-%m")
+    old = mat.get("currentPrice", 0)  # fallback
+    for h in reversed(hist):
+        m_month = str(h.get("month", ""))[:7]
+        if m_month and m_month < current_month:
+            old = h["price"]
+            break
     mat["currentPrice"] = new_price
     mat["date"] = datetime.now().strftime("%Y-%m-%d")
-    if new_price != old:
+    if new_price != old and old > 0:
         pct = abs(new_price - old) / old * 100
         if new_price > old:
             mat["change"] = f"+{pct:.1f}%"
@@ -82,6 +90,10 @@ def update_price(data, cat_idx, mat_idx, new_price, unit):
         else:
             mat["change"] = f"-{pct:.1f}%"
             mat["trend"] = "下跌"
+    else:
+        # new == old (或 old=0): 持平
+        mat["change"] = "0.0%"
+        mat["trend"] = "持平"
 
 
 def main():

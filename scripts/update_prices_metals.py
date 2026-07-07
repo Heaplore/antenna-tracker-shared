@@ -105,6 +105,38 @@ def fetch_spot_prices():
     return prices
 
 
+def get_prev_month_price(data, cat_idx, mat_idx):
+    """取上一月 (month < currentMonth) 的真实历史价, 用于算环比涨跌.
+
+    策略: 在 hist 里倒着找第一条 month < currentMonth 的历史条目.
+    原因:
+    - 不要用 currentPrice 当 old_price, 那样永远等于 new_price -> 永远持平
+    - hist 末尾 (==currentMonth) 经常被同步覆盖, 不能用
+    - hist 里 month > currentMonth 的都是 forecast 复制, 不能用
+    - 唯一可信的是 month < currentMonth 的最近一条 (=上月真实历史价)
+
+    Edge cases:
+    - hist 为空: 用 currentPrice 作为 fallback
+    - 没有更早月份 (全 forecast/当月): 用 currentPrice
+    """
+    from datetime import datetime
+    mat = data["categories"][cat_idx]["materials"][mat_idx]
+    hist = mat.get("historical", [])
+
+    # currentMonth 来自 lastUpdate; fallback 当下
+    last_update = data.get("lastUpdate", "")
+    current_month = str(last_update)[:7] if last_update else datetime.now().strftime("%Y-%m")
+
+    # 倒序遍历 hist, 找第一条 month < currentMonth (严格小于, 排除当月被覆盖的条目)
+    for h in reversed(hist):
+        m_month = str(h.get("month", ""))[:7]
+        if m_month and m_month < current_month:
+            return h["price"]
+
+    # 没有更早月份: fallback 到 currentPrice
+    return mat.get("currentPrice", 0)
+
+
 def update_price(data, cat_idx, mat_idx, new_price, unit, old_price):
     """更新价格并计算涨跌. 同步覆盖当月 historical 保持趋势图与卡片一致."""
     mat = data["categories"][cat_idx]["materials"][mat_idx]
@@ -178,7 +210,7 @@ def main():
     copper_price = spot.get("1#铜") or spot.get("1#光亮铜线") or spot.get("电解铜")
     if copper_price:
         print(f"  ✅ 电解铜: {copper_price} 元/吨")
-        old = data["categories"][0]["materials"][0]["currentPrice"]
+        old = get_prev_month_price(data, 0, 0)
         update_price(data, 0, 0, copper_price, "元/吨", old)
         updated.append(f"电解铜: {copper_price} 元/吨")
 
@@ -186,14 +218,14 @@ def main():
     aluminum_price = spot.get("A00铝") or spot.get("铝锭")
     if aluminum_price:
         print(f"  ✅ 铝锭: {aluminum_price} 元/吨")
-        old = data["categories"][0]["materials"][1]["currentPrice"]
+        old = get_prev_month_price(data, 0, 1)
         update_price(data, 0, 1, aluminum_price, "元/吨", old)
         updated.append(f"铝锭: {aluminum_price} 元/吨")
 
     # 螺纹钢
     rebar_price = spot.get("螺纹钢")
     if rebar_price:
-        old = data["categories"][0]["materials"][5]["currentPrice"]
+        old = get_prev_month_price(data, 0, 5)
         update_price(data, 0, 5, rebar_price, "元/吨", old)
         updated.append(f"螺纹钢: {rebar_price} 元/吨")
         print(f"  ✅ 螺纹钢: {rebar_price} 元/吨")
@@ -206,7 +238,7 @@ def main():
     if hf_gc and hf_gc.get("price"):
         oz_price = float(hf_gc["price"])
         gold_price_rmb = round(convert_usd_to_cny_g(oz_price, usd_cny), 2)
-        old = data["categories"][0]["materials"][3]["currentPrice"]
+        old = get_prev_month_price(data, 0, 3)
         update_price(data, 0, 3, gold_price_rmb, "元/克", old)
         updated.append(f"金: {gold_price_rmb} 元/克")
         print(f"  ✅ 金: {gold_price_rmb} 元/克 (NY Gold: {oz_price} USD/oz)")
@@ -216,7 +248,7 @@ def main():
     if hf_si and hf_si.get("price"):
         oz_price = float(hf_si["price"])
         silver_price_rmb = round(convert_usd_to_cny_g(oz_price, usd_cny), 2)
-        old = data["categories"][0]["materials"][4]["currentPrice"]
+        old = get_prev_month_price(data, 0, 4)
         update_price(data, 0, 4, silver_price_rmb, "元/克", old)
         updated.append(f"银: {silver_price_rmb} 元/克")
         print(f"  ✅ 银: {silver_price_rmb} 元/克 (NY Silver: {oz_price} USD/oz)")

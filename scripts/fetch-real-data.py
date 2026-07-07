@@ -693,9 +693,18 @@ def update_prices() -> tuple[int, int]:
             mat["historical"].append({"month": new_month, "price": new_price})
             mat["currentPrice"] = new_price
             try:
-                mat["change"] = f"{((new_price - float(last['price'])) / float(last['price']) * 100):.1f}%"
+                pct = (new_price - float(last['price'])) / float(last['price']) * 100
+                mat["change"] = f"{pct:+.1f}%"
+                # 加 trend 字段 (上涨/下跌/持平)
+                if pct > 0.5:
+                    mat["trend"] = "上涨"
+                elif pct < -0.5:
+                    mat["trend"] = "下跌"
+                else:
+                    mat["trend"] = "持平"
             except (ZeroDivisionError, ValueError):
                 mat["change"] = "0.0%"
+                mat["trend"] = "持平"
             mat["date"] = TODAY
             added += 1
 

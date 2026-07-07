@@ -112,9 +112,19 @@ def find_closest_value(numbers, target, tolerance=5):
 
 
 def update_material(cat_idx, mat_idx, data, new_price, unit):
-    """更新材料价格并返回变化率."""
+    """更新材料价格并返回变化率. 用上一月 hist 价格算环比, 不用 currentPrice."""
     mat = data["categories"][cat_idx]["materials"][mat_idx]
-    old_price = mat["currentPrice"]
+    # 关键: 不要用 currentPrice 当 old_price (永远 = new_price -> 永远持平)
+    # 倒序遍历 hist 找第一条 month < currentMonth 的条目, 作为环比基准
+    hist = mat.get("historical", [])
+    current_month = datetime.now().strftime("%Y-%m")
+    old_price = mat.get("currentPrice", 0)  # fallback
+    for h in reversed(hist):
+        m_month = str(h.get("month", ""))[:7]
+        if m_month and m_month < current_month:
+            old_price = h["price"]
+            break
+
     mat["currentPrice"] = new_price
     mat["date"] = datetime.now().strftime("%Y-%m-%d")
     pct = abs(new_price - old_price) / old_price * 100

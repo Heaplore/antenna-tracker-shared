@@ -137,20 +137,45 @@ def update_prices_json(new_gold_price, today_str):
         print("ERROR: Gold material not found!", file=sys.stderr)
         return False
 
-    old_price = data["categories"][cat_idx]["materials"][gold_idx]["currentPrice"]
+    # 关键: 用 hist 里 month < currentMonth 的最近一条作为环比基准
+    # 不要用 currentPrice 当 old_price (永远 = new_price -> 永远持平)
+    from datetime import datetime
+    current_month = today_str[:7] if today_str else datetime.now().strftime("%Y-%m")
+    old_price = data["categories"][cat_idx]["materials"][gold_idx].get("currentPrice", 0)
     old_hist = data["categories"][cat_idx]["materials"][gold_idx].get("historical", [])
+    for h in reversed(old_hist):
+        m_month = str(h.get("month", ""))[:7]
+        if m_month and m_month < current_month:
+            old_price = h["price"]
+            break
 
     # Update current price
     data["categories"][cat_idx]["materials"][gold_idx]["currentPrice"] = round(new_gold_price, 2)
     data["categories"][cat_idx]["materials"][gold_idx]["date"] = today_str
-    data["categories"][cat_idx]["materials"][gold_idx]["change"] = "0.0%"
 
-    # Update historical data: replace last entry (2026-07) with new price
-    # If 2026-07 exists, update it; otherwise append
-    new_hist_entry = {"month": "2026-07", "price": round(new_gold_price, 2)}
+    # 计算真实 change/trend (基于上月真实历史价, 不是 currentPrice)
+    if old_price and old_price > 0:
+        pct = (new_gold_price - old_price) / old_price * 100
+        if pct > 0.5:
+            data["categories"][cat_idx]["materials"][gold_idx]["change"] = f"+{pct:.1f}%"
+            data["categories"][cat_idx]["materials"][gold_idx]["trend"] = "上涨"
+        elif pct < -0.5:
+            data["categories"][cat_idx]["materials"][gold_idx]["change"] = f"{pct:.1f}%"
+            data["categories"][cat_idx]["materials"][gold_idx]["trend"] = "下跌"
+        else:
+            data["categories"][cat_idx]["materials"][gold_idx]["change"] = "0.0%"
+            data["categories"][cat_idx]["materials"][gold_idx]["trend"] = "持平"
+    else:
+        data["categories"][cat_idx]["materials"][gold_idx]["change"] = "0.0%"
+        data["categories"][cat_idx]["materials"][gold_idx]["trend"] = "持平"
+
+    # Update historical data: replace last entry (当月) with new price
+    # 不要用硬编码的 "2026-07", 用当前月份
+    now_month = today_str[:7] if today_str else datetime.now().strftime("%Y-%m")
+    new_hist_entry = {"month": now_month, "price": round(new_gold_price, 2)}
     updated = False
     for i, entry in enumerate(old_hist):
-        if entry["month"] == "2026-07":
+        if entry.get("month", "").startswith(now_month):
             old_hist[i] = new_hist_entry
             updated = True
             break
