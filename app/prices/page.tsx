@@ -130,11 +130,13 @@ export default function PricesPage() {
           {/* 第一行: 数据概览(2x2卡片) + 涨幅榜TOP3 + 跌幅榜TOP3, 三列等高 */}
           <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr 1fr', gap: 20, alignItems: 'start' }}>
             {/* 数据概览 */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: 8,
-            }}>
+            <div>
+              <h3 style={{ fontSize: 14, margin: '0 0 10px', color: '#2c5aa0' }}>📊 数据概览</h3>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: 8,
+              }}>
               {[
                 { num: totalUp, label: '↑ 上涨', color: '#e74c3c' },
                 { num: totalDown, label: '↓ 下跌', color: '#27ae60' },
