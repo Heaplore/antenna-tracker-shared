@@ -626,7 +626,7 @@ function Modal({
             borderRadius: 16,
             boxShadow: '0 32px 100px rgba(0,0,0,0.3)',
             width: 'min(1360px, 96vw)',
-            height: 'min(1080px, 92vh)',
+            height: 'min(900px, 92vh)',
             maxWidth: 'none',
             maxHeight: 'none',
             overflow: 'hidden',
