@@ -612,10 +612,11 @@ function Modal({
           position: 'fixed',
           inset: 0,
           background: 'rgba(0,0,0,0.6)',
-          zIndex: 2000,
+          zIndex: 40,
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           justifyContent: 'center',
+          paddingTop: 72,
           animation: 'fadeIn 0.2s ease-out',
         }}
       >
@@ -626,7 +627,7 @@ function Modal({
             borderRadius: 16,
             boxShadow: '0 32px 100px rgba(0,0,0,0.3)',
             width: 'min(1360px, 96vw)',
-            height: 'min(900px, 92vh)',
+            height: 'min(900px, calc(100vh - 88px))',
             maxWidth: 'none',
             maxHeight: 'none',
             overflow: 'hidden',
