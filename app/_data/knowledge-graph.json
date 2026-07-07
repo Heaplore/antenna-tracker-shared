@@ -497,7 +497,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-智能反射面ris深度解读",
+          "targetId": "technology-智能反射面ris",
           "label": "关联"
         },
         {
@@ -608,11 +608,11 @@
       ]
     },
     {
-      "id": "technology-aau有源天线单元深度解读",
-      "name": "AAU有源天线单元深度解读",
+      "id": "technology-aau有源天线单元",
+      "name": "AAU有源天线单元",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-AAU有源天线单元深度解读-20260622.md",
+      "filename": "技术概念-AAU有源天线单元-20260622.md",
       "tags": [
         "天线",
         "基站",
@@ -915,7 +915,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-aau有源天线单元深度解读",
+          "targetId": "technology-aau有源天线单元",
           "label": "关联"
         },
         {
@@ -1132,7 +1132,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-波束赋形beamforming深度解读",
+          "targetId": "technology-波束赋形beamforming",
           "label": "关联"
         },
         {
@@ -2667,7 +2667,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-智能反射面ris深度解读",
+          "targetId": "technology-智能反射面ris",
           "label": "关联"
         },
         {
@@ -3076,7 +3076,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-抛物面反射器天线深度解读",
+          "targetId": "technology-抛物面反射器天线",
           "label": "关联"
         }
       ]
@@ -5180,7 +5180,7 @@
       ],
       "outgoing": [
         {
-          "targetId": "technology-波束赋形beamforming深度解读",
+          "targetId": "technology-波束赋形beamforming",
           "label": "关联"
         },
         {
@@ -5192,7 +5192,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-aau有源天线单元深度解读",
+          "targetId": "technology-aau有源天线单元",
           "label": "关联"
         }
       ]
@@ -6296,11 +6296,11 @@
       ]
     },
     {
-      "id": "technology-抛物面反射器天线深度解读",
-      "name": "抛物面反射器天线深度解读",
+      "id": "technology-抛物面反射器天线",
+      "name": "抛物面反射器天线",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-抛物面反射器天线深度解读-20260622.md",
+      "filename": "技术概念-抛物面反射器天线-20260622.md",
       "tags": [
         "天线",
         "微波",
@@ -6785,7 +6785,7 @@
       ],
       "outgoing": [
         {
-          "targetId": "technology-波束赋形beamforming深度解读",
+          "targetId": "technology-波束赋形beamforming",
           "label": "关联"
         },
         {
@@ -6797,7 +6797,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-智能反射面ris深度解读",
+          "targetId": "technology-智能反射面ris",
           "label": "关联"
         }
       ]
@@ -6935,7 +6935,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-抛物面反射器天线深度解读",
+          "targetId": "technology-抛物面反射器天线",
           "label": "关联"
         },
         {
@@ -7354,7 +7354,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-波束赋形beamforming深度解读",
+          "targetId": "technology-波束赋形beamforming",
           "label": "关联"
         },
         {
@@ -7491,7 +7491,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-波束赋形beamforming深度解读",
+          "targetId": "technology-波束赋形beamforming",
           "label": "关联"
         },
         {
@@ -7501,11 +7501,11 @@
       ]
     },
     {
-      "id": "technology-智能反射面ris深度解读",
-      "name": "智能反射面RIS深度解读",
+      "id": "technology-智能反射面ris",
+      "name": "智能反射面RIS",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-智能反射面RIS深度解读-20260701.md",
+      "filename": "技术概念-智能反射面RIS-20260701.md",
       "tags": [
         "[天线技术",
         "智能反射面",
@@ -8325,7 +8325,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-波束赋形beamforming深度解读",
+          "targetId": "technology-波束赋形beamforming",
           "label": "关联"
         }
       ]
@@ -8987,17 +8987,17 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-波束赋形beamforming深度解读",
+          "targetId": "technology-波束赋形beamforming",
           "label": "关联"
         }
       ]
     },
     {
-      "id": "technology-波束赋形beamforming深度解读",
-      "name": "波束赋形Beamforming深度解读",
+      "id": "technology-波束赋形beamforming",
+      "name": "波束赋形Beamforming",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-波束赋形Beamforming深度解读-20260618.md",
+      "filename": "技术概念-波束赋形Beamforming-20260618.md",
       "tags": [
         "天线",
         "波束赋形",
@@ -9315,7 +9315,7 @@
       ],
       "outgoing": [
         {
-          "targetId": "technology-波束赋形beamforming深度解读",
+          "targetId": "technology-波束赋形beamforming",
           "label": "关联"
         },
         {
@@ -9526,7 +9526,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-波束赋形beamforming深度解读",
+          "targetId": "technology-波束赋形beamforming",
           "label": "关联"
         },
         {
@@ -9536,11 +9536,11 @@
       ]
     },
     {
-      "id": "technology-电磁屏蔽与emc-shielding深度解读",
-      "name": "电磁屏蔽与EMC Shielding深度解读",
+      "id": "technology-电磁屏蔽与emc-shielding",
+      "name": "电磁屏蔽与EMC Shielding",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-电磁屏蔽与EMC Shielding深度解读-20260629.md",
+      "filename": "技术概念-电磁屏蔽与EMC Shielding-20260629.md",
       "tags": [
         "电磁屏蔽",
         "EMC",
@@ -10052,7 +10052,7 @@
       ],
       "outgoing": [
         {
-          "targetId": "technology-智能反射面ris深度解读",
+          "targetId": "technology-智能反射面ris",
           "label": "关联"
         },
         {
@@ -10066,11 +10066,11 @@
       ]
     },
     {
-      "id": "technology-菲涅尔区天线深度解读",
-      "name": "菲涅尔区天线深度解读",
+      "id": "technology-菲涅尔区天线",
+      "name": "菲涅尔区天线",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-菲涅尔区天线深度解读-20260617.md",
+      "filename": "技术概念-菲涅尔区天线-20260617.md",
       "tags": [
         "天线",
         "微波",
@@ -10505,7 +10505,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-智能反射面ris深度解读",
+          "targetId": "technology-智能反射面ris",
           "label": "关联"
         },
         {
@@ -10858,7 +10858,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-菲涅尔区天线深度解读",
+          "targetId": "technology-菲涅尔区天线",
           "label": "关联"
         }
       ]
@@ -11181,11 +11181,11 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-智能反射面ris深度解读",
+          "targetId": "technology-智能反射面ris",
           "label": "关联"
         },
         {
-          "targetId": "component-天线罩radome深度解读",
+          "targetId": "component-天线罩radome",
           "label": "关联"
         }
       ]
@@ -11378,7 +11378,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-抛物面反射器天线深度解读",
+          "targetId": "technology-抛物面反射器天线",
           "label": "关联"
         },
         {
@@ -11386,7 +11386,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-智能反射面ris深度解读",
+          "targetId": "technology-智能反射面ris",
           "label": "关联"
         }
       ]
@@ -11862,11 +11862,11 @@
       ]
     },
     {
-      "id": "metric-s参数s-parameters深度解读",
-      "name": "S参数S-Parameters深度解读",
+      "id": "metric-s参数s-parameters",
+      "name": "S参数S-Parameters",
       "nameEn": "",
       "type": "metric",
-      "filename": "指标术语-S参数S-Parameters深度解读-20260626.md",
+      "filename": "指标术语-S参数S-Parameters-20260626.md",
       "tags": [
         "天线",
         "S参数",
@@ -12058,11 +12058,11 @@
       ]
     },
     {
-      "id": "metric-vswr电压驻波比深度解读",
-      "name": "VSWR电压驻波比深度解读",
+      "id": "metric-vswr电压驻波比",
+      "name": "VSWR电压驻波比",
       "nameEn": "",
       "type": "metric",
-      "filename": "指标术语-VSWR电压驻波比深度解读-20260626.md",
+      "filename": "指标术语-VSWR电压驻波比-20260626.md",
       "tags": [
         "天线",
         "VSWR",
@@ -12908,7 +12908,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-抛物面反射器天线深度解读",
+          "targetId": "technology-抛物面反射器天线",
           "label": "关联"
         }
       ]
@@ -13216,11 +13216,11 @@
       ]
     },
     {
-      "id": "metric-天线带宽bandwidth深度解读",
-      "name": "天线带宽Bandwidth深度解读",
+      "id": "metric-天线带宽bandwidth",
+      "name": "天线带宽Bandwidth",
       "nameEn": "",
       "type": "metric",
-      "filename": "指标术语-天线带宽Bandwidth深度解读-20260626.md",
+      "filename": "指标术语-天线带宽Bandwidth-20260626.md",
       "tags": [
         "天线",
         "带宽",
@@ -14843,7 +14843,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-抛物面反射器天线深度解读",
+          "targetId": "technology-抛物面反射器天线",
           "label": "关联"
         }
       ]
@@ -15000,7 +15000,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-波束赋形beamforming深度解读",
+          "targetId": "technology-波束赋形beamforming",
           "label": "关联"
         }
       ]
@@ -15809,7 +15809,7 @@
           "label": "关联"
         },
         {
-          "targetId": "component-天线罩radome深度解读",
+          "targetId": "component-天线罩radome",
           "label": "关联"
         }
       ]
@@ -15910,7 +15910,7 @@
       ],
       "outgoing": [
         {
-          "targetId": "component-天线罩radome深度解读",
+          "targetId": "component-天线罩radome",
           "label": "关联"
         },
         {
@@ -17967,7 +17967,7 @@
           "label": "关联"
         },
         {
-          "targetId": "component-天线罩radome深度解读",
+          "targetId": "component-天线罩radome",
           "label": "关联"
         }
       ]
@@ -18117,11 +18117,11 @@
       ]
     },
     {
-      "id": "component-天线罩radome深度解读",
-      "name": "天线罩Radome深度解读",
+      "id": "component-天线罩radome",
+      "name": "天线罩Radome",
       "nameEn": "",
       "type": "component",
-      "filename": "零部件-天线罩Radome深度解读-20260629.md",
+      "filename": "零部件-天线罩Radome-20260629.md",
       "tags": [
         "天线",
         "天线罩",
@@ -18535,7 +18535,7 @@
           "label": "关联"
         },
         {
-          "targetId": "component-天线罩radome深度解读",
+          "targetId": "component-天线罩radome",
           "label": "关联"
         }
       ]
@@ -19461,7 +19461,7 @@
           "label": "关联"
         },
         {
-          "targetId": "component-天线罩radome深度解读",
+          "targetId": "component-天线罩radome",
           "label": "关联"
         }
       ]
@@ -20401,7 +20401,7 @@
           "label": "关联"
         },
         {
-          "targetId": "technology-波束赋形beamforming深度解读",
+          "targetId": "technology-波束赋形beamforming",
           "label": "关联"
         },
         {
@@ -20871,7 +20871,7 @@
     },
     {
       "source": "technology-6g通感一体化isac天线",
-      "target": "technology-智能反射面ris深度解读",
+      "target": "technology-智能反射面ris",
       "type": "related"
     },
     {
@@ -20901,7 +20901,7 @@
     },
     {
       "source": "technology-aau节能技术符号关断通道关断深度休眠",
-      "target": "technology-aau有源天线单元深度解读",
+      "target": "technology-aau有源天线单元",
       "type": "related"
     },
     {
@@ -20931,7 +20931,7 @@
     },
     {
       "source": "technology-fd-mimo全维度mimo",
-      "target": "technology-波束赋形beamforming深度解读",
+      "target": "technology-波束赋形beamforming",
       "type": "related"
     },
     {
@@ -21031,7 +21031,7 @@
     },
     {
       "source": "technology-全息mimo连续孔径capa",
-      "target": "technology-智能反射面ris深度解读",
+      "target": "technology-智能反射面ris",
       "type": "related"
     },
     {
@@ -21056,7 +21056,7 @@
     },
     {
       "source": "technology-口径照明分布aperture-illumination-taper",
-      "target": "technology-抛物面反射器天线深度解读",
+      "target": "technology-抛物面反射器天线",
       "type": "related"
     },
     {
@@ -21216,7 +21216,7 @@
     },
     {
       "source": "technology-天线阵列antenna-array",
-      "target": "technology-波束赋形beamforming深度解读",
+      "target": "technology-波束赋形beamforming",
       "type": "related"
     },
     {
@@ -21231,7 +21231,7 @@
     },
     {
       "source": "technology-天线阵列antenna-array",
-      "target": "technology-aau有源天线单元深度解读",
+      "target": "technology-aau有源天线单元",
       "type": "related"
     },
     {
@@ -21306,7 +21306,7 @@
     },
     {
       "source": "technology-数字孪生天线digital-twin-antenna",
-      "target": "technology-波束赋形beamforming深度解读",
+      "target": "technology-波束赋形beamforming",
       "type": "related"
     },
     {
@@ -21321,7 +21321,7 @@
     },
     {
       "source": "technology-数字孪生天线digital-twin-antenna",
-      "target": "technology-智能反射面ris深度解读",
+      "target": "technology-智能反射面ris",
       "type": "related"
     },
     {
@@ -21336,7 +21336,7 @@
     },
     {
       "source": "technology-方向图函数与数学工具directional-functions",
-      "target": "technology-抛物面反射器天线深度解读",
+      "target": "technology-抛物面反射器天线",
       "type": "related"
     },
     {
@@ -21371,7 +21371,7 @@
     },
     {
       "source": "technology-方向图综合中的凸优化convex-optimization",
-      "target": "technology-波束赋形beamforming深度解读",
+      "target": "technology-波束赋形beamforming",
       "type": "related"
     },
     {
@@ -21386,7 +21386,7 @@
     },
     {
       "source": "technology-无蜂窝网络cell-free-massive-mimo",
-      "target": "technology-波束赋形beamforming深度解读",
+      "target": "technology-波束赋形beamforming",
       "type": "related"
     },
     {
@@ -21436,7 +21436,7 @@
     },
     {
       "source": "technology-极化波束赋形polarization-beamforming",
-      "target": "technology-波束赋形beamforming深度解读",
+      "target": "technology-波束赋形beamforming",
       "type": "related"
     },
     {
@@ -21501,12 +21501,12 @@
     },
     {
       "source": "technology-波束成形ic-bfic",
-      "target": "technology-波束赋形beamforming深度解读",
+      "target": "technology-波束赋形beamforming",
       "type": "related"
     },
     {
       "source": "technology-波束赋形架构dbf-abf-hbf混合对比",
-      "target": "technology-波束赋形beamforming深度解读",
+      "target": "technology-波束赋形beamforming",
       "type": "related"
     },
     {
@@ -21536,7 +21536,7 @@
     },
     {
       "source": "technology-漏波天线leaky-wave-antenna",
-      "target": "technology-波束赋形beamforming深度解读",
+      "target": "technology-波束赋形beamforming",
       "type": "related"
     },
     {
@@ -21546,7 +21546,7 @@
     },
     {
       "source": "technology-绿色天线green-antenna",
-      "target": "technology-智能反射面ris深度解读",
+      "target": "technology-智能反射面ris",
       "type": "related"
     },
     {
@@ -21566,7 +21566,7 @@
     },
     {
       "source": "technology-超表面单元meta-atomunit-cell",
-      "target": "technology-智能反射面ris深度解读",
+      "target": "technology-智能反射面ris",
       "type": "related"
     },
     {
@@ -21596,7 +21596,7 @@
     },
     {
       "source": "technology-近场波束赋形near-field-beamforming",
-      "target": "technology-菲涅尔区天线深度解读",
+      "target": "technology-菲涅尔区天线",
       "type": "related"
     },
     {
@@ -21626,12 +21626,12 @@
     },
     {
       "source": "technology-频率选择表面fss",
-      "target": "technology-智能反射面ris深度解读",
+      "target": "technology-智能反射面ris",
       "type": "related"
     },
     {
       "source": "technology-频率选择表面fss",
-      "target": "component-天线罩radome深度解读",
+      "target": "component-天线罩radome",
       "type": "related"
     },
     {
@@ -21641,7 +21641,7 @@
     },
     {
       "source": "technology-龙勃透镜天线luneburg-lens",
-      "target": "technology-抛物面反射器天线深度解读",
+      "target": "technology-抛物面反射器天线",
       "type": "related"
     },
     {
@@ -21651,7 +21651,7 @@
     },
     {
       "source": "technology-龙勃透镜天线luneburg-lens",
-      "target": "technology-智能反射面ris深度解读",
+      "target": "technology-智能反射面ris",
       "type": "related"
     },
     {
@@ -21781,7 +21781,7 @@
     },
     {
       "source": "metric-口径效率aperture-efficiency",
-      "target": "technology-抛物面反射器天线深度解读",
+      "target": "technology-抛物面反射器天线",
       "type": "related"
     },
     {
@@ -21886,7 +21886,7 @@
     },
     {
       "source": "metric-有效孔径effective-aperture",
-      "target": "technology-抛物面反射器天线深度解读",
+      "target": "technology-抛物面反射器天线",
       "type": "related"
     },
     {
@@ -21911,7 +21911,7 @@
     },
     {
       "source": "metric-波束宽度beamwidth",
-      "target": "technology-波束赋形beamforming深度解读",
+      "target": "technology-波束赋形beamforming",
       "type": "related"
     },
     {
@@ -21981,12 +21981,12 @@
     },
     {
       "source": "material-rogers系列高频板材",
-      "target": "component-天线罩radome深度解读",
+      "target": "component-天线罩radome",
       "type": "related"
     },
     {
       "source": "material-天线罩radome材料",
-      "target": "component-天线罩radome深度解读",
+      "target": "component-天线罩radome",
       "type": "related"
     },
     {
@@ -22221,7 +22221,7 @@
     },
     {
       "source": "component-天线安装结构塔装杆装楼装室内",
-      "target": "component-天线罩radome深度解读",
+      "target": "component-天线罩radome",
       "type": "related"
     },
     {
@@ -22261,7 +22261,7 @@
     },
     {
       "source": "component-室分天线indoor-distribution",
-      "target": "component-天线罩radome深度解读",
+      "target": "component-天线罩radome",
       "type": "related"
     },
     {
@@ -22366,7 +22366,7 @@
     },
     {
       "source": "component-授时天线gnss-timing",
-      "target": "component-天线罩radome深度解读",
+      "target": "component-天线罩radome",
       "type": "related"
     },
     {
@@ -22461,7 +22461,7 @@
     },
     {
       "source": "component-移相器phase-shifter",
-      "target": "technology-波束赋形beamforming深度解读",
+      "target": "technology-波束赋形beamforming",
       "type": "related"
     },
     {
