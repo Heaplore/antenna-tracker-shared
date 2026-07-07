@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T15:45:27+08:00",
+  "generatedAt": "2026-07-07T01:36:51+08:00",
   "configVersion": "1.0",
   "dimensions": {
     "technology": {
@@ -7,9 +7,9 @@
         {
           "type": "技术演进",
           "severity": "high",
-          "title": "AI波束赋形标准化加速",
-          "summary": "3GPP R19冻结明确AI波束赋形标准，推动算法与射频深度融合，提升网络能效。",
-          "recommendation": "布局AI驱动的智能天线研发，关注R19后续Release 20标准演进路径。",
+          "title": "128T128R Massive MIMO规模化部署",
+          "summary": "中国移动集采中128T128R占比首破30%，标志着大规模天线阵列进入深化应用期，成为5G-A主流配置。",
+          "recommendation": "聚焦高通道数AAU研发与制造，优化散热与功耗设计，巩固在核心基站市场的供应链地位。",
           "data_sources": [
             "2026 H1 增量"
           ],
@@ -18,31 +18,32 @@
         {
           "type": "应用场景",
           "severity": "high",
-          "title": "卫星平板相控阵需求爆发",
-          "summary": "中国星网与千帆星座招标完成，卫星平板相控阵终端下半年起集中释放需求。",
-          "recommendation": "提前锁定卫星通信产业链产能，重点突破低成本平板相控阵制造工艺。",
+          "title": "低轨卫星平板相控阵终端需求爆发",
+          "summary": "中国星网与千帆星座二期招标完成，卫星平板相控阵终端需求将于下半年集中释放，开启卫星互联网新赛道。",
+          "recommendation": "加速卫星通信相控阵技术的工程化落地，布局低成本、小型化终端产线，抢占低轨卫星宽带市场先机。",
           "data_sources": [
             "2026 H1 增量"
           ],
           "priorityScore": 4
         },
         {
-          "type": "技术演进",
+          "type": "前沿探索",
           "severity": "medium",
-          "title": "128T128R Massive MIMO普及",
-          "summary": "中国移动集采中128T128R占比首破30%，三频融合天线成为5G-A主流配置。",
-          "recommendation": "优化大规模天线阵列散热与集成设计，适应高频段多频段融合需求。",
+          "title": "AI辅助波束赋形进入标准明确期",
+          "summary": "3GPP R19冻结AI波束赋形功能，结合广电网络向AI原生演进趋势，算法与天线硬件协同成为6G关键方向。",
+          "recommendation": "加强天线阵列设计与AI算法的联合优化能力，参与行业标准制定，构建软硬件一体化的技术壁垒。",
           "data_sources": [
-            "2026 H1 增量"
+            "2026 H1 增量",
+            "近期新闻"
           ],
-          "priorityScore": 3
+          "priorityScore": 4
         },
         {
           "type": "应用场景",
           "severity": "medium",
-          "title": "车载天线集成化规模上量",
-          "summary": "鸿蒙智行等车型推动车载毫米波雷达与5G-V2X车顶天线集成方案规模化应用。",
-          "recommendation": "开发车规级高集成度天线模组，加强与主机厂在V2X场景下的联合创新。",
+          "title": "车载毫米波雷达与5G-V2X集成方案",
+          "summary": "鸿蒙智行及小米SU7等高端车型推动车载毫米波雷达与5G-V2X车顶天线集成方案规模上量，车规级天线需求增长。",
+          "recommendation": "开发高集成度、低干扰的车载多系统共融天线模块，深化与整车厂及Tier 1供应商的合作关系。",
           "data_sources": [
             "2026 H1 增量"
           ],
@@ -56,9 +57,9 @@
         {
           "type": "standard_evolution",
           "severity": "high",
-          "title": "R18 ELAA与高阶MIMO标准落地",
-          "summary": "R18引入ELAA及256天线单元，需关注大规模天线阵列的OTA测试与EMC合规性。",
-          "recommendation": "提前布局ELAA天线设计，完善TS 38.551等OTA测试能力，确保电磁兼容达标。",
+          "title": "R18 ELAA天线与高阶MIMO演进",
+          "summary": "R18引入ELAA及256天线单元，对天线阵列设计、互耦抑制及EMC兼容性提出极高要求。",
+          "recommendation": "提前布局大规模天线阵列仿真，强化近场EMC测试能力，优化天线隔离度设计。",
           "data_sources": [
             "3GPP Release 18"
           ],
@@ -67,9 +68,9 @@
         {
           "type": "tech_trend",
           "severity": "medium",
-          "title": "AI驱动空口与通感融合技术演进",
-          "summary": "R18/R19聚焦AI for NR及ISAC，天线需支持智能波束赋形及雷达感知功能集成。",
-          "recommendation": "研发具备AI算法适配的智能天线系统，验证通感一体化场景下的射频性能与干扰抑制。",
+          "title": "AI原生空口与通感融合技术",
+          "summary": "R18/R19确立AI for NR及ISAC方向，需解决AI算法在射频前端的实时性与硬件加速问题。",
+          "recommendation": "评估基带与射频协同处理架构，开展通感一体化天线的电磁兼容专项测试。",
           "data_sources": [
             "3GPP Release 18",
             "3GPP Release 19"
@@ -78,14 +79,14 @@
         },
         {
           "type": "policy_regulation",
-          "severity": "high",
-          "title": "工业5G专网建设加速与标准适配",
-          "summary": "工信部规划2030年建成5万张工业专网，对低时延、高可靠及特定频段EMC提出新要求。",
-          "recommendation": "针对工业场景优化天线增益与隔离度，强化设备在复杂电磁环境下的鲁棒性与认证准备。",
+          "severity": "low",
+          "title": "6G规模化验证与AI网络演进",
+          "summary": "国内厂商推进6G验证及AI驱动网络，需关注未来频段划分对现有天线标准的潜在影响。",
+          "recommendation": "跟踪工信部频谱规划，预研高频段天线材料，确保符合最新EMC测试规范。",
           "data_sources": [
-            "工信部等八部门政策"
+            "2026-07-07 北京6G产业迈入规模化验证新阶段"
           ],
-          "priorityScore": 4
+          "priorityScore": 2
         }
       ],
       "summary": "quality维度共生成 3 条分析卡片"
@@ -95,39 +96,38 @@
         {
           "type": "cost_analysis",
           "severity": "high",
-          "title": "铜铝原材料价格高位震荡",
-          "summary": "电解铜107769元/吨，铝锭24254元/吨，近期呈上涨趋势，BOM成本承压明显。",
-          "recommendation": "锁定长期铜铝采购合同，优化线缆设计减少贵金属用量，对冲价格波动风险。",
+          "title": "铜铝等金属原材料价格高位震荡",
+          "summary": "电解铜最新价107769元/吨，铝锭24254元/吨，较3月分别上涨5.8%和6.3%，BOM成本承压。",
+          "recommendation": "建议锁定长期铜铝采购合约，优化线缆结构减少贵金属用量，对冲价格波动风险。",
           "data_sources": [
-            "电解铜价格数据",
-            "铝锭价格数据"
+            "原材料价格数据",
+            "BOM成本模型"
           ],
           "priorityScore": 5
         },
         {
           "type": "market_trend",
           "severity": "medium",
-          "title": "通信市场规模稳健增长",
-          "summary": "2024年全球市场320.53亿元，预计2030年达484.26亿元，CAGR为7.12%。",
-          "recommendation": "把握5G深化与数字化机遇，扩大产能规模以获取规模经济效应，降低单位成本。",
+          "title": "通信市场规模稳步增长预期明确",
+          "summary": "2024年全球市场320.53亿元，中国57.7亿元，预计2030年达484.26亿元，CAGR为7.12%。",
+          "recommendation": "顺应市场增长趋势，提前布局产能，利用规模经济效应降低单位加工成本。",
           "data_sources": [
-            "全球市场规模数据",
-            "中国市场预测数据"
+            "市场规模数据",
+            "行业预测报告"
           ],
           "priorityScore": 4
         },
         {
           "type": "competitor_profit",
           "severity": "low",
-          "title": "运营商利润稳步提升",
-          "summary": "中国移动净利1384亿(+5%)，电信330亿(+8.4%)，联通90.3亿(+10.1%)。",
-          "recommendation": "跟随运营商资本开支节奏，提供高性价比解决方案，利用其数字化增长需求拓展业务。",
+          "title": "三大运营商利润稳健支撑资本开支",
+          "summary": "中国移动净利1384亿元(+5%)，电信330亿元(+8.4%)，联通90.3亿元(+10.1%)，需求端强劲。",
+          "recommendation": "关注运营商5G及算力网络招标节奏，优化供应链响应速度以获取更大份额。",
           "data_sources": [
-            "中国移动财报",
-            "中国电信财报",
-            "中国联通财报"
+            "运营商财报",
+            "资本市场数据"
           ],
-          "priorityScore": 4
+          "priorityScore": 3
         }
       ],
       "summary": "cost维度共生成 3 条分析卡片"
@@ -135,24 +135,11 @@
     "delivery": {
       "cards": [
         {
-          "type": "market_trend",
-          "severity": "medium",
-          "title": "运营商集采主导需求强劲",
-          "summary": "三大运营商资本开支稳定，5G建设及专网政策推动天线需求，但主设备商整合带来竞争加剧。",
-          "recommendation": "紧跟运营商集采节奏，强化与主设备商的一体化合作，提升在5G专网市场的份额。",
-          "data_sources": [
-            "供应链概况",
-            "重点企业财务",
-            "近期新闻"
-          ],
-          "priorityScore": 5
-        },
-        {
           "type": "delivery_risk",
           "severity": "high",
           "title": "上游原材料价格波动风险",
-          "summary": "覆铜板及玻纤价格随期货波动，挤压天线整机及部件厂商利润空间，交付成本不确定性增加。",
-          "recommendation": "建立原材料价格联动机制，锁定核心物料长协，优化库存周转以对冲成本上涨压力。",
+          "summary": "覆铜板及玻纤等原材料价格随期货波动，对中下游天线厂商利润形成持续挤压压力。",
+          "recommendation": "建议锁定长协价格，优化BOM成本结构，加强供应商多元化以降低单一物料依赖。",
           "data_sources": [
             "供应链概况"
           ],
@@ -160,20 +147,43 @@
         },
         {
           "type": "tech_innovation",
-          "severity": "low",
-          "title": "5G专网建设带来新机遇",
-          "summary": "工信部规划2030年建成5万张工业5G专网，为天线及射频一体化方案提供增量市场空间。",
-          "recommendation": "加大面向垂直行业的定制化天线研发投入，拓展工业5G专网应用场景的市场渗透率。",
+          "severity": "high",
+          "title": "6G与AI驱动网络演进",
+          "summary": "中国广电推动AI原生网络，北京6G产业进入规模化验证，运营商集采向智能化方向倾斜。",
+          "recommendation": "加大6G预研投入，布局AI赋能的天线射频一体化技术，紧跟运营商技术路线变更。",
           "data_sources": [
-            "近期新闻"
+            "近期新闻（按时间顺序取最近5条）"
           ],
-          "priorityScore": 2
+          "priorityScore": 4
+        },
+        {
+          "type": "delivery_risk",
+          "severity": "medium",
+          "title": "运营商集采节奏与账期压力",
+          "summary": "三大运营商资本开支稳定但集采主导权强，上下游账期错配可能加剧中游厂商现金流压力。",
+          "recommendation": "强化营运资金管理，利用金融工具对冲账期风险，提升对上游议价能力以平衡现金流。",
+          "data_sources": [
+            "供应链概况",
+            "重点企业财务"
+          ],
+          "priorityScore": 4
+        },
+        {
+          "type": "market_trend",
+          "severity": "medium",
+          "title": "天线整机市场竞争加剧",
+          "summary": "传统头部厂商如京信、摩比承压，通宇、亨鑫出现亏损，新锐粤海信、博纬快速崛起。",
+          "recommendation": "需加速产品迭代与技术差异化，关注新兴竞争对手动态，优化产能分配以应对份额流失。",
+          "data_sources": [
+            "供应链概况"
+          ],
+          "priorityScore": 3
         }
       ],
-      "summary": "delivery维度共生成 3 条分析卡片"
+      "summary": "delivery维度共生成 4 条分析卡片"
     }
   },
-  "crossDimensionSummary": "⚠️ 重点：成本：锁定长期铜铝采购合同，优化线缆设计减少贵金属用量，对冲价格波动风险；交付：建立原材料价格联动机制，锁定核心物料长协，优化库存周转以对冲成本上涨压力；技术：布局AI驱动的智能天线研发，关注R19后续Release 20标准演进路径。",
-  "cachedAt": "2026-07-03T15:47:02.564187",
-  "dataHash": "6f27532c5b1b80e0e1478833aeb92bf955c17ac6a477ccf7581ede6d75c11af8"
+  "crossDimensionSummary": "⚠️ 重点：成本：建议锁定长期铜铝采购合约，优化线缆结构减少贵金属用量，对冲价格波动风险；交付：建议锁定长协价格，优化BOM成本结构，加强供应商多元化以降低单一物料依赖；交付：加大6G预研投入，布局AI赋能的天线射频一体化技术，紧跟运营商技术路线变更。",
+  "cachedAt": "2026-07-07T01:38:03.704691",
+  "dataHash": "9b972c816ec9af6bbdacc5a2a10a6feae1dba050d4d764dcd73d0d5361733fc9"
 }
