@@ -40,6 +40,7 @@ import re
 import sys
 import urllib.error
 import urllib.request
+import shutil
 
 # ---------------------------------------------------------------------------
 # 路径 / 常量
@@ -47,6 +48,7 @@ import urllib.request
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 PUBLIC_STANDARDS = os.path.join(PROJECT_ROOT, "public", "data", "standards.json")
+APP_STANDARDS = os.path.join(PROJECT_ROOT, "app", "_data", "standards.json")
 CANDIDATES_FILE = os.path.join(SCRIPT_DIR, "standards_candidates.json")
 
 USER_AGENT = (
@@ -153,10 +155,24 @@ def build_3gpp_candidates(releases: list[str], baseline: dict) -> list[dict]:
     """3GPP candidates: 基线里没有的 Release 都视为候选, 附静态元数据"""
     intl_3gpp = next((c for c in baseline["categories"] if c.get("code") == "intl_3gpp"), None)
     existing_names = {s.get("name", "").strip() for s in (intl_3gpp or {}).get("standards", [])}
+    # 算 baseline 里最大 release 编号 (避免引入已废止 / 故意不收录的旧版)
+    import re as _re
+    max_rel_in_baseline = 0
+    for n in existing_names:
+        m = _re.match(r"3GPP\s+Release\s+(\d+)", n)
+        if m:
+            max_rel_in_baseline = max(max_rel_in_baseline, int(m.group(1)))
     candidates: list[dict] = []
     for rel in releases:
         if rel in existing_names:
             continue
+        # 只关心 >= baseline 已有最新 release 的新版本 (排除回填老版本)
+        m = _re.match(r"3GPP\s+Release\s+(\d+)", rel)
+        if m:
+            n = int(m.group(1))
+            if n <= max_rel_in_baseline:
+                log("info", f"跳过 {rel} (baseline 已有 R{max_rel_in_baseline}, 不回填更老版本)")
+                continue
         meta = RELEASE_KNOWN_META.get(rel, {})
         # rel 已经是 "3GPP Release N" 格式, name 直接用
         candidates.append({
@@ -264,14 +280,95 @@ def print_diff(candidates: list[dict], baseline: dict, stats: dict) -> None:
             print(f"      - {c['name']:20s}  {c['title'][:40]:40s}  {c['publishDate']}")
 
 
+def apply_candidates_to_baseline(candidates: list[dict]) -> dict:
+    """
+    Apply candidates 到 public/data/standards.json + app/_data/standards.json (同内容两份镜像)
+
+    策略:
+      1. 优先读 PUBLIC_STANDARDS (主) ; 若 PUBLIC 不存在而 APP 存在, 读 APP
+      2. 写两份 (public + app), 文件对等
+      3. 每个 candidate 按 fingerprint 跳过已存在
+      4. update lastUpdate 到今天
+      5. 写 .new 后 atomically rename 替换; 同时写 .bak
+
+    Returns {"added": N, "skipped_dup": M, "paths": [...]}
+    """
+    today = _dt.date.today().isoformat()
+
+    # 选 baseline 来源: public 优先, app 兜底
+    src_path = None
+    if os.path.exists(PUBLIC_STANDARDS):
+        src_path = PUBLIC_STANDARDS
+    elif os.path.exists(APP_STANDARDS):
+        src_path = APP_STANDARDS
+    else:
+        log("err", f"基线文件不存在 ({PUBLIC_STANDARDS} 或 {APP_STANDARDS}), --apply 中止")
+        sys.exit(3)
+
+    with open(src_path, "r", encoding="utf-8") as f:
+        baseline = json.load(f)
+
+    target_paths = []
+    for p in [PUBLIC_STANDARDS, APP_STANDARDS]:
+        if os.path.exists(os.path.dirname(p)):
+            target_paths.append(p)
+
+    added = 0
+    skipped_dup = 0
+
+    for cand in candidates:
+        code = cand.get("code") or cand.get("category")
+        cat = next((c for c in baseline.get("categories", []) if c.get("code") == code), None)
+        if not cat:
+            log("warn", f"candidate {cand.get('name')} 类别 {code} 不在基线, 跳过")
+            continue
+        # 防重 (按 name + category)
+        if any(s.get("name") == cand.get("name") for s in cat.get("standards", [])):
+            skipped_dup += 1
+            continue
+        # 注: 基线里 std.category 字段 = 父类 name, 不是 code
+        cat.setdefault("standards", []).append({
+            "name": cand.get("name", ""),
+            "title": cand.get("title", ""),
+            "category": cat.get("name", ""),
+            "status": cand.get("status", ""),
+            "publishDate": cand.get("publishDate", ""),
+            "organization": cand.get("organization", ""),
+            "scope": cand.get("scope", ""),
+            "description": cand.get("description", ""),
+            "url": cand.get("url", ""),
+            "auto_added": True,
+            "auto_added_at": today,
+        })
+        added += 1
+
+    baseline["lastUpdate"] = today
+    # 仅当实际有新增时写盘 (idempotent: 0 新增不动文件)
+    if added == 0:
+        return {"added": 0, "skipped_dup": skipped_dup, "paths": [], "lastUpdate": baseline.get("lastUpdate")}
+
+    written = []  # type: list[str]  # noqa: F841
+    for path in target_paths:
+        bak = path + ".bak"
+        if os.path.exists(path):
+            shutil.copy2(path, bak)
+        new_p = path + ".new"
+        with open(new_p, "w", encoding="utf-8") as f:
+            json.dump(baseline, f, ensure_ascii=False, indent=2)
+        os.replace(new_p, path)
+        written.append(path)
+
+    return {"added": added, "skipped_dup": skipped_dup, "paths": written, "lastUpdate": today}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true", help="写 candidates 到 scripts/standards_candidates.json")
-    ap.add_argument("--apply", action="store_true", help="合并 candidates 进 standards.json (危险, 默认关闭)")
+    ap.add_argument("--apply", action="store_true", help="合并 candidates 进 standards.json (自动, 默认关闭)")
     args = ap.parse_args()
 
     print("=" * 60)
-    log("section", "auto_fetch_standards.py  -  dry-run")
+    log("section", "auto_fetch_standards.py  -  dry-run" if not args.apply else "auto_fetch_standards.py  -  APPLY MODE")
     print("=" * 60)
 
     baseline = load_baseline()
@@ -285,17 +382,38 @@ def main():
             "stats": stats,
             "candidates": candidates,
         }
+
+    if args.apply:
+        result = apply_candidates_to_baseline(candidates)
+        out["apply_result"] = result  # 让 issue 看到本次新增条数
+
+        # apply 后再写一次 JSON (含 apply_result 供下游 review)
+        with open(CANDIDATES_FILE, "w", encoding="utf-8") as f:
+            json.dump(out, f, ensure_ascii=False, indent=2)
+        log("ok", f"已写 {CANDIDATES_FILE} (含 apply_result)")
+
+        print()
+        log("section", "APPLY 结果")
+        log("ok", f"  新增: {result['added']} 条")
+        log("info", f"  跳过重复: {result['skipped_dup']} 条")
+        log("info", f"  写入文件: {len(result['paths'])} 处")
+        for p in result["paths"]:
+            log("info", f"    - {p}")
+        log("info", f"  lastUpdate: {result['lastUpdate']}")
+        if result["added"] == 0:
+            log("info", "  (无新增, baseline 已 idempotent 跳过所有候选)")
+        return 0
+
+    # 只有 --write (无 --apply), 在前面 out 定义后写一次
+    if args.write:
         with open(CANDIDATES_FILE, "w", encoding="utf-8") as f:
             json.dump(out, f, ensure_ascii=False, indent=2)
         log("ok", f"已写 {CANDIDATES_FILE}")
 
-    if args.apply:
-        log("err", "--apply 模式在第一版未实现, 防止误覆盖, 请 review candidates 后人工合并")
-        sys.exit(2)
-
     print()
-    log("info", "无副作用, 仅打印 diff")
+    log("info", "无副作用, 仅打印 diff (加 --apply 才会写入 standards.json)")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
