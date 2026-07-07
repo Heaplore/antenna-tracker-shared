@@ -121,13 +121,14 @@ jobs:
         run: python scripts/generate_banner_report.py || echo "generate_banner_report failed, continue"
         shell: bash
 
-      - name: Run auto_fetch_standards.py (dry-run, 仅周一)
-        if: steps.dow-check.outputs.is_monday == 'true'
+      - name: Run auto_fetch_standards.py (daily, auto-apply)
+        # 全自动 apply: --apply 会 idempotent append 候选到 standards.json,
+        # 0 candidates 时不动 baseline.
         run: |
-          echo "==[standards dry-run, 周一自动]$(date -u +'%Y-%m-%dT%H:%M:%SZ')=="
-          timeout 600 python scripts/auto_fetch_standards.py --write || echo "auto_fetch_standards failed, continue"
+          echo "==[standards auto-apply]$(date -u +'%Y-%m-%dT%H:%M:%SZ')=="
+          timeout 600 python scripts/auto_fetch_standards.py --write --apply || echo "auto_fetch_standards failed, continue"
           if [ -f scripts/standards_candidates.json ]; then
-            COUNT=$(python3 -c "import json; print(len(json.load(open('scripts/standards_candidates.json'))))" 2>/dev/null || echo "0")
+            COUNT=$(python3 -c "import json; print(len(json.load(open('scripts/standards_candidates.json')).get('candidates', [])))" 2>/dev/null || echo "0")
             echo "candidates_count=$COUNT" >> $GITHUB_OUTPUT
           else
             echo "candidates_count=0" >> $GITHUB_OUTPUT
@@ -135,46 +136,56 @@ jobs:
         id: standards-dry-run
         shell: bash
 
-      - name: Notify on new standards candidates (周一)
-        if: |
-          steps.dow-check.outputs.is_monday == 'true' &&
-          steps.standards-dry-run.outputs.candidates_count != '0' &&
-          steps.standards-dry-run.outputs.candidates_count != ''
+      - name: Notify on new standards candidates (daily audit log)
+        # 每都开一个 issue 供 review; 0 candidates 时也开一条空 issue 作为审计轨迹
+        if: steps.standards-dry-run.outputs.candidates_count != ''
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
             const path = 'scripts/standards_candidates.json';
-            let data;
+            let wrapper;
             try {
               const raw = fs.readFileSync(path, 'utf8');
-              data = JSON.parse(raw);
+              wrapper = JSON.parse(raw);
             } catch (err) {
               core.warning(`standards_candidates.json 读取/解析失败 (跳过 issue 创建): ${err.message}`);
               return;
             }
-            if (!Array.isArray(data) || data.length === 0) {
-              core.warning(`standards_candidates.json 不是数组或为空 (${typeof data})，跳过 issue 创建`);
-              return;
-            }
-            const lines = ['### 天线行业标准 · 自动抓取候选项', '', `**抓取时间**: ${new Date().toISOString()}`, `**候选数量**: ${data.length}`, ''];
+            // candidates.json 结构: {generatedAt, baselineLastUpdate, stats, candidates: [...], apply_result?: {...}}
+            const data = Array.isArray(wrapper) ? wrapper : (Array.isArray(wrapper.candidates) ? wrapper.candidates : []);
+            const stats = wrapper.stats || {};
+            const applyAdded = (wrapper.apply_result && typeof wrapper.apply_result.added === 'number') ? wrapper.apply_result.added : -1;
+            const lines = [
+              '### 天线行业标准 · 自动抓取汇总',
+              '',
+              `**抓取时间**: ${wrapper.generatedAt || new Date().toISOString()}`,
+              `**baseline lastUpdate**: ${wrapper.baselineLastUpdate || '?'}`,
+              `**3GPP 页面发现**: ${stats['3gpp_page_releases'] || 0} 个 Release`,
+              `**候选总数**: ${data.length} 条`,
+              `**本次实际 apply 新增**: ${applyAdded < 0 ? '未取样' : applyAdded} 条`,
+              '',
+            ];
             for (const r of data) {
               lines.push(`- **${r.name}** · ${r.organization} · ${r.publishDate || r.frozenDate || '-'}`);
-              lines.push(`  - URL: ${r.url}`);
+              if (r.url) lines.push(`  - URL: ${r.url}`);
               if (r.description) lines.push(`  - desc: ${r.description}`);
             }
-            lines.push('', '---', '', '> Review / merge: 见 `scripts/_apply_candidates.py` (手动 dry-run + apply)');
+            if (data.length === 0) lines.push('_(0 候选, baseline 已 idempotent) _');
+            lines.push('', '---', '', '> 自动 apply 写入 public/data/standards.json + app/_data/standards.json; 无需人工 review');
+            const title = (applyAdded > 0)
+              ? `standards: 自动 apply 新增 ${applyAdded} 条 (${data.length} 候选)`
+              : `standards: 每日扫描 0 新增 (${data.length} 候选)`;
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: 'standards: 新增候选 ' + data.length + ' 条待 review',
+              title: title,
               body: lines.join('\n'),
               labels: ['standards-candidates', 'auto-fetch'],
             });
-            core.info('已创建 Issue 通知 review');
+            core.info('已创建 Issue 通知 review/audit');
 
-      - name: Upload standards candidates artifact (周一)
-        if: steps.dow-check.outputs.is_monday == 'true'
+      - name: Upload standards candidates artifact (daily)
         uses: actions/upload-artifact@v4
         with:
           name: standards-candidates
