@@ -642,12 +642,9 @@ body {
   color: #1a1a2e;
 }
 
-/* Overview grid: donut chart + metrics */
+/* Overview grid: metrics multi-column (chart removed in refactor) */
 .overview-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  align-items: start;
+  display: block;
 }
 
 .chart-panel {
@@ -669,8 +666,8 @@ body {
 }
 
 .metrics-panel {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
 }
 
@@ -871,10 +868,6 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .overview-grid {
-    grid-template-columns: 1fr;
-  }
-
   .detail-grid {
     grid-template-columns: 1fr;
   }
