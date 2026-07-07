@@ -109,36 +109,7 @@ export default function PricesPage() {
           数据更新：{pricesData.lastUpdate} · 数据来源：web_search 公开信息
         </p>
 
-        {/* 行情统计卡片 */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '12px',
-          maxWidth: 560,
-          margin: '24px auto 0',
-        }}>
-          {[
-            { num: totalUp, label: '↑ 上涨', color: '#ff8a80' },
-            { num: totalDown, label: '↓ 下跌', color: '#69f0ae' },
-            { num: totalFlat, label: '— 平稳', color: '#90a4ae' },
-            { num: totalMat, label: '总计', color: 'white', big: true },
-          ].map((s, i) => (
-            <div key={i} style={{
-              background: 'rgba(255,255,255,0.12)',
-              borderRadius: 10,
-              padding: '14px 6px',
-              backdropFilter: 'blur(4px)',
-            }}>
-              <div style={{
-                fontSize: s.big ? 32 : 26,
-                fontWeight: 700,
-                color: s.color,
-                lineHeight: 1,
-              }}>{s.num}</div>
-              <div style={{ fontSize: 11, opacity: 0.85, marginTop: 4 }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
+
       </div>
 
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 16px' }}>
@@ -202,31 +173,35 @@ export default function PricesPage() {
             </div>
           </div>
 
-          {/* 分类统计表 */}
-          <h3 style={{ fontSize: 14, margin: '24px 0 10px', color: '#2c5aa0' }}>📊 分类行情分布</h3>
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
-              <thead>
-                <tr style={{ background: '#f8f9fb' }}>
-                  <th style={{ padding: '8px 10px', textAlign: 'left', color: '#555' }}>类别</th>
-                  <th style={{ padding: '8px 10px', textAlign: 'center', color: '#555' }}>上涨</th>
-                  <th style={{ padding: '8px 10px', textAlign: 'center', color: '#555' }}>下跌</th>
-                  <th style={{ padding: '8px 10px', textAlign: 'center', color: '#555' }}>平稳</th>
-                  <th style={{ padding: '8px 10px', textAlign: 'center', color: '#555' }}>总计</th>
-                </tr>
-              </thead>
-              <tbody>
-                {catStats.map((c, i) => (
-                  <tr key={i} style={{ borderTop: '1px solid #f0f0f0' }}>
-                    <td style={{ padding: '8px 10px' }}>{c.icon} {c.name}</td>
-                    <td style={{ padding: '8px 10px', textAlign: 'center', color: '#e74c3c', fontWeight: 600 }}>{c.up}</td>
-                    <td style={{ padding: '8px 10px', textAlign: 'center', color: '#27ae60', fontWeight: 600 }}>{c.down}</td>
-                    <td style={{ padding: '8px 10px', textAlign: 'center', color: '#888' }}>{c.flat}</td>
-                    <td style={{ padding: '8px 10px', textAlign: 'center', fontWeight: 600 }}>{c.materials.length}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          {/* 行情统计卡片 */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '12px',
+            maxWidth: 560,
+            margin: '0 auto 20px',
+          }}>
+            {[
+              { num: totalUp, label: '↑ 上涨', color: '#e74c3c' },
+              { num: totalDown, label: '↓ 下跌', color: '#27ae60' },
+              { num: totalFlat, label: '— 平稳', color: '#888' },
+              { num: totalMat, label: '总计', color: '#2c5aa0', big: true },
+            ].map((item, i) => (
+              <div key={i} style={{
+                background: '#f8f9fb',
+                borderRadius: 10,
+                padding: '14px 6px',
+                border: '1px solid #eee',
+              }}>
+                <div style={{
+                  fontSize: item.big ? 32 : 26,
+                  fontWeight: 700,
+                  color: item.color,
+                  lineHeight: 1,
+                }}>{item.num}</div>
+                <div style={{ fontSize: 11, color: '#888', marginTop: 4 }}>{item.label}</div>
+              </div>
+            ))}
           </div>
 
           {/* 关键波动材料 */}
