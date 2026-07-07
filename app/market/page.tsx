@@ -1,6 +1,6 @@
 'use client'
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, ScatterChart, Scatter } from 'recharts'
-import marketDataRaw from '@/app/_data/market.json'
+import marketDataRaw from '@/app/_data/market-report.json'
 
 type WorldMarketData = NonNullable<typeof marketDataRaw.worldMarketData>
 type MarketData = typeof marketDataRaw

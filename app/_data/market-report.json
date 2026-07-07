@@ -1,0 +1,156 @@
+{
+  "lastUpdate": "2026-07-07",
+  "summary": {
+    "globalMarketSize2024": "223亿美元",
+    "chinaMarketSize2024": "约57.7亿元（人民币）",
+    "forecast2030": "348亿美元",
+    "cagr": "7.8%",
+    "forecastDetail": {
+      "2024": "223亿美元",
+      "2030E": "348亿美元",
+      "optimistic": "400亿美元+"
+    }
+  },
+  "worldMarketData": {
+    "description": "基于12家机构交叉验证的全球市场格局深度数据（2026年7月）",
+    "marketScale": {
+      "2019": 145,
+      "2020": 152,
+      "2021": 168,
+      "2022": 184,
+      "2023": 201,
+      "2024": 223,
+      "2025E": 240,
+      "2026E": 259,
+      "2027E": 279,
+      "2028E": 300,
+      "2029E": 323,
+      "2030E": 348
+    },
+    "applicationMix2024": {
+      "基站天线": 35,
+      "终端与移动设备": 22,
+      "卫星与航天": 12,
+      "汽车天线": 10,
+      "国防军用": 8,
+      "IoT与WiFi": 7,
+      "其他": 6
+    },
+    "regionalShare2024": {
+      "亚太": 45,
+      "欧洲": 22,
+      "北美": 19,
+      "拉美": 7,
+      "中东及非洲": 7
+    },
+    "vendorMarketShare2024": {
+      "华为": 30,
+      "爱立信": 18,
+      "诺基亚": 12,
+      "中兴": 9,
+      "三星": 6,
+      "京信通信": 5,
+      "康普": 4,
+      "通宇通讯": 3,
+      "摩比发展": 2,
+      "其他": 11
+    },
+    "hotSegments": {
+      "massiveMIMO": {
+        "2024": 45.7,
+        "2031E": 415.5,
+        "cagr": "34.0%",
+        "unit": "亿美元"
+      },
+      "satellitePhasedArray": {
+        "2024": 19.0,
+        "2034E": 81.0,
+        "cagr": "15.6%",
+        "unit": "亿美元"
+      },
+      "v2x": {
+        "2023": 0.015,
+        "2030E": 1.682,
+        "cagr": "40.3%",
+        "unit": "亿美元"
+      }
+    },
+    "techMaturity": [
+      {
+        "name": "Massive MIMO",
+        "commercialization": 85,
+        "aspElasticity": 85
+      },
+      {
+        "name": "卫星相控阵",
+        "commercialization": 75,
+        "aspElasticity": 78
+      },
+      {
+        "name": "基站无源天线",
+        "commercialization": 90,
+        "aspElasticity": 35
+      },
+      {
+        "name": "终端多频段",
+        "commercialization": 50,
+        "aspElasticity": 65
+      },
+      {
+        "name": "RIS可重构智能表面",
+        "commercialization": 35,
+        "aspElasticity": 80
+      },
+      {
+        "name": "车规V2X",
+        "commercialization": 60,
+        "aspElasticity": 70
+      },
+      {
+        "name": "鲨鱼鳍",
+        "commercialization": 55,
+        "aspElasticity": 45
+      },
+      {
+        "name": "WiFi7终端",
+        "commercialization": 70,
+        "aspElasticity": 30
+      },
+      {
+        "name": "IoT LPWA",
+        "commercialization": 40,
+        "aspElasticity": 55
+      }
+    ],
+    "growthDrivers": [
+      "5G资本开支延长周期",
+      "低轨卫星星座爆发",
+      "IoT设备海量连接",
+      "智能汽车电动化",
+      "AI数据中心互联",
+      "防务与卫星互联网"
+    ],
+    "structuralWinds": [
+      {
+        "title": "中国5G-A与6G预研",
+        "detail": "2025-2027年中国5G-A规模商用三年，设备升级带动天线单站价值30-50%提升"
+      },
+      {
+        "title": "低轨卫星地面终端",
+        "detail": "消费级相控阵终端2024-2026突破价格门槛，2027年市场规模有望突破30亿美元"
+      },
+      {
+        "title": "智能汽车出海",
+        "detail": "中国新能源车出海带动配套天线厂商海外份额上行，京信/通宇/信维已布局墨西哥/东南亚产能"
+      }
+    ],
+    "risks": [
+      "地缘政治与出口管制",
+      "频谱碎片化",
+      "毫米波落地缓慢",
+      "价格战",
+      "稀土与原材料",
+      "6G标准不确定性"
+    ]
+  }
+}
