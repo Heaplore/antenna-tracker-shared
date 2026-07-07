@@ -127,9 +127,40 @@ export default function PricesPage() {
             borderLeft: '3px solid #2c5aa0', paddingLeft: 10,
           }}>📋 今日综合分析</h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
+          {/* 第一行: 数据概览(2x2卡片) + 涨幅榜TOP3 + 跌幅榜TOP3, 三列等高 */}
+          <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr 1fr', gap: 20, alignItems: 'start' }}>
+            {/* 数据概览 */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: 8,
+            }}>
+              {[
+                { num: totalUp, label: '↑ 上涨', color: '#e74c3c' },
+                { num: totalDown, label: '↓ 下跌', color: '#27ae60' },
+                { num: totalFlat, label: '— 平稳', color: '#888' },
+                { num: totalMat, label: '总计', color: '#2c5aa0', big: true },
+              ].map((item, i) => (
+                <div key={i} style={{
+                  background: '#f8f9fb',
+                  borderRadius: 10,
+                  padding: '14px 6px',
+                  border: '1px solid #eee',
+                  textAlign: 'center',
+                }}>
+                  <div style={{
+                    fontSize: item.big ? 28 : 22,
+                    fontWeight: 700,
+                    color: item.color,
+                    lineHeight: 1.2,
+                  }}>{item.num}</div>
+                  <div style={{ fontSize: 10, color: '#888', marginTop: 4 }}>{item.label}</div>
+                </div>
+              ))}
+            </div>
+
             {/* 涨幅榜 */}
-            <div>
+            <div style={{ minWidth: 0 }}>
               <h3 style={{ fontSize: 14, margin: '0 0 10px', color: '#e74c3c' }}>🔥 涨幅榜 TOP 3</h3>
               {upTop.length === 0 && <p style={{ color: '#999', fontSize: 13, margin: 0 }}>今日无上涨材料</p>}
               {upTop.map((m, i) => (
@@ -151,7 +182,7 @@ export default function PricesPage() {
             </div>
 
             {/* 跌幅榜 */}
-            <div>
+            <div style={{ minWidth: 0 }}>
               <h3 style={{ fontSize: 14, margin: '0 0 10px', color: '#27ae60' }}>📉 跌幅榜 TOP 3</h3>
               {downTop.length === 0 && <p style={{ color: '#999', fontSize: 13, margin: 0 }}>今日无下跌材料</p>}
               {downTop.map((m, i) => (
@@ -171,37 +202,6 @@ export default function PricesPage() {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* 行情统计卡片 */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '12px',
-            maxWidth: 560,
-            margin: '0 auto 20px',
-          }}>
-            {[
-              { num: totalUp, label: '↑ 上涨', color: '#e74c3c' },
-              { num: totalDown, label: '↓ 下跌', color: '#27ae60' },
-              { num: totalFlat, label: '— 平稳', color: '#888' },
-              { num: totalMat, label: '总计', color: '#2c5aa0', big: true },
-            ].map((item, i) => (
-              <div key={i} style={{
-                background: '#f8f9fb',
-                borderRadius: 10,
-                padding: '14px 6px',
-                border: '1px solid #eee',
-              }}>
-                <div style={{
-                  fontSize: item.big ? 32 : 26,
-                  fontWeight: 700,
-                  color: item.color,
-                  lineHeight: 1,
-                }}>{item.num}</div>
-                <div style={{ fontSize: 11, color: '#888', marginTop: 4 }}>{item.label}</div>
-              </div>
-            ))}
           </div>
 
           {/* 关键波动材料 */}
