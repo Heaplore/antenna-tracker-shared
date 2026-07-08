@@ -1,6 +1,7 @@
 'use client'
 import { useState, useMemo } from 'react'
 import newsData from '@/app/_data/news.json'
+import PageHeader from '@/components/PageHeader'
 
 type NewsItem = {
   id: number
@@ -119,10 +120,10 @@ export default function NewsPage() {
 
   return (
     <div>
-      <header className="header">
-        <h1>📰 行业动态</h1>
-        <p>天线行业最新资讯 · 按时间排序 · 原子卡片展示</p>
-      </header>
+      <PageHeader
+        title="📰 行业动态"
+        subtitle="天线行业最新资讯 · 按时间排序 · 原子卡片展示"
+      />
 
       {/* 来源筛选 */}
       <section className="card" style={{ marginBottom: '24px' }}>

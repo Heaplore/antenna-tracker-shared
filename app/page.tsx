@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import analysisOutputRaw from '@/app/_data/analysis-output.json'
+import PageHeader from '@/components/PageHeader'
 
 const analysisOutput: any = analysisOutputRaw
 
@@ -18,10 +19,10 @@ export default function Home() {
   if (!analysisOutput || !analysisOutput.dimensions) {
     return (
       <div className="container">
-        <header className="header">
-          <h1>📡 天线行业情报追踪</h1>
-          <p>四维交叉分析加载中...</p>
-        </header>
+        <PageHeader
+          title="📡 天线行业情报追踪"
+          subtitle="四维交叉分析加载中..."
+        />
         <div style={{ textAlign: 'center', padding: '60px', color: '#999' }}>
           暂无分析数据，请稍后再试。
         </div>
@@ -31,12 +32,11 @@ export default function Home() {
 
   return (
     <div className="container">
-      {/* Header */}
-      <header className="header">
-        <h1>📡 天线行业情报追踪</h1>
-        <p>四维交叉分析 · 技术 · 质量 · 成本 · 交付</p>
-        <p className="update-info">分析生成时间：{analysisOutput.generatedAt}</p>
-      </header>
+      <PageHeader
+        title="📡 天线行业情报追踪"
+        subtitle="四维交叉分析 · 技术 · 质量 · 成本 · 交付"
+        updateInfo={`分析生成时间：${analysisOutput.generatedAt}`}
+      />
 
       {/* === 四维交叉分析 === */}
       <section className="card">

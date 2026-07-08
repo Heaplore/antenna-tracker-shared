@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react'
 import type { CSSProperties } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import pricesData from '@/app/_data/prices.json'
+import PageHeader from '@/components/PageHeader'
 
 // 分类阈值：超过才算涨跌，以内算平稳
 const THRESHOLDS: Record<string, number> = {
@@ -116,28 +117,14 @@ export default function PricesPage() {
     : pricesData.categories.filter((_, i) => i === activeCategory)
 
   return (
-    <div style={{ background: '#f5f6f8', minHeight: '100vh' }}>
-      {/* ===== Hero ===== */}
-      <div style={{
-        background: 'linear-gradient(135deg, #2c5aa0 0%, #1a4480 100%)',
-        color: 'white',
-        padding: '40px 24px 32px',
-        textAlign: 'center'
-      }}>
-        <h1 style={{ margin: 0, fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 700 }}>
-          📡 基站天线BOM原材料价格
-        </h1>
-        <p style={{ margin: '10px 0 4px', opacity: 0.85, fontSize: '14px' }}>
-          天线制造主要原材料价格走势 · {totalMatCount}种材料
-        </p>
-        <p style={{ margin: 0, opacity: 0.7, fontSize: '12px' }}>
-          数据更新：{pricesData.lastUpdate} · 数据来源：web_search 公开信息
-        </p>
+    <div className="container">
+      <PageHeader
+        title="📡 基站天线BOM原材料价格"
+        subtitle={`天线制造主要原材料价格走势 · ${totalMatCount}种材料`}
+        updateInfo={`数据更新：${pricesData.lastUpdate} · 数据来源：web_search 公开信息`}
+      />
 
-
-      </div>
-
-      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 16px' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
 
         {/* ===== 综合分析 ===== */}
         <div style={{

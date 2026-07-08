@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import companiesData from '@/app/_data/companies.json'
+import PageHeader from '@/components/PageHeader'
 
 type TierKey = 'tier1_operators' | 'tier2_equipment_vendors' | 'tier3_antenna_oems' | 'tier4_antenna_parts' | 'tier5_rf_parts' | 'tier6_key_materials' | 'tier7_raw_materials'
 
@@ -211,11 +212,11 @@ export default function CompaniesPage() {
 
   return (
     <div>
-      <header className="header">
-        <h1>🏢 企业图谱</h1>
-        <p>天线产业链 7 层结构 — 从运营商到原材料，全链条企业追踪与供应链关系分析</p>
-        <p className="update-info">数据更新：{(companiesData as any).lastUpdate}</p>
-      </header>
+      <PageHeader
+        title="🏢 企业图谱"
+        subtitle="天线产业链 7 层结构 — 从运营商到原材料，全链条企业追踪与供应链关系分析"
+        updateInfo={`数据更新：${(companiesData as any).lastUpdate}`}
+      />
 
       {/* 7层供应链Tab */}
       <div style={{ background: '#fff', borderBottom: '1px solid #e0e0e0', marginBottom: '20px', borderRadius: '8px', overflow: 'hidden' }}>

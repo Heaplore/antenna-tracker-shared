@@ -1,6 +1,7 @@
 'use client'
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, ScatterChart, Scatter } from 'recharts'
 import marketDataRaw from '@/app/_data/market-report.json'
+import PageHeader from '@/components/PageHeader'
 
 type WorldMarketData = NonNullable<typeof marketDataRaw.worldMarketData>
 type MarketData = typeof marketDataRaw
@@ -46,13 +47,11 @@ export default function MarketPage() {
   return (
     <div className="space-y-6">
       {/* Hero */}
-      <header className="market-header">
-        <div className="header-content">
-          <h1>全球天线行业市场格局深度报告</h1>
-          <p>Global Antenna Industry Market Landscape · 基于 12 家机构交叉验证</p>
-          <p className="update-info">数据更新：{marketData.lastUpdate}</p>
-        </div>
-      </header>
+      <PageHeader
+        title="全球天线行业市场格局深度报告"
+        subtitle="Global Antenna Industry Market Landscape · 基于 12 家机构交叉验证"
+        updateInfo={`数据更新：${marketData.lastUpdate}`}
+      />
 
       {/* 执行摘要 */}
       <section className="card">

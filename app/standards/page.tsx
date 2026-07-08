@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import standardsData from '@/app/_data/standards.json'
+import PageHeader from '@/components/PageHeader'
 
 export default function StandardsPage() {
   const [activeCategory, setActiveCategory] = useState(0)
@@ -17,11 +18,11 @@ export default function StandardsPage() {
 
   return (
     <div>
-      <header className="header">
-        <h2>📋 行业标准</h2>
-        <p>国内外天线行业相关标准规范 · 按分类查看 · 点击标准编号/名称跳转官方页面</p>
-        <p className="update-info">数据更新：{standardsData.lastUpdate}</p>
-      </header>
+      <PageHeader
+        title="📋 行业标准"
+        subtitle="国内外天线行业相关标准规范 · 按分类查看 · 点击标准编号/名称跳转官方页面"
+        updateInfo={`数据更新：${standardsData.lastUpdate}`}
+      />
 
       {/* 分类Tab */}
       <section className="card">

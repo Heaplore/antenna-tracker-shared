@@ -424,27 +424,23 @@ export default function KnowledgeGraphPage() {
   }
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#fafafa' }}>
-      {/* ===== 顶部工具栏 ===== */}
-      <header
-        style={{
-          padding: '12px 20px',
-          background: '#fff',
-          borderBottom: '1px solid #e5e7eb',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 16,
-          flexWrap: 'wrap',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <h1 style={{ fontSize: 18, fontWeight: 700, color: '#111827', margin: 0 }}>
-            天线知识图谱
-          </h1>
-          <span style={{ fontSize: 12, color: '#6b7280' }}>
-            {filtered.nodes.length} 节点 / {filtered.links.length} 关系 · 更新于 {kgData.lastUpdate}
-          </span>
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'column', background: '#fafafa', height: '100vh' }}>
+      {/* ===== 统一版头 ===== */}
+      <header className="header" style={{ marginBottom: 0, borderRadius: 0 }}>
+        <h1>📡 天线知识图谱</h1>
+        <p>{filtered.nodes.length} 节点 / {filtered.links.length} 关系 · 更新于 {kgData.lastUpdate}</p>
+      </header>
+
+      {/* ===== 工具栏 ===== */}
+      <div style={{
+        padding: '12px 20px',
+        background: '#fff',
+        borderBottom: '1px solid #e5e7eb',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 16,
+        flexWrap: 'wrap',
+      }}>
         {/* 搜索框 */}
         <input
           type="text"
@@ -502,7 +498,7 @@ export default function KnowledgeGraphPage() {
             ↺ 复位
           </button>
         </div>
-      </header>
+        </div>
 
       {/* ===== 图谱区 ===== */}
       <div

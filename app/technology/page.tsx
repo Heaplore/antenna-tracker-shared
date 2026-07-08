@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ZAxis, Line, ComposedChart } from 'recharts'
 import techData from '@/app/_data/technology.json'
+import PageHeader from '@/components/PageHeader'
 
 // TRL 阶段颜色（从低到高）
 const TRL_COLORS = [
@@ -158,11 +159,11 @@ export default function TechnologyPage() {
 
   return (
     <div>
-      <header className="header">
-        <h1>🔬 行业技术</h1>
-        <p>天线行业技术成熟度（TRL）· 市场期望 · 投资规模 三维视图</p>
-        <p className="update-info">数据更新：{techData.lastUpdate}</p>
-      </header>
+      <PageHeader
+        title="🔬 行业技术"
+        subtitle="天线行业技术成熟度（TRL）· 市场期望 · 投资规模 三维视图"
+        updateInfo={`数据更新：${techData.lastUpdate}`}
+      />
 
       <section className="card">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
