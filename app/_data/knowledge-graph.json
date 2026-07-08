@@ -20841,6 +20841,272 @@
           "label": "关联"
         }
       ]
+    },
+    {
+      "id": "technology-中兴gigamimo空域资源深度重构-20260705",
+      "name": "中兴GigaMIMO空域资源深度重构（GigaMIMO）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-中兴GigaMIMO空域资源深度重构-20260705.md",
+      "tags": [
+        "天线",
+        "技术",
+        "中兴",
+        "MIMO",
+        "空域重构"
+      ],
+      "createdAt": "2026-07-05",
+      "updatedAt": "2026-07-05",
+      "oneLiner": "中兴GigaMIMO空域资源深度重构（GigaMIMO）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
+    },
+    {
+      "id": "technology-华为u6ghz全场景产品矩阵-20260705",
+      "name": "华为U6GHz全场景产品矩阵（U6GHz）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-华为U6GHz全场景产品矩阵-20260705.md",
+      "tags": [
+        "天线",
+        "技术",
+        "华为",
+        "U6GHz",
+        "6G"
+      ],
+      "createdAt": "2026-07-05",
+      "updatedAt": "2026-07-05",
+      "oneLiner": "华为U6GHz全场景产品矩阵（U6GHz）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
+    },
+    {
+      "id": "technology-天线仿真工具cst hfss feko altair-20260704",
+      "name": "天线仿真工具（CST/HFSS/FEKO/Altair）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-天线仿真工具-20260704.md",
+      "tags": [
+        "天线",
+        "技术",
+        "工艺",
+        "仿真",
+        "HFSS",
+        "CST"
+      ],
+      "createdAt": "2026-07-04",
+      "updatedAt": "2026-07-04",
+      "oneLiner": "天线仿真工具（CST/HFSS/FEKO/Altair）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
+    },
+    {
+      "id": "technology-天线供应链与产业格局全球国内供应商-20260704",
+      "name": "天线供应链与产业格局（全球/国内供应商）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-天线供应链与产业格局-20260704.md",
+      "tags": [
+        "天线",
+        "技术",
+        "供应链",
+        "产业格局",
+        "厂商"
+      ],
+      "createdAt": "2026-07-04",
+      "updatedAt": "2026-07-04",
+      "oneLiner": "天线供应链与产业格局（全球/国内供应商）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
+    },
+    {
+      "id": "technology-天线制造工艺冲压蚀刻cnc3d打印印刷电子-20260704",
+      "name": "天线制造工艺（冲压/蚀刻/CNC/3D打印/印刷电子）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-天线制造工艺-20260704.md",
+      "tags": [
+        "天线",
+        "技术",
+        "工艺"
+      ],
+      "createdAt": "2026-07-04",
+      "updatedAt": "2026-07-04",
+      "oneLiner": "天线制造工艺（冲压/蚀刻/CNC/3D打印/印刷电子）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
+    },
+    {
+      "id": "technology-天线制造质量检测iqc ipqc oqc尺寸公差插损驻波pim-20260704",
+      "name": "天线制造质量检测（IQC/IPQC/OQC/尺寸公差/插损/驻波/PIM）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-天线制造质量检测-20260704.md",
+      "tags": [
+        "天线",
+        "技术",
+        "工艺"
+      ],
+      "createdAt": "2026-07-04",
+      "updatedAt": "2026-07-04",
+      "oneLiner": "天线制造质量检测（IQC/IPQC/OQC/尺寸公差/插损/驻波/PIM）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
+    },
+    {
+      "id": "technology-天线匹配网络设计smith圆图lc微带-20260704",
+      "name": "天线匹配网络设计（Smith圆图/LC/微带）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-天线匹配网络设计-20260704.md",
+      "tags": [
+        "天线",
+        "技术",
+        "匹配",
+        "Smith圆图",
+        "LC",
+        "微带"
+      ],
+      "createdAt": "2026-07-04",
+      "updatedAt": "2026-07-04",
+      "oneLiner": "天线匹配网络设计（Smith圆图/LC/微带）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
+    },
+    {
+      "id": "technology-天线可靠性与环境测试盐雾温度冰雹风载-20260704",
+      "name": "天线可靠性与环境测试（盐雾/温度/冰雹/风载）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-天线可靠性与环境测试-20260704.md",
+      "tags": [
+        "天线",
+        "技术",
+        "工艺",
+        "测试",
+        "测量",
+        "暗室",
+        "可靠性",
+        "环境测试"
+      ],
+      "createdAt": "2026-07-04",
+      "updatedAt": "2026-07-04",
+      "oneLiner": "天线可靠性与环境测试（盐雾/温度/冰雹/风载）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
+    },
+    {
+      "id": "technology-天线封装集成cop sip fan-out aop-20260704",
+      "name": "天线封装与集成技术（CoP/SiP/Fan-out）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-天线封装与集成技术-20260704.md",
+      "tags": [
+        "天线",
+        "技术",
+        "工艺",
+        "封装",
+        "集成"
+      ],
+      "createdAt": "2026-07-04",
+      "updatedAt": "2026-07-04",
+      "oneLiner": "天线封装与集成技术（CoP/SiP/Fan-out）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
+    },
+    {
+      "id": "technology-天线标准与法规3gpp etsi ieee fcc srrc-20260704",
+      "name": "天线标准与法规（3GPP/ETSI/IEEE/FCC/SRRC）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-天线标准与法规-20260704.md",
+      "tags": [
+        "天线",
+        "技术",
+        "工艺",
+        "3GPP",
+        "ETSI",
+        "IEEE",
+        "FCC",
+        "法规"
+      ],
+      "createdAt": "2026-07-04",
+      "updatedAt": "2026-07-04",
+      "oneLiner": "天线标准与法规（3GPP/ETSI/IEEE/FCC/SRRC）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
+    },
+    {
+      "id": "technology-天线测试与测量方法暗室近场远场校准-20260704",
+      "name": "天线测试与测量方法（暗室/近场/远场/校准）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-天线测试与测量方法-20260704.md",
+      "tags": [
+        "天线",
+        "技术",
+        "工艺",
+        "测试",
+        "测量",
+        "暗室"
+      ],
+      "createdAt": "2026-07-04",
+      "updatedAt": "2026-07-04",
+      "oneLiner": "天线测试与测量方法（暗室/近场/远场/校准）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
+    },
+    {
+      "id": "technology-有源天线aas与无源天线pas对比-20260704",
+      "name": "有源天线 vs 无源天线（AAS vs PAS）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-有源天线 vs 无源天线-20260704.md",
+      "tags": [
+        "天线",
+        "技术",
+        "AAS",
+        "PAS",
+        "有源天线"
+      ],
+      "createdAt": "2026-07-04",
+      "updatedAt": "2026-07-04",
+      "oneLiner": "有源天线 vs 无源天线（AAS vs PAS）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
+    },
+    {
+      "id": "technology-清华sc-ris自控制智能超表面-20260705",
+      "name": "清华SC-RIS自控制智能超表面（SC-RIS）",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-清华SC-RIS自控制智能超表面-20260705.md",
+      "tags": [
+        "天线",
+        "技术",
+        "RIS",
+        "超表面",
+        "6G",
+        "智能表面"
+      ],
+      "createdAt": "2026-07-05",
+      "updatedAt": "2026-07-05",
+      "oneLiner": "清华SC-RIS自控制智能超表面（SC-RIS）（索引条目，内容待 build-kg-from-notes.py 重建）",
+      "analogy": "",
+      "sections": [],
+      "outgoing": []
     }
   ],
   "links": [
