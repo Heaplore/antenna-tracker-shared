@@ -4,27 +4,51 @@ import type { CSSProperties } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import pricesData from '@/app/_data/prices.json'
 
+// 分类阈值：超过才算涨跌，以内算平稳
+const THRESHOLDS: Record<string, number> = {
+  '金属原材料': 1.0,
+  '工程塑料': 0.5,
+  'PCB/覆铜板': 0.5,
+  '化工类原材料': 0.5,
+}
+
+function parsePct(s: any): number {
+  const v = String(s || '0').replace('%', '').replace('+', '')
+  const n = parseFloat(v)
+  return isNaN(n) ? 0 : n
+}
+
+function computeTrend(changeStr: string, categoryName: string): string {
+  const pct = parsePct(changeStr)
+  const threshold = THRESHOLDS[categoryName] ?? 0.5
+  if (Math.abs(pct) <= threshold) return '持平'
+  return pct > 0 ? '上涨' : '下跌'
+}
+
 export default function PricesPage() {
   const [activeCategory, setActiveCategory] = useState<number | 'all'>('all')
 
-  // 统计
+  // 统计（带趋势修正）
   const allMats = useMemo(() => {
     return pricesData.categories.flatMap((c, ci) =>
-      c.materials.map((m, mi) => ({ ...m, _catIdx: ci, _catName: c.name, _catIcon: c.icon, _matIdx: mi }))
+      c.materials.map((m, mi) => ({
+        ...m,
+        _catIdx: ci,
+        _catName: c.name,
+        _catIcon: c.icon,
+        _matIdx: mi,
+        // 用阈值重新计算 trend，覆盖 JSON 中的旧值
+        _trend: computeTrend(m.change || '0%', c.name),
+      }))
     )
   }, [])
 
   const totalMat = allMats.length
-  const totalUp = allMats.filter(m => m.trend === '上涨').length
-  const totalDown = allMats.filter(m => m.trend === '下跌').length
+  const totalUp = allMats.filter(m => m._trend === '上涨').length
+  const totalDown = allMats.filter(m => m._trend === '下跌').length
   const totalFlat = totalMat - totalUp - totalDown
 
   // 涨跌幅榜
-  const parsePct = (s: any) => {
-    const v = String(s || '0').replace('%', '').replace('+', '')
-    const n = parseFloat(v)
-    return isNaN(n) ? 0 : n
-  }
   const matsWithPct = allMats.map(m => ({ ...m, _pct: parsePct(m.change) }))
   const upTop = [...matsWithPct].sort((a, b) => b._pct - a._pct).filter(m => m._pct > 0).slice(0, 3)
   const downTop = [...matsWithPct].sort((a, b) => a._pct - b._pct).filter(m => m._pct < 0).slice(0, 3)
@@ -40,11 +64,11 @@ export default function PricesPage() {
     return v.toString()
   }
 
-  // 分类统计
+  // 分类统计（也用修正后的 trend）
   const totalMatCount = pricesData.categories.reduce((s, c) => s + c.materials.length, 0)
   const catStats = pricesData.categories.map(c => {
-    const up = c.materials.filter(m => m.trend === '上涨').length
-    const down = c.materials.filter(m => m.trend === '下跌').length
+    const up = c.materials.filter(m => computeTrend(m.change || '0%', c.name) === '上涨').length
+    const down = c.materials.filter(m => computeTrend(m.change || '0%', c.name) === '下跌').length
     const flat = c.materials.length - up - down
     return { ...c, up, down, flat }
   })
@@ -413,7 +437,9 @@ function MaterialCard({ mat, fmtYAxis }: { mat: any; fmtYAxis: (v: number, u?: s
     }
     return sliced
   }
-  const trendColor = mat.trend === '上涨' ? '#e74c3c' : mat.trend === '下跌' ? '#27ae60' : '#888'
+  // 用阈值重新计算 trend，覆盖 JSON 中的旧值
+  const effectiveTrend = computeTrend(mat.change || '0%', mat._catName || '')
+  const trendColor = effectiveTrend === '上涨' ? '#e74c3c' : effectiveTrend === '下跌' ? '#27ae60' : '#888'
 
   // Y轴动态范围
   const hist = getRecent6(mat.historical || [])
@@ -458,8 +484,8 @@ function MaterialCard({ mat, fmtYAxis }: { mat: any; fmtYAxis: (v: number, u?: s
           {mat.currentPrice.toLocaleString()}
         </span>
         <span style={{ fontSize: 13, color: trendColor, fontWeight: 600 }}>{mat.change}</span>
-        <span style={{ fontSize: 12, color: trendColor, padding: '2px 8px', background: mat.trend === '上涨' ? '#fff5f5' : mat.trend === '下跌' ? '#f0faf4' : '#f5f5f5', borderRadius: 10 }}>
-          {mat.trend}
+        <span style={{ fontSize: 12, color: trendColor, padding: '2px 8px', background: effectiveTrend === '上涨' ? '#fff5f5' : effectiveTrend === '下跌' ? '#f0faf4' : '#f5f5f5', borderRadius: 10 }}>
+          {effectiveTrend}
         </span>
       </div>
 
