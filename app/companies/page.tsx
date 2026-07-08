@@ -211,11 +211,11 @@ export default function CompaniesPage() {
   }
 
   return (
-    <div>
+    <div className="container">
       <PageHeader
         title="🏢 企业图谱"
         subtitle="天线产业链 7 层结构 — 从运营商到原材料，全链条企业追踪与供应链关系分析"
-        updateInfo={`数据更新：${(companiesData as any).lastUpdate}`}
+        updateInfo={`数据更新：${(companiesData as any).lastUpdate} · 数据来源：web_search 公开信息`}
       />
 
       {/* 7层供应链Tab */}

@@ -21,7 +21,7 @@ export default function Home() {
       <div className="container">
         <PageHeader
           title="📡 天线行业情报追踪"
-          subtitle="四维交叉分析加载中..."
+          subtitle="行业分析 · 市场动态 · 企业图谱 · 价格走势 · 技术标准 · 知识图谱"
         />
         <div style={{ textAlign: 'center', padding: '60px', color: '#999' }}>
           暂无分析数据，请稍后再试。
@@ -34,7 +34,7 @@ export default function Home() {
     <div className="container">
       <PageHeader
         title="📡 天线行业情报追踪"
-        subtitle="四维交叉分析 · 技术 · 质量 · 成本 · 交付"
+        subtitle="行业分析 · 市场动态 · 企业图谱 · 价格走势 · 技术标准 · 知识图谱"
         updateInfo={`分析生成时间：${analysisOutput.generatedAt}`}
       />
 

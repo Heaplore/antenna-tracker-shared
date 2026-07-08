@@ -17,11 +17,11 @@ export default function StandardsPage() {
   }
 
   return (
-    <div>
+    <div className="container">
       <PageHeader
         title="📋 行业标准"
         subtitle="国内外天线行业相关标准规范 · 按分类查看 · 点击标准编号/名称跳转官方页面"
-        updateInfo={`数据更新：${standardsData.lastUpdate}`}
+        updateInfo={`数据更新：${standardsData.lastUpdate} · 数据来源：web_search 公开信息`}
       />
 
       {/* 分类Tab */}

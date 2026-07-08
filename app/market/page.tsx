@@ -45,12 +45,11 @@ export default function MarketPage() {
     : 0
 
   return (
-    <div className="space-y-6">
-      {/* Hero */}
+    <div className="container">
       <PageHeader
         title="全球天线行业市场格局深度报告"
         subtitle="Global Antenna Industry Market Landscape · 基于 12 家机构交叉验证"
-        updateInfo={`数据更新：${marketData.lastUpdate}`}
+        updateInfo={`数据更新：${marketData.lastUpdate} · 数据来源：web_search 公开信息`}
       />
 
       {/* 执行摘要 */}

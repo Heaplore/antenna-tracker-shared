@@ -158,11 +158,11 @@ export default function TechnologyPage() {
   const currentTech = techData.technologyDetail[selectedTech]
 
   return (
-    <div>
+    <div className="container">
       <PageHeader
         title="🔬 行业技术"
         subtitle="天线行业技术成熟度（TRL）· 市场期望 · 投资规模 三维视图"
-        updateInfo={`数据更新：${techData.lastUpdate}`}
+        updateInfo={`数据更新：${techData.lastUpdate} · 数据来源：web_search 公开信息`}
       />
 
       <section className="card">

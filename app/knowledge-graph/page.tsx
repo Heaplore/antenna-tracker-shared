@@ -426,9 +426,10 @@ export default function KnowledgeGraphPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', background: '#fafafa', height: '100vh' }}>
       {/* ===== 统一版头 ===== */}
-      <header className="header" style={{ marginBottom: 0, borderRadius: 0 }}>
+      <header className="header">
         <h1>📡 天线知识图谱</h1>
         <p>{filtered.nodes.length} 节点 / {filtered.links.length} 关系 · 更新于 {kgData.lastUpdate}</p>
+        <p className="update-info">数据来源：内部知识库整理</p>
       </header>
 
       {/* ===== 工具栏 ===== */}

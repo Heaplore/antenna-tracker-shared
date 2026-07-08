@@ -119,10 +119,11 @@ export default function NewsPage() {
   }, [activeFilter, newsArray])
 
   return (
-    <div>
+    <div className="container">
       <PageHeader
         title="📰 行业动态"
         subtitle="天线行业最新资讯 · 按时间排序 · 原子卡片展示"
+        updateInfo={`数据更新：${newsData.lastUpdate} · 数据来源：web_search 公开信息`}
       />
 
       {/* 来源筛选 */}
