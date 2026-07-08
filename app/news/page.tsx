@@ -123,7 +123,7 @@ export default function NewsPage() {
       <PageHeader
         title="📰 行业动态"
         subtitle="天线行业最新资讯 · 按时间排序 · 原子卡片展示"
-        updateInfo={`数据更新：${newsData.lastUpdate} · 数据来源：web_search 公开信息`}
+        updateInfo={`数据更新：${newsArray.length > 0 ? newsArray[0].date : '—'} · 数据来源：web_search 公开信息`}
       />
 
       {/* 来源筛选 */}
