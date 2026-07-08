@@ -290,7 +290,7 @@ export default function KnowledgeGraphPage() {
     nodeSel
       .append('circle')
       .attr('r', (d) => getNodeRadius(d))
-      .attr('fill', (d) => isCenter(d) ? '#4f46e5' : TYPE_COLORS[(d as any).type])
+      .attr('fill', (d) => isCenter(d) ? '#4f46e5' : TYPE_COLORS[(d as any).type as NodeType])
       .attr('stroke', '#fff')
       .attr('stroke-width', (d) => isCenter(d) ? 3 : 2)
       .attr('opacity', 0.9)
@@ -304,7 +304,7 @@ export default function KnowledgeGraphPage() {
       .attr('font-weight', 700)
       .attr('fill', '#fff')
       .attr('pointer-events', 'none')
-      .text((d) => TYPE_ICONS[(d as any).type])
+      .text((d) => TYPE_ICONS[(d as any).type as NodeType])
 
     // 节点名称标签
     nodeSel
