@@ -72,6 +72,11 @@ const TYPE_ICONS: Record<NodeType, string> = {
 }
 
 const NODE_RADIUS = 18
+const MIN_NODE_RADIUS = 10
+const MAX_NODE_RADIUS = 35
+const CENTER_RADIUS = 60      // 中心节点半径
+const ORBIT_RADIUS = 120      // 第一层轨道半径
+const ORBIT_SPACING = 70      // 层间距
 
 // ===== 页面 =====
 
@@ -128,7 +133,7 @@ export default function KnowledgeGraphPage() {
     return { incoming, outgoing }
   }, [selectedId])
 
-  // ===== D3 力导向图渲染 =====
+  // ===== Obsidian 风格圆形布局渲染 =====
   useEffect(() => {
     const svg = svgRef.current
     const container = containerRef.current
@@ -149,79 +154,118 @@ export default function KnowledgeGraphPage() {
     // zoom/pan
     const zoom = d3
       .zoom<SVGSVGElement, unknown>()
-      .scaleExtent([0.2, 5])
+      .scaleExtent([0.3, 4])
       .on('zoom', (event) => {
         g.attr('transform', event.transform.toString())
       })
     zoomRef.current = zoom
     d3.select(svg).call(zoom)
 
-    // 复制数据 (避免 d3 内部改 frozen JSON)
-    const nodes: SimNode[] = filtered.nodes.map((n) => ({
-      id: n.id,
-      name: n.name,
-      type: n.type,
-      oneLiner: n.oneLiner,
-    }))
-    const links: SimLink[] = filtered.links.map((l) => ({
-      source: l.source,
-      target: l.target,
-    }))
+    // 复制数据并计算度数
+    const nodeMap = new Map<string, any>()
+    filtered.nodes.forEach((n) => {
+      nodeMap.set(n.id, { ...n, degree: 0 })
+    })
+    filtered.links.forEach((l) => {
+      const src = typeof l.source === 'string' ? l.source : (l.source as any).id
+      const tgt = typeof l.target === 'string' ? l.target : (l.target as any).id
+      if (nodeMap.has(src)) nodeMap.get(src).degree++
+      if (nodeMap.has(tgt)) nodeMap.get(tgt).degree++
+    })
 
+    const nodes = Array.from(nodeMap.values())
     if (nodes.length === 0) return
 
-    // simulation
-    const sim = d3
-      .forceSimulation<SimNode, SimLink>(nodes)
-      .force(
-        'link',
-        d3
-          .forceLink<SimNode, SimLink>(links)
-          .id((d) => d.id)
-          .distance(110)
-          .strength(0.6),
-      )
-      .force('charge', d3.forceManyBody<SimNode>().strength(-280))
-      .force('center', d3.forceCenter(W / 2, H / 2))
-      .force(
-        'collide',
-        d3.forceCollide<SimNode>().radius(NODE_RADIUS + 6),
-      )
-      .alpha(1)
-      .alphaDecay(0.025)
-    simulationRef.current = sim
+    // 找到中心节点（连接最多的）
+    const centerNode = nodes.reduce((a, b) => a.degree > b.degree ? a : b)
 
-    // 连线 (箭头)
+    // BFS 分层
+    const visited = new Set<string>()
+    const layers: any[][] = []
+    let queue: string[] = [centerNode.id]
+    visited.add(centerNode.id)
+    
+    while (queue.length > 0) {
+      const layer: any[] = []
+      const nextQueue: string[] = []
+      
+      for (const id of queue) {
+        const node = nodeMap.get(id)
+        if (node) layer.push(node)
+        
+        // 找邻居
+        for (const link of filtered.links) {
+          const s = typeof link.source === 'string' ? link.source : (link.source as any).id
+          const t = typeof link.target === 'string' ? link.target : (link.target as any).id
+          const neighborId = s === id ? t : s
+          if (!visited.has(neighborId) && nodeMap.has(neighborId)) {
+            visited.add(neighborId)
+            nextQueue.push(neighborId)
+          }
+        }
+      }
+      
+      if (layer.length > 0) {
+        layers.push(layer)
+        queue = nextQueue
+      } else {
+        break
+      }
+    }
+
+    // 按层分配角度和半径
+    let angleOffset = 0
+    nodes.forEach((node) => {
+      const layerIdx = layers.findIndex(l => l.some(n => n.id === node.id))
+      const layerNodes = layers[layerIdx] || []
+      const idxInLayer = layerNodes.findIndex(n => n.id === node.id)
+      
+      const radius = CENTER_RADIUS + layerIdx * ORBIT_SPACING
+      const angleStep = (2 * Math.PI) / layerNodes.length
+      const angle = angleOffset + idxInLayer * angleStep
+      
+      // 根据度数调整半径（度数高的更靠近中心）
+      const maxDegree = Math.max(...nodes.map(n => n.degree), 1)
+      const degreeFactor = 1 - (node.degree / maxDegree) * 0.3
+      const finalRadius = radius * degreeFactor
+      
+      node.x = W / 2 + Math.cos(angle) * finalRadius
+      node.y = H / 2 + Math.sin(angle) * finalRadius
+      node.layer = layerIdx
+    })
+
+    // 连线
     const defs = d3.select(svg).append('defs')
     defs
       .append('marker')
       .attr('id', 'arrow')
       .attr('viewBox', '0 -5 10 10')
-      .attr('refX', 22)
+      .attr('refX', 20)
       .attr('refY', 0)
-      .attr('markerWidth', 6)
-      .attr('markerHeight', 6)
+      .attr('markerWidth', 5)
+      .attr('markerHeight', 5)
       .attr('orient', 'auto')
       .append('path')
       .attr('d', 'M0,-5L10,0L0,5')
       .attr('fill', '#cbd5e1')
 
+    // 绘制连线（先画线，再画节点，让节点覆盖线端点）
     const linkSel = g
       .append('g')
       .attr('class', 'links')
       .selectAll('line')
-      .data(links)
+      .data(filtered.links)
       .join('line')
       .attr('stroke', '#cbd5e1')
       .attr('stroke-width', 1)
-      .attr('stroke-opacity', 0.5)
+      .attr('stroke-opacity', 0.4)
       .attr('marker-end', 'url(#arrow)')
 
-    // 节点组 (圆 + 文字)
+    // 节点组
     const nodeSel = g
       .append('g')
       .attr('class', 'nodes')
-      .selectAll<SVGGElement, SimNode>('g')
+      .selectAll<SVGGElement, any>('g')
       .data(nodes, (d: any) => d.id)
       .join('g')
       .attr('class', 'node')
@@ -229,50 +273,76 @@ export default function KnowledgeGraphPage() {
       .on('click', (_, d) => setSelectedId(d.id))
       .on('mouseover', (_, d) => setHoveredId(d.id))
       .on('mouseout', () => setHoveredId(null))
-      .call(
-        d3
-          .drag<SVGGElement, SimNode>()
-          .on('start', (event, d) => {
-            if (!event.active) sim.alphaTarget(0.3).restart()
-            d.fx = d.x
-            d.fy = d.y
-          })
-          .on('drag', (event, d) => {
-            d.fx = event.x
-            d.fy = event.y
-          })
-          .on('end', (event, d) => {
-            if (!event.active) sim.alphaTarget(0)
-            d.fx = null
-            d.fy = null
-          }) as any,
-      )
+
+    // 节点圆圈大小根据度数
+    const getNodeRadius = (node: any) => {
+      const maxDegree = Math.max(...nodes.map(n => n.degree), 1)
+      const minDegree = Math.min(...nodes.map(n => n.degree), 1)
+      const normalized = minDegree === maxDegree 
+        ? 0.5 
+        : (node.degree - minDegree) / (maxDegree - minDegree)
+      return MIN_NODE_RADIUS + normalized * (MAX_NODE_RADIUS - MIN_NODE_RADIUS)
+    }
+
+    // 中心节点特殊样式
+    const isCenter = (node: any) => node.id === centerNode.id
 
     nodeSel
       .append('circle')
-      .attr('r', NODE_RADIUS)
-      .attr('fill', (d) => TYPE_COLORS[d.type])
+      .attr('r', (d) => getNodeRadius(d))
+      .attr('fill', (d) => isCenter(d) ? '#4f46e5' : TYPE_COLORS[d.type])
       .attr('stroke', '#fff')
-      .attr('stroke-width', 2)
+      .attr('stroke-width', (d) => isCenter(d) ? 3 : 2)
+      .attr('opacity', 0.9)
 
+    // 节点内图标
     nodeSel
       .append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', '0.35em')
-      .attr('font-size', 14)
+      .attr('font-size', (d) => isCenter(d) ? 18 : 12)
       .attr('font-weight', 700)
       .attr('fill', '#fff')
       .attr('pointer-events', 'none')
       .text((d) => TYPE_ICONS[d.type])
 
+    // 节点名称标签
     nodeSel
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('dy', NODE_RADIUS + 16)
-      .attr('font-size', 11)
-      .attr('fill', '#1f2937')
+      .attr('dy', (d) => getNodeRadius(d) + 14)
+      .attr('font-size', 10)
+      .attr('fill', '#374151')
       .attr('pointer-events', 'none')
-      .text((d) => (d.name.length > 12 ? d.name.slice(0, 12) + '…' : d.name))
+      .attr('font-weight', 500)
+      .text((d) => {
+        const name = d.name.length > 10 ? d.name.slice(0, 10) + '…' : d.name
+        return name
+      })
+
+    // 初始位置设置
+    nodeSel.attr('transform', (d) => `translate(${d.x ?? W/2},${d.y ?? H/2})`)
+    linkSel
+      .attr('x1', (d: any) => {
+        const s = typeof d.source === 'string' ? d.source : (d.source as any).id
+        const node = nodeMap.get(s)
+        return node?.x ?? W/2
+      })
+      .attr('y1', (d: any) => {
+        const s = typeof d.source === 'string' ? d.source : (d.source as any).id
+        const node = nodeMap.get(s)
+        return node?.y ?? H/2
+      })
+      .attr('x2', (d: any) => {
+        const t = typeof d.target === 'string' ? d.target : (d.target as any).id
+        const node = nodeMap.get(t)
+        return node?.x ?? W/2
+      })
+      .attr('y2', (d: any) => {
+        const t = typeof d.target === 'string' ? d.target : (d.target as any).id
+        const node = nodeMap.get(t)
+        return node?.y ?? H/2
+      })
 
     // 选中节点高亮
     function updateHighlight() {
@@ -281,51 +351,40 @@ export default function KnowledgeGraphPage() {
       const focusId = sel || hov
       if (!focusId) {
         nodeSel.attr('opacity', 1)
-        linkSel.attr('opacity', 0.5)
+        linkSel.attr('opacity', 0.4)
         return
       }
       const neighborSet = new Set<string>([focusId])
-      for (const l of links) {
-        const s = typeof l.source === 'string' ? l.source : (l.source as SimNode).id
-        const t = typeof l.target === 'string' ? l.target : (l.target as SimNode).id
+      for (const l of filtered.links) {
+        const s = typeof l.source === 'string' ? l.source : (l.source as any).id
+        const t = typeof l.target === 'string' ? l.target : (l.target as any).id
         if (s === focusId) neighborSet.add(t)
         if (t === focusId) neighborSet.add(s)
       }
-      nodeSel.attr('opacity', (d) => (neighborSet.has(d.id) ? 1 : 0.2))
+      nodeSel.attr('opacity', (d) => (neighborSet.has(d.id) ? 1 : 0.15))
       linkSel
         .attr('opacity', (l: any) => {
-          const s = typeof l.source === 'string' ? l.source : l.source.id
-          const t = typeof l.target === 'string' ? l.target : l.target.id
-          return s === focusId || t === focusId ? 0.9 : 0.05
+          const s = typeof l.source === 'string' ? l.source : (l.source as any).id
+          const t = typeof l.target === 'string' ? l.target : (l.target as any).id
+          return (s === focusId || t === focusId) ? 0.8 : 0.03
         })
         .attr('stroke', (l: any) => {
-          const s = typeof l.source === 'string' ? l.source : l.source.id
-          const t = typeof l.target === 'string' ? l.target : l.target.id
-          return s === focusId || t === focusId ? '#6366f1' : '#cbd5e1'
+          const s = typeof l.source === 'string' ? l.source : (l.source as any).id
+          const t = typeof l.target === 'string' ? l.target : (l.target as any).id
+          return (s === focusId || t === focusId) ? '#6366f1' : '#cbd5e1'
         })
         .attr('stroke-width', (l: any) => {
-          const s = typeof l.source === 'string' ? l.source : l.source.id
-          const t = typeof l.target === 'string' ? l.target : l.target.id
-          return s === focusId || t === focusId ? 2 : 1
+          const s = typeof l.source === 'string' ? l.source : (l.source as any).id
+          const t = typeof l.target === 'string' ? l.target : (l.target as any).id
+          return (s === focusId || t === focusId) ? 2 : 0.5
         })
     }
     updateHighlight()
 
-    // tick
-    sim.on('tick', () => {
-      linkSel
-        .attr('x1', (d: any) => (typeof d.source === 'object' ? d.source.x : 0))
-        .attr('y1', (d: any) => (typeof d.source === 'object' ? d.source.y : 0))
-        .attr('x2', (d: any) => (typeof d.target === 'object' ? d.target.x : 0))
-        .attr('y2', (d: any) => (typeof d.target === 'object' ? d.target.y : 0))
-      nodeSel.attr('transform', (d) => `translate(${d.x ?? 0},${d.y ?? 0})`)
-    })
-
-    // 上一次 highlight 同步
+    // 监听选中/hover 变化
     const id = setInterval(updateHighlight, 60)
     return () => {
       clearInterval(id)
-      sim.stop()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtered])
@@ -428,7 +487,7 @@ export default function KnowledgeGraphPage() {
       {/* ===== 统一版头 ===== */}
       <header className="header">
         <h1>📡 天线知识图谱</h1>
-        <p>{filtered.nodes.length} 节点 / {filtered.links.length} 关系 · 更新于 {kgData.lastUpdate}</p>
+        <p>{filtered.nodes.length} 节点 / {filtered.links.length} 条关系 · 更新于 {kgData.lastUpdate}</p>
         <p className="update-info">数据来源：内部知识库整理</p>
       </header>
 
