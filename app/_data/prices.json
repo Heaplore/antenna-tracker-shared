@@ -646,8 +646,8 @@
         {
           "name": "PA66",
           "unit": "元/吨",
-          "currentPrice": 19467,
-          "change": "-6.3%",
+          "currentPrice": 18033,
+          "change": "-9.8%",
           "trend": "下跌",
           "date": "2026-07-08",
           "impact": "天线外罩、连接器外壳、矩频连接器结构件",
@@ -655,20 +655,48 @@
           "dataUrl": "https://www.sci99.com/",
           "historical": [
             {
+              "month": "2025-12",
+              "price": 15800
+            },
+            {
+              "month": "2026-01",
+              "price": 16200
+            },
+            {
+              "month": "2026-02",
+              "price": 17500
+            },
+            {
+              "month": "2026-03",
+              "price": 20000
+            },
+            {
+              "month": "2026-04",
+              "price": 25100
+            },
+            {
+              "month": "2026-05",
+              "price": 22000
+            },
+            {
               "month": "2026-06",
-              "price": 24500
+              "price": 20000
             },
             {
               "month": "2026-07",
-              "price": 19467
+              "price": 18033
+            },
+            {
+              "month": "2026-08",
+              "price": 18033
             }
           ]
         },
         {
           "name": "PBT",
           "unit": "元/吨",
-          "currentPrice": 8600,
-          "change": "-56.6%",
+          "currentPrice": 8550,
+          "change": "-5.0%",
           "trend": "下跌",
           "date": "2026-07-08",
           "impact": "5G基站天线振子、滤波器绝缘骨架材料",
@@ -676,12 +704,40 @@
           "dataUrl": "https://www.sci99.com/",
           "historical": [
             {
+              "month": "2025-12",
+              "price": 10000
+            },
+            {
+              "month": "2026-01",
+              "price": 10200
+            },
+            {
+              "month": "2026-02",
+              "price": 10300
+            },
+            {
+              "month": "2026-03",
+              "price": 10500
+            },
+            {
+              "month": "2026-04",
+              "price": 10500
+            },
+            {
+              "month": "2026-05",
+              "price": 10000
+            },
+            {
               "month": "2026-06",
-              "price": 19800
+              "price": 9000
             },
             {
               "month": "2026-07",
-              "price": 8600
+              "price": 8550
+            },
+            {
+              "month": "2026-08",
+              "price": 8550
             }
           ]
         }
