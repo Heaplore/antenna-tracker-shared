@@ -7,6 +7,7 @@ import pricesData from '@/app/_data/prices.json'
 // 分类阈值：超过才算涨跌，以内算平稳
 const THRESHOLDS: Record<string, number> = {
   '金属原材料': 1.0,
+  '金属': 1.0,
   '工程塑料': 0.5,
   'PCB/覆铜板': 0.5,
   '化工类原材料': 0.5,
@@ -320,7 +321,7 @@ export default function PricesPage() {
               gap: 14,
             }}>
               {cat.materials.map((mat, mi) => (
-                <MaterialCard key={mi} mat={mat} fmtYAxis={fmtYAxis} />
+                <MaterialCard key={mi} mat={mat} catName={cat.name} fmtYAxis={fmtYAxis} />
               ))}
             </div>
 
@@ -414,7 +415,7 @@ function tabStyle(active: boolean): React.CSSProperties {
   }
 }
 
-function MaterialCard({ mat, fmtYAxis }: { mat: any; fmtYAxis: (v: number, u?: string) => string }) {
+function MaterialCard({ mat, catName, fmtYAxis }: { mat: any; catName: string; fmtYAxis: (v: number, u?: string) => string }) {
   // 历史趋势窗口: 始终显示近 6 个月 (≤ lastUpdate 月份), 剔除 forecast 月
   // pricesData dataSpan = 2025-12 ~ 2026-08 (含 forecast 8月), chart 只画到 2026-07
   // 用 pricesData.lastUpdate 算 currentMonth, 再 slice
@@ -438,7 +439,7 @@ function MaterialCard({ mat, fmtYAxis }: { mat: any; fmtYAxis: (v: number, u?: s
     return sliced
   }
   // 用阈值重新计算 trend，覆盖 JSON 中的旧值
-  const effectiveTrend = computeTrend(mat.change || '0%', mat._catName || '')
+  const effectiveTrend = computeTrend(mat.change || '0%', catName)
   const trendColor = effectiveTrend === '上涨' ? '#e74c3c' : effectiveTrend === '下跌' ? '#27ae60' : '#888'
 
   // Y轴动态范围
