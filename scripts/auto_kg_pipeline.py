@@ -66,13 +66,13 @@ def log(msg: str) -> None:
         f.write(line + "\n")
 
 
-def run_cmd(cmd: List[str], cwd: Optional[Path] = None, check: bool = True) -> Tuple[int, str, str]:
+def run_cmd(cmd: List[str], cwd: Optional[Path] = None, check: bool = True, env: Optional[dict] = None) -> Tuple[int, str, str]:
     """运行命令, 返回 (returncode, stdout, stderr)"""
     try:
         result = subprocess.run(
             cmd, cwd=str(cwd) if cwd else None,
             capture_output=True, text=True, encoding="utf-8",
-            shell=False, timeout=600,
+            shell=False, timeout=600, env=env,
         )
         return result.returncode, result.stdout, result.stderr
     except subprocess.TimeoutExpired as e:
@@ -187,8 +187,11 @@ def step3_render_html(dry_run: bool = False) -> bool:
     return True
 
 
-def step4_git_commit_push(dry_run: bool = False) -> bool:
-    """[4] git diff 检出变化 → commit + push (有变化才提交)"""
+def step4_git_commit_push(dry_run: bool = False) -> str:
+    """[4] git diff 检出变化 → commit + push
+
+    返回 'pushed' | 'no_changes' | 'push_failed'
+    """
     log("[4/7] 检查 git 变更...")
     # 先 stash 脏文件
     dirty_patterns = ["$null", ".github/workflows/monthly-market-report.yml",
@@ -203,21 +206,23 @@ def step4_git_commit_push(dry_run: bool = False) -> bool:
                               "app/_data/", "public/kg-cards-rendered/"],
                              cwd=ROOT)
     has_changes = bool(status.strip())
-    if not has_changes:
-        log("      无变更，跳过 commit")
-        # 还原 stash
-        run_cmd(["git", "stash", "list"], cwd=ROOT, check=False)
-        for line in subprocess.run(["git", "stash", "list"], cwd=str(ROOT),
-                                    capture_output=True, text=True, encoding="utf-8").stdout.splitlines():
+
+    # 还原 stash（无论结果如何）
+    rc2, stash_list, _ = run_cmd(["git", "stash", "list"], cwd=ROOT)
+    if rc2 == 0:
+        for line in stash_list.splitlines():
             if "auto-stash-" in line:
                 stash_id = line.split(":")[0]
                 run_cmd(["git", "stash", "pop", stash_id], cwd=ROOT, check=False)
-        return True
+
+    if not has_changes:
+        log("      无变更，跳过 commit")
+        return "no_changes"
 
     log(f"      检出变更:\n{status}")
     if dry_run:
         log("      (dry-run 跳过 commit/push)")
-        return True
+        return "no_changes"
 
     # add + commit
     rc, _, err = run_cmd(["git", "add", "app/_data/knowledge-graph.json",
@@ -225,7 +230,7 @@ def step4_git_commit_push(dry_run: bool = False) -> bool:
                          cwd=ROOT)
     if rc != 0:
         log(f"[X] git add 失败: {err[:300]}")
-        return False
+        return "push_failed"
 
     ts = datetime.now(BJ_TZ).strftime("%Y-%m-%d %H:%M")
     commit_msg = f"auto(kg): refresh from vault @ {ts}"
@@ -235,31 +240,25 @@ def step4_git_commit_push(dry_run: bool = False) -> bool:
     ], cwd=ROOT)
     if rc != 0:
         log(f"[X] git commit 失败: {err[:300]}")
-        return False
+        return "push_failed"
     log(f"      committed: {commit_msg}")
 
-    # push
+    # push (先 pull rebase 避免远程有 newer commit 冲突)
     env = os.environ.copy()
     env["GIT_SSL_NO_VERIFY"] = "1"
-    rc, out, err = subprocess.run(
-        ["git", "push", "origin", "main"],
-        cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8",
-        env=env, shell=False,
-    ).returncode, subprocess.run(
-        ["git", "push", "origin", "main"],
-        cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8",
-        env=env, shell=False,
-    ).stdout, subprocess.run(
-        ["git", "push", "origin", "main"],
-        cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8",
-        env=env, shell=False,
-    ).stderr
+    rc, _, err = run_cmd(["git", "pull", "--rebase", "origin", "main"],
+                         cwd=ROOT, env=env)
+    if rc != 0:
+        log(f"[!] git pull --rebase 失败: {err[:300]}")
+        log("    仍尝试 push（fetch 失败但 rebase 可能侥幸成功）")
+    rc, out, err = run_cmd(["git", "push", "origin", "main"],
+                           cwd=ROOT, env=env)
     if rc != 0:
         log(f"[!] git push 失败: {err[:300]}")
         log("    将在下次运行时重试")
-        return False
+        return "push_failed"
     log("      pushed to origin/main")
-    return True
+    return "pushed"
 
 
 def step5_trigger_pages(dry_run: bool = False) -> bool:
@@ -355,14 +354,17 @@ def main():
     step3_render_html(dry_run=args.dry_run)
 
     # 步骤 4
-    push_ok = step4_git_commit_push(dry_run=args.dry_run)
-    if not push_ok:
+    push_status = step4_git_commit_push(dry_run=args.dry_run)
+    if push_status == "push_failed":
         log("[WARN] 步骤 4 失败，继续执行")
 
-    # 步骤 5 & 6: 只在 push 成功时才跑 deploy/index
-    if push_ok:
+    # 步骤 5 & 6: 只在 push 成功时才跑 deploy/index (无变更 / push 失败都跳过)
+    if push_status == "pushed":
         step5_trigger_pages(dry_run=args.dry_run)
         step6_regen_index(dry_run=args.dry_run)
+    elif push_status == "no_changes":
+        log("[5/7] 跳过 (无变更)")
+        log("[6/7] 跳过 (无变更)")
     else:
         log("[5/7] 跳过 (push 失败)")
         log("[6/7] 跳过 (push 失败)")

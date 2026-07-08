@@ -21,7 +21,9 @@ except ImportError:
 
 ROOT = Path(r"E:/OH-workspace/antenna-tracker")
 TEMPLATES_DIR = ROOT / "public/kg-cards/templates"
-RENDERED_DIR = ROOT / "public/kg-cards/rendered"
+# 2026-07-08 fix: 输出目录应与 deploy 目录一致 (public/kg-cards-rendered/, 连字符)
+# 原版是 public/kg-cards/rendered/ (嵌套), 会导致渲染的 HTML 不到 GH
+RENDERED_DIR = ROOT / "public/kg-cards-rendered"
 KG_FILE = ROOT / "app/_data/knowledge-graph.json"
 
 
