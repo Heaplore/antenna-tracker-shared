@@ -1,11 +1,12 @@
 name: Deploy to GitHub Pages
 
-# 统一时间: 每天 14:30 (Asia/Shanghai) = 06:30 UTC
-# 触发路径: daily-data-update.yml 跑完数据更新后, 在最后一步 'Trigger GitHub Pages deploy'
-#           通过 gh workflow run deploy-pages.yml 触发本 workflow
-# 不再监听 push main hook (避免双部署)
-# 不再设独立 schedule (统一在 daily 14:30 一次完成)
+# 触发路径:
+#   1. push main → 自动构建部署（前端代码变更立即生效）
+#   2. workflow_dispatch → 手动触发
+#   3. workflow_call → 被其他 workflow 调用
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     # 手动触发, 由 daily-data-update.yml 在 data 更新后调用
   workflow_call:

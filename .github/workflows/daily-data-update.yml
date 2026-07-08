@@ -239,12 +239,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # ----------------------------------------------------------------
-      # 触发 deploy (build + push GitHub Pages)
+      # deploy-pages.yml 已监听 push main, 自动触发无需显式调用
+      # 保留此注释供后续维护者理解为何删除了 gh workflow run
       # ----------------------------------------------------------------
-      - name: Trigger GitHub Pages deploy
-        if: steps.git-status.outputs.has_changes == 'true'
-        run: |
-          echo "Triggering deploy-pages workflow..."
-          gh workflow run deploy-pages.yml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
