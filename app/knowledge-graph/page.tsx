@@ -93,6 +93,10 @@ export default function KnowledgeGraphPage() {
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null)
   const zoomScaleRef = useRef(1)
   const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const focusRef = useRef<{ selectedId: string | null; hoveredId: string | null }>({
+    selectedId: null,
+    hoveredId: null,
+  })
   const [containerSize, setContainerSize] = useState({ w: 1200, h: 800 })
 
   // ===== 过滤后数据 =====
@@ -144,12 +148,11 @@ export default function KnowledgeGraphPage() {
     // zoom/pan：随缩放动态显示/隐藏标签和图标
     const updateVisibility = () => {
       const k = zoomScaleRef.current
-      g.selectAll('text.node-icon').attr('opacity', (d: any) => {
-        if (d.id === selectedId || d.id === hoveredId) return 1
-        return k >= ICON_ZOOM_THRESHOLD ? 0.9 : 0
-      })
+      const { selectedId: sel, hoveredId: hov } = focusRef.current
+      const focus = sel || hov
       g.selectAll('text.node-label').attr('opacity', (d: any) => {
-        if (d.id === selectedId || d.id === hoveredId) return 1
+        // 有 focus 时文字显隐由第二个 useEffect 统一处理，避免闭包旧值覆盖高亮
+        if (focus) return null
         return k >= LABEL_ZOOM_THRESHOLD ? 0.9 : 0
       })
     }
@@ -262,11 +265,16 @@ export default function KnowledgeGraphPage() {
       .on('mouseover', (_, d) => setHoveredId(d.id))
       .on('mouseout', () => setHoveredId(null))
 
-    // 节点拖拽（与力模拟结合）；无位移的单击 = 打开卡片，避免 d3-drag 吞掉 click 导致要点两下
+    // 节点拖拽（与力模拟结合）；微移/无位移的单击 = 打开卡片
+    let dragStartX = 0
+    let dragStartY = 0
     let dragMoved = false
     const drag = d3
       .drag<SVGGElement, any>()
+      .clickDistance(4)
       .on('start', function (event, d) {
+        dragStartX = event.x
+        dragStartY = event.y
         dragMoved = false
         d3.select(this).raise()
         if (!event.active) simulation.alphaTarget(0.3).restart()
@@ -282,9 +290,16 @@ export default function KnowledgeGraphPage() {
         if (!event.active) simulation.alphaTarget(0)
         d.fx = null
         d.fy = null
-        if (!dragMoved) setSelectedId(d.id) // 单击（无拖动）即打开详情
+        const dx = event.x - dragStartX
+        const dy = event.y - dragStartY
+        if (!dragMoved || Math.sqrt(dx * dx + dy * dy) < 4) {
+          setSelectedId(d.id) // 单击（几乎无拖动）即打开详情
+        }
       })
     nodeSel.call(drag as any)
+
+    // click fallback：d3-drag 在发生拖动时会抑制 click，未拖动时允许原生点击直接开卡
+    nodeSel.on('click', (_, d) => setSelectedId(d.id))
 
     // 中心节点特殊样式
     const isCenter = (node: any) => node.id === centerNode.id
@@ -296,19 +311,6 @@ export default function KnowledgeGraphPage() {
       .attr('stroke', '#fff')
       .attr('stroke-width', (d) => (isCenter(d) ? 1.5 : 1))
       .attr('opacity', 0.95)
-
-    // 节点内图标：放大后/悬停/选中才显示
-    nodeSel
-      .append('text')
-      .attr('class', 'node-icon')
-      .attr('text-anchor', 'middle')
-      .attr('dy', '0.35em')
-      .attr('font-size', 6)
-      .attr('font-weight', 400)
-      .attr('fill', '#fff')
-      .attr('pointer-events', 'none')
-      .attr('opacity', 0)
-      .text((d) => TYPE_ICONS[(d as any).type as NodeType])
 
     // 节点名称标签：默认隐藏，放大后/悬停/选中显示
     nodeSel
@@ -336,106 +338,68 @@ export default function KnowledgeGraphPage() {
         .attr('y2', (d: any) => (d.target as any).y)
     })
 
-    // 选中节点高亮
-    function updateHighlight() {
-      const sel = selectedId
-      const hov = hoveredId
-      const focusId = sel || hov
-      const k = zoomScaleRef.current
-      if (!focusId) {
-        nodeSel.attr('opacity', 1)
-        linkSel.attr('opacity', 0.25)
-        g.selectAll('text.node-icon').attr('opacity', (d: any) => (k >= ICON_ZOOM_THRESHOLD ? 0.9 : 0))
-        g.selectAll('text.node-label').attr('opacity', (d: any) => (k >= LABEL_ZOOM_THRESHOLD ? 0.9 : 0))
-        return
-      }
-      const neighborSet = new Set<string>([focusId])
-      for (const l of filtered.links) {
-        const s = typeof l.source === 'string' ? l.source : (l.source as any).id
-        const t = typeof l.target === 'string' ? l.target : (l.target as any).id
-        if (s === focusId) neighborSet.add(t)
-        if (t === focusId) neighborSet.add(s)
-      }
-      nodeSel.attr('opacity', (d) => (neighborSet.has(d.id) ? 1 : 0.12))
-      g.selectAll('text.node-icon').attr('opacity', (d: any) =>
-        neighborSet.has(d.id) || k >= ICON_ZOOM_THRESHOLD ? 0.95 : 0,
-      )
-      g.selectAll('text.node-label').attr('opacity', (d: any) =>
-        neighborSet.has(d.id) || k >= LABEL_ZOOM_THRESHOLD ? 0.95 : 0,
-      )
-      linkSel
-        .attr('opacity', (l: any) => {
-          const s = typeof l.source === 'string' ? l.source : (l.source as any).id
-          const t = typeof l.target === 'string' ? l.target : (l.target as any).id
-          return s === focusId || t === focusId ? 1 : 0.03
-        })
-        .attr('stroke', (l: any) => {
-          const s = typeof l.source === 'string' ? l.source : (l.source as any).id
-          const t = typeof l.target === 'string' ? l.target : (l.target as any).id
-          return s === focusId || t === focusId ? '#4338ca' : '#cbd5e1'
-        })
-        .attr('stroke-width', (l: any) => {
-          const s = typeof l.source === 'string' ? l.source : (l.source as any).id
-          const t = typeof l.target === 'string' ? l.target : (l.target as any).id
-          return s === focusId || t === focusId ? 2.5 : 0.4
-        })
-    }
-    updateHighlight()
     updateVisibility()
 
-    // 监听选中/hover 变化
-    const id = setInterval(updateHighlight, 60)
     return () => {
-      clearInterval(id)
       simulation.stop()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtered])
 
-  // ===== 选中/hover 联动 =====
+  // 同步 focus 状态到 ref，供 zoom/pan 等闭包读取
+  useEffect(() => {
+    focusRef.current = { selectedId, hoveredId }
+  }, [selectedId, hoveredId])
+
+  // ===== 选中/hover 联动：统一处理高亮 + 缩放文字显隐 =====
   useEffect(() => {
     const svg = svgRef.current
     if (!svg) return
     const k = zoomScaleRef.current
     const sel = d3.select(svg).selectAll<SVGGElement, SimNode>('g.node')
     const lnk = d3.select(svg).selectAll<SVGLineElement, SimLink>('line')
-    const icons = d3.select(svg).selectAll<SVGTextElement, SimNode>('text.node-icon')
     const labels = d3.select(svg).selectAll<SVGTextElement, SimNode>('text.node-label')
-    const sel_id = selectedId
-    const hov = hoveredId
-    const focus = sel_id || hov
-    if (!focus) {
-      sel.attr('opacity', 1)
-      lnk.attr('opacity', 0.2).attr('stroke-width', 0.6).attr('stroke', '#94a3b8')
-      icons.attr('opacity', (d: any) => (k >= ICON_ZOOM_THRESHOLD ? 0.9 : 0))
-      labels.attr('opacity', (d: any) => (k >= LABEL_ZOOM_THRESHOLD ? 0.9 : 0))
-      return
+    const focus = selectedId || hoveredId
+
+    // 标签可见性辅助函数
+    const labelOpacity = (d: any) => {
+      if (focus && (d.id === focus || neighborSet?.has(d.id))) return 0.95
+      if (!focus && k >= LABEL_ZOOM_THRESHOLD) return 0.9
+      return 0
     }
-    const neighborSet = new Set([focus])
-    const idOf = (x: any) => (typeof x === 'string' ? x : x?.id)
-    kgData.links.forEach((l) => {
-      if (idOf(l.source) === focus) neighborSet.add(idOf(l.target) as string)
-      if (idOf(l.target) === focus) neighborSet.add(idOf(l.source) as string)
-    })
-    sel.attr('opacity', (d: any) => (neighborSet.has(d.id) ? 1 : 0.12))
-    icons.attr('opacity', (d: any) => (neighborSet.has(d.id) || k >= ICON_ZOOM_THRESHOLD ? 0.95 : 0))
-    labels.attr('opacity', (d: any) => (neighborSet.has(d.id) || k >= LABEL_ZOOM_THRESHOLD ? 0.95 : 0))
-    lnk
-      .attr('opacity', (l: any) => {
-        const s = typeof l.source === 'object' ? l.source.id : l.source
-        const t = typeof l.target === 'object' ? l.target.id : l.target
-        return s === focus || t === focus ? 1 : 0.03
-      })
-      .attr('stroke', (l: any) => {
-        const s = typeof l.source === 'object' ? l.source.id : l.source
-        const t = typeof l.target === 'object' ? l.target.id : l.target
-        return s === focus || t === focus ? '#4338ca' : '#cbd5e1'
-      })
-      .attr('stroke-width', (l: any) => {
-        const s = typeof l.source === 'object' ? l.source.id : l.source
-        const t = typeof l.target === 'object' ? l.target.id : l.target
-        return s === focus || t === focus ? 2.5 : 0.4
-      })
+
+    let neighborSet: Set<string> | undefined
+    if (focus) {
+      neighborSet = new Set([focus])
+      const idOf = (x: any) => (typeof x === 'string' ? x : x?.id)
+      // 从过滤后的 links 计算邻居（与当前渲染视图一致）
+      for (const l of kgData.links) {
+        if (idOf(l.source) === focus) neighborSet.add(idOf(l.target) as string)
+        if (idOf(l.target) === focus) neighborSet.add(idOf(l.source) as string)
+      }
+      sel.attr('opacity', (d: any) => (neighborSet!.has(d.id) ? 1 : 0.15))
+      labels.attr('opacity', labelOpacity)
+      lnk
+        .attr('opacity', (l: any) => {
+          const s = typeof l.source === 'object' ? l.source.id : l.source
+          const t = typeof l.target === 'object' ? l.target.id : l.target
+          return s === focus || t === focus ? 1 : 0.04
+        })
+        .attr('stroke', (l: any) => {
+          const s = typeof l.source === 'object' ? l.source.id : l.source
+          const t = typeof l.target === 'object' ? l.target.id : l.target
+          return s === focus || t === focus ? '#4338ca' : '#cbd5e1'
+        })
+        .attr('stroke-width', (l: any) => {
+          const s = typeof l.source === 'object' ? l.source.id : l.source
+          const t = typeof l.target === 'object' ? l.target.id : l.target
+          return s === focus || t === focus ? 2.5 : 0.4
+        })
+    } else {
+      sel.attr('opacity', 1)
+      labels.attr('opacity', labelOpacity)
+      lnk.attr('opacity', 0.2).attr('stroke-width', 0.6).attr('stroke', '#94a3b8')
+    }
   }, [selectedId, hoveredId])
 
   // ===== 容器尺寸响应 =====
