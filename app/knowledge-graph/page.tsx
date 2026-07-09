@@ -71,12 +71,14 @@ const TYPE_ICONS: Record<NodeType, string> = {
   material: '⬡',
 }
 
-const NODE_RADIUS = 18
-const MIN_NODE_RADIUS = 10
-const MAX_NODE_RADIUS = 35
-const CENTER_RADIUS = 60      // 中心节点半径
-const ORBIT_RADIUS = 120      // 第一层轨道半径
-const ORBIT_SPACING = 70      // 层间距
+// Obsidian 风格：小圆点，文字随缩放/悬停/选中显示
+const MIN_NODE_RADIUS = 4
+const MAX_NODE_RADIUS = 8
+const CENTER_RADIUS = 12            // 中心节点半径
+const ORBIT_RADIUS = 90             // 第一层轨道半径（更紧凑）
+const ORBIT_SPACING = 50            // 层间距（更紧凑）
+const LABEL_ZOOM_THRESHOLD = 1.2    // 放大到多少倍才显示全部文字
+const ICON_ZOOM_THRESHOLD = 1.5     // 图标（符号）放大到多少倍才显示
 
 // ===== 页面 =====
 
@@ -90,6 +92,7 @@ export default function KnowledgeGraphPage() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const simulationRef = useRef<d3.Simulation<SimNode, SimLink> | null>(null)
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null)
+  const zoomScaleRef = useRef(1)
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [containerSize, setContainerSize] = useState({ w: 1200, h: 800 })
 
@@ -151,12 +154,51 @@ export default function KnowledgeGraphPage() {
       .attr('viewBox', `0 0 ${W} ${H}`)
       .append('g')
 
-    // zoom/pan
+    // 背景网格（Obsidian 风格点阵）
+    const defs = d3.select(svg).append('defs')
+    const gridSize = 40
+    const gridPattern = defs
+      .append('pattern')
+      .attr('id', 'obsidian-grid')
+      .attr('width', gridSize)
+      .attr('height', gridSize)
+      .attr('patternUnits', 'userSpaceOnUse')
+    gridPattern
+      .append('circle')
+      .attr('cx', gridSize / 2)
+      .attr('cy', gridSize / 2)
+      .attr('r', 1.2)
+      .attr('fill', '#e5e7eb')
+    g
+      .append('rect')
+      .attr('class', 'grid-bg')
+      .attr('width', W * 4)
+      .attr('height', H * 4)
+      .attr('x', -W * 1.5)
+      .attr('y', -H * 1.5)
+      .attr('fill', 'url(#obsidian-grid)')
+      .attr('pointer-events', 'none')
+
+    // zoom/pan：随缩放动态显示/隐藏标签和图标
+    const updateVisibility = () => {
+      const k = zoomScaleRef.current
+      g.selectAll('text.node-icon').attr('opacity', (d: any) => {
+        if (d.id === selectedId || d.id === hoveredId) return 1
+        return k >= ICON_ZOOM_THRESHOLD ? 0.9 : 0
+      })
+      g.selectAll('text.node-label').attr('opacity', (d: any) => {
+        if (d.id === selectedId || d.id === hoveredId) return 1
+        return k >= LABEL_ZOOM_THRESHOLD ? 0.9 : 0
+      })
+    }
+
     const zoom = d3
       .zoom<SVGSVGElement, unknown>()
-      .scaleExtent([0.3, 4])
+      .scaleExtent([0.3, 5])
       .on('zoom', (event) => {
         g.attr('transform', event.transform.toString())
+        zoomScaleRef.current = event.transform.k
+        updateVisibility()
       })
     zoomRef.current = zoom
     d3.select(svg).call(zoom)
@@ -234,32 +276,16 @@ export default function KnowledgeGraphPage() {
       node.layer = layerIdx
     })
 
-    // 连线
-    const defs = d3.select(svg).append('defs')
-    defs
-      .append('marker')
-      .attr('id', 'arrow')
-      .attr('viewBox', '0 -5 10 10')
-      .attr('refX', 20)
-      .attr('refY', 0)
-      .attr('markerWidth', 5)
-      .attr('markerHeight', 5)
-      .attr('orient', 'auto')
-      .append('path')
-      .attr('d', 'M0,-5L10,0L0,5')
-      .attr('fill', '#cbd5e1')
-
-    // 绘制连线（先画线，再画节点，让节点覆盖线端点）
+    // 连线：Obsidian 风格，无箭头、细、淡
     const linkSel = g
       .append('g')
       .attr('class', 'links')
       .selectAll('line')
       .data(filtered.links)
       .join('line')
-      .attr('stroke', '#cbd5e1')
-      .attr('stroke-width', 1)
-      .attr('stroke-opacity', 0.4)
-      .attr('marker-end', 'url(#arrow)')
+      .attr('stroke', '#94a3b8')
+      .attr('stroke-width', 0.8)
+      .attr('stroke-opacity', 0.25)
 
     // 节点组
     const nodeSel = g
@@ -274,13 +300,39 @@ export default function KnowledgeGraphPage() {
       .on('mouseover', (_, d) => setHoveredId(d.id))
       .on('mouseout', () => setHoveredId(null))
 
-    // 节点圆圈大小根据度数
+    // 节点拖拽（直接更新坐标，不需要力模拟）
+    const updateLinksForNode = (draggedId: string) => {
+      linkSel
+        .filter((d: any) => {
+          const s = typeof d.source === 'string' ? d.source : (d.source as any).id
+          const t = typeof d.target === 'string' ? d.target : (d.target as any).id
+          return s === draggedId || t === draggedId
+        })
+        .attr('x1', (d: any) => nodeMap.get(typeof d.source === 'string' ? d.source : (d.source as any).id)?.x ?? W / 2)
+        .attr('y1', (d: any) => nodeMap.get(typeof d.source === 'string' ? d.source : (d.source as any).id)?.y ?? H / 2)
+        .attr('x2', (d: any) => nodeMap.get(typeof d.target === 'string' ? d.target : (d.target as any).id)?.x ?? W / 2)
+        .attr('y2', (d: any) => nodeMap.get(typeof d.target === 'string' ? d.target : (d.target as any).id)?.y ?? H / 2)
+    }
+
+    const drag = d3
+      .drag<SVGGElement, any>()
+      .on('start', function () {
+        d3.select(this).raise()
+      })
+      .on('drag', function (event, d) {
+        d.x = event.x
+        d.y = event.y
+        d3.select(this).attr('transform', `translate(${d.x},${d.y})`)
+        updateLinksForNode(d.id)
+      })
+    nodeSel.call(drag as any)
+
+    // 节点圆圈大小根据度数（小圆点）
     const getNodeRadius = (node: any) => {
-      const maxDegree = Math.max(...nodes.map(n => n.degree), 1)
-      const minDegree = Math.min(...nodes.map(n => n.degree), 1)
-      const normalized = minDegree === maxDegree 
-        ? 0.5 
-        : (node.degree - minDegree) / (maxDegree - minDegree)
+      const maxDegree = Math.max(...nodes.map((n) => n.degree), 1)
+      const minDegree = Math.min(...nodes.map((n) => n.degree), 1)
+      const normalized =
+        minDegree === maxDegree ? 0.5 : (node.degree - minDegree) / (maxDegree - minDegree)
       return MIN_NODE_RADIUS + normalized * (MAX_NODE_RADIUS - MIN_NODE_RADIUS)
     }
 
@@ -290,33 +342,37 @@ export default function KnowledgeGraphPage() {
     nodeSel
       .append('circle')
       .attr('r', (d) => getNodeRadius(d))
-      .attr('fill', (d) => isCenter(d) ? '#4f46e5' : TYPE_COLORS[(d as any).type as NodeType])
+      .attr('fill', (d) => (isCenter(d) ? '#4f46e5' : TYPE_COLORS[(d as any).type as NodeType]))
       .attr('stroke', '#fff')
-      .attr('stroke-width', (d) => isCenter(d) ? 3 : 2)
-      .attr('opacity', 0.9)
+      .attr('stroke-width', (d) => (isCenter(d) ? 2.5 : 1.5))
+      .attr('opacity', 0.95)
 
-    // 节点内图标
+    // 节点内图标：放大后/悬停/选中才显示
     nodeSel
       .append('text')
+      .attr('class', 'node-icon')
       .attr('text-anchor', 'middle')
       .attr('dy', '0.35em')
-      .attr('font-size', (d) => isCenter(d) ? 18 : 12)
+      .attr('font-size', 8)
       .attr('font-weight', 700)
       .attr('fill', '#fff')
       .attr('pointer-events', 'none')
+      .attr('opacity', 0)
       .text((d) => TYPE_ICONS[(d as any).type as NodeType])
 
-    // 节点名称标签
+    // 节点名称标签：默认隐藏，放大后/悬停/选中显示
     nodeSel
       .append('text')
+      .attr('class', 'node-label')
       .attr('text-anchor', 'middle')
-      .attr('dy', (d) => getNodeRadius(d) + 14)
-      .attr('font-size', 10)
+      .attr('dy', (d) => getNodeRadius(d) + 11)
+      .attr('font-size', 9)
       .attr('fill', '#374151')
       .attr('pointer-events', 'none')
       .attr('font-weight', 500)
+      .attr('opacity', 0)
       .text((d) => {
-        const name = d.name.length > 10 ? d.name.slice(0, 10) + '…' : d.name
+        const name = d.name.length > 12 ? d.name.slice(0, 12) + '…' : d.name
         return name
       })
 
@@ -349,9 +405,12 @@ export default function KnowledgeGraphPage() {
       const sel = selectedId
       const hov = hoveredId
       const focusId = sel || hov
+      const k = zoomScaleRef.current
       if (!focusId) {
         nodeSel.attr('opacity', 1)
-        linkSel.attr('opacity', 0.4)
+        linkSel.attr('opacity', 0.25)
+        g.selectAll('text.node-icon').attr('opacity', (d: any) => (k >= ICON_ZOOM_THRESHOLD ? 0.9 : 0))
+        g.selectAll('text.node-label').attr('opacity', (d: any) => (k >= LABEL_ZOOM_THRESHOLD ? 0.9 : 0))
         return
       }
       const neighborSet = new Set<string>([focusId])
@@ -361,25 +420,32 @@ export default function KnowledgeGraphPage() {
         if (s === focusId) neighborSet.add(t)
         if (t === focusId) neighborSet.add(s)
       }
-      nodeSel.attr('opacity', (d) => (neighborSet.has(d.id) ? 1 : 0.15))
+      nodeSel.attr('opacity', (d) => (neighborSet.has(d.id) ? 1 : 0.12))
+      g.selectAll('text.node-icon').attr('opacity', (d: any) =>
+        neighborSet.has(d.id) || k >= ICON_ZOOM_THRESHOLD ? 0.95 : 0,
+      )
+      g.selectAll('text.node-label').attr('opacity', (d: any) =>
+        neighborSet.has(d.id) || k >= LABEL_ZOOM_THRESHOLD ? 0.95 : 0,
+      )
       linkSel
         .attr('opacity', (l: any) => {
           const s = typeof l.source === 'string' ? l.source : (l.source as any).id
           const t = typeof l.target === 'string' ? l.target : (l.target as any).id
-          return (s === focusId || t === focusId) ? 0.8 : 0.03
+          return s === focusId || t === focusId ? 0.8 : 0.03
         })
         .attr('stroke', (l: any) => {
           const s = typeof l.source === 'string' ? l.source : (l.source as any).id
           const t = typeof l.target === 'string' ? l.target : (l.target as any).id
-          return (s === focusId || t === focusId) ? '#6366f1' : '#cbd5e1'
+          return s === focusId || t === focusId ? '#6366f1' : '#cbd5e1'
         })
         .attr('stroke-width', (l: any) => {
           const s = typeof l.source === 'string' ? l.source : (l.source as any).id
           const t = typeof l.target === 'string' ? l.target : (l.target as any).id
-          return (s === focusId || t === focusId) ? 2 : 0.5
+          return s === focusId || t === focusId ? 1.5 : 0.4
         })
     }
     updateHighlight()
+    updateVisibility()
 
     // 监听选中/hover 变化
     const id = setInterval(updateHighlight, 60)
@@ -391,17 +457,21 @@ export default function KnowledgeGraphPage() {
 
   // ===== 选中/hover 联动 =====
   useEffect(() => {
-    // 触发一次重绘更新 highlight
     const svg = svgRef.current
     if (!svg) return
+    const k = zoomScaleRef.current
     const sel = d3.select(svg).selectAll<SVGGElement, SimNode>('g.node')
     const lnk = d3.select(svg).selectAll<SVGLineElement, SimLink>('line')
+    const icons = d3.select(svg).selectAll<SVGTextElement, SimNode>('text.node-icon')
+    const labels = d3.select(svg).selectAll<SVGTextElement, SimNode>('text.node-label')
     const sel_id = selectedId
     const hov = hoveredId
     const focus = sel_id || hov
     if (!focus) {
       sel.attr('opacity', 1)
-      lnk.attr('opacity', 0.5)
+      lnk.attr('opacity', 0.25).attr('stroke-width', 0.8).attr('stroke', '#94a3b8')
+      icons.attr('opacity', (d: any) => (k >= ICON_ZOOM_THRESHOLD ? 0.9 : 0))
+      labels.attr('opacity', (d: any) => (k >= LABEL_ZOOM_THRESHOLD ? 0.9 : 0))
       return
     }
     const neighborSet = new Set([focus])
@@ -409,12 +479,14 @@ export default function KnowledgeGraphPage() {
       if (l.source === focus) neighborSet.add(l.target)
       if (l.target === focus) neighborSet.add(l.source)
     })
-    sel.attr('opacity', (d: any) => (neighborSet.has(d.id) ? 1 : 0.2))
+    sel.attr('opacity', (d: any) => (neighborSet.has(d.id) ? 1 : 0.12))
+    icons.attr('opacity', (d: any) => (neighborSet.has(d.id) || k >= ICON_ZOOM_THRESHOLD ? 0.95 : 0))
+    labels.attr('opacity', (d: any) => (neighborSet.has(d.id) || k >= LABEL_ZOOM_THRESHOLD ? 0.95 : 0))
     lnk
       .attr('opacity', (l: any) => {
         const s = typeof l.source === 'object' ? l.source.id : l.source
         const t = typeof l.target === 'object' ? l.target.id : l.target
-        return s === focus || t === focus ? 0.9 : 0.05
+        return s === focus || t === focus ? 0.8 : 0.03
       })
       .attr('stroke', (l: any) => {
         const s = typeof l.source === 'object' ? l.source.id : l.source
@@ -424,7 +496,7 @@ export default function KnowledgeGraphPage() {
       .attr('stroke-width', (l: any) => {
         const s = typeof l.source === 'object' ? l.source.id : l.source
         const t = typeof l.target === 'object' ? l.target.id : l.target
-        return s === focus || t === focus ? 2 : 1
+        return s === focus || t === focus ? 1.5 : 0.4
       })
   }, [selectedId, hoveredId])
 
@@ -569,7 +641,7 @@ export default function KnowledgeGraphPage() {
           ref={svgRef}
           width={containerSize.w}
           height={containerSize.h}
-          style={{ display: 'block', background: '#fff' }}
+          style={{ display: 'block', background: '#f9fafb' }}
         />
 
         {/* 图例 */}
@@ -621,7 +693,7 @@ export default function KnowledgeGraphPage() {
             pointerEvents: 'none',
           }}
         >
-          点击节点查看详情 · 拖动节点调整位置 · 滚轮缩放
+          点击节点查看详情 · 拖动节点调整位置 · 滚动放大显示文字
         </div>
       </div>
 
