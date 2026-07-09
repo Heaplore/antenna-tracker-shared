@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-07-08 09:07",
+  "lastUpdate": "2026-07-09 10:04",
   "sources": {
     "metals": "长江有色金属网 ccmn.cn / 上海有色网 SMM",
     "precious": "金投网 gold.cngold.org",
@@ -15,10 +15,10 @@
         {
           "name": "电解铜",
           "unit": "元/吨",
-          "currentPrice": 103010.0,
-          "change": "-4.5%",
+          "currentPrice": 102740.0,
+          "change": "-4.7%",
           "trend": "下跌",
-          "date": "2026-07-08",
+          "date": "2026-07-09",
           "impact": "天线导体主要成本，铜价每上涨10%约影响天线毛利率2-3个百分点",
           "dataSource": "长江有色金属网 ccmn.cn / 我的钢铁网 Mysteel",
           "dataUrl": "https://www.cnmn.com.cn/",
@@ -53,7 +53,7 @@
             },
             {
               "month": "2026-07",
-              "price": 103010.0
+              "price": 102740.0
             },
             {
               "month": "2026-08",
@@ -64,10 +64,10 @@
         {
           "name": "铝锭",
           "unit": "元/吨",
-          "currentPrice": 23030.0,
-          "change": "-5.5%",
+          "currentPrice": 22950.0,
+          "change": "-5.8%",
           "trend": "下跌",
-          "date": "2026-07-08",
+          "date": "2026-07-09",
           "impact": "天线支架、外壳、紧固件材料，铝价上涨压缩结构件利润",
           "dataSource": "长江有色金属网 ccmn.cn",
           "dataUrl": "https://www.cnmn.com.cn/",
@@ -102,7 +102,7 @@
             },
             {
               "month": "2026-07",
-              "price": 23030.0
+              "price": 22950.0
             },
             {
               "month": "2026-08",
@@ -158,10 +158,10 @@
         {
           "name": "金",
           "unit": "元/克",
-          "currentPrice": 888.22,
-          "change": "-11.4%",
+          "currentPrice": 899.57,
+          "change": "-10.2%",
           "trend": "下跌",
-          "date": "2026-07-08",
+          "date": "2026-07-09",
           "impact": "高频连接器镀金层材料，金价上涨增加连接器原材料成本",
           "dataSource": "金投黄金网 gold.cngold.org",
           "dataUrl": "https://gold.cngold.org/hjbj/c10523071.html",
@@ -196,7 +196,7 @@
             },
             {
               "month": "2026-07",
-              "price": 888.22
+              "price": 899.57
             },
             {
               "month": "2026-08",
@@ -207,10 +207,10 @@
         {
           "name": "银",
           "unit": "元/克",
-          "currentPrice": 12.86,
-          "change": "-32.3%",
+          "currentPrice": 13.0,
+          "change": "-31.6%",
           "trend": "下跌",
-          "date": "2026-07-08",
+          "date": "2026-07-09",
           "impact": "银浆用于天线PCB线路板导电镀层，用量较小影响有限",
           "dataSource": "金投网 / 网易财经",
           "dataUrl": "https://www.163.com/dy/article/KTRL83HL055655OW.html",
@@ -245,7 +245,7 @@
             },
             {
               "month": "2026-07",
-              "price": 12.86
+              "price": 13.0
             },
             {
               "month": "2026-08",
@@ -256,10 +256,10 @@
         {
           "name": "螺纹钢",
           "unit": "元/吨",
-          "currentPrice": 3160.0,
-          "change": "-7.5%",
+          "currentPrice": 3170.0,
+          "change": "-7.2%",
           "trend": "下跌",
-          "date": "2026-07-08",
+          "date": "2026-07-09",
           "impact": "天线铁塔、抱杆、底座等大型结构件用钢，成本占比较小",
           "dataSource": "金投价格网 jiage.cngold.org",
           "dataUrl": "https://jiage.cngold.org/c/2026-05-11/c10493002.html",
@@ -294,7 +294,7 @@
             },
             {
               "month": "2026-07",
-              "price": 3160.0
+              "price": 3170.0
             },
             {
               "month": "2026-08",
