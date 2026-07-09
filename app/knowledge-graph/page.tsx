@@ -412,9 +412,10 @@ export default function KnowledgeGraphPage() {
       return
     }
     const neighborSet = new Set([focus])
+    const idOf = (x: any) => (typeof x === 'string' ? x : x?.id)
     kgData.links.forEach((l) => {
-      if (l.source === focus) neighborSet.add(l.target)
-      if (l.target === focus) neighborSet.add(l.source)
+      if (idOf(l.source) === focus) neighborSet.add(idOf(l.target) as string)
+      if (idOf(l.target) === focus) neighborSet.add(idOf(l.source) as string)
     })
     sel.attr('opacity', (d: any) => (neighborSet.has(d.id) ? 1 : 0.12))
     icons.attr('opacity', (d: any) => (neighborSet.has(d.id) || k >= ICON_ZOOM_THRESHOLD ? 0.95 : 0))
@@ -781,13 +782,16 @@ function RelatedNotesPanel({
   nodeId: string
   onNodeClick: (id: string) => void
 }) {
-  // 直接由 KG 全量关系自算，不依赖父组件 memo，避免选中态传参异常导致面板变空
+  // 直接由 KG 全量关系自算，不依赖父组件 memo。
+  // 注意：d3 forceLink 会把 links 的 source/target 从字符串原地改成节点对象，
+  // 所以比对时要兼容两种形态（typeof === 'string' ? id : .id）。
   const { outgoing, incoming } = useMemo(() => {
     const out = new Set<string>()
     const inc = new Set<string>()
+    const idOf = (x: any) => (typeof x === 'string' ? x : x?.id)
     for (const l of kgData.links) {
-      if (l.source === nodeId) out.add(l.target)
-      if (l.target === nodeId) inc.add(l.source)
+      if (idOf(l.source) === nodeId) out.add(idOf(l.target) as string)
+      if (idOf(l.target) === nodeId) inc.add(idOf(l.source) as string)
     }
     const m = new Map<string, KGNode>()
     for (const n of kgData.nodes) m.set(n.id, n)
