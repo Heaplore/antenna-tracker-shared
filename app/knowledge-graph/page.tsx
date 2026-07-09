@@ -72,13 +72,12 @@ const TYPE_ICONS: Record<NodeType, string> = {
 }
 
 // Obsidian 风格：小圆点，文字随缩放/悬停/选中显示
-const MIN_NODE_RADIUS = 4
-const MAX_NODE_RADIUS = 8
-const CENTER_RADIUS = 12            // 中心节点半径
-const ORBIT_RADIUS = 90             // 第一层轨道半径（更紧凑）
-const ORBIT_SPACING = 50            // 层间距（更紧凑）
-const LABEL_ZOOM_THRESHOLD = 1.2    // 放大到多少倍才显示全部文字
-const ICON_ZOOM_THRESHOLD = 1.5     // 图标（符号）放大到多少倍才显示
+const MIN_NODE_RADIUS = 2
+const MAX_NODE_RADIUS = 5
+const CENTER_RADIUS = 6              // 中心节点半径
+const LABEL_ZOOM_THRESHOLD = 2.5     // 放大到多少倍才显示全部文字
+const ICON_ZOOM_THRESHOLD = 3.5      // 图标（符号）放大到多少倍才显示
+const COLLIDE_PADDING = 2            // 碰撞力额外间距
 
 // ===== 页面 =====
 
@@ -219,62 +218,63 @@ export default function KnowledgeGraphPage() {
     if (nodes.length === 0) return
 
     // 找到中心节点（连接最多的）
-    const centerNode = nodes.reduce((a, b) => a.degree > b.degree ? a : b)
+    const centerNode = nodes.reduce((a, b) => (a.degree > b.degree ? a : b))
 
-    // BFS 分层
-    const visited = new Set<string>()
-    const layers: any[][] = []
-    let queue: string[] = [centerNode.id]
-    visited.add(centerNode.id)
-    
-    while (queue.length > 0) {
-      const layer: any[] = []
-      const nextQueue: string[] = []
-      
-      for (const id of queue) {
-        const node = nodeMap.get(id)
-        if (node) layer.push(node)
-        
-        // 找邻居
-        for (const link of filtered.links) {
-          const s = typeof link.source === 'string' ? link.source : (link.source as any).id
-          const t = typeof link.target === 'string' ? link.target : (link.target as any).id
-          const neighborId = s === id ? t : s
-          if (!visited.has(neighborId) && nodeMap.has(neighborId)) {
-            visited.add(neighborId)
-            nextQueue.push(neighborId)
-          }
-        }
-      }
-      
-      if (layer.length > 0) {
-        layers.push(layer)
-        queue = nextQueue
-      } else {
-        break
-      }
+    // 节点半径映射（小圆点）
+    const maxDegree = Math.max(...nodes.map((n) => n.degree), 1)
+    const minDegree = Math.min(...nodes.map((n) => n.degree), 1)
+    const getNodeRadius = (node: any) => {
+      const normalized =
+        minDegree === maxDegree ? 0.5 : (node.degree - minDegree) / (maxDegree - minDegree)
+      return MIN_NODE_RADIUS + normalized * (MAX_NODE_RADIUS - MIN_NODE_RADIUS)
     }
 
-    // 按层分配角度和半径
-    let angleOffset = 0
-    nodes.forEach((node) => {
-      const layerIdx = layers.findIndex(l => l.some(n => n.id === node.id))
-      const layerNodes = layers[layerIdx] || []
-      const idxInLayer = layerNodes.findIndex(n => n.id === node.id)
-      
-      const radius = CENTER_RADIUS + layerIdx * ORBIT_SPACING
-      const angleStep = (2 * Math.PI) / layerNodes.length
-      const angle = angleOffset + idxInLayer * angleStep
-      
-      // 根据度数调整半径（度数高的更靠近中心）
-      const maxDegree = Math.max(...nodes.map(n => n.degree), 1)
-      const degreeFactor = 1 - (node.degree / maxDegree) * 0.3
-      const finalRadius = radius * degreeFactor
-      
-      node.x = W / 2 + Math.cos(angle) * finalRadius
-      node.y = H / 2 + Math.sin(angle) * finalRadius
-      node.layer = layerIdx
+    // 初始位置：在中心附近随机散开，避免 0 坐标堆叠
+    const centerX = W / 2
+    const centerY = H / 2
+    nodes.forEach((n) => {
+      n.x = centerX + (Math.random() - 0.5) * 60
+      n.y = centerY + (Math.random() - 0.5) * 60
     })
+
+    // 力导向模拟（Obsidian 风格：斥力把节点推开，不再硬挤同心圆）
+    const simulation = d3
+      .forceSimulation(nodes as any)
+      .force(
+        'link',
+        d3
+          .forceLink(filtered.links as any)
+          .id((d: any) => d.id)
+          .distance(50)
+          .strength(0.6),
+      )
+      .force('charge', d3.forceManyBody().strength(-150).distanceMax(350))
+      .force('center', d3.forceCenter(centerX, centerY))
+      .force(
+        'collide',
+        d3
+          .forceCollide()
+          .radius((d: any) => getNodeRadius(d) + COLLIDE_PADDING)
+          .strength(0.8),
+      )
+      .force(
+        'radial',
+        d3
+          .forceRadial(
+            (d: any) => {
+              // 度数高的节点更靠近中心，形成"核心-外围"结构
+              const normalized =
+                minDegree === maxDegree ? 0.5 : (d.degree - minDegree) / (maxDegree - minDegree)
+              return 60 + (1 - normalized) * 220
+            },
+            centerX,
+            centerY,
+          )
+          .strength(0.25),
+      )
+      .alphaDecay(0.02)
+      .velocityDecay(0.25)
+    simulationRef.current = simulation as any
 
     // 连线：Obsidian 风格，无箭头、细、淡
     const linkSel = g
@@ -284,8 +284,8 @@ export default function KnowledgeGraphPage() {
       .data(filtered.links)
       .join('line')
       .attr('stroke', '#94a3b8')
-      .attr('stroke-width', 0.8)
-      .attr('stroke-opacity', 0.25)
+      .attr('stroke-width', 0.6)
+      .attr('stroke-opacity', 0.2)
 
     // 节点组
     const nodeSel = g
@@ -300,41 +300,25 @@ export default function KnowledgeGraphPage() {
       .on('mouseover', (_, d) => setHoveredId(d.id))
       .on('mouseout', () => setHoveredId(null))
 
-    // 节点拖拽（直接更新坐标，不需要力模拟）
-    const updateLinksForNode = (draggedId: string) => {
-      linkSel
-        .filter((d: any) => {
-          const s = typeof d.source === 'string' ? d.source : (d.source as any).id
-          const t = typeof d.target === 'string' ? d.target : (d.target as any).id
-          return s === draggedId || t === draggedId
-        })
-        .attr('x1', (d: any) => nodeMap.get(typeof d.source === 'string' ? d.source : (d.source as any).id)?.x ?? W / 2)
-        .attr('y1', (d: any) => nodeMap.get(typeof d.source === 'string' ? d.source : (d.source as any).id)?.y ?? H / 2)
-        .attr('x2', (d: any) => nodeMap.get(typeof d.target === 'string' ? d.target : (d.target as any).id)?.x ?? W / 2)
-        .attr('y2', (d: any) => nodeMap.get(typeof d.target === 'string' ? d.target : (d.target as any).id)?.y ?? H / 2)
-    }
-
+    // 节点拖拽（与力模拟结合）
     const drag = d3
       .drag<SVGGElement, any>()
-      .on('start', function () {
+      .on('start', function (event, d) {
         d3.select(this).raise()
+        if (!event.active) simulation.alphaTarget(0.35).restart()
+        d.fx = d.x
+        d.fy = d.y
       })
       .on('drag', function (event, d) {
-        d.x = event.x
-        d.y = event.y
-        d3.select(this).attr('transform', `translate(${d.x},${d.y})`)
-        updateLinksForNode(d.id)
+        d.fx = event.x
+        d.fy = event.y
+      })
+      .on('end', function (event, d) {
+        if (!event.active) simulation.alphaTarget(0)
+        d.fx = null
+        d.fy = null
       })
     nodeSel.call(drag as any)
-
-    // 节点圆圈大小根据度数（小圆点）
-    const getNodeRadius = (node: any) => {
-      const maxDegree = Math.max(...nodes.map((n) => n.degree), 1)
-      const minDegree = Math.min(...nodes.map((n) => n.degree), 1)
-      const normalized =
-        minDegree === maxDegree ? 0.5 : (node.degree - minDegree) / (maxDegree - minDegree)
-      return MIN_NODE_RADIUS + normalized * (MAX_NODE_RADIUS - MIN_NODE_RADIUS)
-    }
 
     // 中心节点特殊样式
     const isCenter = (node: any) => node.id === centerNode.id
@@ -344,7 +328,7 @@ export default function KnowledgeGraphPage() {
       .attr('r', (d) => getNodeRadius(d))
       .attr('fill', (d) => (isCenter(d) ? '#4f46e5' : TYPE_COLORS[(d as any).type as NodeType]))
       .attr('stroke', '#fff')
-      .attr('stroke-width', (d) => (isCenter(d) ? 2.5 : 1.5))
+      .attr('stroke-width', (d) => (isCenter(d) ? 1.5 : 1))
       .attr('opacity', 0.95)
 
     // 节点内图标：放大后/悬停/选中才显示
@@ -353,7 +337,7 @@ export default function KnowledgeGraphPage() {
       .attr('class', 'node-icon')
       .attr('text-anchor', 'middle')
       .attr('dy', '0.35em')
-      .attr('font-size', 8)
+      .attr('font-size', 6)
       .attr('font-weight', 700)
       .attr('fill', '#fff')
       .attr('pointer-events', 'none')
@@ -365,40 +349,26 @@ export default function KnowledgeGraphPage() {
       .append('text')
       .attr('class', 'node-label')
       .attr('text-anchor', 'middle')
-      .attr('dy', (d) => getNodeRadius(d) + 11)
-      .attr('font-size', 9)
+      .attr('dy', (d) => getNodeRadius(d) + 8)
+      .attr('font-size', 8)
       .attr('fill', '#374151')
       .attr('pointer-events', 'none')
       .attr('font-weight', 500)
       .attr('opacity', 0)
       .text((d) => {
-        const name = d.name.length > 12 ? d.name.slice(0, 12) + '…' : d.name
+        const name = d.name.length > 14 ? d.name.slice(0, 14) + '…' : d.name
         return name
       })
 
-    // 初始位置设置
-    nodeSel.attr('transform', (d) => `translate(${d.x ?? W/2},${d.y ?? H/2})`)
-    linkSel
-      .attr('x1', (d: any) => {
-        const s = typeof d.source === 'string' ? d.source : (d.source as any).id
-        const node = nodeMap.get(s)
-        return node?.x ?? W/2
-      })
-      .attr('y1', (d: any) => {
-        const s = typeof d.source === 'string' ? d.source : (d.source as any).id
-        const node = nodeMap.get(s)
-        return node?.y ?? H/2
-      })
-      .attr('x2', (d: any) => {
-        const t = typeof d.target === 'string' ? d.target : (d.target as any).id
-        const node = nodeMap.get(t)
-        return node?.x ?? W/2
-      })
-      .attr('y2', (d: any) => {
-        const t = typeof d.target === 'string' ? d.target : (d.target as any).id
-        const node = nodeMap.get(t)
-        return node?.y ?? H/2
-      })
+    // 力模拟 tick：实时更新节点和连线位置
+    simulation.on('tick', () => {
+      nodeSel.attr('transform', (d: any) => `translate(${d.x},${d.y})`)
+      linkSel
+        .attr('x1', (d: any) => (d.source as any).x)
+        .attr('y1', (d: any) => (d.source as any).y)
+        .attr('x2', (d: any) => (d.target as any).x)
+        .attr('y2', (d: any) => (d.target as any).y)
+    })
 
     // 选中节点高亮
     function updateHighlight() {
@@ -451,6 +421,7 @@ export default function KnowledgeGraphPage() {
     const id = setInterval(updateHighlight, 60)
     return () => {
       clearInterval(id)
+      simulation.stop()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtered])
@@ -469,7 +440,7 @@ export default function KnowledgeGraphPage() {
     const focus = sel_id || hov
     if (!focus) {
       sel.attr('opacity', 1)
-      lnk.attr('opacity', 0.25).attr('stroke-width', 0.8).attr('stroke', '#94a3b8')
+      lnk.attr('opacity', 0.2).attr('stroke-width', 0.6).attr('stroke', '#94a3b8')
       icons.attr('opacity', (d: any) => (k >= ICON_ZOOM_THRESHOLD ? 0.9 : 0))
       labels.attr('opacity', (d: any) => (k >= LABEL_ZOOM_THRESHOLD ? 0.9 : 0))
       return
