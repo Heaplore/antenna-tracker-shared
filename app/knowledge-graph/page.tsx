@@ -75,8 +75,8 @@ const TYPE_ICONS: Record<NodeType, string> = {
 const MIN_NODE_RADIUS = 2
 const MAX_NODE_RADIUS = 5
 const CENTER_RADIUS = 6              // 中心节点半径
-const LABEL_ZOOM_THRESHOLD = 2.5     // 放大到多少倍才显示全部文字
-const ICON_ZOOM_THRESHOLD = 3.5      // 图标（符号）放大到多少倍才显示
+const LABEL_ZOOM_THRESHOLD = 1.4     // 放大到多少倍才显示全部文字
+const ICON_ZOOM_THRESHOLD = 2.2      // 图标（符号）放大到多少倍才显示
 const COLLIDE_PADDING = 2            // 碰撞力额外间距
 
 // ===== 页面 =====
@@ -123,18 +123,6 @@ export default function KnowledgeGraphPage() {
     [selectedId],
   )
 
-  // ===== 邻居计算 =====
-  const neighbors = useMemo(() => {
-    if (!selectedId) return { incoming: new Set<string>(), outgoing: new Set<string>() }
-    const incoming = new Set<string>()
-    const outgoing = new Set<string>()
-    for (const l of kgData.links) {
-      if (l.source === selectedId) outgoing.add(l.target)
-      if (l.target === selectedId) incoming.add(l.source)
-    }
-    return { incoming, outgoing }
-  }, [selectedId])
-
   // ===== Obsidian 风格圆形布局渲染 =====
   useEffect(() => {
     const svg = svgRef.current
@@ -152,31 +140,6 @@ export default function KnowledgeGraphPage() {
       .select(svg)
       .attr('viewBox', `0 0 ${W} ${H}`)
       .append('g')
-
-    // 背景网格（Obsidian 风格点阵）
-    const defs = d3.select(svg).append('defs')
-    const gridSize = 40
-    const gridPattern = defs
-      .append('pattern')
-      .attr('id', 'obsidian-grid')
-      .attr('width', gridSize)
-      .attr('height', gridSize)
-      .attr('patternUnits', 'userSpaceOnUse')
-    gridPattern
-      .append('circle')
-      .attr('cx', gridSize / 2)
-      .attr('cy', gridSize / 2)
-      .attr('r', 1.2)
-      .attr('fill', '#e5e7eb')
-    g
-      .append('rect')
-      .attr('class', 'grid-bg')
-      .attr('width', W * 4)
-      .attr('height', H * 4)
-      .attr('x', -W * 1.5)
-      .attr('y', -H * 1.5)
-      .attr('fill', 'url(#obsidian-grid)')
-      .attr('pointer-events', 'none')
 
     // zoom/pan：随缩放动态显示/隐藏标签和图标
     const updateVisibility = () => {
@@ -296,20 +259,22 @@ export default function KnowledgeGraphPage() {
       .join('g')
       .attr('class', 'node')
       .style('cursor', 'pointer')
-      .on('click', (_, d) => setSelectedId(d.id))
       .on('mouseover', (_, d) => setHoveredId(d.id))
       .on('mouseout', () => setHoveredId(null))
 
-    // 节点拖拽（与力模拟结合）
+    // 节点拖拽（与力模拟结合）；无位移的单击 = 打开卡片，避免 d3-drag 吞掉 click 导致要点两下
+    let dragMoved = false
     const drag = d3
       .drag<SVGGElement, any>()
       .on('start', function (event, d) {
+        dragMoved = false
         d3.select(this).raise()
-        if (!event.active) simulation.alphaTarget(0.35).restart()
+        if (!event.active) simulation.alphaTarget(0.3).restart()
         d.fx = d.x
         d.fy = d.y
       })
       .on('drag', function (event, d) {
+        dragMoved = true
         d.fx = event.x
         d.fy = event.y
       })
@@ -317,6 +282,7 @@ export default function KnowledgeGraphPage() {
         if (!event.active) simulation.alphaTarget(0)
         d.fx = null
         d.fy = null
+        if (!dragMoved) setSelectedId(d.id) // 单击（无拖动）即打开详情
       })
     nodeSel.call(drag as any)
 
@@ -338,7 +304,7 @@ export default function KnowledgeGraphPage() {
       .attr('text-anchor', 'middle')
       .attr('dy', '0.35em')
       .attr('font-size', 6)
-      .attr('font-weight', 700)
+      .attr('font-weight', 400)
       .attr('fill', '#fff')
       .attr('pointer-events', 'none')
       .attr('opacity', 0)
@@ -350,10 +316,10 @@ export default function KnowledgeGraphPage() {
       .attr('class', 'node-label')
       .attr('text-anchor', 'middle')
       .attr('dy', (d) => getNodeRadius(d) + 8)
-      .attr('font-size', 8)
+      .attr('font-size', 6.5)
       .attr('fill', '#374151')
       .attr('pointer-events', 'none')
-      .attr('font-weight', 500)
+      .attr('font-weight', 400)
       .attr('opacity', 0)
       .text((d) => {
         const name = d.name.length > 14 ? d.name.slice(0, 14) + '…' : d.name
@@ -401,17 +367,17 @@ export default function KnowledgeGraphPage() {
         .attr('opacity', (l: any) => {
           const s = typeof l.source === 'string' ? l.source : (l.source as any).id
           const t = typeof l.target === 'string' ? l.target : (l.target as any).id
-          return s === focusId || t === focusId ? 0.8 : 0.03
+          return s === focusId || t === focusId ? 1 : 0.03
         })
         .attr('stroke', (l: any) => {
           const s = typeof l.source === 'string' ? l.source : (l.source as any).id
           const t = typeof l.target === 'string' ? l.target : (l.target as any).id
-          return s === focusId || t === focusId ? '#6366f1' : '#cbd5e1'
+          return s === focusId || t === focusId ? '#4338ca' : '#cbd5e1'
         })
         .attr('stroke-width', (l: any) => {
           const s = typeof l.source === 'string' ? l.source : (l.source as any).id
           const t = typeof l.target === 'string' ? l.target : (l.target as any).id
-          return s === focusId || t === focusId ? 1.5 : 0.4
+          return s === focusId || t === focusId ? 2.5 : 0.4
         })
     }
     updateHighlight()
@@ -457,17 +423,17 @@ export default function KnowledgeGraphPage() {
       .attr('opacity', (l: any) => {
         const s = typeof l.source === 'object' ? l.source.id : l.source
         const t = typeof l.target === 'object' ? l.target.id : l.target
-        return s === focus || t === focus ? 0.8 : 0.03
+        return s === focus || t === focus ? 1 : 0.03
       })
       .attr('stroke', (l: any) => {
         const s = typeof l.source === 'object' ? l.source.id : l.source
         const t = typeof l.target === 'object' ? l.target.id : l.target
-        return s === focus || t === focus ? '#6366f1' : '#cbd5e1'
+        return s === focus || t === focus ? '#4338ca' : '#cbd5e1'
       })
       .attr('stroke-width', (l: any) => {
         const s = typeof l.source === 'object' ? l.source.id : l.source
         const t = typeof l.target === 'object' ? l.target.id : l.target
-        return s === focus || t === focus ? 1.5 : 0.4
+        return s === focus || t === focus ? 2.5 : 0.4
       })
   }, [selectedId, hoveredId])
 
@@ -672,8 +638,6 @@ export default function KnowledgeGraphPage() {
       {selectedNode && (
         <Modal
           node={selectedNode}
-          inNeighborIds={neighbors.incoming}
-          outNeighborIds={neighbors.outgoing}
           onClose={() => setSelectedId(null)}
           onNodeClick={(id) => setSelectedId(id)}
         />
@@ -686,23 +650,13 @@ export default function KnowledgeGraphPage() {
 
 function Modal({
   node,
-  inNeighborIds,
-  outNeighborIds,
   onClose,
   onNodeClick,
 }: {
   node: KGNode
-  inNeighborIds: Set<string>
-  outNeighborIds: Set<string>
   onClose: () => void
   onNodeClick: (id: string) => void
 }) {
-  const allNodesById = useMemo(() => {
-    const m = new Map<string, KGNode>()
-    for (const n of kgData.nodes) m.set(n.id, n)
-    return m
-  }, [])
-
   return (
     <>
       <div
@@ -797,8 +751,7 @@ function Modal({
 
             {/* 右：关联笔记侧栏（实时取自 KG 图谱数据，非 iframe 内的 top-3） */}
             <RelatedNotesPanel
-              outgoingIds={Array.from(outNeighborIds)}
-              incomingIds={Array.from(inNeighborIds)}
+              nodeId={node.id}
               onNodeClick={onNodeClick}
             />
           </div>
@@ -822,31 +775,30 @@ function Modal({
 // ===== 关联笔记侧栏 =====
 
 function RelatedNotesPanel({
-  outgoingIds,
-  incomingIds,
+  nodeId,
   onNodeClick,
 }: {
-  outgoingIds: string[]
-  incomingIds: string[]
+  nodeId: string
   onNodeClick: (id: string) => void
 }) {
-  const nodesById = useMemo(() => {
+  // 直接由 KG 全量关系自算，不依赖父组件 memo，避免选中态传参异常导致面板变空
+  const { outgoing, incoming } = useMemo(() => {
+    const out = new Set<string>()
+    const inc = new Set<string>()
+    for (const l of kgData.links) {
+      if (l.source === nodeId) out.add(l.target)
+      if (l.target === nodeId) inc.add(l.source)
+    }
     const m = new Map<string, KGNode>()
     for (const n of kgData.nodes) m.set(n.id, n)
-    return m
-  }, [])
+    const resolve = (s: Set<string>) =>
+      Array.from(s).map((id) => m.get(id)).filter(Boolean) as KGNode[]
+    return { outgoing: resolve(out), incoming: resolve(inc) }
+  }, [nodeId])
 
   const [showAllOut, setShowAllOut] = useState(false)
   const [showAllIn, setShowAllIn] = useState(false)
 
-  const outgoing = useMemo(
-    () => outgoingIds.map((id) => nodesById.get(id)).filter(Boolean) as KGNode[],
-    [outgoingIds, nodesById],
-  )
-  const incoming = useMemo(
-    () => incomingIds.map((id) => nodesById.get(id)).filter(Boolean) as KGNode[],
-    [incomingIds, nodesById],
-  )
   const total = outgoing.length + incoming.length
 
   if (total === 0) {
