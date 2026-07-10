@@ -1062,7 +1062,7 @@
           "name": "导电银浆",
           "unit": "元/公斤",
           "currentPrice": 13480,
-          "change": "+157.1%",
+          "change": "+22.5%",
           "trend": "上涨",
           "date": "2026-07-10",
           "impact": "天线振子金属化镀膜（LDS工艺）主材料，银价上涨直接推高LDS振子成本",
@@ -1071,31 +1071,31 @@
           "historical": [
             {
               "month": "2025-12",
-              "price": 4800
+              "price": 10800
             },
             {
               "month": "2026-01",
-              "price": 4900
+              "price": 15200
             },
             {
               "month": "2026-02",
-              "price": 5000
+              "price": 13500
             },
             {
               "month": "2026-03",
-              "price": 5100
+              "price": 12000
             },
             {
               "month": "2026-04",
-              "price": 5150
+              "price": 11500
             },
             {
               "month": "2026-05",
-              "price": 5200
+              "price": 11200
             },
             {
               "month": "2026-06",
-              "price": 5220
+              "price": 11004
             },
             {
               "month": "2026-07",
