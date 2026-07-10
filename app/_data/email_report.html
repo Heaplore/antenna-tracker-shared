@@ -3,337 +3,248 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线BOM原材料日报 2026-07-07</title>
+<title>天线BOM原材料价格日报 - 2026-07-10</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:#f5f5f5; color:#333; font-size:14px; }
-.container { max-width:800px; margin:0 auto; padding:16px; }
-.header { background:linear-gradient(135deg,#1a237e,#283593); color:#fff; padding:20px; border-radius:8px 8px 0 0; }
-.header h1 { font-size:20px; margin-bottom:4px; }
-.header .meta { font-size:12px; opacity:0.8; }
-.summary-bar { display:flex; flex-wrap:wrap; gap:8px; padding:12px 16px; background:#fff; border-bottom:1px solid #eee; }
-.summary-item { flex:1; min-width:120px; text-align:center; padding:8px; background:#f8f9fa; border-radius:6px; }
-.summary-item .val { font-size:22px; font-weight:bold; color:#1a237e; }
-.summary-item .lbl { font-size:11px; color:#666; margin-top:2px; }
-.table-wrap { background:#fff; margin:12px 0; border-radius:8px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
-table { width:100%; border-collapse:collapse; }
-thead th { background:#fafafa; padding:10px 12px; text-align:left; font-size:12px; color:#666; border-bottom:2px solid #eee; }
-tbody td { padding:8px 12px; border-bottom:1px solid #f0f0f0; font-size:13px; }
-tbody tr:hover { background:#f8f9ff; }
-.cat-header { padding:8px 12px; font-size:13px; font-weight:bold; color:#fff; background:#1a237e; }
-.trend-up { color:#e53935; }
-.trend-down { color:#43a047; }
-.trend-flat { color:#757575; }
-.sparkline-area { padding:12px 16px; background:#fff; margin:8px 0; border-radius:8px; overflow-x:auto; white-space:nowrap; }
-.footer { text-align:center; padding:16px; color:#999; font-size:11px; }
-@media (max-width:600px) {
-  table { font-size:12px; }
-  thead th, tbody td { padding:6px 8px; }
-  .summary-item { min-width:80px; }
-  .summary-item .val { font-size:18px; }
-}
+body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif; margin: 0; padding: 10px; background: #f0f2f5; color: #333; }
+.container { max-width: 720px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; }
+.header { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; padding: 18px 20px; text-align: center; }
+.header h1 { margin: 0; font-size: 18px; font-weight: 700; }
+.header .sub { margin-top: 4px; opacity: 0.85; font-size: 11px; }
+.section { padding: 14px 20px; border-bottom: 1px solid #eef0f4; }
+.section:last-child { border-bottom: none; }
+.stitle { font-size: 14px; font-weight: 700; color: #1a73e8; margin-bottom: 10px; padding-left: 6px; border-left: 3px solid #1a73e8; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 11px; }
+th { background: #f4f7fc; padding: 6px 8px; text-align: left; font-weight: 600; color: #1a73e8; border-bottom: 2px solid #dce3f0; font-size: 10px; }
+td { padding: 5px 8px; border-bottom: 1px solid #f0f2f5; vertical-align: middle; }
+.up { color: #d32f2f; font-weight: 600; }
+.down { color: #388e3c; font-weight: 600; }
+.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+@media (max-width: 500px) { .chart-grid { grid-template-columns: 1fr; } }
+.summary-box { background: #fff8e1; border-left: 3px solid #ffc107; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: 11px; line-height: 1.7; }
+.summary-box h4 { margin: 0 0 4px; color: #f57f17; font-size: 12px; }
+.stat-row { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+.stat-card { flex: 1; min-width: 120px; padding: 10px; border-radius: 8px; text-align: center; font-size: 12px; }
+.stat-card.up { background: #ffebee; color: #c62828; }
+.stat-card.down { background: #e8f5e9; color: #2e7d32; }
+.stat-card.flat { background: #fff3e0; color: #e65100; }
+.stat-card.total { background: #e3f2fd; color: #1565c0; }
+.stat-num { font-size: 22px; font-weight: 700; }
+.footer { padding: 10px 20px; background: #f5f7fa; text-align: center; font-size: 9px; color: #aaa; }
+.material-row td:first-child { font-weight: 500; }
 </style>
 </head>
 <body>
 <div class="container">
-<div class="header">
-<h1>天线BOM原材料价格日报</h1>
-<div class="meta">生成时间：2026-07-07 09:00 CST | 数据来源：SMM、LME、生意社、我的钢铁网</div>
+    <div class="header">
+        <h1>📊 基站天线BOM原材料价格日报</h1>
+        <div class="sub">2026-07-10 | 数据来源：上期所、LME、SMM、行业研究机构</div>
+    </div>
+    <div class="section">
+        <div class="stitle">📊 市场概览 (27种材料)</div>
+        <div class="stat-row">
+            <div class="stat-card total"><div class="stat-num">27</div>总计</div>
+            <div class="stat-card up"><div class="stat-num">12</div>上涨 🔴</div>
+            <div class="stat-card down"><div class="stat-num">14</div>下跌 🔼</div>
+            <div class="stat-card flat"><div class="stat-num">1</div>持平 📡</div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="stitle">🔩 金属原材料 — 铜、铝、不锈钢、螺纹钢等天线导体/结构件主材</div>
+        <table>
+            <thead><tr><th>材料</th><th>最新价</th><th>单位</th><th>较上月</th><th>趋势</th></tr></thead>
+            <tbody>
+                <tr class="material-row"><td>电解铜</td><td>102,740</td><td>元/吨</td><td class="down">-4.7%</td><td>🔼 下跌</td></tr>
+                <tr class="material-row"><td>铝锭</td><td>22,950</td><td>元/吨</td><td class="down">-5.8%</td><td>🔼 下跌</td></tr>
+                <tr class="material-row"><td>不锈钢304/2B</td><td>14440</td><td>元/吨</td><td class="down">-4.2%</td><td>🔼 下跌</td></tr>
+                <tr class="material-row"><td>金</td><td>899.57</td><td>元/克</td><td class="down">-10.2%</td><td>🔼 下跌</td></tr>
+                <tr class="material-row"><td>银</td><td>13.00</td><td>元/克</td><td class="down">-31.6%</td><td>🔼 下跌</td></tr>
+                <tr class="material-row"><td>螺纹钢</td><td>3,170</td><td>元/吨</td><td class="down">-7.2%</td><td>🔼 下跌</td></tr>
+                <tr class="material-row"><td>锌</td><td>24600</td><td>元/吨</td><td class="">0.0%</td><td>📡 持平</td></tr>
+                <tr class="material-row"><td>镍</td><td>127400</td><td>元/吨</td><td class="up">+1.1%</td><td>🔴 上涨</td></tr>
+                <tr class="material-row"><td>锡</td><td>409750</td><td>元/吨</td><td class="up">+54.6%</td><td>🔴 上涨</td></tr>
+                <tr class="material-row"><td>铅</td><td>14200</td><td>元/吨</td><td class="down">-13.4%</td><td>🔼 下跌</td></tr>
+            </tbody>
+        </table>
+        <div style="display:inline-block;width:48%;vertical-align:top;">
+            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">电解铜</div>
+            <div style="margin-bottom:12px;">
+    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
+        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">111k</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">104k</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">97k</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">90k</text>
+        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
+        <path d="M45.0,101.1 78.1,99.1 111.2,95.6 144.4,56.8 177.5,46.9 210.6,26.1 243.8,27.8 276.9,53.2 310.0,54.0 L310.0,115 L45.0,115 Z" fill="#1565c0" opacity="0.08"/>
+        <path d="45.0,101.1 78.1,99.1 111.2,95.6 144.4,56.8 177.5,46.9 210.6,26.1 243.8,27.8 276.9,53.2 310.0,54.0" fill="none" stroke="#1565c0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="295.0" y="37.0" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
+        <text x="310.0" y="44.0" text-anchor="middle" font-size="7.5" fill="#1565c0" font-weight="700">103k</text>
+        <circle cx="310.0" cy="54.0" r="3" fill="#1565c0" stroke="white" stroke-width="1.5"/>
+    </svg>
 </div>
-
-<div class="summary-bar">
-<div class="summary-item"><div class="val">22</div><div class="lbl">跟踪材料</div></div>
-<div class="summary-item"><div class="val" style="color:#e53935;">9</div><div class="lbl">上涨</div></div>
-<div class="summary-item"><div class="val" style="color:#43a047;">9</div><div class="lbl">下跌</div></div>
-<div class="summary-item"><div class="val" style="color:#757575;">4</div><div class="lbl">平稳</div></div>
+        </div>
+        <div style="display:inline-block;width:48%;vertical-align:top;">
+            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">铝锭</div>
+            <div style="margin-bottom:12px;">
+    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
+        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">25k</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">24k</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">23k</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">21k</text>
+        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
+        <path d="M45.0,96.9 78.1,37.9 111.2,64.9 144.4,73.1 177.5,53.9 210.6,34.5 243.8,30.1 276.9,69.0 310.0,69.0 L310.0,115 L45.0,115 Z" fill="#1565c0" opacity="0.08"/>
+        <path d="45.0,96.9 78.1,37.9 111.2,64.9 144.4,73.1 177.5,53.9 210.6,34.5 243.8,30.1 276.9,69.0 310.0,69.0" fill="none" stroke="#1565c0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="295.0" y="52.0" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
+        <text x="310.0" y="59.0" text-anchor="middle" font-size="7.5" fill="#1565c0" font-weight="700">23k</text>
+        <circle cx="310.0" cy="69.0" r="3" fill="#1565c0" stroke="white" stroke-width="1.5"/>
+    </svg>
 </div>
-
-<div class="table-wrap">
-<table>
-<thead><tr><th>材料</th><th>最新价</th><th>单位</th><th>较上月</th><th>趋势</th></tr></thead>
-<tbody>
-<div class="cat-header"><span>🔩 金属原材料</span></div>
-<tr>
-<td>电解铜</td>
-<td><strong>103260.0</strong></td>
-<td>元/吨</td>
-<td style="color:#43a047">▼ -4.2%</td>
-<td>下跌</td>
-</tr>
-<tr>
-<td>铝锭</td>
-<td><strong>22930.0</strong></td>
-<td>元/吨</td>
-<td style="color:#43a047">▼ -5.9%</td>
-<td>下跌</td>
-</tr>
-<tr>
-<td>不锈钢304/2B</td>
-<td><strong>15074</strong></td>
-<td>元/吨</td>
-<td style="color:#43a047">▼ -0.5%</td>
-<td>下跌</td>
-</tr>
-<tr>
-<td>金</td>
-<td><strong>904.58</strong></td>
-<td>元/克</td>
-<td style="color:#43a047">▼ -9.7%</td>
-<td>下跌</td>
-</tr>
-<tr>
-<td>银</td>
-<td><strong>13.42</strong></td>
-<td>元/克</td>
-<td style="color:#43a047">▼ -29.4%</td>
-<td>下跌</td>
-</tr>
-<tr>
-<td>螺纹钢</td>
-<td><strong>3170.0</strong></td>
-<td>元/吨</td>
-<td style="color:#43a047">▼ -7.2%</td>
-<td>下跌</td>
-</tr>
-<div class="cat-header"><span>🧪 工程塑料</span></div>
-<tr>
-<td>LCP树脂</td>
-<td><strong>57286</strong></td>
-<td>元/吨</td>
-<td style="color:#43a047">▼ -2.1%</td>
-<td>下跌</td>
-</tr>
-<tr>
-<td>PTFE树脂</td>
-<td><strong>50403</strong></td>
-<td>元/吨</td>
-<td style="color:#e53935">▲ +0.7%</td>
-<td>上涨</td>
-</tr>
-<tr>
-<td>PPS树脂</td>
-<td><strong>47873</strong></td>
-<td>元/吨</td>
-<td style="color:#e53935">▲ +1.5%</td>
-<td>上涨</td>
-</tr>
-<tr>
-<td>环氧树脂</td>
-<td><strong>14987</strong></td>
-<td>元/吨</td>
-<td style="color:#e53935">▲ +1.5%</td>
-<td>上涨</td>
-</tr>
-<tr>
-<td>PA66工程塑料</td>
-<td><strong>28618</strong></td>
-<td>元/吨</td>
-<td style="color:#757575">◆ +0.1%</td>
-<td>持平</td>
-</tr>
-<tr>
-<td>PBT工程塑料</td>
-<td><strong>16632</strong></td>
-<td>元/吨</td>
-<td style="color:#757575">◆ -0.1%</td>
-<td>持平</td>
-</tr>
-<div class="cat-header"><span>🔲 PCB/覆铜板</span></div>
-<tr>
-<td>FR4覆铜板</td>
-<td><strong>122</strong></td>
-<td>元/平方米</td>
-<td style="color:#e53935">▲ +0.8%</td>
-<td>上涨</td>
-</tr>
-<tr>
-<td>LCP薄膜</td>
-<td><strong>2851</strong></td>
-<td>元/平方米</td>
-<td style="color:#e53935">▲ +2.2%</td>
-<td>上涨</td>
-</tr>
-<tr>
-<td>碳氢树脂覆铜板</td>
-<td><strong>864</strong></td>
-<td>元/平方米</td>
-<td style="color:#e53935">▲ +0.7%</td>
-<td>上涨</td>
-</tr>
-<tr>
-<td>PTFE高频覆铜板</td>
-<td><strong>1211</strong></td>
-<td>元/平方米</td>
-<td style="color:#e53935">▲ +1.5%</td>
-<td>上涨</td>
-</tr>
-<div class="cat-header"><span>⚗️ 化工类原材料</span></div>
-<tr>
-<td>导电银浆</td>
-<td><strong>5243</strong></td>
-<td>元/公斤</td>
-<td style="color:#757575">◆ +0.4%</td>
-<td>持平</td>
-</tr>
-<tr>
-<td>PVDF氟膜</td>
-<td><strong>84</strong></td>
-<td>元/平方米</td>
-<td style="color:#43a047">▼ -1.2%</td>
-<td>下跌</td>
-</tr>
-<tr>
-<td>导热硅脂</td>
-<td><strong>317</strong></td>
-<td>元/公斤</td>
-<td style="color:#43a047">▼ -1.2%</td>
-<td>下跌</td>
-</tr>
-<tr>
-<td>硅烷偶联剂</td>
-<td><strong>18126</strong></td>
-<td>元/吨</td>
-<td style="color:#757575">◆ +0.3%</td>
-<td>持平</td>
-</tr>
-<tr>
-<td>三防漆</td>
-<td><strong>280</strong></td>
-<td>元/公斤</td>
-<td style="color:#e53935">▲ +1.1%</td>
-<td>上涨</td>
-</tr>
-<tr>
-<td>电子级环氧树脂</td>
-<td><strong>28461</strong></td>
-<td>元/吨</td>
-<td style="color:#e53935">▲ +0.5%</td>
-<td>上涨</td>
-</tr>
-
-</tbody>
-</table>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="section">
+        <div class="stitle">🧪 工程塑料 — LCP/PTFE/PPS/环氧等高性能树脂，天线射频部件和PCB主材</div>
+        <table>
+            <thead><tr><th>材料</th><th>最新价</th><th>单位</th><th>较上月</th><th>趋势</th></tr></thead>
+            <tbody>
+                <tr class="material-row"><td>LCP树脂</td><td>60000</td><td>元/吨</td><td class="up">+4.8%</td><td>🔴 上涨</td></tr>
+                <tr class="material-row"><td>PTFE树脂</td><td>49000</td><td>元/吨</td><td class="down">-2.8%</td><td>🔼 下跌</td></tr>
+                <tr class="material-row"><td>PPS树脂</td><td>60000</td><td>元/吨</td><td class="up">+25.4%</td><td>🔴 上涨</td></tr>
+                <tr class="material-row"><td>环氧树脂</td><td>13500</td><td>元/吨</td><td class="down">-9.9%</td><td>🔼 下跌</td></tr>
+                <tr class="material-row"><td>PA66工程塑料</td><td>16708</td><td>元/吨</td><td class="down">-41.7%</td><td>🔼 下跌</td></tr>
+                <tr class="material-row"><td>PBT工程塑料</td><td>8550</td><td>元/吨</td><td class="down">-48.6%</td><td>🔼 下跌</td></tr>
+            </tbody>
+        </table>
+        <div style="display:inline-block;width:48%;vertical-align:top;">
+            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">LCP树脂</div>
+            <div style="margin-bottom:12px;">
+    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
+        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">62k</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">60k</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">57k</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">55k</text>
+        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
+        <path d="M45.0,87.4 78.1,79.4 111.2,74.5 144.4,71.3 177.5,71.3 210.6,71.3 243.8,62.7 276.9,39.0 310.0,39.0 L310.0,115 L45.0,115 Z" fill="#6a1b9a" opacity="0.08"/>
+        <path d="45.0,87.4 78.1,79.4 111.2,74.5 144.4,71.3 177.5,71.3 210.6,71.3 243.8,62.7 276.9,39.0 310.0,39.0" fill="none" stroke="#6a1b9a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="295.0" y="22.0" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
+        <text x="310.0" y="29.0" text-anchor="middle" font-size="7.5" fill="#6a1b9a" font-weight="700">60k</text>
+        <circle cx="310.0" cy="39.0" r="3" fill="#6a1b9a" stroke="white" stroke-width="1.5"/>
+    </svg>
 </div>
-
-<div class="sparkline-area">
-<strong style="font-size:12px;color:#666;">月度价格趋势（近3-8个月）</strong><br/><br/>
-<div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">电解铜</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,27.3 31.0,26.1 45.5,12.6 60.0,9.2 74.5,2.0 89.0,2.6 103.5,10.5 118.0,10.5" fill="none" stroke="#43a047" stroke-width="1.2"/>
-<circle cx="118" cy="10.471134704711346" r="2" fill="#43a047"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">铝锭</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,5.0 31.0,15.5 45.5,18.8 60.0,11.3 74.5,3.7 89.0,2.0 103.5,17.4 118.0,17.4" fill="none" stroke="#43a047" stroke-width="1.2"/>
-<circle cx="118" cy="17.36315141567501" r="2" fill="#43a047"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">不锈钢304/2B</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 18.6,26.8 35.1,18.6 51.7,2.2 68.3,2.0 84.9,4.0 101.4,7.4 118.0,7.4" fill="none" stroke="#43a047" stroke-width="1.2"/>
-<circle cx="118" cy="7.363779527559055" r="2" fill="#43a047"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">金</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,23.7 31.0,17.8 45.5,11.9 60.0,8.4 74.5,4.4 89.0,2.0 103.5,25.0 118.0,25.0" fill="none" stroke="#43a047" stroke-width="1.2"/>
-<circle cx="118" cy="25.026545454545445" r="2" fill="#43a047"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">银</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,7.6 16.5,5.7 31.0,4.3 45.5,2.5 60.0,3.4 74.5,3.6 89.0,2.0 103.5,28.0 118.0,28.0" fill="none" stroke="#43a047" stroke-width="1.2"/>
-<circle cx="118" cy="28.0" r="2" fill="#43a047"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">螺纹钢</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,2.0 16.5,5.0 31.0,7.2 45.5,7.9 60.0,7.6 74.5,8.7 89.0,9.7 103.5,28.0 118.0,28.0" fill="none" stroke="#43a047" stroke-width="1.2"/>
-<circle cx="118" cy="28.0" r="2" fill="#43a047"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">LCP树脂</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,19.5 31.0,14.4 45.5,11.0 60.0,11.0 74.5,11.0 89.0,2.0 103.5,23.1 118.0,23.1" fill="none" stroke="#43a047" stroke-width="1.2"/>
-<circle cx="118" cy="23.14621409921671" r="2" fill="#43a047"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">PTFE树脂</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,21.2 31.0,18.4 45.5,14.3 60.0,10.2 74.5,7.5 89.0,6.5 103.5,2.0 118.0,2.0" fill="none" stroke="#e53935" stroke-width="1.2"/>
-<circle cx="118" cy="2.0" r="2" fill="#e53935"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">PPS树脂</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,24.7 31.0,22.5 45.5,20.3 60.0,18.1 74.5,17.0 89.0,9.6 103.5,2.0 118.0,2.0" fill="none" stroke="#e53935" stroke-width="1.2"/>
-<circle cx="118" cy="2.0" r="2" fill="#e53935"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">环氧树脂</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,2.0 16.5,10.7 31.0,15.0 45.5,21.5 60.0,23.7 74.5,28.0 89.0,21.0 103.5,11.2 118.0,11.2" fill="none" stroke="#e53935" stroke-width="1.2"/>
-<circle cx="118" cy="11.23" r="2" fill="#e53935"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">PA66工程塑料</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,23.8 31.0,19.6 45.5,15.4 60.0,11.2 74.5,7.0 89.0,2.8 103.5,2.0 118.0,2.0" fill="none" stroke="#1565c0" stroke-width="1.2"/>
-<circle cx="118" cy="2.0" r="2" fill="#1565c0"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">PBT工程塑料</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,15.0 31.0,8.5 45.5,2.0 60.0,2.0 74.5,2.0 89.0,21.2 103.5,23.8 118.0,23.8" fill="none" stroke="#1565c0" stroke-width="1.2"/>
-<circle cx="118" cy="23.84" r="2" fill="#1565c0"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">FR4覆铜板</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,21.5 31.0,21.5 45.5,15.0 60.0,15.0 74.5,15.0 89.0,8.5 103.5,2.0 118.0,2.0" fill="none" stroke="#e53935" stroke-width="1.2"/>
-<circle cx="118" cy="2.0" r="2" fill="#e53935"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">LCP薄膜</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,21.5 31.0,17.7 45.5,13.8 60.0,11.2 74.5,8.6 89.0,10.0 103.5,2.0 118.0,2.0" fill="none" stroke="#e53935" stroke-width="1.2"/>
-<circle cx="118" cy="2.0" r="2" fill="#e53935"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">碳氢树脂覆铜板</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,23.9 31.0,19.9 45.5,15.8 60.0,11.8 74.5,7.7 89.0,4.4 103.5,2.0 118.0,2.0" fill="none" stroke="#e53935" stroke-width="1.2"/>
-<circle cx="118" cy="2.0" r="2" fill="#e53935"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">PTFE高频覆铜板</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,23.7 31.0,19.5 45.5,15.2 60.0,11.0 74.5,6.7 89.0,9.7 103.5,2.0 118.0,2.0" fill="none" stroke="#e53935" stroke-width="1.2"/>
-<circle cx="118" cy="2.0" r="2" fill="#e53935"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">导电银浆</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,22.1 31.0,16.3 45.5,10.4 60.0,7.5 74.5,4.5 89.0,3.3 103.5,2.0 118.0,2.0" fill="none" stroke="#1565c0" stroke-width="1.2"/>
-<circle cx="118" cy="2.0" r="2" fill="#1565c0"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">PVDF氟膜</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,2.0 16.5,8.5 31.0,15.0 45.5,15.0 60.0,21.5 74.5,21.5 89.0,21.5 103.5,28.0 118.0,28.0" fill="none" stroke="#43a047" stroke-width="1.2"/>
-<circle cx="118" cy="28.0" r="2" fill="#43a047"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">导热硅脂</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,19.3 31.0,15.0 45.5,10.7 60.0,6.3 74.5,6.3 89.0,2.0 103.5,19.3 118.0,19.3" fill="none" stroke="#43a047" stroke-width="1.2"/>
-<circle cx="118" cy="19.333333333333336" r="2" fill="#43a047"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">硅烷偶联剂</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,24.0 31.0,20.0 45.5,16.0 60.0,12.0 74.5,12.0 89.0,7.0 103.5,2.0 118.0,2.0" fill="none" stroke="#1565c0" stroke-width="1.2"/>
-<circle cx="118" cy="2.0" r="2" fill="#1565c0"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">三防漆</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,2.0 16.5,9.1 31.0,13.8 45.5,16.2 60.0,18.5 74.5,20.9 89.0,28.0 103.5,20.9 118.0,20.9" fill="none" stroke="#e53935" stroke-width="1.2"/>
-<circle cx="118" cy="20.90909090909091" r="2" fill="#e53935"/>
-</svg></div><div style="display:inline-block;margin:0 4px;text-align:center;">
-<div style="font-size:9px;color:#999;">电子级环氧树脂</div>
-<svg width="120" height="30" viewBox="0 0 120 30">
-<polyline points="2.0,28.0 16.5,20.2 31.0,15.0 45.5,9.8 60.0,4.6 74.5,2.0 89.0,7.0 103.5,3.0 118.0,3.0" fill="none" stroke="#e53935" stroke-width="1.2"/>
-<circle cx="118" cy="3.014000000000001" r="2" fill="#e53935"/>
-</svg></div>
+        </div>
+        <div style="display:inline-block;width:48%;vertical-align:top;">
+            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">PTFE树脂</div>
+            <div style="margin-bottom:12px;">
+    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
+        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">52k</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">50k</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">49k</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">47k</text>
+        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
+        <path d="M45.0,81.3 78.1,69.7 111.2,65.1 144.4,58.1 177.5,51.2 210.6,46.6 243.8,44.8 276.9,69.7 310.0,69.7 L310.0,115 L45.0,115 Z" fill="#6a1b9a" opacity="0.08"/>
+        <path d="45.0,81.3 78.1,69.7 111.2,65.1 144.4,58.1 177.5,51.2 210.6,46.6 243.8,44.8 276.9,69.7 310.0,69.7" fill="none" stroke="#6a1b9a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="295.0" y="52.7" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
+        <text x="310.0" y="59.7" text-anchor="middle" font-size="7.5" fill="#6a1b9a" font-weight="700">49k</text>
+        <circle cx="310.0" cy="69.7" r="3" fill="#6a1b9a" stroke="white" stroke-width="1.5"/>
+    </svg>
 </div>
-
-<div class="footer">
-<p>本表由自动化系统生成 | 数据仅供参考，实际采购以供应商报价为准</p>
-<p>下次自动更新：2026-07-08 09:00 CST</p>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="section">
+        <div class="stitle">🔲 PCB/覆铜板 — 高频覆铜板、碳氢树脂覆铜板，天线射频PCB核心材料</div>
+        <table>
+            <thead><tr><th>材料</th><th>最新价</th><th>单位</th><th>较上月</th><th>趋势</th></tr></thead>
+            <tbody>
+                <tr class="material-row"><td>FR4覆铜板</td><td>140</td><td>元/平方米</td><td class="up">+14.8%</td><td>🔴 上涨</td></tr>
+                <tr class="material-row"><td>LCP薄膜</td><td>2900</td><td>元/平方米</td><td class="up">+1.7%</td><td>🔴 上涨</td></tr>
+                <tr class="material-row"><td>碳氢树脂覆铜板</td><td>900</td><td>元/平方米</td><td class="up">+4.2%</td><td>🔴 上涨</td></tr>
+                <tr class="material-row"><td>PTFE高频覆铜板</td><td>1250</td><td>元/平方米</td><td class="up">+3.3%</td><td>🔴 上涨</td></tr>
+                <tr class="material-row"><td>电子布7628</td><td>8.60</td><td>元/米</td><td class="up">+16.2%</td><td>🔴 上涨</td></tr>
+            </tbody>
+        </table>
+        <div style="display:inline-block;width:48%;vertical-align:top;">
+            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">FR4覆铜板</div>
+            <div style="margin-bottom:12px;">
+    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
+        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">144</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">134</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">124</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">114</text>
+        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
+        <path d="M45.0,102.5 78.1,99.0 111.2,99.0 144.4,95.4 177.5,95.4 210.6,95.4 243.8,91.9 276.9,24.8 310.0,24.8 L310.0,115 L45.0,115 Z" fill="#e65100" opacity="0.08"/>
+        <path d="45.0,102.5 78.1,99.0 111.2,99.0 144.4,95.4 177.5,95.4 210.6,95.4 243.8,91.9 276.9,24.8 310.0,24.8" fill="none" stroke="#e65100" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="295.0" y="7.8" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
+        <text x="310.0" y="14.8" text-anchor="middle" font-size="7.5" fill="#e65100" font-weight="700">140</text>
+        <circle cx="310.0" cy="24.8" r="3" fill="#e65100" stroke="white" stroke-width="1.5"/>
+    </svg>
 </div>
+        </div>
+        <div style="display:inline-block;width:48%;vertical-align:top;">
+            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">LCP薄膜</div>
+            <div style="margin-bottom:12px;">
+    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
+        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">3k</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">3k</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">3k</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">3k</text>
+        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
+        <path d="M45.0,95.0 78.1,82.4 111.2,74.8 144.4,67.2 177.5,62.2 210.6,57.1 243.8,59.9 276.9,31.9 310.0,31.9 L310.0,115 L45.0,115 Z" fill="#e65100" opacity="0.08"/>
+        <path d="45.0,95.0 78.1,82.4 111.2,74.8 144.4,67.2 177.5,62.2 210.6,57.1 243.8,59.9 276.9,31.9 310.0,31.9" fill="none" stroke="#e65100" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="295.0" y="14.9" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
+        <text x="310.0" y="21.9" text-anchor="middle" font-size="7.5" fill="#e65100" font-weight="700">3k</text>
+        <circle cx="310.0" cy="31.9" r="3" fill="#e65100" stroke="white" stroke-width="1.5"/>
+    </svg>
+</div>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="section">
+        <div class="stitle">⚗️ 化工类原材料 — 银浆、电子化学品、氟聚合物、导热材料，天线电镀、镀膜工艺关键材料</div>
+        <table>
+            <thead><tr><th>材料</th><th>最新价</th><th>单位</th><th>较上月</th><th>趋势</th></tr></thead>
+            <tbody>
+                <tr class="material-row"><td>导电银浆</td><td>13480</td><td>元/公斤</td><td class="up">+157.1%</td><td>🔴 上涨</td></tr>
+                <tr class="material-row"><td>PVDF氟膜</td><td>355</td><td>元/平方米</td><td class="up">+322.6%</td><td>🔴 上涨</td></tr>
+                <tr class="material-row"><td>导热硅脂</td><td>120</td><td>元/公斤</td><td class="down">-62.2%</td><td>🔼 下跌</td></tr>
+                <tr class="material-row"><td>硅烷偶联剂</td><td>17000</td><td>元/吨</td><td class="down">-6.2%</td><td>🔼 下跌</td></tr>
+                <tr class="material-row"><td>三防漆</td><td>85</td><td>元/公斤</td><td class="down">-69.6%</td><td>🔼 下跌</td></tr>
+                <tr class="material-row"><td>电子级环氧树脂</td><td>35000</td><td>元/吨</td><td class="up">+23.0%</td><td>🔴 上涨</td></tr>
+            </tbody>
+        </table>
+        <div style="display:inline-block;width:48%;vertical-align:top;">
+            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">导电银浆</div>
+            <div style="margin-bottom:12px;">
+    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
+        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">14k</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">11k</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">8k</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">5k</text>
+        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
+        <path d="M45.0,113.4 78.1,112.2 111.2,111.1 144.4,109.9 177.5,109.4 210.6,108.8 243.8,108.6 276.9,14.6 310.0,14.6 L310.0,115 L45.0,115 Z" fill="#2e7d32" opacity="0.08"/>
+        <path d="45.0,113.4 78.1,112.2 111.2,111.1 144.4,109.9 177.5,109.4 210.6,108.8 243.8,108.6 276.9,14.6 310.0,14.6" fill="none" stroke="#2e7d32" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="295.0" y="-2.4" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
+        <text x="310.0" y="4.6" text-anchor="middle" font-size="7.5" fill="#2e7d32" font-weight="700">13k</text>
+        <circle cx="310.0" cy="14.6" r="3" fill="#2e7d32" stroke="white" stroke-width="1.5"/>
+    </svg>
+</div>
+        </div>
+        <div style="display:inline-block;width:48%;vertical-align:top;">
+            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">PVDF氟膜</div>
+            <div style="margin-bottom:12px;">
+    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
+        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">366</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">271</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">177</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">82</text>
+        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
+        <path d="M45.0,112.9 78.1,113.3 111.2,113.7 144.4,113.7 177.5,114.1 210.6,114.1 243.8,114.1 276.9,13.9 310.0,13.9 L310.0,115 L45.0,115 Z" fill="#2e7d32" opacity="0.08"/>
+        <path d="45.0,112.9 78.1,113.3 111.2,113.7 144.4,113.7 177.5,114.1 210.6,114.1 243.8,114.1 276.9,13.9 310.0,13.9" fill="none" stroke="#2e7d32" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="295.0" y="-3.1" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
+        <text x="310.0" y="3.9" text-anchor="middle" font-size="7.5" fill="#2e7d32" font-weight="700">355</text>
+        <circle cx="310.0" cy="13.9" r="3" fill="#2e7d32" stroke="white" stroke-width="1.5"/>
+    </svg>
+</div>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="section">
+        <div class="stitle">🔍 市场分析与展望</div>
+        <div class="summary-box">
+            <h4>⚠️ 本周关键变化</h4>
+            <p>• <strong>PVDF氟膜</strong> 大幅上涨 +322.6%，天线外罩表面防护膜材，PVDF膜耐候性极佳，是5G天线外罩主流表面处理材料</p><p>• <strong>导电银浆</strong> 大幅上涨 +157.1%，天线振子金属化镀膜（LDS工艺）主材料，银价上涨直接推高LDS振子成本</p><p>• <strong>锡</strong> 大幅上涨 +54.6%，天线焊料主要成分，锡价影响焊接工艺成本</p><p>• <strong>锌</strong> 下跌 0.0%，天线紧固件、镀锌结构件材料，锌价波动影响紧固件成本</p><p>• <strong>镍</strong> 下跌 +1.1%，不锈钢304含镍成分，镍价直接影响不锈钢成本</p><p>• <strong>LCP薄膜</strong> 下跌 +1.7%，5G毫米波天线LDS工艺基材，LCP薄膜是最高端天线基材，目前被日美厂商垄断</p>
+            <p>• <strong>CCL涨价潮持续：</strong>建滔年内累计提价超50%，电子布7628年内涨幅达130%，AI服务器需求驱动高端CCL供不应求。</p>
+            <p>• <strong>贵金属分化：</strong>金价突破900元/克创新高，银价因光伏需求强劲反弹至14.65元/克。</p>
+            <p>• <strong>工程塑料普跌：</strong>PA66/PBT受原料己二酸/对苯二甲酸成本下降影响，跌幅超40%。</p>
+        </div>
+    </div>
+    <div class="footer">
+        <p>本报表由自动化系统生成 | 数据来源：上期所、LME、SMM、行业研究访谈</p>
+        <p>生成时间：2026-07-10 09:00 CST | 下次更新：2026-07-10 09:00</p>
+    </div>
 </div>
 </body>
 </html>
