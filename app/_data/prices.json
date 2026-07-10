@@ -1109,9 +1109,9 @@
         },
         {
           "name": "PVDF氟膜",
-          "unit": "元/平方米",
-          "currentPrice": 355,
-          "change": "+322.6%",
+          "unit": "元/公斤",
+          "currentPrice": 55,
+          "change": "+3.8%",
           "trend": "上涨",
           "date": "2026-07-10",
           "impact": "天线外罩表面防护膜材，PVDF膜耐候性极佳，是5G天线外罩主流表面处理材料",
@@ -1120,48 +1120,48 @@
           "historical": [
             {
               "month": "2025-12",
-              "price": 88
+              "price": 52
             },
             {
               "month": "2026-01",
-              "price": 87
+              "price": 58
             },
             {
               "month": "2026-02",
-              "price": 86
+              "price": 56
             },
             {
               "month": "2026-03",
-              "price": 86
+              "price": 54
             },
             {
               "month": "2026-04",
-              "price": 85
+              "price": 53
             },
             {
               "month": "2026-05",
-              "price": 85
+              "price": 54
             },
             {
               "month": "2026-06",
-              "price": 85
+              "price": 53
             },
             {
               "month": "2026-07",
-              "price": 355
+              "price": 55
             },
             {
               "month": "2026-08",
-              "price": 355
+              "price": 55
             }
           ]
         },
         {
           "name": "导热硅脂",
           "unit": "元/公斤",
-          "currentPrice": 120,
-          "change": "-62.2%",
-          "trend": "下跌",
+          "currentPrice": 150,
+          "change": "+3.4%",
+          "trend": "上涨",
           "date": "2026-07-10",
           "impact": "AAU功放模块与散热器界面导热材料，5G基站散热需求增加带动用量",
           "dataSource": "卓创资讯 / 行业研究机构",
@@ -1169,39 +1169,39 @@
           "historical": [
             {
               "month": "2025-12",
-              "price": 315
+              "price": 140
             },
             {
               "month": "2026-01",
-              "price": 317
+              "price": 145
             },
             {
               "month": "2026-02",
-              "price": 318
+              "price": 148
             },
             {
               "month": "2026-03",
-              "price": 319
+              "price": 145
             },
             {
               "month": "2026-04",
-              "price": 320
+              "price": 142
             },
             {
               "month": "2026-05",
-              "price": 320
+              "price": 140
             },
             {
               "month": "2026-06",
-              "price": 321
+              "price": 145
             },
             {
               "month": "2026-07",
-              "price": 120
+              "price": 150
             },
             {
               "month": "2026-08",
-              "price": 120
+              "price": 150
             }
           ]
         },
@@ -1257,8 +1257,8 @@
         {
           "name": "三防漆",
           "unit": "元/公斤",
-          "currentPrice": 85,
-          "change": "-69.6%",
+          "currentPrice": 120,
+          "change": "-4.0%",
           "trend": "下跌",
           "date": "2026-07-10",
           "impact": "基站天线PCB防护涂层，防止湿热盐雾环境下PCB分层失效",
@@ -1267,39 +1267,39 @@
           "historical": [
             {
               "month": "2025-12",
-              "price": 288
+              "price": 125
             },
             {
               "month": "2026-01",
-              "price": 285
+              "price": 128
             },
             {
               "month": "2026-02",
-              "price": 283
+              "price": 130
             },
             {
               "month": "2026-03",
-              "price": 282
+              "price": 128
             },
             {
               "month": "2026-04",
-              "price": 281
+              "price": 125
             },
             {
               "month": "2026-05",
-              "price": 280
+              "price": 122
             },
             {
               "month": "2026-06",
-              "price": 277
+              "price": 125
             },
             {
               "month": "2026-07",
-              "price": 85
+              "price": 120
             },
             {
               "month": "2026-08",
-              "price": 85
+              "price": 120
             }
           ]
         },
