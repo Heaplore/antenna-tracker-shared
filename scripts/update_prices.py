@@ -195,6 +195,30 @@ def main():
             mat = data["categories"][cat_idx]["materials"][i]
             print(f"    ⚠️ {mat['name']}: {mat['currentPrice']} {mat['unit']}")
 
+    # ==================== 硬保护：验证历史数据未被修改 ====================
+    import copy
+    with open(DATA_FILE, "r", encoding="utf-8") as f:
+        original_json = json.load(f)
+    # 比较所有材料的 historical 数组是否完全一致
+    def hist_key(item):
+        return tuple((h.get("month",""), h.get("price",0)) for h in item.get("historical", []))
+    
+    violations = []
+    for cat_idx, cat in enumerate(original_json.get("categories", [])):
+        for mat_idx, orig_mat in enumerate(cat.get("materials", [])):
+            new_cat = data["categories"][cat_idx]
+            new_mat = new_cat["materials"][mat_idx]
+            if hist_key(orig_mat) != hist_key(new_mat):
+                violations.append(f"{orig_mat['name']}: historical changed!")
+    
+    if violations:
+        print("\n❌ FATAL: Historical data was modified! Aborting write.")
+        for v in violations:
+            print(f"   {v}")
+        sys.exit(1)
+    else:
+        print("\n✅ Historical data integrity verified (unchanged)")
+
     # ==================== 输出结果 ====================
     print("\n" + "=" * 60)
     print("更新结果:")
