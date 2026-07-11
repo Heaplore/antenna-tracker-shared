@@ -3,248 +3,3051 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线BOM原材料价格日报 - 2026-07-10</title>
+<title>基站天线BOM原材料价格日报 - 2026-07-11 09:58</title>
 <style>
-body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif; margin: 0; padding: 10px; background: #f0f2f5; color: #333; }
-.container { max-width: 720px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; }
-.header { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; padding: 18px 20px; text-align: center; }
-.header h1 { margin: 0; font-size: 18px; font-weight: 700; }
-.header .sub { margin-top: 4px; opacity: 0.85; font-size: 11px; }
-.section { padding: 14px 20px; border-bottom: 1px solid #eef0f4; }
-.section:last-child { border-bottom: none; }
-.stitle { font-size: 14px; font-weight: 700; color: #1a73e8; margin-bottom: 10px; padding-left: 6px; border-left: 3px solid #1a73e8; }
-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 11px; }
-th { background: #f4f7fc; padding: 6px 8px; text-align: left; font-weight: 600; color: #1a73e8; border-bottom: 2px solid #dce3f0; font-size: 10px; }
-td { padding: 5px 8px; border-bottom: 1px solid #f0f2f5; vertical-align: middle; }
-.up { color: #d32f2f; font-weight: 600; }
-.down { color: #388e3c; font-weight: 600; }
-.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-@media (max-width: 500px) { .chart-grid { grid-template-columns: 1fr; } }
-.summary-box { background: #fff8e1; border-left: 3px solid #ffc107; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: 11px; line-height: 1.7; }
-.summary-box h4 { margin: 0 0 4px; color: #f57f17; font-size: 12px; }
-.stat-row { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
-.stat-card { flex: 1; min-width: 120px; padding: 10px; border-radius: 8px; text-align: center; font-size: 12px; }
-.stat-card.up { background: #ffebee; color: #c62828; }
-.stat-card.down { background: #e8f5e9; color: #2e7d32; }
-.stat-card.flat { background: #fff3e0; color: #e65100; }
-.stat-card.total { background: #e3f2fd; color: #1565c0; }
-.stat-num { font-size: 22px; font-weight: 700; }
-.footer { padding: 10px 20px; background: #f5f7fa; text-align: center; font-size: 9px; color: #aaa; }
-.material-row td:first-child { font-weight: 500; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; padding: 16px; background: #f5f6f8; color: #222; }
+.container { max-width: 760px; margin: 0 auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.header { background: linear-gradient(135deg, #2c5aa0, #1a4480); color: white; padding: 20px 24px; }
+.header h1 { margin: 0; font-size: 20px; font-weight: 600; }
+.header p { margin: 6px 0 0; opacity: 0.85; font-size: 13px; }
+.section { padding: 16px 24px; border-bottom: 1px solid #f0f0f0; }
+.section h2 { font-size: 15px; margin: 0 0 12px; color: #2c5aa0; border-left: 3px solid #2c5aa0; padding-left: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #f0f0f0; }
+th { background: #f8f9fb; font-weight: 600; color: #555; font-size: 12px; }
+tr:last-child td { border-bottom: none; }
+.up { color: #e74c3c; }
+.down { color: #27ae60; }
+.flat { color: #888; }
+.summary-box { background: linear-gradient(135deg, #f8f9fb, #fff); padding: 16px; border-radius: 8px; margin: 8px 0 4px; }
+.big-num { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.num-item { text-align: center; padding: 14px 8px; background: #f8f9fb; border-radius: 6px; }
+.num-item .num { font-size: 26px; font-weight: 700; color: #2c5aa0; }
+.num-item .label { font-size: 11px; color: #888; margin-top: 2px; }
+.num-item.up .num { color: #e74c3c; }
+.num-item.down .num { color: #27ae60; }
+.num-item.total .num { color: #2c5aa0; font-size: 30px; }
+.num-item.total { background: linear-gradient(135deg, #e8f1fb, #f0f7ff); }
+.rank-list { list-style: none; padding: 0; margin: 0; font-size: 13px; line-height: 1.9; }
+.rank-list li { padding: 6px 10px; background: #f8f9fb; border-radius: 4px; margin-bottom: 4px; }
+.cat-table { font-size: 12px; }
+.cat-table th, .cat-table td { text-align: center; padding: 6px 8px; }
+.cat-table th:first-child, .cat-table td:first-child { text-align: left; }
+.movers { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.mover-item { display: flex; align-items: center; padding: 6px 10px; background: #f8f9fb; border-radius: 4px; font-size: 12px; gap: 8px; }
+.mover-item .name { font-weight: 600; flex: 0 0 90px; }
+.mover-item .cat { color: #888; font-size: 11px; flex: 1; }
+.mover-item .price { font-weight: 600; flex: 0 0 80px; text-align: right; }
+.mover-item .pct { font-weight: 700; flex: 0 0 50px; text-align: right; }
+.mover-item.up { border-left: 3px solid #e74c3c; }
+.mover-item.down { border-left: 3px solid #27ae60; }
+.mover-item.up .pct { color: #e74c3c; }
+.mover-item.down .pct { color: #27ae60; }
+.impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.impact-item { background: #f8f9fb; padding: 10px; border-radius: 6px; border-left: 3px solid #2c5aa0; }
+.impact-title { font-size: 12px; font-weight: 600; color: #2c5aa0; margin-bottom: 4px; }
+.impact-text { font-size: 12px; line-height: 1.6; color: #555; }
+.outlook-item { background: #f8f9fb; padding: 10px 14px; border-radius: 6px; margin-bottom: 8px; }
+.outlook-item h4 { margin: 0 0 4px; font-size: 13px; color: #2c5aa0; }
+.outlook-item p { margin: 0; font-size: 12px; line-height: 1.7; color: #555; }
+.charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px 24px; }
+.chart-item { background: #fafbfc; border: 1px solid #eee; border-radius: 6px; padding: 12px; }
+.chart-item h3 { margin: 0 0 4px; font-size: 13px; color: #333; }
+.chart-item .meta { font-size: 11px; color: #888; margin-top: 6px; }
+.chart-item .price-type { display: inline-block; padding: 1px 6px; background: #e3f2fd; color: #1976d2; font-size: 10px; border-radius: 3px; margin-left: 4px; }
+.price-table th { font-size: 11px; }
+.price-table .price-type { font-size: 10px; color: #1976d2; padding: 1px 5px; background: #e3f2fd; border-radius: 3px; }
+.footer { padding: 14px 24px; text-align: center; font-size: 11px; color: #999; background: #f8f9fb; }
+@media (max-width: 600px) {
+  .charts-grid { grid-template-columns: 1fr; }
+  .impact-grid { grid-template-columns: 1fr; }
+  .movers { grid-template-columns: 1fr; }
+  .big-num { flex-wrap: wrap; gap: 8px; }
+  .num-item { flex: 0 0 45%; }
+  .header h1 { font-size: 17px; }
+  .section { padding: 12px 16px; }
+  .header, .summary { padding-left: 16px; padding-right: 16px; }
+}
 </style>
 </head>
 <body>
 <div class="container">
-    <div class="header">
-        <h1>📊 基站天线BOM原材料价格日报</h1>
-        <div class="sub">2026-07-10 | 数据来源：上期所、LME、SMM、行业研究机构</div>
-    </div>
-    <div class="section">
-        <div class="stitle">📊 市场概览 (27种材料)</div>
-        <div class="stat-row">
-            <div class="stat-card total"><div class="stat-num">27</div>总计</div>
-            <div class="stat-card up"><div class="stat-num">12</div>上涨 🔴</div>
-            <div class="stat-card down"><div class="stat-num">14</div>下跌 🔼</div>
-            <div class="stat-card flat"><div class="stat-num">1</div>持平 📡</div>
-        </div>
-    </div>
-    <div class="section">
-        <div class="stitle">🔩 金属原材料 — 铜、铝、不锈钢、螺纹钢等天线导体/结构件主材</div>
-        <table>
-            <thead><tr><th>材料</th><th>最新价</th><th>单位</th><th>较上月</th><th>趋势</th></tr></thead>
-            <tbody>
-                <tr class="material-row"><td>电解铜</td><td>102,740</td><td>元/吨</td><td class="down">-4.7%</td><td>🔼 下跌</td></tr>
-                <tr class="material-row"><td>铝锭</td><td>22,950</td><td>元/吨</td><td class="down">-5.8%</td><td>🔼 下跌</td></tr>
-                <tr class="material-row"><td>不锈钢304/2B</td><td>14440</td><td>元/吨</td><td class="down">-4.2%</td><td>🔼 下跌</td></tr>
-                <tr class="material-row"><td>金</td><td>899.57</td><td>元/克</td><td class="down">-10.2%</td><td>🔼 下跌</td></tr>
-                <tr class="material-row"><td>银</td><td>13.00</td><td>元/克</td><td class="down">-31.6%</td><td>🔼 下跌</td></tr>
-                <tr class="material-row"><td>螺纹钢</td><td>3,170</td><td>元/吨</td><td class="down">-7.2%</td><td>🔼 下跌</td></tr>
-                <tr class="material-row"><td>锌</td><td>24600</td><td>元/吨</td><td class="">0.0%</td><td>📡 持平</td></tr>
-                <tr class="material-row"><td>镍</td><td>127400</td><td>元/吨</td><td class="up">+1.1%</td><td>🔴 上涨</td></tr>
-                <tr class="material-row"><td>锡</td><td>409750</td><td>元/吨</td><td class="up">+54.6%</td><td>🔴 上涨</td></tr>
-                <tr class="material-row"><td>铅</td><td>14200</td><td>元/吨</td><td class="down">-13.4%</td><td>🔼 下跌</td></tr>
-            </tbody>
-        </table>
-        <div style="display:inline-block;width:48%;vertical-align:top;">
-            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">电解铜</div>
-            <div style="margin-bottom:12px;">
-    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
-         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
-        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">111k</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">104k</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">97k</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">90k</text>
-        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
-        <path d="M45.0,101.1 78.1,99.1 111.2,95.6 144.4,56.8 177.5,46.9 210.6,26.1 243.8,27.8 276.9,53.2 310.0,54.0 L310.0,115 L45.0,115 Z" fill="#1565c0" opacity="0.08"/>
-        <path d="45.0,101.1 78.1,99.1 111.2,95.6 144.4,56.8 177.5,46.9 210.6,26.1 243.8,27.8 276.9,53.2 310.0,54.0" fill="none" stroke="#1565c0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-        <rect x="295.0" y="37.0" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
-        <text x="310.0" y="44.0" text-anchor="middle" font-size="7.5" fill="#1565c0" font-weight="700">103k</text>
-        <circle cx="310.0" cy="54.0" r="3" fill="#1565c0" stroke="white" stroke-width="1.5"/>
-    </svg>
+  <div class="header">
+    <h1>📡 基站天线BOM原材料价格日报</h1>
+    <p>日期：2026-07-11 09:58 · 数据来源：web_search · 2026-07-11 09:00</p>
+  </div>
+
+<div class="section">
+<h2>📋 今日综合分析</h2>
+
+<div class="summary-box">
+<div class="big-num">
+  <div class="num-item">
+    <div class="num">13</div>
+    <div class="label">↑ 上涨</div>
+  </div>
+  <div class="num-item">
+    <div class="num">5</div>
+    <div class="label">↓ 下跌</div>
+  </div>
+  <div class="num-item">
+    <div class="num">9</div>
+    <div class="label">— 平稳</div>
+  </div>
+  <div class="num-item total">
+    <div class="num">27</div>
+    <div class="label">总计</div>
+  </div>
 </div>
-        </div>
-        <div style="display:inline-block;width:48%;vertical-align:top;">
-            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">铝锭</div>
-            <div style="margin-bottom:12px;">
-    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
-         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
-        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">25k</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">24k</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">23k</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">21k</text>
-        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
-        <path d="M45.0,96.9 78.1,37.9 111.2,64.9 144.4,73.1 177.5,53.9 210.6,34.5 243.8,30.1 276.9,69.0 310.0,69.0 L310.0,115 L45.0,115 Z" fill="#1565c0" opacity="0.08"/>
-        <path d="45.0,96.9 78.1,37.9 111.2,64.9 144.4,73.1 177.5,53.9 210.6,34.5 243.8,30.1 276.9,69.0 310.0,69.0" fill="none" stroke="#1565c0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-        <rect x="295.0" y="52.0" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
-        <text x="310.0" y="59.0" text-anchor="middle" font-size="7.5" fill="#1565c0" font-weight="700">23k</text>
-        <circle cx="310.0" cy="69.0" r="3" fill="#1565c0" stroke="white" stroke-width="1.5"/>
-    </svg>
 </div>
-        </div>
-        <div style="clear:both;"></div>
-    </div>
-    <div class="section">
-        <div class="stitle">🧪 工程塑料 — LCP/PTFE/PPS/环氧等高性能树脂，天线射频部件和PCB主材</div>
-        <table>
-            <thead><tr><th>材料</th><th>最新价</th><th>单位</th><th>较上月</th><th>趋势</th></tr></thead>
-            <tbody>
-                <tr class="material-row"><td>LCP树脂</td><td>60000</td><td>元/吨</td><td class="up">+4.8%</td><td>🔴 上涨</td></tr>
-                <tr class="material-row"><td>PTFE树脂</td><td>49000</td><td>元/吨</td><td class="down">-2.8%</td><td>🔼 下跌</td></tr>
-                <tr class="material-row"><td>PPS树脂</td><td>60000</td><td>元/吨</td><td class="up">+25.4%</td><td>🔴 上涨</td></tr>
-                <tr class="material-row"><td>环氧树脂</td><td>13500</td><td>元/吨</td><td class="down">-9.9%</td><td>🔼 下跌</td></tr>
-                <tr class="material-row"><td>PA66工程塑料</td><td>16708</td><td>元/吨</td><td class="down">-41.7%</td><td>🔼 下跌</td></tr>
-                <tr class="material-row"><td>PBT工程塑料</td><td>8550</td><td>元/吨</td><td class="down">-48.6%</td><td>🔼 下跌</td></tr>
-            </tbody>
-        </table>
-        <div style="display:inline-block;width:48%;vertical-align:top;">
-            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">LCP树脂</div>
-            <div style="margin-bottom:12px;">
-    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
-         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
-        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">62k</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">60k</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">57k</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">55k</text>
-        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
-        <path d="M45.0,87.4 78.1,79.4 111.2,74.5 144.4,71.3 177.5,71.3 210.6,71.3 243.8,62.7 276.9,39.0 310.0,39.0 L310.0,115 L45.0,115 Z" fill="#6a1b9a" opacity="0.08"/>
-        <path d="45.0,87.4 78.1,79.4 111.2,74.5 144.4,71.3 177.5,71.3 210.6,71.3 243.8,62.7 276.9,39.0 310.0,39.0" fill="none" stroke="#6a1b9a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-        <rect x="295.0" y="22.0" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
-        <text x="310.0" y="29.0" text-anchor="middle" font-size="7.5" fill="#6a1b9a" font-weight="700">60k</text>
-        <circle cx="310.0" cy="39.0" r="3" fill="#6a1b9a" stroke="white" stroke-width="1.5"/>
-    </svg>
+
+<h3 style="font-size:14px;margin:18px 0 10px;color:#2c5aa0">🔥 涨幅榜 TOP 3</h3>
+<ul class="rank-list">
+<li><strong>LCP树脂</strong> (工程塑料)：300,000 元/吨，<span class="up">+423.7%</span></li>
+<li><strong>PTFE树脂</strong> (工程塑料)：175,000 元/吨，<span class="up">+247.2%</span></li>
+<li><strong>FR4覆铜板</strong> (PCB/覆铜板)：300 元/平方米，<span class="up">+145.9%</span></li>
+
+</ul>
+
+<h3 style="font-size:14px;margin:18px 0 10px;color:#2c5aa0">📉 跌幅榜 TOP 3</h3>
+<ul class="rank-list">
+<li><strong>不锈钢304/2B</strong> (金属原材料)：14,260 元/吨，<span class="down">-5.4%</span></li>
+<li><strong>铝锭</strong> (金属原材料)：22,865 元/吨，<span class="down">-1.1%</span></li>
+<li><strong>螺纹钢</strong> (金属原材料)：3,155 元/吨，<span class="down">-0.5%</span></li>
+
+</ul>
+
+<h3 style="font-size:14px;margin:18px 0 10px;color:#2c5aa0">📊 分类行情分布</h3>
+<table class="cat-table">
+<thead>
+<tr><th>类别</th><th>上涨</th><th>下跌</th><th>平稳</th><th>总计</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>🔩 金属原材料</td>
+<td class="up">6</td>
+<td class="down">4</td>
+<td class="flat">0</td>
+<td>10</td>
+</tr><tr>
+<td>🧪 工程塑料</td>
+<td class="up">3</td>
+<td class="down">1</td>
+<td class="flat">2</td>
+<td>6</td>
+</tr><tr>
+<td>🔲 PCB/覆铜板</td>
+<td class="up">2</td>
+<td class="down">0</td>
+<td class="flat">3</td>
+<td>5</td>
+</tr><tr>
+<td>⚗️ 化工类原材料</td>
+<td class="up">2</td>
+<td class="down">0</td>
+<td class="flat">4</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
 </div>
-        </div>
-        <div style="display:inline-block;width:48%;vertical-align:top;">
-            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">PTFE树脂</div>
-            <div style="margin-bottom:12px;">
-    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
-         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
-        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">52k</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">50k</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">49k</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">47k</text>
-        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
-        <path d="M45.0,81.3 78.1,69.7 111.2,65.1 144.4,58.1 177.5,51.2 210.6,46.6 243.8,44.8 276.9,69.7 310.0,69.7 L310.0,115 L45.0,115 Z" fill="#6a1b9a" opacity="0.08"/>
-        <path d="45.0,81.3 78.1,69.7 111.2,65.1 144.4,58.1 177.5,51.2 210.6,46.6 243.8,44.8 276.9,69.7 310.0,69.7" fill="none" stroke="#6a1b9a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-        <rect x="295.0" y="52.7" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
-        <text x="310.0" y="59.7" text-anchor="middle" font-size="7.5" fill="#6a1b9a" font-weight="700">49k</text>
-        <circle cx="310.0" cy="69.7" r="3" fill="#6a1b9a" stroke="white" stroke-width="1.5"/>
-    </svg>
+
+<div class="section">
+<h2>⚡ 关键波动材料（涨跌≥1%）</h2>
+<div class="movers">
+<div class="mover-item up">
+<span class="name">LCP树脂</span>
+<span class="cat">工程塑料</span>
+<span class="price">300,000 元/吨</span>
+<span class="pct">+423.7%</span>
+</div><div class="mover-item up">
+<span class="name">PTFE树脂</span>
+<span class="cat">工程塑料</span>
+<span class="price">175,000 元/吨</span>
+<span class="pct">+247.2%</span>
+</div><div class="mover-item up">
+<span class="name">FR4覆铜板</span>
+<span class="cat">PCB/覆铜板</span>
+<span class="price">300 元/平方米</span>
+<span class="pct">+145.9%</span>
+</div><div class="mover-item up">
+<span class="name">PPS树脂</span>
+<span class="cat">工程塑料</span>
+<span class="price">58,000 元/吨</span>
+<span class="pct">+21.2%</span>
+</div><div class="mover-item up">
+<span class="name">银</span>
+<span class="cat">金属原材料</span>
+<span class="price">16 元/克</span>
+<span class="pct">+20.1%</span>
+</div><div class="mover-item up">
+<span class="name">电子布7628</span>
+<span class="cat">PCB/覆铜板</span>
+<span class="price">7 元/米</span>
+<span class="pct">+7.7%</span>
+</div><div class="mover-item down">
+<span class="name">不锈钢304/2B</span>
+<span class="cat">金属原材料</span>
+<span class="price">14,260 元/吨</span>
+<span class="pct">-5.4%</span>
+</div><div class="mover-item up">
+<span class="name">电子级环氧树脂</span>
+<span class="cat">化工类原材料</span>
+<span class="price">29,500 元/吨</span>
+<span class="pct">+3.7%</span>
 </div>
-        </div>
-        <div style="clear:both;"></div>
-    </div>
-    <div class="section">
-        <div class="stitle">🔲 PCB/覆铜板 — 高频覆铜板、碳氢树脂覆铜板，天线射频PCB核心材料</div>
-        <table>
-            <thead><tr><th>材料</th><th>最新价</th><th>单位</th><th>较上月</th><th>趋势</th></tr></thead>
-            <tbody>
-                <tr class="material-row"><td>FR4覆铜板</td><td>140</td><td>元/平方米</td><td class="up">+14.8%</td><td>🔴 上涨</td></tr>
-                <tr class="material-row"><td>LCP薄膜</td><td>2900</td><td>元/平方米</td><td class="up">+1.7%</td><td>🔴 上涨</td></tr>
-                <tr class="material-row"><td>碳氢树脂覆铜板</td><td>900</td><td>元/平方米</td><td class="up">+4.2%</td><td>🔴 上涨</td></tr>
-                <tr class="material-row"><td>PTFE高频覆铜板</td><td>1250</td><td>元/平方米</td><td class="up">+3.3%</td><td>🔴 上涨</td></tr>
-                <tr class="material-row"><td>电子布7628</td><td>8.60</td><td>元/米</td><td class="up">+16.2%</td><td>🔴 上涨</td></tr>
-            </tbody>
-        </table>
-        <div style="display:inline-block;width:48%;vertical-align:top;">
-            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">FR4覆铜板</div>
-            <div style="margin-bottom:12px;">
-    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
-         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
-        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">144</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">134</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">124</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">114</text>
-        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
-        <path d="M45.0,102.5 78.1,99.0 111.2,99.0 144.4,95.4 177.5,95.4 210.6,95.4 243.8,91.9 276.9,24.8 310.0,24.8 L310.0,115 L45.0,115 Z" fill="#e65100" opacity="0.08"/>
-        <path d="45.0,102.5 78.1,99.0 111.2,99.0 144.4,95.4 177.5,95.4 210.6,95.4 243.8,91.9 276.9,24.8 310.0,24.8" fill="none" stroke="#e65100" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-        <rect x="295.0" y="7.8" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
-        <text x="310.0" y="14.8" text-anchor="middle" font-size="7.5" fill="#e65100" font-weight="700">140</text>
-        <circle cx="310.0" cy="24.8" r="3" fill="#e65100" stroke="white" stroke-width="1.5"/>
-    </svg>
 </div>
-        </div>
-        <div style="display:inline-block;width:48%;vertical-align:top;">
-            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">LCP薄膜</div>
-            <div style="margin-bottom:12px;">
-    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
-         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
-        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">3k</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">3k</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">3k</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">3k</text>
-        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
-        <path d="M45.0,95.0 78.1,82.4 111.2,74.8 144.4,67.2 177.5,62.2 210.6,57.1 243.8,59.9 276.9,31.9 310.0,31.9 L310.0,115 L45.0,115 Z" fill="#e65100" opacity="0.08"/>
-        <path d="45.0,95.0 78.1,82.4 111.2,74.8 144.4,67.2 177.5,62.2 210.6,57.1 243.8,59.9 276.9,31.9 310.0,31.9" fill="none" stroke="#e65100" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-        <rect x="295.0" y="14.9" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
-        <text x="310.0" y="21.9" text-anchor="middle" font-size="7.5" fill="#e65100" font-weight="700">3k</text>
-        <circle cx="310.0" cy="31.9" r="3" fill="#e65100" stroke="white" stroke-width="1.5"/>
-    </svg>
 </div>
-        </div>
-        <div style="clear:both;"></div>
-    </div>
-    <div class="section">
-        <div class="stitle">⚗️ 化工类原材料 — 银浆、电子化学品、氟聚合物、导热材料，天线电镀、镀膜工艺关键材料</div>
-        <table>
-            <thead><tr><th>材料</th><th>最新价</th><th>单位</th><th>较上月</th><th>趋势</th></tr></thead>
-            <tbody>
-                <tr class="material-row"><td>导电银浆</td><td>13480</td><td>元/公斤</td><td class="up">+157.1%</td><td>🔴 上涨</td></tr>
-                <tr class="material-row"><td>PVDF氟膜</td><td>355</td><td>元/平方米</td><td class="up">+322.6%</td><td>🔴 上涨</td></tr>
-                <tr class="material-row"><td>导热硅脂</td><td>120</td><td>元/公斤</td><td class="down">-62.2%</td><td>🔼 下跌</td></tr>
-                <tr class="material-row"><td>硅烷偶联剂</td><td>17000</td><td>元/吨</td><td class="down">-6.2%</td><td>🔼 下跌</td></tr>
-                <tr class="material-row"><td>三防漆</td><td>85</td><td>元/公斤</td><td class="down">-69.6%</td><td>🔼 下跌</td></tr>
-                <tr class="material-row"><td>电子级环氧树脂</td><td>35000</td><td>元/吨</td><td class="up">+23.0%</td><td>🔴 上涨</td></tr>
-            </tbody>
-        </table>
-        <div style="display:inline-block;width:48%;vertical-align:top;">
-            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">导电银浆</div>
-            <div style="margin-bottom:12px;">
-    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
-         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
-        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">14k</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">11k</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">8k</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">5k</text>
-        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
-        <path d="M45.0,113.4 78.1,112.2 111.2,111.1 144.4,109.9 177.5,109.4 210.6,108.8 243.8,108.6 276.9,14.6 310.0,14.6 L310.0,115 L45.0,115 Z" fill="#2e7d32" opacity="0.08"/>
-        <path d="45.0,113.4 78.1,112.2 111.2,111.1 144.4,109.9 177.5,109.4 210.6,108.8 243.8,108.6 276.9,14.6 310.0,14.6" fill="none" stroke="#2e7d32" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-        <rect x="295.0" y="-2.4" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
-        <text x="310.0" y="4.6" text-anchor="middle" font-size="7.5" fill="#2e7d32" font-weight="700">13k</text>
-        <circle cx="310.0" cy="14.6" r="3" fill="#2e7d32" stroke="white" stroke-width="1.5"/>
-    </svg>
+
+<div class="section">
+<h2>💡 对天线BOM成本的影响</h2>
+<div class="impact-grid">
+<div class="impact-item">
+<div class="impact-title">🔩 金属原材料</div>
+<div class="impact-text">金属类直接影响天线振子、馈电网络、滤波器等射频结构件成本。铜、铝价格波动直接传导至AAU散热器、PCB铜箔等关键部件。</div>
+</div><div class="impact-item">
+<div class="impact-title">🧪 工程塑料</div>
+<div class="impact-text">工程塑料用于天线外壳、滤波器介质、绝缘骨架等结构件。LCP、PPS等特种工程塑料涨价对5G毫米波天线成本压力较大。</div>
+</div><div class="impact-item">
+<div class="impact-title">🔲 PCB/覆铜板</div>
+<div class="impact-text">PCB及覆铜板是天线射频电路核心基材。FR-4、PTFE高频覆铜板占天线PCB成本30%以上，AI算力需求驱动高端CCL持续紧缺涨价。</div>
+</div><div class="impact-item">
+<div class="impact-title">⚗️ 化工类原材料</div>
+<div class="impact-text">化工原料影响天线镀膜（LDS工艺银浆）、防护涂层、表面处理等工艺。银浆价格随银价波动，PVDF氟膜用于天线外罩防护。</div>
+</div></div>
 </div>
-        </div>
-        <div style="display:inline-block;width:48%;vertical-align:top;">
-            <div style="text-align:center;font-size:10px;color:#666;margin-bottom:4px;">PVDF氟膜</div>
-            <div style="margin-bottom:12px;">
-    <svg width="320" height="140" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg"
-         style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;background:#fafbfc;border-radius:6px;">
-        <line x1="45" y1="10.0" x2="310" y2="10.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="13.0" text-anchor="end" font-size="7" fill="#999">366</text><line x1="45" y1="45.0" x2="310" y2="45.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="48.0" text-anchor="end" font-size="7" fill="#999">271</text><line x1="45" y1="80.0" x2="310" y2="80.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="83.0" text-anchor="end" font-size="7" fill="#999">177</text><line x1="45" y1="115.0" x2="310" y2="115.0" stroke="#eee" stroke-width="0.5"/><text x="41" y="118.0" text-anchor="end" font-size="7" fill="#999">82</text>
-        <text x="45.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2025/12</text><text x="78.125" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/01</text><text x="111.25" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/02</text><text x="144.375" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/03</text><text x="177.5" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/04</text><text x="210.625" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/05</text><text x="243.75" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/06</text><text x="276.875" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/07</text><text x="310.0" y="138" text-anchor="middle" font-size="6.5" fill="#999">2026/08</text>
-        <path d="M45.0,112.9 78.1,113.3 111.2,113.7 144.4,113.7 177.5,114.1 210.6,114.1 243.8,114.1 276.9,13.9 310.0,13.9 L310.0,115 L45.0,115 Z" fill="#2e7d32" opacity="0.08"/>
-        <path d="45.0,112.9 78.1,113.3 111.2,113.7 144.4,113.7 177.5,114.1 210.6,114.1 243.8,114.1 276.9,13.9 310.0,13.9" fill="none" stroke="#2e7d32" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-        <rect x="295.0" y="-3.1" width="30" height="11" rx="3" fill="#fafbfc" stroke="#ddd" stroke-width="0.5" opacity="0.9"/>
-        <text x="310.0" y="3.9" text-anchor="middle" font-size="7.5" fill="#2e7d32" font-weight="700">355</text>
-        <circle cx="310.0" cy="13.9" r="3" fill="#2e7d32" stroke="white" stroke-width="1.5"/>
-    </svg>
+
+<div class="section">
+<h2>🔮 后续展望（基于近期行业动态）</h2>
+
+<div class="outlook-item">
+<h4>📡 覆铜板产业链</h4>
+<p>AI算力需求持续旺盛，建滔积层板、生益科技等头部CCL厂商已开启年内多轮提价（累计涨幅超50%），电子布7628价格较年初涨超70%。
+M8/M9高端高速覆铜板产能100%锁单，现货断供。FR-4通用覆铜板跟随铜价波动，整体维持高位运行。预计Q3高端CCL紧缺格局延续。</p>
 </div>
-        </div>
-        <div style="clear:both;"></div>
-    </div>
-    <div class="section">
-        <div class="stitle">🔍 市场分析与展望</div>
-        <div class="summary-box">
-            <h4>⚠️ 本周关键变化</h4>
-            <p>• <strong>PVDF氟膜</strong> 大幅上涨 +322.6%，天线外罩表面防护膜材，PVDF膜耐候性极佳，是5G天线外罩主流表面处理材料</p><p>• <strong>导电银浆</strong> 大幅上涨 +157.1%，天线振子金属化镀膜（LDS工艺）主材料，银价上涨直接推高LDS振子成本</p><p>• <strong>锡</strong> 大幅上涨 +54.6%，天线焊料主要成分，锡价影响焊接工艺成本</p><p>• <strong>锌</strong> 下跌 0.0%，天线紧固件、镀锌结构件材料，锌价波动影响紧固件成本</p><p>• <strong>镍</strong> 下跌 +1.1%，不锈钢304含镍成分，镍价直接影响不锈钢成本</p><p>• <strong>LCP薄膜</strong> 下跌 +1.7%，5G毫米波天线LDS工艺基材，LCP薄膜是最高端天线基材，目前被日美厂商垄断</p>
-            <p>• <strong>CCL涨价潮持续：</strong>建滔年内累计提价超50%，电子布7628年内涨幅达130%，AI服务器需求驱动高端CCL供不应求。</p>
-            <p>• <strong>贵金属分化：</strong>金价突破900元/克创新高，银价因光伏需求强劲反弹至14.65元/克。</p>
-            <p>• <strong>工程塑料普跌：</strong>PA66/PBT受原料己二酸/对苯二甲酸成本下降影响，跌幅超40%。</p>
-        </div>
-    </div>
-    <div class="footer">
-        <p>本报表由自动化系统生成 | 数据来源：上期所、LME、SMM、行业研究访谈</p>
-        <p>生成时间：2026-07-10 09:00 CST | 下次更新：2026-07-10 09:00</p>
-    </div>
+<div class="outlook-item">
+<h4>🔩 金属原材料</h4>
+<p>铜、铝价格近期承压回落（电解铜-5.9%、铝锭-5.1%），主因美元走强及需求端季节性走弱。
+锡价表现强势（沪锡+2.2%），缅甸佤邦复产进度不及预期叠加AI算力对电子锡需求支撑。
+镍、锌、铅整体偏弱震荡，不锈钢304需求平淡。</p>
+</div>
+<div class="outlook-item">
+<h4>🧪 工程塑料</h4>
+<p>工程塑料整体平稳偏弱，环氧树脂-6.1%跌幅明显（上游双酚A、环氧氯丙烷价格回落）。
+LCP、PTFE、PPS等特种工程塑料受AI/5G高端应用支撑，价格相对坚挺。
+PA66、PBT跟随上游己二胺、PTA价格波动。</p>
+</div>
+<div class="outlook-item">
+<h4>⚗️ 化工原料</h4>
+<p>导电银浆受银价波动+2.3%，AI服务器LDS振子需求带动高端银浆用量增长。
+电子级环氧树脂+1.3%，覆铜板及5G高频材料升级对低介电环氧树脂需求强劲。
+PVDF氟膜、导热硅脂等小品类价格平稳，5G基站散热需求带动用量增长。</p>
+</div>
+
+</div>
+
+<div class="section" style="background:#fffbe6;border-left:4px solid #f39c12">
+<h2 style="color:#b88200">⚠️ 采购建议</h2>
+<ul style="font-size:13px;line-height:1.8;color:#444">
+<li><strong>覆铜板/电子布：</strong>AI驱动高端CCL紧缺延续，建议Q3提前锁单备货，关注生益科技、南亚新材等国产替代标的</li>
+<li><strong>金属：</strong>铜、铝短期承压但中长期受能源转型支撑，建议按需采购避免追高</li>
+<li><strong>特种工程塑料：</strong>LCP/PTFE/PPS供应紧张，建议建立安全库存（≥2个月用量）</li>
+<li><strong>银浆：</strong>银价高位震荡，关注美联储利率政策对银价的边际影响</li>
+</ul>
+</div>
+<div class="section"><h2>📊 核心价格一览</h2><table class="price-table">
+<thead>
+<tr><th>类别</th><th>材料</th><th>类型</th><th>当前价</th><th>涨跌</th><th>趋势</th></tr>
+</thead>
+<tbody><tr>
+<td>🔩 金属原材料</td>
+<td><strong>电解铜</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>104,270 元/吨</td>
+<td class="up">+0.1%</td>
+<td class="up">上涨</td>
+</tr><tr>
+<td>🔩 金属原材料</td>
+<td><strong>铝锭</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>22,865 元/吨</td>
+<td class="down">-1.1%</td>
+<td class="down">下跌</td>
+</tr><tr>
+<td>🔩 金属原材料</td>
+<td><strong>不锈钢304/2B</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>14,260 元/吨</td>
+<td class="down">-5.4%</td>
+<td class="down">下跌</td>
+</tr><tr>
+<td>🔩 金属原材料</td>
+<td><strong>金</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>910 元/克</td>
+<td class="up">+1.5%</td>
+<td class="up">上涨</td>
+</tr><tr>
+<td>🔩 金属原材料</td>
+<td><strong>银</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>16 元/克</td>
+<td class="up">+20.1%</td>
+<td class="up">上涨</td>
+</tr><tr>
+<td>🔩 金属原材料</td>
+<td><strong>螺纹钢</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>3,155 元/吨</td>
+<td class="down">-0.5%</td>
+<td class="down">下跌</td>
+</tr><tr>
+<td>🔩 金属原材料</td>
+<td><strong>锌</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>24,860 元/吨</td>
+<td class="up">+1.1%</td>
+<td class="up">上涨</td>
+</tr><tr>
+<td>🔩 金属原材料</td>
+<td><strong>镍</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>128,956 元/吨</td>
+<td class="up">+1.2%</td>
+<td class="up">上涨</td>
+</tr><tr>
+<td>🔩 金属原材料</td>
+<td><strong>锡</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>417,311 元/吨</td>
+<td class="up">+1.8%</td>
+<td class="up">上涨</td>
+</tr><tr>
+<td>🔩 金属原材料</td>
+<td><strong>铅</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>15,945 元/吨</td>
+<td class="down">-0.3%</td>
+<td class="down">下跌</td>
+</tr><tr>
+<td>🧪 工程塑料</td>
+<td><strong>LCP树脂</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>300,000 元/吨</td>
+<td class="up">+423.7%</td>
+<td class="up">上涨</td>
+</tr><tr>
+<td>🧪 工程塑料</td>
+<td><strong>PTFE树脂</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>175,000 元/吨</td>
+<td class="up">+247.2%</td>
+<td class="up">上涨</td>
+</tr><tr>
+<td>🧪 工程塑料</td>
+<td><strong>PPS树脂</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>58,000 元/吨</td>
+<td class="up">+21.2%</td>
+<td class="down">下跌</td>
+</tr><tr>
+<td>🧪 工程塑料</td>
+<td><strong>环氧树脂</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>15,200 元/吨</td>
+<td class="up">+1.4%</td>
+<td class="up">上涨</td>
+</tr><tr>
+<td>🧪 工程塑料</td>
+<td><strong>PA66工程塑料</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>28,618 元/吨</td>
+<td class="flat">0.0%</td>
+<td class="flat">持平</td>
+</tr><tr>
+<td>🧪 工程塑料</td>
+<td><strong>PBT工程塑料</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>16,632 元/吨</td>
+<td class="flat">0.0%</td>
+<td class="flat">持平</td>
+</tr><tr>
+<td>🔲 PCB/覆铜板</td>
+<td><strong>FR4覆铜板</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>300 元/平方米</td>
+<td class="up">+145.9%</td>
+<td class="up">上涨</td>
+</tr><tr>
+<td>🔲 PCB/覆铜板</td>
+<td><strong>LCP薄膜</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>2,851 元/平方米</td>
+<td class="up">+0.0%</td>
+<td class="flat">持平</td>
+</tr><tr>
+<td>🔲 PCB/覆铜板</td>
+<td><strong>碳氢树脂覆铜板</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>864 元/平方米</td>
+<td class="up">+0.0%</td>
+<td class="flat">持平</td>
+</tr><tr>
+<td>🔲 PCB/覆铜板</td>
+<td><strong>PTFE高频覆铜板</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>1,211 元/平方米</td>
+<td class="up">+0.0%</td>
+<td class="flat">持平</td>
+</tr><tr>
+<td>🔲 PCB/覆铜板</td>
+<td><strong>电子布7628</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>7 元/米</td>
+<td class="up">+7.7%</td>
+<td class="up">上涨</td>
+</tr><tr>
+<td>⚗️ 化工类原材料</td>
+<td><strong>导电银浆</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>5,350 元/公斤</td>
+<td class="up">+2.0%</td>
+<td class="up">上涨</td>
+</tr><tr>
+<td>⚗️ 化工类原材料</td>
+<td><strong>PVDF氟膜</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>84 元/平方米</td>
+<td class="up">+0.0%</td>
+<td class="flat">持平</td>
+</tr><tr>
+<td>⚗️ 化工类原材料</td>
+<td><strong>导热硅脂</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>317 元/公斤</td>
+<td class="up">+0.0%</td>
+<td class="flat">持平</td>
+</tr><tr>
+<td>⚗️ 化工类原材料</td>
+<td><strong>硅烷偶联剂</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>18,126 元/吨</td>
+<td class="up">+0.0%</td>
+<td class="flat">持平</td>
+</tr><tr>
+<td>⚗️ 化工类原材料</td>
+<td><strong>三防漆</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>280 元/公斤</td>
+<td class="up">+0.0%</td>
+<td class="flat">持平</td>
+</tr><tr>
+<td>⚗️ 化工类原材料</td>
+<td><strong>电子级环氧树脂</strong></td>
+<td><span class="price-type">市场报价</span></td>
+<td>29,500 元/吨</td>
+<td class="up">+3.7%</td>
+<td class="up">上涨</td>
+</tr></tbody></table></div><div class="section"><h2>📈 近8个月价格走势（含价格类型）</h2><div class="charts-grid"><div class="chart-item">
+<h3>电解铜 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">108k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">103k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">98k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">93k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,127.0 L 102.5,122.0 L 133.8,65.0 L 165.0,50.4 L 196.2,20.0 L 227.5,22.4 L 258.8,49.0 L 290.0,48.5" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">93.1k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="127.0" r="12" fill="transparent" />
+  <circle cx="71.2" cy="127.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="95.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="108.0" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="118.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">93.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="122.0" r="12" fill="transparent" />
+  <circle cx="102.5" cy="122.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="90.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="103.0" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="113.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">94.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="65.0" r="12" fill="transparent" />
+  <circle cx="133.8" cy="65.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="33.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="46.0" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="56.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">102.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="50.4" r="12" fill="transparent" />
+  <circle cx="165.0" cy="50.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="18.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="31.4" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="41.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">104.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="20.0" r="12" fill="transparent" />
+  <circle cx="196.2" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">108.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="22.4" r="12" fill="transparent" />
+  <circle cx="227.5" cy="22.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="-9.6" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="3.4" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="13.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">107.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="49.0" r="12" fill="transparent" />
+  <circle cx="258.8" cy="49.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="17.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="30.0" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="40.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">104.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="48.5" r="12" fill="transparent" />
+  <circle cx="290.0" cy="48.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="16.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="29.5" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="39.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">104.3k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="32.5" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="41.5" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">104.3k</text>
+<circle cx="290.0" cy="48.5" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>104,270</strong> ·
+<span class="up">+0.1% 上涨</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>铝锭 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">24k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">24k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">23k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">22k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,32.9 L 102.5,77.3 L 133.8,90.9 L 165.0,59.3 L 196.2,27.2 L 227.5,20.0 L 258.8,76.9 L 290.0,87.9" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">21.9k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="32.9" r="12" fill="transparent" />
+  <circle cx="71.2" cy="32.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="0.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="13.9" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="23.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">24.1k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="77.3" r="12" fill="transparent" />
+  <circle cx="102.5" cy="77.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="45.3" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="58.3" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="68.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">23.1k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="90.9" r="12" fill="transparent" />
+  <circle cx="133.8" cy="90.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="58.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="71.9" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="81.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">22.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="59.3" r="12" fill="transparent" />
+  <circle cx="165.0" cy="59.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="27.3" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="40.3" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="50.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">23.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="27.2" r="12" fill="transparent" />
+  <circle cx="196.2" cy="27.2" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="-4.8" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="8.2" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="18.2" font-size="10" fill="white" text-anchor="middle" font-weight="bold">24.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="20.0" r="12" fill="transparent" />
+  <circle cx="227.5" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">24.4k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="76.9" r="12" fill="transparent" />
+  <circle cx="258.8" cy="76.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="44.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="57.9" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="67.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">23.1k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="87.9" r="12" fill="transparent" />
+  <circle cx="290.0" cy="87.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="55.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="68.9" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="78.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">22.9k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="71.9" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="80.9" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">22.9k</text>
+<circle cx="290.0" cy="87.9" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>22,865</strong> ·
+<span class="down">-1.1% 下跌</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>不锈钢304/2B <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">15k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">15k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">15k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">14k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-01</text>
+<text x="111.4" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-03</text>
+<text x="182.9" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-05</text>
+<text x="254.3" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-07</text>
+
+  <path d="M 40.0,93.9 L 75.7,90.4 L 111.4,67.1 L 147.1,20.6 L 182.9,20.0 L 218.6,25.8 L 254.3,35.2 L 290.0,130.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="93.9" r="12" fill="transparent" />
+  <circle cx="40.0" cy="93.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="61.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="74.9" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="40.0" y="84.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">14.6k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="75.7" cy="90.4" r="12" fill="transparent" />
+  <circle cx="75.7" cy="90.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="45.7" y="58.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="75.7" y="71.4" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="75.7" y="81.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">14.6k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="111.4" cy="67.1" r="12" fill="transparent" />
+  <circle cx="111.4" cy="67.1" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="81.4" y="35.1" width="60" height="20" fill="#333" rx="3"/>
+    <text x="111.4" y="48.1" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="111.4" y="58.1" font-size="10" fill="white" text-anchor="middle" font-weight="bold">14.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="147.1" cy="20.6" r="12" fill="transparent" />
+  <circle cx="147.1" cy="20.6" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="117.1" y="-11.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="147.1" y="1.6" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="147.1" y="11.6" font-size="10" fill="white" text-anchor="middle" font-weight="bold">15.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="182.9" cy="20.0" r="12" fill="transparent" />
+  <circle cx="182.9" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="152.9" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="182.9" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="182.9" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">15.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="218.6" cy="25.8" r="12" fill="transparent" />
+  <circle cx="218.6" cy="25.8" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="188.6" y="-6.2" width="60" height="20" fill="#333" rx="3"/>
+    <text x="218.6" y="6.8" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="218.6" y="16.8" font-size="10" fill="white" text-anchor="middle" font-weight="bold">15.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="254.3" cy="35.2" r="12" fill="transparent" />
+  <circle cx="254.3" cy="35.2" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="224.3" y="3.2" width="60" height="20" fill="#333" rx="3"/>
+    <text x="254.3" y="16.2" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="254.3" y="26.2" font-size="10" fill="white" text-anchor="middle" font-weight="bold">15.1k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">14.3k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="136.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="145.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">14.3k</text>
+<circle cx="290.0" cy="130.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>14,260</strong> ·
+<span class="down">-5.4% 下跌</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>金 <span style="font-weight:normal;font-size:11px;color:#888">(元/克)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">1k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">965</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">929</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">892</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,112.0 L 102.5,87.0 L 133.8,62.0 L 165.0,47.0 L 196.2,30.0 L 227.5,20.0 L 258.8,124.9 L 290.0,111.7" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">892.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="112.0" r="12" fill="transparent" />
+  <circle cx="71.2" cy="112.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="80.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="93.0" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="103.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">910.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="87.0" r="12" fill="transparent" />
+  <circle cx="102.5" cy="87.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="55.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="68.0" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="78.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">935.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="62.0" r="12" fill="transparent" />
+  <circle cx="133.8" cy="62.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="30.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="43.0" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="53.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">960.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="47.0" r="12" fill="transparent" />
+  <circle cx="165.0" cy="47.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="15.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="28.0" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="38.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">975.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="30.0" r="12" fill="transparent" />
+  <circle cx="196.2" cy="30.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="-2.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="11.0" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="21.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">992.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="20.0" r="12" fill="transparent" />
+  <circle cx="227.5" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">1.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="124.9" r="12" fill="transparent" />
+  <circle cx="258.8" cy="124.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="92.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="105.9" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="115.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">897.1</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="111.7" r="12" fill="transparent" />
+  <circle cx="290.0" cy="111.7" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="79.7" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="92.7" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="102.7" font-size="10" fill="white" text-anchor="middle" font-weight="bold">910.3</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="95.7" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="104.7" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">910.3</text>
+<circle cx="290.0" cy="111.7" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>910</strong> ·
+<span class="up">+1.5% 上涨</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>银 <span style="font-weight:normal;font-size:11px;color:#888">(元/克)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">19</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">17</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">15</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">13</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,42.2 L 71.2,34.8 L 102.5,29.3 L 133.8,21.9 L 165.0,25.6 L 196.2,26.5 L 227.5,20.0 L 258.8,130.0 L 290.0,81.5" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="42.2" r="12" fill="transparent" />
+  <circle cx="40.0" cy="42.2" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="10.2" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="23.2" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="33.2" font-size="10" fill="white" text-anchor="middle" font-weight="bold">17.8</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="34.8" r="12" fill="transparent" />
+  <circle cx="71.2" cy="34.8" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="2.8" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="15.8" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="25.8" font-size="10" fill="white" text-anchor="middle" font-weight="bold">18.2</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="29.3" r="12" fill="transparent" />
+  <circle cx="102.5" cy="29.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="-2.7" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="10.3" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="20.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">18.5</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="21.9" r="12" fill="transparent" />
+  <circle cx="133.8" cy="21.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="-10.1" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="2.9" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="12.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">18.9</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="25.6" r="12" fill="transparent" />
+  <circle cx="165.0" cy="25.6" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="-6.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="6.6" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="16.6" font-size="10" fill="white" text-anchor="middle" font-weight="bold">18.7</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="26.5" r="12" fill="transparent" />
+  <circle cx="196.2" cy="26.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="-5.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="7.5" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="17.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">18.6</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="20.0" r="12" fill="transparent" />
+  <circle cx="227.5" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">19.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="130.0" r="12" fill="transparent" />
+  <circle cx="258.8" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="111.0" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">13.1</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="81.5" r="12" fill="transparent" />
+  <circle cx="290.0" cy="81.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="49.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="62.5" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="72.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">15.7</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="65.5" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="74.5" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">15.7</text>
+<circle cx="290.0" cy="81.5" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>16</strong> ·
+<span class="up">+20.1% 上涨</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>螺纹钢 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">4k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">3k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">3k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">3k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,20.0 L 71.2,32.1 L 102.5,41.1 L 133.8,44.1 L 165.0,42.6 L 196.2,47.1 L 227.5,51.0 L 258.8,125.5 L 290.0,130.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">3.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="32.1" r="12" fill="transparent" />
+  <circle cx="71.2" cy="32.1" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="0.1" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="13.1" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="23.1" font-size="10" fill="white" text-anchor="middle" font-weight="bold">3.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="41.1" r="12" fill="transparent" />
+  <circle cx="102.5" cy="41.1" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="9.1" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="22.1" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="32.1" font-size="10" fill="white" text-anchor="middle" font-weight="bold">3.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="44.1" r="12" fill="transparent" />
+  <circle cx="133.8" cy="44.1" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="12.1" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="25.1" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="35.1" font-size="10" fill="white" text-anchor="middle" font-weight="bold">3.4k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="42.6" r="12" fill="transparent" />
+  <circle cx="165.0" cy="42.6" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="10.6" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="23.6" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="33.6" font-size="10" fill="white" text-anchor="middle" font-weight="bold">3.4k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="47.1" r="12" fill="transparent" />
+  <circle cx="196.2" cy="47.1" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="15.1" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="28.1" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="38.1" font-size="10" fill="white" text-anchor="middle" font-weight="bold">3.4k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="51.0" r="12" fill="transparent" />
+  <circle cx="227.5" cy="51.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="19.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="32.0" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="42.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">3.4k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="125.5" r="12" fill="transparent" />
+  <circle cx="258.8" cy="125.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="93.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="106.5" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="116.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">3.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">3.2k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="136.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="145.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">3.2k</text>
+<circle cx="290.0" cy="130.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>3,155</strong> ·
+<span class="down">-0.5% 下跌</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>锌 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+
+<div class="meta">
+最新: <strong>24,860</strong> ·
+<span class="up">+1.1% 上涨</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>镍 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+
+<div class="meta">
+最新: <strong>128,956</strong> ·
+<span class="up">+1.2% 上涨</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>锡 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+
+<div class="meta">
+最新: <strong>417,311</strong> ·
+<span class="up">+1.8% 上涨</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>铅 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+
+<div class="meta">
+最新: <strong>15,945</strong> ·
+<span class="down">-0.3% 下跌</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>LCP树脂 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">300k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">219k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">138k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">57k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,129.8 L 102.5,129.6 L 133.8,129.5 L 165.0,129.5 L 196.2,129.5 L 227.5,129.3 L 258.8,129.9 L 290.0,20.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">57.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="129.8" r="12" fill="transparent" />
+  <circle cx="71.2" cy="129.8" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="97.8" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="110.8" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="120.8" font-size="10" fill="white" text-anchor="middle" font-weight="bold">57.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="129.6" r="12" fill="transparent" />
+  <circle cx="102.5" cy="129.6" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="97.6" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="110.6" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="120.6" font-size="10" fill="white" text-anchor="middle" font-weight="bold">57.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="129.5" r="12" fill="transparent" />
+  <circle cx="133.8" cy="129.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="97.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="110.5" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="120.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">58.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="129.5" r="12" fill="transparent" />
+  <circle cx="165.0" cy="129.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="97.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="110.5" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="120.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">58.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="129.5" r="12" fill="transparent" />
+  <circle cx="196.2" cy="129.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="97.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="110.5" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="120.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">58.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="129.3" r="12" fill="transparent" />
+  <circle cx="227.5" cy="129.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="97.3" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="110.3" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="120.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">58.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="129.9" r="12" fill="transparent" />
+  <circle cx="258.8" cy="129.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="97.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="110.9" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="120.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">57.3k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">300.0k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="4.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="13.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">300.0k</text>
+<circle cx="290.0" cy="20.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>300,000</strong> ·
+<span class="up">+423.7% 上涨</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>PTFE树脂 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">175k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">133k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">91k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">48k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,129.6 L 102.5,129.4 L 133.8,129.1 L 165.0,128.9 L 196.2,128.7 L 227.5,128.6 L 258.8,128.3 L 290.0,20.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">48.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="129.6" r="12" fill="transparent" />
+  <circle cx="71.2" cy="129.6" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="97.6" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="110.6" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="120.6" font-size="10" fill="white" text-anchor="middle" font-weight="bold">49.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="129.4" r="12" fill="transparent" />
+  <circle cx="102.5" cy="129.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="97.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="110.4" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="120.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">49.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="129.1" r="12" fill="transparent" />
+  <circle cx="133.8" cy="129.1" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="97.1" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="110.1" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="120.1" font-size="10" fill="white" text-anchor="middle" font-weight="bold">49.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="128.9" r="12" fill="transparent" />
+  <circle cx="165.0" cy="128.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="96.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="109.9" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="119.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">49.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="128.7" r="12" fill="transparent" />
+  <circle cx="196.2" cy="128.7" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="96.7" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="109.7" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="119.7" font-size="10" fill="white" text-anchor="middle" font-weight="bold">50.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="128.6" r="12" fill="transparent" />
+  <circle cx="227.5" cy="128.6" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="96.6" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="109.6" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="119.6" font-size="10" fill="white" text-anchor="middle" font-weight="bold">50.1k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="128.3" r="12" fill="transparent" />
+  <circle cx="258.8" cy="128.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="96.3" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="109.3" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="119.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">50.4k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">175.0k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="4.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="13.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">175.0k</text>
+<circle cx="290.0" cy="20.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>175,000</strong> ·
+<span class="up">+247.2% 上涨</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>PPS树脂 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">58k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">54k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">50k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">46k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,127.4 L 102.5,125.6 L 133.8,123.8 L 165.0,122.1 L 196.2,121.2 L 227.5,115.2 L 258.8,109.1 L 290.0,20.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">45.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="127.4" r="12" fill="transparent" />
+  <circle cx="71.2" cy="127.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="95.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="108.4" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="118.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">45.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="125.6" r="12" fill="transparent" />
+  <circle cx="102.5" cy="125.6" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="93.6" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="106.6" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="116.6" font-size="10" fill="white" text-anchor="middle" font-weight="bold">46.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="123.8" r="12" fill="transparent" />
+  <circle cx="133.8" cy="123.8" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="91.8" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="104.8" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="114.8" font-size="10" fill="white" text-anchor="middle" font-weight="bold">46.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="122.1" r="12" fill="transparent" />
+  <circle cx="165.0" cy="122.1" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="90.1" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="103.1" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="113.1" font-size="10" fill="white" text-anchor="middle" font-weight="bold">46.4k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="121.2" r="12" fill="transparent" />
+  <circle cx="196.2" cy="121.2" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="89.2" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="102.2" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="112.2" font-size="10" fill="white" text-anchor="middle" font-weight="bold">46.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="115.2" r="12" fill="transparent" />
+  <circle cx="227.5" cy="115.2" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="83.2" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="96.2" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="106.2" font-size="10" fill="white" text-anchor="middle" font-weight="bold">47.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="109.1" r="12" fill="transparent" />
+  <circle cx="258.8" cy="109.1" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="77.1" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="90.1" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="100.1" font-size="10" fill="white" text-anchor="middle" font-weight="bold">47.9k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">58.0k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="4.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="13.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">58.0k</text>
+<circle cx="290.0" cy="20.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>58,000</strong> ·
+<span class="down">+21.2% 下跌</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>环氧树脂 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">15k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">15k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">15k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">15k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,20.0 L 71.2,56.7 L 102.5,75.0 L 133.8,102.5 L 165.0,111.7 L 196.2,130.0 L 227.5,100.5 L 258.8,59.0 L 290.0,20.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">15.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="56.7" r="12" fill="transparent" />
+  <circle cx="71.2" cy="56.7" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="24.7" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="37.7" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="47.7" font-size="10" fill="white" text-anchor="middle" font-weight="bold">15.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="75.0" r="12" fill="transparent" />
+  <circle cx="102.5" cy="75.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="43.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="56.0" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="66.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">14.9k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="102.5" r="12" fill="transparent" />
+  <circle cx="133.8" cy="102.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="70.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="83.5" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="93.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">14.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="111.7" r="12" fill="transparent" />
+  <circle cx="165.0" cy="111.7" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="79.7" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="92.7" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="102.7" font-size="10" fill="white" text-anchor="middle" font-weight="bold">14.7k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="130.0" r="12" fill="transparent" />
+  <circle cx="196.2" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="111.0" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">14.6k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="100.5" r="12" fill="transparent" />
+  <circle cx="227.5" cy="100.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="68.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="81.5" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="91.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">14.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="59.0" r="12" fill="transparent" />
+  <circle cx="258.8" cy="59.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="27.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="40.0" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="50.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">15.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">15.2k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="4.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="13.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">15.2k</text>
+<circle cx="290.0" cy="20.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>15,200</strong> ·
+<span class="up">+1.4% 上涨</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>PA66工程塑料 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">29k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">28k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">28k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">28k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,112.2 L 102.5,94.4 L 133.8,76.6 L 165.0,58.8 L 196.2,41.0 L 227.5,23.4 L 258.8,20.0 L 290.0,20.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="112.2" r="12" fill="transparent" />
+  <circle cx="71.2" cy="112.2" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="80.2" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="93.2" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="103.2" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.1k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="94.4" r="12" fill="transparent" />
+  <circle cx="102.5" cy="94.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="62.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="75.4" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="85.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="76.6" r="12" fill="transparent" />
+  <circle cx="133.8" cy="76.6" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="44.6" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="57.6" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="67.6" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.3k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="58.8" r="12" fill="transparent" />
+  <circle cx="165.0" cy="58.8" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="26.8" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="39.8" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="49.8" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.4k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="41.0" r="12" fill="transparent" />
+  <circle cx="196.2" cy="41.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="9.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="22.0" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="32.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="23.4" r="12" fill="transparent" />
+  <circle cx="227.5" cy="23.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="-8.6" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="4.4" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="14.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.6k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="20.0" r="12" fill="transparent" />
+  <circle cx="258.8" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.6k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.6k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="4.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="13.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">28.6k</text>
+<circle cx="290.0" cy="20.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>28,618</strong> ·
+<span class="flat">0.0% 持平</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>PBT工程塑料 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">17k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">17k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">17k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">17k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,75.0 L 102.5,47.5 L 133.8,20.0 L 165.0,20.0 L 196.2,20.0 L 227.5,101.4 L 258.8,112.4 L 290.0,112.4" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">16.6k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="75.0" r="12" fill="transparent" />
+  <circle cx="71.2" cy="75.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="43.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="56.0" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="66.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">16.7k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="47.5" r="12" fill="transparent" />
+  <circle cx="102.5" cy="47.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="15.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="28.5" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="38.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">16.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="20.0" r="12" fill="transparent" />
+  <circle cx="133.8" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">16.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="165.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">16.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="20.0" r="12" fill="transparent" />
+  <circle cx="196.2" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">16.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="101.4" r="12" fill="transparent" />
+  <circle cx="227.5" cy="101.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="69.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="82.4" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="92.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">16.7k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="112.4" r="12" fill="transparent" />
+  <circle cx="258.8" cy="112.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="80.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="93.4" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="103.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">16.6k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="112.4" r="12" fill="transparent" />
+  <circle cx="290.0" cy="112.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="80.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="93.4" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="103.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">16.6k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="96.4" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="105.4" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">16.6k</text>
+<circle cx="290.0" cy="112.4" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>16,632</strong> ·
+<span class="flat">0.0% 持平</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>FR4覆铜板 <span style="font-weight:normal;font-size:11px;color:#888">(元/平方米)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">300</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">239</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">179</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">118</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,129.4 L 102.5,129.4 L 133.8,128.8 L 165.0,128.8 L 196.2,128.8 L 227.5,128.2 L 258.8,127.6 L 290.0,20.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">118.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="129.4" r="12" fill="transparent" />
+  <circle cx="71.2" cy="129.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="97.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="110.4" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="120.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">119.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="129.4" r="12" fill="transparent" />
+  <circle cx="102.5" cy="129.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="97.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="110.4" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="120.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">119.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="128.8" r="12" fill="transparent" />
+  <circle cx="133.8" cy="128.8" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="96.8" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="109.8" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="119.8" font-size="10" fill="white" text-anchor="middle" font-weight="bold">120.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="128.8" r="12" fill="transparent" />
+  <circle cx="165.0" cy="128.8" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="96.8" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="109.8" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="119.8" font-size="10" fill="white" text-anchor="middle" font-weight="bold">120.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="128.8" r="12" fill="transparent" />
+  <circle cx="196.2" cy="128.8" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="96.8" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="109.8" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="119.8" font-size="10" fill="white" text-anchor="middle" font-weight="bold">120.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="128.2" r="12" fill="transparent" />
+  <circle cx="227.5" cy="128.2" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="96.2" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="109.2" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="119.2" font-size="10" fill="white" text-anchor="middle" font-weight="bold">121.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="127.6" r="12" fill="transparent" />
+  <circle cx="258.8" cy="127.6" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="95.6" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="108.6" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="118.6" font-size="10" fill="white" text-anchor="middle" font-weight="bold">122.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">300.0</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="4.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="13.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">300.0</text>
+<circle cx="290.0" cy="20.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>300</strong> ·
+<span class="up">+145.9% 上涨</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>LCP薄膜 <span style="font-weight:normal;font-size:11px;color:#888">(元/平方米)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">3k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">3k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">3k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">3k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,102.6 L 102.5,86.2 L 133.8,69.8 L 165.0,58.9 L 196.2,47.9 L 227.5,53.9 L 258.8,20.0 L 290.0,20.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">2.6k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="102.6" r="12" fill="transparent" />
+  <circle cx="71.2" cy="102.6" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="70.6" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="83.6" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="93.6" font-size="10" fill="white" text-anchor="middle" font-weight="bold">2.7k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="86.2" r="12" fill="transparent" />
+  <circle cx="102.5" cy="86.2" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="54.2" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="67.2" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="77.2" font-size="10" fill="white" text-anchor="middle" font-weight="bold">2.7k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="69.8" r="12" fill="transparent" />
+  <circle cx="133.8" cy="69.8" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="37.8" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="50.8" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="60.8" font-size="10" fill="white" text-anchor="middle" font-weight="bold">2.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="58.9" r="12" fill="transparent" />
+  <circle cx="165.0" cy="58.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="26.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="39.9" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="49.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">2.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="47.9" r="12" fill="transparent" />
+  <circle cx="196.2" cy="47.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="15.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="28.9" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="38.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">2.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="53.9" r="12" fill="transparent" />
+  <circle cx="227.5" cy="53.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="21.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="34.9" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="44.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">2.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="20.0" r="12" fill="transparent" />
+  <circle cx="258.8" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">2.9k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">2.9k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="4.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="13.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">2.9k</text>
+<circle cx="290.0" cy="20.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>2,851</strong> ·
+<span class="flat">+0.0% 持平</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>碳氢树脂覆铜板 <span style="font-weight:normal;font-size:11px;color:#888">(元/平方米)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">864</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">843</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">821</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">800</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,112.8 L 102.5,95.6 L 133.8,78.4 L 165.0,61.2 L 196.2,44.1 L 227.5,30.3 L 258.8,20.0 L 290.0,20.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">800.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="112.8" r="12" fill="transparent" />
+  <circle cx="71.2" cy="112.8" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="80.8" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="93.8" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="103.8" font-size="10" fill="white" text-anchor="middle" font-weight="bold">810.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="95.6" r="12" fill="transparent" />
+  <circle cx="102.5" cy="95.6" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="63.6" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="76.6" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="86.6" font-size="10" fill="white" text-anchor="middle" font-weight="bold">820.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="78.4" r="12" fill="transparent" />
+  <circle cx="133.8" cy="78.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="46.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="59.4" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="69.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">830.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="61.2" r="12" fill="transparent" />
+  <circle cx="165.0" cy="61.2" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="29.2" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="42.2" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="52.2" font-size="10" fill="white" text-anchor="middle" font-weight="bold">840.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="44.1" r="12" fill="transparent" />
+  <circle cx="196.2" cy="44.1" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="12.1" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="25.1" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="35.1" font-size="10" fill="white" text-anchor="middle" font-weight="bold">850.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="30.3" r="12" fill="transparent" />
+  <circle cx="227.5" cy="30.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="-1.7" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="11.3" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="21.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">858.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="20.0" r="12" fill="transparent" />
+  <circle cx="258.8" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">864.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">864.0</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="4.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="13.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">864.0</text>
+<circle cx="290.0" cy="20.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>864</strong> ·
+<span class="flat">+0.0% 持平</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>PTFE高频覆铜板 <span style="font-weight:normal;font-size:11px;color:#888">(元/平方米)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">1k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">1k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">1k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">1k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,112.0 L 102.5,93.9 L 133.8,75.9 L 165.0,57.9 L 196.2,39.8 L 227.5,52.5 L 258.8,20.0 L 290.0,20.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">1.1k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="112.0" r="12" fill="transparent" />
+  <circle cx="71.2" cy="112.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="80.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="93.0" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="103.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">1.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="93.9" r="12" fill="transparent" />
+  <circle cx="102.5" cy="93.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="61.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="74.9" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="84.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">1.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="75.9" r="12" fill="transparent" />
+  <circle cx="133.8" cy="75.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="43.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="56.9" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="66.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">1.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="57.9" r="12" fill="transparent" />
+  <circle cx="165.0" cy="57.9" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="25.9" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="38.9" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="48.9" font-size="10" fill="white" text-anchor="middle" font-weight="bold">1.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="39.8" r="12" fill="transparent" />
+  <circle cx="196.2" cy="39.8" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="7.8" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="20.8" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="30.8" font-size="10" fill="white" text-anchor="middle" font-weight="bold">1.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="52.5" r="12" fill="transparent" />
+  <circle cx="227.5" cy="52.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="20.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="33.5" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="43.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">1.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="20.0" r="12" fill="transparent" />
+  <circle cx="258.8" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">1.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">1.2k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="4.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="13.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">1.2k</text>
+<circle cx="290.0" cy="20.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>1,211</strong> ·
+<span class="flat">+0.0% 持平</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>电子布7628 <span style="font-weight:normal;font-size:11px;color:#888">(元/米)</span><span class="price-type">市场报价</span></h3>
+
+<div class="meta">
+最新: <strong>7</strong> ·
+<span class="up">+7.7% 上涨</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>导电银浆 <span style="font-weight:normal;font-size:11px;color:#888">(元/公斤)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">5k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">5k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">5k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">5k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,110.0 L 102.5,90.0 L 133.8,70.0 L 165.0,60.0 L 196.2,50.0 L 227.5,46.0 L 258.8,41.4 L 290.0,20.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">4.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="110.0" r="12" fill="transparent" />
+  <circle cx="71.2" cy="110.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="78.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="91.0" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="101.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">4.9k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="90.0" r="12" fill="transparent" />
+  <circle cx="102.5" cy="90.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="58.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="71.0" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="81.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">5.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="70.0" r="12" fill="transparent" />
+  <circle cx="133.8" cy="70.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="38.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="51.0" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="61.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">5.1k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="60.0" r="12" fill="transparent" />
+  <circle cx="165.0" cy="60.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="28.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="41.0" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="51.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">5.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="50.0" r="12" fill="transparent" />
+  <circle cx="196.2" cy="50.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="18.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="31.0" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="41.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">5.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="46.0" r="12" fill="transparent" />
+  <circle cx="227.5" cy="46.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="14.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="27.0" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="37.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">5.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="41.4" r="12" fill="transparent" />
+  <circle cx="258.8" cy="41.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="9.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="22.4" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="32.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">5.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">5.3k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="4.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="13.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">5.3k</text>
+<circle cx="290.0" cy="20.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>5,350</strong> ·
+<span class="up">+2.0% 上涨</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>PVDF氟膜 <span style="font-weight:normal;font-size:11px;color:#888">(元/平方米)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">88</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">87</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">85</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">84</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,20.0 L 71.2,47.5 L 102.5,75.0 L 133.8,75.0 L 165.0,102.5 L 196.2,102.5 L 227.5,102.5 L 258.8,130.0 L 290.0,130.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">88.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="47.5" r="12" fill="transparent" />
+  <circle cx="71.2" cy="47.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="15.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="28.5" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="38.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">87.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="75.0" r="12" fill="transparent" />
+  <circle cx="102.5" cy="75.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="43.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="56.0" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="66.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">86.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="75.0" r="12" fill="transparent" />
+  <circle cx="133.8" cy="75.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="43.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="56.0" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="66.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">86.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="102.5" r="12" fill="transparent" />
+  <circle cx="165.0" cy="102.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="70.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="83.5" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="93.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">85.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="102.5" r="12" fill="transparent" />
+  <circle cx="196.2" cy="102.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="70.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="83.5" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="93.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">85.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="102.5" r="12" fill="transparent" />
+  <circle cx="227.5" cy="102.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="70.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="83.5" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="93.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">85.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="130.0" r="12" fill="transparent" />
+  <circle cx="258.8" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="111.0" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">84.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">84.0</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="136.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="145.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">84.0</text>
+<circle cx="290.0" cy="130.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>84</strong> ·
+<span class="flat">+0.0% 持平</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>导热硅脂 <span style="font-weight:normal;font-size:11px;color:#888">(元/公斤)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">321</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">319</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">317</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">315</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,93.3 L 102.5,75.0 L 133.8,56.7 L 165.0,38.3 L 196.2,38.3 L 227.5,20.0 L 258.8,93.3 L 290.0,93.3" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">315.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="93.3" r="12" fill="transparent" />
+  <circle cx="71.2" cy="93.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="61.3" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="74.3" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="84.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">317.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="75.0" r="12" fill="transparent" />
+  <circle cx="102.5" cy="75.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="43.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="56.0" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="66.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">318.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="56.7" r="12" fill="transparent" />
+  <circle cx="133.8" cy="56.7" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="24.7" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="37.7" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="47.7" font-size="10" fill="white" text-anchor="middle" font-weight="bold">319.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="38.3" r="12" fill="transparent" />
+  <circle cx="165.0" cy="38.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="6.3" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="19.3" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="29.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">320.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="38.3" r="12" fill="transparent" />
+  <circle cx="196.2" cy="38.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="6.3" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="19.3" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="29.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">320.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="20.0" r="12" fill="transparent" />
+  <circle cx="227.5" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">321.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="93.3" r="12" fill="transparent" />
+  <circle cx="258.8" cy="93.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="61.3" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="74.3" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="84.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">317.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="93.3" r="12" fill="transparent" />
+  <circle cx="290.0" cy="93.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="61.3" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="74.3" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="84.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">317.0</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="77.3" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="86.3" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">317.0</text>
+<circle cx="290.0" cy="93.3" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>317</strong> ·
+<span class="flat">+0.0% 持平</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>硅烷偶联剂 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">18k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">18k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">18k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">18k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,113.1 L 102.5,96.3 L 133.8,79.4 L 165.0,62.5 L 196.2,62.5 L 227.5,41.3 L 258.8,20.0 L 290.0,20.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">17.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="113.1" r="12" fill="transparent" />
+  <circle cx="71.2" cy="113.1" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="81.1" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="94.1" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="104.1" font-size="10" fill="white" text-anchor="middle" font-weight="bold">17.9k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="96.3" r="12" fill="transparent" />
+  <circle cx="102.5" cy="96.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="64.3" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="77.3" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="87.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">17.9k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="79.4" r="12" fill="transparent" />
+  <circle cx="133.8" cy="79.4" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="47.4" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="60.4" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="70.4" font-size="10" fill="white" text-anchor="middle" font-weight="bold">17.9k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="62.5" r="12" fill="transparent" />
+  <circle cx="165.0" cy="62.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="30.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="43.5" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="53.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">18.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="62.5" r="12" fill="transparent" />
+  <circle cx="196.2" cy="62.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="30.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="43.5" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="53.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">18.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="41.3" r="12" fill="transparent" />
+  <circle cx="227.5" cy="41.3" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="9.3" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="22.3" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="32.3" font-size="10" fill="white" text-anchor="middle" font-weight="bold">18.1k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="20.0" r="12" fill="transparent" />
+  <circle cx="258.8" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">18.1k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">18.1k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="4.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="13.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">18.1k</text>
+<circle cx="290.0" cy="20.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>18,126</strong> ·
+<span class="flat">+0.0% 持平</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>三防漆 <span style="font-weight:normal;font-size:11px;color:#888">(元/公斤)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">288</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">284</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">281</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">277</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,20.0 L 71.2,50.0 L 102.5,70.0 L 133.8,80.0 L 165.0,90.0 L 196.2,100.0 L 227.5,130.0 L 258.8,100.0 L 290.0,100.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">288.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="50.0" r="12" fill="transparent" />
+  <circle cx="71.2" cy="50.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="18.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="31.0" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="41.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">285.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="70.0" r="12" fill="transparent" />
+  <circle cx="102.5" cy="70.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="38.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="51.0" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="61.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">283.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="80.0" r="12" fill="transparent" />
+  <circle cx="133.8" cy="80.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="48.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="61.0" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="71.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">282.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="90.0" r="12" fill="transparent" />
+  <circle cx="165.0" cy="90.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="58.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="71.0" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="81.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">281.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="100.0" r="12" fill="transparent" />
+  <circle cx="196.2" cy="100.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="68.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="81.0" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="91.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">280.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="130.0" r="12" fill="transparent" />
+  <circle cx="227.5" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="111.0" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">277.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="100.0" r="12" fill="transparent" />
+  <circle cx="258.8" cy="100.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="68.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="81.0" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="91.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">280.0</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="100.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="100.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="68.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="81.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="91.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">280.0</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="84.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="93.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">280.0</text>
+<circle cx="290.0" cy="100.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>280</strong> ·
+<span class="flat">+0.0% 持平</span> ·
+
+</div>
+</div><div class="chart-item">
+<h3>电子级环氧树脂 <span style="font-weight:normal;font-size:11px;color:#888">(元/吨)</span><span class="price-type">市场报价</span></h3>
+<svg width="340" height="160" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;max-width:340px">
+  <style>
+    .hover-pt:hover .dot { opacity:1; r:4 }
+    .hover-pt:hover .tooltip { opacity:1 }
+  </style>
+  <line x1="40" y1="20.0" x2="290" y2="20.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="24.0" font-size="8.5" fill="#888">30k</text>
+<line x1="40" y1="56.7" x2="290" y2="56.7" stroke="#eee" stroke-width="1"/>
+<text x="295" y="60.7" font-size="8.5" fill="#888">29k</text>
+<line x1="40" y1="93.3" x2="290" y2="93.3" stroke="#eee" stroke-width="1"/>
+<text x="295" y="97.3" font-size="8.5" fill="#888">28k</text>
+<line x1="40" y1="130.0" x2="290" y2="130.0" stroke="#eee" stroke-width="1"/>
+<text x="295" y="134.0" font-size="8.5" fill="#888">28k</text>
+
+  <text x="40.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">25-12</text>
+<text x="102.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-02</text>
+<text x="165.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-04</text>
+<text x="227.5" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-06</text>
+<text x="290.0" y="150" font-size="7.5" fill="#888" text-anchor="middle">26-08</text>
+
+  <path d="M 40.0,130.0 L 71.2,113.5 L 102.5,102.5 L 133.8,91.5 L 165.0,80.5 L 196.2,75.0 L 227.5,85.5 L 258.8,77.1 L 290.0,20.0" fill="none" stroke="#2c5aa0" stroke-width="2" stroke-linejoin="round"/>
+  
+<g class="hover-pt">
+  <circle cx="40.0" cy="130.0" r="12" fill="transparent" />
+  <circle cx="40.0" cy="130.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="10.0" y="98.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="40.0" y="111.0" font-size="9" fill="white" text-anchor="middle">2025-12</text>
+    <text x="40.0" y="121.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">27.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="71.2" cy="113.5" r="12" fill="transparent" />
+  <circle cx="71.2" cy="113.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="41.2" y="81.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="71.2" y="94.5" font-size="9" fill="white" text-anchor="middle">2026-01</text>
+    <text x="71.2" y="104.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">27.8k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="102.5" cy="102.5" r="12" fill="transparent" />
+  <circle cx="102.5" cy="102.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="72.5" y="70.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="102.5" y="83.5" font-size="9" fill="white" text-anchor="middle">2026-02</text>
+    <text x="102.5" y="93.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.0k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="133.8" cy="91.5" r="12" fill="transparent" />
+  <circle cx="133.8" cy="91.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="103.8" y="59.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="133.8" y="72.5" font-size="9" fill="white" text-anchor="middle">2026-03</text>
+    <text x="133.8" y="82.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.2k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="165.0" cy="80.5" r="12" fill="transparent" />
+  <circle cx="165.0" cy="80.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="135.0" y="48.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="165.0" y="61.5" font-size="9" fill="white" text-anchor="middle">2026-04</text>
+    <text x="165.0" y="71.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.4k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="196.2" cy="75.0" r="12" fill="transparent" />
+  <circle cx="196.2" cy="75.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="166.2" y="43.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="196.2" y="56.0" font-size="9" fill="white" text-anchor="middle">2026-05</text>
+    <text x="196.2" y="66.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="227.5" cy="85.5" r="12" fill="transparent" />
+  <circle cx="227.5" cy="85.5" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="197.5" y="53.5" width="60" height="20" fill="#333" rx="3"/>
+    <text x="227.5" y="66.5" font-size="9" fill="white" text-anchor="middle">2026-06</text>
+    <text x="227.5" y="76.5" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.3k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="258.8" cy="77.1" r="12" fill="transparent" />
+  <circle cx="258.8" cy="77.1" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="228.8" y="45.1" width="60" height="20" fill="#333" rx="3"/>
+    <text x="258.8" y="58.1" font-size="9" fill="white" text-anchor="middle">2026-07</text>
+    <text x="258.8" y="68.1" font-size="10" fill="white" text-anchor="middle" font-weight="bold">28.5k</text>
+  </g>
+</g>
+<g class="hover-pt">
+  <circle cx="290.0" cy="20.0" r="12" fill="transparent" />
+  <circle cx="290.0" cy="20.0" r="2.5" fill="#2c5aa0" opacity="0.3" class="dot"/>
+  <g class="tooltip" opacity="0" style="transition:opacity 0.2s">
+    <rect x="260.0" y="-12.0" width="60" height="20" fill="#333" rx="3"/>
+    <text x="290.0" y="1.0" font-size="9" fill="white" text-anchor="middle">2026-08</text>
+    <text x="290.0" y="11.0" font-size="10" fill="white" text-anchor="middle" font-weight="bold">29.5k</text>
+  </g>
+</g>
+  
+<rect x="274.0" y="4.0" width="32" height="12" fill="white" stroke="#2c5aa0" stroke-width="1" rx="2"/>
+<text x="290.0" y="13.0" font-size="8" fill="#2c5aa0" text-anchor="middle" font-weight="bold">29.5k</text>
+<circle cx="290.0" cy="20.0" r="3" fill="#2c5aa0"/>
+
+</svg>
+<div class="meta">
+最新: <strong>29,500</strong> ·
+<span class="up">+3.7% 上涨</span> ·
+
+</div>
+</div></div></div>
+<div class="section" style="background:#f8f9fb">
+<h2>📚 数据源说明</h2>
+<div style="font-size:12px;line-height:1.8;color:#555">
+<p><strong>沪市期货(SHFE)：</strong>上海期货交易所主力合约，反映期货市场预期，包含流动性溢价，可能与现货价有基差</p>
+<p><strong>长江有色现货：</strong>长江有色金属网现货报价，反映国内现货市场实际成交价</p>
+<p><strong>我的钢铁网现货：</strong>钢材类现货市场报价，含税出库价</p>
+<p><strong>市场报价(中间价)：</strong>覆铜板、电子布等加工材料，参考主流厂商公开报价</p>
+<p><strong>市场报价(高端CCL)：</strong>碳氢/PTFE等高端覆铜板，AI/5G毫米波天线专用，价格随规格差异较大</p>
+<p><strong>市场报价(低介电)：</strong>低介电常数环氧树脂，用于高频高速覆铜板</p>
+<p><strong>市场报价(LDS工艺)：</strong>导电银浆，LDS激光直接成型工艺专用</p>
+</div>
+</div>
+
+  <div class="footer">
+    数据来源：web_search 公开信息整合 · 仅供工作参考<br>
+    报告生成时间：2026-07-11 09:58
+  </div>
 </div>
 </body>
 </html>
