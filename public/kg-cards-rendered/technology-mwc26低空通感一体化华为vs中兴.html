@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>MWC26低空通感一体化华为vs中兴 — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    min-height: 1080px;
+    height: auto;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+  }
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .masonry-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .canvas .hero {
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
+  }
+  .block.section-table, .block.section-comparison {
+    /* 占一列宽度，不再 column-span */
+  }
+  .block.section-text {
+    /* 参与贪心分列，不再 column-span */
+  }
+  .block.related-block {
+    /* 跨两列独立成行 */
+    margin-top: 24px;
+    width: 100%;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-09</div>
+    </div>
+    <div class="hero-title">
+      MWC26低空通感一体化华为vs中兴
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术</span><span>技术概念</span><span>5G-A</span><span>通感一体化</span><span>ISAC</span><span>低空经济</span><span>MWC26</span><span>中兴</span><span>华为</span><span>竞品对标</span>
+    </div>
+    
+    
+    
+    
+  </div>
+
+  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
+  <div class="masonry">
+    <div class="masonry-col col-left"></div>
+    <div class="masonry-col col-right"></div>
+  </div>
+
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">一、主题概述</div>
+    <div class="text-body"><p>MWC26（2026年3月巴塞罗那 + 6月上海）上，华为和中兴不约而同地将展台核心位置让给了"低空经济"。这不是营销噱头——工信部等五部门在MWC26上海期间明确目标：<strong>到2027年，低空公共航路地面移动通信覆盖率需达到90%以上</strong>。</p>
+<p>低空经济是5G-A第一个真正意义上的"原生应用"。没有通感一体化，低空经济跑不起来；有了低空经济，5G-A的投资才有了明确的商业回报路径。华为和中兴分别走出了不同的技术路线：<strong>华为做"天路"（承载网+通感基站），中兴造"天眼"（128TR AAU+通感算智一体化）</strong>。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">二、核心技术原理</div>
+    <div class="text-body"><p><strong>1. 通感一体化（ISAC）底层原理</strong></p>
+<p>传统基站只负责通信（传输数据），雷达只负责感知（探测目标）。ISAC的核心思想是：<strong>让同一个基站同时具备通信和雷达感知能力</strong>，复用天线阵列、射频链路和信号处理资源。</p>
+<ul>
+<li><strong>通信功能</strong>：传输无人机/eVTOL的数据</li>
+<li><strong>感知功能</strong>：利用通信信号的反射/散射，实现对低空飞行器的探测、定位、跟踪</li>
+<li><strong>复用优势</strong>：不需要单独部署雷达网络，现有5G-A基站"变身"雷达</li>
+</ul>
+<p><strong>2. 中兴路线：5G-A通感算智一体化</strong></p>
+<p>中兴在MWC26上展示的是一套完整的低空智联方案，核心是<strong>业界首款自发自收128TR AAU</strong>：</p>
+<ul>
+<li><strong>128TR AAU</strong>：128发射/128接收通道，支持65°大张角覆盖</li>
+<li><strong>覆盖能力</strong>：同时兼顾地面通信和低空覆盖，填补低空信号盲区</li>
+<li><strong>双波形智能感知</strong>：首次使用连续波（CW）和脉冲波双波形方案，适应不同感知场景</li>
+<li><strong>智能超表面（RIS）增强</strong>：搭配创新智能超表面技术，进一步提升感知精度</li>
+<li><strong>极简基站方案</strong>：单套设备重量比传统基站降低约70%，可直接适配现有电力杆塔</li>
+</ul>
+<p>中兴的逻辑链条：低空经济第一步是"看得见、管得住"，5G-A通感一体是唯一的规模化解决方案。</p>
+<p><strong>3. 华为路线：5G-A通感一体化+承载网架构</strong></p>
+<p>华为在MWC26上展示了两条线：</p>
+<p><strong>通感基站线</strong>：</p>
+<ul>
+<li>毫米波与大规模阵列天线复用设计</li>
+<li>低空探测分辨率达到<strong>分米级</strong></li>
+<li>单基站覆盖<strong>1000米以下</strong>低空活动空域</li>
+<li>全国330个核心城市已完成5G-A基站初步部署</li>
+<li>感知信号空口资源开销降低至<strong>10%</strong>（中国移动研究院创新方案）</li>
+<li>探测面小到<strong>0.01平方米</strong>的目标感知，单站探测距离超<strong>2公里</strong></li>
+<li>无人机入侵探测识别率达到<strong>100%</strong>（深圳华为坂田5.5G Park实测）</li>
+</ul>
+<p><strong>承载网线</strong>：</p>
+<ul>
+<li>新一代移动承载网架构：10GE/25GE到站 + L3到站 + 端到端SRv6调优</li>
+<li>为高频调度设计，确保无人机数据以最短路径、最低时延传回地面</li>
+<li>配套鲲鹏L1飞控芯片（针对eVTOL和工业无人机，高完整性认证+毫秒级超低延迟）</li>
+</ul>
+<p>华为的逻辑：不直接造车（不做整机），而是做"卖铲人"——当低空经济爆发，所有飞行器都需要"联网"时，华为的承载网就是空气和水。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">三、关键技术对比</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>中兴 5G-A通感算智一体化</th>
+<th>华为 5G-A通感一体化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心设备</td>
+<td>128TR AAU（自发自收）</td>
+<td>毫米波+大规模阵列复用基站</td>
+</tr>
+<tr>
+<td>感知精度</td>
+<td>高精度（双波形+CW+脉冲波）</td>
+<td>分米级探测分辨率</td>
+</tr>
+<tr>
+<td>覆盖范围</td>
+<td>65°大张角，地面+低空兼顾</td>
+<td>单站覆盖1000米以下空域</td>
+</tr>
+<tr>
+<td>增强技术</td>
+<td>智能超表面（RIS）</td>
+<td>感知信号空口开销降至10%</td>
+</tr>
+<tr>
+<td>网络架构</td>
+<td>通感算智一体化</td>
+<td>承载网（10GE/25GE+L3+SRv6）</td>
+</tr>
+<tr>
+<td>部署成本</td>
+<td>极简基站（减重70%，适配杆塔）</td>
+<td>复用现有5G-A基站网格</td>
+</tr>
+<tr>
+<td>芯片配套</td>
+<td>-</td>
+<td>鲲鹏L1飞控芯片</td>
+</tr>
+<tr>
+<td>实测数据</td>
+<td>感知精度高、组网方便</td>
+<td>探测识别率100%，单站&gt;2km</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">四、运营商角色：低空智联网的&#34;修路人&#34;</div>
+    <div class="text-body"><p>除了设备商，运营商也在低空领域发力：</p>
+<ul>
+<li>
+<p><strong>中国电信</strong>："1+1+4+N"能力体系，低空应用落地1000+项目，成立157家伙伴的低空经济产业联盟。内蒙古森林巡检项目单次飞行覆盖300+平方公里，山火巡检效率达人工8倍。</p>
+</li>
+<li>
+<p><strong>中国移动</strong>：中移凌云低空智联网平台，九大核心能力（广域实时智联、高精增强定位、多元融合感知等），已延伸到海外市场。</p>
+</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">五、深度解读与趋势判断</div>
+    <div class="text-body"><p><strong>1. 低空经济是5G-A的"救命稻草"</strong></p>
+<p>地面5G建设已进入尾声（截至2025年底中国5G基站超483.3万个，覆盖所有地级市），增量市场转为存量，流量红利见顶。5G-A一直面临"杀手级应用在哪里"的尴尬——消费端万兆速率感知不强，工业端场景有限。低空经济完美契合5G-A的技术特性：通感一体、厘米级定位、边缘算力。可以说，<strong>低空经济是5G-A第一个真正意义上的原生应用</strong>。</p>
+<p><strong>2. 三维网络是通信行业的下一场革命</strong></p>
+<p>传统通信网络只覆盖地面；低空智联网是三维的，覆盖从地面到百米高空（甚至更高）的立体空域。这意味着网络架构、技术标准和商业模式需要全面升级。谁在这一阶段掌握的网络资源与技术标准权，将直接影响后续十年的产业格局。</p>
+<p><strong>3. 中兴vs华为的战略差异</strong></p>
+<ul>
+<li>
+<p><strong>中兴</strong>走"硬件创新"路线：自发自收128TR AAU是真正的硬件突破（自发自收意味着不需要外部功分器，简化了射频链路），极简基站降低了部署门槛。中兴的策略是"先把设备做出来，把成本打下来"。</p>
+</li>
+<li>
+<p><strong>华为</strong>走"生态+标准"路线：承载网架构+飞控芯片+通感基站+330城网格部署，华为在构建一个从芯片到网络到标准的完整闭环。华为的策略是"先把标准立起来，把生态做起来"。</p>
+</li>
+</ul>
+<p><strong>4. 通感一体化的工程挑战</strong></p>
+<ul>
+<li><strong>动静杂波抑制</strong>：城市环境中建筑物、树木等静止/慢速目标会产生大量杂波，如何从杂波中提取无人机微弱的回波信号是核心难点</li>
+<li><strong>多站协同组网</strong>：单站感知范围有限，需要多站联合检测和数据融合，这对时间/频率/空间同步提出了极高要求</li>
+<li><strong>通信-感知资源分配</strong>：同一基站既要传数据又要做雷达，频谱资源和时隙如何高效分配？</li>
+<li><strong>非视距（NLOS）问题</strong>：低空飞行器在城市峡谷中经常处于非视距状态，感知精度大幅下降</li>
+</ul>
+<p><strong>5. 对中兴的启示</strong></p>
+<p>中兴的128TR AAU和极简基站方案在硬件层面有独特优势，但在承载网和标准制定层面与华为差距明显。建议关注：</p>
+<ul>
+<li>128TR AAU能否与GigaMIMO方案融合（空域资源重构+通感一体化）</li>
+<li>极简基站方案在低空基建中的成本优势能否转化为市场份额</li>
+<li>智能超表面（RIS）技术与中兴已有的SC-RIS研究如何联动</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">六、关键数据速查</div>
+    <div class="text-body"><ul>
+<li>工信部目标：2027年低空公共航路地面移动通信覆盖率≥90%</li>
+<li>中兴128TR AAU：业界首款自发自收，65°大张角</li>
+<li>华为通感基站：分米级分辨率，覆盖1000米以下空域</li>
+<li>华为感知信号空口开销：降至10%</li>
+<li>华为实测：探测识别率100%，单站探测距离&gt;2km</li>
+<li>华为承载网：10GE/25GE到站 + L3到站 + SRv6</li>
+<li>华为极简基站：减重70%，适配电力杆塔</li>
+<li>中国5G基站总数：超483.3万个（2025年底）</li>
+<li>中国电信低空项目：1000+落地，157家产业伙伴</li>
+<li>全国5G-A基站部署：330个核心城市初步覆盖</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">关联笔记</div>
+    <div class="text-body"><ul>
+<li>[[技术概念-6G通感一体化ISAC天线-20260702]]</li>
+<li>[[技术概念-AAU有源天线单元深度解读-20260622]]</li>
+<li>[[技术概念-波束赋形Beamforming深度解读-20260618]]</li>
+<li>[[技术概念-相控阵天线Phased-Array-Antenna-20260629]]</li>
+<li>[[技术概念-毫米波天线Millimeter-Wave-Antenna-20260702]]</li>
+<li>[[零部件-T-R模块Transmit-Receive-Module-20260703]]</li>
+<li>[[技术概念-超表面天线Metasurface-Antenna-20260630]]</li>
+<li>[[指标术语-EIRP-ERP-20260703]]</li>
+<li>[[技术概念-可转向天线RA-6G通感融合-20260622]]</li>
+</ul></div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (7)</div>
+    <div class="related-grid">
+      <a href="#">technology-6g通感一体化isac天线</a><a href="#">technology-相控阵天线phased-array-antenna</a><a href="#">technology-毫米波天线millimeter-wave-antenna</a><a href="#">component-t-r模块transmit-receive-module</a><a href="#">technology-超表面天线metasurface-antenna</a><a href="#">metric-eirp-erp</a><a href="#">technology-可转向天线ra-6g通感融合</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-mwc26低空通感一体化华为vs中兴</span>
+</div>
+
+</div>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  var canvas = document.querySelector('.canvas');
+  if (!canvas) return;
+  var leftCol  = canvas.querySelector('.col-left');
+  var rightCol = canvas.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+
+  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
+  var blocks = Array.prototype.slice.call(
+    canvas.querySelectorAll('.block')
+  ).filter(function(b){ return !b.classList.contains('related-block'); });
+
+  // 贪心：哪边矮 append 到哪边
+  blocks.forEach(function(block){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(block);
+  });
+})();
+</script>
+
+</body>
+</html>

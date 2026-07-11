@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>北京6G实验室超维度天线技术全景 — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    min-height: 1080px;
+    height: auto;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+  }
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .masonry-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .canvas .hero {
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
+  }
+  .block.section-table, .block.section-comparison {
+    /* 占一列宽度，不再 column-span */
+  }
+  .block.section-text {
+    /* 参与贪心分列，不再 column-span */
+  }
+  .block.related-block {
+    /* 跨两列独立成行 */
+    margin-top: 24px;
+    width: 100%;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-09</div>
+    </div>
+    <div class="hero-title">
+      北京6G实验室超维度天线技术全景
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术</span><span>技术概念</span><span>6G</span><span>超维度天线</span><span>E-MIMO</span><span>北京6G实验室</span><span>大唐移动</span><span>中兴数字星云</span><span>中国信科</span><span>全息超表面</span>
+    </div>
+    
+    
+    
+    
+  </div>
+
+  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
+  <div class="masonry">
+    <div class="masonry-col col-left"></div>
+    <div class="masonry-col col-right"></div>
+  </div>
+
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">一、主题概述</div>
+    <div class="text-body"><p>2025年11月北京6G实验室首次集中发布十大技术进展，其中多项涉及超维度天线技术。2026年6月MWC上海更新版十大进展中，"以用户为中心的分布式超维度天线技术"由大唐移动牵头入选，成为海淀区五项入选成果之一。</p>
+<p>超维度天线（E-MIMO，Extreme Multiple Input Multiple Output）是中国信科于2023年首次提出并被写入ITU-R IMT-2030框架报告的多天线演进方向，核心思想是将5G大规模MIMO从单一空间维度扩展到空间+智能+功能+能效四个维度。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">二、核心技术原理</div>
+    <div class="text-body"><p><strong>1. 超维度天线（E-MIMO）的四维扩展框架</strong></p>
+<p>由中国信科陈山枝博士于2023年提出，2023年9月联合北京大学、中国移动研究院发布《超维度天线（E-MIMO）技术白皮书》，核心框架包括：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>核心思想</th>
+<th>关键技术</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>空间维度扩展</strong></td>
+<td>从单站大规模天线到分布式超大规模阵列</td>
+<td>集中式/分布式Massive MIMO、无蜂窝网络</td>
+</tr>
+<tr>
+<td><strong>智能维度挖掘</strong></td>
+<td>AI深度嵌入无线系统每个环节</td>
+<td>AI信道估计、CSI预测/压缩、波束管理优化</td>
+</tr>
+<tr>
+<td><strong>功能维度增强</strong></td>
+<td>通信+感知+定位多功能融合</td>
+<td>通感一体、通信感知空分复用、多节点协作感知</td>
+</tr>
+<tr>
+<td><strong>能效维度优化</strong></td>
+<td>降低大规模天线的功耗和体积</td>
+<td>智能超表面（RIS）替代传统射频通道、无源/半有源阵列</td>
+</tr>
+</tbody>
+</table>
+<p><strong>底层物理原理</strong>：传统Massive MIMO在单个基站站内利用多天线获得空间分集和波束赋形增益。超维度天线将这一概念扩展到四个维度：空间上从单站到分布式、智能上从人工调度到AI原生、功能上从纯通信到通感算智融合、能效上用RIS等新技术降低功耗和体积。</p>
+<p><strong>2. 北京6G实验室的超维度天线实践</strong></p>
+<p>北京6G实验室的超维度天线技术体现在多个并列成果中：</p>
+<p><strong>（1）大唐移动：以用户为中心的分布式超维度天线</strong>
+- 牵头单位：大唐移动、中关村泛联院、中国移动研究院、中国联通研究院
+- 核心理念：从"以网络为中心的分布式"向"以用户为中心的分布式"发展
+- 技术特点：将传统基站的集中式天线拆解为大量分布式天线，通过云化集中处理实现全网天线协同调度
+- 效果：用户始终处于最优信号覆盖中，无论在哪里都如同被天线环绕</p>
+<p><strong>（2）中兴数字星云：万级振子电磁透镜原型机</strong>
+- 业界首款万级规模振子原型机
+- 实现百流级空分能力
+- 与GigaMIMO集中式路线配套（U6G频段2000+天线阵子的工程实现路径）</p>
+<p><strong>（3）大唐移动：全息超表面大规模天线阵列</strong>
+- 实现高速率动态多流波束赋形传输
+- 基于智能超表面（RIS）构造新型天线阵列
+- 解决6G天线维度扩展带来的体积、功耗、重量工程难题</p>
+<p><strong>（4）中国信科：基于智能超表面的新型大规模天线</strong>
+- 2022年、2023年连续完成两代基于RIS的大规模天线传输系统
+- 成功实现毫米波手持终端接入
+- 单用户下行数据速率可达5Gbps
+- 支持多流高速传输和波束赋形</p>
+<p><strong>3. AI与MIMO融合的实测数据</strong></p>
+<p>中国信科测试结果显示AI在MIMO系统中的实际收益：</p>
+<ul>
+<li>CSI预测/压缩：平均吞吐量提升最高17%</li>
+<li>MIMO接收AI：平均提升吞吐量约15%</li>
+<li>波束管理：管理开销降低87.5%</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">三、行业应用与竞品格局</div>
+    <div class="text-body"><p><strong>1. 北京6G实验室超维度天线生态参与方</strong></p>
+<table>
+<thead>
+<tr>
+<th>参与方</th>
+<th>角色</th>
+<th>核心成果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大唐移动</td>
+<td>牵头单位</td>
+<td>分布式超维度天线技术、全息超表面大规模天线阵列</td>
+</tr>
+<tr>
+<td>中兴数字星云</td>
+<td>核心参与</td>
+<td>万级振子电磁透镜原型机、256TR U6G基站原型机</td>
+</tr>
+<tr>
+<td>中国信科</td>
+<td>技术提出</td>
+<td>E-MIMO白皮书、RIS大规模天线两代原型</td>
+</tr>
+<tr>
+<td>中关村泛联院</td>
+<td>平台运营</td>
+<td>北京6G实验室日常运营、6G总体组协调</td>
+</tr>
+<tr>
+<td>中国移动/联通/电信</td>
+<td>运营商验证</td>
+<td>现网试验、语义通信、通感一体基站</td>
+</tr>
+<tr>
+<td>北京大学</td>
+<td>学术支撑</td>
+<td>E-MIMO理论框架</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2. 超维度天线技术路线对比</strong></p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表方案</th>
+<th>核心特点</th>
+<th>成熟度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>集中式超大规模MIMO</td>
+<td>中兴万级振子电磁透镜</td>
+<td>单站超大阵列，U6G频段，百流级空分</td>
+<td>原型验证</td>
+</tr>
+<tr>
+<td>分布式超大规模MIMO</td>
+<td>大唐移动以用户为中心</td>
+<td>多站协同，云化处理，用户最优覆盖</td>
+<td>原型验证</td>
+</tr>
+<tr>
+<td>RIS辅助大规模MIMO</td>
+<td>中国信科两代RIS原型</td>
+<td>低成本替代传统射频通道，5Gbps下行</td>
+<td>原型验证</td>
+</tr>
+<tr>
+<td>全息MIMO/连续孔径</td>
+<td>学术理论（CAPA）</td>
+<td>理论上限分析，连续孔径极限</td>
+<td>理论研究</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3. 与中兴GigaMIMO的关联</strong></p>
+<p>中兴数字星云的万级振子电磁透镜原型机和GigaMIMO集中式路线是同一技术谱系的延续：</p>
+<ul>
+<li>GigaMIMO集中式：U6G频段2000+天线阵子，17Gbps单用户</li>
+<li>万级振子电磁透镜：10000+振子规模，百流级空分</li>
+<li>两者都面向6G超大规模MIMO，电磁透镜是GigaMIMO的工程实现路径之一</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">四、深度解读与趋势判断</div>
+    <div class="text-body"><p><strong>1. 超维度天线是6G多天线技术的必然方向</strong></p>
+<p>5G大规模MIMO将天线数量从4/8推到64/128/256，但受限于单站物理空间和功耗。6G要进一步提升容量和速率，必须跳出"单站加天线"的思维定式。超维度天线的四维扩展框架（空间+智能+功能+能效）提供了一个完整的理论体系，将多天线技术从单纯的"数量堆叠"升级为系统性重构。</p>
+<p><strong>2. 分布式超维度天线是竞争焦点</strong></p>
+<p>大唐移动的"以用户为中心的分布式超维度天线"代表了从网络中心到用户中心的范式转移。这与中兴GigaMIMO的协作式路线异曲同工——都是将多个物理站点虚拟融合为一个逻辑上的超大阵列。区别在于：</p>
+<ul>
+<li>中兴GigaMIMO侧重皮秒级同步和无损信道投影算法</li>
+<li>大唐移动侧重云化集中处理和用户最优覆盖体验</li>
+</ul>
+<p>两条路线殊途同归，都在验证分布式超大规模MIMO的工程可行性。</p>
+<p><strong>3. RIS/超表面是突破功耗墙的关键</strong></p>
+<p>中国信科的实测数据很有说服力：用智能超表面替代传统射频通道，单用户下行可达5Gbps，同时大幅降低功耗和体积。这对于6G天线维度进一步扩展（万级振子级别）至关重要——如果每个振子都要配一套有源射频通道，功耗和成本将不可承受。RIS提供了"无源/半有源阵列"的工程出路。</p>
+<p><strong>4. 海淀创新生态的模式意义</strong></p>
+<p>海淀区五项成果入选北京6G实验室十大进展（占50%），形成了"新型研发机构+头部企业+顶尖高校"的协同创新矩阵。这种模式对天线行业的启示：超维度天线不是单一企业的技术，而是需要运营商（中国移动/联通/电信）、设备商（大唐/中兴/中国信科）、高校（北邮/北大）、研究院（中关村泛联院）多方协同才能推进的复杂系统工程。</p>
+<p><strong>5. 标准化进展</strong></p>
+<p>E-MIMO已被成功写入ITU-R IMT-2030框架报告，这意味着超维度天线已从业界倡议上升为国际电信联盟的6G候选技术方向。3GPP R19/R20阶段有望纳入更多E-MIMO相关研究课题。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">五、关键数据速查</div>
+    <div class="text-body"><ul>
+<li>E-MIMO提出时间：2023年（中国信科陈山枝）</li>
+<li>E-MIMO写入ITU-R IMT-2030：2023-2024年</li>
+<li>超维度天线白皮书发布：2023年9月（中信科移动+北京大学+中国移动）</li>
+<li>北京6G实验室首次发布十大进展：2025年11月14日</li>
+<li>北京6G实验室2026更新发布：2026年6月24日（MWC上海）</li>
+<li>万级振子电磁透镜：业界首款万级规模振子原型机，百流级空分</li>
+<li>全息超表面大规模天线：大唐移动，动态多流波束赋形</li>
+<li>分布式超维度天线：大唐移动牵头，以用户为中心</li>
+<li>RIS两代原型：中国信科，2022+2023年，5Gbps下行</li>
+<li>AI辅助MIMO吞吐量提升：CSI预测17%，MIMO接收15%，波束管理开销降低87.5%</li>
+<li>U6G频段：6.425-7.125 GHz，连续700MHz带宽</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">六、与老大的关联</div>
+    <div class="text-body"><ol>
+<li><strong>竞品对标</strong>：中兴数字星云的万级振子电磁透镜和GigaMIMO是老大同事公司的技术路线，超维度天线是6G多天线领域的核心竞争方向</li>
+<li><strong>行业标准</strong>：E-MIMO写入ITU-R IMT-2030框架报告，意味着超维度天线将成为6G国际标准的核心组成部分</li>
+<li><strong>技术趋势</strong>：分布式超维度+RIS辅助+AI原生无线是6G天线的三大支柱，老大在天线技术知识库中已有相关笔记（GigaMIMO、全息MIMO、RIS），可进一步串联形成完整的6G多天线技术脉络</li>
+<li><strong>产业生态</strong>：北京6G实验室的协同创新模式（高校+企业+运营商+研究院）为天线行业的技术突破提供了可复制的组织范式</li>
+</ol></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">关联笔记</div>
+    <div class="text-body"><ul>
+<li>[[技术概念-超维度天线-以用户为中心-20260707]]</li>
+<li>[[技术概念-中兴GigaMIMO空域资源深度重构-20260705]]</li>
+<li>[[技术概念-全息MIMO连续孔径CAPA-20260702]]</li>
+<li>[[技术概念-清华SC-RIS自控制智能超表面-20260705]]</li>
+<li>[[技术概念-STARE半导体集成RIS晶圆级智能超表面-20260707]]</li>
+<li>[[技术概念-6G通感一体化ISAC天线-20260702]]</li>
+<li>[[技术概念-太赫兹天线Terahertz-Antenna-20260702]]</li>
+</ul></div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (7)</div>
+    <div class="related-grid">
+      <a href="#">technology-超维度天线-以用户为中心</a><a href="#">technology-中兴gigamimo空域资源深度重构-20260705</a><a href="#">technology-全息mimo连续孔径capa</a><a href="#">technology-清华sc-ris自控制智能超表面-20260705</a><a href="#">technology-stare半导体集成ris晶圆级智能超表面</a><a href="#">technology-6g通感一体化isac天线</a><a href="#">technology-太赫兹天线terahertz-antenna</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-北京6g实验室超维度天线技术全景</span>
+</div>
+
+</div>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  var canvas = document.querySelector('.canvas');
+  if (!canvas) return;
+  var leftCol  = canvas.querySelector('.col-left');
+  var rightCol = canvas.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+
+  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
+  var blocks = Array.prototype.slice.call(
+    canvas.querySelectorAll('.block')
+  ).filter(function(b){ return !b.classList.contains('related-block'); });
+
+  // 贪心：哪边矮 append 到哪边
+  blocks.forEach(function(block){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(block);
+  });
+})();
+</script>
+
+</body>
+</html>

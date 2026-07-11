@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>HoNi BAJR反射阵列pLEO战术SATCOM抗干扰 — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    min-height: 1080px;
+    height: auto;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+  }
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .masonry-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .canvas .hero {
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
+  }
+  .block.section-table, .block.section-comparison {
+    /* 占一列宽度，不再 column-span */
+  }
+  .block.section-text {
+    /* 参与贪心分列，不再 column-span */
+  }
+  .block.related-block {
+    /* 跨两列独立成行 */
+    margin-top: 24px;
+    width: 100%;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-11</div>
+    </div>
+    <div class="hero-title">
+      HoNi BAJR反射阵列pLEO战术SATCOM抗干扰
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术</span><span>技术概念</span><span>反射阵列</span><span>pLEO</span><span>抗干扰</span><span>MIT Lincoln Laboratory</span>
+    </div>
+    
+    
+    
+    
+  </div>
+
+  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
+  <div class="masonry">
+    <div class="masonry-col col-left"></div>
+    <div class="masonry-col col-right"></div>
+  </div>
+
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">主题概述：HoNi BAJR 反射阵列——pLEO 战术 SATCOM 的低功耗抗干扰新路线</div>
+    <div class="text-body"><p>MIT Lincoln Laboratory 于 2026 年 6 月 26 日发布了 HoNi BAJR（Hosted Nimble Beamforming Anti-Jam Reflectarray）原型扫描反射阵列天线。与传统的有源相控阵不同，反射阵列通过无源反射元件实现波束成形，功耗降低约 95%，特别适合 pLEO（ proliferated LEO，大规模低轨卫星星座）等 SWaP-C 严格受限的场景。这是目前唯一在小型卫星平台上演示高扫描角、多峰波束合成和抗干扰抑制的反射阵列原型。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">核心技术/原理：反射阵列 vs 相控阵的本质区别</div>
+    <div class="text-body"><p>反射阵列（Reflectarray）是一种混合天线架构，介于抛物面反射器和相控阵之间：</p>
+<ul>
+<li>
+<p><strong>相控阵</strong>：每个天线单元连接一个 T/R 模块（含放大器、移相器），通过电子控制各单元的幅度和相位实现波束赋形。优点是波束切换快，缺点是 SWaP 极高——每个单元都需要独立的功放和射频链路。</p>
+</li>
+<li>
+<p><strong>反射阵列</strong>：表面由大量可独立控制的无源反射单元组成（HoNi BAJR 为 16×16 = 256 单元）。入射信号由馈源天线接收后，在自由空间与各反射单元相互作用，每个单元引入特定相移后反射向目标方向。<strong>不需要每个单元配备放大器</strong>，波束成形在自由空间完成。</p>
+</li>
+</ul>
+<p><strong>关键公式</strong>：反射阵列的辐射方向图由单元相位分布决定：</p>
+<p>$$E(\theta,\phi) = \sum_{n=1}^{N} a_n e^{j(n\psi + \beta_n)}$$</p>
+<p>其中 $\beta_n$ 是第 n 个反射单元的相位控制量，通过调节 $\beta_n$ 可实现波束指向和形状重构。</p>
+<p><strong>类比入口</strong>：相控阵像一支 256 人的交响乐团，每个人都有自己的乐器和指挥；反射阵列则像一面 256 片的智能镜子，光线照上来后每片镜子微调角度，共同把光反射到指定方向——不需要每片镜子都发光。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">行业应用：pLEO 战术 SATCOM 抗干扰</div>
+    <div class="text-body"><p>HoNi BAJR 的核心应用场景是战术卫星通信在对抗环境中的抗干扰：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>传统相控阵方案</th>
+<th>HoNi BAJR 反射阵列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SWaP</td>
+<td>每个单元需功放，功耗高</td>
+<td>无需单元功放，功耗降 95%</td>
+</tr>
+<tr>
+<td>可扩展性</td>
+<td>重新设计波束成形网络</td>
+<td>单元简单，易于扩展规模</td>
+</tr>
+<tr>
+<td>抗干扰方式</td>
+<td>快速自适应波束置零</td>
+<td>实时塑造旁瓣抑制干扰区域</td>
+</tr>
+<tr>
+<td>适用平台</td>
+<td>大型卫星/地面站</td>
+<td>小型卫星/ CubeSat</td>
+</tr>
+</tbody>
+</table>
+<p><strong>pLEO 威胁模型</strong>：</p>
+<ul>
+<li>信号干扰（jamming）：敌方发射干扰信号阻断 SATCOM 链路</li>
+<li>信号情报（SIGINT）：敌方截获通信内容</li>
+<li>应对策略：实时改变波束形状，在干扰方向放置零陷（null），同时保持主瓣对准目标卫星</li>
+</ul>
+<p><strong>多峰波束能力</strong>：测试显示反射阵列可以将波束分裂为多个峰值，同时服务多个用户而不丢失信息，这在传统相控阵中需要复杂的并行射频链路。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">竞品/同行动态</div>
+    <div class="text-body"><ul>
+<li>
+<p><strong>银河航天 128 波束 ASIC 星载相控阵</strong>（2026.07.08 笔记）：中国方案，采用 ASIC 化有源相控阵，128 波束同时覆盖。优势是波束切换速度快、灵活度高；劣势是 SWaP 高。</p>
+</li>
+<li>
+<p><strong>DESRa / PhAB 项目</strong>（MIT Lincoln Lab 内部 R&amp;D）：HoNi BAJR 的前身技术验证，PhAB 已证明反射阵列可以实时置零抗干扰，但动态环境中波束调整速度可能不够。</p>
+</li>
+<li>
+<p><strong>传统有源相控阵</strong>（华为/中兴/泰雷兹）：当前军用 SATCOM 主流方案，成熟可靠但体积功耗大，不适合大规模星座部署。</p>
+</li>
+</ul>
+<p><strong>判断</strong>：反射阵列不是要替代相控阵，而是在特定场景（SWaP 极度受限、波束调度而非极速跟踪）下提供差异化选择。未来可能出现"相控阵 + 反射阵列"混合架构。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">趋势判断</div>
+    <div class="text-body"><ol>
+<li>
+<p><strong>反射阵列将在 pLEO 星座中占据一席之地</strong>。随着 Starlink、OneWeb 等大规模星座部署，卫星 SWaP 成本成为核心约束，反射阵列的低功耗优势将越来越重要。</p>
+</li>
+<li>
+<p><strong>校准是最大瓶颈</strong>。反射阵列缺乏成熟的校准流程，这是从原型走向商用的关键障碍。</p>
+</li>
+<li>
+<p><strong>旁瓣控制精度决定抗干扰能力</strong>。测试中旁瓣控制的小信号变化敏感性是主要技术挑战，需要更精密的单元设计和系统级校准。</p>
+</li>
+<li>
+<p><strong>与 ORIS/STARE 的交叉可能</strong>。反射阵列的可编程相位控制理念与智能超表面 RIS 高度相通，未来可能在同一硬件平台上融合两种技术。</p>
+</li>
+</ol></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">与老大的关联</div>
+    <div class="text-body"><ul>
+<li>
+<p><strong>产品线参考</strong>：中兴在星地融合 NTN 方向已有布局（中信科移动标准布局笔记），反射阵列可作为低轨卫星终端天线的备选方案之一，尤其在 SWaP 敏感场景。</p>
+</li>
+<li>
+<p><strong>技术互补</strong>：老大关注的 GigaMIMO 和 ORIS 都是大规模天线/超表面方向，反射阵列提供了另一种大规模天线实现路径——用无源元件替代有源 T/R 模块来降低成本。</p>
+</li>
+<li>
+<p><strong>产业情报</strong>：MIT Lincoln Lab 将此技术定位为战术 SATCOM 抗干扰方案，说明军方对低功耗抗干扰卫星通信天线的需求正在推动新技术路线发展。</p>
+</li>
+</ul>
+<blockquote>
+<p>参考资料: <a href="https://news.mit.edu/2026/antenna-array-could-provide-protected-tactical-satellite-communications-low-earth-orbit-0626">MIT News - HoNi BAJR (2026.06.26)</a>, MIT Lincoln Laboratory Tactical Satellite Communications Group</p>
+</blockquote></div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (2)</div>
+    <div class="related-grid">
+      <a href="#">technology-银河航天128波束asic化星载相控阵</a><a href="#">technology-相控阵天线phased-array-antenna</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-honi-bajr反射阵列pleo战术satcom抗干扰</span>
+</div>
+
+</div>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  var canvas = document.querySelector('.canvas');
+  if (!canvas) return;
+  var leftCol  = canvas.querySelector('.col-left');
+  var rightCol = canvas.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+
+  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
+  var blocks = Array.prototype.slice.call(
+    canvas.querySelectorAll('.block')
+  ).filter(function(b){ return !b.classList.contains('related-block'); });
+
+  // 贪心：哪边矮 append 到哪边
+  blocks.forEach(function(block){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(block);
+  });
+})();
+</script>
+
+</body>
+</html>

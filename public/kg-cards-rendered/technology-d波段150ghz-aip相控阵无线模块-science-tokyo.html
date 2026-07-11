@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>D波段150GHz AiP相控阵无线模块-Science Tokyo — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    min-height: 1080px;
+    height: auto;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+  }
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .masonry-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .canvas .hero {
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
+  }
+  .block.section-table, .block.section-comparison {
+    /* 占一列宽度，不再 column-span */
+  }
+  .block.section-text {
+    /* 参与贪心分列，不再 column-span */
+  }
+  .block.related-block {
+    /* 跨两列独立成行 */
+    margin-top: 24px;
+    width: 100%;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-10</div>
+    </div>
+    <div class="hero-title">
+      D波段150GHz AiP相控阵无线模块-Science Tokyo
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术</span><span>技术概念</span><span>D波段</span><span>AiP</span><span>相控阵</span><span>6G</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> 东京科学大学冈田健一团队在2025 VLSI提出、2026 JSSC发表的6G终端用150GHz AiP相控阵模块，采用65nm CMOS工艺+端面发射天线结构，实现56 Gbps传输速率和10.4 dBm/mm²超高功率密度，是首个面向手机等终端设备的亚THz AiP方案。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> 如果把300GHz相控阵比作实验室里的巨型探照灯，那这个150GHz模块就是装进口袋的手电筒——功率密度提升了数倍，真正让亚THz通信从基站走向手机。</div>
+    
+    
+  </div>
+
+  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
+  <div class="masonry">
+    <div class="masonry-col col-left"></div>
+    <div class="masonry-col col-right"></div>
+  </div>
+
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">是什么</div>
+    <div class="text-body"><p>D波段（142-164 GHz）AiP相控阵无线模块，专为6G用户终端（UE）设计。由东京科学大学（Science Tokyo）工学院冈田健一教授团队主导，联合NICT、松下、新劲刚（Shinko Electric）共同开发。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">为什么重要</div>
+    <div class="text-body"><ul>
+<li>此前D/Sub-THz相控阵几乎全部面向基站或回程链路，芯片面积大、功耗高，无法装入终端</li>
+<li>这是<strong>全球首个面向6G终端的150GHz AiP模块</strong>，将亚THz通信推向了手机/可穿戴设备层面</li>
+<li>功率密度10.4 dBm/mm²，比同类方案提升一个数量级级</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">发表信息</div>
+    <div class="text-body"><ul>
+<li>会议：2025 VLSI Technology and Circuits（京都，2025.06）</li>
+<li>期刊：IEEE JSSC, 2026 (DOI: 10.1109/JSSC.2026.3665184)</li>
+<li>团队规模：40位作者，涵盖学术界（Science Tokyo/NICT）、产业界（松下/新劲刚）</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2.1 架构创新：端面发射 + 后壁波导</div>
+    <div class="text-body"><p>传统AiP模块采用<strong>顶射型</strong>结构——天线在封装表面，信号从IC经基板传线路和过孔到顶部天线，传输距离长、损耗大。</p>
+<p>本次采用<strong>端射型（End-Fire）</strong>结构：</p>
+<ul>
+<li>在多层基板<strong>端面</strong>形成8元天线阵列</li>
+<li>使用<strong>后壁导波路（Post Wall Waveguide, PWW）</strong>替代传统微带线</li>
+<li>PWW = 在介质基板上规则排列金属柱，等效替换矩形波导的侧壁，兼具波导的低损耗特性和PCB的可制造性</li>
+<li>信号从IC直接到端面天线，传输距离最短化，插入损耗大幅降低</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2.2 IC架构三大创新</div>
+    <div class="text-body"><p><strong>① 注入锁定倍频相移器（ILTPS）</strong></p>
+<ul>
+<li>传统方案：LO链需要多级倍频+缓冲放大器+相移器，占用大量芯片面积和功耗</li>
+<li>ILTPS将<strong>频率三倍频</strong>和<strong>相移</strong>合并在单一电路中完成</li>
+<li>面积仅0.088 mm²，功耗15 mW</li>
+<li>直接连接到混频器，消除LO缓冲级</li>
+</ul>
+<p><strong>② 双有源次谐波混频器（BA-SHM）</strong></p>
+<ul>
+<li>工作在LO频率的一半，降低LO生成难度</li>
+<li>天然抑制本振泄漏（LO leakage）</li>
+<li>兼具TX/RX双向功能，减少电路面积</li>
+</ul>
+<p><strong>③ 无开关前端（Switchless Frontend）</strong></p>
+<ul>
+<li>将天线开关直接集成到PA匹配网络中</li>
+<li>消除开关寄生电容</li>
+<li>PA在TX/RX之间共享，进一步缩小面积</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2.3 堆叠架构</div>
+    <div class="text-body"><ul>
+<li>单个IC芯片集成4通道TX/RX电路</li>
+<li>2个IC驱动8元天线阵列 → 8×1线性阵列</li>
+<li>多模块堆叠可实现2D相控阵</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">3.1 应用场景</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>说明</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6G手机终端</td>
+<td>150GHz超高速数据连接</td>
+<td>小型化、低功耗</td>
+</tr>
+<tr>
+<td>医疗XR</td>
+<td>手术室实时高清影像传输</td>
+<td>低延迟、高可靠</td>
+</tr>
+<tr>
+<td>可穿戴设备</td>
+<td>AR眼镜/智能手表数据同步</td>
+<td>极致紧凑</td>
+</tr>
+<tr>
+<td>近场回传</td>
+<td>设备间高速数据交换</td>
+<td>短距大容量</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">3.2 目标市场</div>
+    <div class="text-body"><p>Okada教授明确提到<strong>医疗手术室中的XR应用</strong>——这意味着亚THz通信的杀手级应用可能首先出现在专业场景，而非消费级手机。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4.1 Okada团队自身技术演进</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>时间</th>
+<th>成果</th>
+<th>频段</th>
+<th>工艺</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2023.12</td>
+<td>100 Gbps+ 亚THz相控阵</td>
+<td>211-275 GHz</td>
+<td>45nm SOI</td>
+<td>基站/回程</td>
+</tr>
+<tr>
+<td>2024.02</td>
+<td>300 GHz全CMOS收发器</td>
+<td>282-325 GHz</td>
+<td>45nm CMOS</td>
+<td>实验室芯片</td>
+</tr>
+<tr>
+<td>2024.06</td>
+<td>6G毫米波MIMO接收机</td>
+<td>28/38 GHz</td>
+<td>65nm CMOS</td>
+<td>基站</td>
+</tr>
+<tr>
+<td><strong>2025.06</strong></td>
+<td><strong>150 GHz AiP模块</strong></td>
+<td><strong>142-164 GHz</strong></td>
+<td><strong>65nm CMOS</strong></td>
+<td><strong>终端设备</strong></td>
+</tr>
+</tbody>
+</table>
+<p>这条技术路线清晰：<strong>从基站→从300GHz→向150GHz终端化</strong>，频率降低是为了工程可行性，工艺回归65nm（成熟节点）而非追求最先进节点。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4.2 产业合作生态</div>
+    <div class="text-body"><ul>
+<li><strong>松下</strong>：Hasaba、Takahashi等工程师参与，提供封装技术支持</li>
+<li><strong>新劲刚（Shinko Electric）</strong>：Taneda、Murayama等，提供coreless多层基板封装技术</li>
+<li><strong>NICT</strong>：渡边一作为6G研究核心机构参与</li>
+<li>这是一个典型的<strong>学术+封装厂+运营商</strong>三角合作模式</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4.3 与其他方案对比</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>Science Tokyo 150GHz</th>
+<th>300GHz全CMOS(同期)</th>
+<th>三星X-MIMO 7GHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频段</td>
+<td>142-164 GHz</td>
+<td>282-325 GHz</td>
+<td>~7 GHz</td>
+</tr>
+<tr>
+<td>工艺</td>
+<td>65nm CMOS</td>
+<td>45nm CMOS</td>
+<td>未知</td>
+</tr>
+<tr>
+<td>阵列</td>
+<td>8单元线性</td>
+<td>4单元2D</td>
+<td>128单元</td>
+</tr>
+<tr>
+<td>数据率</td>
+<td>56 Gbps</td>
+<td>未公开终端速率</td>
+<td>3 Gbps</td>
+</tr>
+<tr>
+<td>功耗/单元</td>
+<td>150mW(TX)/93mW(RX)</td>
+<td>较高</td>
+<td>较低</td>
+</tr>
+<tr>
+<td>目标</td>
+<td>终端UE</td>
+<td>基础研究</td>
+<td>商用基站</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">5.1 频率下探是终端化的必然路径</div>
+    <div class="text-body"><p>300GHz在实验室里很酷，但终端设备需要考虑：</p>
+<ul>
+<li>传播损耗随频率升高急剧增加（Free Space Path Loss ∝ f²）</li>
+<li>器件成熟度（PA效率、LNA噪声系数）</li>
+<li>功耗约束（手机电池容量有限）</li>
+</ul>
+<p>150GHz是一个<strong>工程上更可行</strong>的折中点——带宽足够大（22 GHz），又不会让传播损耗失控。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">5.2 65nm CMOS是Sub-THz终端IC的最优解</div>
+    <div class="text-body"><ul>
+<li>45nm虽然更快，但成本高、IP少</li>
+<li>65nm CMOS在射频领域有大量成熟IP和工艺优化经验</li>
+<li>松下/新劲刚的封装能力弥补了CMOS功率输出的不足</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">5.3 堆叠是实现2D相控阵的关键</div>
+    <div class="text-body"><p>8×1线性阵列只是第一步，多模块堆叠成2D阵列才能覆盖全空间波束扫描。这对封装精度和热管理提出了挑战。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6.1 对中兴天线的参考价值</div>
+    <div class="text-body"><ol>
+<li><strong>GigaMIMO的Sub-THz延伸</strong>：老大之前学习的GigaMIMO是Massive MIMO的6G演进方向，这个150GHz AiP模块展示了GigaMIMO在亚THz频段的终端实现路径</li>
+<li><strong>AiP封装技术</strong>：新劲刚的coreless多层基板技术（8mm×20mm×&lt;1mm）对中兴的AAU小型化有借鉴意义</li>
+<li><strong>功率密度指标</strong>：10.4 dBm/mm²的EIRP密度是评估终端子阵设计的重要基准值</li>
+<li><strong>65nm CMOS工艺选择</strong>：说明Sub-THz不需要追最先进节点，成熟工艺的封装集成才是终端化的关键</li>
+</ol></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6.2 技术协同点</div>
+    <div class="text-body"><ul>
+<li>中兴在Sub-6GHz Massive MIMO有深厚积累，150GHz终端模块的技术路径（ILTPS+BA-SHM+Switchless）可以作为未来高频段设计的参考架构</li>
+<li>与之前学的imec 300mm RF硅中介层III-V chiplet方案形成互补：imec走的是Chiplet异构集成路线，Science Tokyo走的是纯CMOS+封装集成路线</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">七、关键技术指标</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作频段</td>
+<td>142-164 GHz (D-band)</td>
+</tr>
+<tr>
+<td>工艺</td>
+<td>65 nm CMOS</td>
+</tr>
+<tr>
+<td>阵列配置</td>
+<td>8单元 (2 IC × 4通道)</td>
+</tr>
+<tr>
+<td>最大数据速率</td>
+<td>56 Gbps (TX), 40 Gbps (RX) @30cm</td>
+</tr>
+<tr>
+<td>5m距离速率</td>
+<td>20 Gbps (QPSK)</td>
+</tr>
+<tr>
+<td>EIRP</td>
+<td>25.7 dBm @154 GHz</td>
+</tr>
+<tr>
+<td>功率密度</td>
+<td>10.4 dBm/mm²</td>
+</tr>
+<tr>
+<td>功耗/单元</td>
+<td>150 mW (TX), 93 mW (RX)</td>
+</tr>
+<tr>
+<td>波束扫描范围</td>
+<td>±45°</td>
+</tr>
+<tr>
+<td>旁瓣抑制</td>
+<td>~-10 dB</td>
+</tr>
+<tr>
+<td>IC尺寸</td>
+<td>8.5 mm² (含天线驱动)</td>
+</tr>
+<tr>
+<td>模块尺寸</td>
+<td>20 mm × 8.4 mm</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (2)</div>
+    <div class="related-grid">
+      <a href="#">technology-封装天线antenna-in-package-aip</a><a href="#">technology-imec-300mm-rf硅中介层iii-v-chiplet集成</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-d波段150ghz-aip相控阵无线模块-science-tokyo</span>
+</div>
+
+</div>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  var canvas = document.querySelector('.canvas');
+  if (!canvas) return;
+  var leftCol  = canvas.querySelector('.col-left');
+  var rightCol = canvas.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+
+  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
+  var blocks = Array.prototype.slice.call(
+    canvas.querySelectorAll('.block')
+  ).filter(function(b){ return !b.classList.contains('related-block'); });
+
+  // 贪心：哪边矮 append 到哪边
+  blocks.forEach(function(block){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(block);
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>银河航天128波束ASIC化星载相控阵 — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    min-height: 1080px;
+    height: auto;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+  }
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .masonry-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .canvas .hero {
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
+  }
+  .block.section-table, .block.section-comparison {
+    /* 占一列宽度，不再 column-span */
+  }
+  .block.section-text {
+    /* 参与贪心分列，不再 column-span */
+  }
+  .block.related-block {
+    /* 跨两列独立成行 */
+    margin-top: 24px;
+    width: 100%;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-09</div>
+    </div>
+    <div class="hero-title">
+      银河航天128波束ASIC化星载相控阵
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术</span><span>技术概念</span><span>星载相控阵</span><span>ASIC</span><span>GaN</span><span>手机直连卫星</span><span>银河航天</span><span>翼阵合一</span><span>多波束</span><span>MWC26</span>
+    </div>
+    
+    
+    
+    
+  </div>
+
+  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
+  <div class="masonry">
+    <div class="masonry-col col-left"></div>
+    <div class="masonry-col col-right"></div>
+  </div>
+
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">主题概述</div>
+    <div class="text-body"><p>2026年6月24-26日MWC上海（世界移动通信大会）上，银河航天首次公开亮相自研第二代手机直连相控阵天线——<strong>国内首款支持128波束的ASIC化星载相控阵</strong>。该产品支持L/S双频段，采用低压GaN射频前端及低功耗收发芯片，整阵功耗较上一代降低20%。同期展出的"翼阵合一"卫星模型将相控阵天线与太阳翼一体化设计，面向未来手机直连卫星的宽带通信需求。</p>
+<p>这是星载相控阵从实验室走向批量化的重要里程碑，对卫星互联网和6G空天地一体化网络有直接影响。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">1. ASIC化全数字相控阵</div>
+    <div class="text-body"><p><strong>ASIC（Application-Specific Integrated Circuit）</strong> 即专用集成电路，相比通用芯片（如FPGA或DSP），ASIC针对相控阵的波束赋形计算做了硬件级优化，在面积、功耗和成本上有显著优势。</p>
+<p>传统星载相控阵多用FPGA实现波束赋形，灵活性高但功耗和面积代价大。ASIC化的核心思路是将波束赋形网络、移相器控制、射频前端驱动等全部集成到一颗定制芯片中：</p>
+<ul>
+<li><strong>全数字波束赋形</strong>：每个天线通道配备独立的ADC/DAC和数字波束形成器，在基带层面实现波束指向控制</li>
+<li><strong>128个独立波束</strong>：可同时指向128个不同地面区域，实现多用户并发接入</li>
+<li><strong>L/S双频段</strong>：L频段（1-2 GHz）用于上行（手机→卫星），S频段（2-4 GHz）用于下行（卫星→手机），采用频分双工（FDD）体制</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2. 低压GaN射频前端</div>
+    <div class="text-body"><p><strong>GaN（氮化镓）</strong> 是射频功率放大器的理想材料，相比传统的GaAs（砷化镓）：</p>
+<ul>
+<li>更高的击穿电压 → 可在更低供电电压下实现同等输出功率</li>
+<li>更高的电子迁移率 → 更好的高频效率和更低的发热</li>
+<li>更宽的禁带宽度 → 耐高温，适合太空环境</li>
+</ul>
+<p>低压GaN使得整阵功耗降低20%，这对卫星来说是巨大的优势——卫星的能源完全依赖太阳翼，每一瓦功耗都直接影响通信能力。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">3. &#34;翼阵合一&#34;架构</div>
+    <div class="text-body"><p>银河航方展出的"翼阵合一"卫星模型是其下一代卫星的核心设计：</p>
+<ul>
+<li><strong>相控阵天线与太阳翼一体化</strong>：卫星表面既是发电面板又是天线阵列，最大化利用表面积</li>
+<li><strong>二维展开机构</strong>：不同于传统单维展开，在横纵两个方向有序展开，展开后形如"太空飞毯"</li>
+<li><strong>超大面积阵面</strong>：天线面积可达百平方米级，大幅提升增益和覆盖范围</li>
+<li><strong>关键技术攻关</strong>：折叠压紧、在轨二维有序展开、减缓展开冲击、翼阵一体化高效散热、分布式电源</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">手机直连卫星（Direct-to-Cell）</div>
+    <div class="text-body"><p>这是该技术的核心应用场景。普通智能手机不经过任何改装即可直连卫星，关键在于：</p>
+<ol>
+<li><strong>星载大增益相控阵</strong>弥补手机终端发射功率有限的短板（普通手机发射功率约0.2-0.5W）</li>
+<li><strong>多波束并行</strong>使卫星能同时服务多个地面用户，提升系统容量</li>
+<li><strong>低功耗ASIC化</strong>降低卫星载荷成本和发射成本</li>
+</ol></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6G空天地一体化网络</div>
+    <div class="text-body"><p>6G的核心愿景是地面蜂窝网络（5G/6G）与卫星网络的深度融合。星载相控阵是实现这一愿景的关键载荷：</p>
+<ul>
+<li>低轨卫星（LEO）星座提供广域覆盖</li>
+<li>多波束相控阵实现动态波束切换和跟踪</li>
+<li>与地面基站协同，形成无缝覆盖</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">竞品/同行动态</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>技术路线</th>
+<th>当前进展</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>银河航天</strong></td>
+<td>ASIC化全数字相控阵，L/S双频段，128波束</td>
+<td>第二代产品亮相MWC26上海，已完成两代迭代</td>
+</tr>
+<tr>
+<td><strong>Starlink（SpaceX）</strong></td>
+<td>有源相控阵天线（Mosaic-1卫星）</td>
+<td>已发射数千颗卫星，波束数量远超128</td>
+</tr>
+<tr>
+<td><strong>亚马逊Kuiper</strong></td>
+<td>相控阵卫星载荷</td>
+<td>已发射测试卫星，计划2025-2026年商用</td>
+</tr>
+<tr>
+<td><strong>华为</strong></td>
+<td>手机直连卫星方案</td>
+<td>华为Mate60/Pura系列已支持天通卫星通话（单波束）</td>
+</tr>
+<tr>
+<td><strong>中兴</strong></td>
+<td>NTN协议栈+地面基站改造</td>
+<td>3GPP Rel-17 NTN标准参与方，地面侧手机直连方案</td>
+</tr>
+<tr>
+<td><strong>中信科移动</strong></td>
+<td>星载相控阵天线+NTN标准</td>
+<td>16项3GPP NTN国际标准牵头，已展出来自研星载方案</td>
+</tr>
+</tbody>
+</table>
+<p>银河航方的128波束ASIC化方案在国内属于首创，与国际巨头Starlink的Mosaic-1卫星相比，在波束数量和ASIC化程度上仍有差距，但在国内商业航天领域处于领先地位。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">趋势判断</div>
+    <div class="text-body"><ol>
+<li>
+<p><strong>ASIC化是星载相控阵的必然方向</strong>。FPGA方案功耗和成本太高，不适合大规模卫星星座部署。随着卫星互联网进入批量发射阶段，ASIC化相控阵将成为标配。</p>
+</li>
+<li>
+<p><strong>"翼阵合一"代表卫星平台设计的范式转变</strong>。传统卫星将天线和太阳翼分开设计，翼阵合一将两者融合，最大化利用表面积，是百平方米级通信卫星的必由之路。</p>
+</li>
+<li>
+<p><strong>128波束只是起点</strong>。Starlink的Mosaic-1卫星已实现数千波束，银河航方的128波束是第一代ASIC化产品的起步，未来迭代方向是波束数量指数增长+单波束功率密度提升。</p>
+</li>
+<li>
+<p><strong>手机直连卫星将从语音向宽带演进</strong>。目前华为Mate60等支持的手机直连主要是语音/短信（天通系统），银河航方第二代产品支持L/S双频段，为未来手机直连宽带数据（视频/大文件）打下基础。</p>
+</li>
+</ol></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">与老大的关联</div>
+    <div class="text-body"><ol>
+<li>
+<p><strong>技术对标参考</strong>：银河航方的ASIC化相控阵路线可为老大在天线设计领域提供参考——特别是低压GaN射频前端与ASIC集成的方案，与基站AAU的射频前端设计有相通之处。</p>
+</li>
+<li>
+<p><strong>NTN标准竞争格局</strong>：中信科移动（16项3GPP NTN国际标准牵头）和银河航天（硬件载荷领先）形成了"标准+硬件"的双轮驱动格局，老大在做行业情报扫描时可重点关注这两家的协同与竞争关系。</p>
+</li>
+<li>
+<p><strong>手机直连技术延伸</strong>：地面基站（AAU/数字化室分）与星载相控阵在波束赋形技术上同源，老大在天线领域的专业知识可以直接迁移到卫星互联网场景。</p>
+</li>
+<li>
+<p><strong>翼阵合一的结构创新</strong>：相控阵天线与太阳翼的一体化设计涉及复杂的电磁兼容和热管理问题，这在传统地面基站设计中不会出现，但对天线工程师来说是一个全新的设计维度。</p>
+</li>
+</ol></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">关联笔记</div>
+    <div class="text-body"><ul>
+<li>[[技术概念-相控阵天线Phased-Array-Antenna-20260629]]</li>
+<li>[[技术概念-波束赋形Beamforming深度解读-20260618]]</li>
+<li>[[技术概念-300GHz全CMOS二维相控阵收发器-20260709]]</li>
+<li>[[零部件-T-R模块Transmit-Receive-Module-20260703]]</li>
+<li>[[技术概念-MIT-HoNiBAJR反射面天线低功耗抗干扰卫星通信-20260628]]</li>
+<li>[[技术概念-星地融合NTN中信科移动标准布局-20260707]]</li>
+</ul></div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (4)</div>
+    <div class="related-grid">
+      <a href="#">technology-相控阵天线phased-array-antenna</a><a href="#">component-t-r模块transmit-receive-module</a><a href="#">technology-mit-honibajr反射面天线低功耗抗干扰卫星通信</a><a href="#">technology-星地融合ntn中信科移动标准布局</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-银河航天128波束asic化星载相控阵</span>
+</div>
+
+</div>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  var canvas = document.querySelector('.canvas');
+  if (!canvas) return;
+  var leftCol  = canvas.querySelector('.col-left');
+  var rightCol = canvas.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+
+  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
+  var blocks = Array.prototype.slice.call(
+    canvas.querySelectorAll('.block')
+  ).filter(function(b){ return !b.classList.contains('related-block'); });
+
+  // 贪心：哪边矮 append 到哪边
+  blocks.forEach(function(block){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(block);
+  });
+})();
+</script>
+
+</body>
+</html>

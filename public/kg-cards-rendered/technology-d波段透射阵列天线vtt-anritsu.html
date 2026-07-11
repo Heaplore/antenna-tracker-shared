@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>D波段透射阵列天线VTT-Anritsu — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    min-height: 1080px;
+    height: auto;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+  }
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .masonry-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .canvas .hero {
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
+  }
+  .block.section-table, .block.section-comparison {
+    /* 占一列宽度，不再 column-span */
+  }
+  .block.section-text {
+    /* 参与贪心分列，不再 column-span */
+  }
+  .block.related-block {
+    /* 跨两列独立成行 */
+    margin-top: 24px;
+    width: 100%;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-09</div>
+    </div>
+    <div class="hero-title">
+      D波段透射阵列天线VTT-Anritsu
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术</span><span>技术概念</span><span>6G</span><span>透射阵列</span><span>D波段</span><span>VTT</span><span>Anritsu</span><span>相控阵替代</span>
+    </div>
+    
+    
+    
+    
+  </div>
+
+  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
+  <div class="masonry">
+    <div class="masonry-col col-left"></div>
+    <div class="masonry-col col-right"></div>
+  </div>
+
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">主题概述</div>
+    <div class="text-body"><p>芬兰国家研发中心 VTT 与日本安立（Anritsu）合作，在 110-170 GHz D 波段验证了基于透射阵列（Transmitarray）的电子波束转向天线系统，实现了 20 Gbps 过天线速率。VTT 自身也在 2026 年 7 月 1 日发布了一篇深度技术文章，系统阐述了透射阵列天线在 6G、卫星通信和雷达领域的应用前景。</p>
+<p>透射阵列是一种不同于传统相控阵的天线架构——信号通过自由空间传播到平面阵列上，每个单元局部调节相位和强度后重新辐射，形成定向波束。这种架构在高频段具有更低的损耗、更好的可扩展性和更简单的制造流程。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">1. 透射阵列（Transmitarray）工作原理</div>
+    <div class="text-body"><p>传统天线（如反射面天线或密集馈电的相控阵）通过内部的馈电网络将信号引导到每个辐射单元。馈电网络在高频段会带来显著的传输损耗和相位不一致问题。</p>
+<p>透射阵列采用完全不同的思路：</p>
+<ul>
+<li><strong>自由空间传播</strong>：一个小型馈源天线辐射信号到一片平坦的透射阵列表面</li>
+<li><strong>局部相位调控</strong>：阵列表面由大量小型单元组成，每个单元接收信号后调整相位和强度，再向前辐射</li>
+<li><strong>波束合成</strong>：所有单元协同工作，形成一个聚焦的定向波束，如同透镜聚焦光线</li>
+</ul>
+<p>类比：传统相控阵像是一支军队每人拿一把枪各自瞄准；透射阵列像是探照灯——光源在后方，前面是一个精密的透镜阵列，每个透镜单元微调光线方向，最终汇聚成一束强光。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2. VTT 的实现方案</div>
+    <div class="text-body"><p>VTT 的透射阵列天线采用模块化设计：</p>
+<ul>
+<li><strong>堆叠电路板结构</strong>：天线由重复的构建模块（堆叠电路板）组成二维阵列</li>
+<li><strong>矢量调制器 MMIC</strong>：每个单元集成矢量调制器单片微波集成电路，实现相位和幅度的精确控制</li>
+<li><strong>无机械波束转向</strong>：通过电子方式调整单元相位，实现快速、精确的波束控制</li>
+<li><strong>有效散热设计</strong>：每个单元集成有源电子器件，堆叠结构支持有效的热管理</li>
+<li><strong>可扩展性</strong>：更大系统通过添加更多相同模块层实现</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">3. Anritsu + VTT 联合验证结果</div>
+    <div class="text-body"><p>2026 年 8 月 1 日，Anritsu 和 VTT 联合发布了系统级验证结果：</p>
+<ul>
+<li><strong>频段</strong>：110-170 GHz（D 波段）</li>
+<li><strong>带宽</strong>：高达 8 GHz 宽带调制信号</li>
+<li><strong>速率</strong>：1 米距离实现 20 Gbps，可靠运行至 7 米</li>
+<li><strong>波束转向</strong>：电子波束转向，无需机械运动</li>
+<li><strong>测试方法</strong>：使用 Anritsu 精密测试设备进行 OTA（过天线）性能评估</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6G 高密度无线链路</div>
+    <div class="text-body"><p>6G 网络将向更高频段（毫米波、太赫兹）扩展，透射阵列天线的低损耗、高方向性特点使其成为 6G 基站和终端天线的理想选择：</p>
+<ul>
+<li>高容量点对点无线链路可作为光纤的替代方案</li>
+<li>高密度波束赋形支持多用户并发接入</li>
+<li>低功耗架构支持绿色通信</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">卫星通信</div>
+    <div class="text-body"><p>透射阵列天线在卫星领域有独特优势：</p>
+<ul>
+<li><strong>扁平轻量化</strong>：相比传统抛物面天线，透射阵列更薄更轻</li>
+<li><strong>电子波束转向</strong>：无需机械转动天线即可调整指向</li>
+<li><strong>易于大规模制造</strong>：模块化 PCB 结构适合批量生产</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">雷达系统</div>
+    <div class="text-body"><p>高精度波束整形能力使透射阵列在雷达领域也有应用潜力：</p>
+<ul>
+<li>相控阵雷达的替代方案，成本更低</li>
+<li>电子波束转向速度快，适合动态跟踪场景</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">竞品/同行动态</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>厂商/机构</th>
+<th>技术路线</th>
+<th>当前进展</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VTT + Anritsu</strong></td>
+<td>矢量调制器 MMIC 透射阵列，D 波段 20 Gbps</td>
+<td>系统级验证完成，准备现场试验</td>
+</tr>
+<tr>
+<td><strong>中信科移动</strong></td>
+<td>全息超表面（有源），6G 样机</td>
+<td>MWC26 上海发布新一代样机+白皮书</td>
+</tr>
+<tr>
+<td><strong>华为</strong></td>
+<td>传统 AAU + 数智化天线</td>
+<td>U6GHz 产品矩阵完整</td>
+</tr>
+<tr>
+<td><strong>中兴</strong></td>
+<td>GigaMIMO 大规模阵列</td>
+<td>256TR U6G 基站原型</td>
+</tr>
+<tr>
+<td><strong>三星</strong></td>
+<td>XMIMO 超密集天线</td>
+<td>7 GHz 外场试验 3 Gbps</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键区别</strong>：VTT 的透射阵列走的是"空间耦合"路线——信号不通过馈电网络，而是通过自由空间传播到阵列表面。这与中信科移动的"全息超表面"有相似之处（都试图绕过传统馈电网络），但实现手段不同：VTT 用离散单元+矢量调制器，中信科用超材料+动态元件。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">趋势判断</div>
+    <div class="text-body"><ol>
+<li>
+<p><strong>D 波段（110-170 GHz）是 6G 前传/回传的候选频段</strong>。8 GHz 带宽在 D 波段可以支持数十 Gbps 的点对点链路，在城市密集部署中可作为光纤的补充方案。透射阵列的低损耗特性使其在这个场景中有独特优势。</p>
+</li>
+<li>
+<p><strong>透射阵列 vs 相控阵：不是替代而是互补</strong>。相控阵在每个通道都有独立的 RF 链路（PA+移相器），灵活但复杂；透射阵列用空间耦合替代馈电网络，结构简单但波束控制精度受限。未来 6G 基站可能同时使用两种架构——相控阵用于多用户 Massive MIMO，透射阵列用于高容量点对点回传。</p>
+</li>
+<li>
+<p><strong>模块化 PCB 制造是降本关键</strong>。VTT 的堆叠电路板设计意味着透射阵列可以用标准 PCB 工艺批量生产，这与传统相控阵需要精密加工的波导/微带线形成鲜明对比。成本优势可能成为透射阵列大规模部署的核心驱动力。</p>
+</li>
+<li>
+<p><strong>与卫星互联网的交叉机会</strong>。银河航天的"翼阵合一"卫星使用大型相控阵天线，而透射阵列的扁平轻量特性使其成为卫星天线的另一种选择。未来可能出现"透射阵列卫星天线"与"相控阵卫星天线"的技术路线之争。</p>
+</li>
+</ol></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">与老大的关联</div>
+    <div class="text-body"><ol>
+<li>
+<p><strong>技术路线拓展</strong>：透射阵列天线是老大熟悉的天线设计领域的延伸——从传统的微带线/带状线馈电网络，扩展到自由空间耦合方案。老大的天线基础知识可以直接迁移到这个新领域。</p>
+</li>
+<li>
+<p><strong>D 波段测试设备需求</strong>：Anritsu 使用其精密测试设备完成了 D 波段透射阵列的 OTA 验证。如果老大所在团队涉及高频段天线测试，可能需要关注 D 波段测试设备的采购和技术储备。</p>
+</li>
+<li>
+<p><strong>6G 天线技术全景拼图</strong>：到目前为止，老大已经积累了 Massive MIMO、波束赋形、相控阵、全息超表面、RIS、透射阵列等多种 6G 天线技术路线的知识。透射阵列的加入让老大对"如何绕过传统馈电网络"这个问题有了三种不同解法（全息超表面用超材料、RIS 用无源反射面、透射阵列用空间耦合）的系统理解。</p>
+</li>
+<li>
+<p><strong>VTT 的研究模式值得参考</strong>：VTT 作为芬兰国家研发中心，采用"基础研究→产业合作→系统验证"的模式。Anritsu 提供测试设备，VTT 提供天线设计，联合发布验证结果。这种产学研合作模式对国内天线行业的研发组织有参考价值。</p>
+</li>
+</ol></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">关联笔记</div>
+    <div class="text-body"><ul>
+<li>[[技术概念-相控阵天线Phased-Array-Antenna-20260629]]</li>
+<li>[[技术概念-波束赋形Beamforming深度解读-20260618]]</li>
+<li>[[技术概念-OTA天线测试Over-The-Air-20260702]]</li>
+<li>[[技术概念-波束赋形架构DBF-ABF-HBF混合对比-20260703]]</li>
+<li>[[技术概念-超表面天线Metasurface-Antenna-20260630]]</li>
+<li>[[技术概念-龙勃透镜天线Luneburg-Lens-20260702]]</li>
+<li>[[技术概念-口径照明分布Aperture-Illumination-Taper-20260702]]</li>
+<li>[[技术概念-可转向天线RA-6G通感融合-20260622]]</li>
+<li>[[技术概念-天线AI设计预测-三星LG电子工程实践-20260619]]</li>
+<li>[[技术概念-天线制造工艺冲压蚀刻CNC3D打印印刷电子-20260704]]</li>
+<li>[[技术概念-天线制造质量检测IQC IPQC OQC尺寸公差插损驻波PIM-20260704]]</li>
+<li>[[技术概念-天线可靠性与环境测试盐雾温度冰雹风载-20260704]]</li>
+<li>[[技术概念-天线标准与法规3GPP ETSI IEEE FCC SRRC-20260704]]</li>
+<li>[[技术概念-天线等效电路Model-RLC-Chu-20260702]]</li>
+<li>[[技术概念-太赫兹天线Terahertz-Antenna-20260702]]</li>
+</ul></div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (10)</div>
+    <div class="related-grid">
+      <a href="#">technology-相控阵天线phased-array-antenna</a><a href="#">technology-ota天线测试over-the-air</a><a href="#">technology-波束赋形架构dbf-abf-hbf混合对比</a><a href="#">technology-超表面天线metasurface-antenna</a><a href="#">technology-龙勃透镜天线luneburg-lens</a><a href="#">technology-口径照明分布aperture-illumination-taper</a><a href="#">technology-可转向天线ra-6g通感融合</a><a href="#">technology-天线ai设计预测-三星lg电子工程实践</a><a href="#">technology-天线等效电路model-rlc-chu</a><a href="#">technology-太赫兹天线terahertz-antenna</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-d波段透射阵列天线vtt-anritsu</span>
+</div>
+
+</div>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  var canvas = document.querySelector('.canvas');
+  if (!canvas) return;
+  var leftCol  = canvas.querySelector('.col-left');
+  var rightCol = canvas.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+
+  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
+  var blocks = Array.prototype.slice.call(
+    canvas.querySelectorAll('.block')
+  ).filter(function(b){ return !b.classList.contains('related-block'); });
+
+  // 贪心：哪边矮 append 到哪边
+  blocks.forEach(function(block){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(block);
+  });
+})();
+</script>
+
+</body>
+</html>
