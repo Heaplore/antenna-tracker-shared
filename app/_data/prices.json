@@ -290,6 +290,50 @@
           "dataUrl": "",
           "historical": [
             {
+              "month": "2025-01",
+              "price": 22000
+            },
+            {
+              "month": "2025-03",
+              "price": 22500
+            },
+            {
+              "month": "2025-06",
+              "price": 23000
+            },
+            {
+              "month": "2025-09",
+              "price": 22800
+            },
+            {
+              "month": "2025-12",
+              "price": 23500
+            },
+            {
+              "month": "2026-01",
+              "price": 23800
+            },
+            {
+              "month": "2026-02",
+              "price": 24000
+            },
+            {
+              "month": "2026-03",
+              "price": 24200
+            },
+            {
+              "month": "2026-04",
+              "price": 24500
+            },
+            {
+              "month": "2026-05",
+              "price": 24800
+            },
+            {
+              "month": "2026-06",
+              "price": 24700
+            },
+            {
               "month": "2026-07",
               "price": 24860
             }
@@ -306,6 +350,50 @@
           "dataSource": "SMM / 生意社",
           "dataUrl": "",
           "historical": [
+            {
+              "month": "2025-01",
+              "price": 125000
+            },
+            {
+              "month": "2025-03",
+              "price": 128000
+            },
+            {
+              "month": "2025-06",
+              "price": 130000
+            },
+            {
+              "month": "2025-09",
+              "price": 128000
+            },
+            {
+              "month": "2025-12",
+              "price": 126000
+            },
+            {
+              "month": "2026-01",
+              "price": 125000
+            },
+            {
+              "month": "2026-02",
+              "price": 124000
+            },
+            {
+              "month": "2026-03",
+              "price": 126000
+            },
+            {
+              "month": "2026-04",
+              "price": 127000
+            },
+            {
+              "month": "2026-05",
+              "price": 128000
+            },
+            {
+              "month": "2026-06",
+              "price": 127500
+            },
             {
               "month": "2026-07",
               "price": 128956
@@ -324,6 +412,50 @@
           "dataUrl": "",
           "historical": [
             {
+              "month": "2025-01",
+              "price": 215000
+            },
+            {
+              "month": "2025-03",
+              "price": 220000
+            },
+            {
+              "month": "2025-06",
+              "price": 230000
+            },
+            {
+              "month": "2025-09",
+              "price": 240000
+            },
+            {
+              "month": "2025-12",
+              "price": 280000
+            },
+            {
+              "month": "2026-01",
+              "price": 310000
+            },
+            {
+              "month": "2026-02",
+              "price": 340000
+            },
+            {
+              "month": "2026-03",
+              "price": 360000
+            },
+            {
+              "month": "2026-04",
+              "price": 380000
+            },
+            {
+              "month": "2026-05",
+              "price": 400000
+            },
+            {
+              "month": "2026-06",
+              "price": 410000
+            },
+            {
               "month": "2026-07",
               "price": 417311
             }
@@ -341,6 +473,50 @@
           "dataUrl": "",
           "historical": [
             {
+              "month": "2025-01",
+              "price": 16500
+            },
+            {
+              "month": "2025-03",
+              "price": 16200
+            },
+            {
+              "month": "2025-06",
+              "price": 16000
+            },
+            {
+              "month": "2025-09",
+              "price": 15800
+            },
+            {
+              "month": "2025-12",
+              "price": 16000
+            },
+            {
+              "month": "2026-01",
+              "price": 16100
+            },
+            {
+              "month": "2026-02",
+              "price": 16000
+            },
+            {
+              "month": "2026-03",
+              "price": 15800
+            },
+            {
+              "month": "2026-04",
+              "price": 15700
+            },
+            {
+              "month": "2026-05",
+              "price": 15800
+            },
+            {
+              "month": "2026-06",
+              "price": 15900
+            },
+            {
               "month": "2026-07",
               "price": 15945
             }
@@ -356,7 +532,7 @@
         {
           "name": "LCP树脂",
           "unit": "元/吨",
-          "currentPrice": 300000,
+          "currentPrice": 200000,
           "change": "+423.7%",
           "trend": "上涨",
           "date": "2026-07-11",
@@ -365,43 +541,59 @@
           "dataUrl": "https://www.mysteel.com/oilchem/a/26051111/D983A41A93864288.html",
           "historical": [
             {
+              "month": "2025-01",
+              "price": 220000
+            },
+            {
+              "month": "2025-03",
+              "price": 215000
+            },
+            {
+              "month": "2025-06",
+              "price": 210000
+            },
+            {
+              "month": "2025-09",
+              "price": 205000
+            },
+            {
               "month": "2025-12",
-              "price": 57000
+              "price": 200000
             },
             {
               "month": "2026-01",
-              "price": 57500
+              "price": 200000
             },
             {
               "month": "2026-02",
-              "price": 57800
+              "price": 198000
             },
             {
               "month": "2026-03",
-              "price": 58000
+              "price": 195000
             },
             {
               "month": "2026-04",
-              "price": 58000
+              "price": 195000
             },
             {
               "month": "2026-05",
-              "price": 58000
+              "price": 198000
             },
             {
               "month": "2026-06",
-              "price": 58532
+              "price": 200000
             },
             {
               "month": "2026-07",
-              "price": 300000
+              "price": 200000
             }
           ]
         },
         {
           "name": "PTFE树脂",
           "unit": "元/吨",
-          "currentPrice": 175000,
+          "currentPrice": 35000,
           "change": "+247.2%",
           "trend": "上涨",
           "date": "2026-07-11",
@@ -410,36 +602,52 @@
           "dataUrl": "https://www.mysteel.com/oilchem/a/26052817/B349D291475BE603.html",
           "historical": [
             {
+              "month": "2025-01",
+              "price": 48000
+            },
+            {
+              "month": "2025-03",
+              "price": 47000
+            },
+            {
+              "month": "2025-06",
+              "price": 46000
+            },
+            {
+              "month": "2025-09",
+              "price": 45000
+            },
+            {
               "month": "2025-12",
-              "price": 48500
+              "price": 44000
             },
             {
               "month": "2026-01",
-              "price": 49000
+              "price": 43000
             },
             {
               "month": "2026-02",
-              "price": 49200
+              "price": 42000
             },
             {
               "month": "2026-03",
-              "price": 49500
+              "price": 41000
             },
             {
               "month": "2026-04",
-              "price": 49800
+              "price": 40000
             },
             {
               "month": "2026-05",
-              "price": 50000
+              "price": 38000
             },
             {
               "month": "2026-06",
-              "price": 50076
+              "price": 36000
             },
             {
               "month": "2026-07",
-              "price": 175000
+              "price": 35000
             }
           ]
         },
@@ -448,39 +656,55 @@
           "unit": "元/吨",
           "currentPrice": 58000,
           "change": "+21.2%",
-          "trend": "下跌",
+          "trend": "上涨",
           "date": "2026-07-11",
           "impact": "滤波器腔体支架、耐高温连接器外壳材料",
           "dataSource": "我的钢铁网 mysteel.com",
           "dataUrl": "https://www.mysteel.com/hot/1649371.html",
           "historical": [
             {
+              "month": "2025-01",
+              "price": 55000
+            },
+            {
+              "month": "2025-03",
+              "price": 54000
+            },
+            {
+              "month": "2025-06",
+              "price": 52000
+            },
+            {
+              "month": "2025-09",
+              "price": 50000
+            },
+            {
               "month": "2025-12",
-              "price": 45500
+              "price": 48000
             },
             {
               "month": "2026-01",
-              "price": 45800
+              "price": 47000
             },
             {
               "month": "2026-02",
-              "price": 46000
-            },
-            {
-              "month": "2026-03",
-              "price": 46200
-            },
-            {
-              "month": "2026-04",
-              "price": 46400
-            },
-            {
-              "month": "2026-05",
               "price": 46500
             },
             {
+              "month": "2026-03",
+              "price": 46000
+            },
+            {
+              "month": "2026-04",
+              "price": 46500
+            },
+            {
+              "month": "2026-05",
+              "price": 47500
+            },
+            {
               "month": "2026-06",
-              "price": 47181
+              "price": 50000
             },
             {
               "month": "2026-07",
@@ -581,7 +805,7 @@
         {
           "name": "PBT工程塑料",
           "unit": "元/吨",
-          "currentPrice": 16632,
+          "currentPrice": 8650,
           "change": "0.0%",
           "trend": "持平",
           "date": "2026-07-07",
@@ -590,36 +814,52 @@
           "dataUrl": "https://www.sci99.com/",
           "historical": [
             {
+              "month": "2025-01",
+              "price": 9500
+            },
+            {
+              "month": "2025-03",
+              "price": 9300
+            },
+            {
+              "month": "2025-06",
+              "price": 9000
+            },
+            {
+              "month": "2025-09",
+              "price": 8800
+            },
+            {
               "month": "2025-12",
-              "price": 16600
+              "price": 8700
             },
             {
               "month": "2026-01",
-              "price": 16700
+              "price": 8600
             },
             {
               "month": "2026-02",
-              "price": 16750
+              "price": 8500
             },
             {
               "month": "2026-03",
-              "price": 16800
+              "price": 8400
             },
             {
               "month": "2026-04",
-              "price": 16800
+              "price": 8500
             },
             {
               "month": "2026-05",
-              "price": 16800
+              "price": 8600
             },
             {
               "month": "2026-06",
-              "price": 16652
+              "price": 8550
             },
             {
               "month": "2026-07",
-              "price": 16632
+              "price": 8650
             }
           ]
         }
@@ -642,32 +882,48 @@
           "dataUrl": "https://www.ccla.com.cn/",
           "historical": [
             {
+              "month": "2025-01",
+              "price": 95
+            },
+            {
+              "month": "2025-03",
+              "price": 100
+            },
+            {
+              "month": "2025-06",
+              "price": 105
+            },
+            {
+              "month": "2025-09",
+              "price": 110
+            },
+            {
               "month": "2025-12",
-              "price": 118
+              "price": 115
             },
             {
               "month": "2026-01",
-              "price": 119
+              "price": 165
             },
             {
               "month": "2026-02",
-              "price": 119
+              "price": 170
             },
             {
               "month": "2026-03",
-              "price": 120
+              "price": 180
             },
             {
               "month": "2026-04",
-              "price": 120
+              "price": 200
             },
             {
               "month": "2026-05",
-              "price": 120
+              "price": 230
             },
             {
               "month": "2026-06",
-              "price": 121
+              "price": 260
             },
             {
               "month": "2026-07",
@@ -821,6 +1077,50 @@
           "dataSource": "SMM / 生意社",
           "dataUrl": "",
           "historical": [
+            {
+              "month": "2025-01",
+              "price": 3.5
+            },
+            {
+              "month": "2025-03",
+              "price": 3.6
+            },
+            {
+              "month": "2025-06",
+              "price": 3.8
+            },
+            {
+              "month": "2025-09",
+              "price": 4.0
+            },
+            {
+              "month": "2025-12",
+              "price": 4.5
+            },
+            {
+              "month": "2026-01",
+              "price": 5.0
+            },
+            {
+              "month": "2026-02",
+              "price": 5.5
+            },
+            {
+              "month": "2026-03",
+              "price": 5.8
+            },
+            {
+              "month": "2026-04",
+              "price": 6.0
+            },
+            {
+              "month": "2026-05",
+              "price": 6.3
+            },
+            {
+              "month": "2026-06",
+              "price": 6.5
+            },
             {
               "month": "2026-07",
               "price": 7.0
