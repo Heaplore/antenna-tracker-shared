@@ -335,10 +335,116 @@ def compute_priority_score(card):
 # LLM 调用
 # ============================================================
 
+
+
+import re as _re
+import json as _json
+
+
+def _robust_json_parse(text):
+    """更鲁棒的 LLM 输出 JSON 解析（markdown / 思考文本 / 截断都可处理）。
+
+    顺序:
+    1) 整段直接 json.loads
+    2) 提取 ```json ... ``` 代码块
+    3) 提取 ``` ... ``` 代码块
+    4) 找第一个顶层 [ ... ] 数组（用括号计数）
+    5) 找第一个顶层 { ... } 对象
+    """
+    if not text:
+        return []
+    # 1) 整段
+    try:
+        v = json.loads(text)
+        return v if isinstance(v, (list, dict)) else []
+    except Exception:
+        pass
+
+    # 2) ```json ... ```
+    m = _re.search(r"```json\s*([\s\S]+?)\s*```", text, _re.IGNORECASE)
+    if m:
+        try:
+            v = json.loads(m.group(1))
+            return v if isinstance(v, (list, dict)) else []
+        except Exception:
+            pass
+
+    # 3) ``` ... ```
+    m = _re.search(r"```\s*([\s\S]+?)\s*```", text)
+    if m:
+        try:
+            v = json.loads(m.group(1))
+            return v if isinstance(v, (list, dict)) else []
+        except Exception:
+            pass
+
+    # 4) 第一个顶层 [ ... ]（括号计数）
+    start = text.find('[')
+    if start >= 0:
+        depth = 0
+        in_str = False
+        esc = False
+        for i in range(start, len(text)):
+            c = text[i]
+            if esc:
+                esc = False
+                continue
+            if c == '\\':
+                esc = True
+                continue
+            if c == '"':
+                in_str = not in_str
+                continue
+            if in_str:
+                continue
+            if c == '[':
+                depth += 1
+            elif c == ']':
+                depth -= 1
+                if depth == 0:
+                    candidate = text[start:i+1]
+                    try:
+                        v = json.loads(candidate)
+                        return v if isinstance(v, (list, dict)) else []
+                    except Exception:
+                        break
+
+    # 5) 第一个顶层 { ... }（括号计数）
+    start = text.find('{')
+    if start >= 0:
+        depth = 0
+        in_str = False
+        esc = False
+        for i in range(start, len(text)):
+            c = text[i]
+            if esc:
+                esc = False
+                continue
+            if c == '\\':
+                esc = True
+                continue
+            if c == '"':
+                in_str = not in_str
+                continue
+            if in_str:
+                continue
+            if c == '{':
+                depth += 1
+            elif c == '}':
+                depth -= 1
+                if depth == 0:
+                    candidate = text[start:i+1]
+                    try:
+                        v = json.loads(candidate)
+                        return v if isinstance(v, (list, dict)) else []
+                    except Exception:
+                        break
+
+    return []
+
 def call_llm_for_dimension(client, dimension, extracted, config):
     """调用 LLM 分析单个维度，带重试"""
     import time as _time
-    import re as _re
 
     system_prompt = config["systemPrompts"][dimension]
     prompts = build_prompts(extracted, config)
@@ -356,22 +462,13 @@ def call_llm_for_dimension(client, dimension, extracted, config):
                 max_tokens=1800,
             )
 
-            result = []
-            try:
-                result = json.loads(result_text)
-            except json.JSONDecodeError:
-                json_match = _re.search(r'\[\s*\{.*?\}\s*\]', result_text, _re.DOTALL)
-                if json_match:
-                    try:
-                        result = json.loads(json_match.group())
-                    except json.JSONDecodeError:
-                        pass
-                if not result:
-                    print(f"  WARNING: JSON parse failed for {dimension} (attempt {attempt+1})", file=sys.stderr)
-                    if attempt < 2:
-                        _time.sleep(3)
-                        continue
-                    return []
+            result = _robust_json_parse(result_text)
+            if not result:
+                print(f"  WARNING: JSON parse failed for {dimension} (attempt {attempt+1})", file=sys.stderr)
+                if attempt < 2:
+                    _time.sleep(3)
+                    continue
+                return []
 
             if isinstance(result, list):
                 return result[:config["cardCount"]["max"]]
@@ -548,7 +645,38 @@ def main():
         print("[4/4] Saving cache...", file=sys.stderr)
         save_cache(output)
 
-    # 写出
+    # 写出：若四维度卡片全为空，说明 LLM 调用/解析全部失败，保留上次有效文件不动
+    total_cards = sum(
+        len(output["dimensions"][d].get("cards", []))
+        for d in output.get("dimensions", {})
+        if "cards" in output["dimensions"][d]
+    )
+
+    previous_output = None
+    if total_cards == 0 and os.path.exists(OUTPUT_FILE):
+        try:
+            with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
+                previous_output = json.load(f)
+        except Exception:
+            pass
+
+    if total_cards == 0 and previous_output and previous_output.get("dimensions"):
+        prev_total = sum(
+            len(v.get("cards", []))
+            for v in previous_output.get("dimensions", {}).values()
+            if isinstance(v, dict)
+        )
+        if prev_total > 0:
+            print(
+                f"\n⚠️  本次四维分析全维度 0 卡，保留上次有效输出不动 "
+                f"(上次生成于 {previous_output.get('generatedAt', '?')}, {prev_total} cards)",
+                file=sys.stderr,
+            )
+            print(f"\nDone! Previous output preserved: {OUTPUT_FILE}", file=sys.stderr)
+            print(f"Total cards kept: {prev_total}", file=sys.stderr)
+            print("=" * 60, file=sys.stderr)
+            sys.exit(0)
+
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 
