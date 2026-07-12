@@ -1,177 +1,363 @@
 {
-  "generatedAt": "2026-07-03T15:45:27+08:00",
-  "configVersion": "1.0",
+  "generatedAt": "2026-07-12T21:01:56+08:00",
+  "configVersion": "insights-v1.0",
+  "mode": "derived-only",
   "dimensions": {
-    "technology": {
-      "cards": [
-        {
-          "type": "技术演进",
-          "severity": "high",
-          "title": "AI波束赋形标准化加速",
-          "summary": "3GPP R19冻结明确AI波束赋形标准，推动算法与射频深度融合，提升网络能效。",
-          "recommendation": "布局AI驱动的智能天线研发，关注R19后续Release 20标准演进路径。",
-          "data_sources": [
-            "2026 H1 增量"
-          ],
-          "priorityScore": 4
-        },
-        {
-          "type": "应用场景",
-          "severity": "high",
-          "title": "卫星平板相控阵需求爆发",
-          "summary": "中国星网与千帆星座招标完成，卫星平板相控阵终端下半年起集中释放需求。",
-          "recommendation": "提前锁定卫星通信产业链产能，重点突破低成本平板相控阵制造工艺。",
-          "data_sources": [
-            "2026 H1 增量"
-          ],
-          "priorityScore": 4
-        },
-        {
-          "type": "技术演进",
-          "severity": "medium",
-          "title": "128T128R Massive MIMO普及",
-          "summary": "中国移动集采中128T128R占比首破30%，三频融合天线成为5G-A主流配置。",
-          "recommendation": "优化大规模天线阵列散热与集成设计，适应高频段多频段融合需求。",
-          "data_sources": [
-            "2026 H1 增量"
-          ],
-          "priorityScore": 3
-        },
-        {
-          "type": "应用场景",
-          "severity": "medium",
-          "title": "车载天线集成化规模上量",
-          "summary": "鸿蒙智行等车型推动车载毫米波雷达与5G-V2X车顶天线集成方案规模化应用。",
-          "recommendation": "开发车规级高集成度天线模组，加强与主机厂在V2X场景下的联合创新。",
-          "data_sources": [
-            "2026 H1 增量"
-          ],
-          "priorityScore": 3
-        }
-      ],
-      "summary": "technology维度共生成 4 条分析卡片"
-    },
-    "quality": {
-      "cards": [
-        {
-          "type": "standard_evolution",
-          "severity": "high",
-          "title": "R18 ELAA与高阶MIMO标准落地",
-          "summary": "R18引入ELAA及256天线单元，需关注大规模天线阵列的OTA测试与EMC合规性。",
-          "recommendation": "提前布局ELAA天线设计，完善TS 38.551等OTA测试能力，确保电磁兼容达标。",
-          "data_sources": [
-            "3GPP Release 18"
-          ],
-          "priorityScore": 4
-        },
-        {
-          "type": "tech_trend",
-          "severity": "medium",
-          "title": "AI驱动空口与通感融合技术演进",
-          "summary": "R18/R19聚焦AI for NR及ISAC，天线需支持智能波束赋形及雷达感知功能集成。",
-          "recommendation": "研发具备AI算法适配的智能天线系统，验证通感一体化场景下的射频性能与干扰抑制。",
-          "data_sources": [
-            "3GPP Release 18",
-            "3GPP Release 19"
-          ],
-          "priorityScore": 4
-        },
-        {
-          "type": "policy_regulation",
-          "severity": "high",
-          "title": "工业5G专网建设加速与标准适配",
-          "summary": "工信部规划2030年建成5万张工业专网，对低时延、高可靠及特定频段EMC提出新要求。",
-          "recommendation": "针对工业场景优化天线增益与隔离度，强化设备在复杂电磁环境下的鲁棒性与认证准备。",
-          "data_sources": [
-            "工信部等八部门政策"
-          ],
-          "priorityScore": 4
-        }
-      ],
-      "summary": "quality维度共生成 3 条分析卡片"
-    },
     "cost": {
       "cards": [
         {
-          "type": "cost_analysis",
+          "type": "成本上行信号",
           "severity": "high",
-          "title": "铜铝原材料价格高位震荡",
-          "summary": "电解铜107769元/吨，铝锭24254元/吨，近期呈上涨趋势，BOM成本承压明显。",
-          "recommendation": "锁定长期铜铝采购合同，优化线缆设计减少贵金属用量，对冲价格波动风险。",
+          "title": "本月涨幅 TOP 5",
+          "summary": "PPS树脂 +16.0%；FR4覆铜板 +15.4%；电子布7628 +7.7%；电子级环氧树脂 +4.2%；环氧树脂 +3.0%",
+          "recommendation": "关注涨价对本月 BOM 成本的边际影响，识别传导效应最显著的子项。",
           "data_sources": [
-            "电解铜价格数据",
-            "铝锭价格数据"
+            "prices.json"
+          ],
+          "priorityScore": 9
+        },
+        {
+          "type": "成本下行信号",
+          "severity": "high",
+          "title": "本月跌幅 TOP 5",
+          "summary": "银 -17.5%；金 -9.2%；螺纹钢 -7.7%；铝锭 -6.2%；不锈钢304/2B -5.9%",
+          "recommendation": "下跌材料可考虑提前锁价或小幅备库，捕捉短期成本红利。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 9
+        },
+        {
+          "type": "BOM 全景",
+          "severity": "low",
+          "title": "成本方向分布",
+          "summary": "27种主要原材料中，17种上涨、9种下跌、1种持平。",
+          "recommendation": "整体 BOM 成本方向：走高。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "关键波动",
+          "severity": "high",
+          "title": "大幅波动信号 (≥10%)",
+          "summary": "银 -17.5%；PPS树脂 +16.0%；FR4覆铜板 +15.4%",
+          "recommendation": "需重点关注此类材料的采购策略、供应商沟通与下游报价节奏。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 9
+        },
+        {
+          "type": "分类聚合",
+          "severity": "low",
+          "title": "金属原材料分类（10种）平均变化",
+          "summary": "本分类材料均价 -4.6%",
+          "recommendation": "金属原材料板块整体呈现下行趋势。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "分类聚合",
+          "severity": "low",
+          "title": "工程塑料分类（6种）平均变化",
+          "summary": "本分类材料均价 +2.9%",
+          "recommendation": "工程塑料板块整体呈现上行趋势。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "分类聚合",
+          "severity": "medium",
+          "title": "PCB/覆铜板分类（5种）平均变化",
+          "summary": "本分类材料均价 +5.5%",
+          "recommendation": "PCB/覆铜板板块整体呈现上行趋势。",
+          "data_sources": [
+            "prices.json"
           ],
           "priorityScore": 5
         },
         {
-          "type": "market_trend",
-          "severity": "medium",
-          "title": "通信市场规模稳健增长",
-          "summary": "2024年全球市场320.53亿元，预计2030年达484.26亿元，CAGR为7.12%。",
-          "recommendation": "把握5G深化与数字化机遇，扩大产能规模以获取规模经济效应，降低单位成本。",
-          "data_sources": [
-            "全球市场规模数据",
-            "中国市场预测数据"
-          ],
-          "priorityScore": 4
-        },
-        {
-          "type": "competitor_profit",
+          "type": "分类聚合",
           "severity": "low",
-          "title": "运营商利润稳步提升",
-          "summary": "中国移动净利1384亿(+5%)，电信330亿(+8.4%)，联通90.3亿(+10.1%)。",
-          "recommendation": "跟随运营商资本开支节奏，提供高性价比解决方案，利用其数字化增长需求拓展业务。",
+          "title": "化工类原材料分类（6种）平均变化",
+          "summary": "本分类材料均价 +1.0%",
+          "recommendation": "化工类原材料板块整体呈现上行趋势。",
           "data_sources": [
-            "中国移动财报",
-            "中国电信财报",
-            "中国联通财报"
-          ],
-          "priorityScore": 4
-        }
-      ],
-      "summary": "cost维度共生成 3 条分析卡片"
-    },
-    "delivery": {
-      "cards": [
-        {
-          "type": "market_trend",
-          "severity": "medium",
-          "title": "运营商集采主导需求强劲",
-          "summary": "三大运营商资本开支稳定，5G建设及专网政策推动天线需求，但主设备商整合带来竞争加剧。",
-          "recommendation": "紧跟运营商集采节奏，强化与主设备商的一体化合作，提升在5G专网市场的份额。",
-          "data_sources": [
-            "供应链概况",
-            "重点企业财务",
-            "近期新闻"
-          ],
-          "priorityScore": 5
-        },
-        {
-          "type": "delivery_risk",
-          "severity": "high",
-          "title": "上游原材料价格波动风险",
-          "summary": "覆铜板及玻纤价格随期货波动，挤压天线整机及部件厂商利润空间，交付成本不确定性增加。",
-          "recommendation": "建立原材料价格联动机制，锁定核心物料长协，优化库存周转以对冲成本上涨压力。",
-          "data_sources": [
-            "供应链概况"
-          ],
-          "priorityScore": 4
-        },
-        {
-          "type": "tech_innovation",
-          "severity": "low",
-          "title": "5G专网建设带来新机遇",
-          "summary": "工信部规划2030年建成5万张工业5G专网，为天线及射频一体化方案提供增量市场空间。",
-          "recommendation": "加大面向垂直行业的定制化天线研发投入，拓展工业5G专网应用场景的市场渗透率。",
-          "data_sources": [
-            "近期新闻"
+            "prices.json"
           ],
           "priorityScore": 2
         }
       ],
-      "summary": "delivery维度共生成 3 条分析卡片"
+      "source": "derived-from-prices"
+    },
+    "delivery": {
+      "cards": [
+        {
+          "type": "新闻热度",
+          "severity": "medium",
+          "title": "本周行业动态",
+          "summary": "过去 7 天共 27 条新闻入库（2026-07-05 ~ 2026-07-12）。",
+          "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
+          "data_sources": [
+            "news.json"
+          ],
+          "priorityScore": 5
+        },
+        {
+          "type": "话题雷达",
+          "severity": "low",
+          "title": "行业话题热度 TOP 5",
+          "summary": "行业动态×176；射频/微波×62；5G/6G×4；电子/硬件×1",
+          "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
+          "data_sources": [
+            "news.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "快讯",
+          "severity": "low",
+          "title": "最新 3 条动态",
+          "summary": "沙漠之星——中国联通中卫数据中心记实 | 中国广电全力抗击台风“美莎克” | 【7.10】社区精彩推荐+每日知识点打卡",
+          "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
+          "data_sources": [
+            "news.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "信源管理",
+          "severity": "low",
+          "title": "信息来源分布",
+          "summary": "C114通信网×59；通信世界网×54；与非网RF社区×22；微波射频网×20；RFASK射频问问×20",
+          "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
+          "data_sources": [
+            "news.json"
+          ],
+          "priorityScore": 2
+        }
+      ],
+      "source": "derived-from-news"
+    },
+    "quality": {
+      "cards": [
+        {
+          "type": "标准全景",
+          "severity": "low",
+          "title": "标准覆盖概况",
+          "summary": "已收录 12 个标准类别，合计 48 条标准。",
+          "recommendation": "关注标准更新与冻结动态，对应研发与合规基线。",
+          "data_sources": [
+            "standards.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "标准类别",
+          "severity": "low",
+          "title": "3GPP国际标准 (22 条)",
+          "summary": "本类标准最新动态监控中，关注 3GPP国际标准 演进。",
+          "recommendation": "与厂商研发对标，确认标准覆盖度。",
+          "data_sources": [
+            "standards.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "标准类别",
+          "severity": "low",
+          "title": "IEEE标准 (8 条)",
+          "summary": "本类标准最新动态监控中，关注 IEEE标准 演进。",
+          "recommendation": "与厂商研发对标，确认标准覆盖度。",
+          "data_sources": [
+            "standards.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "标准类别",
+          "severity": "low",
+          "title": "ITU标准 (10 条)",
+          "summary": "本类标准最新动态监控中，关注 ITU标准 演进。",
+          "recommendation": "与厂商研发对标，确认标准覆盖度。",
+          "data_sources": [
+            "standards.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "标准类别",
+          "severity": "low",
+          "title": "ETSI标准 (3 条)",
+          "summary": "本类标准最新动态监控中，关注 ETSI标准 演进。",
+          "recommendation": "与厂商研发对标，确认标准覆盖度。",
+          "data_sources": [
+            "standards.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "标准类别",
+          "severity": "low",
+          "title": "国家标准（GB） (7 条)",
+          "summary": "本类标准最新动态监控中，关注 国家标准（GB） 演进。",
+          "recommendation": "与厂商研发对标，确认标准覆盖度。",
+          "data_sources": [
+            "standards.json"
+          ],
+          "priorityScore": 2
+        }
+      ],
+      "source": "derived-from-standards"
+    },
+    "technology": {
+      "cards": [
+        {
+          "type": "行业概览",
+          "severity": "medium",
+          "title": "行业技术概览",
+          "summary": "天线行业正经历从4G向5G-Advanced/6G演进的重大技术变革期。核心技术方向围绕Massive MIMO的持续深化、毫米波商用的提速、RIS智能超表面的从实验室走向外场验证三大主线。供应链呈现明显的垂直整合趋势：设备商通过自研天线+滤波器一体化压缩供应链层级，射频前端继续向模组化（AIP）演进，PCB板材和金属...",
+          "recommendation": "宏观理解当前技术变革期的核心议题。",
+          "data_sources": [
+            "technology.json"
+          ],
+          "priorityScore": 5
+        },
+        {
+          "type": "技术地图",
+          "severity": "medium",
+          "title": "技术详情覆盖 14 项",
+          "summary": "涵盖 14 项重点技术，含 hype cycle 阶段标注。",
+          "recommendation": "参照 hype cycle 阶段评估技术成熟度与商业化窗口。",
+          "data_sources": [
+            "technology.json"
+          ],
+          "priorityScore": 5
+        },
+        {
+          "type": "技术阶段",
+          "severity": "low",
+          "title": "Hype cycle · phases",
+          "summary": "本阶段列示 5 项相关技术。",
+          "recommendation": "判断技术投资节奏与团队对标重点。",
+          "data_sources": [
+            "technology.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "技术阶段",
+          "severity": "low",
+          "title": "Hype cycle · technologies",
+          "summary": "本阶段列示 14 项相关技术。",
+          "recommendation": "判断技术投资节奏与团队对标重点。",
+          "data_sources": [
+            "technology.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "技术阶段",
+          "severity": "low",
+          "title": "Hype cycle · items",
+          "summary": "本阶段列示 14 项相关技术。",
+          "recommendation": "判断技术投资节奏与团队对标重点。",
+          "data_sources": [
+            "technology.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "技术分类",
+          "severity": "low",
+          "title": "技术分类汇总",
+          "summary": " (0项)； (0项)； (0项)； (0项)； (0项)",
+          "recommendation": "快速对标研发管线分布。",
+          "data_sources": [
+            "technology.json"
+          ],
+          "priorityScore": 2
+        }
+      ],
+      "source": "derived-from-technology"
+    },
+    "market": {
+      "cards": [
+        {
+          "type": "市场细分",
+          "severity": "low",
+          "title": "细分赛道: 定向天线",
+          "summary": "定向天线 赛道独立指标跟踪中。",
+          "recommendation": "聚焦细分市场趋势，匹配业务线定位。",
+          "data_sources": [
+            "market.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "市场细分",
+          "severity": "low",
+          "title": "细分赛道: 5G天线",
+          "summary": "5G天线 赛道独立指标跟踪中。",
+          "recommendation": "聚焦细分市场趋势，匹配业务线定位。",
+          "data_sources": [
+            "market.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "市场细分",
+          "severity": "low",
+          "title": "细分赛道: 汽车天线",
+          "summary": "汽车天线 赛道独立指标跟踪中。",
+          "recommendation": "聚焦细分市场趋势，匹配业务线定位。",
+          "data_sources": [
+            "market.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "市场细分",
+          "severity": "low",
+          "title": "细分赛道: 船舶通信天线",
+          "summary": "船舶通信天线 赛道独立指标跟踪中。",
+          "recommendation": "聚焦细分市场趋势，匹配业务线定位。",
+          "data_sources": [
+            "market.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "市场细分",
+          "severity": "low",
+          "title": "细分赛道: 片式天线",
+          "summary": "片式天线 赛道独立指标跟踪中。",
+          "recommendation": "聚焦细分市场趋势，匹配业务线定位。",
+          "data_sources": [
+            "market.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "驱动力",
+          "severity": "medium",
+          "title": "行业核心驱动",
+          "summary": "5G网络建设加速；物联网应用普及；汽车智能化趋势；卫星通信发展；军工通信需求",
+          "recommendation": "识别长期增长驱动 vs 短期波动因子。",
+          "data_sources": [
+            "market.json"
+          ],
+          "priorityScore": 5
+        }
+      ],
+      "source": "derived-from-market"
     }
   },
-  "crossDimensionSummary": "⚠️ 重点：成本：锁定长期铜铝采购合同，优化线缆设计减少贵金属用量，对冲价格波动风险；交付：建立原材料价格联动机制，锁定核心物料长协，优化库存周转以对冲成本上涨压力；技术：布局AI驱动的智能天线研发，关注R19后续Release 20标准演进路径。"
+  "crossDimensionSummary": "⚠️ 重点信号：成本：本月涨幅 TOP 5；成本：本月跌幅 TOP 5；成本：大幅波动信号 (≥10%)；成本：PCB/覆铜板分类（5种）平均变化；交付：本周行业动态。"
 }

@@ -99,10 +99,18 @@ jobs:
           NODE_EXE: ${{ env.NODE_EXE }}
           MMX_MJS: ${{ env.MMX_MJS }}
 
+      - name: Run build_insights.py (派生式 dashboard, 无 LLM 兜底)
+        # 派生自 prices / news / standards / market / technology, 保证首页始终有内容
+        # 即使后续 LLM 步骤全失败也不为空
+        run: python scripts/build_insights.py || echo "build_insights failed, continue"
+        shell: bash
+
       - name: Install openai for generate-analysis (四维分析)
         run: pip install openai
 
       - name: Run generate-analysis.py (四维交叉分析)
+        # 仅在派生 dashboard 已落盘后才会覆盖；上次 commit 加了保留 fallback
+        # (四维度全 0 卡时不覆盖), 故极端情况下仍能保持派生版本
         run: |
           if [ -n "$AGNES_API_KEY" ]; then
             echo "AGNES_API_KEY 已配置,运行四维分析..."
