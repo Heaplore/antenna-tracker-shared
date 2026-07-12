@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Metacrystal超晶体逆拓扑优化3D打印智能面板 — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    min-height: 1080px;
+    height: auto;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+  }
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .masonry-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .canvas .hero {
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
+  }
+  .block.section-table, .block.section-comparison {
+    /* 占一列宽度，不再 column-span */
+  }
+  .block.section-text {
+    /* 参与贪心分列，不再 column-span */
+  }
+  .block.related-block {
+    /* 跨两列独立成行 */
+    margin-top: 24px;
+    width: 100%;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED &#34;2026-07-10&#34;</div>
+    </div>
+    <div class="hero-title">
+      Metacrystal超晶体逆拓扑优化3D打印智能面板
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术</span><span>技术概念</span><span>Metacrystal</span><span>逆拓扑优化</span><span>3D打印</span><span>被动智能表面</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> Aalto大学+斯坦福团队在Nature Communications 2026提出Metacrystal：一种通过逆拓扑优化设计的被动式体积超材料智能面板，用低成本3D打印制造，无需电源即可在毫米波至100GHz频段同时独立控制多路入射波的反射、透射和吸收，为6G室内覆盖提供极简基础设施方案。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> 传统RIS像一面只能反射一个方向的镜子，而Metacrystal像一组精密排列的水晶棱镜——不同颜色（频率）、不同方向来的光可以同时被折射到各自的目标位置，而且完全被动，不需要任何电力驱动。</div>
+    
+    
+  </div>
+
+  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
+  <div class="masonry">
+    <div class="masonry-col col-left"></div>
+    <div class="masonry-col col-right"></div>
+  </div>
+
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">一、基本定义与原理</div>
+    <div class="text-body"><p><strong>Metacrystal</strong>（超晶体）是一种被动式体积超材料结构，区别于传统单层智能反射面（RIS），它利用有限的三维厚度解锁大量额外自由度，从而实现对多个入射信号的同时独立操控。</p>
+<p>核心技术路径是<strong>逆拓扑优化</strong>（Inverse Topology Optimization）：不是从预设单元结构出发正向设计，而是以目标电磁响应为约束条件，通过数值优化算法直接生成最优的材料空间分布。这种方法可以设计出人类直觉难以构想的复杂三维几何结构。</p>
+<p>与传统RIS对比：</p>
+<ul>
+<li><strong>传统RIS</strong>：需要大量可调谐元件（PIN二极管、变容管等）+ 控制电路，成本高、功耗大、频率受限（通常30-50GHz以上难以实现）</li>
+<li><strong>Metacrystal</strong>：完全被动，无电源、无电子器件、无主动调谐，仅靠几何结构实现电磁功能，材料成本估计仅几十欧元/块</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">逆拓扑优化设计流程</div>
+    <div class="text-body"><ol>
+<li><strong>目标函数定义</strong>：指定期望的电磁响应矩阵（如特定入射角/频率/极化对应的反射系数、透射系数、吸收率）</li>
+<li><strong>设计变量</strong>：三维体素（voxel）级别的介电常数分布</li>
+<li><strong>优化算法</strong>：基于伴随方法的梯度下降优化，在介电常数空间中搜索最优分布</li>
+<li><strong>后处理</strong>：将连续优化结果离散化为可制造的3D打印结构</li>
+</ol></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">关键能力</div>
+    <div class="text-body"><ul>
+<li><strong>多频带独立控制</strong>：可同时针对多个频率波段分别设计不同的异常反射/折射角度</li>
+<li><strong>多入射角处理</strong>：对不同入射方向的波实现独立响应</li>
+<li><strong>极化无关/选择性</strong>：可根据需求设计对特定极化的响应</li>
+<li><strong>透射+反射+吸收全控制</strong>：在同一结构中同时实现异常反射、透射调控和完全不需要的信号吸收</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">性能指标</div>
+    <div class="text-body"><ul>
+<li><strong>工作频段</strong>：最高至100GHz（毫米波及sub-THz）</li>
+<li><strong>制造工艺</strong>：低成本3D打印（增材制造）</li>
+<li><strong>单块材料成本</strong>：估计几十欧元</li>
+<li><strong>尺寸</strong>：面向墙面/天花板安装的标准化面板</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">典型场景</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>优势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>室内5G/6G覆盖</td>
+<td>无需布线供电</td>
+<td>安装在墙壁/天花板/家具上即可改善信号盲区</td>
+</tr>
+<tr>
+<td>工厂/仓储</td>
+<td>定制化部署</td>
+<td>根据已知布局定制面板，一次安装长期有效</td>
+</tr>
+<tr>
+<td>建筑走廊</td>
+<td>绕过障碍物</td>
+<td>将信号引导至遮挡区域，无需增加AP</td>
+</tr>
+<tr>
+<td>城市户外</td>
+<td>建筑一体化</td>
+<td>集成到建筑外墙，成为基础设施的一部分</td>
+</tr>
+<tr>
+<td>地下空间</td>
+<td>信号延伸</td>
+<td>地下室、隧道等弱信号区域</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">与主动RIS的定位差异</div>
+    <div class="text-body"><p>Metacrystal面向<strong>静态或缓慢变化</strong>的环境（工厂、仓库、固定建筑），一旦安装完成，几何结构就固定了功能。对于需要动态调整的场景（人流密集变化的商场、会议室），仍需要主动RIS/ORIS。两者互补而非替代。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">学术团队</div>
+    <div class="text-body"><ul>
+<li><strong>Aalto University</strong>（Viktar Asadchy组）：Metacrystal原创团队，在智能表面领域深耕多年，此前已提出空间色散超表面理论框架</li>
+<li><strong>Stanford University</strong>（Shanhui Fan组）：逆设计领域的全球领导者，在光子器件逆拓扑优化方面成果丰硕，h-index 163</li>
+<li><strong>Science Tokyo</strong>（D-band AiP团队）：专注高频封装天线，与Metacrystal形成产业链上下游关系</li>
+<li><strong>清华</strong>（SC-RIS团队）：自控制智能超表面，走的是主动可重构路线</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">产业动向</div>
+    <div class="text-body"><ul>
+<li>Aalto大学团队明确表示正在探索商业化路径，欢迎工业界合作</li>
+<li>当前阶段仍属学术研究，尚未看到运营商或设备商的规模化部署案例</li>
+<li>与华为U6GHz产品矩阵、中兴GigaMIMO方案定位不同——Metacrystal是<strong>补充性被动基础设施</strong>，不是基站天线</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">五、趋势判断</div>
+    <div class="text-body"><ol>
+<li><strong>被动智能表面将从实验室走向工程验证</strong>：Metacrystal证明了"无源+3D打印"路线的工程可行性，未来1-2年可能出现运营商试点项目</li>
+<li><strong>从静态到可重构是必然演进</strong>：论文作者已明确下一步方向是从静态向可重构过渡，这意味着Metacrystal可能演化为半主动混合架构</li>
+<li><strong>3D打印定制将成为优势而非限制</strong>：随着工业级3D打印精度提升和成本下降，"按需定制"将成为被动智能表面的核心竞争力</li>
+<li><strong>与AI逆设计的结合会越来越深</strong>：除了拓扑优化，AlphaGo驱动的蒙特卡洛树搜索等方法也在天线设计中崭露头角（Cadence 2026 Scientific Reports），AI辅助设计将加速超材料从概念到产品的周期</li>
+</ol></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">对中兴工作的参考价值</div>
+    <div class="text-body"><ol>
+<li><strong>GigaMIMO的补充视角</strong>：中兴的GigaMIMO聚焦空域资源重构和Massive MIMO演进，Metacrystal提供了一种完全不同的思路——不增加有源天线数量，而是用被动结构增强覆盖。在室内场景和特殊覆盖场景中可能有协同价值</li>
+<li><strong>6G标准布局</strong>：3GPP Rel-20/Rel-21已开始讨论RIS/IRS相关研究，被动式智能表面可能成为6G标准的一部分，提前关注有助于标准提案</li>
+<li><strong>成本敏感场景</strong>：对于运营商大规模部署6G网络而言，每增加一个AAU都是巨额CAPEX，被动面板的成本优势（几十欧元 vs 数万元AAU）在特定场景下极具吸引力</li>
+<li><strong>sub-THz覆盖方案</strong>：Metacrystal工作至100GHz，正好覆盖中兴在毫米波和sub-THz频段的研究方向，可作为高频信号覆盖的补充手段</li>
+</ol></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">建议关注点</div>
+    <div class="text-body"><ul>
+<li>跟踪Aalto大学团队商业化进展，看是否有与设备商的合作落地</li>
+<li>关注3GPP对被动/半被动智能表面的标准化动向</li>
+<li>思考Metacrystal思路与中兴现有AAU/ORIS方案的融合可能性</li>
+</ul></div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (2)</div>
+    <div class="related-grid">
+      <a href="#">technology-有源智能超表面oris</a><a href="#">technology-子阵列可编程太赫兹超表面通感算一体化</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-metacrystal超晶体逆拓扑优化3d打印智能面板</span>
+</div>
+
+</div>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  var canvas = document.querySelector('.canvas');
+  if (!canvas) return;
+  var leftCol  = canvas.querySelector('.col-left');
+  var rightCol = canvas.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+
+  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
+  var blocks = Array.prototype.slice.call(
+    canvas.querySelectorAll('.block')
+  ).filter(function(b){ return !b.classList.contains('related-block'); });
+
+  // 贪心：哪边矮 append 到哪边
+  blocks.forEach(function(block){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(block);
+  });
+})();
+</script>
+
+</body>
+</html>

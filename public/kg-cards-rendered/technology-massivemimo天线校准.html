@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>MassiveMIMO天线校准 — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    min-height: 1080px;
+    height: auto;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+  }
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .masonry-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .canvas .hero {
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
+  }
+  .block.section-table, .block.section-comparison {
+    /* 占一列宽度，不再 column-span */
+  }
+  .block.section-text {
+    /* 参与贪心分列，不再 column-span */
+  }
+  .block.related-block {
+    /* 跨两列独立成行 */
+    margin-top: 24px;
+    width: 100%;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-09</div>
+    </div>
+    <div class="hero-title">
+      MassiveMIMO天线校准
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术</span><span>技术概念</span><span>大规模MIMO</span><span>天线校准</span><span>互易校准</span><span>OTA校准</span><span>相控阵</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> Massive MIMO 天线校准是通过补偿射频通道间幅相偏差，确保基站上下行信道互易性成立的关键技术，是 TDD 大规模 MIMO 系统实现下行预编码的基石。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> 就像交响乐团演出前，指挥让每个乐手按定音鼓的音调逐一调音。</div>
+    
+    
+  </div>
+
+  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
+  <div class="masonry">
+    <div class="masonry-col col-left"></div>
+    <div class="masonry-col col-right"></div>
+  </div>
+
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">一句话版本</div>
+    <div class="text-body"><p>Massive MIMO 天线校准是通过补偿射频通道间幅相偏差，确保基站上下行信道互易性成立的关键技术，是 TDD 大规模 MIMO 系统实现下行预编码的基石。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">类比入口</div>
+    <div class="text-body"><p>就像交响乐团演出前，指挥让每个乐手按定音鼓的音调逐一调音。Massive MIMO 有上百个通道，每个通道的射频器件（功放、混频器、滤波器）特性各不相同，校准就是让所有通道"调到同一个音准"，这样才能精确控制波束方向。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">一、基本定义与原理</div>
+    <div class="text-body"><p>在 TDD（时分双工）模式下，Massive MIMO 系统利用上下行信道的互易性来简化下行信道估计——基站通过上行导频估计信道，然后直接用于下行预编码。然而，实际系统中每个天线的发射（TX）和接收（RX）通道由不同的射频硬件组成，这些硬件在增益和相位上存在差异，破坏了理想的互易性假设。</p>
+<p>天线校准的核心目标是测量并补偿每个通道在 TX 和 RX 模式下的非互易误差。设第 i 个通道的 TX 传递函数为 $h_i^{TX}$，RX 传递函数为 $h_i^{RX}$，则互易误差矩阵为 $C = diag(h_1^{TX}/h_1^{RX}, h_2^{TX}/h_2^{RX}, ..., h_N^{TX}/h_N^{RX})$。校准的目的就是估计出这个 N×N 的对角矩阵 C，并在下行预编码时乘以 $C^{-1}$ 进行补偿。</p>
+<p>误差来源分为两类：</p>
+<ul>
+<li>
+<p><strong>非时变误差</strong>：阵列加工误差、几何位置安装误差、单元互耦效应、馈线及分配网络误差、连接器不一致性。这类误差在出厂时确定，相对稳定。</p>
+</li>
+<li>
+<p><strong>时变误差</strong>：T/R 通道随环境温度变化引起的放大器相位漂移、混频器件特性漂移、滤波器件时延及幅相失真、I/Q 通道非完全正交、天线阵列室外环境形变。这类误差需要定期甚至实时重新校准。</p>
+</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">二、核心技术与公式</div>
+    <div class="text-body"><p><strong>互易校准基本原理：</strong></p>
+<p>在理想互易信道中，上行信道 $H_{UL} = H_{DL}^T$。实际观测到的上行和下行信道分别为：</p>
+<p>$$Y_{UL} = H^T X + N_{UL} = C H^T X + N_{UL}$$</p>
+<p>其中 C 为互易误差对角矩阵。通过校准估计出 C 后，下行预编码矩阵可修正为 $W_{DL} = C^{-1} W_{ideal}$。</p>
+<p><strong>主要校准方法分类：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法类别</th>
+<th>信号获取位置</th>
+<th>代表方案</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电缆校准（路校准）</td>
+<td>传输线内部</td>
+<td>定向耦合器 + 反馈链路</td>
+<td>精度高、成本低</td>
+<td>仅补偿耦合器之前部分，无法覆盖馈线和天线</td>
+</tr>
+<tr>
+<td>互耦法（场校准）</td>
+<td>辐射近场</td>
+<td>利用相邻天线互耦信号</td>
+<td>无需额外硬件</td>
+<td>对边缘阵元精度下降</td>
+</tr>
+<tr>
+<td>OTA 校准（场校准）</td>
+<td>远场/近场辐射场</td>
+<td>信标天线 + 收发链路</td>
+<td>全链路校准</td>
+<td>需要专用测试设备</td>
+</tr>
+<tr>
+<td>在线校准</td>
+<td>空中导频信号</td>
+<td>用户终端辅助估计</td>
+<td>适应时变环境</td>
+<td>引入用户侧开销</td>
+</tr>
+</tbody>
+</table>
+<p><strong>数字预失真（DPD）联合校准：</strong></p>
+<p>2024 年 Lund 大学提出 OTA 联合 DPD 和互易校准方法，通过互耦 OTA 测量同时线性化发射机并补偿非互易性，无需专用硬件模块，复杂度显著降低。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">三、实现方式与分类</div>
+    <div class="text-body"><p><strong>1. 电缆校准（Cable-based / "路校准"）</strong></p>
+<p>在微带线或同轴线中集成定向耦合器，将发射端信号耦合到接收端进行比对。这是商用 AAU 中最常用的方案，优点是结构简单、成本低，缺点是只能校准到耦合器接入点之前，无法覆盖馈线到天线阵子的部分。</p>
+<p><strong>2. 互耦法（Mutual Coupling Method）</strong></p>
+<p>利用相邻天线阵子之间的互耦效应，通过测量互耦信号来推算各通道间的相对幅相误差。无需额外硬件，适合集成度高的 AAU。但边缘阵元的互耦信号较弱，校准精度低于中心阵元。</p>
+<p><strong>3. OTA 校准（Over-the-Air）</strong></p>
+<p>在近场或远场放置信标天线，与阵列各单元建立收发链路进行校准。可覆盖全链路（包括馈线和天线），校准精度最高。常用于基站出厂测试和现场标定。</p>
+<p><strong>4. 在线自校准（Online Self-Calibration）</strong></p>
+<p>2025 年北京遥感设备研究所提出基于通道耦合特性的实时监测与自校准方法，利用镜像布局的待校准通道与对称校准发射通道，通过相位调整和幅度数据计算实现全寿命周期性能监测，无需外部测试设备。</p>
+<p><strong>5. 星座建模快速校准</strong></p>
+<p>2025 年滑铁卢大学提出星座建模方法，用闭式方程组建模 BFIC 通道增益和相位响应，最优选择星座状态子集，测量次数减少上千倍，相位 RMS 误差 0.45°，增益 RMS 误差 0.03dB。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">四、应用场景</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>校准方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5G NSA/SA 基站 AAU</td>
+<td>电缆校准 + 互耦法</td>
+<td>商用主流方案，华为/中兴/爱立信均采用</td>
+</tr>
+<tr>
+<td>毫米波 Massive MIMO</td>
+<td>OTA 校准 + 近场成像</td>
+<td>9子阵列1152通道验证，需高精度近场测量</td>
+</tr>
+<tr>
+<td>卫星相控阵</td>
+<td>在线自校准</td>
+<td>银河航天128波束ASIC方案，空间环境要求高可靠性</td>
+</tr>
+<tr>
+<td>无蜂窝大规模 MIMO</td>
+<td>空口校准 + 同步</td>
+<td>中兴方案，基于现网RRU实现多接入点间同步</td>
+</tr>
+<tr>
+<td>6G 太赫兹阵列</td>
+<td>星座建模快速校准</td>
+<td>300GHz CMOS相控阵，校准时间窗口极短</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">五、关键技术指标</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型要求</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>相位校准精度</td>
+<td>≤ 1° RMS</td>
+<td>影响波束指向精度和旁瓣电平</td>
+</tr>
+<tr>
+<td>增益校准精度</td>
+<td>≤ 0.1 dB RMS</td>
+<td>影响波束赋形增益和干扰抑制</td>
+</tr>
+<tr>
+<td>校准耗时</td>
+<td>≤ 分钟级（百通道）</td>
+<td>大规模阵列校准效率是关键挑战</td>
+</tr>
+<tr>
+<td>温度漂移容忍度</td>
+<td>±40°C 范围内稳定</td>
+<td>室外基站环境温度变化范围</td>
+</tr>
+<tr>
+<td>校准更新频率</td>
+<td>每小时至每天</td>
+<td>取决于时变误差速率</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">六、工程挑战与坑</div>
+    <div class="text-body"><p><strong>1. 时变误差补偿</strong></p>
+<p>射频通道随温度和时间的漂移是最大挑战。商用 AAU 通常部署在 -40°C 至 +55°C 环境中，功放和混频器的相位漂移可达数度，必须设计周期性重校准机制。</p>
+<p><strong>2. 互耦效应的双刃剑</strong></p>
+<p>互耦法利用互耦信号进行校准，但互耦本身也影响天线方向图。2015 年电子与信息学报论文指出，互耦效应会降低信道矩阵相关性，需在校准算法中显式建模。</p>
+<p><strong>3. FDD 系统的互易校准难题</strong></p>
+<p>TDD 系统天然利用时域互易性，但 FDD 系统上下行频段不同，信道本身不互易。2025 年华为推出 FDD 三频 Massive MIMO（1.8+2.1+2.6GHz），需要全新的校准策略。</p>
+<p><strong>4. 校准与 DPD 的联合优化</strong></p>
+<p>发射机的非线性效应（需要 DPD 补偿）和非互易性（需要校准补偿）相互耦合，分开处理会导致次优结果。Lund 大学 2024 年的 OTA 联合方案是重要突破方向。</p>
+<p><strong>5. 大规模阵列的校准复杂度</strong></p>
+<p>64T64R AAU 有 64 个发射通道和 64 个接收通道，传统穷举校准需要数万条测量路径。星座建模方法将测量次数降低三个数量级是关键进展。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">七、技术演进</div>
+    <div class="text-body"><ul>
+<li><strong>2G/3G 时代</strong>（2000s）：智能天线采用简单的互比校准，通道数少（2-4 通道），电缆校准即可满足</li>
+<li><strong>4G LTE 时代</strong>（2010s）：4T4R / 8T8R Massive MIMO 起步，互耦法和电缆校准成为主流，3GPP R11 标准化</li>
+<li><strong>5G NR 时代</strong>（2018-2023）：64T64R 成为标配，OTA 校准和在线校准并行发展，华为/中兴/爱立信全面商用</li>
+<li><strong>5G-A 时代</strong>（2024-2026）：无蜂窝 Massive MIMO 空口校准（中兴 2024 论文），FDD 三频 Massive MIMO（华为 2025 商用），星座建模快速校准（滑铁卢 2025）</li>
+<li><strong>6G 时代</strong>（2027+）：太赫兹大规模阵列在线校准（GNN 辅助）、星地融合 NTN 校准、全 OTA 联合 DPD 校准</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">八、技术成熟度</div>
+    <div class="text-body"><ul>
+<li><strong>成熟度等级</strong>：大规模商用</li>
+<li><strong>说明</strong>：电缆校准和互耦法已在 5G 商用 AAU 中大规模应用多年，技术成熟。OTA 校准主要用于出厂测试和现场标定。在线自校准和 FDD  Massive MIMO 校准正在从原型向商用过渡。太赫兹阵列快速校准和 GNN 辅助在线校准仍处于研究阶段。</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">九、未来趋势</div>
+    <div class="text-body"><ul>
+<li><strong>短期（1-2 年）</strong>：在线自校准成为 5G-A 基站标配，减少人工校准成本；FDD Massive MIMO 校准方案随华为三频方案全球推广</li>
+<li><strong>中期（3-5 年）</strong>：AI/ML 驱动的实时校准（如 GNN 辅助相位偏移在线估计）进入商用；星载相控阵自校准技术下沉到地面 6G 基站</li>
+<li><strong>长期（5 年以上）</strong>：太赫兹频段（100GHz+）大规模阵列的自动化校准体系建立；全 OTA 联合 DPD 校准成为 6G 原生架构的一部分；量子传感辅助的超高精度校准可能突破传统极限</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">十、一句话总结</div>
+    <div class="text-body"><p>天线校准是 Massive MIMO 系统的"隐形引擎"——没有它，再多的天线阵子也只是杂乱无章的噪声源；有了它，上百个通道才能协同奏出精准的波束交响乐。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">关联笔记</div>
+    <div class="text-body"><ul>
+<li>[[零部件-T-R模块Transmit-Receive-Module-20260703]]</li>
+<li>[[零部件-校准板Calibration-Board-20260703]]</li>
+<li>[[技术概念-相控阵天线Phased-Array-Antenna-20260629]]</li>
+<li>[[零部件-耦合器Directional-Coupler-20260703]]</li>
+<li>[[技术概念-波束赋形Beamforming深度解读-20260618]]</li>
+<li>[[零部件-环形器隔离器Circulator-Isolator-20260703]]</li>
+<li>[[零部件-衰减器Attenuator-20260703]]</li>
+<li>[[技术概念-AAU有源天线单元深度解读-20260622]]</li>
+<li>[[技术概念-中兴GigaMIMO空域资源深度重构-20260705]]</li>
+<li>[[技术概念-FD-MIMO全维度MIMO-20260703]]</li>
+<li>[[技术概念-天线互耦Mutual-Coupling-20260702]]</li>
+<li>[[指标术语-天线隔离度Antenna-Isolation-20260619]]</li>
+</ul></div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (10)</div>
+    <div class="related-grid">
+      <a href="#">component-t-r模块transmit-receive-module</a><a href="#">component-校准板calibration-board</a><a href="#">technology-相控阵天线phased-array-antenna</a><a href="#">component-耦合器directional-coupler</a><a href="#">component-环形器隔离器circulator-isolator</a><a href="#">component-衰减器attenuator</a><a href="#">technology-中兴gigamimo空域资源深度重构-20260705</a><a href="#">technology-fd-mimo全维度mimo</a><a href="#">technology-天线互耦mutual-coupling</a><a href="#">metric-天线隔离度antenna-isolation</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-massivemimo天线校准</span>
+</div>
+
+</div>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  var canvas = document.querySelector('.canvas');
+  if (!canvas) return;
+  var leftCol  = canvas.querySelector('.col-left');
+  var rightCol = canvas.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+
+  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
+  var blocks = Array.prototype.slice.call(
+    canvas.querySelectorAll('.block')
+  ).filter(function(b){ return !b.classList.contains('related-block'); });
+
+  // 贪心：哪边矮 append 到哪边
+  blocks.forEach(function(block){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(block);
+  });
+})();
+</script>
+
+</body>
+</html>

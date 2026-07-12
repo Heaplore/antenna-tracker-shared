@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>OAM轨道角动量多路复用 — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    min-height: 1080px;
+    height: auto;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+  }
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .masonry-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .canvas .hero {
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
+  }
+  .block.section-table, .block.section-comparison {
+    /* 占一列宽度，不再 column-span */
+  }
+  .block.section-text {
+    /* 参与贪心分列，不再 column-span */
+  }
+  .block.related-block {
+    /* 跨两列独立成行 */
+    margin-top: 24px;
+    width: 100%;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-11</div>
+    </div>
+    <div class="hero-title">
+      OAM轨道角动量多路复用
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术</span><span>技术概念</span><span>OAM</span><span>轨道角动量</span><span>涡旋电磁波</span><span>6G</span><span>无线回传</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> 利用电磁波的螺旋相位面引入新维度——轨道角动量（OAM），使多个正交模式在同一频率、同一时间独立传输数据，为6G无线回传和空天地一体化提供超高速大容量通道。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> 想象一条高速公路：传统MIMO是在同一条路上并排多开几条车道，而OAM是在这条路之外又建了一条&#34;螺旋隧道&#34;——每个隧道的螺旋方向不同，互不干扰，可以在同一个频率上跑多条独立的数据流。</div>
+    
+    
+  </div>
+
+  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
+  <div class="masonry">
+    <div class="masonry-col col-left"></div>
+    <div class="masonry-col col-right"></div>
+  </div>
+
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">1.1 OAM的物理本质</div>
+    <div class="text-body"><p>OAM是电磁波的固有物理属性之一，与自旋角动量（SAM，对应极化）相互独立。经典电动力学和量子电动力学均指出，电磁波角动量包含两部分：</p>
+<ul>
+<li><strong>自旋角动量（SAM）</strong>：表征电磁波的极化方式（线极化、圆极化）</li>
+<li><strong>轨道角动量（OAM）</strong>：表征电磁波波前在传播方向上的旋转特性</li>
+</ul>
+<p>携带OAM的电磁波被称为<strong>涡旋电磁波（Vortex EM Wave）</strong>，其波前呈螺旋状，等相位面绕传播轴旋转一周相位变化 $2\pi l$，其中 $l$ 为拓扑荷数（OAM模式数），取整数 $0, \pm 1, \pm 2, \dots$。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">1.2 量子态 vs 统计态</div>
+    <div class="text-body"><p>这是理解OAM技术路线的关键分野：</p>
+<ul>
+<li>
+<p><strong>量子态OAM电磁波</strong>：利用电磁波量子的内禀OAM（Intrinsic OAM），每个量子携带非零内禀OAM，从微观层面体现OAM物理特性。需要专用装置产生和检测涡旋量子态，理论基础为量子力学和量子电动力学。</p>
+</li>
+<li>
+<p><strong>统计态OAM电磁波</strong>：利用大量平面电磁波量子通过外部OAM（Extrinsic OAM）统计构建出具有正交螺旋相位面的涡旋波束。可由传统天线或天线阵列产生，是经典电动力学的合成波束。<strong>目前工程实践中的OAM通信系统全部属于统计态</strong>。</p>
+</li>
+</ul>
+<blockquote>
+<p>统计态OAM与空域紧耦合，有观点认为其可被视为MIMO系统的特例，但这并不影响其实用价值——正交性和容量提升是实实在在的。</p>
+</blockquote></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">1.3 正交性原理</div>
+    <div class="text-body"><p>不同 $l$ 值的OAM模式在空间上天然正交：</p>
+<p>$$E_l(r,\phi,z) = A(r,z) e^{jl\phi} e^{-jkz}$$</p>
+<p>其中 $\phi$ 为方位角。两个不同模式 $l_1$ 和 $l_2$ 的内积满足：</p>
+<p>$$\int_0^{2\pi} e^{j(l_1-l_2)\phi} d\phi = 2\pi \delta_{l_1,l_2}$$</p>
+<p>这意味着理论上无限多个OAM模式可以在同一频率上并行传输而不互相干扰——这是OAM超越传统MIMO容量界的根本原因。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2.1 UCA均匀圆阵生成</div>
+    <div class="text-body"><p>工程上最常用的OAM波束生成方式是<strong>均匀圆阵（Uniform Circular Array, UCA）</strong>。N个阵元等间距分布在半径为 $R$ 的圆周上，相邻阵元施加恒定相位差 $\Delta\beta = l \cdot 2\pi/N$，即可辐射第 $l$ 阶OAM模式。</p>
+<p>关键参数：</p>
+<ul>
+<li>阵元数 $N \ge |l| + 1$（保证模式可分辨）</li>
+<li>阵圆周长 $2\pi R \ge |l| \lambda$（避免扫描盲区）</li>
+<li>典型工作模式：$l = 0, \pm 1, \pm 2, \pm 3$</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2.2 信道模型</div>
+    <div class="text-body"><p>UCA产生的OAM信号在自由空间中遵循<strong>贝塞尔信道（Bessel-channel）</strong>模型：</p>
+<p>$$h_{l,l'}(r) \propto J_{l-l'}(k_r r)$$</p>
+<p>其中 $J_{l-l'}$ 为 $(l-l')$ 阶第一类贝塞尔函数，$k_r$ 为径向波数。这决定了OAM信号在接收端的场强分布呈环形（中心为零值暗核），只有将接收天线置于合适的径向位置才能最大化信噪比。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2.3 容量公式</div>
+    <div class="text-body"><p>理想条件下，M阶OAM复用系统的信道容量：</p>
+<p>$$C = M \cdot B \cdot \log_2(1 + \text{SNR})$$</p>
+<p>其中 $M$ 为复用的OAM模式数，$B$ 为单模式带宽。相比传统MIMO，OAM在不增加频谱和天线数的情况下，通过模式维度直接倍增容量。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">3.1 主流生成方案对比</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>原理</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>均匀圆阵（UCA）</strong></td>
+<td>多阵元相位差激励</td>
+<td>灵活可调、支持多模</td>
+<td>体积大、馈电网络复杂</td>
+</tr>
+<tr>
+<td><strong>螺旋相板（SPP）</strong></td>
+<td>金属/介质螺旋结构改变相位</td>
+<td>结构简单、成本低</td>
+<td>固定模式、窄带</td>
+</tr>
+<tr>
+<td><strong>超表面（Metasurface）</strong></td>
+<td>亚波长单元调控相位</td>
+<td>超薄轻量、可重构</td>
+<td>带宽受限、效率待提升</td>
+</tr>
+<tr>
+<td><strong>反射阵列（Reflector/Reflectarray）</strong></td>
+<td>反射面单元相位分布</td>
+<td>高增益、适合远距</td>
+<td>体积较大</td>
+</tr>
+<tr>
+<td><strong>漏波天线（Leaky-Wave）</strong></td>
+<td>周期性结构辐射螺旋波</td>
+<td>宽角扫描、易集成</td>
+<td>模式纯度受距离影响</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">3.2 工程实现路径</div>
+    <div class="text-body"><ul>
+<li><strong>静态OAM</strong>：固定模式、固定频率，适用于点对点回传</li>
+<li><strong>动态/可重构OAM</strong>：通过移相器或超表面实时切换模式和波束指向，适用于多用户场景</li>
+<li><strong>OAM-MIMO混合</strong>：将OAM与传统MIMO结合，在空间维度和模式维度同时复用，进一步提升容量</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4.1 无线回传（Wireless Backhaul）——当前最成熟场景</div>
+    <div class="text-body"><p>OAM的天然正交性使其成为小基站密集部署下无线回传的理想选择。传统微波回传受限于频谱资源，而OAM可以在同一频段上并行传输多路数据。</p>
+<p><strong>近期里程碑：</strong></p>
+<ul>
+<li>
+<p><strong>NTT/DOCOMO/NEC（2025.03）</strong>：在E波段（71-86 GHz）实现世界最快双向140 Gbps实时传输，使用8个正交OAM模式和最高256QAM调制，500 MHz带宽，传输距离22.5米和45米双向均验证成功，还演示了反射路径传输。</p>
+</li>
+<li>
+<p><strong>NTT（2023.03）</strong>：在sub-THz频段（135-170 GHz）实现1.44 Tbit/s无线传输，首次将OAM复用与32 GHz超宽带结合。</p>
+</li>
+<li>
+<p><strong>南洋理工大学（2025）</strong>：4×4 MIMO OAM系统在100米室外路径成功验证，对比2×2平面波MIMO在无对准条件下的失效，凸显OAM空间正交优势。</p>
+</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4.2 6G空天地一体化</div>
+    <div class="text-body"><p>OAM的环形波束特性使其天然适合卫星通信和无人机中继。螺旋相位面可在垂直方向形成覆盖锥，配合星载相控阵可实现广域多用户覆盖。银河航天已在128波束ASIC化星载相控阵中探索OAM应用。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4.3 车辆导航与定位</div>
+    <div class="text-body"><p>OAM波束的锥形辐射图案（中心零值、环形能量分布）可用于车辆导航系统的角度检测和相对定位，这是传统平面波无法提供的额外维度信息。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4.4 短距高速接入</div>
+    <div class="text-body"><p>室内毫米波高速接入（如60 GHz OAM链路达8 Gbps）、临时应急通信等场景也具备应用潜力。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">五、关键技术指标</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>说明</th>
+<th>典型值/目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>模式纯度</strong></td>
+<td>实际OAM模式与理想模式的偏离程度，影响串扰</td>
+<td>&gt; 20 dB（模式隔离度）</td>
+</tr>
+<tr>
+<td><strong>拓扑荷范围</strong></td>
+<td>可同时复用的最大 $</td>
+<td>l</td>
+</tr>
+<tr>
+<td><strong>传输距离</strong></td>
+<td>OAM模式正交性的保持距离</td>
+<td>毫米波回传：10-100 m；THz：可达km级</td>
+</tr>
+<tr>
+<td><strong>对准精度</strong></td>
+<td>发射/接收天线轴线偏差容限</td>
+<td>&lt; 1°（高灵敏度）</td>
+</tr>
+<tr>
+<td><strong>波束发散角</strong></td>
+<td>OAM模式随距离的发散程度</td>
+<td>高阶模式发散更大，需超表面收敛</td>
+</tr>
+<tr>
+<td><strong>信道容量</strong></td>
+<td>多模式复用下的总吞吐量</td>
+<td>140 Gbps（E波段，2025 NTT）</td>
+</tr>
+<tr>
+<td><strong>带宽利用率</strong></td>
+<td>每Hz频谱的比特率</td>
+<td>取决于调制阶数和模式数</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6.1 对准敏感性（最大痛点）</div>
+    <div class="text-body"><p>OAM系统对发射和接收天线的<strong>轴线对准</strong>极其敏感。微小的角度偏移（通常&lt;1°）就会导致模式间串扰（Inter-Mode Interference, IMI）急剧恶化。这与相控阵的波束赋形不同——相控阵可以电子扫描，但OAM模式本身需要机械或电子对准。</p>
+<p><strong>应对方案：</strong>
+- 采用 successive interference cancellation (SIC) 进行模式分离
+- 基于CSI的模式组自适应选择（偶数/奇数模式分组）
+- 超表面辅助波束收敛减小发散角
+- 反射路径利用扩展非视距覆盖</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6.2 高阶模式衰减</div>
+    <div class="text-body"><p>高阶OAM模式（$|l|$ 较大）在传播过程中发散更快、能量更易分散，导致远距离传输时信噪比急剧下降。这限制了实际可用模式数的上限。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6.3 馈电网络复杂度</div>
+    <div class="text-body"><p>UCA的每个阵元需要独立的移相器和功率分配，模式数越多馈电网络越复杂。在毫米波/太赫兹频段，移相器的插入损耗和相位精度控制都是难题。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6.4 与MIMO的边界争议</div>
+    <div class="text-body"><p>学术界对"统计态OAM是否只是MIMO的特例"仍有争论。工程实践中建议将其视为MIMO的补充维度而非替代——OAM-MIMO混合才是务实路线。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">七、技术演进</div>
+    <div class="text-body"><ul>
+<li><strong>2007年</strong>：Thidé等人首次在射频频段实验观测到光子OAM（Physical Review Letters）</li>
+<li><strong>2012年</strong>：Jian Wang团队实现1 Tbit/s OAM自由空间传输（Nature Photonics）</li>
+<li><strong>2014年</strong>：Yan Yan在60 GHz实现32 Gbit/s OAM+极化复用（IEEE ICC）</li>
+<li><strong>2017-2019年</strong>：IEICE综述OAM-MIMO商用前景，日本学者开始E波段实验</li>
+<li><strong>2023年</strong>：NTT实现1.44 Tbit/sub-THz OAM-MIMO传输（世界纪录）</li>
+<li><strong>2024年</strong>：28 GHz主动UCA五模OAM通信系统实现3 Gbit/s（东南大学）</li>
+<li><strong>2025年</strong>：NTT/DOCOMO/NEC实现E波段140 Gbps双向OAM实时传输；超表面收敛OAM波束发散角从18°降至10°</li>
+<li><strong>2026年</strong>：Waseda大学提出OAM-MIMO抗对准偏移模式组选择方案</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">九、未来趋势</div>
+    <div class="text-body"><ul>
+<li>
+<p><strong>短期（1-2年）</strong>：OAM在固定无线回传（FWA）和5G-A小基站回传中率先落地，E波段/OAM组合成为运营商备选方案；超表面OAM天线的小型化和宽带化取得突破。</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：OAM-MIMO混合系统进入6G标准讨论（3GPP Rel-20/21），与通感一体化（ISAC）结合实现通信+感知双功能；星载OAM相控阵在低轨卫星互联网中试用。</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：OAM成为6G核心多维复用手段之一，与极化、空间、频率维度共同构成超维度天线系统；太赫兹OAM有望实现Tbit/s级无线接入；量子态OAM通信可能在安全通信领域开辟新赛道。</p>
+</li>
+</ul></div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (4)</div>
+    <div class="related-grid">
+      <a href="#">technology-全息泄漏波天线oam涡旋波束-nayyeri-20260704</a><a href="#">technology-mimo天线技术解读</a><a href="#">technology-封装天线antenna-in-package-aip</a><a href="#">technology-波束成形ic-bfic</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-oam轨道角动量多路复用</span>
+</div>
+
+</div>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  var canvas = document.querySelector('.canvas');
+  if (!canvas) return;
+  var leftCol  = canvas.querySelector('.col-left');
+  var rightCol = canvas.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+
+  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
+  var blocks = Array.prototype.slice.call(
+    canvas.querySelectorAll('.block')
+  ).filter(function(b){ return !b.classList.contains('related-block'); });
+
+  // 贪心：哪边矮 append 到哪边
+  blocks.forEach(function(block){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(block);
+  });
+})();
+</script>
+
+</body>
+</html>

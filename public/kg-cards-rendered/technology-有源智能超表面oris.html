@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>有源智能超表面ORIS — KG 卡片</title>
+<style>
+  :root {
+    --primary: #0e7490;
+    --primary-bg: #cffafe;
+    --secondary: #d97706;
+    --secondary-bg: #fef3c7;
+    --warning: #dc2626;
+    --warning-bg: #fee2e2;
+    --highlight: #7c3aed;
+    --highlight-bg: #ede9fe;
+    --bg: #f5f1e8;
+    --card-bg: #ffffff;
+    --fg: #1f2937;
+    --fg-muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
+
+  .card {
+    width: 1378px;
+    min-height: 1080px;
+    height: auto;
+    background: var(--bg);
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  }
+  .canvas {
+    padding: 20px 24px 28px;
+  }
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .masonry-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .canvas .hero {
+    margin-bottom: 12px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    padding: 22px 30px; border-radius: 14px;
+    position: relative;
+  }
+  .hero-header {
+    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  }
+  .hero-type {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; opacity: 0.85;
+    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
+  }
+  .hero-updated { font-size: 11px; opacity: 0.7; }
+  .hero-title {
+    font-size: 22px; font-weight: 800; margin-bottom: 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
+  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-tags span {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
+  }
+  .hero-liner {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    font-size: 13px; line-height: 1.55; font-weight: 500;
+  }
+  .hero-analogy {
+    margin-top: 8px; padding: 10px 14px;
+    background: rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; line-height: 1.55; opacity: 0.92;
+  }
+  .hero-metrics {
+    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-metrics div { font-size: 11px; opacity: 0.85; }
+  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
+
+  .block {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    break-inside: avoid;
+    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
+  }
+  .block.section-table, .block.section-comparison {
+    /* 占一列宽度，不再 column-span */
+  }
+  .block.section-text {
+    /* 参与贪心分列，不再 column-span */
+  }
+  .block.related-block {
+    /* 跨两列独立成行 */
+    margin-top: 24px;
+    width: 100%;
+  }
+  .block.section-timeline    { border-left-color: var(--primary); }
+  .block.section-table        { border-left-color: var(--highlight); }
+  .block.section-comparison   { border-left-color: var(--highlight); }
+  .block.section-list         { border-left-color: var(--secondary); }
+  .block.section-list.challenges { border-left-color: var(--warning); }
+  .block.section-list.components { border-left-color: var(--primary); }
+  .block.section-list.drivers    { border-left-color: var(--secondary); }
+  .block.section-list.variants   { border-left-color: var(--highlight); }
+  .block.section-list.trends     { border-left-color: var(--highlight); }
+  .block.section-list.features   { border-left-color: var(--secondary); }
+  .block.section-text         { border-left-color: var(--secondary); }
+  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
+
+  .block-title {
+    font-size: 13px; font-weight: 800; color: var(--fg);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .block-title .ord { display: none; }
+  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .timeline-item {
+    background: var(--primary-bg);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 12px; position: relative;
+  }
+  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
+
+  .list-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; flex: 1;
+  }
+  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .list-item {
+    background: var(--bg);
+    border-left: 3px solid var(--secondary);
+    padding: 8px 12px; border-radius: 4px;
+    display: flex; flex-direction: column;
+  }
+  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
+  .block.section-list.components .list-item { border-left-color: var(--primary); }
+  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
+  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
+  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
+  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
+  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
+  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
+
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 11.5px; flex: 1;
+  }
+  .tbl th, .tbl td {
+    border: 1px solid var(--border);
+    padding: 6px 10px; text-align: left; line-height: 1.4;
+  }
+  .tbl th:first-child, .tbl td:first-child {
+    width: 12%;
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tbl th:nth-child(2), .tbl td:nth-child(2) {
+    width: 15%;
+    font-weight: 600;
+  }
+  .tbl th:nth-child(3), .tbl td:nth-child(3) {
+    width: 20%;
+    font-weight: 600;
+  }
+  .tbl th {
+    background: var(--highlight-bg); color: var(--highlight);
+    font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tbl tr:nth-child(even) td { background: #fafafa; }
+  .tbl .footer {
+    font-size: 10.5px; color: var(--fg-muted);
+    background: var(--secondary-bg) !important;
+    font-style: italic; padding-top: 8px;
+    width: 100% !important;
+    word-break: break-word;
+    white-space: normal !important;
+  }
+  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
+
+  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
+  .code-body {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px; line-height: 1.5;
+    white-space: pre-wrap; color: #e5e7eb; flex: 1;
+  }
+
+  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px; flex: 1;
+  }
+  .related-grid a {
+    display: block;
+    background: var(--highlight-bg); color: var(--highlight);
+    padding: 6px 12px; border-radius: 12px;
+    font-size: 11px; text-decoration: none;
+    border: 1px solid var(--highlight);
+    text-align: center; line-height: 1.3;
+  }
+
+  .footer {
+    margin-top: 8px; padding: 14px 30px;
+    background: var(--fg); color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="canvas">
+
+  <div class="hero">
+    <div class="hero-header">
+      <div class="hero-type">technology · KG 卡片</div>
+      <div class="hero-updated">UPDATED 2026-07-09</div>
+    </div>
+    <div class="hero-title">
+      有源智能超表面ORIS
+      
+    </div>
+    
+    <div class="hero-tags">
+      <span>天线技术</span><span>技术概念</span><span>6G</span><span>RIS</span><span>有源智能超表面</span><span>ORIS</span><span>主动式RIS</span><span>ARIS</span><span>乘性衰落</span><span>清华大学</span><span>中兴通讯</span><span>6G标准化</span>
+    </div>
+    
+    
+    <div class="hero-liner"><b>一句话:</b> 有源智能超表面在被动RIS的反射单元上集成功率放大器，不仅能调控电磁波相位，还能主动放大信号，从根本上克服被动RIS的&#34;乘性衰落&#34;瓶颈，是6G时代从&#34;反射信号&#34;走向&#34;增强信号&#34;的关键跃迁。</div>
+    
+    
+    <div class="hero-analogy"><b>类比:</b> 被动RIS就像一面镜子——它能把光线反射到你想要的方向，但不会让光变得更亮。</div>
+    
+    
+  </div>
+
+  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
+  <div class="masonry">
+    <div class="masonry-col col-left"></div>
+    <div class="masonry-col col-right"></div>
+  </div>
+
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">1.1 什么是ORIS</div>
+    <div class="text-body"><p>有源智能超表面（Active Reconfigurable Intelligent Surface，简称Active RIS或ORIS）是在传统被动RIS的基础上，在每个反射单元或馈电网络中集成有源放大器件（如反射型功率放大器、电流反转换器、集中式功放等），使其不仅具备相位调控能力，还能对入射信号进行幅度放大的新一代智能超表面技术。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">1.2 为什么要搞有源RIS</div>
+    <div class="text-body"><p>被动RIS有一个根本性的物理限制——<strong>"乘性衰落"（Multiplicative Fading）效应</strong>。</p>
+<p>信号从基站传到RIS再反射到终端，需要经过两段信道（BS→RIS 和 RIS→UE）。被动RIS不做任何放大，只是反射，所以总路损等于两段路损的<strong>乘积</strong>（而非相加）。当基站和终端之间存在直视链路（LoS）时，直达链路的路损远小于"乘性路损"，被动RIS带来的增益微乎其微——清华团队实测数据显示，在典型无线系统中，被动RIS只能带来约3%的求和速率增益。</p>
+<p>有源ORIS通过在反射路径上加入放大环节，将乘性路损转化为加性增益，有效绕过这一瓶颈。清华团队论文《Active RIS vs. Passive RIS: Which Will Prevail in 6G?》的理论分析和实测验证表明，在相同条件下，有源RIS可实现约62%的求和速率增益，远超被动RIS。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">1.3 基本原理架构</div>
+    <div class="text-body"><p>ORIS的核心架构包含三个层次：</p>
+<ul>
+<li><strong>RIS单元层</strong>：每个单元除了移相器（PIN管/变容管/移相芯片），还集成微型放大器或反射型功率放大器</li>
+<li><strong>馈电网络层</strong>：将放大后的信号从单元汇聚到输出端口，可采用集中放大或分布式放大两种架构</li>
+<li><strong>控制层</strong>：基站或专用控制器协调各单元的相位和增益配置，实现波束赋形</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2.1 信号模型</div>
+    <div class="text-body"><p>有源RIS的反射信号模型可表示为：</p>
+<p>$$\mathbf{y} = \alpha \cdot \mathbf{\Phi} \cdot \mathbf{H}_{BR}^T \cdot \mathbf{x} + \mathbf{n}$$</p>
+<p>其中 $\alpha$ 是放大增益系数（被动RIS中 $\alpha = 1$，有源RIS中 $\alpha &gt; 1$），$\mathbf{\Phi}$ 是相位调控矩阵，$\mathbf{n}$ 是放大器引入的噪声。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2.2 乘性衰落 vs 加性增益</div>
+    <div class="text-body"><p>被动RIS等效路损：$L_{total} = L_{BS\rightarrow RIS} \times L_{RIS\rightarrow UE}$（乘积关系）</p>
+<p>有源RIS等效路损：$L_{total} = L_{BS\rightarrow RIS} / G_{amp} + L_{RIS\rightarrow UE}$（放大后转化为加性关系）</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2.3 功率预算公平比较</div>
+    <div class="text-body"><p>清华大学张子健、戴玲龙等人在IEEE论文中给出了公平比较框架：在相同的总功率预算下（基站发射功率 + RIS功耗），有源RIS在以下条件下优于被动RIS：</p>
+<ul>
+<li>RIS单元数量不是极其庞大（通常 &lt; 500个单元）</li>
+<li>总功率预算不低于某个阈值（通常 &gt; 10W）</li>
+<li>信道条件中等偏差（非极强直射链路）</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">2.4 放大器类型对比</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>架构类型</th>
+<th>代表方案</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分布式放大</td>
+<td>每个单元集成微型PA</td>
+<td>增益高、控制灵活</td>
+<td>功耗大、自激风险高、成本高</td>
+</tr>
+<tr>
+<td>集中式放大</td>
+<td>共用一个功放+馈电网络</td>
+<td>功耗低、避免自激</td>
+<td>馈电网络设计复杂、EIRP受限</td>
+</tr>
+<tr>
+<td>混合式</td>
+<td>部分单元放大+部分反射</td>
+<td>平衡性能与功耗</td>
+<td>控制算法复杂</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">3.1 按放大架构分类</div>
+    <div class="text-body"><p><strong>（1）分布式有源RIS</strong></p>
+<p>每个RIS单元独立集成反射型功率放大器（如电流反转换器、GaN HEMT PA）。代表方案：清华团队2022年搭建的64单元有源RIS原型系统。</p>
+<p><strong>（2）集中式有源RIS</strong></p>
+<p>RIS阵面由无源单元组成，但通过有源双极化馈电网络集中放大。代表专利：清华大学CN115732937B《基于集中放大架构的有源智能超表面天线》，采用远场双极化喇叭空馈或近场功分网络馈电形式。</p>
+<p><strong>（3）半有源/混合RIS</strong></p>
+<p>部分单元有源、部分无源，或在反射模式和有源模式之间切换。这是目前产业界更倾向的路径——在性能和成本之间找平衡。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">3.2 按工作模式分类</div>
+    <div class="text-body"><ul>
+<li><strong>反射型ORIS</strong>：最常见，类似镜面反射，调控反射波束方向</li>
+<li><strong>透射型ORIS</strong>：信号穿过超表面被放大和调控，适合室内覆盖</li>
+<li><strong>双模ORIS</strong>：同时支持反射和透射，灵活性最高</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">3.3 按频段分类</div>
+    <div class="text-body"><ul>
+<li>Sub-6GHz ORIS：与现有5G基站兼容，中兴已推出Sub-6GHz RIS原型机</li>
+<li>毫米波ORIS：解决高频穿透损耗问题，韩国STARE方案在15.5GHz验证了半导体工艺RIS</li>
+<li>太赫兹ORIS：6G远期方向，还在实验室阶段</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4.1 室外覆盖空洞填补</div>
+    <div class="text-body"><p>传统基站存在信号盲区（如楼宇背面、隧道入口）。被动RIS在这些场景增益有限，而有源ORIS能提供足够的信号增强，弥补直达链路缺失的问题。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4.2 室内深度覆盖</div>
+    <div class="text-body"><p>商场、地下车库、办公楼走廊等场景，信号穿透损耗大。透射型ORIS可以直接架设在天花板上，将信号"主动投射"到各个角落。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4.3 高频段覆盖增强</div>
+    <div class="text-body"><p>毫米波和太赫兹频段传播损耗极高。ORIS可以在高频段提供额外的增益预算，使高频通信成为可能。中兴动态RIS 2.0的目标场景之一就是"帮助未来毫米波等更高频段克服高传播损耗"。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4.4 移动场景用户跟踪</div>
+    <div class="text-body"><p>中兴的动态RIS 2.0实现了基站与RIS协同波束赋形，支持移动场景下的用户无缝连接和波束自适应调整。有源ORIS在此基础上增加信号放大，移动场景下的覆盖更稳定。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">4.5 卫星通信与NTN</div>
+    <div class="text-body"><p>星地融合场景中，卫星信号到达地面时已极度衰减。有源ORIS可作为地面增强节点，放大卫星信号并定向反射到用户终端。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">五、关键技术指标</div>
+    <div class="text-body"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>被动RIS</th>
+<th>有源ORIS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>反射增益</td>
+<td>0 dB（仅相位调控）</td>
+<td>+10~25 dB</td>
+<td>取决于放大器设计</td>
+</tr>
+<tr>
+<td>求和速率增益</td>
+<td>~3%（典型场景）</td>
+<td>~62%（典型场景）</td>
+<td>清华实测数据</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>&lt; 10W（仅控制电路）</td>
+<td>50~200W（含放大器）</td>
+<td>有源部分功耗显著增加</td>
+</tr>
+<tr>
+<td>单元数量</td>
+<td>数百~数千</td>
+<td>数十~数百</td>
+<td>有源单元多了功耗爆炸</td>
+</tr>
+<tr>
+<td>信道容量提升</td>
+<td>有限</td>
+<td>显著</td>
+<td>尤其在非直视场景</td>
+</tr>
+<tr>
+<td>硬件复杂度</td>
+<td>低</td>
+<td>中高</td>
+<td>需要放大器+散热设计</td>
+</tr>
+<tr>
+<td>自激风险</td>
+<td>无</td>
+<td>有</td>
+<td>分布式方案需特别注意</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6.1 功耗与散热的矛盾</div>
+    <div class="text-body"><p>有源RIS最大的工程挑战就是功耗。每个放大器都要耗电，大规模阵列的总功耗可能远超被动RIS。散热设计成为刚需——尤其是在室外密集部署时。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6.2 放大器自激问题</div>
+    <div class="text-body"><p>分布式放大方案中，大量功率放大器近距离排列容易产生反馈自激。集中式放大方案虽然规避了这个问题，但馈电网络的设计复杂度陡增。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6.3 信道估计复杂度</div>
+    <div class="text-body"><p>有源RIS引入了增益调控维度（不仅是相位），信道估计的自由度大幅增加。如何在不占用过多导频开销的前提下完成准确的信道估计，是一个开放问题。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6.4 噪声累积</div>
+    <div class="text-body"><p>放大器不仅放大信号，也放大噪声。有源RIS引入的附加噪声会限制系统的信噪比上限，需要在增益和噪声之间做精细权衡。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">6.5 标准化滞后</div>
+    <div class="text-body"><p>3GPP Rel-21（2025年6月启动6G标准化）已将RIS纳入研究范围，但有源RIS的具体参数、接口协议、测试方法尚未标准化。中兴、华为等厂商目前以原型验证为主。</p></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">七、技术演进</div>
+    <div class="text-body"><ul>
+<li>
+<p><strong>静态超表面阶段</strong>（2020年前）：固定相位的超表面，只能定点覆盖，无法适配动态用户。中兴2021年完成第一阶段静态超表面技术原型验证。</p>
+</li>
+<li>
+<p><strong>动态RIS 1.0阶段</strong>（2022年）：基于基站的动态协同波束赋形，支持多波束扫描和用户跟踪。中兴MWC 2022发布第一代动态协同智能超表面原型样机。</p>
+</li>
+<li>
+<p><strong>动态RIS 2.0阶段</strong>（2023年）：功耗降低80%，集成化设计，支持Sub-6GHz和毫米波。中兴MWC上海2023发布动态RIS 2.0原型机，在杭州亚运会外场应用。</p>
+</li>
+<li>
+<p><strong>有源RIS/ORIS阶段</strong>（2022-至今）：清华团队2022年提出有源RIS概念并搭建64单元原型；2025年RIS任务组发布6G RIS研究报告；2026年韩国STARE方案实现半导体工艺RIS。中兴推出RIS 2.0系列化原型机，支持反射型和透射型。</p>
+</li>
+<li>
+<p><strong>混合RIS/半有源阶段</strong>（2026-未来）：产业界开始探索部分有源、部分无源的混合架构，在性能和成本之间寻求最优平衡。</p>
+</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">八、技术成熟度</div>
+    <div class="text-body"><ul>
+<li><strong>成熟度等级</strong>：原型验证 → 小规模商用过渡期</li>
+<li><strong>说明</strong>：被动RIS已进入小规模商用验证阶段（中兴动态RIS 2.0已在亚运会等场景部署），但有源ORIS仍处于原型验证和早期标准化阶段。清华64单元原型、韩国STARE半导体RIS均为实验室/原型级别。3GPP Rel-21已将RIS纳入6G标准化研究，但有源RIS的具体规范尚未出台。预计2027-2028年可能出现首批有源ORIS小规模商用试点。</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">九、未来趋势</div>
+    <div class="text-body"><ul>
+<li>
+<p><strong>短期（1-2年）</strong>：混合RIS（半有源+半无源）将成为主流研究方向，在性能提升和功耗控制之间找平衡。3GPP Rel-22可能启动有源RIS的信道建模和性能评估标准化工作。中兴和华为将持续推进RIS外场验证，积累商用数据。</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：有源ORIS可能在特定场景率先商用——如室内深度覆盖、毫米波增强覆盖、卫星通信地面增强等。半导体工艺RIS（如STARE方案）可能实现量产，大幅降低RIS单元成本。RIS与通感一体化（ISAC）融合，使超表面同时具备通信增强和环境感知能力。</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：ORIS可能与6G"超维度天线"概念深度融合，形成以用户为中心的全空间智能覆盖网络。RIS单元可能集成AI芯片，实现端到端的智能波束优化。太赫兹频段的有源ORIS可能成为6G核心使能技术之一。</p>
+</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">十、竞品/同行动态</div>
+    <div class="text-body"><ul>
+<li>
+<p><strong>中兴通讯</strong>：RIS技术路线最清晰的厂商之一。2021静态→2022动态RIS 1.0→2023动态RIS 2.0，已发布系列化原型机（反射型和透射型，Sub-6GHz和毫米波），在杭州亚运会外场验证。官网明确将RIS定位为5G-A到6G的关键使能技术。</p>
+</li>
+<li>
+<p><strong>华为</strong>：持有RIS控制信令相关专利（US20250096852A1），涉及多面板联合控制的RIS几何形状设计。华为在RIS专利布局上较为激进。</p>
+</li>
+<li>
+<p><strong>清华大学</strong>：戴玲龙团队是有源RIS研究的领军者，2022年搭建64单元有源RIS原型系统，2023年发表Active RIS vs Passive RIS权威对比论文。同时持有集中放大架构有源RIS专利（CN115732937B）。</p>
+</li>
+<li>
+<p><strong>韩国团队（STARE方案）</strong>：2026年7月1日在Nature Communications发表半导体工艺RIS方案，首次在标准半导体产线上实现RIS制造，15.5GHz频段验证了±45°波束扫描。</p>
+</li>
+<li>
+<p><strong>Fraunhofer HHI</strong>：2026年6月发表6G upper mid-band双极化RIS方案，15GHz频段实现270°相位控制和±60°波束扫描。</p>
+</li>
+<li>
+<p><strong>RIS联盟</strong>：中国RIS联盟持续推动产业生态，2025年发布新版RIS研究报告，为6G标准化提供支撑。</p>
+</li>
+</ul></div>
+  </div>
+
+    
+  
+    
+
+    
+  <div class="block section-text">
+    <div class="block-title">关联笔记</div>
+    <div class="text-body"><ul>
+<li>[[技术概念-智能反射面RIS深度解读-20260701]]</li>
+<li>[[技术概念-超表面天线Metasurface-Antenna-20260630]]</li>
+<li>[[技术概念-清华SC-RIS自控制智能超表面-20260705]]</li>
+<li>[[技术概念-6G通感一体化ISAC天线-20260702]]</li>
+<li>[[技术概念-超表面单元Meta-atomUnit-Cell-20260702]]</li>
+<li>[[技术概念-中信科移动6G全息超表面样机-20260707]]</li>
+</ul></div>
+  </div>
+
+    
+  
+
+  
+  <div class="block related-block">
+    <div class="block-title">关联笔记 (5)</div>
+    <div class="related-grid">
+      <a href="#">technology-超表面天线metasurface-antenna</a><a href="#">technology-清华sc-ris自控制智能超表面-20260705</a><a href="#">technology-6g通感一体化isac天线</a><a href="#">technology-超表面单元meta-atomunit-cell</a><a href="#">technology-中信科移动6g全息超表面样机</a>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="footer">
+  <span>antenna-tracker · KG 科普卡片 · technology</span>
+  <span>node: technology-有源智能超表面oris</span>
+</div>
+
+</div>
+
+<script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  var canvas = document.querySelector('.canvas');
+  if (!canvas) return;
+  var leftCol  = canvas.querySelector('.col-left');
+  var rightCol = canvas.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+
+  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
+  var blocks = Array.prototype.slice.call(
+    canvas.querySelectorAll('.block')
+  ).filter(function(b){ return !b.classList.contains('related-block'); });
+
+  // 贪心：哪边矮 append 到哪边
+  blocks.forEach(function(block){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(block);
+  });
+})();
+</script>
+
+</body>
+</html>
