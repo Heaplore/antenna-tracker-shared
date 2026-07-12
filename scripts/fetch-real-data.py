@@ -642,6 +642,22 @@ def update_news(verbose: bool = False) -> int:
 # ---------------------------------------------------------------------------
 
 def update_prices() -> tuple[int, int]:
+    """
+    按月推一格 (修正: 目标是当月, 不重算历史)
+
+    历史问题 (2026-07-12 老大反馈):
+      - next_month 永远等于"下个月", 导致 historical 被污染为 2026-08
+      - cron 每次跑都用 random seed 重算所有价格, 把老大手动 patch 的
+        真实市价 (LCP 200000 / FR4 300 等) 完全覆盖成错误数据
+
+    修复:
+      - target_month = 当月 (YYYY-MM), 不是下个月
+      - 不再用 random seed 重算历史价格 (避免覆盖老大手动 patch 的真实数据)
+      - 当 last.month == target_month: 跳过 (当月已存在)
+      - 当 last.month < target.month: 补齐中间月份
+        (但 price 字段保留 None 或 last_price, 等待 cron 真实数据)
+      - 当 last.month > target_month: 截断 + 告警 (异常状态)
+    """
     log("section", "更新价格数据")
     path = os.path.join(PUBLIC_DATA_DIR, PRICES_FILE)
     data = read_json(path)
@@ -650,15 +666,10 @@ def update_prices() -> tuple[int, int]:
         return (0, 0)
 
     now = _dt.datetime.now()
-    if now.month == 12:
-        next_y, next_m = now.year + 1, 1
-    else:
-        next_y, next_m = now.year, now.month + 1
-    next_month = f"{next_y}-{next_m:02d}"
+    target_month = f"{now.year}-{now.month:02d}"  # ← 当月
+    today_iso = now.date().isoformat()
 
-    added = skipped = 0
-    import random
-    rng = random.Random(int(time.time()))
+    added = skipped = truncated = 0
 
     for cat in data["categories"]:
         for mat in cat.get("materials") or []:
@@ -674,43 +685,54 @@ def update_prices() -> tuple[int, int]:
             if not last.get("month") or not last.get("price"):
                 skipped += 1
                 continue
-            if last["month"] == next_month:
+
+            ly, lm = map(int, last["month"].split("-"))
+            ty, tm = map(int, target_month.split("-"))
+
+            # 情况 1: last.month == target_month → 当月数据已有, 跳过
+            if (ly, lm) == (ty, tm):
                 skipped += 1
                 continue
-            # 年份递增感知
-            ly, lm = last["month"].split("-")
-            ly, lm = int(ly), int(lm)
-            if lm == 12:
-                ny, nm = ly + 1, 1
-            else:
-                ny, nm = ly, lm + 1
-            new_month = f"{ny}-{nm:02d}"
-            if new_month != next_month:
-                # 历史月份尚未推到当月, 连续补齐
-                pass
-            delta = (rng.random() - 0.5) * 0.03  # ±1.5%
-            new_price = round(float(last["price"]) * (1 + delta))
-            mat["historical"].append({"month": new_month, "price": new_price})
-            mat["currentPrice"] = new_price
-            try:
-                pct = (new_price - float(last['price'])) / float(last['price']) * 100
-                mat["change"] = f"{pct:+.1f}%"
-                # 加 trend 字段 (上涨/下跌/持平)
-                if pct > 0.5:
-                    mat["trend"] = "上涨"
-                elif pct < -0.5:
-                    mat["trend"] = "下跌"
-                else:
-                    mat["trend"] = "持平"
-            except (ZeroDivisionError, ValueError):
-                mat["change"] = "0.0%"
-                mat["trend"] = "持平"
-            mat["date"] = TODAY
-            added += 1
 
-    data["lastUpdate"] = TODAY
+            # 情况 2: last.month > target_month → 异常, 截断未来月份
+            if (ly, lm) > (ty, tm):
+                log("warn", f"{mat.get('name')}: 历史最后月份 {last['month']} > 当月 {target_month}, 截断未来数据")
+                mat["historical"] = [h for h in hist
+                                     if tuple(map(int, h['month'].split('-')))
+                                     <= (ty, tm)]
+                truncated += 1
+                if not mat["historical"]:
+                    skipped += 1
+                    continue
+                last = mat["historical"][-1]
+                ly, lm = map(int, last["month"].split("-"))
+                if (ly, lm) == (ty, tm):
+                    skipped += 1
+                    continue
+
+            # 情况 3: last.month < target_month → 补齐中间月份
+            # 但 **不要用 random seed 重算价格**! 保留历史真实数据,
+            # 仅当缺少中间月份时补 None 占位 (前端可显示"待更新")
+            while (ly, lm) < (ty, tm):
+                # 推一个月
+                if lm == 12:
+                    ny, nm = ly + 1, 1
+                else:
+                    ny, nm = ly, lm + 1
+                cur_label = f"{ny}-{nm:02d}"
+                # 补齐缺失月份: price=None 标记 "待 cron 真实数据更新"
+                mat["historical"].append({"month": cur_label, "price": None})
+                ly, lm = ny, nm
+                added += 1
+
+            # 不再覆盖 currentPrice / change / trend (保留老大手动 patch 的真实数据)
+            # 真实价格由 cron web_search 流程单独写入 (见 generate-analysis 或外部 trigger)
+            mat["date"] = today_iso
+
+    data["lastUpdate"] = today_iso
     write_json(path, data)
-    log("ok", f"prices: added={added}, skipped={skipped}, target={next_month}")
+    log("ok", f"prices: added={added} (price=None 占位), skipped={skipped}, "
+        f"truncated={truncated}, target={target_month} (本月, 不重算历史)")
     return (added, skipped)
 
 
