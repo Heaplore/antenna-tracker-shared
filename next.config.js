@@ -2,6 +2,7 @@
 const nextConfig = {
   output: 'export',
   basePath: '/antenna-tracker',
+  trailingSlash: true,
   images: {
     unoptimized: true
   }
