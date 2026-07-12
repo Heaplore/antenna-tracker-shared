@@ -2,438 +2,246 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>子阵列可编程太赫兹超表面通感算一体化 — KG 卡片</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>子阵列可编程太赫兹超表面通感算一体化 · 知识卡片</title>
 <style>
-  :root {
-    --primary: #0e7490;
-    --primary-bg: #cffafe;
-    --secondary: #d97706;
-    --secondary-bg: #fef3c7;
-    --warning: #dc2626;
-    --warning-bg: #fee2e2;
-    --highlight: #7c3aed;
-    --highlight-bg: #ede9fe;
-    --bg: #f5f1e8;
-    --card-bg: #ffffff;
-    --fg: #1f2937;
-    --fg-muted: #6b7280;
-    --border: #e5e7eb;
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
-
-  .card {
-    width: 1378px;
-    min-height: 1080px;
-    height: auto;
-    background: var(--bg);
-    margin: 0 auto;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
   }
-  .canvas {
-    padding: 20px 24px 28px;
-  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
   /* JS 贪心分列容器 — 替代 column-count:2 */
-  .masonry {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .masonry-col {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .canvas .hero {
-    margin-bottom: 12px;
-  }
-
-  .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
-    color: white;
-    padding: 22px 30px; border-radius: 14px;
-    position: relative;
-  }
-  .hero-header {
-    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
-  }
-  .hero-type {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1.5px; opacity: 0.85;
-    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
-  }
-  .hero-updated { font-size: 11px; opacity: 0.7; }
-  .hero-title {
-    font-size: 22px; font-weight: 800; margin-bottom: 4px;
-    display: flex; align-items: baseline; gap: 12px;
-  }
-  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
-  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
-  .hero-tags span {
-    font-size: 10px; padding: 2px 8px; border-radius: 4px;
-    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
-  }
-  .hero-liner {
-    margin-top: 12px; padding: 10px 14px;
-    background: rgba(255,255,255,0.1); border-radius: 8px;
-    font-size: 13px; line-height: 1.55; font-weight: 500;
-  }
-  .hero-analogy {
-    margin-top: 8px; padding: 10px 14px;
-    background: rgba(255,255,255,0.08); border-radius: 8px;
-    font-size: 12px; line-height: 1.55; opacity: 0.92;
-  }
-  .hero-metrics {
-    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
-    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
-  }
-  .hero-metrics div { font-size: 11px; opacity: 0.85; }
-  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
-
-  .block {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 16px 20px;
-    border-left: 4px solid var(--primary);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    display: flex; flex-direction: column;
-    overflow: hidden;
-    break-inside: avoid;
-    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
-  }
-  .block.section-table, .block.section-comparison {
-    /* 占一列宽度，不再 column-span */
-  }
-  .block.section-text {
-    /* 参与贪心分列，不再 column-span */
-  }
-  .block.related-block {
-    /* 跨两列独立成行 */
-    margin-top: 24px;
-    width: 100%;
-  }
-  .block.section-timeline    { border-left-color: var(--primary); }
-  .block.section-table        { border-left-color: var(--highlight); }
-  .block.section-comparison   { border-left-color: var(--highlight); }
-  .block.section-list         { border-left-color: var(--secondary); }
-  .block.section-list.challenges { border-left-color: var(--warning); }
-  .block.section-list.components { border-left-color: var(--primary); }
-  .block.section-list.drivers    { border-left-color: var(--secondary); }
-  .block.section-list.variants   { border-left-color: var(--highlight); }
-  .block.section-list.trends     { border-left-color: var(--highlight); }
-  .block.section-list.features   { border-left-color: var(--secondary); }
-  .block.section-text         { border-left-color: var(--secondary); }
-  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
-
-  .block-title {
-    font-size: 13px; font-weight: 800; color: var(--fg);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    margin-bottom: 10px; padding-bottom: 8px;
-    border-bottom: 1px dashed var(--border);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .block-title .ord { display: none; }
-  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
-
-  .timeline-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 8px; flex: 1;
-  }
-  .timeline-item {
-    background: var(--primary-bg);
-    border: 1px solid var(--primary);
-    border-radius: 8px;
-    padding: 10px 12px; position: relative;
-  }
-  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
-  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
-
-  .list-items {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px; flex: 1;
-  }
-  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
-  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
-  .list-item {
-    background: var(--bg);
-    border-left: 3px solid var(--secondary);
-    padding: 8px 12px; border-radius: 4px;
-    display: flex; flex-direction: column;
-  }
-  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
-  .block.section-list.components .list-item { border-left-color: var(--primary); }
-  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
-  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
-  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
-  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
-  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
-  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
-  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
-
-  .tbl {
-    width: 100%; border-collapse: collapse;
-    font-size: 11.5px; flex: 1;
-  }
-  .tbl th, .tbl td {
-    border: 1px solid var(--border);
-    padding: 6px 10px; text-align: left; line-height: 1.4;
-  }
-  .tbl th:first-child, .tbl td:first-child {
-    width: 12%;
-    font-weight: 700;
-    white-space: nowrap;
-    text-align: center;
-  }
-  .tbl th:nth-child(2), .tbl td:nth-child(2) {
-    width: 15%;
-    font-weight: 600;
-  }
-  .tbl th:nth-child(3), .tbl td:nth-child(3) {
-    width: 20%;
-    font-weight: 600;
-  }
-  .tbl th {
-    background: var(--highlight-bg); color: var(--highlight);
-    font-weight: 700; font-size: 11px;
-    text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  .tbl tr:nth-child(even) td { background: #fafafa; }
-  .tbl .footer {
-    font-size: 10.5px; color: var(--fg-muted);
-    background: var(--secondary-bg) !important;
-    font-style: italic; padding-top: 8px;
-    width: 100% !important;
-    word-break: break-word;
-    white-space: normal !important;
-  }
-  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
-
-  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
-  .code-body {
-    font-family: "SF Mono", Consolas, monospace;
-    font-size: 11px; line-height: 1.5;
-    white-space: pre-wrap; color: #e5e7eb; flex: 1;
-  }
-
-  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
-  .related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 8px; flex: 1;
-  }
-  .related-grid a {
-    display: block;
-    background: var(--highlight-bg); color: var(--highlight);
-    padding: 6px 12px; border-radius: 12px;
-    font-size: 11px; text-decoration: none;
-    border: 1px solid var(--highlight);
-    text-align: center; line-height: 1.3;
-  }
-
-  .footer {
-    margin-top: 8px; padding: 14px 30px;
-    background: var(--fg); color: rgba(255,255,255,0.7);
-    font-size: 10px;
-    display: flex; justify-content: space-between;
-    border-radius: 0 0 12px 12px;
-  }
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
 </style>
 </head>
 <body>
-
-<div class="card">
-<div class="canvas">
-
-  <div class="hero">
-    <div class="hero-header">
-      <div class="hero-type">technology · KG 卡片</div>
-      <div class="hero-updated">UPDATED 2026-07-09</div>
-    </div>
-    <div class="hero-title">
-      子阵列可编程太赫兹超表面通感算一体化
-      
-    </div>
-    
-    <div class="hero-tags">
-      <span>天线技术</span><span>技术概念</span><span>太赫兹</span><span>可编程超表面</span><span>通感算一体化</span><span>ISCC</span><span>HEMT</span><span>GaN</span><span>6G</span>
-    </div>
-    
-    
-    
-    
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">子阵列可编程太赫兹超表面通感算一体化</h1>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">太赫兹</span><span class="chip brand">可编程超表面</span><span class="chip brand">通感算一体化</span><span class="chip brand">ISCC</span><span class="chip brand">HEMT</span><span class="chip brand">GaN</span><span class="chip brand">6G</span>
   </div>
+  
+</header>
 
-  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
-  <div class="masonry">
-    <div class="masonry-col col-left"></div>
-    <div class="masonry-col col-right"></div>
-  </div>
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
 
   
+  <article class="card ">
     
-
-    
-  <div class="block section-text">
-    <div class="block-title">传统可编程超表面的两难困境</div>
-    <div class="text-body"><p>现有太赫兹可编程超表面分为两类：</p>
+    <h2>传统可编程超表面的两难困境</h2>
+    <p>现有太赫兹可编程超表面分为两类：</p>
 <ul>
 <li><strong>像素级寻址</strong>：每个超原子独立控制，空间自由度最高，但随着阵列扩展，布线、电源分配和时序压力急剧上升，难以规模化</li>
 <li><strong>全局统一驱动</strong>：整个孔径统一控制，实现简单但通常只能支持二进制或低阶调制，信息编码能力严重受限</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">子阵列策略的突破</div>
-    <div class="text-body"><p>研究团队提出的方案将<strong>子阵列</strong>（一组相同的超原子簇）提升为最小可寻址单元，而非单个像素：</p>
+    <h2>子阵列策略的突破</h2>
+    <p>研究团队提出的方案将<strong>子阵列</strong>（一组相同的超原子簇）提升为最小可寻址单元，而非单个像素：</p>
 <ul>
 <li>fabricated 超表面包含 <strong>4 个独立门控子阵列</strong>，每个子阵列入周期排列的 AlGaN/GaN HEMT（高电子迁移率晶体管）结构</li>
 <li>HEMT 核心是<strong>二维电子气（2DEG）</strong>，其载流子密度可通过栅极电压调制。当偏置改变时，整个子阵列的集体电磁共振随之偏移，从而控制太赫兹波的传输振幅</li>
 <li>零偏置时晶体管导通，超表面处于低透射态；施加负偏置后耗尽区切断沟道，抑制集体共振、提高透明度，切换时间约 <strong>10 ns</strong></li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">关键性能指标</div>
-    <div class="text-body"><ul>
+    <h2>关键性能指标</h2>
+    <ul>
 <li><strong>工作频段</strong>：170–260 GHz（覆盖 220 GHz 准光学链路）</li>
 <li><strong>振幅调制带宽</strong>：170–260 GHz 连续可调</li>
 <li><strong>逻辑运算速度</strong>：实时布尔函数最高 <strong>200 MHz</strong></li>
 <li><strong>高阶调制</strong>：直接在波前实现 <strong>PAM-4</strong>（4 脉冲幅度调制）</li>
 <li><strong>单音调制</strong>：载波可达 <strong>6 GHz</strong></li>
 <li><strong>支持逻辑门</strong>：AND、OR、XNOR（通过编程选择子阵列组合实现）</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
-    
-  <div class="block section-text">
-    <div class="block-title">物理层计算的本质</div>
-    <div class="text-body"><p>与传统方案的根本区别在于：<strong>信息处理直接在太赫兹波前完成，无需光电转换</strong>。信号进去，计算结果出来——这不再是调制器，而是光学协处理器。</p></div>
-  </div>
-
-    
   
+  <article class="card ">
     
+    <h2>物理层计算的本质</h2>
+    <p>与传统方案的根本区别在于：<strong>信息处理直接在太赫兹波前完成，无需光电转换</strong>。信号进去，计算结果出来——这不再是调制器，而是光学协处理器。</p>
+  </article>
+  
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">6G 通感算一体化（ISCC）</div>
-    <div class="text-body"><p>6G 的核心愿景之一是将通信、感知和计算融合在同一个硬件平台上。太赫兹频段因其超宽带和精细空间分辨率被视为关键频谱资源。这项技术直接支持：</p>
+    <h2>6G 通感算一体化（ISCC）</h2>
+    <p>6G 的核心愿景之一是将通信、感知和计算融合在同一个硬件平台上。太赫兹频段因其超宽带和精细空间分辨率被视为关键频谱资源。这项技术直接支持：</p>
 <ul>
 <li><strong>智能边缘感知</strong>：自主系统的延迟敏感型应用中，物理层即时决策取代传统 DSP 后处理</li>
 <li><strong>前端处理器小型化</strong>：太赫兹前端不再只是收发天线，而是具备逻辑运算能力的智能表面</li>
 <li><strong>物理层加密</strong>：可编程超表面可实现原生物理加密，无需上层加密协议</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">光计算与太赫兹信号处理</div>
-    <div class="text-body"><ul>
+    <h2>光计算与太赫兹信号处理</h2>
+    <ul>
 <li>替代传统电子逻辑门在太赫兹频段的短板</li>
 <li>为全光计算机提供可重构的物理层逻辑单元</li>
 <li>在雷达/传感系统中实现"感知即计算"</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">中国团队主导</div>
-    <div class="text-body"><ul>
+    <h2>中国团队主导</h2>
+    <ul>
 <li><strong>电子科技大学</strong>（本研究团队）：子阵列可编程超表面，HEMT 实现，Light: Science &amp; Applications 2026</li>
 <li><strong>张团队</strong>（2026年1月）：石墨烯超表面，五重旋转对称性，独立振幅相位控制无串扰</li>
 <li><strong>Wu 等人</strong>（2026年5月初）：几何相位方法，同时实现振幅-相位调制的 RIS</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">国际对比</div>
-    <div class="text-body"><ul>
+    <h2>国际对比</h2>
+    <ul>
 <li><strong>欧洲 TERRAMETA 项目</strong>：投资数百万欧元开发太赫兹频段可重构智能表面，但侧重于传统调制/相位控制路线</li>
 <li><strong>韩国首尔大学 STARE</strong>（2026年7月1日，Nature Communications）：半导体代工就绪 RIS，但工作在 15.5 GHz（中频段），尚未进入太赫兹</li>
 <li><strong>Science Tokyo Okada 团队</strong>（2026年6月 VLSI）：300GHz 全 CMOS 相控阵收发器，侧重通信链路而非逻辑计算</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
-    
-  <div class="block section-text">
-    <div class="block-title">差异化定位</div>
-    <div class="text-body"><p>本研究的技术路线与其他工作的核心差异在于：<strong>它不是优化调制或相位，而是在物理层嵌入逻辑运算</strong>。其他工作大多仍在"超表面作为天线/RIS"的范式内，而本研究直接跨越到"超表面作为协处理器"。</p></div>
-  </div>
-
-    
   
+  <article class="card ">
     
+    <h2>差异化定位</h2>
+    <p>本研究的技术路线与其他工作的核心差异在于：<strong>它不是优化调制或相位，而是在物理层嵌入逻辑运算</strong>。其他工作大多仍在"超表面作为天线/RIS"的范式内，而本研究直接跨越到"超表面作为协处理器"。</p>
+  </article>
+  
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">趋势判断</div>
-    <div class="text-body"><ol>
+    <h2>趋势判断</h2>
+    <ol>
 <li><strong>通感算一体化从概念走向硬件</strong>：6G 的 ISCC 愿景不再停留在系统架构层面，开始出现真正在物理层融合三种功能的硬件原型</li>
 <li><strong>中国团队在可编程超表面领域领先</strong>：从石墨烯到 HEMT 到几何相位，近一年中国团队连续发表太赫兹可编程超表面突破性工作，电子科技大学的这篇是首个将逻辑运算直接嵌入波前的方案</li>
 <li><strong>超表面从被动/半有源向全有源协处理器演进</strong>：未来的智能表面可能不只是反射/折射信号，而是直接在信号层面执行计算</li>
 <li><strong>GaN/HEMT 材料体系在太赫兹频段的优势凸显</strong>：相比 CMOS（受限于频率）和 MEMS（受限于速度），AlGaN/GaN HEMT 在 170-260 GHz 频段同时兼顾了速度和集成度</li>
-</ol></div>
-  </div>
-
-    
+</ol>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">与老大的关联</div>
-    <div class="text-body"><ol>
+    <h2>与老大的关联</h2>
+    <ol>
 <li><strong>中兴在 6G ISCC 方向的布局参考</strong>：这项技术为中兴在 6G 通感算一体化天线设计提供了新的技术路线参考——未来的基站天线可能不仅是信号收发单元，还具备边缘计算能力</li>
 <li><strong>太赫兹频段测试验证方法</strong>：220 GHz PAM-4 调制和 200 MHz 逻辑运算速度的测试方法，对老大从事的天线测试工作有直接参考价值</li>
 <li><strong>与中国高校合作的潜在切入点</strong>：电子科技大学在可编程超表面领域已形成系列成果，中兴与其在该方向有深度合作潜力</li>
 <li><strong>与之前学习的 300GHz CMOS 相控阵形成互补</strong>：300GHz CMOS 侧重"怎么发"，子阵列超表面侧重"发了之后直接算"，两条路线共同指向 6G 前端的小型化和智能化</li>
-</ol></div>
-  </div>
-
-    
+</ol>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">关联笔记</div>
-    <div class="text-body"><ul>
+    <h2>关联笔记</h2>
+    <ul>
 <li>[[技术概念-6G通感一体化ISAC天线-20260702]]</li>
 <li>[[技术概念-超表面天线Metasurface-Antenna-20260630]]</li>
 <li>[[技术概念-STARE半导体集成RIS晶圆级智能超表面-20260707]]</li>
@@ -443,52 +251,117 @@
 <li>[[指标术语-旁瓣电平Sidelobe-Level-20260703]]</li>
 <li>[[技术概念-OTA天线测试Over-The-Air-20260702]]</li>
 <li>[[技术概念-超表面单元Meta-atomUnit-Cell-20260702]]</li>
-</ul></div>
-  </div>
+</ul>
+  </article>
+  
 
+
+
+<article class="card related">
+  <h2>关联笔记 (9)</h2>
+  <div class="related-grid">
     
-  
-
-  
-  <div class="block related-block">
-    <div class="block-title">关联笔记 (9)</div>
-    <div class="related-grid">
-      <a href="#">technology-6g通感一体化isac天线</a><a href="#">technology-超表面天线metasurface-antenna</a><a href="#">technology-stare半导体集成ris晶圆级智能超表面</a><a href="#">technology-相控阵天线phased-array-antenna</a><a href="#">technology-毫米波天线millimeter-wave-antenna</a><a href="#">technology-全息mimo连续孔径capa</a><a href="#">metric-旁瓣电平sidelobe-level</a><a href="#">technology-ota天线测试over-the-air</a><a href="#">technology-超表面单元meta-atomunit-cell</a>
-    </div>
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-6g通感一体化isac天线.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-6g通感一体化isac天线</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-超表面天线metasurface-antenna.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-超表面天线metasurface-antenna</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-stare半导体集成ris晶圆级智能超表面.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-stare半导体集成ris晶圆级智能超表面</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-相控阵天线phased-array-antenna.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-相控阵天线phased-array-antenna</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-毫米波天线millimeter-wave-antenna.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-毫米波天线millimeter-wave-antenna</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-全息mimo连续孔径capa.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-全息mimo连续孔径capa</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/metric-旁瓣电平sidelobe-level.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">metric-旁瓣电平sidelobe-level</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-ota天线测试over-the-air.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-ota天线测试over-the-air</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-超表面单元meta-atomunit-cell.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-超表面单元meta-atomunit-cell</span>
+    </a>
+    
   </div>
-  
+</article>
 
-</div>
 
-<div class="footer">
-  <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-子阵列可编程太赫兹超表面通感算一体化</span>
-</div>
-
-</div>
-
-<script>
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
-  var canvas = document.querySelector('.canvas');
-  if (!canvas) return;
-  var leftCol  = canvas.querySelector('.col-left');
-  var rightCol = canvas.querySelector('.col-right');
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
   if (!leftCol || !rightCol) return;
-
-  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
-  var blocks = Array.prototype.slice.call(
-    canvas.querySelectorAll('.block')
-  ).filter(function(b){ return !b.classList.contains('related-block'); });
-
-  // 贪心：哪边矮 append 到哪边
-  blocks.forEach(function(block){
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
     var lH = leftCol.offsetHeight;
     var rH = rightCol.offsetHeight;
-    (lH <= rH ? leftCol : rightCol).appendChild(block);
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
+  main.classList.add('masonry-ready');
 })();
 </script>
-
+<script>
+(function(){
+  function wire(){
+    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
+      if (a.__kgWired) return;
+      a.__kgWired = true;
+      a.addEventListener('click', function(e){
+        try {
+          e.preventDefault();
+          e.stopPropagation();
+          var href = a.getAttribute('href') || '';
+          var fn = href.split('/').pop() || '';
+          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
+          var id = fn;
+          if (id && window.parent !== window) {
+            window.parent.postMessage({type:'kg-nav', id:id}, '*');
+          } else {
+            window.location.href = href;
+          }
+        } catch(err) {
+          console.warn('kg-card nav error', err);
+        }
+        return false;
+      }, true);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wire);
+  } else {
+    wire();
+  }
+})();
+</script>
 </body>
 </html>

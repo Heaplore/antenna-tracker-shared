@@ -2,329 +2,161 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>全息泄漏波天线OAM涡旋波束-Nayyeri-20260704 — KG 卡片</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全息泄漏波天线OAM涡旋波束-Nayyeri-20260704 · 知识卡片</title>
 <style>
-  :root {
-    --primary: #0e7490;
-    --primary-bg: #cffafe;
-    --secondary: #d97706;
-    --secondary-bg: #fef3c7;
-    --warning: #dc2626;
-    --warning-bg: #fee2e2;
-    --highlight: #7c3aed;
-    --highlight-bg: #ede9fe;
-    --bg: #f5f1e8;
-    --card-bg: #ffffff;
-    --fg: #1f2937;
-    --fg-muted: #6b7280;
-    --border: #e5e7eb;
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
-
-  .card {
-    width: 1378px;
-    min-height: 1080px;
-    height: auto;
-    background: var(--bg);
-    margin: 0 auto;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
   }
-  .canvas {
-    padding: 20px 24px 28px;
-  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
   /* JS 贪心分列容器 — 替代 column-count:2 */
-  .masonry {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .masonry-col {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .canvas .hero {
-    margin-bottom: 12px;
-  }
-
-  .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
-    color: white;
-    padding: 22px 30px; border-radius: 14px;
-    position: relative;
-  }
-  .hero-header {
-    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
-  }
-  .hero-type {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1.5px; opacity: 0.85;
-    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
-  }
-  .hero-updated { font-size: 11px; opacity: 0.7; }
-  .hero-title {
-    font-size: 22px; font-weight: 800; margin-bottom: 4px;
-    display: flex; align-items: baseline; gap: 12px;
-  }
-  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
-  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
-  .hero-tags span {
-    font-size: 10px; padding: 2px 8px; border-radius: 4px;
-    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
-  }
-  .hero-liner {
-    margin-top: 12px; padding: 10px 14px;
-    background: rgba(255,255,255,0.1); border-radius: 8px;
-    font-size: 13px; line-height: 1.55; font-weight: 500;
-  }
-  .hero-analogy {
-    margin-top: 8px; padding: 10px 14px;
-    background: rgba(255,255,255,0.08); border-radius: 8px;
-    font-size: 12px; line-height: 1.55; opacity: 0.92;
-  }
-  .hero-metrics {
-    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
-    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
-  }
-  .hero-metrics div { font-size: 11px; opacity: 0.85; }
-  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
-
-  .block {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 16px 20px;
-    border-left: 4px solid var(--primary);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    display: flex; flex-direction: column;
-    overflow: hidden;
-    break-inside: avoid;
-    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
-  }
-  .block.section-table, .block.section-comparison {
-    /* 占一列宽度，不再 column-span */
-  }
-  .block.section-text {
-    /* 参与贪心分列，不再 column-span */
-  }
-  .block.related-block {
-    /* 跨两列独立成行 */
-    margin-top: 24px;
-    width: 100%;
-  }
-  .block.section-timeline    { border-left-color: var(--primary); }
-  .block.section-table        { border-left-color: var(--highlight); }
-  .block.section-comparison   { border-left-color: var(--highlight); }
-  .block.section-list         { border-left-color: var(--secondary); }
-  .block.section-list.challenges { border-left-color: var(--warning); }
-  .block.section-list.components { border-left-color: var(--primary); }
-  .block.section-list.drivers    { border-left-color: var(--secondary); }
-  .block.section-list.variants   { border-left-color: var(--highlight); }
-  .block.section-list.trends     { border-left-color: var(--highlight); }
-  .block.section-list.features   { border-left-color: var(--secondary); }
-  .block.section-text         { border-left-color: var(--secondary); }
-  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
-
-  .block-title {
-    font-size: 13px; font-weight: 800; color: var(--fg);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    margin-bottom: 10px; padding-bottom: 8px;
-    border-bottom: 1px dashed var(--border);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .block-title .ord { display: none; }
-  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
-
-  .timeline-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 8px; flex: 1;
-  }
-  .timeline-item {
-    background: var(--primary-bg);
-    border: 1px solid var(--primary);
-    border-radius: 8px;
-    padding: 10px 12px; position: relative;
-  }
-  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
-  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
-
-  .list-items {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px; flex: 1;
-  }
-  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
-  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
-  .list-item {
-    background: var(--bg);
-    border-left: 3px solid var(--secondary);
-    padding: 8px 12px; border-radius: 4px;
-    display: flex; flex-direction: column;
-  }
-  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
-  .block.section-list.components .list-item { border-left-color: var(--primary); }
-  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
-  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
-  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
-  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
-  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
-  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
-  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
-
-  .tbl {
-    width: 100%; border-collapse: collapse;
-    font-size: 11.5px; flex: 1;
-  }
-  .tbl th, .tbl td {
-    border: 1px solid var(--border);
-    padding: 6px 10px; text-align: left; line-height: 1.4;
-  }
-  .tbl th:first-child, .tbl td:first-child {
-    width: 12%;
-    font-weight: 700;
-    white-space: nowrap;
-    text-align: center;
-  }
-  .tbl th:nth-child(2), .tbl td:nth-child(2) {
-    width: 15%;
-    font-weight: 600;
-  }
-  .tbl th:nth-child(3), .tbl td:nth-child(3) {
-    width: 20%;
-    font-weight: 600;
-  }
-  .tbl th {
-    background: var(--highlight-bg); color: var(--highlight);
-    font-weight: 700; font-size: 11px;
-    text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  .tbl tr:nth-child(even) td { background: #fafafa; }
-  .tbl .footer {
-    font-size: 10.5px; color: var(--fg-muted);
-    background: var(--secondary-bg) !important;
-    font-style: italic; padding-top: 8px;
-    width: 100% !important;
-    word-break: break-word;
-    white-space: normal !important;
-  }
-  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
-
-  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
-  .code-body {
-    font-family: "SF Mono", Consolas, monospace;
-    font-size: 11px; line-height: 1.5;
-    white-space: pre-wrap; color: #e5e7eb; flex: 1;
-  }
-
-  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
-  .related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 8px; flex: 1;
-  }
-  .related-grid a {
-    display: block;
-    background: var(--highlight-bg); color: var(--highlight);
-    padding: 6px 12px; border-radius: 12px;
-    font-size: 11px; text-decoration: none;
-    border: 1px solid var(--highlight);
-    text-align: center; line-height: 1.3;
-  }
-
-  .footer {
-    margin-top: 8px; padding: 14px 30px;
-    background: var(--fg); color: rgba(255,255,255,0.7);
-    font-size: 10px;
-    display: flex; justify-content: space-between;
-    border-radius: 0 0 12px 12px;
-  }
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
 </style>
 </head>
 <body>
-
-<div class="card">
-<div class="canvas">
-
-  <div class="hero">
-    <div class="hero-header">
-      <div class="hero-type">technology · KG 卡片</div>
-      <div class="hero-updated">UPDATED 2026-07-11</div>
-    </div>
-    <div class="hero-title">
-      全息泄漏波天线OAM涡旋波束-Nayyeri-20260704
-      
-    </div>
-    
-    <div class="hero-tags">
-      <span>天线技术</span><span>技术概念</span><span>全息泄漏波天线</span><span>OAM</span><span>轨道角动量</span><span>超表面</span><span>6G</span>
-    </div>
-    
-    
-    <div class="hero-liner"><b>一句话:</b> 利用各向异性超表面全息原理在泄漏波天线上独立生成多路反向旋转的OAM涡旋波束，为6G通信用轨道角动量复用提供低剖面、高增益、灵活极化控制的平面天线方案。</div>
-    
-    
-    <div class="hero-analogy"><b>类比:</b> 想象一个光滑的水面（均匀泄漏波），你往水里扔一颗石子产生圆形涟漪（普通波束）。</div>
-    
-    
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">全息泄漏波天线OAM涡旋波束-Nayyeri-20260704</h1>
+  <p class="lede">利用各向异性超表面全息原理在泄漏波天线上独立生成多路反向旋转的OAM涡旋波束，为6G通信用轨道角动量复用提供低剖面、高增益、灵活极化控制的平面天线方案。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">全息泄漏波天线</span><span class="chip brand">OAM</span><span class="chip brand">轨道角动量</span><span class="chip brand">超表面</span><span class="chip brand">6G</span>
   </div>
+  
+</header>
 
-  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
-  <div class="masonry">
-    <div class="masonry-col col-left"></div>
-    <div class="masonry-col col-right"></div>
-  </div>
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
 
   
     
-
-    
-  <div class="block section-text">
-    <div class="block-title">1.1 轨道角动量（OAM）基础</div>
-    <div class="text-body"><p>电磁波除了携带自旋角动量（SAM，对应偏振态）外，还可以携带轨道角动量（OAM）。OAM波的电场相位具有 exp(ilφ) 的螺旋结构，其中 l 是拓扑荷数（整数），φ 是方位角。每个 l 值对应一个正交的OAM模式，理论上 l 可取无穷大，因此OAM提供了无限多的正交自由度用于空间复用。</p>
-<p>OAM波束在传播方向上呈环形（甜甜圈形状），中心存在相位奇点（场强为零），这是区别于传统波束的核心特征。</p></div>
-  </div>
-
-    
   
-    
 
+  
+  <article class="card analogy">
+    <div class="kicker">ANALOGY</div>
+    <h2>类比入口</h2>
+    <p>想象一个光滑的水面（均匀泄漏波），你往水里扔一颗石子产生圆形涟漪（普通波束）。全息泄漏波天线就像在水面上刻出精密的波纹图案，让涟漪变成螺旋形的龙卷风（涡旋波束），而且一次可以制造多个不同旋转方向的龙卷风各自朝不同方向吹。</p>
+  </article>
+  
+
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">1.2 全息天线原理</div>
-    <div class="text-body"><p>微波全息术基于干涉原理：将参考波（通常是表面波）与目标波（期望辐射方向图）的干涉图样编码到天线表面阻抗分布中。当表面波照射被调制的阻抗表面时，辐射出的远场波前即为目标波。</p>
+    <h2>1.1 轨道角动量（OAM）基础</h2>
+    <p>电磁波除了携带自旋角动量（SAM，对应偏振态）外，还可以携带轨道角动量（OAM）。OAM波的电场相位具有 exp(ilφ) 的螺旋结构，其中 l 是拓扑荷数（整数），φ 是方位角。每个 l 值对应一个正交的OAM模式，理论上 l 可取无穷大，因此OAM提供了无限多的正交自由度用于空间复用。</p>
+<p>OAM波束在传播方向上呈环形（甜甜圈形状），中心存在相位奇点（场强为零），这是区别于传统波束的核心特征。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 全息天线原理</h2>
+    <p>微波全息术基于干涉原理：将参考波（通常是表面波）与目标波（期望辐射方向图）的干涉图样编码到天线表面阻抗分布中。当表面波照射被调制的阻抗表面时，辐射出的远场波前即为目标波。</p>
 <p>核心公式：</p>
 <p>$$\Delta \beta = \vec{\beta}<em>{target} - \vec{\beta}</em>{reference}$$</p>
-<p>其中 Δβ 是表面阻抗调制的空间频率，由目标波和参考波的波矢量差决定。</p></div>
-  </div>
-
-    
+<p>其中 Δβ 是表面阻抗调制的空间频率，由目标波和参考波的波矢量差决定。</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">1.3 全息泄漏波天线 + OAM</div>
-    <div class="text-body"><p>全息泄漏波天线将经典泄漏波理论与微波全息术结合：</p>
+    <h2>1.3 全息泄漏波天线 + OAM</h2>
+    <p>全息泄漏波天线将经典泄漏波理论与微波全息术结合：</p>
 <ul>
 <li><strong>参考波</strong>：沿表面传播的TM模表面波（由单极子馈源激发，波函数可用第二类汉克尔函数近似）</li>
 <li><strong>目标波</strong>：携带特定OAM模式的涡旋波束</li>
 <li><strong>调制方式</strong>：通过改变表面人工阻抗单元的有效阻抗（如改变六边形金属贴片尺寸）实现各向同性或各向异性阻抗调制</li>
 </ul>
-<p>当表面波穿过被OAM相位图案调制的阻抗表面时，辐射出的电磁波即携带OAM信息。</p></div>
-  </div>
-
-    
+<p>当表面波穿过被OAM相位图案调制的阻抗表面时，辐射出的电磁波即携带OAM信息。</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">2.1 各向异性超表面全息（2026.07 Nayyeri &amp; Amini，Scientific Reports）</div>
-    <div class="text-body"><p><strong>最新进展</strong>（2026年7月4日发表）：</p>
+    <h2>2.1 各向异性超表面全息（2026.07 Nayyeri &amp; Amini，Scientific Reports）</h2>
+    <p><strong>最新进展</strong>（2026年7月4日发表）：</p>
 <ul>
 <li>提出基于<strong>调制各向异性超表面</strong>的全息泄漏波天线，用于综合<strong>多路反向旋转涡旋波束</strong></li>
 <li>采用面向各向异性阻抗表面的广义孔径场估计方法，实现对波束方向、OAM模式、功率分布和极化的独立控制</li>
@@ -337,45 +169,39 @@
 <li>广义孔径场估计方法适配各向异性阻抗表面</li>
 <li>多波束独立控制（方向/OAM/功率/极化四自由度解耦）</li>
 <li>调制指数精确控制功率泄漏率 → 增益可调</li>
-</ol></div>
-  </div>
-
-    
+</ol>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">2.2 毫米波全息超表面OAM合成（Queen&#39;s University Belfast，IEEE IWT 2026）</div>
-    <div class="text-body"><ul>
+    <h2>2.2 毫米波全息超表面OAM合成（Queen&#39;s University Belfast，IEEE IWT 2026）</h2>
+    <ul>
 <li>在28GHz频段成功生成 l=+2 OAM模式</li>
 <li>最大增益达到 19.85 dBi</li>
 <li>采用渐进相位分布增强方案，结合阻抗和相位调制精确控制电磁波前</li>
 <li>亚波长标量单元实现可控OAM波调制</li>
 <li>设计可扩展至更高阶模式（l&gt;2）</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">2.3 OAM正交性与信道容量</div>
-    <div class="text-body"><p>OAM模式的正交性意味着不同 l 值的波束可以在同一频率上同时传输独立数据流而不互相干扰：</p>
+    <h2>2.3 OAM正交性与信道容量</h2>
+    <p>OAM模式的正交性意味着不同 l 值的波束可以在同一频率上同时传输独立数据流而不互相干扰：</p>
 <p>$$C_{OAM} = \sum_{l=-L}^{+L} B \log_2(1 + \frac{P_l}{N_0})$$</p>
-<p>其中 L 是可区分的OAM模式数量。理论上 L 可无限扩展，实际受限于波束发散角、接收孔径和模式串扰。</p></div>
-  </div>
-
-    
+<p>其中 L 是可区分的OAM模式数量。理论上 L 可无限扩展，实际受限于波束发散角、接收孔径和模式串扰。</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">3.1 按超表面类型</div>
-    <div class="text-body"><table>
+    <h2>3.1 按超表面类型</h2>
+    <table>
 <thead>
 <tr>
 <th>类型</th>
@@ -405,96 +231,82 @@
 <td>Zhu 2023 (太赫兹)</td>
 </tr>
 </tbody>
-</table></div>
-  </div>
-
-    
+</table>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">3.2 按频段</div>
-    <div class="text-body"><ul>
+    <h2>3.2 按频段</h2>
+    <ul>
 <li><strong>微波段（&lt;10GHz）</strong>：实验室验证为主，结构较大</li>
 <li><strong>毫米波（24-100GHz）</strong>：6G候选频段，Queen's Belfast 28GHz工作在此范围</li>
 <li><strong>太赫兹（&gt;100GHz）</strong>：未来6G高频段，需更精细加工</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">3.3 按OAM模式数量</div>
-    <div class="text-body"><ul>
+    <h2>3.3 按OAM模式数量</h2>
+    <ul>
 <li><strong>单模式</strong>：单一 l 值涡旋波束</li>
 <li><strong>多模式</strong>：同时生成多个不同 l 值</li>
 <li><strong>反向旋转混合</strong>：同时包含 +l 和 -l 模式叠加（如 Nayyeri 2026 中的 l=-3 和 l=+3 叠加产生六瓣图样）</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">4.1 6G通信用OAM复用</div>
-    <div class="text-body"><ul>
+    <h2>4.1 6G通信用OAM复用</h2>
+    <ul>
 <li>多用户MIMO场景下，不同用户分配不同OAM模式，实现频域和角域的联合复用</li>
 <li>与现有MIMO/RIS技术形成互补：MIMO解决空间维度，OAM解决模式维度</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">4.2 波分复用增强</div>
-    <div class="text-body"><ul>
+    <h2>4.2 波分复用增强</h2>
+    <ul>
 <li>OAM模式作为新的复用维度，与FDMA/TDMA/CDMA/Polarization复用组合使用</li>
 <li>理论上可将信道容量提升数个数量级</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">4.3 高精度雷达成像</div>
-    <div class="text-body"><ul>
+    <h2>4.3 高精度雷达成像</h2>
+    <ul>
 <li>OAM波束的高角度敏感性使其在超分辨率目标检测中具有优势</li>
 <li>可用于6G通感一体化系统中的高分辨率成像</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">4.4 量子通信</div>
-    <div class="text-body"><ul>
+    <h2>4.4 量子通信</h2>
+    <ul>
 <li>OAM光子态在量子密钥分发和量子态操控中有独特价值</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">五、关键技术指标</div>
-    <div class="text-body"><table>
+    <h2>五、关键技术指标</h2>
+    <table>
 <thead>
 <tr>
 <th>指标</th>
@@ -534,59 +346,49 @@
 <td>理想正交下的实际偏差</td>
 </tr>
 </tbody>
-</table></div>
-  </div>
-
-    
+</table>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">6.1 OAM波束发散角</div>
-    <div class="text-body"><p>OAM波束的发散角随 |l| 增大而增大：</p>
+    <h2>6.1 OAM波束发散角</h2>
+    <p>OAM波束的发散角随 |l| 增大而增大：</p>
 <p>$$\theta \propto \frac{|l|\lambda}{D}$$</p>
-<p>高阶OAM模式在远距离传播时会严重发散，限制了实际通信距离。需要结合波束赋形或相控阵技术补偿。</p></div>
-  </div>
-
-    
+<p>高阶OAM模式在远距离传播时会严重发散，限制了实际通信距离。需要结合波束赋形或相控阵技术补偿。</p>
+  </article>
   
-    
 
-    
-  <div class="block section-text">
-    <div class="block-title">6.2 对准要求严格</div>
-    <div class="text-body"><p>OAM复用在接收端需要对发射波束的中心奇点精确定位，微小的角度偏移就会导致严重的模式串扰。这对移动场景下的天线对准提出了极高要求。</p></div>
-  </div>
-
-    
   
+  <article class="card ">
     
-
-    
-  <div class="block section-text">
-    <div class="block-title">6.3 加工精度</div>
-    <div class="text-body"><p>超表面单元的尺寸通常在亚波长量级（毫米波频段约几毫米，太赫兹频段约几百微米），需要高精度PCB加工或光刻工艺。</p></div>
-  </div>
-
-    
+    <h2>6.2 对准要求严格</h2>
+    <p>OAM复用在接收端需要对发射波束的中心奇点精确定位，微小的角度偏移就会导致严重的模式串扰。这对移动场景下的天线对准提出了极高要求。</p>
+  </article>
   
-    
 
-    
-  <div class="block section-text">
-    <div class="block-title">6.4 带宽限制</div>
-    <div class="text-body"><p>传统全息超表面天线的带宽较窄（通常&lt;10%），因为阻抗调制图案是针对特定频率优化的。宽带OAM天线仍是研究热点。</p></div>
-  </div>
-
-    
   
+  <article class="card ">
     
+    <h2>6.3 加工精度</h2>
+    <p>超表面单元的尺寸通常在亚波长量级（毫米波频段约几毫米，太赫兹频段约几百微米），需要高精度PCB加工或光刻工艺。</p>
+  </article>
+  
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">七、技术演进</div>
-    <div class="text-body"><ul>
+    <h2>6.4 带宽限制</h2>
+    <p>传统全息超表面天线的带宽较窄（通常&lt;10%），因为阻抗调制图案是针对特定频率优化的。宽带OAM天线仍是研究热点。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
+    <ul>
 <li><strong>1992年</strong>：Allen等首次提出光波携带OAM的概念（物理光学领域）</li>
 <li><strong>2000s中期</strong>：OAM概念引入射频/微波领域</li>
 <li><strong>2010年</strong>：Fong等提出标量和张量全息人工阻抗表面理论</li>
@@ -596,66 +398,99 @@
 <li><strong>2025年</strong>：Bansal等提出光学透明超表面OAM生成（EuCAP 2025）</li>
 <li><strong>2026年7月</strong>：Nayyeri &amp; Amini提出各向异性超表面全息泄漏波天线，实现多路反向旋转涡旋波束独立控制（Scientific Reports）</li>
 <li><strong>2026年</strong>：Queen's Belfast团队在28GHz实现19.85dBi OAM全息超表面天线（IEEE IWT 2026）</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">九、未来趋势</div>
-    <div class="text-body"><ul>
+    <h2>九、未来趋势</h2>
+    <ul>
 <li><strong>短期（1-2年）</strong>：OAM与RIS/超表面技术深度融合，出现可重构OAM-RIS复合器件；毫米波频段（28/39GHz）OAM天线原型向小规模商用推进</li>
 <li><strong>中期（3-5年）</strong>：OAM复用纳入6G标准候选方案；AI辅助全息超表面设计成为主流，大幅降低设计复杂度；多输入多输出OAM-MIMO混合架构出现</li>
 <li><strong>长期（5年以上）</strong>：OAM可能成为6G空口技术的补充维度之一（不太可能完全取代传统MIMO）；太赫兹频段OAM全息天线在短距高速链路中率先商用</li>
-</ul></div>
-  </div>
+</ul>
+  </article>
+  
 
+
+
+<article class="card related">
+  <h2>关联笔记 (3)</h2>
+  <div class="related-grid">
     
-  
-
-  
-  <div class="block related-block">
-    <div class="block-title">关联笔记 (3)</div>
-    <div class="related-grid">
-      <a href="#">technology-超表面天线metasurface-antenna</a><a href="#">technology-漏波天线leaky-wave-antenna</a><a href="#">technology-全息mimo连续孔径capa</a>
-    </div>
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-超表面天线metasurface-antenna.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-超表面天线metasurface-antenna</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-漏波天线leaky-wave-antenna.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-漏波天线leaky-wave-antenna</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-全息mimo连续孔径capa.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-全息mimo连续孔径capa</span>
+    </a>
+    
   </div>
-  
+</article>
 
-</div>
 
-<div class="footer">
-  <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-全息泄漏波天线oam涡旋波束-nayyeri-20260704</span>
-</div>
-
-</div>
-
-<script>
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
-  var canvas = document.querySelector('.canvas');
-  if (!canvas) return;
-  var leftCol  = canvas.querySelector('.col-left');
-  var rightCol = canvas.querySelector('.col-right');
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
   if (!leftCol || !rightCol) return;
-
-  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
-  var blocks = Array.prototype.slice.call(
-    canvas.querySelectorAll('.block')
-  ).filter(function(b){ return !b.classList.contains('related-block'); });
-
-  // 贪心：哪边矮 append 到哪边
-  blocks.forEach(function(block){
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
     var lH = leftCol.offsetHeight;
     var rH = rightCol.offsetHeight;
-    (lH <= rH ? leftCol : rightCol).appendChild(block);
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
+  main.classList.add('masonry-ready');
 })();
 </script>
-
+<script>
+(function(){
+  function wire(){
+    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
+      if (a.__kgWired) return;
+      a.__kgWired = true;
+      a.addEventListener('click', function(e){
+        try {
+          e.preventDefault();
+          e.stopPropagation();
+          var href = a.getAttribute('href') || '';
+          var fn = href.split('/').pop() || '';
+          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
+          var id = fn;
+          if (id && window.parent !== window) {
+            window.parent.postMessage({type:'kg-nav', id:id}, '*');
+          } else {
+            window.location.href = href;
+          }
+        } catch(err) {
+          console.warn('kg-card nav error', err);
+        }
+        return false;
+      }, true);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wire);
+  } else {
+    wire();
+  }
+})();
+</script>
 </body>
 </html>

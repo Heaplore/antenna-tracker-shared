@@ -2,304 +2,140 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>LuLIS 256天线分布式MIMO测试床 — KG 卡片</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LuLIS 256天线分布式MIMO测试床 · 知识卡片</title>
 <style>
-  :root {
-    --primary: #0e7490;
-    --primary-bg: #cffafe;
-    --secondary: #d97706;
-    --secondary-bg: #fef3c7;
-    --warning: #dc2626;
-    --warning-bg: #fee2e2;
-    --highlight: #7c3aed;
-    --highlight-bg: #ede9fe;
-    --bg: #f5f1e8;
-    --card-bg: #ffffff;
-    --fg: #1f2937;
-    --fg-muted: #6b7280;
-    --border: #e5e7eb;
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
-
-  .card {
-    width: 1378px;
-    min-height: 1080px;
-    height: auto;
-    background: var(--bg);
-    margin: 0 auto;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
   }
-  .canvas {
-    padding: 20px 24px 28px;
-  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
   /* JS 贪心分列容器 — 替代 column-count:2 */
-  .masonry {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .masonry-col {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .canvas .hero {
-    margin-bottom: 12px;
-  }
-
-  .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
-    color: white;
-    padding: 22px 30px; border-radius: 14px;
-    position: relative;
-  }
-  .hero-header {
-    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
-  }
-  .hero-type {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1.5px; opacity: 0.85;
-    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
-  }
-  .hero-updated { font-size: 11px; opacity: 0.7; }
-  .hero-title {
-    font-size: 22px; font-weight: 800; margin-bottom: 4px;
-    display: flex; align-items: baseline; gap: 12px;
-  }
-  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
-  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
-  .hero-tags span {
-    font-size: 10px; padding: 2px 8px; border-radius: 4px;
-    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
-  }
-  .hero-liner {
-    margin-top: 12px; padding: 10px 14px;
-    background: rgba(255,255,255,0.1); border-radius: 8px;
-    font-size: 13px; line-height: 1.55; font-weight: 500;
-  }
-  .hero-analogy {
-    margin-top: 8px; padding: 10px 14px;
-    background: rgba(255,255,255,0.08); border-radius: 8px;
-    font-size: 12px; line-height: 1.55; opacity: 0.92;
-  }
-  .hero-metrics {
-    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
-    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
-  }
-  .hero-metrics div { font-size: 11px; opacity: 0.85; }
-  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
-
-  .block {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 16px 20px;
-    border-left: 4px solid var(--primary);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    display: flex; flex-direction: column;
-    overflow: hidden;
-    break-inside: avoid;
-    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
-  }
-  .block.section-table, .block.section-comparison {
-    /* 占一列宽度，不再 column-span */
-  }
-  .block.section-text {
-    /* 参与贪心分列，不再 column-span */
-  }
-  .block.related-block {
-    /* 跨两列独立成行 */
-    margin-top: 24px;
-    width: 100%;
-  }
-  .block.section-timeline    { border-left-color: var(--primary); }
-  .block.section-table        { border-left-color: var(--highlight); }
-  .block.section-comparison   { border-left-color: var(--highlight); }
-  .block.section-list         { border-left-color: var(--secondary); }
-  .block.section-list.challenges { border-left-color: var(--warning); }
-  .block.section-list.components { border-left-color: var(--primary); }
-  .block.section-list.drivers    { border-left-color: var(--secondary); }
-  .block.section-list.variants   { border-left-color: var(--highlight); }
-  .block.section-list.trends     { border-left-color: var(--highlight); }
-  .block.section-list.features   { border-left-color: var(--secondary); }
-  .block.section-text         { border-left-color: var(--secondary); }
-  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
-
-  .block-title {
-    font-size: 13px; font-weight: 800; color: var(--fg);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    margin-bottom: 10px; padding-bottom: 8px;
-    border-bottom: 1px dashed var(--border);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .block-title .ord { display: none; }
-  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
-
-  .timeline-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 8px; flex: 1;
-  }
-  .timeline-item {
-    background: var(--primary-bg);
-    border: 1px solid var(--primary);
-    border-radius: 8px;
-    padding: 10px 12px; position: relative;
-  }
-  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
-  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
-
-  .list-items {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px; flex: 1;
-  }
-  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
-  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
-  .list-item {
-    background: var(--bg);
-    border-left: 3px solid var(--secondary);
-    padding: 8px 12px; border-radius: 4px;
-    display: flex; flex-direction: column;
-  }
-  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
-  .block.section-list.components .list-item { border-left-color: var(--primary); }
-  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
-  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
-  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
-  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
-  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
-  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
-  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
-
-  .tbl {
-    width: 100%; border-collapse: collapse;
-    font-size: 11.5px; flex: 1;
-  }
-  .tbl th, .tbl td {
-    border: 1px solid var(--border);
-    padding: 6px 10px; text-align: left; line-height: 1.4;
-  }
-  .tbl th:first-child, .tbl td:first-child {
-    width: 12%;
-    font-weight: 700;
-    white-space: nowrap;
-    text-align: center;
-  }
-  .tbl th:nth-child(2), .tbl td:nth-child(2) {
-    width: 15%;
-    font-weight: 600;
-  }
-  .tbl th:nth-child(3), .tbl td:nth-child(3) {
-    width: 20%;
-    font-weight: 600;
-  }
-  .tbl th {
-    background: var(--highlight-bg); color: var(--highlight);
-    font-weight: 700; font-size: 11px;
-    text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  .tbl tr:nth-child(even) td { background: #fafafa; }
-  .tbl .footer {
-    font-size: 10.5px; color: var(--fg-muted);
-    background: var(--secondary-bg) !important;
-    font-style: italic; padding-top: 8px;
-    width: 100% !important;
-    word-break: break-word;
-    white-space: normal !important;
-  }
-  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
-
-  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
-  .code-body {
-    font-family: "SF Mono", Consolas, monospace;
-    font-size: 11px; line-height: 1.5;
-    white-space: pre-wrap; color: #e5e7eb; flex: 1;
-  }
-
-  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
-  .related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 8px; flex: 1;
-  }
-  .related-grid a {
-    display: block;
-    background: var(--highlight-bg); color: var(--highlight);
-    padding: 6px 12px; border-radius: 12px;
-    font-size: 11px; text-decoration: none;
-    border: 1px solid var(--highlight);
-    text-align: center; line-height: 1.3;
-  }
-
-  .footer {
-    margin-top: 8px; padding: 14px 30px;
-    background: var(--fg); color: rgba(255,255,255,0.7);
-    font-size: 10px;
-    display: flex; justify-content: space-between;
-    border-radius: 0 0 12px 12px;
-  }
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
 </style>
 </head>
 <body>
-
-<div class="card">
-<div class="canvas">
-
-  <div class="hero">
-    <div class="hero-header">
-      <div class="hero-type">technology · KG 卡片</div>
-      <div class="hero-updated">UPDATED 2026-07-10</div>
-    </div>
-    <div class="hero-title">
-      LuLIS 256天线分布式MIMO测试床
-      
-    </div>
-    
-    <div class="hero-tags">
-      <span>天线技术</span><span>技术概念</span><span>6G</span><span>Massive MIMO</span><span>分布式MIMO</span><span>XL-MIMO</span><span>测试床</span>
-    </div>
-    
-    
-    <div class="hero-liner"><b>一句话:</b> 瑞典隆德大学开发的世界首个实时256天线分布式MIMO测试床LuLIS，用16块可编程面板+AMD RFSoC芯片实现全数字波束赋形的真实时处理，为6G超大规模MIMO(XL-MIMO)铺路。</div>
-    
-    
-    <div class="hero-analogy"><b>类比:</b> 以前的MIMO测试床像&#34;集中式厨房&#34;——所有天线信号都送到一个中央处理器处理，带宽瓶颈明显。</div>
-    
-    
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">LuLIS 256天线分布式MIMO测试床</h1>
+  <p class="lede">瑞典隆德大学开发的世界首个实时256天线分布式MIMO测试床LuLIS，用16块可编程面板+AMD RFSoC芯片实现全数字波束赋形的真实时处理，为6G超大规模MIMO(XL-MIMO)铺路。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">6G</span><span class="chip brand">Massive MIMO</span><span class="chip brand">分布式MIMO</span><span class="chip brand">XL-MIMO</span><span class="chip brand">测试床</span>
   </div>
+  
+</header>
 
-  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
-  <div class="masonry">
-    <div class="masonry-col col-left"></div>
-    <div class="masonry-col col-right"></div>
-  </div>
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
 
   
     
+  
 
+  
+  <article class="card analogy">
+    <div class="kicker">ANALOGY</div>
+    <h2>类比入口</h2>
+    <p>以前的MIMO测试床像"集中式厨房"——所有天线信号都送到一个中央处理器处理，带宽瓶颈明显。LuLIS则像"分布式餐厅"——每个区域有自己的小厨房（RFSoC节点），各自处理自己那块区域的菜，最后协调上桌。这样既分散了计算压力，又能灵活扩展。</p>
+  </article>
+  
+
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">一、基本定义与原理</div>
-    <div class="text-body"><p><strong>分布式MIMO（D-MIMO）</strong>是Massive MIMO的演进方向，核心思想是把天线阵列分散部署在较大物理区域内，而不是集中在一个小基站里。这样做有两个好处：</p>
+    <h2>一、基本定义与原理</h2>
+    <p><strong>分布式MIMO（D-MIMO）</strong>是Massive MIMO的演进方向，核心思想是把天线阵列分散部署在较大物理区域内，而不是集中在一个小基站里。这样做有两个好处：</p>
 <ul>
 <li><strong>增大阵列孔径</strong>：天线分布越广，空间自由度越多，能服务的用户数也越多</li>
 <li><strong>去中心化处理</strong>：避免单点计算瓶颈，各节点独立处理后再协调</li>
 </ul>
-<p>LuLIS（Lund University Large Intelligent Surface）是这一方向的第一个<strong>全实时</strong>验证平台。</p></div>
-  </div>
-
-    
+<p>LuLIS（Lund University Large Intelligent Surface）是这一方向的第一个<strong>全实时</strong>验证平台。</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">硬件架构</div>
-    <div class="text-body"><table>
+    <h2>硬件架构</h2>
+    <table>
 <thead>
 <tr>
 <th>组件</th>
@@ -328,17 +164,15 @@
 <td>以16的倍数扩展，加RFSoC即加节点</td>
 </tr>
 </tbody>
-</table></div>
-  </div>
-
-    
+</table>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">关键技术突破</div>
-    <div class="text-body"><ol>
+    <h2>关键技术突破</h2>
+    <ol>
 <li>
 <p><strong>信号同步问题</strong>：256根天线分布在多个位置，时钟同步和数据对齐是最大挑战。团队通过FPGA上的专用同步协议解决。</p>
 </li>
@@ -353,46 +187,40 @@
 </li>
 <li><strong>D-MIMO模式</strong>：节点完全分布式部署</li>
 <li><strong>集中式Massive MIMO模式</strong>：节点共址部署，与传统方案对比验证</li>
-</ol></div>
-  </div>
-
-    
+</ol>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">实测性能</div>
-    <div class="text-body"><ul>
+    <h2>实测性能</h2>
+    <ul>
 <li>上行传输：4个单天线UE → 64/128/256根BS天线</li>
 <li>目标：近期支持32个同时用户</li>
 <li>长期目标：频谱效率打破2016年LuMaMi记录（22用户同频）的10倍</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">直接应用场景</div>
-    <div class="text-body"><ol>
+    <h2>直接应用场景</h2>
+    <ol>
 <li><strong>6G XL-MIMO研究</strong>：验证超大规模天线阵列的实时性能边界</li>
 <li><strong>分布式基站设计</strong>：为未来6G分布式基站架构提供参考数据</li>
 <li><strong>频谱效率优化</strong>：研究如何在有限频谱下服务更多用户</li>
 <li><strong>信号同步算法验证</strong>：为工业界提供同步协议的实际测试数据</li>
-</ol></div>
-  </div>
-
-    
+</ol>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">与5G/6G的关系</div>
-    <div class="text-body"><table>
+    <h2>与5G/6G的关系</h2>
+    <table>
 <thead>
 <tr>
 <th>代际</th>
@@ -415,150 +243,164 @@
 <td><strong>LuLIS正在验证</strong></td>
 </tr>
 </tbody>
-</table></div>
-  </div>
-
-    
+</table>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">Lund大学自身迭代</div>
-    <div class="text-body"><ul>
+    <h2>Lund大学自身迭代</h2>
+    <ul>
 <li><strong>LuMaMi</strong>（2016年前后）：第一代Massive MIMO测试床，仍保持频谱效率世界纪录（22用户同频分离），但采用集中式处理架构</li>
 <li><strong>LuLIS</strong>（2026年6月）：第二代，分布式架构，256天线，全实时</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">国际对标</div>
-    <div class="text-body"><ul>
+    <h2>国际对标</h2>
+    <ul>
 <li><strong>华为</strong>：5G AAU已商用192通道路由器，6G研究方向聚焦全息MIMO和空域资源重构</li>
 <li><strong>诺基亚贝尔实验室</strong>：Cell-Free Massive MIMO方向有深厚积累</li>
 <li><strong>三星</strong>：X-MIMO 7GHz频段3Gbps户外验证（2026年7月）</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">arxiv论文</div>
-    <div class="text-body"><ul>
+    <h2>arxiv论文</h2>
+    <ul>
 <li>Iancu et al., "A Scalable 256-Antenna Distributed MIMO Testbed with Real-Time Fully Digital Beamforming", arXiv:2605.02388, May 2026</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
-    
-  <div class="block section-text">
-    <div class="block-title">1. 分布式MIMO是XL-MIMO的必然方向</div>
-    <div class="text-body"><p>5G时代Massive MIMO集中在基站内部，但6G要服务更多用户、更高频谱效率，单基站的天线数量必然突破256甚至到1024+。集中式处理的I/O带宽和计算延迟会成为硬瓶颈。<strong>分布式处理是唯一可行路径</strong>。LuLIS证明了这条路走通。</p></div>
-  </div>
-
-    
   
+  <article class="card ">
     
-
-    
-  <div class="block section-text">
-    <div class="block-title">2. AMD RFSoC成为关键使能平台</div>
-    <div class="text-body"><p>LuLIS选择AMD Zynq UltraScale+ RFSoC作为核心硬件，说明FPGA+ADC/DAC一体化方案在大规模MIMO中的工程优势已被验证。未来6G终端侧也可能看到类似架构。</p></div>
-  </div>
-
-    
+    <h2>1. 分布式MIMO是XL-MIMO的必然方向</h2>
+    <p>5G时代Massive MIMO集中在基站内部，但6G要服务更多用户、更高频谱效率，单基站的天线数量必然突破256甚至到1024+。集中式处理的I/O带宽和计算延迟会成为硬瓶颈。<strong>分布式处理是唯一可行路径</strong>。LuLIS证明了这条路走通。</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">3. 对中兴GigaMIMO的参考价值</div>
-    <div class="text-body"><p>中兴GigaMIMO项目聚焦"空域资源深度重构"，本质也是通过超大天线阵列提升空间复用能力。LuLIS的分布式架构思路可以借鉴：</p>
+    <h2>2. AMD RFSoC成为关键使能平台</h2>
+    <p>LuLIS选择AMD Zynq UltraScale+ RFSoC作为核心硬件，说明FPGA+ADC/DAC一体化方案在大规模MIMO中的工程优势已被验证。未来6G终端侧也可能看到类似架构。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 对中兴GigaMIMO的参考价值</h2>
+    <p>中兴GigaMIMO项目聚焦"空域资源深度重构"，本质也是通过超大天线阵列提升空间复用能力。LuLIS的分布式架构思路可以借鉴：</p>
 <ul>
 <li>如果中兴的AAU从集中式向分布式演进，RFSoC可能是候选硬件平台</li>
 <li>256天线的实时处理能力意味着6G基站设计必须考虑分布式FPGA架构</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
-    
-  <div class="block section-text">
-    <div class="block-title">4. 中国缺乏同类公开测试床</div>
-    <div class="text-body"><p>LuMaMi和LuLIS都是瑞典团队的成果，中国目前公开报道的大型MIMO测试床较少。这对国内6G标准制定可能是一个差距——没有实测数据支撑的理论推导说服力有限。</p></div>
-  </div>
-
-    
   
+  <article class="card ">
     
+    <h2>4. 中国缺乏同类公开测试床</h2>
+    <p>LuMaMi和LuLIS都是瑞典团队的成果，中国目前公开报道的大型MIMO测试床较少。这对国内6G标准制定可能是一个差距——没有实测数据支撑的理论推导说服力有限。</p>
+  </article>
+  
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">六、与老大的关联</div>
-    <div class="text-body"><ol>
+    <h2>六、与老大的关联</h2>
+    <ol>
 <li><strong>中兴GigaMIMO技术路线参考</strong>：LuLIS验证了分布式MIMO在256天线规模的可行性，中兴的GigaMIMO如果走向更大规模（512+天线），分布式架构几乎是必选项</li>
 <li><strong>AMD RFSoC平台</strong>：如果中兴6G研发涉及FPGA-based基带处理，RFSoC是值得关注的硬件平台</li>
 <li><strong>频谱效率目标</strong>：LuLIS目标服务32用户、最终追求10倍频谱效率提升，这可以作为中兴6G内部指标的参考基线</li>
 <li><strong>行业情报</strong>：隆德大学团队在Massive MIMO领域有10+年积累，值得持续关注其后续成果</li>
-</ol></div>
-  </div>
+</ol>
+  </article>
+  
 
+
+
+<article class="card related">
+  <h2>关联笔记 (2)</h2>
+  <div class="related-grid">
     
-  
-
-  
-  <div class="block related-block">
-    <div class="block-title">关联笔记 (2)</div>
-    <div class="related-grid">
-      <a href="#">technology-无蜂窝网络cell-free-massive-mimo</a><a href="#">technology-相控阵天线phased-array-antenna</a>
-    </div>
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-无蜂窝网络cell-free-massive-mimo.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-无蜂窝网络cell-free-massive-mimo</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-相控阵天线phased-array-antenna.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-相控阵天线phased-array-antenna</span>
+    </a>
+    
   </div>
-  
+</article>
 
-</div>
 
-<div class="footer">
-  <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-lulis-256天线分布式mimo测试床</span>
-</div>
-
-</div>
-
-<script>
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
-  var canvas = document.querySelector('.canvas');
-  if (!canvas) return;
-  var leftCol  = canvas.querySelector('.col-left');
-  var rightCol = canvas.querySelector('.col-right');
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
   if (!leftCol || !rightCol) return;
-
-  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
-  var blocks = Array.prototype.slice.call(
-    canvas.querySelectorAll('.block')
-  ).filter(function(b){ return !b.classList.contains('related-block'); });
-
-  // 贪心：哪边矮 append 到哪边
-  blocks.forEach(function(block){
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
     var lH = leftCol.offsetHeight;
     var rH = rightCol.offsetHeight;
-    (lH <= rH ? leftCol : rightCol).appendChild(block);
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
+  main.classList.add('masonry-ready');
 })();
 </script>
-
+<script>
+(function(){
+  function wire(){
+    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
+      if (a.__kgWired) return;
+      a.__kgWired = true;
+      a.addEventListener('click', function(e){
+        try {
+          e.preventDefault();
+          e.stopPropagation();
+          var href = a.getAttribute('href') || '';
+          var fn = href.split('/').pop() || '';
+          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
+          var id = fn;
+          if (id && window.parent !== window) {
+            window.parent.postMessage({type:'kg-nav', id:id}, '*');
+          } else {
+            window.location.href = href;
+          }
+        } catch(err) {
+          console.warn('kg-card nav error', err);
+        }
+        return false;
+      }, true);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wire);
+  } else {
+    wire();
+  }
+})();
+</script>
 </body>
 </html>

@@ -2,289 +2,127 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>E-Band天线 — KG 卡片</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Band天线 · 知识卡片</title>
 <style>
-  :root {
-    --primary: #0e7490;
-    --primary-bg: #cffafe;
-    --secondary: #d97706;
-    --secondary-bg: #fef3c7;
-    --warning: #dc2626;
-    --warning-bg: #fee2e2;
-    --highlight: #7c3aed;
-    --highlight-bg: #ede9fe;
-    --bg: #f5f1e8;
-    --card-bg: #ffffff;
-    --fg: #1f2937;
-    --fg-muted: #6b7280;
-    --border: #e5e7eb;
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
-
-  .card {
-    width: 1378px;
-    min-height: 1080px;
-    height: auto;
-    background: var(--bg);
-    margin: 0 auto;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
   }
-  .canvas {
-    padding: 20px 24px 28px;
-  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
   /* JS 贪心分列容器 — 替代 column-count:2 */
-  .masonry {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .masonry-col {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .canvas .hero {
-    margin-bottom: 12px;
-  }
-
-  .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
-    color: white;
-    padding: 22px 30px; border-radius: 14px;
-    position: relative;
-  }
-  .hero-header {
-    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
-  }
-  .hero-type {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1.5px; opacity: 0.85;
-    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
-  }
-  .hero-updated { font-size: 11px; opacity: 0.7; }
-  .hero-title {
-    font-size: 22px; font-weight: 800; margin-bottom: 4px;
-    display: flex; align-items: baseline; gap: 12px;
-  }
-  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
-  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
-  .hero-tags span {
-    font-size: 10px; padding: 2px 8px; border-radius: 4px;
-    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
-  }
-  .hero-liner {
-    margin-top: 12px; padding: 10px 14px;
-    background: rgba(255,255,255,0.1); border-radius: 8px;
-    font-size: 13px; line-height: 1.55; font-weight: 500;
-  }
-  .hero-analogy {
-    margin-top: 8px; padding: 10px 14px;
-    background: rgba(255,255,255,0.08); border-radius: 8px;
-    font-size: 12px; line-height: 1.55; opacity: 0.92;
-  }
-  .hero-metrics {
-    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
-    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
-  }
-  .hero-metrics div { font-size: 11px; opacity: 0.85; }
-  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
-
-  .block {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 16px 20px;
-    border-left: 4px solid var(--primary);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    display: flex; flex-direction: column;
-    overflow: hidden;
-    break-inside: avoid;
-    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
-  }
-  .block.section-table, .block.section-comparison {
-    /* 占一列宽度，不再 column-span */
-  }
-  .block.section-text {
-    /* 参与贪心分列，不再 column-span */
-  }
-  .block.related-block {
-    /* 跨两列独立成行 */
-    margin-top: 24px;
-    width: 100%;
-  }
-  .block.section-timeline    { border-left-color: var(--primary); }
-  .block.section-table        { border-left-color: var(--highlight); }
-  .block.section-comparison   { border-left-color: var(--highlight); }
-  .block.section-list         { border-left-color: var(--secondary); }
-  .block.section-list.challenges { border-left-color: var(--warning); }
-  .block.section-list.components { border-left-color: var(--primary); }
-  .block.section-list.drivers    { border-left-color: var(--secondary); }
-  .block.section-list.variants   { border-left-color: var(--highlight); }
-  .block.section-list.trends     { border-left-color: var(--highlight); }
-  .block.section-list.features   { border-left-color: var(--secondary); }
-  .block.section-text         { border-left-color: var(--secondary); }
-  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
-
-  .block-title {
-    font-size: 13px; font-weight: 800; color: var(--fg);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    margin-bottom: 10px; padding-bottom: 8px;
-    border-bottom: 1px dashed var(--border);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .block-title .ord { display: none; }
-  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
-
-  .timeline-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 8px; flex: 1;
-  }
-  .timeline-item {
-    background: var(--primary-bg);
-    border: 1px solid var(--primary);
-    border-radius: 8px;
-    padding: 10px 12px; position: relative;
-  }
-  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
-  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
-
-  .list-items {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px; flex: 1;
-  }
-  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
-  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
-  .list-item {
-    background: var(--bg);
-    border-left: 3px solid var(--secondary);
-    padding: 8px 12px; border-radius: 4px;
-    display: flex; flex-direction: column;
-  }
-  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
-  .block.section-list.components .list-item { border-left-color: var(--primary); }
-  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
-  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
-  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
-  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
-  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
-  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
-  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
-
-  .tbl {
-    width: 100%; border-collapse: collapse;
-    font-size: 11.5px; flex: 1;
-  }
-  .tbl th, .tbl td {
-    border: 1px solid var(--border);
-    padding: 6px 10px; text-align: left; line-height: 1.4;
-  }
-  .tbl th:first-child, .tbl td:first-child {
-    width: 12%;
-    font-weight: 700;
-    white-space: nowrap;
-    text-align: center;
-  }
-  .tbl th:nth-child(2), .tbl td:nth-child(2) {
-    width: 15%;
-    font-weight: 600;
-  }
-  .tbl th:nth-child(3), .tbl td:nth-child(3) {
-    width: 20%;
-    font-weight: 600;
-  }
-  .tbl th {
-    background: var(--highlight-bg); color: var(--highlight);
-    font-weight: 700; font-size: 11px;
-    text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  .tbl tr:nth-child(even) td { background: #fafafa; }
-  .tbl .footer {
-    font-size: 10.5px; color: var(--fg-muted);
-    background: var(--secondary-bg) !important;
-    font-style: italic; padding-top: 8px;
-    width: 100% !important;
-    word-break: break-word;
-    white-space: normal !important;
-  }
-  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
-
-  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
-  .code-body {
-    font-family: "SF Mono", Consolas, monospace;
-    font-size: 11px; line-height: 1.5;
-    white-space: pre-wrap; color: #e5e7eb; flex: 1;
-  }
-
-  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
-  .related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 8px; flex: 1;
-  }
-  .related-grid a {
-    display: block;
-    background: var(--highlight-bg); color: var(--highlight);
-    padding: 6px 12px; border-radius: 12px;
-    font-size: 11px; text-decoration: none;
-    border: 1px solid var(--highlight);
-    text-align: center; line-height: 1.3;
-  }
-
-  .footer {
-    margin-top: 8px; padding: 14px 30px;
-    background: var(--fg); color: rgba(255,255,255,0.7);
-    font-size: 10px;
-    display: flex; justify-content: space-between;
-    border-radius: 0 0 12px 12px;
-  }
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
 </style>
 </head>
 <body>
-
-<div class="card">
-<div class="canvas">
-
-  <div class="hero">
-    <div class="hero-header">
-      <div class="hero-type">technology · KG 卡片</div>
-      <div class="hero-updated">UPDATED 2026-07-09</div>
-    </div>
-    <div class="hero-title">
-      E-Band天线
-      
-    </div>
-    
-    <div class="hero-tags">
-      <span>天线技术</span><span>技术概念</span><span>E-Band</span><span>微波回传</span><span>毫米波</span>
-    </div>
-    
-    
-    <div class="hero-liner"><b>一句话:</b> E-Band 是 71-86 GHz 毫米波频段的天线系统，提供 10-25 Gbps 光纤级无线回传能力，是 5G 小基站密集部署场景下替代光纤的首选方案，以极窄波束实现超高频谱复用和超低时延传输。</div>
-    
-    
-    <div class="hero-analogy"><b>类比:</b> 就像在两座大楼之间架设了一条&#34;看不见的微波光纤&#34;——E-Band 天线用极其窄的波束把数据像激光一样精准对准接收端，10 GHz 的可用带宽相当于在拥挤的高速公路上凭空多开了 100 条车道，而且不需要挖沟埋缆。</div>
-    
-    
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">E-Band天线</h1>
+  <p class="lede">E-Band 是 71-86 GHz 毫米波频段的天线系统，提供 10-25 Gbps 光纤级无线回传能力，是 5G 小基站密集部署场景下替代光纤的首选方案，以极窄波束实现超高频谱复用和超低时延传输。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">E-Band</span><span class="chip brand">微波回传</span><span class="chip brand">毫米波</span>
   </div>
+  
+</header>
 
-  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
-  <div class="masonry">
-    <div class="masonry-col col-left"></div>
-    <div class="masonry-col col-right"></div>
-  </div>
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
 
   
     
+  
 
+  
+  <article class="card analogy">
+    <div class="kicker">ANALOGY</div>
+    <h2>类比入口</h2>
+    <p>就像在两座大楼之间架设了一条"看不见的微波光纤"——E-Band 天线用极其窄的波束把数据像激光一样精准对准接收端，10 GHz 的可用带宽相当于在拥挤的高速公路上凭空多开了 100 条车道，而且不需要挖沟埋缆。</p>
+  </article>
+  
+
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">一、基本定义与原理</div>
-    <div class="text-body"><p>E-Band 工作在 71-76 GHz 和 81-86 GHz 两个 5 GHz 宽的频段，合计拥有 10 GHz 的连续可用频谱资源，这是传统微波（6-42 GHz）频段的数倍之多。在这个频段上，电磁波的波长约为 3.5-4.2 mm，属于毫米波范畴。</p>
+    <h2>一、基本定义与原理</h2>
+    <p>E-Band 工作在 71-76 GHz 和 81-86 GHz 两个 5 GHz 宽的频段，合计拥有 10 GHz 的连续可用频谱资源，这是传统微波（6-42 GHz）频段的数倍之多。在这个频段上，电磁波的波长约为 3.5-4.2 mm，属于毫米波范畴。</p>
 <p><strong>核心原理：</strong></p>
 <ol>
 <li>
@@ -338,71 +176,61 @@
 <td>高精度对准 + 防摇摆</td>
 </tr>
 </tbody>
-</table></div>
-  </div>
-
-    
+</table>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">1. 高增益反射面天线</div>
-    <div class="text-body"><p>E-Band 最常用的天线架构是 Gregorian 或 Cassegrain 双反射面结构，通过主反射器和副反射器将馈源的辐射能量汇聚成极窄波束。典型配置：</p>
+    <h2>1. 高增益反射面天线</h2>
+    <p>E-Band 最常用的天线架构是 Gregorian 或 Cassegrain 双反射面结构，通过主反射器和副反射器将馈源的辐射能量汇聚成极窄波束。典型配置：</p>
 <ul>
 <li><strong>0.3 m 口径天线</strong>：增益约 35-38 dBi，传输距离 1-2 km</li>
 <li><strong>0.6 m 口径天线</strong>：增益约 42-45 dBi，传输距离 2-3 km</li>
 <li><strong>0.9 m 口径天线</strong>：增益约 47-50 dBi，传输距离 3-5 km</li>
 </ul>
-<p><strong>关键技术突破</strong>：查尔姆斯理工大学（Chalmers）与爱立信合作开发的间隙波导（Gap Waveguide, GW）技术，在 E-Band 反射面天线中实现了无电气接触的层叠结构制造，大幅降低了装配公差要求和制造成本。2024 年 IEEE TAP 论文报道了 50 dBi 增益的 E-Band 双反射面天线，并集成了自动波束跟踪功能。</p></div>
-  </div>
-
-    
+<p><strong>关键技术突破</strong>：查尔姆斯理工大学（Chalmers）与爱立信合作开发的间隙波导（Gap Waveguide, GW）技术，在 E-Band 反射面天线中实现了无电气接触的层叠结构制造，大幅降低了装配公差要求和制造成本。2024 年 IEEE TAP 论文报道了 50 dBi 增益的 E-Band 双反射面天线，并集成了自动波束跟踪功能。</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">2. 智能波束跟踪（IBT）</div>
-    <div class="text-body"><p>E-Bant 天线的最大工程挑战是<strong>杆塔摇摆导致的链路中断</strong>。由于波束宽度仅 1-2 度，风速引起的塔架摆动几厘米就可能导致信号丢失。解决方案包括：</p>
+    <h2>2. 智能波束跟踪（IBT）</h2>
+    <p>E-Bant 天线的最大工程挑战是<strong>杆塔摇摆导致的链路中断</strong>。由于波束宽度仅 1-2 度，风速引起的塔架摆动几厘米就可能导致信号丢失。解决方案包括：</p>
 <ul>
 <li><strong>单脉冲跟踪（Monopulse Tracking）</strong>：使用 SUM（和波束）传输数据 + DIFF（差波束）实时监测偏移量，通过 Gap Waveguide 实现的 2×2 阶梯喇叭阵馈源可在 ±2° 范围内实现波束偏转，差波束零陷深度保持 20 dB 以上</li>
 <li><strong>二维智能波束跟踪（2D IBT）</strong>：华为独家技术，通过内置传感器和算法实时预测杆塔摆动趋势，主动调整波束指向，抵消风载和温度变形影响，使 0.6 m 和 0.9 m 大口径天线成为可能</li>
 <li><strong>机械自平衡系统</strong>：Chalmers 论文提出重力驱动的平衡系统和弹簧系统，利用重力自然补偿缓慢摇摆，无需额外供电</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
-    
-  <div class="block section-text">
-    <div class="block-title">3. 自适应编码调制（ACM）</div>
-    <div class="text-body"><p>E-Band 对雨衰极为敏感（70-90 GHz 大气吸收峰附近），ACM 技术可根据信道质量动态调整调制阶数（从 BPSK 到 1024-QAM）和编码率，在衰落期间保持连接不中断。Ceragon IP-50EX 支持 11 级 ACM 步进，确保"hitless"（无感知）切换。</p></div>
-  </div>
-
-    
   
+  <article class="card ">
     
+    <h2>3. 自适应编码调制（ACM）</h2>
+    <p>E-Band 对雨衰极为敏感（70-90 GHz 大气吸收峰附近），ACM 技术可根据信道质量动态调整调制阶数（从 BPSK 到 1024-QAM）和编码率，在衰落期间保持连接不中断。Ceragon IP-50EX 支持 11 级 ACM 步进，确保"hitless"（无感知）切换。</p>
+  </article>
+  
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">4. 载波聚合与 XPIC</div>
-    <div class="text-body"><ul>
+    <h2>4. 载波聚合与 XPIC</h2>
+    <ul>
 <li><strong>Layer-1 载波聚合</strong>：Ceragon 和 Fastback 等设备商支持将多个 E-Band 载波（如 250 MHz、500 MHz、1 GHz 信道）聚合，单设备吞吐量可达 20 Gbps</li>
 <li><strong>交叉极化复用（XPIC）</strong>：同时使用水平和垂直极化传输独立数据流，频谱效率翻倍。华为 2T2R E-Band 设备单模块即达 25 Gbps</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">按天线形态分类</div>
-    <div class="text-body"><table>
+    <h2>按天线形态分类</h2>
+    <table>
 <thead>
 <tr>
 <th>类型</th>
@@ -437,85 +265,73 @@
 <td>扫描覆盖，波束可调</td>
 </tr>
 </tbody>
-</table></div>
-  </div>
-
-    
+</table>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">按部署场景分类</div>
-    <div class="text-body"><ul>
+    <h2>按部署场景分类</h2>
+    <ul>
 <li><strong>宏站回传</strong>：0.6-0.9 m 大天线，2-5 km 传输距离，配合 IBT 抗摇摆</li>
 <li><strong>小基站回传</strong>：0.3-0.45 m 小天线，0.5-2 km 距离，密集城区热点覆盖</li>
 <li><strong>楼间互联（B2B）</strong>：室内/室外一体化设备，PoE 供电，快速部署</li>
 <li><strong>5G-A 融合部署</strong>：2025 年底 du（阿联酋）全球首次现网部署 25 Gbps E-Band 与 5G-A 站点融合，标志着 E-Band 从"可选回传"升级为"5G-A 标配"</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">1. 5G 小基站密集回传（核心场景）</div>
-    <div class="text-body"><p>5G 小基站密度可能是宏站的 10-100 倍，光纤拉取成本极高。E-Band 提供：</p>
+    <h2>1. 5G 小基站密集回传（核心场景）</h2>
+    <p>5G 小基站密度可能是宏站的 10-100 倍，光纤拉取成本极高。E-Band 提供：</p>
 <ul>
 <li><strong>部署周期</strong>：小时级 vs 光纤的周/月级</li>
 <li><strong>TCO 优势</strong>：无需挖掘路面、审批管道资源</li>
 <li><strong>容量</strong>：单跳 10-25 Gbps 满足 5G-A 单站峰值需求</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">2. 光纤补充与冗余</div>
-    <div class="text-body"><p>在光纤无法到达或故障时，E-Band 提供：</p>
+    <h2>2. 光纤补充与冗余</h2>
+    <p>在光纤无法到达或故障时，E-Band 提供：</p>
 <ul>
 <li><strong>最后一公里延伸</strong>：将光纤骨干网延伸到无法布放光缆的区域</li>
 <li><strong>环形网络保护</strong>：光纤环网断纤时，E-Band 自动接管保障业务连续性</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">3. 专网与行业应用</div>
-    <div class="text-body"><ul>
+    <h2>3. 专网与行业应用</h2>
+    <ul>
 <li><strong>工业园区</strong>：多栋建筑间高速互联</li>
 <li><strong>港口/矿区</strong>：移动设备回传，无需布线</li>
 <li><strong>应急通信</strong>：快速部署临时高带宽链路</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
-    
-  <div class="block section-text">
-    <div class="block-title">4. 星地/天地融合</div>
-    <div class="text-body"><p>E-Band 的低大气衰减特性也使其适用于卫星通信地球站回传，中信科移动在 6G NTN 标准中布局了相关技术。</p></div>
-  </div>
-
-    
   
+  <article class="card ">
     
+    <h2>4. 星地/天地融合</h2>
+    <p>E-Band 的低大气衰减特性也使其适用于卫星通信地球站回传，中信科移动在 6G NTN 标准中布局了相关技术。</p>
+  </article>
+  
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">五、关键技术指标</div>
-    <div class="text-body"><table>
+    <h2>五、关键技术指标</h2>
+    <table>
 <thead>
 <tr>
 <th>指标</th>
@@ -576,122 +392,106 @@
 </tr>
 </tbody>
 </table>
-<p><strong>测量方法</strong>：暗室近场测量（增益、方向图）、在线路测试仪（VNA）测量 S 参数（回波损耗、隔离度）、实际链路误码率测试（BER）。</p></div>
-  </div>
-
-    
+<p><strong>测量方法</strong>：暗室近场测量（增益、方向图）、在线路测试仪（VNA）测量 S 参数（回波损耗、隔离度）、实际链路误码率测试（BER）。</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">1. 雨衰（Rain Fade）— 最致命问题</div>
-    <div class="text-body"><p>70-90 GHz 频段接近水汽吸收峰（~22 GHz 谐波），暴雨时衰减可达 10-20 dB/km。<strong>对策</strong>：</p>
+    <h2>1. 雨衰（Rain Fade）— 最致命问题</h2>
+    <p>70-90 GHz 频段接近水汽吸收峰（~22 GHz 谐波），暴雨时衰减可达 10-20 dB/km。<strong>对策</strong>：</p>
 <ul>
 <li>ACM 降速率保连接</li>
 <li>链路预算预留 15-25 dB 雨衰余量</li>
 <li>多径冗余（双路由部署）</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">2. 安装对准精度</div>
-    <div class="text-body"><p>0.6 m 天线波束宽度仅约 1.2 度，安装偏差超过 0.3 度即显著损失增益。<strong>对策</strong>：</p>
+    <h2>2. 安装对准精度</h2>
+    <p>0.6 m 天线波束宽度仅约 1.2 度，安装偏差超过 0.3 度即显著损失增益。<strong>对策</strong>：</p>
 <ul>
 <li>华为 IBT 天线内置电动调节机构</li>
 <li>安装时使用专用瞄准望远镜和功率计</li>
 <li>部分设备商提供光学瞄准辅助</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">3. 杆塔摇摆与热变形</div>
-    <div class="text-body"><p>风载、温度变化导致塔架弯曲，天线指向偏移。<strong>对策</strong>：</p>
+    <h2>3. 杆塔摇摆与热变形</h2>
+    <p>风载、温度变化导致塔架弯曲，天线指向偏移。<strong>对策</strong>：</p>
 <ul>
 <li>IBT 智能跟踪（华为）</li>
 <li>monopulse 差波束跟踪（Chalmers/Gapwaves）</li>
 <li>选用刚性塔架（减少柔性杆）</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">4. 视距（LoS）要求严格</div>
-    <div class="text-body"><p>E-Band 波长极短，轻微障碍物即可造成严重遮挡。<strong>对策</strong>：</p>
+    <h2>4. 视距（LoS）要求严格</h2>
+    <p>E-Band 波长极短，轻微障碍物即可造成严重遮挡。<strong>对策</strong>：</p>
 <ul>
 <li>部署前精确地形勘测</li>
 <li>避免树木生长影响（需定期修剪）</li>
 <li>城市密集区需考虑建筑反射路径</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">5. 设备散热</div>
-    <div class="text-body"><p>高功率 PA 在 E-Band 频段效率低（&lt;15%），大量能量转化为热量。<strong>对策</strong>：</p>
+    <h2>5. 设备散热</h2>
+    <p>高功率 PA 在 E-Band 频段效率低（&lt;15%），大量能量转化为热量。<strong>对策</strong>：</p>
 <ul>
 <li>被动散热（铝壳+散热片）</li>
 <li>部分设备支持风扇强制对流</li>
 <li>高温降额运行</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">七、技术演进</div>
-    <div class="text-body"><ul>
+    <h2>七、技术演进</h2>
+    <ul>
 <li><strong>2012-2015 年</strong>：E-Band 概念提出，学术研究聚焦于组件设计（PA、LNA、混频器）</li>
 <li><strong>2016-2018 年</strong>：Ceragon、Fastback、Pirelli 等推出第一代商用 E-Band 微波设备（1-3 Gbps）</li>
 <li><strong>2019-2021 年</strong>：华为发布长距 E-Band 方案（20 Gbps + IBT），爱立信推出全室外 E-Band 设备，5G 商用推动大规模部署</li>
 <li><strong>2022-2023 年</strong>：Chalmers/Gapwaves 验证 Gap Waveguide 技术在 E-Band 天线中的工程可行性，降低制造成本</li>
 <li><strong>2024 年</strong>：IEEE TAP 发表 50 dBi E-Band 双反射面天线 + 自动波束跟踪原型；华为 25 Gbps 单模块产品发布</li>
 <li><strong>2025 年</strong>：阿联酋 du 全球首次现网部署 25 Gbps E-Band 与 5G-A 融合，标志 E-Band 进入 5G-A 时代</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">八、技术成熟度</div>
-    <div class="text-body"><ul>
+    <h2>八、技术成熟度</h2>
+    <ul>
 <li><strong>成熟度等级</strong>：大规模商用</li>
 <li><strong>说明</strong>：E-Band 微波回传已在 2020 年前后实现全球规模商用，Ceragon、华为、Fastback、Intracom 等厂商均有成熟产品线。5G 密集部署需求持续推动容量升级（从 10 Gbps 向 25 Gbps+ 演进）。2025 年 du 的 25 Gbps 现网部署标志着技术进入成熟期。雨衰和安装精度仍是主要工程挑战，但已有成熟的应对方案。</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">九、未来趋势</div>
-    <div class="text-body"><ul>
+    <h2>九、未来趋势</h2>
+    <ul>
 <li><strong>短期（1-2 年）</strong>：</li>
 <li>单模块容量从 25 Gbps 向 50 Gbps 演进（配合更高阶调制和更宽带宽）</li>
 <li>E-Band 与 Sub-6 GHz 微波多频段融合平台成为主流（统一硬件、灵活分配频谱）</li>
@@ -712,17 +512,15 @@
 <li>E-Band 可能成为 6G 固定无线接入（FWA）和回传的通用方案</li>
 <li>与卫星通信（NTN）融合，形成空天地一体化回传网络</li>
 <li>芯片级 E-Band 前端（SiGe/GaAs/CMonolithic）大幅降低终端成本</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">关联笔记</div>
-    <div class="text-body"><ul>
+    <h2>关联笔记</h2>
+    <ul>
 <li>[[技术概念-菲涅尔区天线深度解读-20260617]]</li>
 <li>[[技术概念-毫米波天线Millimeter-Wave-Antenna-20260702]]</li>
 <li>[[零部件-反射板Reflector-20260703]]</li>
@@ -735,52 +533,107 @@
 <li>[[技术概念-抛物面反射器天线深度解读-20260622]]</li>
 <li>[[技术概念-波束赋形架构DBF-ABF-HBF混合对比-20260703]]</li>
 <li>[[材料-微波铁氧体Ferrite-20260703]]</li>
-</ul></div>
-  </div>
+</ul>
+  </article>
+  
 
+
+
+<article class="card related">
+  <h2>关联笔记 (7)</h2>
+  <div class="related-grid">
     
-  
-
-  
-  <div class="block related-block">
-    <div class="block-title">关联笔记 (7)</div>
-    <div class="related-grid">
-      <a href="#">technology-毫米波天线millimeter-wave-antenna</a><a href="#">component-反射板reflector</a><a href="#">metric-天线增益antenna-gain</a><a href="#">metric-波束宽度beamwidth</a><a href="#">technology-星地融合ntn中信科移动标准布局</a><a href="#">technology-波束赋形架构dbf-abf-hbf混合对比</a><a href="#">material-微波铁氧体ferrite</a>
-    </div>
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-毫米波天线millimeter-wave-antenna.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-毫米波天线millimeter-wave-antenna</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/component-反射板reflector.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">component-反射板reflector</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/metric-天线增益antenna-gain.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">metric-天线增益antenna-gain</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/metric-波束宽度beamwidth.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">metric-波束宽度beamwidth</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-星地融合ntn中信科移动标准布局.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-星地融合ntn中信科移动标准布局</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-波束赋形架构dbf-abf-hbf混合对比.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-波束赋形架构dbf-abf-hbf混合对比</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/material-微波铁氧体ferrite.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">material-微波铁氧体ferrite</span>
+    </a>
+    
   </div>
-  
+</article>
 
-</div>
 
-<div class="footer">
-  <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-e-band天线</span>
-</div>
-
-</div>
-
-<script>
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
-  var canvas = document.querySelector('.canvas');
-  if (!canvas) return;
-  var leftCol  = canvas.querySelector('.col-left');
-  var rightCol = canvas.querySelector('.col-right');
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
   if (!leftCol || !rightCol) return;
-
-  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
-  var blocks = Array.prototype.slice.call(
-    canvas.querySelectorAll('.block')
-  ).filter(function(b){ return !b.classList.contains('related-block'); });
-
-  // 贪心：哪边矮 append 到哪边
-  blocks.forEach(function(block){
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
     var lH = leftCol.offsetHeight;
     var rH = rightCol.offsetHeight;
-    (lH <= rH ? leftCol : rightCol).appendChild(block);
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
+  main.classList.add('masonry-ready');
 })();
 </script>
-
+<script>
+(function(){
+  function wire(){
+    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
+      if (a.__kgWired) return;
+      a.__kgWired = true;
+      a.addEventListener('click', function(e){
+        try {
+          e.preventDefault();
+          e.stopPropagation();
+          var href = a.getAttribute('href') || '';
+          var fn = href.split('/').pop() || '';
+          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
+          var id = fn;
+          if (id && window.parent !== window) {
+            window.parent.postMessage({type:'kg-nav', id:id}, '*');
+          } else {
+            window.location.href = href;
+          }
+        } catch(err) {
+          console.warn('kg-card nav error', err);
+        }
+        return false;
+      }, true);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wire);
+  } else {
+    wire();
+  }
+})();
+</script>
 </body>
 </html>

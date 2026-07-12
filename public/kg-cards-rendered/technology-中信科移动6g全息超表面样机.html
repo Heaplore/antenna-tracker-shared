@@ -2,289 +2,127 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>中信科移动6G全息超表面样机 — KG 卡片</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中信科移动6G全息超表面样机 · 知识卡片</title>
 <style>
-  :root {
-    --primary: #0e7490;
-    --primary-bg: #cffafe;
-    --secondary: #d97706;
-    --secondary-bg: #fef3c7;
-    --warning: #dc2626;
-    --warning-bg: #fee2e2;
-    --highlight: #7c3aed;
-    --highlight-bg: #ede9fe;
-    --bg: #f5f1e8;
-    --card-bg: #ffffff;
-    --fg: #1f2937;
-    --fg-muted: #6b7280;
-    --border: #e5e7eb;
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
-
-  .card {
-    width: 1378px;
-    min-height: 1080px;
-    height: auto;
-    background: var(--bg);
-    margin: 0 auto;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
   }
-  .canvas {
-    padding: 20px 24px 28px;
-  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
   /* JS 贪心分列容器 — 替代 column-count:2 */
-  .masonry {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .masonry-col {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .canvas .hero {
-    margin-bottom: 12px;
-  }
-
-  .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
-    color: white;
-    padding: 22px 30px; border-radius: 14px;
-    position: relative;
-  }
-  .hero-header {
-    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
-  }
-  .hero-type {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1.5px; opacity: 0.85;
-    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
-  }
-  .hero-updated { font-size: 11px; opacity: 0.7; }
-  .hero-title {
-    font-size: 22px; font-weight: 800; margin-bottom: 4px;
-    display: flex; align-items: baseline; gap: 12px;
-  }
-  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
-  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
-  .hero-tags span {
-    font-size: 10px; padding: 2px 8px; border-radius: 4px;
-    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
-  }
-  .hero-liner {
-    margin-top: 12px; padding: 10px 14px;
-    background: rgba(255,255,255,0.1); border-radius: 8px;
-    font-size: 13px; line-height: 1.55; font-weight: 500;
-  }
-  .hero-analogy {
-    margin-top: 8px; padding: 10px 14px;
-    background: rgba(255,255,255,0.08); border-radius: 8px;
-    font-size: 12px; line-height: 1.55; opacity: 0.92;
-  }
-  .hero-metrics {
-    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
-    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
-  }
-  .hero-metrics div { font-size: 11px; opacity: 0.85; }
-  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
-
-  .block {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 16px 20px;
-    border-left: 4px solid var(--primary);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    display: flex; flex-direction: column;
-    overflow: hidden;
-    break-inside: avoid;
-    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
-  }
-  .block.section-table, .block.section-comparison {
-    /* 占一列宽度，不再 column-span */
-  }
-  .block.section-text {
-    /* 参与贪心分列，不再 column-span */
-  }
-  .block.related-block {
-    /* 跨两列独立成行 */
-    margin-top: 24px;
-    width: 100%;
-  }
-  .block.section-timeline    { border-left-color: var(--primary); }
-  .block.section-table        { border-left-color: var(--highlight); }
-  .block.section-comparison   { border-left-color: var(--highlight); }
-  .block.section-list         { border-left-color: var(--secondary); }
-  .block.section-list.challenges { border-left-color: var(--warning); }
-  .block.section-list.components { border-left-color: var(--primary); }
-  .block.section-list.drivers    { border-left-color: var(--secondary); }
-  .block.section-list.variants   { border-left-color: var(--highlight); }
-  .block.section-list.trends     { border-left-color: var(--highlight); }
-  .block.section-list.features   { border-left-color: var(--secondary); }
-  .block.section-text         { border-left-color: var(--secondary); }
-  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
-
-  .block-title {
-    font-size: 13px; font-weight: 800; color: var(--fg);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    margin-bottom: 10px; padding-bottom: 8px;
-    border-bottom: 1px dashed var(--border);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .block-title .ord { display: none; }
-  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
-
-  .timeline-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 8px; flex: 1;
-  }
-  .timeline-item {
-    background: var(--primary-bg);
-    border: 1px solid var(--primary);
-    border-radius: 8px;
-    padding: 10px 12px; position: relative;
-  }
-  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
-  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
-
-  .list-items {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px; flex: 1;
-  }
-  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
-  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
-  .list-item {
-    background: var(--bg);
-    border-left: 3px solid var(--secondary);
-    padding: 8px 12px; border-radius: 4px;
-    display: flex; flex-direction: column;
-  }
-  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
-  .block.section-list.components .list-item { border-left-color: var(--primary); }
-  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
-  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
-  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
-  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
-  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
-  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
-  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
-
-  .tbl {
-    width: 100%; border-collapse: collapse;
-    font-size: 11.5px; flex: 1;
-  }
-  .tbl th, .tbl td {
-    border: 1px solid var(--border);
-    padding: 6px 10px; text-align: left; line-height: 1.4;
-  }
-  .tbl th:first-child, .tbl td:first-child {
-    width: 12%;
-    font-weight: 700;
-    white-space: nowrap;
-    text-align: center;
-  }
-  .tbl th:nth-child(2), .tbl td:nth-child(2) {
-    width: 15%;
-    font-weight: 600;
-  }
-  .tbl th:nth-child(3), .tbl td:nth-child(3) {
-    width: 20%;
-    font-weight: 600;
-  }
-  .tbl th {
-    background: var(--highlight-bg); color: var(--highlight);
-    font-weight: 700; font-size: 11px;
-    text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  .tbl tr:nth-child(even) td { background: #fafafa; }
-  .tbl .footer {
-    font-size: 10.5px; color: var(--fg-muted);
-    background: var(--secondary-bg) !important;
-    font-style: italic; padding-top: 8px;
-    width: 100% !important;
-    word-break: break-word;
-    white-space: normal !important;
-  }
-  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
-
-  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
-  .code-body {
-    font-family: "SF Mono", Consolas, monospace;
-    font-size: 11px; line-height: 1.5;
-    white-space: pre-wrap; color: #e5e7eb; flex: 1;
-  }
-
-  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
-  .related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 8px; flex: 1;
-  }
-  .related-grid a {
-    display: block;
-    background: var(--highlight-bg); color: var(--highlight);
-    padding: 6px 12px; border-radius: 12px;
-    font-size: 11px; text-decoration: none;
-    border: 1px solid var(--highlight);
-    text-align: center; line-height: 1.3;
-  }
-
-  .footer {
-    margin-top: 8px; padding: 14px 30px;
-    background: var(--fg); color: rgba(255,255,255,0.7);
-    font-size: 10px;
-    display: flex; justify-content: space-between;
-    border-radius: 0 0 12px 12px;
-  }
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
 </style>
 </head>
 <body>
-
-<div class="card">
-<div class="canvas">
-
-  <div class="hero">
-    <div class="hero-header">
-      <div class="hero-type">technology · KG 卡片</div>
-      <div class="hero-updated">UPDATED 2026-07-09</div>
-    </div>
-    <div class="hero-title">
-      中信科移动6G全息超表面样机
-      
-    </div>
-    
-    <div class="hero-tags">
-      <span>天线技术</span><span>技术概念</span><span>6G</span><span>全息超表面</span><span>超维度天线</span><span>MWC26</span><span>中信科移动</span><span>竞品对标</span>
-    </div>
-    
-    
-    <div class="hero-liner"><b>一句话:</b> 将光学全息原理移植到微波频段，用超材料+低功耗动态元件重构天线阵面的电磁响应，实现超高增益和空间复用能力，同时大幅削减传统毫米波相控阵的成本、功耗和复杂度，为6G超大规模天线实用化提供可行路径。</div>
-    
-    
-    <div class="hero-analogy"><b>类比:</b> 想象一面镜子——传统相控阵是用几百上千个独立的微型反射镜各自调整角度来聚焦光线，而全息超表面是一整面连续的&#34;智能镜面&#34;，通过精确调控这面镜子上每个点的电磁特性，让微波像激光全息一样&#34;雕刻&#34;出想要的波束形状。</div>
-    
-    
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">中信科移动6G全息超表面样机</h1>
+  <p class="lede">将光学全息原理移植到微波频段，用超材料+低功耗动态元件重构天线阵面的电磁响应，实现超高增益和空间复用能力，同时大幅削减传统毫米波相控阵的成本、功耗和复杂度，为6G超大规模天线实用化提供可行路径。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">6G</span><span class="chip brand">全息超表面</span><span class="chip brand">超维度天线</span><span class="chip brand">MWC26</span><span class="chip brand">中信科移动</span><span class="chip brand">竞品对标</span>
   </div>
+  
+</header>
 
-  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
-  <div class="masonry">
-    <div class="masonry-col col-left"></div>
-    <div class="masonry-col col-right"></div>
-  </div>
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
 
   
     
+  
 
+  
+  <article class="card analogy">
+    <div class="kicker">ANALOGY</div>
+    <h2>类比入口</h2>
+    <p>想象一面镜子——传统相控阵是用几百上千个独立的微型反射镜各自调整角度来聚焦光线，而全息超表面是一整面连续的"智能镜面"，通过精确调控这面镜子上每个点的电磁特性，让微波像激光全息一样"雕刻"出想要的波束形状。少了很多独立的射频链路，但效果一样甚至更好。</p>
+  </article>
+  
+
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">一、发布背景与产业链定位</div>
-    <div class="text-body"><p>2026年6月25日，在MWC上海世界移动大会上，<strong>中国信科集团旗下中信科移动</strong>联合<strong>北京大学</strong>及<strong>中国移动</strong>发布了"新一代6G全息超表面宽带移动通信系统样机"及《面向6G的全息超表面通信技术白皮书》。</p>
+    <h2>一、发布背景与产业链定位</h2>
+    <p>2026年6月25日，在MWC上海世界移动大会上，<strong>中国信科集团旗下中信科移动</strong>联合<strong>北京大学</strong>及<strong>中国移动</strong>发布了"新一代6G全息超表面宽带移动通信系统样机"及《面向6G的全息超表面通信技术白皮书》。</p>
 <p><strong>关键人物与机构：</strong>
 - 发布人：中国信科集团副总工程师、中信科移动首席科学家<strong>孙韶辉博士</strong>
 - 主持：北京大学<strong>宋令阳</strong>教授
@@ -292,60 +130,52 @@
 <p><strong>产业链意义：</strong>
 - 中信科移动是中国信科集团旗下无线通信核心企业，与中兴通讯同属国内两大通信设备商阵营
 - 北京大学宋令阳团队是国内超表面天线研究的先行者，2024年8月已搭建全球首个基于可重构全息超表面的多用户通信系统原型，并与中信科移动商用毫米波基站集成
-- 中国移动作为运营商深度参与，表明该技术已从学术研究走向运营商验证阶段</p></div>
-  </div>
-
-    
+- 中国移动作为运营商深度参与，表明该技术已从学术研究走向运营商验证阶段</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">2.1 全息波束赋形（Holographic Beamforming）</div>
-    <div class="text-body"><p>传统相控阵通过独立控制每个天线单元的相位和幅度来实现波束赋形，需要大量射频链路（RF Chain）。全息超表面则采用不同的思路：</p>
+    <h2>2.1 全息波束赋形（Holographic Beamforming）</h2>
+    <p>传统相控阵通过独立控制每个天线单元的相位和幅度来实现波束赋形，需要大量射频链路（RF Chain）。全息超表面则采用不同的思路：</p>
 <ul>
 <li><strong>光学全息原理移植</strong>：将光学中的全息干涉原理应用于微波/毫米波频段</li>
 <li><strong>幅度/相位/频率三维控制</strong>：通过调控电磁响应的三个自由度，实现更精细的波束成形</li>
 <li><strong>阵面全息干涉图样重构</strong>：利用超材料构建全息图案，动态元件控制电磁响应，实时重构干涉图样</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">2.2 超材料替代传统金属贴片</div>
-    <div class="text-body"><ul>
+    <h2>2.2 超材料替代传统金属贴片</h2>
+    <ul>
 <li>用<strong>超材料（Metamaterial）</strong>代替传统金属贴片来构建天线阵面</li>
 <li>超材料具有天然金属不具备的电磁特性，可以实现负折射、超透镜等非常规效应</li>
 <li>大幅降低馈电网络复杂度：传统大规模阵列的馈电网络是成本和功耗大户，超表面方案通过空间耦合实现波束合成，减少甚至消除了馈电网络</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">2.3 低功耗动态元件</div>
-    <div class="text-body"><ul>
+    <h2>2.3 低功耗动态元件</h2>
+    <ul>
 <li>阵面上加载<strong>低功耗动态可调元件</strong>（如PIN二极管、MEMS开关、石墨烯等）</li>
 <li>通过控制这些元件的导通/截止状态，改变局部电磁响应</li>
 <li>功耗远低于传统有源相控阵的移相器+功放链路</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">三、与中兴GigaMIMO的技术路线对比</div>
-    <div class="text-body"><table>
+    <h2>三、与中兴GigaMIMO的技术路线对比</h2>
+    <table>
 <thead>
 <tr>
 <th>维度</th>
@@ -397,74 +227,64 @@
 </tbody>
 </table>
 <p><strong>关键洞察：</strong>
-两条路线殊途同归——都在解决同一个问题：<strong>如何让超大规模天线阵列从实验室走向商用</strong>。中信科走的是"减法的路线"（简化馈电、降低功耗），中兴走的是"加法的路线"（增加天线维度、强化AI优化）。两者在6G时代可能不是替代关系，而是互补关系。</p></div>
-  </div>
-
-    
+两条路线殊途同归——都在解决同一个问题：<strong>如何让超大规模天线阵列从实验室走向商用</strong>。中信科走的是"减法的路线"（简化馈电、降低功耗），中兴走的是"加法的路线"（增加天线维度、强化AI优化）。两者在6G时代可能不是替代关系，而是互补关系。</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">四、技术演进脉络</div>
-    <div class="text-body"><ul>
+    <h2>四、技术演进脉络</h2>
+    <ul>
 <li><strong>2023年9月</strong>：中国移动发布6G网络架构及关键技术成果，超维度天线首次亮相</li>
 <li><strong>2023年11月</strong>：北京大学发布《超维度天线（E-MIMO）技术白皮书》，定义理论基础</li>
 <li><strong>2024年8月</strong>：北大宋令阳团队搭建全球首个可重构全息超表面多用户通信系统原型，与中信科移动商用毫米波基站集成</li>
 <li><strong>2025年4月</strong>：中信科移动+北大+中国移动联合发布"6G全息超表面宽带移动通信系统样机"</li>
 <li><strong>2026年6月</strong>：MWC上海，发布"新一代"样机及《面向6G的全息超表面通信技术白皮书》，技术迭代升级</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">与清华SC-RIS的异同</div>
-    <div class="text-body"><ul>
+    <h2>与清华SC-RIS的异同</h2>
+    <ul>
 <li><strong>相同点</strong>：都利用超材料/智能表面调控电磁波，都面向6G大规模天线场景</li>
 <li><strong>不同点</strong>：SC-RIS（自控制智能超表面）偏向无源反射面，用于增强覆盖；全息超表面是有源/半有源天线阵列，直接参与波束赋形和信号发射</li>
 <li><strong>关联</strong>：两者可能在6G基站中融合使用——全息超表面负责主波束生成，SC-RIS负责辅助覆盖增强</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">与全息MIMO/CAPA的关系</div>
-    <div class="text-body"><ul>
+    <h2>与全息MIMO/CAPA的关系</h2>
+    <ul>
 <li>连续孔径天线（CAPA）是理论层面的概念，全息超表面是CAPA的工程实现路径之一</li>
 <li>北大宋令阳团队是CAPA理论的重要贡献者，其工作从理论（CAPA白皮书）到原型（2024年多用户系统）再到新一代样机（2026年），形成了完整的技术闭环</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">与流体天线系统（FAS）的关系</div>
-    <div class="text-body"><ul>
+    <h2>与流体天线系统（FAS）的关系</h2>
+    <ul>
 <li>FAS通过物理移动天线位置来获取空间自由度</li>
 <li>全息超表面通过电磁响应调控来获取空间自由度</li>
 <li>两者都是突破传统固定位置天线（FPA）局限的新路径，可在不同场景下互补使用</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">七、行业竞争格局判断</div>
-    <div class="text-body"><p><strong>国内三大阵营：</strong>
+    <h2>七、行业竞争格局判断</h2>
+    <p><strong>国内三大阵营：</strong>
 1. <strong>中信科移动</strong>（中国信科）：全息超表面路线，产学研协同（北大+中国移动），白皮书先行
 2. <strong>中兴通讯</strong>：GigaMIMO+2000+振子大规模阵列路线，侧重空域资源深度重构
 3. <strong>华为</strong>：256通道AAU+数智化天线路线，U6GHz产品矩阵完整</p>
@@ -472,32 +292,28 @@
 - 爱立信与苹果合作MRSS（多制式频谱共享）
 - 诺基亚参与英伟达AI-RAN联盟
 - 三星在XMIMO外场试验中取得7GHz 3Gbps峰值</p>
-<p><strong>判断：</strong> 中信科移动选择了一条差异化的技术路线——不跟中兴、华为在"堆天线数量"上硬拼，而是从"天线结构创新"入手，用超材料+全息原理从根本上降低大规模天线的成本和功耗。这是一条高风险高回报的路径：如果成功，可能重新定义6G基站天线的形态；如果失败，则可能停留在实验室阶段。从目前进展看（北大多年积累+中信科工程化能力+中国移动验证），成功概率较高。</p></div>
-  </div>
-
-    
+<p><strong>判断：</strong> 中信科移动选择了一条差异化的技术路线——不跟中兴、华为在"堆天线数量"上硬拼，而是从"天线结构创新"入手，用超材料+全息原理从根本上降低大规模天线的成本和功耗。这是一条高风险高回报的路径：如果成功，可能重新定义6G基站天线的形态；如果失败，则可能停留在实验室阶段。从目前进展看（北大多年积累+中信科工程化能力+中国移动验证），成功概率较高。</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">八、对老大的参考价值</div>
-    <div class="text-body"><ol>
+    <h2>八、对老大的参考价值</h2>
+    <ol>
 <li><strong>竞品技术追踪</strong>：中信科移动的全息超表面路线是中兴GigaMIMO的直接竞品技术，需要持续跟踪其产业化进展</li>
 <li><strong>技术融合机会</strong>：全息超表面与中兴的GigaMIMO可能在6G时代融合，形成"超表面+大规模阵列"的混合架构</li>
 <li><strong>产学研合作参考</strong>：北大+中信科+中国移动的合作模式值得借鉴，是典型的"高校理论+企业工程+运营商验证"三位一体模式</li>
 <li><strong>标准化窗口期</strong>：白皮书发布意味着技术进入标准化推进阶段，未来1-2年是参与标准制定的关键窗口</li>
-</ol></div>
-  </div>
-
-    
+</ol>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">关联笔记</div>
-    <div class="text-body"><ul>
+    <h2>关联笔记</h2>
+    <ul>
 <li>[[技术概念-超表面天线Metasurface-Antenna-20260630]]</li>
 <li>[[技术概念-超维度天线-以用户为中心-20260707]]</li>
 <li>[[技术概念-全息MIMO连续孔径CAPA-20260702]]</li>
@@ -508,52 +324,117 @@
 <li>[[技术概念-Metacrystal超晶体3D打印被动智能表面-20260628]]</li>
 <li>[[技术概念-可转向天线RA-6G通感融合-20260622]]</li>
 <li>[[技术概念-太赫兹天线Terahertz-Antenna-20260702]]</li>
-</ul></div>
-  </div>
+</ul>
+  </article>
+  
 
+
+
+<article class="card related">
+  <h2>关联笔记 (9)</h2>
+  <div class="related-grid">
     
-  
-
-  
-  <div class="block related-block">
-    <div class="block-title">关联笔记 (9)</div>
-    <div class="related-grid">
-      <a href="#">technology-超表面天线metasurface-antenna</a><a href="#">technology-超维度天线-以用户为中心</a><a href="#">technology-全息mimo连续孔径capa</a><a href="#">technology-有源智能超表面oris</a><a href="#">technology-清华sc-ris自控制智能超表面-20260705</a><a href="#">technology-stare半导体集成ris晶圆级智能超表面</a><a href="#">technology-metacrystal超晶体3d打印被动智能表面</a><a href="#">technology-可转向天线ra-6g通感融合</a><a href="#">technology-太赫兹天线terahertz-antenna</a>
-    </div>
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-超表面天线metasurface-antenna.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-超表面天线metasurface-antenna</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-超维度天线-以用户为中心.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-超维度天线-以用户为中心</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-全息mimo连续孔径capa.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-全息mimo连续孔径capa</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-有源智能超表面oris.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-有源智能超表面oris</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-清华sc-ris自控制智能超表面-20260705.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-清华sc-ris自控制智能超表面-20260705</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-stare半导体集成ris晶圆级智能超表面.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-stare半导体集成ris晶圆级智能超表面</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-metacrystal超晶体3d打印被动智能表面.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-metacrystal超晶体3d打印被动智能表面</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-可转向天线ra-6g通感融合.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-可转向天线ra-6g通感融合</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-太赫兹天线terahertz-antenna.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-太赫兹天线terahertz-antenna</span>
+    </a>
+    
   </div>
-  
+</article>
 
-</div>
 
-<div class="footer">
-  <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-中信科移动6g全息超表面样机</span>
-</div>
-
-</div>
-
-<script>
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
-  var canvas = document.querySelector('.canvas');
-  if (!canvas) return;
-  var leftCol  = canvas.querySelector('.col-left');
-  var rightCol = canvas.querySelector('.col-right');
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
   if (!leftCol || !rightCol) return;
-
-  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
-  var blocks = Array.prototype.slice.call(
-    canvas.querySelectorAll('.block')
-  ).filter(function(b){ return !b.classList.contains('related-block'); });
-
-  // 贪心：哪边矮 append 到哪边
-  blocks.forEach(function(block){
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
     var lH = leftCol.offsetHeight;
     var rH = rightCol.offsetHeight;
-    (lH <= rH ? leftCol : rightCol).appendChild(block);
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
+  main.classList.add('masonry-ready');
 })();
 </script>
-
+<script>
+(function(){
+  function wire(){
+    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
+      if (a.__kgWired) return;
+      a.__kgWired = true;
+      a.addEventListener('click', function(e){
+        try {
+          e.preventDefault();
+          e.stopPropagation();
+          var href = a.getAttribute('href') || '';
+          var fn = href.split('/').pop() || '';
+          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
+          var id = fn;
+          if (id && window.parent !== window) {
+            window.parent.postMessage({type:'kg-nav', id:id}, '*');
+          } else {
+            window.location.href = href;
+          }
+        } catch(err) {
+          console.warn('kg-card nav error', err);
+        }
+        return false;
+      }, true);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wire);
+  } else {
+    wire();
+  }
+})();
+</script>
 </body>
 </html>

@@ -2,309 +2,127 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>MassiveMIMO天线校准 — KG 卡片</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MassiveMIMO天线校准 · 知识卡片</title>
 <style>
-  :root {
-    --primary: #0e7490;
-    --primary-bg: #cffafe;
-    --secondary: #d97706;
-    --secondary-bg: #fef3c7;
-    --warning: #dc2626;
-    --warning-bg: #fee2e2;
-    --highlight: #7c3aed;
-    --highlight-bg: #ede9fe;
-    --bg: #f5f1e8;
-    --card-bg: #ffffff;
-    --fg: #1f2937;
-    --fg-muted: #6b7280;
-    --border: #e5e7eb;
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #2c3e50; }
-
-  .card {
-    width: 1378px;
-    min-height: 1080px;
-    height: auto;
-    background: var(--bg);
-    margin: 0 auto;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
   }
-  .canvas {
-    padding: 20px 24px 28px;
-  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
   /* JS 贪心分列容器 — 替代 column-count:2 */
-  .masonry {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .masonry-col {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .canvas .hero {
-    margin-bottom: 12px;
-  }
-
-  .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
-    color: white;
-    padding: 22px 30px; border-radius: 14px;
-    position: relative;
-  }
-  .hero-header {
-    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
-  }
-  .hero-type {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1.5px; opacity: 0.85;
-    background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 6px;
-  }
-  .hero-updated { font-size: 11px; opacity: 0.7; }
-  .hero-title {
-    font-size: 22px; font-weight: 800; margin-bottom: 4px;
-    display: flex; align-items: baseline; gap: 12px;
-  }
-  .hero-en { font-size: 13px; font-weight: 400; opacity: 0.7; font-style: italic; }
-  .hero-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
-  .hero-tags span {
-    font-size: 10px; padding: 2px 8px; border-radius: 4px;
-    background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9);
-  }
-  .hero-liner {
-    margin-top: 12px; padding: 10px 14px;
-    background: rgba(255,255,255,0.1); border-radius: 8px;
-    font-size: 13px; line-height: 1.55; font-weight: 500;
-  }
-  .hero-analogy {
-    margin-top: 8px; padding: 10px 14px;
-    background: rgba(255,255,255,0.08); border-radius: 8px;
-    font-size: 12px; line-height: 1.55; opacity: 0.92;
-  }
-  .hero-metrics {
-    margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap;
-    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
-  }
-  .hero-metrics div { font-size: 11px; opacity: 0.85; }
-  .hero-metrics b { opacity: 1; font-weight: 700; margin-left: 4px; }
-
-  .block {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 16px 20px;
-    border-left: 4px solid var(--primary);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    display: flex; flex-direction: column;
-    overflow: hidden;
-    break-inside: avoid;
-    /* margin 由 .masonry-col gap 控制，避免与列间距重复 */
-  }
-  .block.section-table, .block.section-comparison {
-    /* 占一列宽度，不再 column-span */
-  }
-  .block.section-text {
-    /* 参与贪心分列，不再 column-span */
-  }
-  .block.related-block {
-    /* 跨两列独立成行 */
-    margin-top: 24px;
-    width: 100%;
-  }
-  .block.section-timeline    { border-left-color: var(--primary); }
-  .block.section-table        { border-left-color: var(--highlight); }
-  .block.section-comparison   { border-left-color: var(--highlight); }
-  .block.section-list         { border-left-color: var(--secondary); }
-  .block.section-list.challenges { border-left-color: var(--warning); }
-  .block.section-list.components { border-left-color: var(--primary); }
-  .block.section-list.drivers    { border-left-color: var(--secondary); }
-  .block.section-list.variants   { border-left-color: var(--highlight); }
-  .block.section-list.trends     { border-left-color: var(--highlight); }
-  .block.section-list.features   { border-left-color: var(--secondary); }
-  .block.section-text         { border-left-color: var(--secondary); }
-  .block.section-code         { border-left-color: var(--primary); background: #1f2937; color: #e5e7eb; }
-
-  .block-title {
-    font-size: 13px; font-weight: 800; color: var(--fg);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    margin-bottom: 10px; padding-bottom: 8px;
-    border-bottom: 1px dashed var(--border);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .block-title .ord { display: none; }
-  .block.section-code .block-title { color: #9ca3af; border-bottom-color: #4b5563; }
-
-  .timeline-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 8px; flex: 1;
-  }
-  .timeline-item {
-    background: var(--primary-bg);
-    border: 1px solid var(--primary);
-    border-radius: 8px;
-    padding: 10px 12px; position: relative;
-  }
-  .timeline-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
-  .timeline-item .body { font-size: 10.5px; color: var(--fg); line-height: 1.4; }
-
-  .list-items {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px; flex: 1;
-  }
-  .list-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
-  .list-items.cols-3 { grid-template-columns: repeat(3, 1fr); }
-  .list-item {
-    background: var(--bg);
-    border-left: 3px solid var(--secondary);
-    padding: 8px 12px; border-radius: 4px;
-    display: flex; flex-direction: column;
-  }
-  .block.section-list.challenges .list-item { border-left-color: var(--warning); }
-  .block.section-list.components .list-item { border-left-color: var(--primary); }
-  .block.section-list.variants .list-item { border-left-color: var(--highlight); }
-  .block.section-list.trends .list-item { border-left-color: var(--highlight); }
-  .list-item .ttl { font-size: 12px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
-  .list-item .body { font-size: 11px; color: var(--fg-muted); line-height: 1.45; }
-  .list-item .name { font-size: 12px; font-weight: 700; color: var(--fg); }
-  .list-item .en { font-size: 10px; color: var(--primary); font-style: italic; margin-left: 6px; }
-  .list-item .desc { font-size: 11px; color: var(--fg-muted); line-height: 1.45; margin-top: 3px; }
-
-  .tbl {
-    width: 100%; border-collapse: collapse;
-    font-size: 11.5px; flex: 1;
-  }
-  .tbl th, .tbl td {
-    border: 1px solid var(--border);
-    padding: 6px 10px; text-align: left; line-height: 1.4;
-  }
-  .tbl th:first-child, .tbl td:first-child {
-    width: 12%;
-    font-weight: 700;
-    white-space: nowrap;
-    text-align: center;
-  }
-  .tbl th:nth-child(2), .tbl td:nth-child(2) {
-    width: 15%;
-    font-weight: 600;
-  }
-  .tbl th:nth-child(3), .tbl td:nth-child(3) {
-    width: 20%;
-    font-weight: 600;
-  }
-  .tbl th {
-    background: var(--highlight-bg); color: var(--highlight);
-    font-weight: 700; font-size: 11px;
-    text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  .tbl tr:nth-child(even) td { background: #fafafa; }
-  .tbl .footer {
-    font-size: 10.5px; color: var(--fg-muted);
-    background: var(--secondary-bg) !important;
-    font-style: italic; padding-top: 8px;
-    width: 100% !important;
-    word-break: break-word;
-    white-space: normal !important;
-  }
-  .tbl-td-highlight { background: var(--primary-bg) !important; font-weight: 700; color: var(--primary); }
-
-  .text-body { font-size: 12.5px; color: var(--fg); line-height: 1.6; flex: 1; }
-  .code-body {
-    font-family: "SF Mono", Consolas, monospace;
-    font-size: 11px; line-height: 1.5;
-    white-space: pre-wrap; color: #e5e7eb; flex: 1;
-  }
-
-  .related-block { border-left-color: var(--highlight); margin-top: 16px; }
-  .related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 8px; flex: 1;
-  }
-  .related-grid a {
-    display: block;
-    background: var(--highlight-bg); color: var(--highlight);
-    padding: 6px 12px; border-radius: 12px;
-    font-size: 11px; text-decoration: none;
-    border: 1px solid var(--highlight);
-    text-align: center; line-height: 1.3;
-  }
-
-  .footer {
-    margin-top: 8px; padding: 14px 30px;
-    background: var(--fg); color: rgba(255,255,255,0.7);
-    font-size: 10px;
-    display: flex; justify-content: space-between;
-    border-radius: 0 0 12px 12px;
-  }
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
 </style>
 </head>
 <body>
-
-<div class="card">
-<div class="canvas">
-
-  <div class="hero">
-    <div class="hero-header">
-      <div class="hero-type">technology · KG 卡片</div>
-      <div class="hero-updated">UPDATED 2026-07-09</div>
-    </div>
-    <div class="hero-title">
-      MassiveMIMO天线校准
-      
-    </div>
-    
-    <div class="hero-tags">
-      <span>天线技术</span><span>技术概念</span><span>大规模MIMO</span><span>天线校准</span><span>互易校准</span><span>OTA校准</span><span>相控阵</span>
-    </div>
-    
-    
-    <div class="hero-liner"><b>一句话:</b> Massive MIMO 天线校准是通过补偿射频通道间幅相偏差，确保基站上下行信道互易性成立的关键技术，是 TDD 大规模 MIMO 系统实现下行预编码的基石。</div>
-    
-    
-    <div class="hero-analogy"><b>类比:</b> 就像交响乐团演出前，指挥让每个乐手按定音鼓的音调逐一调音。</div>
-    
-    
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">MassiveMIMO天线校准</h1>
+  <p class="lede">Massive MIMO 天线校准是通过补偿射频通道间幅相偏差，确保基站上下行信道互易性成立的关键技术，是 TDD 大规模 MIMO 系统实现下行预编码的基石。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">大规模MIMO</span><span class="chip brand">天线校准</span><span class="chip brand">互易校准</span><span class="chip brand">OTA校准</span><span class="chip brand">相控阵</span>
   </div>
+  
+</header>
 
-  <!-- JS 贪心分列占位容器 — .block 由下面的 script 搬入 -->
-  <div class="masonry">
-    <div class="masonry-col col-left"></div>
-    <div class="masonry-col col-right"></div>
-  </div>
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
 
   
     
-
-    
-  <div class="block section-text">
-    <div class="block-title">一句话版本</div>
-    <div class="text-body"><p>Massive MIMO 天线校准是通过补偿射频通道间幅相偏差，确保基站上下行信道互易性成立的关键技术，是 TDD 大规模 MIMO 系统实现下行预编码的基石。</p></div>
-  </div>
-
-    
   
-    
 
-    
-  <div class="block section-text">
-    <div class="block-title">类比入口</div>
-    <div class="text-body"><p>就像交响乐团演出前，指挥让每个乐手按定音鼓的音调逐一调音。Massive MIMO 有上百个通道，每个通道的射频器件（功放、混频器、滤波器）特性各不相同，校准就是让所有通道"调到同一个音准"，这样才能精确控制波束方向。</p></div>
-  </div>
-
-    
   
-    
+  <article class="card analogy">
+    <div class="kicker">ANALOGY</div>
+    <h2>类比入口</h2>
+    <p>就像交响乐团演出前，指挥让每个乐手按定音鼓的音调逐一调音。Massive MIMO 有上百个通道，每个通道的射频器件（功放、混频器、滤波器）特性各不相同，校准就是让所有通道"调到同一个音准"，这样才能精确控制波束方向。</p>
+  </article>
+  
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">一、基本定义与原理</div>
-    <div class="text-body"><p>在 TDD（时分双工）模式下，Massive MIMO 系统利用上下行信道的互易性来简化下行信道估计——基站通过上行导频估计信道，然后直接用于下行预编码。然而，实际系统中每个天线的发射（TX）和接收（RX）通道由不同的射频硬件组成，这些硬件在增益和相位上存在差异，破坏了理想的互易性假设。</p>
+    <h2>一、基本定义与原理</h2>
+    <p>在 TDD（时分双工）模式下，Massive MIMO 系统利用上下行信道的互易性来简化下行信道估计——基站通过上行导频估计信道，然后直接用于下行预编码。然而，实际系统中每个天线的发射（TX）和接收（RX）通道由不同的射频硬件组成，这些硬件在增益和相位上存在差异，破坏了理想的互易性假设。</p>
 <p>天线校准的核心目标是测量并补偿每个通道在 TX 和 RX 模式下的非互易误差。设第 i 个通道的 TX 传递函数为 $h_i^{TX}$，RX 传递函数为 $h_i^{RX}$，则互易误差矩阵为 $C = diag(h_1^{TX}/h_1^{RX}, h_2^{TX}/h_2^{RX}, ..., h_N^{TX}/h_N^{RX})$。校准的目的就是估计出这个 N×N 的对角矩阵 C，并在下行预编码时乘以 $C^{-1}$ 进行补偿。</p>
 <p>误差来源分为两类：</p>
 <ul>
@@ -314,17 +132,15 @@
 <li>
 <p><strong>时变误差</strong>：T/R 通道随环境温度变化引起的放大器相位漂移、混频器件特性漂移、滤波器件时延及幅相失真、I/Q 通道非完全正交、天线阵列室外环境形变。这类误差需要定期甚至实时重新校准。</p>
 </li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">二、核心技术与公式</div>
-    <div class="text-body"><p><strong>互易校准基本原理：</strong></p>
+    <h2>二、核心技术与公式</h2>
+    <p><strong>互易校准基本原理：</strong></p>
 <p>在理想互易信道中，上行信道 $H_{UL} = H_{DL}^T$。实际观测到的上行和下行信道分别为：</p>
 <p>$$Y_{UL} = H^T X + N_{UL} = C H^T X + N_{UL}$$</p>
 <p>其中 C 为互易误差对角矩阵。通过校准估计出 C 后，下行预编码矩阵可修正为 $W_{DL} = C^{-1} W_{ideal}$。</p>
@@ -371,17 +187,15 @@
 </tbody>
 </table>
 <p><strong>数字预失真（DPD）联合校准：</strong></p>
-<p>2024 年 Lund 大学提出 OTA 联合 DPD 和互易校准方法，通过互耦 OTA 测量同时线性化发射机并补偿非互易性，无需专用硬件模块，复杂度显著降低。</p></div>
-  </div>
-
-    
+<p>2024 年 Lund 大学提出 OTA 联合 DPD 和互易校准方法，通过互耦 OTA 测量同时线性化发射机并补偿非互易性，无需专用硬件模块，复杂度显著降低。</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">三、实现方式与分类</div>
-    <div class="text-body"><p><strong>1. 电缆校准（Cable-based / "路校准"）</strong></p>
+    <h2>三、实现方式与分类</h2>
+    <p><strong>1. 电缆校准（Cable-based / "路校准"）</strong></p>
 <p>在微带线或同轴线中集成定向耦合器，将发射端信号耦合到接收端进行比对。这是商用 AAU 中最常用的方案，优点是结构简单、成本低，缺点是只能校准到耦合器接入点之前，无法覆盖馈线到天线阵子的部分。</p>
 <p><strong>2. 互耦法（Mutual Coupling Method）</strong></p>
 <p>利用相邻天线阵子之间的互耦效应，通过测量互耦信号来推算各通道间的相对幅相误差。无需额外硬件，适合集成度高的 AAU。但边缘阵元的互耦信号较弱，校准精度低于中心阵元。</p>
@@ -390,17 +204,15 @@
 <p><strong>4. 在线自校准（Online Self-Calibration）</strong></p>
 <p>2025 年北京遥感设备研究所提出基于通道耦合特性的实时监测与自校准方法，利用镜像布局的待校准通道与对称校准发射通道，通过相位调整和幅度数据计算实现全寿命周期性能监测，无需外部测试设备。</p>
 <p><strong>5. 星座建模快速校准</strong></p>
-<p>2025 年滑铁卢大学提出星座建模方法，用闭式方程组建模 BFIC 通道增益和相位响应，最优选择星座状态子集，测量次数减少上千倍，相位 RMS 误差 0.45°，增益 RMS 误差 0.03dB。</p></div>
-  </div>
-
-    
+<p>2025 年滑铁卢大学提出星座建模方法，用闭式方程组建模 BFIC 通道增益和相位响应，最优选择星座状态子集，测量次数减少上千倍，相位 RMS 误差 0.45°，增益 RMS 误差 0.03dB。</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">四、应用场景</div>
-    <div class="text-body"><table>
+    <h2>四、应用场景</h2>
+    <table>
 <thead>
 <tr>
 <th>场景</th>
@@ -435,17 +247,15 @@
 <td>300GHz CMOS相控阵，校准时间窗口极短</td>
 </tr>
 </tbody>
-</table></div>
-  </div>
-
-    
+</table>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">五、关键技术指标</div>
-    <div class="text-body"><table>
+    <h2>五、关键技术指标</h2>
+    <table>
 <thead>
 <tr>
 <th>指标</th>
@@ -480,17 +290,15 @@
 <td>取决于时变误差速率</td>
 </tr>
 </tbody>
-</table></div>
-  </div>
-
-    
+</table>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">六、工程挑战与坑</div>
-    <div class="text-body"><p><strong>1. 时变误差补偿</strong></p>
+    <h2>六、工程挑战与坑</h2>
+    <p><strong>1. 时变误差补偿</strong></p>
 <p>射频通道随温度和时间的漂移是最大挑战。商用 AAU 通常部署在 -40°C 至 +55°C 环境中，功放和混频器的相位漂移可达数度，必须设计周期性重校准机制。</p>
 <p><strong>2. 互耦效应的双刃剑</strong></p>
 <p>互耦法利用互耦信号进行校准，但互耦本身也影响天线方向图。2015 年电子与信息学报论文指出，互耦效应会降低信道矩阵相关性，需在校准算法中显式建模。</p>
@@ -499,70 +307,60 @@
 <p><strong>4. 校准与 DPD 的联合优化</strong></p>
 <p>发射机的非线性效应（需要 DPD 补偿）和非互易性（需要校准补偿）相互耦合，分开处理会导致次优结果。Lund 大学 2024 年的 OTA 联合方案是重要突破方向。</p>
 <p><strong>5. 大规模阵列的校准复杂度</strong></p>
-<p>64T64R AAU 有 64 个发射通道和 64 个接收通道，传统穷举校准需要数万条测量路径。星座建模方法将测量次数降低三个数量级是关键进展。</p></div>
-  </div>
-
-    
+<p>64T64R AAU 有 64 个发射通道和 64 个接收通道，传统穷举校准需要数万条测量路径。星座建模方法将测量次数降低三个数量级是关键进展。</p>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">七、技术演进</div>
-    <div class="text-body"><ul>
+    <h2>七、技术演进</h2>
+    <ul>
 <li><strong>2G/3G 时代</strong>（2000s）：智能天线采用简单的互比校准，通道数少（2-4 通道），电缆校准即可满足</li>
 <li><strong>4G LTE 时代</strong>（2010s）：4T4R / 8T8R Massive MIMO 起步，互耦法和电缆校准成为主流，3GPP R11 标准化</li>
 <li><strong>5G NR 时代</strong>（2018-2023）：64T64R 成为标配，OTA 校准和在线校准并行发展，华为/中兴/爱立信全面商用</li>
 <li><strong>5G-A 时代</strong>（2024-2026）：无蜂窝 Massive MIMO 空口校准（中兴 2024 论文），FDD 三频 Massive MIMO（华为 2025 商用），星座建模快速校准（滑铁卢 2025）</li>
 <li><strong>6G 时代</strong>（2027+）：太赫兹大规模阵列在线校准（GNN 辅助）、星地融合 NTN 校准、全 OTA 联合 DPD 校准</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">八、技术成熟度</div>
-    <div class="text-body"><ul>
+    <h2>八、技术成熟度</h2>
+    <ul>
 <li><strong>成熟度等级</strong>：大规模商用</li>
 <li><strong>说明</strong>：电缆校准和互耦法已在 5G 商用 AAU 中大规模应用多年，技术成熟。OTA 校准主要用于出厂测试和现场标定。在线自校准和 FDD  Massive MIMO 校准正在从原型向商用过渡。太赫兹阵列快速校准和 GNN 辅助在线校准仍处于研究阶段。</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">九、未来趋势</div>
-    <div class="text-body"><ul>
+    <h2>九、未来趋势</h2>
+    <ul>
 <li><strong>短期（1-2 年）</strong>：在线自校准成为 5G-A 基站标配，减少人工校准成本；FDD Massive MIMO 校准方案随华为三频方案全球推广</li>
 <li><strong>中期（3-5 年）</strong>：AI/ML 驱动的实时校准（如 GNN 辅助相位偏移在线估计）进入商用；星载相控阵自校准技术下沉到地面 6G 基站</li>
 <li><strong>长期（5 年以上）</strong>：太赫兹频段（100GHz+）大规模阵列的自动化校准体系建立；全 OTA 联合 DPD 校准成为 6G 原生架构的一部分；量子传感辅助的超高精度校准可能突破传统极限</li>
-</ul></div>
-  </div>
-
-    
+</ul>
+  </article>
   
-    
 
-    
-  <div class="block section-text">
-    <div class="block-title">十、一句话总结</div>
-    <div class="text-body"><p>天线校准是 Massive MIMO 系统的"隐形引擎"——没有它，再多的天线阵子也只是杂乱无章的噪声源；有了它，上百个通道才能协同奏出精准的波束交响乐。</p></div>
-  </div>
-
-    
   
+  <article class="card ">
     
+    <h2>十、一句话总结</h2>
+    <p>天线校准是 Massive MIMO 系统的"隐形引擎"——没有它，再多的天线阵子也只是杂乱无章的噪声源；有了它，上百个通道才能协同奏出精准的波束交响乐。</p>
+  </article>
+  
 
+  
+  <article class="card ">
     
-  <div class="block section-text">
-    <div class="block-title">关联笔记</div>
-    <div class="text-body"><ul>
+    <h2>关联笔记</h2>
+    <ul>
 <li>[[零部件-T-R模块Transmit-Receive-Module-20260703]]</li>
 <li>[[零部件-校准板Calibration-Board-20260703]]</li>
 <li>[[技术概念-相控阵天线Phased-Array-Antenna-20260629]]</li>
@@ -575,52 +373,122 @@
 <li>[[技术概念-FD-MIMO全维度MIMO-20260703]]</li>
 <li>[[技术概念-天线互耦Mutual-Coupling-20260702]]</li>
 <li>[[指标术语-天线隔离度Antenna-Isolation-20260619]]</li>
-</ul></div>
-  </div>
+</ul>
+  </article>
+  
 
+
+
+<article class="card related">
+  <h2>关联笔记 (10)</h2>
+  <div class="related-grid">
     
-  
-
-  
-  <div class="block related-block">
-    <div class="block-title">关联笔记 (10)</div>
-    <div class="related-grid">
-      <a href="#">component-t-r模块transmit-receive-module</a><a href="#">component-校准板calibration-board</a><a href="#">technology-相控阵天线phased-array-antenna</a><a href="#">component-耦合器directional-coupler</a><a href="#">component-环形器隔离器circulator-isolator</a><a href="#">component-衰减器attenuator</a><a href="#">technology-中兴gigamimo空域资源深度重构-20260705</a><a href="#">technology-fd-mimo全维度mimo</a><a href="#">technology-天线互耦mutual-coupling</a><a href="#">metric-天线隔离度antenna-isolation</a>
-    </div>
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/component-t-r模块transmit-receive-module.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">component-t-r模块transmit-receive-module</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/component-校准板calibration-board.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">component-校准板calibration-board</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-相控阵天线phased-array-antenna.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-相控阵天线phased-array-antenna</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/component-耦合器directional-coupler.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">component-耦合器directional-coupler</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/component-环形器隔离器circulator-isolator.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">component-环形器隔离器circulator-isolator</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/component-衰减器attenuator.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">component-衰减器attenuator</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-中兴gigamimo空域资源深度重构-20260705.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-中兴gigamimo空域资源深度重构-20260705</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-fd-mimo全维度mimo.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-fd-mimo全维度mimo</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-天线互耦mutual-coupling.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">technology-天线互耦mutual-coupling</span>
+    </a>
+    
+    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/metric-天线隔离度antenna-isolation.html">
+      <span class="ico">🔗</span>
+      <span class="rel-title">metric-天线隔离度antenna-isolation</span>
+    </a>
+    
   </div>
-  
+</article>
 
-</div>
 
-<div class="footer">
-  <span>antenna-tracker · KG 科普卡片 · technology</span>
-  <span>node: technology-massivemimo天线校准</span>
-</div>
-
-</div>
-
-<script>
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
-  var canvas = document.querySelector('.canvas');
-  if (!canvas) return;
-  var leftCol  = canvas.querySelector('.col-left');
-  var rightCol = canvas.querySelector('.col-right');
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
   if (!leftCol || !rightCol) return;
-
-  // 收集 canvas 下所有 .block（hero 不是 .block 自动排除；related-block 排除保留为底部跨列）
-  var blocks = Array.prototype.slice.call(
-    canvas.querySelectorAll('.block')
-  ).filter(function(b){ return !b.classList.contains('related-block'); });
-
-  // 贪心：哪边矮 append 到哪边
-  blocks.forEach(function(block){
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
     var lH = leftCol.offsetHeight;
     var rH = rightCol.offsetHeight;
-    (lH <= rH ? leftCol : rightCol).appendChild(block);
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
+  main.classList.add('masonry-ready');
 })();
 </script>
-
+<script>
+(function(){
+  function wire(){
+    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
+      if (a.__kgWired) return;
+      a.__kgWired = true;
+      a.addEventListener('click', function(e){
+        try {
+          e.preventDefault();
+          e.stopPropagation();
+          var href = a.getAttribute('href') || '';
+          var fn = href.split('/').pop() || '';
+          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
+          var id = fn;
+          if (id && window.parent !== window) {
+            window.parent.postMessage({type:'kg-nav', id:id}, '*');
+          } else {
+            window.location.href = href;
+          }
+        } catch(err) {
+          console.warn('kg-card nav error', err);
+        }
+        return false;
+      }, true);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wire);
+  } else {
+    wire();
+  }
+})();
+</script>
 </body>
 </html>
