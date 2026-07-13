@@ -83,7 +83,6 @@ export default function CompaniesPage() {
     const offsetDays = (days: number) => {
       const d = new Date(lastDate); d.setDate(d.getDate() - days); return fmt(d)
     }
-    // 30 个交易日 ≈ 42 日历日, 1.4 倍
     const total = Math.round(n * 1.4)
     const half = Math.round(total / 2)
     return [offsetDays(total), offsetDays(half), fmt(lastDate)]
@@ -129,11 +128,9 @@ export default function CompaniesPage() {
     const companies = getCompanies()
     const groups: Record<string, Company[]> = {}
     
-    // 确定每个公司的区域
     companies.forEach(c => {
-      let region = 'GLOBAL' // 默认
+      let region = 'GLOBAL'
       const loc = (c.location || '').toLowerCase()
-      const name = (c.name || '').toLowerCase()
       
       if (c.region) {
         region = c.region
@@ -168,7 +165,6 @@ export default function CompaniesPage() {
       groups[region].push(c)
     })
     
-    // 按区域配置排序
     const result: { region: string; label: string; color: string; companies: Company[] }[] = []
     REGION_CONFIG.forEach(rc => {
       if (groups[rc.key] && groups[rc.key].length > 0) {
@@ -284,7 +280,6 @@ export default function CompaniesPage() {
     const groups = getRegionalGroups()
     if (groups.length === 0) return null
     
-    // 过滤逻辑
     const filteredGroups = selectedRegion === 'all' 
       ? groups 
       : groups.filter(g => g.region === selectedRegion)
@@ -346,6 +341,128 @@ export default function CompaniesPage() {
     )
   }
 
+  // 渲染天线整机层子Tab视图
+  const renderTier3Subsections = () => {
+    const subsections = currentTierData.subsections || {}
+    const subkeys = Object.keys(subsections)
+    if (subkeys.length === 0) {
+      return <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">{getCompanies().map(c => renderCompanyCard(c))}</div>
+    }
+    
+    const tierColor = TIER_CONFIG.find(t => t.key === activeTier)?.color || '#0288d1'
+    const allCompanies = subkeys.flatMap(sk => (subsections[sk]?.companies || []))
+    
+    return (
+      <div>
+        {/* 细分行业子Tab */}
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
+          <button
+            onClick={() => setSelectedSubkey('all')}
+            style={{
+              padding: '6px 16px', borderRadius: '20px',
+              border: selectedSubkey === 'all' ? `2px solid ${tierColor}` : '1px solid #e0e0e0',
+              background: selectedSubkey === 'all' ? `${tierColor}15` : '#f5f5f5',
+              color: selectedSubkey === 'all' ? tierColor : '#666',
+              cursor: 'pointer', fontSize: '0.85rem', fontWeight: 500,
+              transition: 'all 0.2s',
+            }}
+          >
+            全部 ({allCompanies.length}家)
+          </button>
+          {subkeys.map(sk => {
+            const section = subsections[sk]
+            const isActive = selectedSubkey === sk
+            return (
+              <button
+                key={sk}
+                onClick={() => setSelectedSubkey(sk)}
+                style={{
+                  padding: '6px 16px', borderRadius: '20px',
+                  border: isActive ? `2px solid ${tierColor}` : '1px solid #e0e0e0',
+                  background: isActive ? `${tierColor}15` : '#f5f5f5',
+                  color: isActive ? tierColor : '#666',
+                  cursor: 'pointer', fontSize: '0.85rem', fontWeight: 500,
+                  transition: 'all 0.2s',
+                }}
+              >
+                {section.name} ({section.companies.length}家)
+              </button>
+            )
+          })}
+        </div>
+
+        {/* 子Tab内容 */}
+        {selectedSubkey === 'all' ? (
+          <div>
+            {subkeys.map(sk => {
+              const section = subsections[sk]
+              return (
+                <div key={sk} style={{ marginBottom: '32px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', paddingBottom: '8px', borderBottom: `2px solid ${tierColor}` }}>
+                    <span style={{ fontSize: '1.1rem', fontWeight: 600, color: tierColor }}>{section.name}</span>
+                    <span style={{ fontSize: '0.8rem', color: '#999' }}>{section.description}</span>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '12px' }}>
+                    {(section.companies || []).map((c: Company) => renderCompanyCard(c))}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', paddingBottom: '8px', borderBottom: `2px solid ${tierColor}` }}>
+              <span style={{ fontSize: '1.1rem', fontWeight: 600, color: tierColor }}>{subsections[selectedSubkey]?.name}</span>
+              <span style={{ fontSize: '0.8rem', color: '#999' }}>{subsections[selectedSubkey]?.description}</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '12px' }}>
+              {(subsections[selectedSubkey]?.companies || []).map((c: Company) => renderCompanyCard(c))}
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // 渲染期货品种视图
+  const renderTier7Instruments = () => {
+    return (
+      <div>
+        {Object.entries(currentTierData.subsections || {}).map(([subkey, section]: [string, any]) => (
+          <div key={subkey} className="mb-6">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-2 h-2 rounded-full" style={{ background: '#37474f' }}></span>
+              <h3 className="text-sm font-semibold text-gray-700">{section.name}</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {section.instruments?.map((inst: Instrument, i: number) => (
+                <div key={i} className="bg-white rounded-lg p-4 border border-gray-200">
+                  <div className="flex items-start justify-between mb-2">
+                    <h4 className="font-semibold text-gray-800 text-sm">{inst.name}</h4>
+                    {inst.contract && (
+                      <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-mono">{inst.contract}</span>
+                    )}
+                  </div>
+                  <p className="text-xs text-gray-500 mb-1">{inst.exchange}</p>
+                  <p className="text-xs text-gray-600 leading-relaxed">{inst.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  // 渲染普通公司卡片
+  const renderNormalCompanies = () => {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {getCompanies().map(c => renderCompanyCard(c))}
+      </div>
+    )
+  }
+
   return (
     <div className="container">
       <PageHeader
@@ -389,118 +506,11 @@ export default function CompaniesPage() {
           <p className="text-sm text-gray-600 leading-relaxed">{currentTierData.description}</p>
         </div>
 
-        {/* tier1_operators 特殊渲染：按区域分组 */}
-        {activeTier === 'tier1_operators' ? (
-          renderRegionalView()
-        ) : (
-          /* tier7 特殊渲染：期货品种 */
-          activeTier === 'tier7_raw_materials' ? (
-            <div>
-              {Object.entries(currentTierData.subsections || {}).map(([subkey, section]: [string, any]) => (
-                <div key={subkey} className="mb-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="w-2 h-2 rounded-full" style={{ background: '#37474f' }}></span>
-                    <h3 className="text-sm font-semibold text-gray-700">{section.name}</h3>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {section.instruments?.map((inst: Instrument, i: number) => (
-                      <div key={i} className="bg-white rounded-lg p-4 border border-gray-200">
-                        <div className="flex items-start justify-between mb-2">
-                          <h4 className="font-semibold text-gray-800 text-sm">{inst.name}</h4>
-                          {inst.contract && (
-                            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-mono">{inst.contract}</span>
-                          )}
-                        </div>
-                        <p className="text-xs text-gray-500 mb-1">{inst.exchange}</p>
-                        <p className="text-xs text-gray-600 leading-relaxed">{inst.description}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            /* tier3 特殊渲染：按细分行业子Tab */
-            activeTier === 'tier3_antenna_oems' ? (() => {
-              const subsections = currentTierData.subsections || {}
-              const subkeys = Object.keys(subsections)
-              const activeSubkey = selectedSubkey === 'all' ? subkeys[0] : selectedSubkey
-              const activeSection = subsections[activeSubkey]
-              const allCompanies = subkeys.flatMap(sk => (subsections[sk]?.companies || []))
-              
-              return (
-                <div>
-                  {/* 细分行业子Tab */}
-                  <div style={{ display: 'flex', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => setSelectedSubkey('all')}
-                      style={{
-                        padding: '6px 16px', borderRadius: '20px',
-                        border: selectedSubkey === 'all' ? `2px solid ${TIER_CONFIG.find(t => t.key === activeTier)?.color}` : '1px solid #e0e0e0',
-                        background: selectedSubkey === 'all' ? `${TIER_CONFIG.find(t => t.key === activeTier)?.color}15` : '#f5f5f5',
-                        color: selectedSubkey === 'all' ? TIER_CONFIG.find(t => t.key === activeTier)?.color : '#666',
-                        cursor: 'pointer', fontSize: '0.85rem', fontWeight: 500,
-                        transition: 'all 0.2s',
-                      }}
-                    >
-                      全部 ({allCompanies.length}家)
-                    </button>
-                    {subkeys.map(sk => {
-                      const section = subsections[sk]
-                      const isActive = selectedSubkey === sk
-                      return (
-                        <button
-                          key={sk}
-                          onClick={() => setSelectedSubkey(sk)}
-                          style={{
-                            padding: '6px 16px', borderRadius: '20px',
-                            border: isActive ? `2px solid ${TIER_CONFIG.find(t => t.key === activeTier)?.color}` : '1px solid #e0e0e0',
-                            background: isActive ? `${TIER_CONFIG.find(t => t.key === activeTier)?.color}15` : '#f5f5f5',
-                            color: isActive ? TIER_CONFIG.find(t => t.key === activeTier)?.color : '#666',
-                            cursor: 'pointer', fontSize: '0.85rem', fontWeight: 500,
-                            transition: 'all 0.2s',
-                          }}
-                        >
-                          {section.name} ({section.companies.length}家)
-                        </button>
-                      )
-                    })}
-                  </div>
-
-                  {/* 子Tab内容 */}
-                  {selectedSubkey === 'all' ? (
-                    <div>
-                      {subkeys.map(sk => {
-                        const section = subsections[sk]
-                        return (
-                          <div key={sk} style={{ marginBottom: '32px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', paddingBottom: '8px', borderBottom: `2px solid ${TIER_CONFIG.find(t => t.key === activeTier)?.color}` }}>
-                              <span style={{ fontSize: '1.1rem', fontWeight: 600, color: TIER_CONFIG.find(t => t.key === activeTier)?.color }}>{section.name}</span>
-                              <span style={{ fontSize: '0.8rem', color: '#999' }}>{section.description}</span>
-                            </div>
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '12px' }}>
-                              {(section.companies || []).map((c: Company) => renderCompanyCard(c))}
-                            </div>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  ) : (
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', paddingBottom: '8px', borderBottom: `2px solid ${TIER_CONFIG.find(t => t.key === activeTier)?.color}` }}>
-                        <span style={{ fontSize: '1.1rem', fontWeight: 600, color: TIER_CONFIG.find(t => t.key === activeTier)?.color }}>{activeSection.name}</span>
-                        <span style={{ fontSize: '0.8rem', color: '#999' }}>{activeSection.description}</span>
-                      </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '12px' }}>
-                        {(activeSection.companies || []).map((c: Company) => renderCompanyCard(c))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )
-            })() : (
-          )
-        )}
+        {/* 按层级分别渲染 */}
+        {activeTier === 'tier1_operators' && renderRegionalView()}
+        {activeTier === 'tier3_antenna_oems' && renderTier3Subsections()}
+        {activeTier === 'tier7_raw_materials' && renderTier7Instruments()}
+        {!['tier1_operators', 'tier3_antenna_oems', 'tier7_raw_materials'].includes(activeTier) && renderNormalCompanies()}
       </div>
 
       {/* 详情弹窗 */}
