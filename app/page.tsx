@@ -295,7 +295,7 @@ export default function HomePage() {
             <div key={i} style={{ background: BG2, border: `1px solid ${RULE}`, borderRadius: '8px', padding: '16px' }}>
               <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: ACCENT, marginBottom: '8px' }}>{r.flag} {r.title}</h4>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                {r.items.map((item, j) => <li key={j} style={{ padding: '4px 0', fontSize: '0.85rem', color: MUTED, borderBottom: `1px solid ${RULE}`, '::before': { content: '▸ ', color: ACCENT } }}>{item}</li>)}
+                {r.items.map((item, j) => <li key={j} style={{ padding: '4px 0', fontSize: '0.85rem', color: MUTED, borderBottom: `1px solid ${RULE}` }}><span style={{ color: ACCENT, marginRight: '4px' }}>▸</span>{item}</li>)}
               </ul>
             </div>
           ))}
