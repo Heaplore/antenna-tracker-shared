@@ -36,6 +36,7 @@ interface Company {
   stockCurrent?: number
   stock52Low?: number
   stock52High?: number
+  region?: string
 }
 
 interface Instrument {
@@ -46,10 +47,21 @@ interface Instrument {
   description: string
 }
 
+// Region config for operators
+const REGION_CONFIG = [
+  { key: 'CN', label: '🇨🇳 中国', color: '#e53935' },
+  { key: 'NA', label: '🌎 北美', color: '#1a73e8' },
+  { key: 'APAC', label: '🌏 亚太', color: '#0288d1' },
+  { key: 'EMEA', label: '🌍 欧洲/中东/非洲', color: '#7b1fa2' },
+  { key: 'LATAM', label: '🌎 拉丁美洲', color: '#00796b' },
+  { key: 'GLOBAL', label: '🌐 全球性巨头', color: '#d97706' },
+]
+
 export default function CompaniesPage() {
   const [activeTier, setActiveTier] = useState<TierKey>('tier1_operators')
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null)
-  const [selectedSubkey, setSelectedSubkey] = useState<string>('all')
+  const [selectedRegion, setSelectedRegion] = useState<string>('all')
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null)
 
   const supplyChain = companiesData.supplyChain as Record<TierKey, any>
   const currentTierData = supplyChain[activeTier]
@@ -109,6 +121,68 @@ export default function CompaniesPage() {
     return [...companies].sort((a, b) => (a.rank || 99) - (b.rank || 99))
   }
 
+  // 按区域分组（仅运营商层）
+  const getRegionalGroups = (): { region: string; label: string; color: string; companies: Company[] }[] => {
+    if (activeTier !== 'tier1_operators') return []
+    
+    const companies = getCompanies()
+    const groups: Record<string, Company[]> = {}
+    
+    // 确定每个公司的区域
+    companies.forEach(c => {
+      let region = 'GLOBAL' // 默认
+      const loc = (c.location || '').toLowerCase()
+      const name = (c.name || '').toLowerCase()
+      
+      if (c.region) {
+        region = c.region
+      } else if (loc.includes('中国') || loc.includes('北京') || loc.includes('上海') || loc.includes('深圳')) {
+        region = 'CN'
+      } else if (loc.includes('美国') || loc.includes('达拉斯') || loc.includes('纽约') || loc.includes('贝尔维尤') || loc.includes('费城') || 
+                 loc.includes('加拿大') || loc.includes('蒙特利尔') || loc.includes('多伦多') || loc.includes('温哥华')) {
+        region = 'NA'
+      } else if (loc.includes('日本') || loc.includes('东京') || loc.includes('韩国') || loc.includes('首尔') || 
+                 loc.includes('印度') || loc.includes('孟买') || loc.includes('新德里') || loc.includes('新加坡') || 
+                 loc.includes('澳大利亚') || loc.includes('墨尔本') || loc.includes('台湾') || loc.includes('台北') ||
+                 loc.includes('KDDI') || loc.includes('LG U+') || loc.includes('Airtel') || loc.includes('Telstra') || loc.includes('中华')) {
+        region = 'APAC'
+      } else if (loc.includes('欧洲') || loc.includes('英国') || loc.includes('伦敦') || loc.includes('斯温登') || 
+                 loc.includes('德国') || loc.includes('波恩') || loc.includes('法国') || loc.includes('巴黎') || 
+                 loc.includes('西班牙') || loc.includes('马德里') || loc.includes('意大利') || loc.includes('都灵') || 
+                 loc.includes('瑞典') || loc.includes('荷兰') || loc.includes('瑞士') || loc.includes('安曼') || 
+                 loc.includes('沙特') || loc.includes('利雅得') || loc.includes('阿联酋') || loc.includes('阿布扎比') || 
+                 loc.includes('卡塔尔') || loc.includes('多哈') || loc.includes('南非') || loc.includes('约翰内斯堡') || 
+                 loc.includes('肯尼亚') || loc.includes('内罗毕') || loc.includes('BT') || loc.includes('TIM') || 
+                 loc.includes('Telia') || loc.includes('VEON') || loc.includes('Orange') || loc.includes('Telefónica') || 
+                 loc.includes('stc') || loc.includes('Etisalat') || loc.includes('Ooredoo') || loc.includes('Zain') || 
+                 loc.includes('MTN') || loc.includes('Vodacom') || loc.includes('Safaricom')) {
+        region = 'EMEA'
+      } else if (loc.includes('拉美') || loc.includes('墨西哥') || loc.includes('墨西哥城') || loc.includes('巴西') || 
+                 loc.includes('圣保罗') || loc.includes('智利') || loc.includes('阿根廷') || loc.includes('秘鲁') || 
+                 loc.includes('América') || loc.includes('TIM Brasil') || loc.includes('Millicom')) {
+        region = 'LATAM'
+      }
+      
+      if (!groups[region]) groups[region] = []
+      groups[region].push(c)
+    })
+    
+    // 按区域配置排序
+    const result: { region: string; label: string; color: string; companies: Company[] }[] = []
+    REGION_CONFIG.forEach(rc => {
+      if (groups[rc.key] && groups[rc.key].length > 0) {
+        result.push({
+          region: rc.key,
+          label: rc.label,
+          color: rc.color,
+          companies: groups[rc.key]
+        })
+      }
+    })
+    
+    return result
+  }
+
   const openDetail = (company: Company) => setSelectedCompany(company)
   const closeDetail = () => setSelectedCompany(null)
 
@@ -130,22 +204,16 @@ export default function CompaniesPage() {
     <div
       key={company.id}
       onClick={() => openDetail(company)}
+      onMouseEnter={() => setHoveredCard(company.id)}
+      onMouseLeave={() => setHoveredCard(null)}
       style={{
-        background: 'white',
+        background: hoveredCard === company.id ? '#f8f9ff' : 'white',
         borderRadius: '8px',
         padding: '16px',
-        border: '1px solid #e0e0e0',
+        border: `1px solid ${hoveredCard === company.id ? '#667eea' : '#e0e0e0'}`,
         cursor: 'pointer',
         transition: 'all 0.2s',
-        marginBottom: '12px',
-      }}
-      onMouseEnter={e => {
-        (e.currentTarget as HTMLDivElement).style.borderColor = '#667eea'
-        ;(e.currentTarget as HTMLDivElement).style.boxShadow = '0 2px 8px rgba(102,126,234,0.15)'
-      }}
-      onMouseLeave={e => {
-        (e.currentTarget as HTMLDivElement).style.borderColor = '#e0e0e0'
-        ;(e.currentTarget as HTMLDivElement).style.boxShadow = 'none'
+        boxShadow: hoveredCard === company.id ? '0 2px 8px rgba(102,126,234,0.15)' : 'none',
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
@@ -210,6 +278,73 @@ export default function CompaniesPage() {
     )
   }
 
+  // 渲染运营商区域分组视图
+  const renderRegionalView = () => {
+    const groups = getRegionalGroups()
+    if (groups.length === 0) return null
+    
+    // 过滤逻辑
+    const filteredGroups = selectedRegion === 'all' 
+      ? groups 
+      : groups.filter(g => g.region === selectedRegion)
+    
+    return (
+      <div>
+        {/* 区域筛选按钮 */}
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
+          <button
+            onClick={() => setSelectedRegion('all')}
+            style={{
+              padding: '6px 16px',
+              borderRadius: '20px',
+              border: '1px solid #e0e0e0',
+              background: selectedRegion === 'all' ? '#1a73e8' : '#f5f5f5',
+              color: selectedRegion === 'all' ? 'white' : '#666',
+              cursor: 'pointer',
+              fontSize: '0.85rem',
+              fontWeight: 500,
+              transition: 'all 0.2s',
+            }}
+          >
+            全部 ({groups.reduce((sum, g) => sum + g.companies.length, 0)}家)
+          </button>
+          {groups.map(g => (
+            <button
+              key={g.region}
+              onClick={() => setSelectedRegion(g.region)}
+              style={{
+                padding: '6px 16px',
+                borderRadius: '20px',
+                border: `1px solid ${selectedRegion === g.region ? g.color : '#e0e0e0'}`,
+                background: selectedRegion === g.region ? g.color : '#f5f5f5',
+                color: selectedRegion === g.region ? 'white' : '#666',
+                cursor: 'pointer',
+                fontSize: '0.85rem',
+                fontWeight: 500,
+                transition: 'all 0.2s',
+              }}
+            >
+              {g.label} ({g.companies.length}家)
+            </button>
+          ))}
+        </div>
+
+        {/* 按区域分组展示 */}
+        {filteredGroups.map(group => (
+          <div key={group.region} style={{ marginBottom: '32px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', paddingBottom: '8px', borderBottom: `2px solid ${group.color}` }}>
+              <span style={{ fontSize: '1.1rem', fontWeight: 600, color: group.color }}>{group.label}</span>
+              <span style={{ fontSize: '0.8rem', color: '#999' }}>{group.companies.length} 家运营商</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '12px' }}>
+              {group.companies.map(c => renderCompanyCard(c))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
   return (
     <div className="container">
       <PageHeader
@@ -225,7 +360,7 @@ export default function CompaniesPage() {
             {TIER_CONFIG.map(tier => (
               <button
                 key={tier.key}
-                onClick={() => { setActiveTier(tier.key); setSelectedSubkey('all') }}
+                onClick={() => { setActiveTier(tier.key); setSelectedRegion('all') }}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap flex items-center gap-1 ${
                   activeTier === tier.key
                     ? 'text-white'
@@ -253,37 +388,42 @@ export default function CompaniesPage() {
           <p className="text-sm text-gray-600 leading-relaxed">{currentTierData.description}</p>
         </div>
 
-        {/* tier7 特殊渲染：期货品种 */}
-        {activeTier === 'tier7_raw_materials' ? (
-          <div>
-            {Object.entries(currentTierData.subsections || {}).map(([subkey, section]: [string, any]) => (
-              <div key={subkey} className="mb-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="w-2 h-2 rounded-full" style={{ background: '#37474f' }}></span>
-                  <h3 className="text-sm font-semibold text-gray-700">{section.name}</h3>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {section.instruments?.map((inst: Instrument, i: number) => (
-                    <div key={i} className="bg-white rounded-lg p-4 border border-gray-200">
-                      <div className="flex items-start justify-between mb-2">
-                        <h4 className="font-semibold text-gray-800 text-sm">{inst.name}</h4>
-                        {inst.contract && (
-                          <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-mono">{inst.contract}</span>
-                        )}
-                      </div>
-                      <p className="text-xs text-gray-500 mb-1">{inst.exchange}</p>
-                      <p className="text-xs text-gray-600 leading-relaxed">{inst.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* tier1_operators 特殊渲染：按区域分组 */}
+        {activeTier === 'tier1_operators' ? (
+          renderRegionalView()
         ) : (
-          /* 正常公司卡片列表（按rank排序） */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {getCompanies().map(c => renderCompanyCard(c))}
-          </div>
+          /* tier7 特殊渲染：期货品种 */
+          activeTier === 'tier7_raw_materials' ? (
+            <div>
+              {Object.entries(currentTierData.subsections || {}).map(([subkey, section]: [string, any]) => (
+                <div key={subkey} className="mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="w-2 h-2 rounded-full" style={{ background: '#37474f' }}></span>
+                    <h3 className="text-sm font-semibold text-gray-700">{section.name}</h3>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {section.instruments?.map((inst: Instrument, i: number) => (
+                      <div key={i} className="bg-white rounded-lg p-4 border border-gray-200">
+                        <div className="flex items-start justify-between mb-2">
+                          <h4 className="font-semibold text-gray-800 text-sm">{inst.name}</h4>
+                          {inst.contract && (
+                            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-mono">{inst.contract}</span>
+                          )}
+                        </div>
+                        <p className="text-xs text-gray-500 mb-1">{inst.exchange}</p>
+                        <p className="text-xs text-gray-600 leading-relaxed">{inst.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            /* 正常公司卡片列表（按rank排序） */
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {getCompanies().map(c => renderCompanyCard(c))}
+            </div>
+          )
         )}
       </div>
 
