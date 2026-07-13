@@ -68,7 +68,7 @@ const BG2 = '#f8f9fb'
 
 // ─── Component ───────────────────────────────────────────────────
 export default function HomePage() {
-  const chartRefs = useRef<{ market?: HTMLDivElement; share?: HTMLDivElement; cagr?: HTMLDivElement; roadmap?: HTMLDivElement }>({})
+  const chartRefs = useRef<{ market?: HTMLDivElement | null; share?: HTMLDivElement | null; cagr?: HTMLDivElement | null; roadmap?: HTMLDivElement | null }>({})
   const [echartsLoaded, setEchartsLoaded] = useState(false)
 
   useEffect(() => {
