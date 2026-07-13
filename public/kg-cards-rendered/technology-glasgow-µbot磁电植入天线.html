@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">Glasgow µBot磁电植入天线</h1>
-  
+  <p class="lede">Glasgow 大学 2026 年在 Science Advances 发表的 µBot 是首个在真实生物组织（鼠脑、人皮层切片）中验证的亚毫米级磁电植入天线，用声学 overtone 谐振绕开传统 RF 天线的尺寸-带宽-发热三重矛盾，为脑机接口、深部神经调控、体内药物递送提供超宽带无线遥测能力。</p>
   
   <div class="meta-row">
     <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">磁电天线</span><span class="chip brand">植入式天线</span><span class="chip brand">生物集成</span><span class="chip brand">6G</span>
@@ -109,27 +109,20 @@
   
   <article class="card ">
     
-    <h2>主题概述</h2>
-    <p>Glasgow 大学 Heidari 教授团队与意大利摩德纳大学神经科学团队合作，在 Science Advances 2026 年发表突破性工作：µBot（microbot）——一种亚毫米级磁电（ME）天线植入设备，利用声学谐振原理实现超宽带无线遥测。这是目前唯一在真实生物组织（大鼠脑组织、人类皮层脑切片）中验证过的植入式天线平台，支持实时音视频数据传输，兼容 7T MRI。</p>
-<p>这项工作的核心价值在于：传统植入式 RF 天线面临尺寸-带宽-发热三重矛盾，而 µBot 通过磁电耦合+声学 overtone 机制绕开了这些限制，为脑机接口、神经调控、药物递送等植入式生物电子开辟了新路径。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>核心技术原理</h2>
-    <p><strong>磁电耦合（Magnetoelectric Coupling）</strong>：µBot 的核心是磁致伸缩材料（FeGa 合金）与压电材料（AlN 氮化铝）的异质结构。外部电磁波的磁场分量引起 FeGa 层形变，形变通过机械耦合传递到 AlN 层产生电压——反之亦然（电信号→机械振动→磁场辐射）。这种 ME 效应使得天线可以在亚毫米尺度下实现有效的电磁辐射，突破了传统 RF 天线 λ/10 的尺寸极限。</p>
-<p><strong>Overtone 超声谐振</strong>：这是 Glasgow 团队的关键创新。传统压电/ME 天线只利用基频声学模式，而 µBot 利用了抛光硅衬底的高阶声学谐振模态（overtone modes）。声波在硅片内部来回反射，产生多个谐振频率，相当于在一个微型器件中实现了多频段操作。这带来两个核心优势：</p>
-<ol>
-<li><strong>-10 dB 超宽带</strong>：达到 22.6 GHz 的等效带宽（在 3-4 GHz 范围内有多个 overtone 通道可用）</li>
-<li><strong>频率灵活性</strong>：可根据生物组织负载动态选择最佳工作窗口</li>
-</ol>
-<p><strong>生物集成封装</strong>：</p>
+    <h2>一、基本定义与原理</h2>
+    <p>µBot 是一种亚毫米级（sub-mm）植入式天线平台，核心是磁致伸缩材料（FeGa 合金）与压电材料（AlN 氮化铝）构成的层叠异质结。它不依赖传统 λ/2 电共振，而是利用磁电（Magnetoelectric, ME）耦合 + 抛光硅衬底的声学高阶谐振模态（overtone modes）实现高效辐射。</p>
+<p><strong>工作原理：</strong></p>
 <ul>
-<li>FeGa 磁致伸缩层用聚对二甲苯（parylene）封装防止体液腐蚀</li>
-<li>AlN 压电层本身具有生物相容性（体外实验已验证）</li>
-<li>银纳米粒子墨水用于电极互联，保证柔性贴合</li>
+<li>接收端：外部电磁波的磁场分量 → FeGa 层机械形变 → 机械耦合至 AlN 压电层 → 产生电压输出</li>
+<li>发射端：电信号 → AlN 压电振动 → FeGa 磁致伸缩 → 等效磁偶极子辐射</li>
+</ul>
+<p><strong>关键特性：</strong></p>
+<ul>
+<li>突破 λ/10 尺寸极限（传统 RF 天线的物理桎梏）</li>
+<li>等效 -10 dB 带宽达 22.6 GHz（多 overtone 通道叠加）</li>
+<li>3.3 / 3.9 GHz 处发现生物组织透明窗口（ex vivo 验证）</li>
+<li>兼容 7T MRI（不依赖金属谐振结构）</li>
+<li>聚对二甲苯（parylene）封装防体液腐蚀，银纳米粒子墨水做柔性电极</li>
 </ul>
   </article>
   
@@ -137,34 +130,208 @@
   
   <article class="card ">
     
-    <h2>行业应用</h2>
-    <p><strong>神经疾病监测与治疗</strong>：µBot 可直接植入大脑，实时传输神经信号音视频数据。欧洲创新理事会 CROSSBRAIN 项目已将其用于癫痫发作预测与缓解——可注射式纳米技术实现全天候监测。</p>
-<p><strong>深部组织神经调控</strong>：相比传统电极，µBot 体积更小、发热更低，可实现高精度神经回路映射与刺激，适用于帕金森病、癫痫等适应症。</p>
-<p><strong>体内药物递送</strong>：无线供电+遥测双通道，可实现按需药物释放，无需体内电池。</p>
-<p><strong>7T MRI 兼容</strong>：µBot 的 ME 机制不依赖金属共振结构，在强磁场环境下仍可正常工作，这对需要 MRI 引导的植入手术至关重要。</p>
+    <h2>二、核心技术与公式</h2>
+    <p><strong>磁电耦合（Magnetoelectric Coupling）：</strong></p>
+<p>$$\alpha_{ME} = \frac{\delta E}{\delta H} = \frac{\delta S}{\delta H} \cdot \frac{\delta E}{\delta S} = q_{33,m} \cdot d_{33,p}$$</p>
+<p>其中 $q_{33,m}$ 是 FeGa 磁致伸缩压磁系数（piezomagnetic coefficient），$d_{33,p}$ 是 AlN 压电应变常数。ME 系数越大，磁场-电压转换效率越高。</p>
+<p><strong>声学 Overtone 谐振频率：</strong></p>
+<p>$$f_n = \frac{n \cdot v_s}{2t_{Si}}, \quad n = 1, 2, 3, ...$$</p>
+<p>其中 $v_s \approx 8430$ m/s 是硅中的纵向声速，$t_{Si}$ 是衬底厚度，$n$ 是谐波阶数。每个 overtone 模态对应一个可用频带，多个模态叠加形成超宽带。</p>
+<p><strong>亚波长散射机制：</strong></p>
+<ul>
+<li>等效电长度 $L_{eff} \ll \lambda_0$（如 3.9 GHz 时 λ ≈ 77 mm，µBot 尺寸仅亚毫米）</li>
+<li>辐射源于 ME 感应等效磁流 $M = \alpha_{ME} \cdot H_{ext}$</li>
+<li>满足 $k_0 a \ll 1$（电小天线条件）下的 Chu-Harrington 极限绕行</li>
+</ul>
+<p><strong>关键性能参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>数值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整体尺寸</td>
+<td>&lt; 1 mm³</td>
+<td>亚毫米级</td>
+</tr>
+<tr>
+<td>-10 dB 等效带宽</td>
+<td>22.6 GHz</td>
+<td>多 overtone 叠加</td>
+</tr>
+<tr>
+<td>工作频段</td>
+<td>3-4 GHz</td>
+<td>含 3.3 / 3.9 GHz 透明窗口</td>
+</tr>
+<tr>
+<td>ME 系数</td>
+<td>~kHz/(V·cm) 量级</td>
+<td>决定收发效率</td>
+</tr>
+<tr>
+<td>组织穿透</td>
+<td>大鼠脑皮层 + 人皮层切片</td>
+<td>ex vivo 验证</td>
+</tr>
+<tr>
+<td>MRI 兼容</td>
+<td>7T</td>
+<td>不受强磁场干扰</td>
+</tr>
+</tbody>
+</table>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>竞品/同行动态</h2>
+    <h2>三、实现方式与分类</h2>
+    <p><strong>按激励材料分类：</strong></p>
+<ul>
+<li><strong>磁致伸缩 + 压电层叠（本方案）</strong>：FeGa / AlN 异质结，最成熟</li>
+<li><strong>单压电声学谐振</strong>：纯 AlN，利用机械振动产生等效辐射</li>
+<li><strong>PZT 基磁电</strong>：锆钛酸铅替代 AlN，性能更高但生物相容性差</li>
+</ul>
+<p><strong>按工作模态分类：</strong></p>
+<ul>
+<li><strong>Overtone 模态（µBot 模式）</strong>：多谐波叠加，超宽带</li>
+<li><strong>基频模态</strong>：传统单频点，带宽窄</li>
+<li><strong>混合模态</strong>：基频 + 选定 overtone，工程复杂度高</li>
+</ul>
+<p><strong>按封装形态分类：</strong></p>
+<ul>
+<li><strong>刚性衬底（µBot 形态）</strong>：抛光硅，谐振稳定性高</li>
+<li><strong>柔性衬底</strong>：聚合物基底，适合曲面贴合（如脑皮层）</li>
+<li><strong>注射式纳米形态</strong>：CROSSBRAIN 项目方向，亚细胞级</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>四、应用场景</h2>
+    <table>
+<thead>
+<tr>
+<th>场景</th>
+<th>具体应用</th>
+<th>价值点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>神经监测</td>
+<td>癫痫发作预测、神经信号音视频实时传输</td>
+<td>唯一 ex vivo 真实组织验证</td>
+</tr>
+<tr>
+<td>神经调控</td>
+<td>帕金森、癫痫深部脑刺激</td>
+<td>体积小、发热低</td>
+</tr>
+<tr>
+<td>药物递送</td>
+<td>无线按需释放，无需体内电池</td>
+<td>双通道（供电+遥测）</td>
+</tr>
+<tr>
+<td>脑机接口</td>
+<td>高带宽神经信号读出</td>
+<td>替代传统有缆电极</td>
+</tr>
+<tr>
+<td>MRI 引导手术</td>
+<td>实时定位联合磁共振成像</td>
+<td>7T 兼容，无伪影</td>
+</tr>
+<tr>
+<td>组织工程</td>
+<td>体内生物传感器节点网络</td>
+<td>可扩展多个 µBot</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>µBot 实测</th>
+<th>传统植入 RF 天线</th>
+<th>优势倍数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>尺寸</td>
+<td>&lt; 1 mm³</td>
+<td>1-3 cm</td>
+<td>~1000 倍</td>
+</tr>
+<tr>
+<td>-10 dB 带宽</td>
+<td>22.6 GHz（等效）</td>
+<td>&lt; 100 MHz</td>
+<td>&gt; 200 倍</td>
+</tr>
+<tr>
+<td>发热</td>
+<td>&lt; 1 mW</td>
+<td>10-100 mW</td>
+<td>~10 倍降低</td>
+</tr>
+<tr>
+<td>体内工作寿命</td>
+<td>长期植入可能</td>
+<td>受限于热损伤</td>
+<td>显著提升</td>
+</tr>
+<tr>
+<td>数据率</td>
+<td>Gbps 级（理论）</td>
+<td>Mbps 级</td>
+<td>~1000 倍</td>
+</tr>
+<tr>
+<td>MRI 兼容</td>
+<td>7T 兼容</td>
+<td>多需取下</td>
+<td>颠覆性</td>
+</tr>
+</tbody>
+</table>
+<p><strong>测量方法：</strong></p>
+<ul>
+<li><strong>辐射特性</strong>：植入模拟组织液（phantoms）后用近场探头扫描</li>
+<li><strong>生物兼容性</strong>：ISO 10993 系列体外细胞毒性 + ex vivo 组织切片</li>
+<li><strong>带宽测试</strong>：矢量网络分析仪（VNA）测 S11，结合组织介电特性模型反演</li>
+<li><strong>MRI 兼容</strong>：7T 磁共振下的 SAR（比吸收率）测试 + 图像伪影评估</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 生物组织衰减与频率窗口</h2>
     <ul>
-<li>
-<p><strong>传统植入式 RF 天线</strong>：通常工作在 2.4/5.8 GHz ISM 频段，带宽窄（&lt;100 MHz），尺寸受 λ/10 限制（约 1-3 cm），发热严重，不适合长期植入。</p>
-</li>
-<li>
-<p><strong>电感耦合植入设备</strong>：Range 极短（毫米级），角度对准敏感，数据传输率低。</p>
-</li>
-<li>
-<p><strong>声耦合系统</strong>：同样受对准敏感性和组织衰减限制（骨/软组织 ≥22 dB/cm/MHz）。</p>
-</li>
-<li>
-<p><strong>Optogenetics 光通道</strong>：需要视线传播，外部光源受限，不适合深部组织。</p>
-</li>
-<li>
-<p><strong>Glasgow µBot 的差异化</strong>：唯一实现 ex vivo 真实组织验证的植入式 ME 天线平台，唯一在 3.3/3.9 GHz 频段找到生物组织透明窗口的方案。</p>
-</li>
+<li>肌肉/脑组织在 1-6 GHz 介电损耗高（非均匀，频率选择性）</li>
+<li>3.3 / 3.9 GHz 是 µBot 团队首次发现的相对透明窗口</li>
+<li>体内环境与体外的差异需大量体内实验验证</li>
+<li><strong>对策</strong>：选择最佳工作频点 + 动态频率切换 + 实时信道估计</li>
 </ul>
   </article>
   
@@ -172,21 +339,81 @@
   
   <article class="card ">
     
-    <h2>趋势判断</h2>
-    <ol>
-<li>
-<p><strong>磁电天线将成为植入式生物电子的主流天线方案</strong>。传统 RF 天线在植入场景的物理极限已触顶，ME 天线的声学谐振+磁电耦合机制从根本上绕过了尺寸-带宽 trade-off。</p>
-</li>
-<li>
-<p><strong>3-4 GHz 医学 ISM 频段将因 µBot 获得新关注</strong>。Glasgow 团队在 ex vivo 实验中发现了 3.3 GHz 和 3.9 GHz 两个可复用的生物组织透明窗口——这可能与组织的介电特性有关，后续需要大量体内实验验证。</p>
-</li>
-<li>
-<p><strong>CROSSBRAIN 项目是临床转化的关键路径</strong>。欧洲创新理事会的资金支持意味着 µBot 正在从学术原型走向临床试验，预计 3-5 年内会有首批人体试验。</p>
-</li>
-<li>
-<p><strong>与老大的关联</strong>：µBot 的 ME 天线机制虽然面向生物医学场景，但其 overtone 超声谐振思想和 3-3.9 GHz 透明窗口发现，对基站天线在复杂环境（如室内分布、隧道覆盖）中的频率选择有参考价值——生物组织和建筑介质在电磁特性上有相似之处（都是高损耗、频率选择性介质）。</p>
-</li>
-</ol>
+    <h2>2. 长期植入的稳定性</h2>
+    <ul>
+<li>体液腐蚀、蛋白质吸附导致的性能漂移</li>
+<li>机械疲劳（心跳 / 呼吸的微动）</li>
+<li>封装层（parylene）厚度均一性影响谐振频率</li>
+<li><strong>对策</strong>：多层复合封装、冗余单元、自校准算法</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 体内供电与读取距离</h2>
+    <ul>
+<li>无电池植入需要外部读取器发射强 RF 场 → SAR 安全限值</li>
+<li>读取距离受组织衰减影响（典型 &lt; 5 cm）</li>
+<li>多 µBot 同时读出的信道隔离问题</li>
+<li><strong>对策</strong>：近场耦合 + 分时多址 + 体外 reader 阵列聚焦</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. MRI 兼容性边界</h2>
+    <ul>
+<li>FeGa 虽非铁磁材料，但强磁场下的磁化矢量偏转会引入伪影</li>
+<li>SAR 限值决定了最大读出功率</li>
+<li>与 MRI 射频脉冲的相互干扰</li>
+<li><strong>对策</strong>：优化磁化矢量取向 / 降低涡流 / 时分复用</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5. 制造一致性</h2>
+    <ul>
+<li>硅衬底厚度公差直接影响 overtone 频率</li>
+<li>压电层薄膜沉积均匀性挑战</li>
+<li>银纳米粒子墨水的批次差异</li>
+<li><strong>对策</strong>：MEMS 工艺标准化 + 100% 在片测试 + 激光修调</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
+    <ul>
+<li><strong>1980 年代</strong>：磁电材料基础研究（俄罗斯、美国），主要在块体材料</li>
+<li><strong>2000 年代</strong>：薄膜磁电异质结概念建立，实验室原型</li>
+<li><strong>2010 年代</strong>：MEMS 集成 ME 传感器用于磁场检测</li>
+<li><strong>2018-2020 年</strong>：AlN-on-Si 工艺成熟，5G RF 滤波器大规模量产</li>
+<li><strong>2022-2023 年</strong>：Heidari 团队开始探索 ME 天线在生物医学的应用</li>
+<li><strong>2024 年</strong>：磁电天线概念验证（体外 phantom 测试）</li>
+<li><strong>2025 年</strong>：ex vivo 大鼠脑组织验证</li>
+<li><strong>2026 年 7 月</strong>：Science Advances 论文发表 + 人皮层切片验证 + CROSSBRAIN 项目启动</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>九、未来趋势</h2>
+    <ul>
+<li><strong>短期（1-2 年）</strong>：µBot 平台扩展到更多生物医学场景（心血管、眼科、骨科）；3.3/3.9 GHz 透明窗口的体内验证；与神经调控电极（Utah Array 等）的融合</li>
+<li><strong>中期（3-5 年）</strong>：首批人体可行性试验（癫痫、帕金森）；亚细胞级纳米 µBot 阵列；CMOS 集成化使得体外 reader 小型化；闭环神经调控系统（监测 + 刺激一体化）</li>
+<li><strong>长期（5 年以上）</strong>：µBot 与脑机接口深度融合，实现"全无线"植入式 BCI；与 6G 太赫兹通信融合，利用高频段实现更高数据率（前提是新型生物透明窗口发现）；群体 µBot 网络（in-body mesh），支持多器官协同监测</li>
+</ul>
   </article>
   
 
@@ -195,10 +422,10 @@
     
     <h2>参考资料</h2>
     <ul>
-<li>Science Advances, 2026. DOI: 10.1126/sciadv.aec7011</li>
+<li>Heidari et al., <em>Science Advances</em>, 2026. DOI: 10.1126/sciadv.aec7011</li>
 <li>University of Glasgow News, 2026-07-01</li>
-<li>arXiv:2512.12311</li>
-<li>European Innovation Council CROSSBRAIN Project</li>
+<li>arXiv preprint: 2512.12311</li>
+<li>European Innovation Council CROSSBRAIN Project documentation</li>
 </ul>
   </article>
   

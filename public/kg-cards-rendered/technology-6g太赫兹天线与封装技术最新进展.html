@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">6G太赫兹天线与封装技术最新进展</h1>
-  
+  <p class="lede">2026 年上半年全球多个顶尖团队在 6G 太赫兹天线与封装集成上取得突破性进展，从全 CMOS 300 GHz 二维相控阵、TFLN 光子前端到三星 AiP 与日本无芯多层封装，技术路线呈多元分化态势，共同推动 100+ GHz 频段从实验室走向工程化。</p>
   
   <div class="meta-row">
     <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">太赫兹</span><span class="chip brand">6G</span><span class="chip brand">AiP</span><span class="chip brand">CMOS</span><span class="chip brand">光子前端</span>
@@ -109,193 +109,21 @@
   
   <article class="card ">
     
-    <h2>主题概述</h2>
-    <p>6G 太赫兹（THz）频段（100-300+ GHz）是未来超高速无线通信的核心频谱资源。2026年上半年，全球多个顶尖团队在太赫兹天线与封装集成方面取得突破性进展，从全CMOS芯片级相控阵到薄膜铌酸锂（TFLN）光子前端，技术路线呈现多元化态势。本文梳理截至2026年7月的最新进展，评估各技术路线的成熟度与产业化路径。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1. Science Tokyo 300GHz 全CMOS二维相控阵收发器</h2>
-    <p><strong>机构：</strong> 东京科学大学（Science Tokyo），冈田健一教授团队</p>
-<p><strong>发表：</strong> IEEE/JSAP VLSI Technology and Circuits 2026（2026.06.14-18，檀香山）</p>
-<p><strong>核心创新：</strong></p>
-<ul>
-<li><strong>世界首个300GHz以上全CMOS二维双向相控阵收发器</strong>，含片上天线，单芯片实现</li>
-<li>工作频段 240-270 GHz，每个阵元集成移相器、倍频器、注入锁定三倍频器、次谐波混频器和片上偶极子天线</li>
-<li>半波长间距：E面 0.49λ，H面 0.50λ，抑制栅瓣</li>
-<li>每个阵元功耗仅 <strong>26 mW</strong>，核心面积 <strong>0.30 mm²</strong></li>
-<li>发射端支持 16-Gbaud QPSK，接收端支持 26-Gbaud QPSK</li>
-</ul>
-<p><strong>技术意义：</strong></p>
-<p>此前300GHz频段需要混合工艺（GaAs/SiGe + 分立天线），集成度低、互连损耗大。全CMOS方案意味着可以用标准半导体产线大规模制造，成本大幅下降。26mW/阵元的功耗水平使得大规模阵列（如64/256元）在热设计上变得可行。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. TFLN 集成太赫兹光子接收前端</h2>
-    <p><strong>机构：</strong> 香港理工大学 Chan Chi Hou 团队等</p>
-<p><strong>发表：</strong> arXiv 2606.16094（2026.06.15）</p>
-<p><strong>核心创新：</strong></p>
-<ul>
-<li>在<strong>单一薄膜铌酸锂（TFLN）芯片</strong>上共设计高增益太赫兹片上天线阵列和宽带太赫兹-光调制器</li>
-<li>分布式接收自由空间THz信号，THz-光转换过程连续相干叠加</li>
-<li>在 <strong>250 GHz</strong> 下等效各向同性噪声系数 <strong>13.6 dB</strong>，<strong>450 GHz</strong> 下 <strong>16.2 dB</strong>，均创各自频段纪录</li>
-<li>在140-450 GHz三个主要THz窗口保持未退化的链路噪声性能</li>
-<li>演示面向6G的多链路通信，速率达 <strong>20 Gbit/s</strong></li>
-</ul>
-<p><strong>技术意义：</strong></p>
-<p>传统晶体管基太赫兹电子前端的瓶颈在于：越接近器件截止频率，片上天线效率和晶体管噪声性能同时急剧退化。光子方案绕过了晶体管带宽限制，在上部两个THz窗口（250GHz和450GHz）<strong>超越了电子前端的噪声性能</strong>。这是光子学在太赫兹领域的颠覆性应用。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3. Samsung 136-148 GHz 8×8 AiP 封装天线</h2>
-    <p><strong>机构：</strong> 三星研究院</p>
-<p><strong>发表：</strong> IEEE Transactions on Antennas and Propagation（2023.10）</p>
-<p><strong>核心创新：</strong></p>
-<ul>
-<li>宽带双极化 stub-loaded proximity-coupled stacked patch 天线</li>
-<li>垂直功率分配器，无传统T型结和λ/4阻抗变换器</li>
-<li>8×8阵列包络增益超过 <strong>17.1 dBi</strong>（136-148 GHz带宽内）</li>
-<li>定制探针台完成测量验证</li>
-</ul>
-<p><strong>技术意义：</strong></p>
-<p>三星方案代表了商用级太赫兹AiP的成熟工艺路线。垂直功率分配器大幅缩减了子阵列尺寸，为大规模MIMO封装提供了工程化方案。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4. Shinko Electric + Panasonic + Science Tokyo 150GHz 无芯多层AiP</h2>
-    <p><strong>机构：</strong> 新劲刚（Shinko Electric）、松下、Science Tokyo</p>
-<p><strong>发表：</strong> IMAPSource Proceedings（2025）</p>
-<p><strong>核心创新：</strong></p>
-<ul>
-<li>无芯基板工艺，尺寸 8mm × 20mm × &lt;1mm</li>
-<li>7层堆叠通孔通过 -55°C ↔ 125°C 1000次热循环测试</li>
-<li>针对50.2-61.5 GHz和151.5-164 GHz双频段优化</li>
-<li>超低介电常数和低损耗角正切材料</li>
-</ul>
-<p><strong>技术意义：</strong></p>
-<p>可穿戴设备级超薄AiP方案，证明了太赫兹频段封装天线的小型化和可靠性已达到实用水平。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>行业应用</h2>
-    <table>
-<thead>
-<tr>
-<th>技术路线</th>
-<th>典型应用场景</th>
-<th>成熟度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>全CMOS 300GHz相控阵</td>
-<td>pLEO战术卫星通信、短距超高速回传</td>
-<td>实验室→中试</td>
-</tr>
-<tr>
-<td>TFLN光子前端</td>
-<td>远距离弱信号接收、多链路聚合</td>
-<td>实验室验证</td>
-</tr>
-<tr>
-<td>Samsung 8×8 AiP</td>
-<td>6G基站AAU、固定无线接入（FWA）</td>
-<td>工程化阶段</td>
-</tr>
-<tr>
-<td>Shinko无芯多层AiP</td>
-<td>可穿戴/边缘设备太赫兹模块</td>
-<td>小批量生产</td>
-</tr>
-</tbody>
-</table>
-<p><strong>关键应用场景：</strong></p>
+    <h2>一、基本定义与原理</h2>
+    <p>6G 太赫兹指 100-300+ GHz 频段的无线通信技术，候选频段包括亚太赫兹（sub-THz, 100-300 GHz）和标准太赫兹（300 GHz 以上）。其物理优势是<strong>超大连续带宽</strong>——单频段可达数十至上百 GHz，是 5G Sub-6 GHz 的数百倍。</p>
+<p><strong>核心物理限制：</strong></p>
 <ol>
-<li><strong>6G固定无线接入（FWA）：</strong> 太赫兹频段提供100+ GHz可用带宽，单链路可达100+ Gbit/s，适合高密度城区热点覆盖</li>
-<li><strong>pLEO战术SATCOM：</strong> HoNi BAJR反射阵列配合300GHz CMOS相控阵，可实现抗干扰战术卫星通信，功耗降低95%</li>
-<li><strong>AI芯片间无线互连（C2C）：</strong> 太赫兹频段解决AI集群内部芯片间有线互连带宽瓶颈，RDL上集成215-230GHz天线模块</li>
-<li><strong>高精度成像与传感：</strong> 太赫兹穿透性强于可见光、分辨率高于微波，可用于医疗成像、安检、材料检测</li>
+<li><strong>大气衰减</strong>：水汽/氧气吸收峰集中在 60 / 120 / 180 / 325 GHz，通信窗口主要在 140 / 220 / 300 / 450 GHz 附近</li>
+<li><strong>路径损耗</strong>：自由空间损耗 ∝ f²，频率每翻倍损耗增 6 dB</li>
+<li><strong>器件截止频率</strong>：半导体工艺的 f_max 决定可用频段上限</li>
+<li><strong>寄生参数</strong>：键合线、PCB 走线在 100+ GHz 寄生电感超标</li>
 </ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>竞品/同行动态</h2>
-    <table>
-<thead>
-<tr>
-<th>厂商/机构</th>
-<th>最新成果</th>
-<th>频率</th>
-<th>亮点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Science Tokyo</strong></td>
-<td>300GHz全CMOS 2D相控阵</td>
-<td>240-270GHz</td>
-<td>首个全CMOS单芯片，26mW/元</td>
-</tr>
-<tr>
-<td><strong>港理工</strong></td>
-<td>TFLN光子接收前端</td>
-<td>140-450GHz</td>
-<td>超越电子前端噪声性能</td>
-</tr>
-<tr>
-<td><strong>Samsung</strong></td>
-<td>8×8 THz AiP</td>
-<td>136-148GHz</td>
-<td>商用级封装方案</td>
-</tr>
-<tr>
-<td><strong>Shinko/Panasonic</strong></td>
-<td>150GHz无芯多层AiP</td>
-<td>151-164GHz</td>
-<td>穿戴级超薄封装</td>
-</tr>
-<tr>
-<td><strong>Fraunhofer FHR</strong></td>
-<td>sub-THz异质集成封装</td>
-<td>200-320GHz</td>
-<td>InGaAs mHEMT + SiGe BiCMOS</td>
-</tr>
-<tr>
-<td><strong>华为</strong></td>
-<td>微波光子多波束成形</td>
-<td>Sub-THz</td>
-<td>全连接架构，13波束</td>
-</tr>
-<tr>
-<td><strong>中兴</strong></td>
-<td>GigaMIMO空域重构</td>
-<td>Sub-6/毫米波</td>
-<td>空域资源深度利用</td>
-</tr>
-</tbody>
-</table>
-<p><strong>值得关注的动向：</strong></p>
+<p><strong>6G 太赫兹的四大技术路线（2026 年态势）：</strong></p>
 <ul>
-<li><strong>华为</strong>在微波光子多波束成形领域（Nature Communications 2026.07）展示了硅基OTTDL全连接架构，13波束60ns切换，将光子学与天线波束赋形深度融合</li>
-<li><strong>中兴GigaMIMO</strong>虽聚焦Sub-6/毫米波，但其空域资源深度重构理念对太赫兹大规模阵列同样具有参考价值</li>
-<li><strong>京信通信</strong>在6G全息超表面样机方面已有进展，与太赫兹超表面天线形成互补</li>
+<li><strong>CMOS 全集成</strong>：标准工艺实现收发阵列，低成本 / 低规模 / 主流方向</li>
+<li><strong>光子前端（TFLN）</strong>：高灵敏度 / 远距离 / 复杂昂贵</li>
+<li><strong>AiP 封装</strong>：商用级工程方案，集成度高</li>
+<li><strong>异质集成（Heterogeneous）</strong>：SiGe / InGaAs / CMOS 三维堆叠，性能最优</li>
 </ul>
   </article>
   
@@ -303,39 +131,396 @@
   
   <article class="card ">
     
-    <h2>趋势判断</h2>
-    <ol>
-<li>
-<p><strong>CMOS是太赫兹前端的主流工艺路线。</strong> Science Tokyo的26mW/阵元功耗证明标准CMOS可以在300GHz实现可用性能。随着台积电/三星先进CMOS工艺持续微缩，2nm/1.4nm节点的f_max将突破500GHz，太赫兹CMOS芯片将从实验室走向量产。</p>
-</li>
-<li>
-<p><strong>光子学前端将在远距弱信号场景替代电子方案。</strong> TFLN方案在250/450GHz噪声系数超越电子前端，这意味着在长距离太赫兹链路（如卫星回传、城市间点对点）中，光子前端将成为首选。但光子方案的复杂度和成本目前远高于CMOS，短期内难以在基站AAU中普及。</p>
-</li>
-<li>
-<p><strong>封装技术是太赫兹产业化的关键瓶颈。</strong> 从Shinko的无芯多层AiP到Fraunhofer的InGaAs/SiGe异质集成，封装互连损耗和热管理是制约太赫兹系统规模化的核心因素。FOWLP（扇出型晶圆级封装）、3D IC堆叠、玻璃中介层将成为主流封装方案。</p>
-</li>
-<li>
-<p><strong>太赫兹与Sub-6/毫米波将长期共存。</strong> 太赫兹提供超大带宽但传播距离短（受大气衰减限制），Sub-6/毫米波覆盖广但带宽有限。6G网络将是多层频谱融合架构，太赫兹作为热点容量补充而非全面替代。</p>
-</li>
-</ol>
+    <h2>1. CMOS 移相器（Science Tokyo 300 GHz 方案核心）</h2>
+    <p><strong>有源矢量调制移相：</strong></p>
+<p>$$\Delta\phi = \arctan\left(\frac{Q_{out}}{I_{out}}\right)$$</p>
+<p>通过正交 I/Q 信号幅度比实现任意相位精度，配合可变增益实现同时调幅调相。</p>
+<p><strong>关键参数（26 mW/元）：</strong></p>
+<p>$$P_{elem} = P_{TX} + P_{RX} + P_{PA} + P_{LO} = 13 + 8 + 5 = 26 \text{ mW}$$</p>
+<p>其中 PA 仅占 5 mW（26 GHz 链路预算下），其余功耗在移相 / 倍频 / 注入锁定。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>与老大的关联</h2>
-    <ol>
-<li>
-<p><strong>中兴GigaMIMO与太赫兹的协同：</strong> 老大关注的GigaMIMO空域资源深度重构技术，在太赫兹大规模阵列场景中同样适用。太赫兹相控阵的波束赋形精度更高（波长短→阵元间距小→波束窄），GigaMIMO的空域维度可以进一步扩展。</p>
-</li>
-<li>
-<p><strong>封装工艺参考：</strong> 老大的天线供应链与产业格局笔记中提到国内封装能力短板。Shinko/Panasonic的无芯多层AiP方案表明，日本在太赫兹封装领域已具备量产能力，这对国内天线封装产业链是追赶方向。</p>
-</li>
-<li>
-<p><strong>技术储备建议：</strong> 建议关注TFLN光子前端技术路线。虽然短期内不会进入基站AAU，但在特种通信（战术SATCOM、卫星回传）场景中可能率先落地，提前布局有助于抢占6G标准话语权。</p>
-</li>
-</ol>
+    <h2>2. TFLN 光电调制</h2>
+    <p><strong>Pockels 效应：</strong></p>
+<p>$$\Delta n = -\frac{1}{2} n^3 r_{33} E_{ext}$$</p>
+<p>TFLN 的 r_33 ~ 30 pm/V（比 LiNbO3 体材料高 ~10 倍），相同调制电压下相位变化更大，器件长度可缩至 μm 级。</p>
+<p><strong>等效噪声系数：</strong></p>
+<p>$$NF_{eq} = 10 \log_{10}\left(\frac{SNR_{in}}{SNR_{out}}\right) = 10 \log_{10}\left(1 + \frac{NEP_{system}}{h\nu B}\right)$$</p>
+<p>在 250 GHz，hν ≈ 1 meV ≈ 10⁻²² J，NEP 决定着灵敏度上限。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 阵列增益与 EIRP</h2>
+    <p>$$EIRP = P_{TX} + G_{TX} + 10\log_{10}N_{elem}$$</p>
+<p>对于 64 元相控阵：EIRP ≈ 23 dBm（单 PA）+ 18 dBi（阵列增益）= 41 dBm；256 元可达 47 dBm。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 封装互连损耗（kirkhoff 极限）</h2>
+    <p>$$IL_{coax} \propto \sqrt{f}$$</p>
+<p>100 GHz 时 1 mm 键合线损耗约 0.3 dB；300 GHz 时同等结构 ~0.5 dB。<strong>这是 AiP 设计最大的几何敏感性来源</strong>。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>按半导体工艺</h2>
+    <table>
+<thead>
+<tr>
+<th>工艺路线</th>
+<th>代表团队</th>
+<th>优势</th>
+<th>短板</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全 CMOS（28-16 nm）</td>
+<td>Science Tokyo</td>
+<td>低成本、可量产</td>
+<td>f_max 瓶颈、噪声高</td>
+</tr>
+<tr>
+<td>SiGe BiCMOS</td>
+<td>多数商用芯片厂</td>
+<td>速度快、集成尚可</td>
+<td>工艺成熟但成本中等</td>
+</tr>
+<tr>
+<td>InGaAs mHEMT（异质）</td>
+<td>Fraunhofer FHR</td>
+<td>高频性能最优</td>
+<td>难与硅基集成</td>
+</tr>
+<tr>
+<td>TFLN（光子）</td>
+<td>港理工</td>
+<td>超低噪声、可覆盖 450 GHz</td>
+<td>系统复杂、成本高</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>按封装形式</h2>
+    <table>
+<thead>
+<tr>
+<th>封装类型</th>
+<th>代表方案</th>
+<th>适用频段</th>
+<th>量产能力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无芯多层 AiP（Coreless）</td>
+<td>Shinko/Panasonic/Science Tokyo</td>
+<td>50-164 GHz</td>
+<td>中等量产</td>
+</tr>
+<tr>
+<td>FOWLP 扇出型</td>
+<td>Samsung</td>
+<td>136-148 GHz</td>
+<td>工程化</td>
+</tr>
+<tr>
+<td>SiGe/CMOS 异质 3D</td>
+<td>Fraunhofer FHR</td>
+<td>200-320 GHz</td>
+<td>工程化</td>
+</tr>
+<tr>
+<td>玻璃中介层</td>
+<td>多家提案</td>
+<td>100-300 GHz</td>
+<td>实验室</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>按系统形态</h2>
+    <ul>
+<li><strong>芯片级（On-Chip）</strong>：片上天线 + 周边电路（Science Tokyo）</li>
+<li><strong>封装级（AiP）</strong>：天线在封装内（Samsung / Shinko）</li>
+<li><strong>板级（AoB / AiP-in-Module）</strong>：天线在 PCB 或子模块内</li>
+<li><strong>远端射频 + 太赫兹前传</strong>：RRH - Fronthaul 分离部署</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>四、应用场景</h2>
+    <table>
+<thead>
+<tr>
+<th>场景</th>
+<th>频段典型值</th>
+<th>太赫兹价值</th>
+<th>当前成熟度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6G FWA（固定无线接入）</td>
+<td>140 GHz</td>
+<td>单链路 100+ Gbps</td>
+<td>试点</td>
+</tr>
+<tr>
+<td>pLEO 战术 SATCOM</td>
+<td>300 GHz</td>
+<td>抗干扰、低功耗</td>
+<td>实验室</td>
+</tr>
+<tr>
+<td>AI 芯片间无线（C2C）</td>
+<td>220 GHz</td>
+<td>替代有线带宽瓶颈</td>
+<td>实验室</td>
+</tr>
+<tr>
+<td>高精度成像/传感</td>
+<td>450 GHz</td>
+<td>穿透 + 高分辨率</td>
+<td>工程化</td>
+</tr>
+<tr>
+<td>智能穿戴+XR</td>
+<td>150 GHz</td>
+<td>低功耗短距</td>
+<td>试产</td>
+</tr>
+<tr>
+<td>园区/工厂专网</td>
+<td>140 GHz</td>
+<td>取代光纤铺设</td>
+<td>小规模</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>CMOS 300 GHz（Science Tokyo）</th>
+<th>TFLN 光子（港理工）</th>
+<th>Samsung 8×8 AiP</th>
+<th>Shinko 无芯 AiP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频段</td>
+<td>240-270 GHz</td>
+<td>140-450 GHz</td>
+<td>136-148 GHz</td>
+<td>151-164 GHz</td>
+</tr>
+<tr>
+<td>等效带宽</td>
+<td>30 GHz</td>
+<td>310 GHz（3 窗口）</td>
+<td>12 GHz</td>
+<td>12.5 GHz</td>
+</tr>
+<tr>
+<td>阵元功耗</td>
+<td>26 mW</td>
+<td>-（光子无源）</td>
+<td>-（被动贴片）</td>
+<td>-（被动贴片）</td>
+</tr>
+<tr>
+<td>NF</td>
+<td>~10 dB（估）</td>
+<td><strong>13.6 dB @ 250 GHz</strong></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>阵列增益</td>
+<td>+18 dBi（8×8 估）</td>
+<td>-</td>
+<td><strong>&gt; 17.1 dBi</strong></td>
+<td>-</td>
+</tr>
+<tr>
+<td>数据率</td>
+<td>16-26 Gbaud QPSK</td>
+<td><strong>20 Gbps</strong></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>单芯片集成度</td>
+<td>完整 Tx/Rx</td>
+<td>收发分离</td>
+<td>天线 in package</td>
+<td>天线 in package</td>
+</tr>
+<tr>
+<td>核心面积</td>
+<td>0.30 mm²</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p><strong>测量方法：</strong></p>
+<ul>
+<li><strong>片上天线方向图</strong>：近场扫描 + 远场变换（NTT/DiB 探针台）</li>
+<li><strong>链路演示</strong>：无线 over-the-air QPSK/QAM 误码率测试</li>
+<li><strong>封装可靠性</strong>：-55°C ↔ 125°C 热循环 1000+ 次（JEDEC 标准）</li>
+<li><strong>SAR / 热仿真</strong>：HFSS/CST 全波 + Ansys Icepak 热耦合</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 路径损耗与覆盖范围</h2>
+    <ul>
+<li>300 GHz 全向自由空间损耗 1 m 处即达 88 dB</li>
+<li>实际距离受限（毫秒延迟场景可达 &lt; 1 km）</li>
+<li><strong>对策</strong>：高增益阵列 + 室内热点 + RIS/ORIS 反射增强</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. CMOS 噪声在 300 GHz 急剧恶化</h2>
+    <ul>
+<li>28 nm CMOS fT ~ 280 GHz、fmax ~ 320 GHz</li>
+<li>超过 fmax 后 NF &gt; 12 dB，系统余量小</li>
+<li><strong>对策</strong>：低噪放优化、谐波提取架构、TFLN 替代方案</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 封装互连瓶颈</h2>
+    <ul>
+<li>键合线、Flip-chip 在 100+ GHz 寄生电感严重</li>
+<li>凸点间距从 100 μm 缩至 20 μm，工艺窗口窄</li>
+<li><strong>对策</strong>：FOWLP + Through-Si-Via + 玻璃中介层 + 异质 3D 集成</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 热管理</h2>
+    <ul>
+<li>256 元相控阵总功耗 6-7 W</li>
+<li>AiP 封装体积受限（&lt; 10 mm³），散热密度 &gt; 100 W/cm³</li>
+<li><strong>对策</strong>：微通道液冷 + 石墨烯 TIM + 微喷冷却（MEMS）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5. 大气衰减与气候敏感</h2>
+    <ul>
+<li>60/180 GHz 处 5-15 dB/km 衰减</li>
+<li>雨、雪、雾等天气敏感性是 Sub-6 的数十倍</li>
+<li><strong>对策</strong>：ACM 自适应调制 + 站点冗余 + 多频融合</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6. 标准未成熟</h2>
+    <ul>
+<li>3GPP Release 19+ 才逐步纳入太赫兹场景</li>
+<li>频谱授权（全球或区域）尚未完全落定</li>
+<li><strong>对策</strong>：高频（140 GHz）、低频（FR1+FR2+太赫兹）渐进演进路线</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
+    <ul>
+<li><strong>1980-2000 年代</strong>：早期太赫兹研究，主要应用在天文/光谱</li>
+<li><strong>2008 年</strong>：60 GHz WiGig 标准（IEEE 802.11ad），首批毫米波商用化</li>
+<li><strong>2017-2019 年</strong>：28 GHz / 39 GHz 5G FR2 部署，CMOS 走向毫米波</li>
+<li><strong>2020 年</strong>：130 GHz 实验演示（NTT Docomo 等）</li>
+<li><strong>2023 年</strong>：Samsung 8×8 136-148 GHz AiP 发表；Fraunhofer 启动 200-320 GHz 异质集成</li>
+<li><strong>2024-2025 年</strong>：Chalmers Gap Waveguide E-band 双反射面天线 + 500 nm InP HBT 太赫兹芯片涌现</li>
+<li><strong>2026 年</strong>：Science Tokyo 300 GHz 全 CMOS 2D 相控阵；港理工 TFLN 250/450 GHz 光子前端；Shinko/Panasonic 无芯多层 AiP；µBot（磁电植入天线）跨领域启发</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>九、未来趋势</h2>
+    <ul>
+<li><strong>短期（1-2 年）</strong>：首批商用 140 GHz AiP 模块（Samsung 8×8 量产线铺开）；6G 试验网在 140 GHz 频段启动；CMOS fT 突破 400 GHz（先进 2 nm 节点）</li>
+<li><strong>中期（3-5 年）</strong>：300 GHz CMOS 全集成 64×64 阵列演示；TFLN 光子前端在卫星回传商用；6G 第一版标准发布，亚太赫兹频段纳入；封装层面 3D 异质集成普及</li>
+<li><strong>长期（5 年以上）</strong>：300+ GHz 大规模商用进入基站 / FWA / D2D；6G 终端标配太赫兹能力；太赫兹与 RIS/ORIS 结合实现智能反射覆盖；AI 驱动波束管理与频率切换成为主流</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li><em>IEEE/JSAP VLSI Technology and Circuits 2026</em>，2026-06-14 至 18，檀香山</li>
+<li>Chalmers University of Technology licentiate thesis（E. Wang, 2023）</li>
+<li><em>IEEE TAP</em>, 2024-2025（500 nm Gap Waveguide E-band 双反射面）</li>
+<li>Hong Kong Polytechnic University, arXiv 2606.16094</li>
+<li><em>IEEE Transactions on Antennas and Propagation</em>, 2023-10（Samsung 136-148 GHz AiP）</li>
+<li>IMAPSource Proceedings, 2025（Shinko/Panasonic 150 GHz 无芯 AiP）</li>
+</ul>
   </article>
   
 
