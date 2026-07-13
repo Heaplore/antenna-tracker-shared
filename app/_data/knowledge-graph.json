@@ -612,7 +612,7 @@
       "name": "AAU有源天线单元",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-AAU有源天线单元-20260622.md",
+      "filename": "技术概念-AAU有源天线单元深度解读-20260622.md",
       "tags": [
         "天线",
         "基站",
@@ -6300,7 +6300,7 @@
       "name": "抛物面反射器天线",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-抛物面反射器天线-20260622.md",
+      "filename": "技术概念-抛物面反射器天线深度解读-20260622.md",
       "tags": [
         "天线",
         "微波",
@@ -7505,7 +7505,7 @@
       "name": "智能反射面RIS",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-智能反射面RIS-20260701.md",
+      "filename": "技术概念-智能反射面RIS深度解读-20260701.md",
       "tags": [
         "[天线技术",
         "智能反射面",
@@ -8997,7 +8997,7 @@
       "name": "波束赋形Beamforming",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-波束赋形Beamforming-20260618.md",
+      "filename": "技术概念-波束赋形Beamforming深度解读-20260618.md",
       "tags": [
         "天线",
         "波束赋形",
@@ -9540,7 +9540,7 @@
       "name": "电磁屏蔽与EMC Shielding",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-电磁屏蔽与EMC Shielding-20260629.md",
+      "filename": "技术概念-电磁屏蔽与EMC Shielding深度解读-20260629.md",
       "tags": [
         "电磁屏蔽",
         "EMC",
@@ -10070,7 +10070,7 @@
       "name": "菲涅尔区天线",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-菲涅尔区天线-20260617.md",
+      "filename": "技术概念-菲涅尔区天线深度解读-20260617.md",
       "tags": [
         "天线",
         "微波",
@@ -11866,7 +11866,7 @@
       "name": "S参数S-Parameters",
       "nameEn": "",
       "type": "metric",
-      "filename": "指标术语-S参数S-Parameters-20260626.md",
+      "filename": "指标术语-S参数S-Parameters深度解读-20260626.md",
       "tags": [
         "天线",
         "S参数",
@@ -12062,7 +12062,7 @@
       "name": "VSWR电压驻波比",
       "nameEn": "",
       "type": "metric",
-      "filename": "指标术语-VSWR电压驻波比-20260626.md",
+      "filename": "指标术语-VSWR电压驻波比深度解读-20260626.md",
       "tags": [
         "天线",
         "VSWR",
@@ -13220,7 +13220,7 @@
       "name": "天线带宽Bandwidth",
       "nameEn": "",
       "type": "metric",
-      "filename": "指标术语-天线带宽Bandwidth-20260626.md",
+      "filename": "指标术语-天线带宽Bandwidth深度解读-20260626.md",
       "tags": [
         "天线",
         "带宽",
@@ -18121,7 +18121,7 @@
       "name": "天线罩Radome",
       "nameEn": "",
       "type": "component",
-      "filename": "零部件-天线罩Radome-20260629.md",
+      "filename": "零部件-天线罩Radome深度解读-20260629.md",
       "tags": [
         "天线",
         "天线罩",
@@ -20887,7 +20887,7 @@
       "name": "天线仿真工具（CST/HFSS/FEKO/Altair）",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-天线仿真工具-20260704.md",
+      "filename": "技术概念-天线仿真工具CST HFSS FEKO Altair-20260704.md",
       "tags": [
         "天线",
         "技术",
@@ -20908,7 +20908,7 @@
       "name": "天线供应链与产业格局（全球/国内供应商）",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-天线供应链与产业格局-20260704.md",
+      "filename": "技术概念-天线供应链与产业格局全球国内供应商-20260704.md",
       "tags": [
         "天线",
         "技术",
@@ -20928,7 +20928,7 @@
       "name": "天线制造工艺（冲压/蚀刻/CNC/3D打印/印刷电子）",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-天线制造工艺-20260704.md",
+      "filename": "技术概念-天线制造工艺冲压蚀刻CNC3D打印印刷电子-20260704.md",
       "tags": [
         "天线",
         "技术",
@@ -20946,7 +20946,7 @@
       "name": "天线制造质量检测（IQC/IPQC/OQC/尺寸公差/插损/驻波/PIM）",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-天线制造质量检测-20260704.md",
+      "filename": "技术概念-天线制造质量检测IQC IPQC OQC尺寸公差插损驻波PIM-20260704.md",
       "tags": [
         "天线",
         "技术",
@@ -20964,7 +20964,7 @@
       "name": "天线匹配网络设计（Smith圆图/LC/微带）",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-天线匹配网络设计-20260704.md",
+      "filename": "技术概念-天线匹配网络设计Smith圆图LC微带-20260704.md",
       "tags": [
         "天线",
         "技术",
@@ -20985,7 +20985,7 @@
       "name": "天线可靠性与环境测试（盐雾/温度/冰雹/风载）",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-天线可靠性与环境测试-20260704.md",
+      "filename": "技术概念-天线可靠性与环境测试盐雾温度冰雹风载-20260704.md",
       "tags": [
         "天线",
         "技术",
@@ -21008,7 +21008,7 @@
       "name": "天线封装与集成技术（CoP/SiP/Fan-out）",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-天线封装与集成技术-20260704.md",
+      "filename": "技术概念-天线封装集成CoP SiP Fan-out AoP-20260704.md",
       "tags": [
         "天线",
         "技术",
@@ -21028,7 +21028,7 @@
       "name": "天线标准与法规（3GPP/ETSI/IEEE/FCC/SRRC）",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-天线标准与法规-20260704.md",
+      "filename": "技术概念-天线标准与法规3GPP ETSI IEEE FCC SRRC-20260704.md",
       "tags": [
         "天线",
         "技术",
@@ -21051,7 +21051,7 @@
       "name": "天线测试与测量方法（暗室/近场/远场/校准）",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-天线测试与测量方法-20260704.md",
+      "filename": "技术概念-天线测试与测量方法暗室近场远场校准-20260704.md",
       "tags": [
         "天线",
         "技术",
@@ -21072,7 +21072,7 @@
       "name": "有源天线 vs 无源天线（AAS vs PAS）",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-有源天线 vs 无源天线-20260704.md",
+      "filename": "技术概念-有源天线AAS与无源天线PAS对比-20260704.md",
       "tags": [
         "天线",
         "技术",
@@ -21359,7 +21359,7 @@
       "name": "D波段150GHz AiP相控阵无线模块-Science Tokyo",
       "nameEn": "",
       "type": "technology",
-      "filename": "技术概念-D波段150GHz AiP相控阵无线模块-Science Tokyo-20260710.md",
+      "filename": "技术概念-D波段150GHz AiP相控阵无线模块-Science Tokyo-20260711.md",
       "tags": [
         "天线技术",
         "技术概念",
