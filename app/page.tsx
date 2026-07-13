@@ -1,408 +1,579 @@
 'use client'
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, ScatterChart, Scatter } from 'recharts'
-import marketDataRaw from '@/app/_data/market-report.json'
-import PageHeader from '@/components/PageHeader'
+import { useEffect, useRef } from 'react'
 
-type WorldMarketData = NonNullable<typeof marketDataRaw.worldMarketData>
-type MarketData = typeof marketDataRaw
-const marketData = marketDataRaw as MarketData
-const worldData = marketData.worldMarketData
+// ─── Static Data ─────────────────────────────────────────────────
 
-const BRAND = '#0FB5A8'
-const BRAND_DEEP = '#0A4D5C'
-const BRAND_LIGHT = '#5EEAD4'
-const BRAND_PALE = '#A7F3D0'
-const AMBER = '#FFD166'
-const ROSE = '#E76F51'
-const APP_MIX_COLORS = [BRAND, BRAND_LIGHT, BRAND_PALE, AMBER, ROSE, '#F4A261', '#C8E6E0']
+// ─── Key Metrics ─────────────────────────────────────────────────
+const KEY_METRICS = [
+  { value: '641亿', label: '中国通信天线\n2024年市场规模(元)', color: '' },
+  { value: '21.0%', label: '全球Massive MIMO\nAAU市场CAGR', color: 'green' },
+  { value: '44.2%', label: '全球5G相控阵\n天线市场CAGR', color: 'orange' },
+  { value: '29.4%', label: '华为国内基站\n天线市场份额', color: '' },
+]
 
-// Derived chart data from worldMarketData (报告口径，单位：亿美元)
-const timelineChartData = worldData ? Object.entries(worldData.marketScale).map(([year, global]) => ({ year, global })) : []
-const appMixData = worldData ? Object.entries(worldData.applicationMix2024).map(([name, value]) => ({ name, value })) : []
-const regionData = worldData ? Object.entries(worldData.regionalShare2024).map(([name, value]) => ({ name, value })) : []
-const vendorData = worldData ? Object.entries(worldData.vendorMarketShare2024).map(([name, value]) => ({ name, value })) : []
-const massiveMIMOLine = worldData ? [
-  { year: '2024', value: worldData.hotSegments.massiveMIMO['2024'] },
-  { year: '2031E', value: worldData.hotSegments.massiveMIMO['2031E'] },
-] : []
-const satelliteLine = worldData ? [
-  { year: '2024', value: worldData.hotSegments.satellitePhasedArray['2024'] },
-  { year: '2034E', value: worldData.hotSegments.satellitePhasedArray['2034E'] },
-] : []
-const v2xLine = worldData ? [
-  { year: '2023', value: worldData.hotSegments.v2x['2023'] },
-  { year: '2030E', value: worldData.hotSegments.v2x['2030E'] },
-] : []
-const techData = worldData ? worldData.techMaturity.map(t => ({ name: t.name, x: t.commercialization, y: t.aspElasticity })) : []
+// ─── Market Size Chart Data ──────────────────────────────────────
+const marketSizeData = [
+  { year: '2023', china: 627, aaU: null, phased: null },
+  { year: '2024', china: 641.3, aaU: 16.25, phased: null },
+  { year: '2025E', china: 658, aaU: 21, phased: null },
+  { year: '2026E', china: 675, aaU: 27, phased: null },
+  { year: '2027E', china: 695, aaU: 34, phased: null },
+  { year: '2028E', china: 718, aaU: 41, phased: null },
+  { year: '2029E', china: 745, aaU: 47, phased: null },
+  { year: '2030E', china: 770, aaU: 51, phased: 5.95 },
+  { year: '2031E', china: 800, aaU: 53.12, phased: null },
+]
 
-const bodyText = { fontSize: '0.9rem', lineHeight: 1.75, color: '#444', marginTop: '12px' }
-const listStyle = { fontSize: '0.88rem', lineHeight: 1.85, color: '#555', paddingLeft: '1.25rem', marginTop: '8px' }
-const subTitleStyle = { fontSize: '0.95rem', color: BRAND_DEEP, margin: '18px 0 4px', fontWeight: 600 }
+// ─── Market Share Data ───────────────────────────────────────────
+const marketShareData = [
+  { name: '华为', value: 29.4 },
+  { name: '中兴通讯', value: 18.6 },
+  { name: '通宇通讯', value: 14.2 },
+  { name: '京信通信', value: 12.0 },
+  { name: '摩比发展', value: 8.0 },
+  { name: 'Commscope', value: 7.8 },
+  { name: '爱立信', value: 5.0 },
+  { name: '其他', value: 5.0 },
+]
 
-export default function Home() {
-  const cr5 = worldData
-    ? worldData.vendorMarketShare2024['华为'] + worldData.vendorMarketShare2024['爱立信'] + worldData.vendorMarketShare2024['诺基亚'] + worldData.vendorMarketShare2024['中兴'] + worldData.vendorMarketShare2024['三星']
-    : 0
+// ─── CAGR Data ───────────────────────────────────────────────────
+const cagrData = [
+  { name: '全球5G天线', cagr: -1.3 },
+  { name: '中国通信天线', cagr: 2.3 },
+  { name: '全球5G-A AAU', cagr: 21.0 },
+  { name: '全球5G相控阵天线', cagr: 44.2 },
+  { name: '全球5G设备整体', cagr: 81.05 },
+]
 
-  // 数据更新只显示年月
-  const updateMonth = marketData.lastUpdate ? String(marketData.lastUpdate).slice(0, 7) : ''
+// ─── Tech Roadmap Data ───────────────────────────────────────────
+const techRoadmapData = [
+  { name: '传统基站天线', start: 2019, end: 2024, desc: '2G/3G/4G 延续至今' },
+  { name: 'Massive MIMO AAU', start: 2019, end: 2027, desc: '当前主流，向192T192R演进' },
+  { name: '毫米波天线', start: 2020, end: 2026, desc: '热点覆盖为主，LEO卫星驱动爆发' },
+  { name: '5G-A 通感一体化', start: 2024, end: 2028, desc: '5G-A商用元年，通信+感知融合' },
+  { name: 'RIS 智能超表面', start: 2024, end: 2030, desc: '2026-27小规模商用，2030+6G标配' },
+  { name: '太赫兹天线', start: 2025, end: 2031, desc: '6G核心频段，当前预研阶段' },
+  { name: '空天地一体化', start: 2024, end: 2030, desc: '卫星直连手机+星地融合' },
+  { name: 'AI 原生天线', start: 2025, end: 2031, desc: 'AI辅助波束管理/信道估计' },
+]
+
+// ─── Colors ──────────────────────────────────────────────────────
+const COLORS = ['#2563eb', '#059669', '#d97706', '#7c3aed', '#db2777', '#5a6070', '#2563eb', '#5a6070']
+const ACCENT = '#2563eb'
+const ACCENT2 = '#059669'
+const INK = '#1a1a2e'
+const MUTED = '#5a6070'
+const RULE = '#e2e5ea'
+const BG2 = '#f8f9fb'
+
+// ─── Component ───────────────────────────────────────────────────
+export default function HomePage() {
+  const chartRefs = useRef<{ market?: HTMLDivElement; share?: HTMLDivElement; cagr?: HTMLDivElement; roadmap?: HTMLDivElement }>({})
+  const [echartsLoaded, setEchartsLoaded] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if ((window as any).echarts) { setEchartsLoaded(true); return }
+    const s = document.createElement('script')
+    s.src = 'https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js'
+    s.onload = () => setEchartsLoaded(true)
+    document.head.appendChild(s)
+  }, [])
+
+  useEffect(() => {
+    if (!echartsLoaded || !chartRefs.current.market) return
+    const echarts = (window as any).echarts
+
+    // Chart 1: Market Size
+    const mc = echarts.init(chartRefs.current.market!, null, { renderer: 'svg' })
+    mc.setOption({
+      tooltip: { trigger: 'axis' },
+      legend: { data: ['中国通信天线(亿元RMB)', '全球Massive MIMO AAU(亿美元)', '全球5G相控阵天线(亿美元)'], textStyle: { color: INK, fontSize: 11 } },
+      grid: { left: 50, right: 30, top: 60, bottom: 40 },
+      xAxis: { type: 'category', data: ['2023','2024','2025E','2026E','2027E','2028E','2029E','2030E','2031E'], axisLabel: { color: MUTED, fontSize: 10 } },
+      yAxis: [
+        { type: 'value', name: '亿元 RMB', nameTextStyle: { color: MUTED, fontSize: 10 }, axisLabel: { color: MUTED, fontSize: 10 }, splitLine: { lineStyle: { color: RULE } } },
+        { type: 'value', name: '亿美元', nameTextStyle: { color: MUTED, fontSize: 10 }, axisLabel: { color: MUTED, fontSize: 10 }, splitLine: { show: false } }
+      ],
+      series: [
+        { name: '中国通信天线(亿元RMB)', type: 'line', smooth: true, data: [627,641.3,658,675,695,718,745,770,800], lineStyle: { color: ACCENT, width: 2 }, itemStyle: { color: ACCENT }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: ACCENT+'33' }, { offset: 1, color: ACCENT+'05' }] } }, symbol: 'circle', symbolSize: 6 },
+        { name: '全球Massive MIMO AAU(亿美元)', type: 'line', smooth: true, yAxisIndex: 1, data: [null,16.25,21,27,34,41,47,51,53.12], lineStyle: { color: ACCENT2, width: 2 }, itemStyle: { color: ACCENT2 }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: ACCENT2+'33' }, { offset: 1, color: ACCENT2+'05' }] } }, symbol: 'circle', symbolSize: 6 },
+        { name: '全球5G相控阵天线(亿美元)', type: 'line', smooth: true, yAxisIndex: 1, data: [null,null,null,null,null,null,null,5.95,null], lineStyle: { color: MUTED, width: 2, type: 'dashed' }, itemStyle: { color: MUTED }, symbol: 'diamond', symbolSize: 8 }
+      ]
+    })
+
+    // Chart 2: Market Share Pie
+    const pc = echarts.init(chartRefs.current.share!, null, { renderer: 'svg' })
+    pc.setOption({
+      tooltip: { trigger: 'item' },
+      legend: { orient: 'vertical', right: 20, top: 'center', textStyle: { color: INK, fontSize: 11 }, data: ['华为','中兴通讯','通宇通讯','京信通信','摩比发展','Commscope','爱立信','其他'] },
+      series: [{
+        type: 'pie', radius: ['40%','70%'], center: ['35%','50%'], avoidLabelOverlap: false,
+        itemStyle: { borderRadius: 4, borderColor: BG2, borderWidth: 2 },
+        label: { show: true, position: 'outside', formatter: '{b}\n{d}%', color: INK, fontSize: 11 },
+        emphasis: { label: { show: true, fontSize: 13, fontWeight: 'bold' } },
+        data: marketShareData.map((d, i) => ({ ...d, itemStyle: { color: COLORS[i] } }))
+      }]
+    })
+
+    // Chart 3: CAGR Bar
+    const bc = echarts.init(chartRefs.current.cagr!, null, { renderer: 'svg' })
+    bc.setOption({
+      tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+      grid: { left: 120, right: 40, top: 20, bottom: 20 },
+      xAxis: { type: 'value', axisLabel: { color: MUTED, fontSize: 10, formatter: '{value}%' }, splitLine: { lineStyle: { color: RULE } } },
+      yAxis: { type: 'category', data: cagrData.map(d => d.name), axisLabel: { color: INK, fontSize: 10 } },
+      series: [{
+        type: 'bar', barWidth: 20,
+        data: cagrData.map((d, i) => ({ value: d.cagr, itemStyle: { color: i < 2 ? MUTED : COLORS[i] } }))
+          .concat([{ value: 44.2, itemStyle: { color: ACCENT2 } }, { value: 81.05, itemStyle: { color: '#d97706' } }]),
+        label: { show: true, position: 'right', formatter: '{c}%', color: INK, fontSize: 11, fontWeight: 'bold' }
+      }]
+    })
+
+    // Chart 4: Tech Roadmap Gantt
+    const rc = echarts.init(chartRefs.current.roadmap!, null, { renderer: 'svg' })
+    const tNames = techRoadmapData.map(d => d.name)
+    const tStart = techRoadmapData.map(d => d.start)
+    const tEnd = techRoadmapData.map(d => d.end)
+    const tDesc = techRoadmapData.map(d => d.desc)
+    const tColors = [MUTED, ACCENT, ACCENT+'cc', ACCENT2, ACCENT2+'cc', '#d97706', '#d97706cc', '#7c3aed']
+    rc.setOption({
+      tooltip: {
+        trigger: 'axis', axisPointer: { type: 'shadow' },
+        formatter: (p: any[]) => {
+          const i = p[0].dataIndex
+          return tNames[i]+'<br/>'+tDesc[i]+'<br/>'+tStart[i]+' → '+tEnd[i]
+        }
+      },
+      grid: { left: 160, right: 200, top: 20, bottom: 40 },
+      xAxis: {
+        type: 'value', min: 2018.5, max: 2031.5,
+        axisLabel: { color: MUTED, fontSize: 10, formatter: '{value}' },
+        splitLine: { lineStyle: { color: RULE, type: 'dashed' } },
+        axisLine: { lineStyle: { color: RULE } }
+      },
+      yAxis: {
+        type: 'category', data: tNames,
+        axisLabel: { color: INK, fontSize: 11 },
+        axisLine: { lineStyle: { color: RULE } }
+      },
+      series: [{
+        type: 'custom',
+        renderItem: (params: any, api: any) => {
+          const yIndex = params.dataIndex
+          const startY = tStart[yIndex]
+          const endY = tEnd[yIndex]
+          const startCoord = api.coord([startY, yIndex])
+          const endCoord = api.coord([endY, yIndex])
+          return {
+            type: 'rect',
+            shape: { x: startCoord[0], y: startCoord[1]-7, width: Math.max(endCoord[0]-startCoord[0], 1), height: 14, r: 3 },
+            style: api.style({ fill: tColors[yIndex] })
+          }
+        },
+        data: tNames.map((_, i) => i),
+        label: {
+          show: true, position: 'right',
+          formatter: (p: any) => {
+            const i = p.dataIndex
+            return tStart[i]+' → '+tEnd[i]+': '+tDesc[i]
+          },
+          fontSize: 9, color: INK, overflow: 'truncate'
+        }
+      }]
+    })
+
+    // Resize handler
+    const onResize = () => { mc.resize(); pc.resize(); bc.resize(); rc.resize() }
+    window.addEventListener('resize', onResize)
+    return () => { window.removeEventListener('resize', onResize); mc.dispose(); pc.dispose(); bc.dispose(); rc.dispose() }
+  }, [echartsLoaded])
+
+  // ─── Inline Styles ─────────────────────────────────────────────
+  const css = `
+    :root {
+      --bg: #ffffff; --bg2: #f8f9fb; --ink: #1a1a2e; --muted: #5a6070;
+      --rule: #e2e5ea; --accent: #2563eb; --accent2: #059669;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--ink); font-family: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif; font-size: 16px; line-height: 1.7; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 3rem; }
+    .hero { text-align: center; padding: 5rem 0 3rem; border-bottom: 1px solid var(--rule); margin-bottom: 3rem; }
+    .hero .tag { display: inline-block; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 1.5rem; }
+    .hero h1 { font-family: 'Big Shoulders', system-ui, sans-serif; font-weight: 700; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 1rem; color: var(--ink); }
+    .hero .subtitle { font-size: 1.05rem; color: var(--muted); max-width: 600px; margin: 0 auto 1.5rem; }
+    .hero .meta { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; font-size: 0.8rem; color: var(--muted); }
+    .hero .meta span { white-space: nowrap; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 3rem 0; }
+    .metric-card { background: var(--bg2); border: 1px solid var(--rule); border-radius: 8px; padding: 1.5rem; text-align: center; }
+    .metric-card .value { font-family: 'Big Shoulders', system-ui, sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 0.3rem; }
+    .metric-card .value.green { color: var(--accent2); }
+    .metric-card .value.orange { color: #d97706; }
+    .metric-card .label { font-size: 0.78rem; color: var(--muted); line-height: 1.3; }
+    section { margin: 3.5rem 0; }
+    h2 { font-family: 'Big Shoulders', system-ui, sans-serif; font-weight: 700; font-size: 1.6rem; letter-spacing: 0.02em; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); display: inline-block; }
+    h3 { font-family: 'Big Shoulders', system-ui, sans-serif; font-weight: 700; font-size: 1.15rem; margin: 2rem 0 0.8rem; color: var(--accent); }
+    h4 { font-size: 0.95rem; font-weight: 600; margin: 1.2rem 0 0.5rem; color: var(--ink); }
+    p { margin-bottom: 1rem; color: var(--ink); }
+    mark.key { background: none; color: var(--accent); font-weight: 600; }
+    .table-wrap { overflow-x: auto; max-height: 600px; margin: 1.5rem 0; border: 1px solid var(--rule); border-radius: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th { background: var(--bg2); color: var(--accent); font-weight: 600; text-align: left; padding: 0.7rem 1rem; border-bottom: 2px solid var(--accent); white-space: nowrap; }
+    td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--rule); color: var(--ink); }
+    tr:hover td { background: var(--bg2); }
+    .callout { border-left: 4px solid var(--accent); background: var(--bg2); padding: 1.2rem 1.5rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; }
+    .callout.warning { border-left-color: #d97706; }
+    .callout.success { border-left-color: var(--accent2); }
+    .callout strong { color: var(--accent); }
+    .callout.warning strong { color: #d97706; }
+    .callout.success strong { color: var(--accent2); }
+    .chart-figure { margin: 2.5rem 0; background: var(--bg2); border: 1px solid var(--rule); border-radius: 8px; padding: 1.5rem; }
+    .chart-figure figcaption { font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 1rem; text-align: center; }
+    .timeline { position: relative; padding-left: 2rem; margin: 2rem 0; }
+    .timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--rule); }
+    .timeline-item { position: relative; margin-bottom: 1.5rem; padding-left: 1rem; }
+    .timeline-item::before { content: ''; position: absolute; left: -2rem; top: 0.4rem; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg); }
+    .timeline-item .year { font-family: 'Big Shoulders', system-ui, sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--accent); margin-bottom: 0.2rem; }
+    .timeline-item p { font-size: 0.9rem; color: var(--muted); margin: 0; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+    .col-card { background: var(--bg2); border: 1px solid var(--rule); border-radius: 8px; padding: 1.2rem; }
+    .col-card h4 { margin-top: 0; color: var(--accent); font-size: 0.95rem; }
+    .col-card ul { list-style: none; padding: 0; }
+    .col-card li { padding: 0.3rem 0; font-size: 0.88rem; color: var(--muted); border-bottom: 1px solid var(--rule); }
+    .col-card li:last-child { border-bottom: none; }
+    .col-card li::before { content: '▸ '; color: var(--accent); }
+    .conclusion { background: linear-gradient(135deg, var(--bg2), var(--bg)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; margin: 3rem 0; }
+    .conclusion h2 { border-bottom: none; display: block; margin-bottom: 1rem; }
+    .conclusion ul { list-style: none; padding: 0; }
+    .conclusion li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; font-size: 0.92rem; color: var(--ink); border-bottom: 1px solid var(--rule); }
+    .conclusion li:last-child { border-bottom: none; }
+    .conclusion li::before { content: '✦'; position: absolute; left: 0; color: var(--accent); }
+    footer { margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--rule); }
+    footer .sources { max-width: 900px; margin: 0 auto; padding: 0 3rem; }
+    footer .sources h2 { font-size: 1.1rem; border-bottom: none; margin-bottom: 1rem; }
+    footer .sources ol { padding-left: 1.2rem; font-size: 0.82rem; color: var(--muted); }
+    footer .sources li { margin-bottom: 0.6rem; overflow-wrap: break-word; word-break: break-all; }
+    footer .sources .src-title { color: var(--ink); word-break: normal; }
+    footer .sources .src-url { display: block; margin-top: 0.15rem; font-size: 0.78rem; color: var(--accent); word-break: break-all; }
+    sup a { color: var(--accent); text-decoration: none; font-size: 0.75em; font-weight: 600; }
+    sup a:hover { text-decoration: underline; }
+    @media (max-width: 1024px) { .container { padding: 0 2rem; } .metrics-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .container { padding: 0 1rem; } .hero { padding: 3rem 0 2rem; } .hero h1 { font-size: 1.8rem; } .metrics-grid { grid-template-columns: 1fr 1fr; } .two-col { grid-template-columns: 1fr; } .hero .meta { gap: 1rem; flex-direction: column; align-items: center; } footer .sources { padding: 0 1rem; } table { font-size: 0.8rem; } th, td { padding: 0.4rem 0.6rem; } }
+    @media print { body { background: #fff; color: #222; } .chart-figure { break-inside: avoid; } section { break-inside: avoid; } sup a { color: #2563eb; } }
+  `
 
   return (
-    <div className="container">
-      <PageHeader
-        title="全球天线行业市场格局深度报告"
-        subtitle="Global Antenna Industry Market Landscape · 基于 12 家机构交叉验证"
-        updateInfo={`数据更新：${updateMonth} · 数据来源：web_search 公开信息`}
-      />
+    <>
+      <style dangerouslySetInnerHTML={{ __html: css }} />
 
-      {/* 执行摘要 */}
-      <section className="card">
-        <h2 className="card-title">执行摘要</h2>
-        <div className="overview-grid">
-          <div className="metrics-panel">
-            <div className="metric-item">
-              <div className="metric-value">{marketData.summary.globalMarketSize2024}</div>
-              <div className="metric-label">2024 全球天线市场规模（机构中位）</div>
-            </div>
-            <div className="metric-item">
-              <div className="metric-value">{marketData.summary.chinaMarketSize2024}</div>
-              <div className="metric-label">2024 中国市场规模（人民币）</div>
-            </div>
-            <div className="metric-item">
-              <div className="metric-value">{marketData.summary.forecast2030}</div>
-              <div className="metric-label">2030 年全球预测规模</div>
-            </div>
-            <div className="metric-item">
-              <div className="metric-value">{marketData.summary.cagr}</div>
-              <div className="metric-label">2019-2030 综合年复合增长率</div>
-            </div>
-            <div className="metric-item">
-              <div className="metric-value">{worldData ? Object.keys(worldData.applicationMix2024).length : 0}</div>
-              <div className="metric-label">主要应用大类</div>
-            </div>
-            {marketData.summary.forecastDetail && (
-              <div className="metric-item" style={{ fontSize: '0.75rem', color: '#666' }}>
-                <div className="metric-value" style={{ fontSize: '0.75rem' }}>
-                  {Object.entries(marketData.summary.forecastDetail).map(([k, v]) => `${k}: ${v}`).join(' / ')}
-                </div>
-                <div className="metric-label">多情景预测范围</div>
-              </div>
-            )}
+      {/* Hero */}
+      <div className="hero">
+        <div className="container">
+          <div className="tag">行业深度研究报告 · 2026年7月</div>
+          <h1>全球天线行业市场格局<br />及技术发展现状趋势</h1>
+          <p className="subtitle">从5G建设高峰期到5G-A/6G过渡期的系统性分析：市场规模、竞争格局、技术演进与未来展望</p>
+          <div className="meta">
+            <span>作者：银月（TRAE Agent）</span>
+            <span>日期：2026-07-13</span>
+            <span>研究深度：L3 深度建模</span>
           </div>
         </div>
-        <p style={{ ...bodyText, marginTop: '16px' }}>
-          在 5G 规模部署、低轨卫星星座爆发、车联网与 Massive MIMO 加速渗透的多重驱动下，全球天线产业进入新一轮成长周期。
-          本报告基于 Mordor Intelligence、GII Research、Fortune Business Insights、GMI、QYResearch 等 12 家机构公开数据交叉验证，
-          从规模、结构、区域、厂商、技术与风险六个维度进行系统梳理。全球天线市场 2024 年规模约 <strong>223 亿美元</strong>，
-          预计以 <strong>7.8% 的 CAGR</strong> 增至 2030 年的 <strong>348 亿美元</strong>（乐观情景突破 400 亿）；
-          厂商格局高度集中，<strong>华为以 30% 市占率领跑全球</strong>，<strong>亚太以 45% 份额成为最大市场</strong>。
-        </p>
-      </section>
+      </div>
 
-      {/* 一、全球天线市场规模与增长曲线 */}
-      <section className="card">
-        <h2 className="card-title">全球天线市场规模与增长曲线</h2>
-        <div className="chart-panel-full">
-          <ResponsiveContainer width="100%" height={320}>
-            <AreaChart data={timelineChartData} margin={{ top: 10, right: 20, left: 0, bottom: 10 }}>
-              <defs>
-                <linearGradient id="globalGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={BRAND} stopOpacity={0.3} />
-                  <stop offset="95%" stopColor={BRAND} stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-              <XAxis dataKey="year" tick={{ fontSize: 11, fill: '#999' }} tickLine={false} axisLine={{ stroke: '#e0e0e0' }} />
-              <YAxis tick={{ fontSize: 11, fill: '#999' }} tickLine={false} axisLine={{ stroke: '#e0e0e0' }} tickFormatter={(v) => `${v}亿`} width={55} />
-              <Tooltip formatter={(value: number) => [`${value} 亿美元`, '全球规模']} contentStyle={{ borderRadius: '8px', border: '1px solid #e0e0e0', fontSize: '0.85rem' }} />
-              <Area type="monotone" dataKey="global" stroke={BRAND} strokeWidth={2} fill="url(#globalGrad)" activeDot={{ r: 5 }} />
-            </AreaChart>
-          </ResponsiveContainer>
-          <div className="chart-legend-custom">
-            <span className="legend-item"><span className="legend-dot" style={{ background: BRAND }}></span>全球市场规模（亿美元）</span>
-          </div>
-        </div>
-        <p style={bodyText}>
-          2019–2024 年为历史实绩，2025–2030E 为机构预测区间；复合年均增长率约 7.8%，与全球通信资本开支节奏基本同步，2030 年规模较 2019 年增长约 1.4 倍。
-        </p>
-        <h3 style={subTitleStyle}>阶段特征</h3>
-        <ul style={listStyle}>
-          <li>全球 5G 基站部署超 100 万站，驱动天线价值量提升</li>
-          <li>疫情冲击下远程办公需求拉动 CPE / 路由器天线</li>
-          <li>64T64R / 128T128R AAU 成为新建宏站标配</li>
-          <li>单基站天线 ASP 从 ~1.5 万 → 3–5 万元</li>
-          <li>中国 / 欧洲开启 6GHz 频段，规模重回加速通道</li>
-          <li>低轨星座 + V2X 打开新曲线</li>
-        </ul>
-      </section>
-
-      {/* 二、下游应用结构与价值分布 */}
-      <section className="card">
-        <h2 className="card-title">下游应用结构与价值分布</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-          <div>
-            <h3 style={{ fontSize: '0.9rem', color: '#666', marginBottom: '8px' }}>2024 年应用场景价值占比</h3>
-            <ResponsiveContainer width="100%" height={260}>
-              <PieChart>
-                <Pie data={appMixData} cx="50%" cy="50%" innerRadius={55} outerRadius={100} paddingAngle={1} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} labelLine={false}>
-                  {appMixData.map((_, index) => (<Cell key={`cell-${index}`} fill={APP_MIX_COLORS[index % APP_MIX_COLORS.length]} />))}
-                </Pie>
-                <Tooltip formatter={(value: number) => [`${value}%`, '占比']} />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-          <div>
-            <h3 style={{ fontSize: '0.9rem', color: '#666', marginBottom: '8px' }}>2024 年出货区域占比</h3>
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={regionData} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#eee" horizontal={false} />
-                <XAxis type="number" tick={{ fontSize: 11, fill: '#999' }} unit="%" />
-                <YAxis type="category" dataKey="name" tick={{ fontSize: 12 }} width={90} />
-                <Tooltip formatter={(value: number) => [`${value}%`, '份额']} />
-                <Bar dataKey="value" fill={BRAND} radius={[0, 6, 6, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-        <p style={bodyText}>
-          基站天线仍占据最大单一切片，但卫星与车联占比快速提升，预计 2030 年二者合计有望突破 20%。
-        </p>
-        <h3 style={subTitleStyle}>关键应用趋势</h3>
-        <ul style={listStyle}>
-          <li>2024 年宏站 AAU 渗透率超 68%；5G-Advanced 推动 128T / 192T 阵列落地，单价继续上行。</li>
-          <li>智能手机 / 平板 / 笔记本；多频段抗干扰 5G 天线是核心增量，2024 年中国口径规模约 32 亿元。</li>
-          <li>相控阵渗透率从 2020 年不足 10% 提升至 2024 年 25%+，低轨星座驱动 CAGR ~16%。</li>
-          <li>鲨鱼鳍 / V2X / 卫星车联，2024 年全球装机量突破 7400 万件，V2X 细分 CAGR 超 40%。</li>
-          <li>国防侧重宽频段抗干扰与有源相控阵；IoT 受 LPWA / NB-IoT / Wi-Fi 7 推动稳健增长。</li>
-        </ul>
-      </section>
-
-      {/* 三、区域市场格局与重心迁移 */}
-      <section className="card">
-        <h2 className="card-title">区域市场格局与重心迁移</h2>
-        <p style={bodyText}>
-          亚太凭借中国 5G SA 网络密度与印度 / 东南亚扩容，承接全球近一半需求；北美以高端与企业级为主，
-          单价高、出货占比次之但价值占比较出货占比高约 5 个百分点。
-        </p>
-        <p style={bodyText}>
-          2019–2024 年北美份额从约 24% 回落至 19%，亚太由 40% 提升至 45%+，主因是中国与印度双引擎；
-          2025–2030 年随着非洲 4G 深化与海湾 5G 加速，中东非洲份额有望提升 1.5–2 个百分点。
-        </p>
-      </section>
-
-      {/* 四、厂商竞争格局 */}
-      <section className="card">
-        <h2 className="card-title">厂商竞争格局（2024 市占率）</h2>
-        <div className="chart-panel-full">
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={vendorData} layout="vertical" margin={{ top: 10, right: 30, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#eee" horizontal={false} />
-              <XAxis type="number" tick={{ fontSize: 11, fill: '#999' }} unit="%" />
-              <YAxis type="category" dataKey="name" tick={{ fontSize: 12 }} width={80} />
-              <Tooltip formatter={(value: number) => [`${value}%`, '市占率']} />
-              <Bar dataKey="value" fill={BRAND} radius={[0, 6, 6, 0]} background={{ fill: '#f0f0f0' }} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-        <p style={bodyText}>
-          市场高度集中，<strong>CR5（华为 + 爱立信 + 诺基亚 + 中兴 + 三星）合计约 {cr5}%</strong>，行业头部集中度高于通信设备整机；
-          中国系厂商（华为 / 中兴 / 京信 / 通宇 / 摩比）合计份额约 49%，具备完整供应链与成本优势。
-        </p>
-        <h3 style={subTitleStyle}>第一梯队 · 全球巨头</h3>
-        <ul style={listStyle}>
-          <li>华为：AAU / Massive MIMO 全球第一，专利与产能双护城河，覆盖 5G / 5G-A / 微波全场景。</li>
-          <li>爱立信：RAN 龙头，Radio 系列在欧美运营商份额稳固；与 Verizon / AT&T 深度绑定。</li>
-          <li>诺基亚：AnyRAN + AirScale 主打 Open RAN，欧洲与印度市场占优。</li>
-        </ul>
-        <h3 style={subTitleStyle}>第二梯队 · 中韩挑战者</h3>
-        <ul style={listStyle}>
-          <li>中兴：5G-Advanced 大规模天线出货超 50 万套，FWA 接入 2024 年 1.6 亿线，2030 年预测 3.5 亿。</li>
-          <li>三星：毫米波与小站领先，Verizon / 日本 KDDI 重要合作伙伴。</li>
-          <li>京信通信：小基站与室分天线优势，国内运营商份额持续提升。</li>
-        </ul>
-        <h3 style={subTitleStyle}>第三梯队 · 专精与新兴</h3>
-        <ul style={listStyle}>
-          <li>康普（CommScope）：美国本土主力，DAS 与宏站天线并行。</li>
-          <li>通宇通讯 / 摩比发展：中国民营专精厂商，性价比 + 海外渠道突围。</li>
-          <li>信维通信 / 立讯精密 / 硕贝德：终端天线 + 车载 + 卫星天线多元化布局。</li>
-        </ul>
-      </section>
-
-      {/* 五、高增长细分赛道 */}
-      <section className="card">
-        <h2 className="card-title">高增长细分赛道（Massive MIMO / 卫星相控阵 / V2X）</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
-          <div>
-            <h3 style={{ fontSize: '0.9rem', color: BRAND_DEEP, marginBottom: '6px' }}>Massive MIMO</h3>
-            <ResponsiveContainer width="100%" height={120}>
-              <AreaChart data={massiveMIMOLine}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-                <XAxis dataKey="year" tick={{ fontSize: 10, fill: '#999' }} />
-                <YAxis tick={{ fontSize: 10, fill: '#999' }} unit="亿" width={40} />
-                <Tooltip formatter={(v: number) => [`$${v}亿`, '规模']} />
-                <Area type="monotone" dataKey="value" stroke={BRAND} fill="rgba(15,181,168,0.14)" strokeWidth={2} />
-              </AreaChart>
-            </ResponsiveContainer>
-            <div style={{ fontSize: '0.75rem', color: '#666' }}>
-              CAGR <strong style={{ color: BRAND }}>{worldData?.hotSegments.massiveMIMO?.cagr}</strong> · 从{worldData?.hotSegments.massiveMIMO?.['2024']}亿增至{worldData?.hotSegments.massiveMIMO?.['2031E']}亿
-            </div>
-          </div>
-          <div>
-            <h3 style={{ fontSize: '0.9rem', color: BRAND_DEEP, marginBottom: '6px' }}>卫星相控阵天线</h3>
-            <ResponsiveContainer width="100%" height={120}>
-              <AreaChart data={satelliteLine}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-                <XAxis dataKey="year" tick={{ fontSize: 10, fill: '#999' }} />
-                <YAxis tick={{ fontSize: 10, fill: '#999' }} unit="亿" width={40} />
-                <Tooltip formatter={(v: number) => [`$${v}亿`, '规模']} />
-                <Area type="monotone" dataKey="value" stroke={BRAND_DEEP} fill="rgba(10,77,92,0.12)" strokeWidth={2} />
-              </AreaChart>
-            </ResponsiveContainer>
-            <div style={{ fontSize: '0.75rem', color: '#666' }}>
-              CAGR <strong style={{ color: BRAND }}>{worldData?.hotSegments.satellitePhasedArray?.cagr}</strong> · 从{worldData?.hotSegments.satellitePhasedArray?.['2024']}亿增至{worldData?.hotSegments.satellitePhasedArray?.['2034E']}亿
-            </div>
-          </div>
-          <div>
-            <h3 style={{ fontSize: '0.9rem', color: BRAND_DEEP, marginBottom: '6px' }}>汽车 V2X 天线</h3>
-            <ResponsiveContainer width="100%" height={120}>
-              <AreaChart data={v2xLine}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-                <XAxis dataKey="year" tick={{ fontSize: 10, fill: '#999' }} />
-                <YAxis tick={{ fontSize: 10, fill: '#999' }} unit="亿" width={40} />
-                <Tooltip formatter={(v: number) => [`$${v}亿`, '规模']} />
-                <Area type="monotone" dataKey="value" stroke={AMBER} fill="rgba(255,209,102,0.14)" strokeWidth={2} />
-              </AreaChart>
-            </ResponsiveContainer>
-            <div style={{ fontSize: '0.75rem', color: '#666' }}>
-              CAGR <strong style={{ color: AMBER }}>{worldData?.hotSegments.v2x?.cagr}</strong> · 早期但增速最高，2030 年预计达{worldData?.hotSegments.v2x?.['2030E']}亿
-            </div>
-          </div>
-        </div>
-        <h3 style={subTitleStyle}>Massive MIMO · 主力引擎</h3>
-        <ul style={listStyle}>
-          <li>从 64T64R 向 128T / 192T 演进，单通道 ASP 与通道数量同步上行。2024–2031 年规模增长近 9 倍。</li>
-        </ul>
-        <h3 style={subTitleStyle}>卫星相控阵天线 · 高速曲线</h3>
-        <ul style={listStyle}>
-          <li>Starlink V2 / OneWeb Gen2 / 中国 GW 千帆与 G60 卫星批量入轨，相控阵地面端同步放量。</li>
-        </ul>
-        <h3 style={subTitleStyle}>汽车 V2X 与鲨鱼鳍天线 · 超高速成长但量级小</h3>
-        <ul style={listStyle}>
-          <li>V2X 仍处早期，2023 年全球仅 1500 万美元，但 CAGR 高达 40%+；车规级鲨鱼鳍天线装机量 2024 年突破 7400 万件，进入规模化阶段。</li>
-          <li>渗透率低：2024 年全球前装 V2X 渗透率仅 5% 左右，2027 年中国新车 C-V2X 强制装配将引爆需求。</li>
-          <li>单价高：V2X 模组 + 多频天线合计 ASP 是普通鲨鱼鳍天线的 5–8 倍。</li>
-          <li>中国强制政策：2025–2027 年新车 C-V2X 强制装配规划是核心催化剂。</li>
-          <li>美国 C-V2X 落地：FCC 2024 年正式划拨 5.9GHz，2026 年开始大规模前装。</li>
-        </ul>
-      </section>
-
-      {/* 六、技术演进与产品形态 */}
-      <section className="card">
-        <h2 className="card-title">技术演进与产品形态</h2>
-        <h3 style={subTitleStyle}>基站侧</h3>
-        <ul style={listStyle}>
-          <li>AAU 有源化：无源天线占比从 2020 年 ~70% 回落至 2024 年 ~35%，2030 年预计降至 15% 以下。</li>
-          <li>通道数升级：64T64R 成为宏站标配，192T / 256T 阵列进入试点。</li>
-          <li>频段拓展：6GHz（n104）中国 2024 年试点，FR3（7–24GHz）成为 6G 候选。</li>
-          <li>AI 调优：AI 波束管理降低能耗 15–25%，2025 年起规模化部署。</li>
-        </ul>
-        <h3 style={subTitleStyle}>终端与卫星侧</h3>
-        <ul style={listStyle}>
-          <li>多频段抗干扰：Sub-6 + mmWave + Wi-Fi 7 + UWB + 卫星，五合一成为高端机标配。</li>
-          <li>可调谐天线：5G + 卫星双模切换成为手机 / 物联网新形态。</li>
-          <li>RIS（可重构智能表面）：2024 年市场约 1.4 亿美元，5G-Advanced 与 6G 关键候选技术。</li>
-          <li>相控阵卫星终端：Starlink Mini 与车规级平板终端 2024–2026 进入消费市场。</li>
-        </ul>
-        <ResponsiveContainer width="100%" height={320}>
-          <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-            <XAxis type="number" dataKey="x" name="商业化" domain={[20, 100]} tick={{ fontSize: 11, fill: '#999' }} label={{ value: '商业化进度 ->', position: 'insideBottom', offset: -10, fontSize: 12, fill: BRAND_DEEP }} />
-            <YAxis type="number" dataKey="y" name="ASP弹性" domain={[20, 100]} tick={{ fontSize: 11, fill: '#999' }} label={{ value: 'ASP弹性 ->', angle: -90, position: 'insideLeft', offset: 5, fontSize: 12, fill: BRAND_DEEP }} />
-            <Tooltip cursor={{ strokeDasharray: '3 3' }} formatter={(value: any, name: string, props: any) => {
-              if (name === 'x') return [`${props.payload.name}: ${value}`, '商业化']
-              if (name === 'y') return [`${value}`, 'ASP弹性']
-              return [value, name]
-            }} />
-            <Scatter data={techData} fill={BRAND} shape="circle">
-              {techData.map((entry, index) => (<Cell key={`cell-${index}`} fill={entry.x > 70 && entry.y > 60 ? BRAND_DEEP : entry.x > 70 ? BRAND : entry.x < 40 ? ROSE : AMBER} />))}
-            </Scatter>
-          </ScatterChart>
-        </ResponsiveContainer>
-        <p style={bodyText}>
-          横轴：商业化进度；纵轴：单天线 ASP 弹性。Massive MIMO 与卫星相控阵均位于高价值弹性 + 高商业化象限，是产业最大利润池。
-        </p>
-      </section>
-
-      {/* 七、增长驱动因素 */}
-      <section className="card">
-        <h2 className="card-title">增长驱动因素（六大正面力量）</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
-          {worldData?.growthDrivers?.map((d, i) => (
-            <div key={i} className="driver-chip" style={{ background: '#f0fdf9', border: '1px solid #d6ece5', borderRadius: '6px', padding: '8px 10px', fontSize: '0.8rem' }}>
-              <strong>{i + 1}.</strong> {d}
+      <div className="container">
+        {/* Key Metrics */}
+        <div className="metrics-grid">
+          {KEY_METRICS.map((m, i) => (
+            <div key={i} className="metric-card">
+              <div className={`value ${m.color}`}>{m.value}</div>
+              <div className="label" dangerouslySetInnerHTML={{ __html: m.label }} />
             </div>
           ))}
         </div>
-        <h3 style={subTitleStyle}>① 5G 资本开支延长周期</h3>
-        <p style={bodyText}>中国 5G-A 规模商用与海外 5G SA 升级将 5G 投资周期延长至 2030 年。</p>
-        <h3 style={subTitleStyle}>② 低轨卫星爆发</h3>
-        <p style={bodyText}>全球在轨星座规划超 10 万颗，地面相控阵终端与星载天线同步放量。</p>
-        <h3 style={subTitleStyle}>③ IoT 设备海量连接</h3>
-        <p style={bodyText}>2030 年全球 IoT 设备预计 290 亿台，LPWA / NB-IoT / Wi-Fi 7 多形态天线需求。</p>
-        <h3 style={subTitleStyle}>④ 智能汽车电动化</h3>
-        <p style={bodyText}>单车天线价值从燃油车 ~$5 提升至智能电动车 $30–80。</p>
-        <h3 style={subTitleStyle}>⑤ AI 数据中心</h3>
-        <p style={bodyText}>高密度互联推动毫米波点对点回传与高速光铜协同；DC 间无线回传开始试点。</p>
-        <h3 style={subTitleStyle}>⑥ 防务与卫星互联网</h3>
-        <p style={bodyText}>美国 34% 防务通信需求；防务与卫星互联网是穿越周期的高确定性赛道。</p>
-      </section>
 
-      {/* 八、风险与挑战 */}
-      <section className="card">
-        <h2 className="card-title">风险与挑战</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-          {worldData?.risks?.map((r, i) => (
-            <div key={i} style={{ padding: '8px 12px', background: '#fff5f5', borderRadius: '6px', border: '1px solid #ffe0e0', fontSize: '0.85rem', color: '#666' }}>
-              <strong style={{ color: ROSE }}>R{i + 1}:</strong> {r}
-            </div>
-          ))}
+        {/* Section 1: Industry Overview */}
+        <section>
+          <h2>一、行业概述</h2>
+          <p>天线是无线通信系统的核心部件，负责将电信号转换为电磁波（发射）或将电磁波转换为电信号（接收）。随着移动通信从2G向5G-A和6G演进，天线技术经历了从<span className="key">传统定向/全向天线到大规模MIMO有源天线（AAU）</span>的深刻变革。</p>
+          <h3>1.1 天线产品分类</h3>
+          <div className="table-wrap">
+            <table>
+              <thead><tr><th>分类维度</th><th>类型</th><th>说明</th></tr></thead>
+              <tbody>
+                <tr><td>应用场景</td><td>基站天线</td><td>地面蜂窝网络基站使用</td></tr>
+                <tr><td></td><td>移动终端天线</td><td>手机、车载终端、IoT设备</td></tr>
+                <tr><td></td><td>卫星天线</td><td>低轨/高轨卫星通信</td></tr>
+                <tr><td></td><td>室内小基站天线</td><td>室内覆盖增强</td></tr>
+                <tr><td>频段</td><td>Sub-6GHz天线</td><td>支持FR1频段（&lt;6GHz）</td></tr>
+                <tr><td></td><td>毫米波天线</td><td>支持FR2频段（24-100GHz）</td></tr>
+                <tr><td></td><td>太赫兹天线</td><td>6G预研方向（&gt;100GHz）</td></tr>
+                <tr><td>技术形态</td><td>无源天线</td><td>传统反射/透射结构</td></tr>
+                <tr><td></td><td>有源天线（AAU）</td><td>集成射频前端，支持Massive MIMO</td></tr>
+                <tr><td></td><td>智能超表面（RIS）</td><td>可编程电磁调控，6G关键技术</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Section 2: Market Size */}
+        <section>
+          <h2>二、市场规模与增长预测</h2>
+          <h3>2.1 全球天线市场总体规模</h3>
+          <p>根据多家研究机构数据综合：</p>
+          <div className="table-wrap">
+            <table>
+              <thead><tr><th>细分市场</th><th>基期规模</th><th>预测期规模</th><th>CAGR</th></tr></thead>
+              <tbody>
+                <tr><td>中国通信天线行业</td><td>641亿元RMB (2024)</td><td>—</td><td>2.3% (YoY)<sup>[1]</sup></td></tr>
+                <tr><td>全球5G天线</td><td>144亿元RMB (2023)</td><td>142.9亿元RMB (2030)</td><td>-1.3%<sup>[2]</sup></td></tr>
+                <tr><td>全球Massive MIMO AAU</td><td>16.25亿美元 (2024)</td><td>53.12亿美元 (2031)</td><td>21.0%<sup>[3]</sup></td></tr>
+                <tr><td>全球5G相控阵天线</td><td>基数较小</td><td>5.95亿美元 (2030)</td><td>44.2%<sup>[4]</sup></td></tr>
+                <tr><td>全球5G设备整体</td><td>—</td><td>+1469.5亿美元 (2028)</td><td>81.05%<sup>[5]</sup></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="callout">
+            <strong>关键洞察：</strong>全球5G天线市场整体趋于饱和（CAGR -1.3%），但<strong>Massive MIMO AAU升级</strong>和<strong>相控阵天线</strong>呈现高速增长，市场结构性分化明显。
+          </div>
+          <h3>2.2 区域市场分析</h3>
+          <div className="two-col">
+            <div className="col-card"><h4>🇨🇳 中国</h4><ul><li>全球最大5G市场</li><li>5G连接数超10亿（2024年底）</li><li>基站天线国产化率超80%</li><li>5G-A商用元年（2024）</li></ul></div>
+            <div className="col-card"><h4>🌍 北美</h4><ul><li>5G部署以毫米波为主</li><li>运营商Capex增长推动需求</li><li>Starlink等LEO星座带动卫星天线</li></ul></div>
+            <div className="col-card"><h4>🇪🇺 欧洲</h4><ul><li>爱立信、诺基亚为本土供应商</li><li>5G部署进度相对缓慢</li><li>6G旗舰项目Hexa-X推进中</li></ul></div>
+            <div className="col-card"><h4>🌏 亚太（除中国）</h4><ul><li>印度5G BTS部署突破45万</li><li>东南亚/中东加速5G建设</li><li>新兴市场渗透率提升空间大</li></ul></div>
+          </div>
+          <h3>2.3 增长驱动因素</h3>
+          <ol style={{ paddingLeft: '1.5rem', color: 'var(--ink)' }}>
+            <li><span className="key">5G-A商用化</span> — 2024年被定义为"5G-A商用元年"，3GPP R18标准冻结<sup>[6]</sup></li>
+            <li><span className="key">卫星互联网爆发</span> — Starlink、Kuiper等LEO mega-constellation建设带动相控阵天线需求</li>
+            <li><span className="key">6G预研投入</span> — 中国2025年《政府工作报告》将6G纳入未来产业规划<sup>[7]</sup></li>
+            <li><span className="key">AI融合</span> — AI for network / network for AI成为6G主线</li>
+            <li><span className="key">物联网/IoT扩展</span> — 海量IoT设备连接催生新型终端天线需求</li>
+          </ol>
+          <div className="chart-figure">
+            <figcaption>图1：主要天线细分市场增长趋势对比（2023-2031）</figcaption>
+            <div ref={el => { chartRefs.current.market = el }} style={{ width: '100%', minHeight: 420 }} />
+          </div>
+        </section>
+
+        {/* Section 3: Competition */}
+        <section>
+          <h2>三、竞争格局分析</h2>
+          <h3>3.1 全球竞争梯队</h3>
+          <h4>第一梯队（全球领导者）</h4>
+          <ul style={{ paddingLeft: '1.5rem', color: 'var(--ink)', marginBottom: '1.5rem' }}>
+            <li><strong style={{ color: ACCENT }}>华为（Huawei）</strong> — 全球基站天线份额约29.4%（2024年中国国内市场），5G核心技术领先<sup>[8]</sup></li>
+            <li><strong style={{ color: ACCENT }}>爱立信（Ericsson）</strong> — 瑞典，全球5G网络设备主要供应商之一</li>
+            <li><strong style={{ color: ACCENT }}>康普/CommScope</strong> — 美国，全球领先的无源天线供应商</li>
+            <li><strong style={{ color: ACCENT }}>诺基亚（Nokia）</strong> — 芬兰，5G网络设备供应商</li>
+          </ul>
+          <h4>第二梯队（专业天线厂商）</h4>
+          <ul style={{ paddingLeft: '1.5rem', color: 'var(--ink)', marginBottom: '1.5rem' }}>
+            <li><strong style={{ color: ACCENT2 }}>中兴通讯（ZTE）</strong> — 中国，国内市场份额约18.6%<sup>[8]</sup></li>
+            <li><strong style={{ color: ACCENT2 }}>通宇通讯</strong> — 中国，国内市场份额约14.2%，全球基站天线细分领域前五<sup>[9]</sup></li>
+            <li><strong style={{ color: ACCENT2 }}>京信通信</strong> — 中国香港，基站天线市场重要参与者</li>
+            <li><strong style={{ color: ACCENT2 }}>摩比发展</strong> — 中国，天线及射频组件供应商</li>
+            <li><strong style={{ color: ACCENT2 }}>安费诺（Amphenol）</strong> — 美国，连接器及天线产品</li>
+          </ul>
+          <h3>3.2 中国市场格局</h3>
+          <div className="callout success">
+            <strong>高度集中：</strong>2024年，华为、京信通信、通宇通讯等企业在基站天线市场的合计份额超过80%<sup>[8]</sup>。
+          </div>
+          <div className="chart-figure">
+            <figcaption>图2：中国基站天线市场主要企业份额分布（2024年）</figcaption>
+            <div ref={el => { chartRefs.current.share = el }} style={{ width: '100%', minHeight: 420 }} />
+          </div>
+          <h3>3.3 竞争态势总结</h3>
+          <div className="table-wrap">
+            <table>
+              <thead><tr><th>趋势</th><th>影响</th></tr></thead>
+              <tbody>
+                <tr><td>5G建设高峰期已过</td><td>全球5G基站部署进入后期，天线市场从增量转向存量替换+升级</td></tr>
+                <tr><td>5G-A带来新机遇</td><td>Massive MIMO AAU升级、通感一体化天线、RIS等新技术催生新一轮需求</td></tr>
+                <tr><td>卫星天线成新增长极</td><td>LEO星座建设带动相控阵天线需求快速增长（CAGR 44.2%）</td></tr>
+                <tr><td>中国企业崛起</td><td>华为、中兴、通宇通讯等在全球市场份额持续提升，国产化替代加速</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Section 4: Technology */}
+        <section>
+          <h2>四、技术发展现状</h2>
+          <h3>4.1 5G天线技术现状</h3>
+          <h4>Massive MIMO AAU（主流技术）</h4>
+          <p><span className="key">有源天线单元</span>，集成射频前端与数字波束赋形，支持64T64R、192T192R等大规模天线阵列。当前5G基站主流天线形态，2024年市场规模约16.25亿美元<sup>[3]</sup>。</p>
+          <div className="timeline">
+            <div className="timeline-item"><div className="year">演进路径</div><p>4T4R → 64T64R → 192T192R（通道数持续增加）</p></div>
+            <div className="timeline-item"><div className="year">频段覆盖</div><p>Sub-6GHz（n77/n78/n79）+ 毫米波（n257/n258/n261）</p></div>
+            <div className="timeline-item"><div className="year">AI赋能</div><p>集成AI算法实现智能波束管理</p></div>
+          </div>
+          <h4>毫米波天线</h4>
+          <ul style={{ paddingLeft: '1.5rem', color: 'var(--muted)' }}>
+            <li>频段：24-100GHz（FR2）</li><li>特点：大带宽、短距离、穿透损耗大</li><li>部署策略：以热点覆盖为主（场馆、商圈、室内）</li>
+          </ul>
+          <h4>相控阵天线（Phased Array）</h4>
+          <p><span className="key">通过控制阵列天线各单元的相位差实现波束扫描</span>。应用包括卫星通信（Starlink用户终端）、5G毫米波基站、车联网。2024-2030年CAGR达44.2%<sup>[4]</sup>。</p>
+          <h3>4.2 5G-A（5.5G）天线技术</h3>
+          <p>2024年被定义为"5G-A商用元年"，天线技术关键进展：</p>
+          <div className="two-col">
+            <div className="col-card"><h4>三载波聚合</h4><p style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>提升频谱效率</p></div>
+            <div className="col-card"><h4>通感一体化（ISAC）</h4><p style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>天线同时支持通信和感知功能</p></div>
+            <div className="col-card"><h4>RedCap天线</h4><p style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>面向中等速率IoT场景优化</p></div>
+            <div className="col-card"><h4>XR/裸眼3D专网天线</h4><p style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>面向沉浸式应用优化</p></div>
+          </div>
+          <h3>4.3 6G天线前沿技术</h3>
+          <h4>智能超表面（RIS/IRS）</h4>
+          <div className="callout">
+            <strong>核心原理：</strong>由大量可编程电磁单元构成的平面结构，通过调控单元参数实现电磁波的反射/透射幅度和相位分布控制。<span className="key">被认为是6G关键技术之一</span><sup>[11]</sup>。
+          </div>
+          <ul style={{ paddingLeft: '1.5rem', color: 'var(--ink)' }}>
+            <li><strong>优势：</strong>低成本、低能耗、易部署</li>
+            <li><strong>突破：</strong>清华大学张平武团队提出STAR-RIS（同时透射和反射），实现360°覆盖</li>
+            <li><strong>产业化：</strong>中兴Dynamic RIS 2.0已发布；中国移动+中兴在杭州亚运会完成全球首个大型赛事RIS部署</li>
+            <li><strong>标准化：</strong>3GPP Rel-18/19开始讨论RIS相关增强功能</li>
+          </ul>
+          <h4>太赫兹天线</h4>
+          <ul style={{ paddingLeft: '1.5rem', color: 'var(--muted)' }}>
+            <li>频段：&gt;100GHz（0.1-10THz）</li><li>意义：6G核心频段，提供超大带宽</li><li>进展：华为220GHz太赫兹通感一体化原型机实现240Gbps传输速率<sup>[12]</sup></li>
+          </ul>
+          <h4>空天地一体化天线</h4>
+          <ul style={{ paddingLeft: '1.5rem', color: 'var(--muted)' }}>
+            <li>卫星直连手机（Direct to Cell）</li><li>低轨卫星（LEO）终端天线（相控阵）</li><li>星地融合Massive MIMO</li>
+          </ul>
+          <div className="chart-figure">
+            <figcaption>图3：主要天线细分市场年复合增长率对比</figcaption>
+            <div ref={el => { chartRefs.current.cagr = el }} style={{ width: '100%', minHeight: 320 }} />
+          </div>
+        </section>
+
+        {/* Section 5: Industry Chain */}
+        <section>
+          <h2>五、产业链分析</h2>
+          <h3>5.1 上游：原材料与元器件</h3>
+          <div className="table-wrap">
+            <table>
+              <thead><tr><th>环节</th><th>关键材料/器件</th><th>主要供应商</th></tr></thead>
+              <tbody>
+                <tr><td>基板材料</td><td>PCB/FPC、陶瓷基板</td><td>深南电路、沪电股份、鹏鼎控股</td></tr>
+                <tr><td>射频芯片</td><td>PA、LNA、Switch、Filter</td><td>高通、博通、Skyworks、卓胜微</td></tr>
+                <tr><td>连接器</td><td>射频连接器</td><td>罗森伯格、安费诺、意华股份</td></tr>
+                <tr><td>天线振子</td><td>金属贴片、介质材料</td><td>通宇通讯、京信通信自产</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>5.2 下游：应用市场</h3>
+          <div className="table-wrap">
+            <table>
+              <thead><tr><th>应用领域</th><th>代表客户</th><th>天线需求特点</th></tr></thead>
+              <tbody>
+                <tr><td>运营商网络</td><td>中国移动、Verizon、Vodafone</td><td>大规模Massive MIMO AAU</td></tr>
+                <tr><td>卫星互联网</td><td>SpaceX/Starlink、Amazon/Kuiper</td><td>相控阵天线</td></tr>
+                <tr><td>终端设备</td><td>苹果、三星、华为、小米</td><td>小型化多频终端天线</td></tr>
+                <tr><td>车联网/物联网</td><td>车企、IoT设备商</td><td>低频段、低功耗天线</td></tr>
+                <tr><td>国防军工</td><td>各国军方</td><td>高可靠、抗干扰天线</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Section 6: Tech Roadmap */}
+        <section>
+          <h2>六、技术发展路线图</h2>
+          <div className="chart-figure">
+            <figcaption>图4：天线技术发展路线图（2019-2031）</figcaption>
+            <div ref={el => { chartRefs.current.roadmap = el }} style={{ width: '100%', minHeight: 500 }} />
+          </div>
+          <h3>关键时间节点</h3>
+          <div className="timeline">
+            <div className="timeline-item"><div className="year">2019年</div><p>全球5G商用元年，Massive MIMO AAU开始部署</p></div>
+            <div className="timeline-item"><div className="year">2024年</div><p>5G-A商用元年，3GPP R18标准冻结<sup>[6]</sup></p></div>
+            <div className="timeline-item"><div className="year">2025年</div><p>中国将6G纳入《政府工作报告》，工信部推进6G研发<sup>[7]</sup></p></div>
+            <div className="timeline-item"><div className="year">2028-2029年</div><p>6G标准制定关键期</p></div>
+            <div className="timeline-item"><div className="year">2030年及以后</div><p>6G商用部署</p></div>
+          </div>
+        </section>
+
+        {/* Section 7: Challenges */}
+        <section>
+          <h2>七、挑战与风险</h2>
+          <h3>7.1 技术挑战</h3>
+          <div className="two-col">
+            <div className="col-card"><h4>高频段传播损耗</h4><p style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>毫米波/太赫兹频段穿透损耗大，覆盖半径小</p></div>
+            <div className="col-card"><h4>RIS硬件可靠性</h4><p style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>PIN管/液晶材料长期运行稳定性待验证</p></div>
+            <div className="col-card"><h4>信道估计复杂度</h4><p style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>BS-RIS-UE级联信道估计困难，导频开销大</p></div>
+            <div className="col-card"><h4>功耗与散热</h4><p style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>Massive MIMO AAU功耗显著高于传统架构</p></div>
+          </div>
+          <h3>7.2 市场与供应链风险</h3>
+          <div className="callout warning">
+            <strong>地缘政治：</strong>华为、中兴在海外市场的受限影响全球份额。高端射频芯片（PA/LNA）仍依赖海外供应商（高通、博通等），自主可控是下一步重点。
+          </div>
+        </section>
+
+        {/* Section 8: Future Outlook */}
+        <section>
+          <h2>八、未来展望</h2>
+          <h3>六大趋势判断</h3>
+          <ol style={{ paddingLeft: '1.5rem', color: 'var(--ink)' }}>
+            <li><span className="key">Massive MIMO持续演进</span> — 通道数从64T64R向192T192R甚至更高演进，AAU市场CAGR 21.0%<sup>[3]</sup></li>
+            <li><span className="key">RIS从实验室走向商用</span> — 预计2026-2027年小规模商用，2030年后成为6G标配</li>
+            <li><span className="key">卫星天线成新蓝海</span> — LEO星座建设驱动相控阵天线市场CAGR 44.2%<sup>[4]</sup></li>
+            <li><span className="key">AI深度融合</span> — AI辅助波束管理、信道估计将成为5G-A/6G天线标配能力</li>
+            <li><span className="key">通感一体化</span> — 天线同时支持通信和感知功能，开辟新应用场景</li>
+            <li><span className="key">国产化替代加速</span> — 中国天线企业全球份额持续提升</li>
+          </ol>
+          <h3>重点关注企业</h3>
+          <div className="table-wrap">
+            <table>
+              <thead><tr><th>企业</th><th>投资逻辑</th></tr></thead>
+              <tbody>
+                <tr><td>华为</td><td>5G/5G-A/6G全栈技术领先，天线自研自产</td></tr>
+                <tr><td>中兴通讯</td><td>自研自产一体化，Dynamic RIS 2.0领先</td></tr>
+                <tr><td>通宇通讯</td><td>全球基站天线前五，受益5G-A升级周期</td></tr>
+                <tr><td>信维通信</td><td>终端天线龙头，拓展卫星/汽车天线</td></tr>
+                <tr><td>盛路通信</td><td>689项RIS专利储备，卫星/军工双轮驱动</td></tr>
+                <tr><td>Commscope</td><td>全球无源天线龙头，受益5G-A升级</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Section 9: Conclusion */}
+        <section>
+          <div className="conclusion">
+            <h2>九、结论</h2>
+            <p style={{ fontSize: '1rem', color: 'var(--ink)', marginBottom: '1.5rem' }}>全球天线行业正处于<span style={{ color: ACCENT, fontWeight: 700 }}>历史性转折点</span>：</p>
+            <ul>
+              <li><strong>短期（2024-2026）</strong>：5G建设高峰期已过，但5G-A商用化带来Massive MIMO AAU升级周期，市场结构性增长</li>
+              <li><strong>中期（2026-2028）</strong>：RIS技术从小规模试点走向商用，卫星相控阵天线需求爆发</li>
+              <li><strong>长期（2028-2030+）</strong>：6G标准制定完成，太赫兹天线、智能超表面、空天地一体化天线成为主流</li>
+            </ul>
+            <p style={{ marginTop: '1.5rem', fontSize: '0.92rem', color: 'var(--muted)', borderTop: `1px solid var(--rule)`, paddingTop: '1rem' }}>中国企业在全球天线产业链中的地位持续提升，华为、中兴、通宇通讯等已具备全球竞争力。未来竞争焦点将从"硬件制造"转向"AI+天线"的系统级创新能力。</p>
+          </div>
+        </section>
+      </div>
+
+      {/* Sources */}
+      <footer>
+        <div className="sources">
+          <h2>参考资料</h2>
+          <ol>
+            <li id="cite-1"><span className="src-title">[二级资料] 中国通信天线行业市场规模分析：2023年627亿元→2024年641.3亿元</span><span className="src-url">豆丁网行业报告</span></li>
+            <li id="cite-2"><span className="src-title">[二级资料] 全球5G天线行业规模及市场占有率分析报告</span><span className="src-url">格隆汇 / QY Research</span></li>
+            <li id="cite-3"><span className="src-title">[二级资料] 全球Massive MIMO 5G AAU有源天线单元市场规模报告</span><span className="src-url">格隆汇</span></li>
+            <li id="cite-4"><span className="src-title">[二级资料] 全球与中国5G相控阵天线市场调查报告2024-2030</span><span className="src-url">QYR恒州博智</span></li>
+            <li id="cite-5"><span className="src-title">[二级资料] Technavio: 2024-2028全球5G设备市场增长1469.5亿美元</span><span className="src-url">Technavio Research</span></li>
+            <li id="cite-6"><span className="src-title">[行业报道] 华为李鹏MWC2024: 2024年是5G-A商用元年，全球5G用户超15亿</span><span className="src-url">华为官方新闻稿</span></li>
+            <li id="cite-7"><span className="src-title">[官方] 2025年中国《政府工作报告》将6G纳入未来产业规划，工信部推进6G研发</span><span className="src-url">中国政府网</span></li>
+            <li id="cite-8"><span className="src-title">[二级资料] 2024年中国天线市场竞争格局：华为29.4%、中兴18.6%、通宇14.2%</span><span className="src-url">豆丁网行业分析</span></li>
+            <li id="cite-9"><span className="src-title">[行业报道] 通宇通讯: 全球基站天线细分领域前五，华为/中兴/爱立信/诺基亚供应商</span><span className="src-url">腾讯证券</span></li>
+            <li id="cite-10"><span className="src-title">[行业报道] 盛路通信: 689项RIS相关发明专利，低轨卫星通信终端天线</span><span className="src-url">搜狐财经</span></li>
+            <li id="cite-11"><span className="src-title">[二级资料] 面向6G的大规模MIMO通信感知一体化: 智能超表面(RIS)被认为是6G关键技术之一</span><span className="src-url">搜狐学术</span></li>
+            <li id="cite-12"><span className="src-title">[学术] Engineering 2026年1月刊: AI与深度学习在太赫兹超大规模MIMO系统中的应用</span><span className="src-url">Engineering期刊</span></li>
+          </ol>
         </div>
-        <h3 style={subTitleStyle}>结构性风险</h3>
-        <ul style={listStyle}>
-          <li>地缘政治与出口管制：中美在 5G / 卫星 / 半导体相关天线器件持续摩擦，影响全球供应链。</li>
-          <li>频谱碎片化：各国频段分配差异加大多频段天线设计复杂度与成本。</li>
-          <li>毫米波落地缓慢：mmWave 部署投入产出比仍待验证，限制高 ASP 弹性兑现。</li>
-          <li>价格战：基站天线 CR5 高达 75%，二线厂商面临持续价格压力。</li>
-          <li>稀土与原材料：介质陶瓷、LTCC、铁氧体等关键材料价格波动。</li>
-          <li>标准不确定性：6G 标准 2030 年前定型概率低，研发投入风险加大。</li>
-        </ul>
-        <h3 style={subTitleStyle}>机会大于风险 · 三大结构性窗口</h3>
-        <ul style={listStyle}>
-          <li>2025–2027 年中国 5G-A 规模商用三年，设备升级带动天线单站价值 30–50% 提升。</li>
-          <li>消费级相控阵终端 2024–2026 突破价格门槛，2027 年市场规模有望突破 30 亿美元。</li>
-          <li>中国新能源车出海带动配套天线厂商海外份额上行，京信 / 通宇 / 信维已布局墨西哥 / 东南亚产能。</li>
-        </ul>
-      </section>
-
-      {/* 九、2025–2030 五年展望 */}
-      <section className="card">
-        <h2 className="card-title">2025–2030 五年展望</h2>
-        <h3 style={subTitleStyle}>关键判断</h3>
-        <ul style={listStyle}>
-          <li>整体规模：2030 年全球天线市场规模约 348–370 亿美元，CAGR 7.5–8.0%；不出现重大地缘冲击情景下，区间上限有望突破 400 亿美元。</li>
-          <li>价值重心：Massive MIMO 与卫星相控阵合计占比将从 2024 年 ~30% 提升至 2030 年 ~50%，价值结构高度有源化。</li>
-          <li>区域格局：亚太份额维持在 45%+，北美 18–20%，欧洲 22%，中东非洲份额提升至 8–9%。</li>
-          <li>厂商洗牌：CR5 由 75% 微降至 70%，中兴 / 三星 / 京信抢占边缘份额；中小厂商需在卫星 / V2X / 终端专精领域寻找差异化。</li>
-          <li>技术拐点：2027 年前后 RIS（可重构智能表面）完成 5G-A 验证；2028–2030 年进入小规模商用。</li>
-          <li>风险提示：出口管制升级、6G 标准延后、宏观经济衰退导致运营商 Capex 推迟。</li>
-        </ul>
-      </section>
-
-      {/* 数据来源 */}
-      <footer style={{ padding: '20px 24px', background: '#f8f9fa', borderRadius: '12px', border: '1px solid #eef2f1', fontSize: '0.8rem', color: '#888', lineHeight: 1.7 }}>
-        <strong style={{ color: '#666' }}>数据来源：</strong>
-        本报告为公开数据交叉整理稿，所有规模、CAGR 与份额数据均来自 12 家机构公开页面（Mordor Intelligence、GII Research、Fortune Business Insights、GMI、QYResearch 等）；不同机构口径差异已在脚注中注明。本报告不构成投资建议。
       </footer>
-    </div>
+    </>
   )
 }
