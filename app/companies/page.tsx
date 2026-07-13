@@ -61,6 +61,7 @@ export default function CompaniesPage() {
   const [activeTier, setActiveTier] = useState<TierKey>('tier1_operators')
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null)
   const [selectedRegion, setSelectedRegion] = useState<string>('all')
+  const [selectedSubkey, setSelectedSubkey] = useState<string>('all')
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
 
   const supplyChain = companiesData.supplyChain as Record<TierKey, any>
@@ -360,7 +361,7 @@ export default function CompaniesPage() {
             {TIER_CONFIG.map(tier => (
               <button
                 key={tier.key}
-                onClick={() => { setActiveTier(tier.key); setSelectedRegion('all') }}
+                onClick={() => { setActiveTier(tier.key); setSelectedSubkey('all'); setSelectedRegion('all') }}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap flex items-center gap-1 ${
                   activeTier === tier.key
                     ? 'text-white'
@@ -419,10 +420,85 @@ export default function CompaniesPage() {
               ))}
             </div>
           ) : (
-            /* 正常公司卡片列表（按rank排序） */
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {getCompanies().map(c => renderCompanyCard(c))}
-            </div>
+            /* tier3 特殊渲染：按细分行业子Tab */
+            activeTier === 'tier3_antenna_oems' ? (() => {
+              const subsections = currentTierData.subsections || {}
+              const subkeys = Object.keys(subsections)
+              const activeSubkey = selectedSubkey === 'all' ? subkeys[0] : selectedSubkey
+              const activeSection = subsections[activeSubkey]
+              const allCompanies = subkeys.flatMap(sk => (subsections[sk]?.companies || []))
+              
+              return (
+                <div>
+                  {/* 细分行业子Tab */}
+                  <div style={{ display: 'flex', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={() => setSelectedSubkey('all')}
+                      style={{
+                        padding: '6px 16px', borderRadius: '20px',
+                        border: selectedSubkey === 'all' ? `2px solid ${TIER_CONFIG.find(t => t.key === activeTier)?.color}` : '1px solid #e0e0e0',
+                        background: selectedSubkey === 'all' ? `${TIER_CONFIG.find(t => t.key === activeTier)?.color}15` : '#f5f5f5',
+                        color: selectedSubkey === 'all' ? TIER_CONFIG.find(t => t.key === activeTier)?.color : '#666',
+                        cursor: 'pointer', fontSize: '0.85rem', fontWeight: 500,
+                        transition: 'all 0.2s',
+                      }}
+                    >
+                      全部 ({allCompanies.length}家)
+                    </button>
+                    {subkeys.map(sk => {
+                      const section = subsections[sk]
+                      const isActive = selectedSubkey === sk
+                      return (
+                        <button
+                          key={sk}
+                          onClick={() => setSelectedSubkey(sk)}
+                          style={{
+                            padding: '6px 16px', borderRadius: '20px',
+                            border: isActive ? `2px solid ${TIER_CONFIG.find(t => t.key === activeTier)?.color}` : '1px solid #e0e0e0',
+                            background: isActive ? `${TIER_CONFIG.find(t => t.key === activeTier)?.color}15` : '#f5f5f5',
+                            color: isActive ? TIER_CONFIG.find(t => t.key === activeTier)?.color : '#666',
+                            cursor: 'pointer', fontSize: '0.85rem', fontWeight: 500,
+                            transition: 'all 0.2s',
+                          }}
+                        >
+                          {section.name} ({section.companies.length}家)
+                        </button>
+                      )
+                    })}
+                  </div>
+
+                  {/* 子Tab内容 */}
+                  {selectedSubkey === 'all' ? (
+                    <div>
+                      {subkeys.map(sk => {
+                        const section = subsections[sk]
+                        return (
+                          <div key={sk} style={{ marginBottom: '32px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', paddingBottom: '8px', borderBottom: `2px solid ${TIER_CONFIG.find(t => t.key === activeTier)?.color}` }}>
+                              <span style={{ fontSize: '1.1rem', fontWeight: 600, color: TIER_CONFIG.find(t => t.key === activeTier)?.color }}>{section.name}</span>
+                              <span style={{ fontSize: '0.8rem', color: '#999' }}>{section.description}</span>
+                            </div>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '12px' }}>
+                              {(section.companies || []).map((c: Company) => renderCompanyCard(c))}
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  ) : (
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', paddingBottom: '8px', borderBottom: `2px solid ${TIER_CONFIG.find(t => t.key === activeTier)?.color}` }}>
+                        <span style={{ fontSize: '1.1rem', fontWeight: 600, color: TIER_CONFIG.find(t => t.key === activeTier)?.color }}>{activeSection.name}</span>
+                        <span style={{ fontSize: '0.8rem', color: '#999' }}>{activeSection.description}</span>
+                      </div>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '12px' }}>
+                        {(activeSection.companies || []).map((c: Company) => renderCompanyCard(c))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )
+            })() : (
           )
         )}
       </div>
