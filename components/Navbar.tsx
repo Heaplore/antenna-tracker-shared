@@ -12,7 +12,6 @@ export default function Navbar() {
         <div className="navbar-container">
           <Link href="/" className="navbar-brand">📡 天线情报</Link>
           <div className="navbar-nav">
-            <Link href="/" className={`nav-link${pathname === '/' ? ' active' : ''}`}>行业报告</Link>
             <Link href="/news" className={`nav-link${pathname === '/news' ? ' active' : ''}`}>行业动态</Link>
             <Link href="/companies" className={`nav-link${pathname === '/companies' ? ' active' : ''}`}>企业</Link>
             <Link href="/prices" className={`nav-link${pathname === '/prices' ? ' active' : ''}`}>价格</Link>
