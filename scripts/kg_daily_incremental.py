@@ -30,6 +30,11 @@ import subprocess
 import datetime
 from pathlib import Path
 
+try:
+    import winreg
+except ImportError:
+    winreg = None  # 非 Windows 环境下无此模块，代理检测自动降级为直连
+
 # ===================== 路径配置 =====================
 REPO = Path(r"E:\.easyclaw\workspace\antenna-repo")
 VAULT = Path(r"E:\我的知识库\我的知识库\资料库\天线技术")
@@ -455,11 +460,77 @@ def update_readme(readme_text, processed_basenames):
     return "\n".join(lines)
 
 
+def detect_system_proxy():
+    """从 Windows 注册表读取系统代理（瓦力/Steam++ 的「系统代理」模式会写入这里）。
+    返回 'http://host:port'，或 ''（未启用 / 读不到 / 非 Windows）。
+    支持 ProxyServer 形如 'http=127.0.0.1:26561;https=127.0.0.1:26561' 或纯 '127.0.0.1:26561'。"""
+    if winreg is None:
+        return ""
+    try:
+        key = winreg.OpenKey(
+            winreg.HKEY_CURRENT_USER,
+            r"Software\Microsoft\Windows\CurrentVersion\Internet Settings",
+        )
+        try:
+            enabled = winreg.QueryValueEx(key, "ProxyEnable")[0]
+        except FileNotFoundError:
+            return ""
+        if not enabled:
+            return ""
+        try:
+            server = winreg.QueryValueEx(key, "ProxyServer")[0]
+        except FileNotFoundError:
+            return ""
+        server = (server or "").strip()
+        if not server:
+            return ""
+        # 解析出 https/http 地址
+        addr = ""
+        if "=" in server:
+            for part in server.split(";"):
+                if "=" in part:
+                    proto, val = part.split("=", 1)
+                    if proto.strip().lower() in ("https", "http"):
+                        addr = val.strip()
+                        break
+            if not addr:
+                addr = server.split(";")[0].split("=", 1)[-1].strip()
+        else:
+            addr = server
+        if not addr.startswith("http://") and not addr.startswith("https://"):
+            addr = "http://" + addr
+        return addr
+    except Exception as e:
+        print(f"   ⚠️  读取系统代理失败（将尝试直连）: {e}")
+        return ""
+
+
+def make_git_env():
+    """构造 git 子进程环境变量：
+    - 始终关闭 schannel 证书吊销检查（Windows 老坑，跨项目硬规则）；
+    - 自动套用系统代理（若检测到），否则直连。"""
+    env = os.environ.copy()
+    env["GIT_SSL_NO_VERIFY"] = "1"
+    proxy = detect_system_proxy()
+    if proxy:
+        for k in ("HTTP_PROXY", "HTTPS_PROXY", "http_proxy", "https_proxy"):
+            env[k] = proxy
+        print(f"   🔌 采用系统代理推送: {proxy}")
+    else:
+        print("   🔌 未检测到系统代理，直连模式")
+    return env
+
+
+def strip_proxy_env(env: dict):
+    """移除代理相关变量，用于 fallback 直连。"""
+    return {k: v for k, v in env.items()
+            if k not in ("HTTP_PROXY", "HTTPS_PROXY", "http_proxy", "https_proxy")}
+
+
 def git_sync_start(repo: Path):
     """真正执行前，先把本地仓库同步到 origin/main 最新（基于最新 KG 增量，避免丢失 daily 提交）。
     工作树必须干净；若有未提交改动则中止，防止覆盖。"""
-    env = os.environ.copy()
-    env["GIT_SSL_NO_VERIFY"] = "1"
+    env = make_git_env()
     git = ["git", "-C", str(repo)]
     st = subprocess.run(git + ["status", "--porcelain"], env=env, capture_output=True, text=True)
     if st.stdout.strip():
@@ -470,12 +541,12 @@ def git_sync_start(repo: Path):
 
 
 def git_push(repo: Path, files: list):
-    env = os.environ.copy()
-    env["GIT_SSL_NO_VERIFY"] = "1"
+    env = make_git_env()
     git = ["git", "-C", str(repo)]
 
-    def run(args, allow_fail=False):
-        r = subprocess.run(git + args, env=env, capture_output=True, text=True)
+    def run(args, env_=None, allow_fail=False):
+        e = env_ if env_ is not None else env
+        r = subprocess.run(git + args, env=e, capture_output=True, text=True)
         if r.returncode != 0 and not allow_fail:
             raise RuntimeError(f"git {' '.join(args)} 失败:\n{r.stdout}\n{r.stderr}")
         return r
@@ -488,7 +559,21 @@ def git_push(repo: Path, files: list):
         ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
         run(["commit", "-m", f"kg: 增量上传待上传笔记 {ts}"])
         run(["pull", "--rebase", REMOTE, BRANCH])
-        run(["push", REMOTE, f"HEAD:{BRANCH}"])
+        # push：先走（可能的）代理；若失败且当前套了代理，则 fallback 直连
+        pr = subprocess.run(git + ["push", REMOTE, f"HEAD:{BRANCH}"], env=env, capture_output=True, text=True)
+        if pr.returncode != 0 and any(
+            k in env for k in ("HTTP_PROXY", "HTTPS_PROXY", "http_proxy", "https_proxy")
+        ):
+            print("   ⚠️  代理推送失败，尝试直连 fallback ...")
+            pr = subprocess.run(
+                git + ["push", REMOTE, f"HEAD:{BRANCH}"],
+                env=strip_proxy_env(env),
+                capture_output=True,
+                text=True,
+            )
+        if pr.returncode != 0:
+            raise RuntimeError(f"git push 失败:\n{pr.stdout}\n{pr.stderr}")
+        print("   ✅ 已 git push 到 GitHub（将触发 Pages 部署）")
         return True
     return False
 
