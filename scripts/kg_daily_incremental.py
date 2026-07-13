@@ -404,33 +404,69 @@ def build_links_for(new_nodes, existing_id_map):
 
 def update_readme(readme_text, processed_basenames):
     lines = readme_text.split("\n")
-    # 1) 行内 ⏳ -> ✅
+    # 1) 行内 ⏳ -> ✅（仅匹配表格数据行）
     for bn in processed_basenames:
         for k, line in enumerate(lines):
             if re.search(r"\|\s*" + re.escape(bn) + r"\s*\|", line) and "⏳" in line:
                 lines[k] = line.replace("⏳ 待上传", "✅ 已上传").replace("⏳待上传", "✅已上传")
                 break
     # 2) 重算每个 ### 小节的 已上传/待上传 计数
+    TYPE_NAMES = {"技术概念", "指标术语", "零部件", "材料"}
     headers = []
     for i, line in enumerate(lines):
         m = re.match(r"^###\s+(.+?)（(\d+)\s*篇[^）]*）", line)
         if m:
             headers.append((i, m.group(1), int(m.group(2))))
-    for h in headers:
-        idx, name, total = h
+
+    def section_range(idx):
         nxt = len(lines)
         for j in headers:
             if j[0] > idx:
                 nxt = j[0]
                 break
-        uploaded = pending = 0
-        for k in range(idx + 1, nxt):
+        return range(idx + 1, nxt)
+
+    # 2a) 统计所有小节的自身计数（只数表格行 `|` 开头，忽略图例正文）
+    section_counts = {}
+    agg = {"up": 0, "pe": 0}
+    for h in headers:
+        idx, name, total = h
+        up = pe = 0
+        for k in section_range(idx):
+            if not lines[k].lstrip().startswith("|"):
+                continue
             if re.search(r"✅\s*已上传", lines[k]):
-                uploaded += 1
+                up += 1
             elif re.search(r"⏳\s*待上传", lines[k]):
-                pending += 1
-        lines[idx] = f"### {name}（{total} 篇 · 已上传 {uploaded} · 待上传 {pending}）"
+                pe += 1
+        section_counts[name] = (up, pe)
+        if name in TYPE_NAMES:
+            agg["up"] += up
+            agg["pe"] += pe
+    # 2b) 重写表头：4 类真实小节与规划/模板用自身计数；
+    #     仅「笔记索引」这种聚合小节用 4 类合计（反映全部笔记总状态）
+    for h in headers:
+        idx, name, total = h
+        if name == "笔记索引":
+            up, pe = agg["up"], agg["pe"]
+        else:
+            up, pe = section_counts[name]
+        lines[idx] = f"### {name}（{total} 篇 · 已上传 {up} · 待上传 {pe}）"
     return "\n".join(lines)
+
+
+def git_sync_start(repo: Path):
+    """真正执行前，先把本地仓库同步到 origin/main 最新（基于最新 KG 增量，避免丢失 daily 提交）。
+    工作树必须干净；若有未提交改动则中止，防止覆盖。"""
+    env = os.environ.copy()
+    env["GIT_SSL_NO_VERIFY"] = "1"
+    git = ["git", "-C", str(repo)]
+    st = subprocess.run(git + ["status", "--porcelain"], env=env, capture_output=True, text=True)
+    if st.stdout.strip():
+        raise RuntimeError("工作树存在未提交改动，已中止以避免覆盖。请先 `git status` 处理后再运行。")
+    r = subprocess.run(git + ["pull", "--rebase", REMOTE, BRANCH], env=env, capture_output=True, text=True)
+    if r.returncode != 0:
+        raise RuntimeError(f"git pull --rebase 失败:\n{r.stdout}\n{r.stderr}")
 
 
 def git_push(repo: Path, files: list):
@@ -444,14 +480,14 @@ def git_push(repo: Path, files: list):
             raise RuntimeError(f"git {' '.join(args)} 失败:\n{r.stdout}\n{r.stderr}")
         return r
 
-    run(["pull", "--rebase", REMOTE, BRANCH])
+    # 先提交本次变更（工作树变干净），再 pull --rebase 同步（吸收 daily 14:30 可能的新提交），最后推送
     for f in files:
         run(["add", str(f)])
-    # 检查是否有 staged 变更
     st = run(["diff", "--cached", "--quiet"], allow_fail=True)
     if st.returncode != 0:
         ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
         run(["commit", "-m", f"kg: 增量上传待上传笔记 {ts}"])
+        run(["pull", "--rebase", REMOTE, BRANCH])
         run(["push", REMOTE, f"HEAD:{BRANCH}"])
         return True
     return False
@@ -477,6 +513,10 @@ def main():
         sys.exit(1)
 
     readme_text = README.read_text(encoding="utf-8")
+    if args.apply:
+        # 真正执行前先同步到最新，确保基于最新 KG 增量
+        git_sync_start(REPO)
+        readme_text = README.read_text(encoding="utf-8")
     pending = find_pending(readme_text)
     if args.only:
         pending = [p for p in pending if args.only in p[0]]
