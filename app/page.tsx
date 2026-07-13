@@ -277,7 +277,7 @@ export default function HomePage() {
 
         <h4 style={{ fontSize: '0.95rem', fontWeight: '600', marginBottom: '8px', color: '#1a3a8a' }}>太赫兹天线</h4>
         <ul style={{ padding: '0 0 0 16px', margin: '0 0 16px', fontSize: '0.85rem', color: '#666', lineHeight: '1.8' }}>
-          <li>频段：>100GHz（0.1-10THz）</li>
+          <li>频段：{'>'}100GHz（0.1-10THz）</li>
           <li>意义：6G 核心频段，提供超大带宽</li>
           <li>进展：华为 220GHz 太赫兹通感一体化原型机实现 240Gbps 传输速率</li>
         </ul>
