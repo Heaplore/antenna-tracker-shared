@@ -340,47 +340,8 @@
   
 
   
-  <article class="card ">
     
-    <h2>关联笔记</h2>
-    <ul>
-<li>[[技术概念-D波段150GHz AiP相控阵无线模块-Science Tokyo-20260711]]</li>
-<li>[[技术概念-封装天线Antenna-in-Package-AiP-20260702]]</li>
-<li>[[技术概念-300GHz全CMOS二维相控阵收发器-20260709]]</li>
-<li>[[技术概念-子阵列可编程太赫兹超表面通感算一体化-20260709]]</li>
-<li>[[指标术语-EIRP-ERP-20260703]]</li>
-</ul>
-  </article>
   
-
-
-
-<article class="card related">
-  <h2>关联笔记 (4)</h2>
-  <div class="related-grid">
-    
-    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-d波段150ghz-aip相控阵无线模块-science-tokyo.html">
-      <span class="ico">🔗</span>
-      <span class="rel-title">technology-d波段150ghz-aip相控阵无线模块-science-tokyo</span>
-    </a>
-    
-    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-封装天线antenna-in-package-aip.html">
-      <span class="ico">🔗</span>
-      <span class="rel-title">technology-封装天线antenna-in-package-aip</span>
-    </a>
-    
-    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/technology-子阵列可编程太赫兹超表面通感算一体化.html">
-      <span class="ico">🔗</span>
-      <span class="rel-title">technology-子阵列可编程太赫兹超表面通感算一体化</span>
-    </a>
-    
-    <a class="rel-card" href="/antenna-tracker/kg-cards-rendered/metric-eirp-erp.html">
-      <span class="ico">🔗</span>
-      <span class="rel-title">metric-eirp-erp</span>
-    </a>
-    
-  </div>
-</article>
 
 
 </main><script>
@@ -401,39 +362,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>
