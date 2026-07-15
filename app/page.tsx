@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import PageHeader from '@/components/PageHeader'
 
 export default function HomePage() {
   const chartRefs = useRef<{ market?: HTMLDivElement | null; share?: HTMLDivElement | null; cagr?: HTMLDivElement | null; roadmap?: HTMLDivElement | null }>({})
   const kpiRef = useRef<HTMLDivElement>(null)
   const conclusionRef = useRef<HTMLDivElement>(null)
-  const coverRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     // Load ECharts
@@ -21,7 +21,6 @@ export default function HomePage() {
       initSidebarProgress()
       initScrollReveal()
       initKpiCountUp()
-      initCoverParallax()
     }
 
     return () => {
@@ -284,15 +283,6 @@ export default function HomePage() {
     nums.forEach(el => obs.observe(el))
   }
 
-  function initCoverParallax() {
-    const cover = document.getElementById('coverSection')
-    if (!cover) return
-    window.addEventListener('scroll', () => {
-      const sy = window.scrollY
-      if (sy < 600) cover.style.backgroundPositionY = (sy * 0.3) + 'px'
-    }, { passive: true })
-  }
-
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
@@ -328,29 +318,12 @@ export default function HomePage() {
 
         <div className="main-area">
 
-          {/* Cover */}
-          <div className="cover" id="coverSection" ref={coverRef}>
-            <div className="cover-glow-2"></div>
-            <div className="cover-waves">
-              <svg viewBox="0 0 960 40" preserveAspectRatio="none">
-                <path d="M0,20 Q120,0 240,20 T480,20 T720,20 T960,20 L960,40 L0,40 Z" fill="rgba(255,255,255,0.03)"/>
-                <path d="M0,25 Q160,10 320,25 T640,25 T960,25 L960,40 L0,40 Z" fill="rgba(255,255,255,0.02)"/>
-              </svg>
-            </div>
-            <div className="cover-inner">
-              <div className="cover-badge">行业深度研究报告</div>
-              <h1>全球天线行业市场格局<br/>及技术发展现状趋势</h1>
-              <div className="cover-line"></div>
-              <p className="cover-subtitle">从5G建设高峰期到5G-A/6G过渡期的系统性分析：市场规模、竞争格局、技术演进与未来展望</p>
-              <div className="cover-meta">
-                <span>银月（TRAE Agent）</span>
-                <span>&middot;</span>
-                <span>2026年7月</span>
-                <span>&middot;</span>
-                <span>L3 深度建模</span>
-              </div>
-            </div>
-          </div>
+          {/* 统一版头（与其他页一致） */}
+          <PageHeader
+            title="全球天线行业市场格局及技术发展现状趋势"
+            subtitle="从5G建设高峰期到5G-A/6G过渡期的系统性分析：市场规模、竞争格局、技术演进与未来展望"
+            updateInfo="银月（TRAE Agent） · 2026年7月 · L3 深度建模"
+          />
 
           <div className="content">
 
@@ -987,155 +960,6 @@ body {
 .main-area { flex: 1; min-width: 0; }
 
 /* ===== COVER ===== */
-.cover {
-  background: linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 25%, #0e2a4a 50%, #0a3040 75%, #0a0f1e 100%);
-  color: #fff;
-  padding: 3.5rem 0 2.5rem;
-  position: relative;
-  overflow: hidden;
-  background-size: cover;
-}
-
-.cover::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(6,182,212,0.04) 59px, rgba(6,182,212,0.04) 60px),
-    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(6,182,212,0.04) 59px, rgba(6,182,212,0.04) 60px);
-  z-index: 0;
-  animation: meshMove 20s linear infinite;
-}
-@keyframes meshMove {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(60px, 60px); }
-}
-
-.cover::after {
-  content: '';
-  position: absolute;
-  top: -30%;
-  right: -10%;
-  width: 550px;
-  height: 550px;
-  background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, rgba(37,99,235,0.06) 40%, transparent 70%);
-  border-radius: 50%;
-  animation: coverGlow 8s ease-in-out infinite alternate;
-  z-index: 0;
-}
-@keyframes coverGlow {
-  0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
-  100% { transform: translate(30px, -20px) scale(1.15); opacity: 1; }
-}
-
-.cover-glow-2 {
-  position: absolute;
-  bottom: -25%;
-  left: -8%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(109,40,217,0.08) 0%, transparent 65%);
-  border-radius: 50%;
-  animation: coverGlow 12s ease-in-out infinite alternate-reverse;
-  z-index: 0;
-}
-
-.cover-waves {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  overflow: hidden;
-  z-index: 1;
-}
-.cover-waves svg { width: 100%; height: 100%; }
-
-.cover-inner {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  position: relative;
-  z-index: 2;
-  text-align: center;
-}
-
-.cover-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background: rgba(6,182,212,0.08);
-  border: 1px solid rgba(6,182,212,0.2);
-  border-radius: 999px;
-  padding: 0.3rem 1rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #67e8f9;
-  margin-bottom: 1.2rem;
-  backdrop-filter: blur(8px);
-  animation: badgeGlow 3s ease-in-out infinite;
-}
-@keyframes badgeGlow {
-  0%, 100% { box-shadow: 0 0 12px rgba(6,182,212,0.1); }
-  50% { box-shadow: 0 0 20px rgba(6,182,212,0.25); }
-}
-.cover-badge::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: #67e8f9;
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-  box-shadow: 0 0 6px rgba(103,232,249,0.6);
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.3; transform: scale(0.8); }
-}
-
-.cover h1 {
-  font-family: 'Noto Sans SC', sans-serif;
-  font-weight: 900;
-  font-size: 2.4rem;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #ffffff 40%, #a5f3fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.cover-subtitle {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.7;
-  margin: 0 auto 1.5rem;
-  max-width: 700px;
-}
-
-.cover-line {
-  width: 80px;
-  height: 2px;
-  background: linear-gradient(90deg, #67e8f9, rgba(103,232,249,0));
-  margin: 0 auto 1.2rem;
-  border-radius: 1px;
-}
-
-.cover-meta {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.3);
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding-top: 0.8rem;
-}
-.cover-meta span { display: flex; align-items: center; gap: 0.3rem; }
-
 /* ===== CONTENT ===== */
 .content {
   max-width: 1000px;
@@ -1710,10 +1534,8 @@ sup a:hover { text-decoration: underline; }
   .layout { gap: 1rem; }
   .kpi-strip { grid-template-columns: repeat(2, 1fr); }
   .grid-4 { grid-template-columns: 1fr 1fr; }
-  .cover-inner { padding: 0 2rem; }
   .content { padding: 0 2rem; }
   footer .sources { padding: 0 2rem; }
-  .cover h1 { font-size: 2rem; }
 }
 
 @media (max-width: 768px) {
@@ -1740,14 +1562,9 @@ sup a:hover { text-decoration: underline; }
   .sidebar-mobile-btn { display: flex; }
 
   .layout { margin-left: 0; }
-  .cover { margin-left: 0; }
   .content { padding: 0 1rem; }
-  .cover-inner { padding: 0 1rem; }
-  .cover { padding: 2rem 0 1.5rem; }
-  .cover h1 { font-size: 1.5rem; }
   .kpi-strip { grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: -1rem; }
   .grid-2, .grid-4 { grid-template-columns: 1fr; }
-  .cover-meta { flex-direction: column; gap: 0.2rem; }
   footer .sources { padding: 0 1rem; }
   table { font-size: 0.72rem; }
   th, td { padding: 0.4rem 0.6rem; }
@@ -1762,7 +1579,6 @@ sup a:hover { text-decoration: underline; }
 }
 
 @media print {
-  .cover { color: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .chart-box { break-inside: avoid; }
   section { break-inside: avoid; }
 }
