@@ -39,3 +39,6 @@ next-env.d.ts
 __pycache__/
 *.pyc
 *.pyo
+
+# local agent memory (not source, must not be committed)
+.workbuddy/
