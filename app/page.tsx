@@ -1053,15 +1053,17 @@ body {
 
 .cover-inner {
   max-width: 1000px;
-  margin: 0;
-  padding: 0 2rem 0 0;
+  margin: 0 auto;
+  padding: 0 2rem;
   position: relative;
   z-index: 2;
+  text-align: center;
 }
 
 .cover-badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   background: rgba(6,182,212,0.08);
   border: 1px solid rgba(6,182,212,0.2);
@@ -1110,7 +1112,7 @@ body {
   font-size: 0.9rem;
   color: rgba(255,255,255,0.5);
   line-height: 1.7;
-  margin-bottom: 1.5rem;
+  margin: 0 auto 1.5rem;
   max-width: 700px;
 }
 
@@ -1118,13 +1120,14 @@ body {
   width: 80px;
   height: 2px;
   background: linear-gradient(90deg, #67e8f9, rgba(103,232,249,0));
-  margin-bottom: 1.2rem;
+  margin: 0 auto 1.2rem;
   border-radius: 1px;
 }
 
 .cover-meta {
   display: flex;
   gap: 1.5rem;
+  justify-content: center;
   flex-wrap: wrap;
   font-size: 0.72rem;
   color: rgba(255,255,255,0.3);
