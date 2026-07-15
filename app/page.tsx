@@ -291,6 +291,15 @@ export default function HomePage() {
       <button className="sidebar-mobile-btn" id="sidebarToggle" aria-label="打开目录">&#9776;</button>
       <div className="sidebar-overlay" id="sidebarOverlay"></div>
 
+      {/* 统一版头（与其他页一致，整行居中，目录在其下方） */}
+      <div className="home-header">
+        <PageHeader
+          title="全球天线行业市场格局及技术发展现状趋势"
+          subtitle="从5G建设高峰期到5G-A/6G过渡期的系统性分析：市场规模、竞争格局、技术演进与未来展望"
+          updateInfo="银月（TRAE Agent） · 2026年7月 · L3 深度建模"
+        />
+      </div>
+
       <div className="layout">
         <nav className="sidebar">
           <div className="sidebar-progress"><div className="sidebar-progress-bar" id="sidebarProgress"></div></div>
@@ -317,13 +326,6 @@ export default function HomePage() {
         </nav>
 
         <div className="main-area">
-
-          {/* 统一版头（与其他页一致） */}
-          <PageHeader
-            title="全球天线行业市场格局及技术发展现状趋势"
-            subtitle="从5G建设高峰期到5G-A/6G过渡期的系统性分析：市场规模、竞争格局、技术演进与未来展望"
-            updateInfo="银月（TRAE Agent） · 2026年7月 · L3 深度建模"
-          />
 
           <div className="content">
 
@@ -948,6 +950,13 @@ body {
   font-size: 0.72rem;
 }
 .sidebar-nav li.sub a .nav-chap { display: none; }
+
+/* ===== HOME HEADER (整行，目录在其下方) ===== */
+.home-header {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 0;
+}
 
 /* ===== LAYOUT ===== */
 .layout {
