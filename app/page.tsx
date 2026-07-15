@@ -297,36 +297,35 @@ export default function HomePage() {
     <>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
-      {/* Sidebar */}
-      <nav className="sidebar">
-        <div className="sidebar-progress"><div className="sidebar-progress-bar" id="sidebarProgress"></div></div>
-        <div className="sidebar-title">目录导航</div>
-        <ul className="sidebar-nav">
-          <li><a href="#sec-1"><span className="nav-chap">01</span><span className="nav-text">行业概述</span></a></li>
-          <li><a href="#sec-2"><span className="nav-chap">02</span><span className="nav-text">市场规模与增长</span></a></li>
-          <li className="sub"><a href="#sec-2-1"><span className="nav-text">2.1 总体规模</span></a></li>
-          <li className="sub"><a href="#sec-2-2"><span className="nav-text">2.2 区域市场</span></a></li>
-          <li className="sub"><a href="#sec-2-3"><span className="nav-text">2.3 驱动因素</span></a></li>
-          <li><a href="#sec-3"><span className="nav-chap">03</span><span className="nav-text">竞争格局</span></a></li>
-          <li className="sub"><a href="#sec-3-1"><span className="nav-text">3.1 全球梯队</span></a></li>
-          <li className="sub"><a href="#sec-3-2"><span className="nav-text">3.2 中国市场</span></a></li>
-          <li><a href="#sec-4"><span className="nav-chap">04</span><span className="nav-text">技术发展现状</span></a></li>
-          <li className="sub"><a href="#sec-4-1"><span className="nav-text">4.1 5G天线</span></a></li>
-          <li className="sub"><a href="#sec-4-2"><span className="nav-text">4.2 5G-A</span></a></li>
-          <li className="sub"><a href="#sec-4-3"><span className="nav-text">4.3 6G前沿</span></a></li>
-          <li><a href="#sec-5"><span className="nav-chap">05</span><span className="nav-text">产业链分析</span></a></li>
-          <li><a href="#sec-6"><span className="nav-chap">06</span><span className="nav-text">技术发展路线图</span></a></li>
-          <li><a href="#sec-7"><span className="nav-chap">07</span><span className="nav-text">挑战与风险</span></a></li>
-          <li><a href="#sec-8"><span className="nav-chap">08</span><span className="nav-text">未来展望</span></a></li>
-          <li><a href="#sec-9"><span className="nav-chap">09</span><span className="nav-text">结论</span></a></li>
-        </ul>
-      </nav>
-
       {/* Mobile sidebar toggle */}
       <button className="sidebar-mobile-btn" id="sidebarToggle" aria-label="打开目录">&#9776;</button>
       <div className="sidebar-overlay" id="sidebarOverlay"></div>
 
       <div className="layout">
+        <nav className="sidebar">
+          <div className="sidebar-progress"><div className="sidebar-progress-bar" id="sidebarProgress"></div></div>
+          <div className="sidebar-title">目录导航</div>
+          <ul className="sidebar-nav">
+            <li><a href="#sec-1"><span className="nav-chap">01</span><span className="nav-text">行业概述</span></a></li>
+            <li><a href="#sec-2"><span className="nav-chap">02</span><span className="nav-text">市场规模与增长</span></a></li>
+            <li className="sub"><a href="#sec-2-1"><span className="nav-text">2.1 总体规模</span></a></li>
+            <li className="sub"><a href="#sec-2-2"><span className="nav-text">2.2 区域市场</span></a></li>
+            <li className="sub"><a href="#sec-2-3"><span className="nav-text">2.3 驱动因素</span></a></li>
+            <li><a href="#sec-3"><span className="nav-chap">03</span><span className="nav-text">竞争格局</span></a></li>
+            <li className="sub"><a href="#sec-3-1"><span className="nav-text">3.1 全球梯队</span></a></li>
+            <li className="sub"><a href="#sec-3-2"><span className="nav-text">3.2 中国市场</span></a></li>
+            <li><a href="#sec-4"><span className="nav-chap">04</span><span className="nav-text">技术发展现状</span></a></li>
+            <li className="sub"><a href="#sec-4-1"><span className="nav-text">4.1 5G天线</span></a></li>
+            <li className="sub"><a href="#sec-4-2"><span className="nav-text">4.2 5G-A</span></a></li>
+            <li className="sub"><a href="#sec-4-3"><span className="nav-text">4.3 6G前沿</span></a></li>
+            <li><a href="#sec-5"><span className="nav-chap">05</span><span className="nav-text">产业链分析</span></a></li>
+            <li><a href="#sec-6"><span className="nav-chap">06</span><span className="nav-text">技术发展路线图</span></a></li>
+            <li><a href="#sec-7"><span className="nav-chap">07</span><span className="nav-text">挑战与风险</span></a></li>
+            <li><a href="#sec-8"><span className="nav-chap">08</span><span className="nav-text">未来展望</span></a></li>
+            <li><a href="#sec-9"><span className="nav-chap">09</span><span className="nav-text">结论</span></a></li>
+          </ul>
+        </nav>
+
         <div className="main-area">
 
           {/* Cover */}
@@ -787,29 +786,28 @@ export default function HomePage() {
             </section>
 
           </div> {/* /content */}
+        {/* Sources Footer */}
+        <footer>
+          <div className="sources">
+            <h2>参考资料</h2>
+            <ol>
+              <li id="cite-1"><span className="src-title">[二级资料] 中国通信天线行业市场规模分析：2023年627亿元&rarr;2024年641.3亿元</span><span className="src-url">豆丁网行业报告</span></li>
+              <li id="cite-2"><span className="src-title">[二级资料] 全球5G天线行业规模及市场占有率分析报告</span><span className="src-url">格隆汇 / QY Research</span></li>
+              <li id="cite-3"><span className="src-title">[二级资料] 全球Massive MIMO 5G AAU有源天线单元市场规模报告</span><span className="src-url">格隆汇</span></li>
+              <li id="cite-4"><span className="src-title">[二级资料] 全球与中国5G相控阵天线市场调查报告2024-2030</span><span className="src-url">QYR恒州博智</span></li>
+              <li id="cite-5"><span className="src-title">[二级资料] Technavio: 2024-2028全球5G设备市场增长1469.5亿美元</span><span className="src-url">Technavio Research</span></li>
+              <li id="cite-6"><span className="src-title">[行业报道] 华为李鹏MWC2024: 2024年是5G-A商用元年，全球5G用户超15亿</span><span className="src-url">华为官方新闻稿</span></li>
+              <li id="cite-7"><span className="src-title">[官方] 2025年中国《政府工作报告》将6G纳入未来产业规划，工信部推进6G研发</span><span className="src-url">中国政府网</span></li>
+              <li id="cite-8"><span className="src-title">[二级资料] 2024年中国天线市场竞争格局：华为29.4%、中兴18.6%、通宇14.2%</span><span className="src-url">豆丁网行业分析</span></li>
+              <li id="cite-9"><span className="src-title">[行业报道] 通宇通讯: 全球基站天线细分领域前五，华为/中兴/爱立信/诺基亚供应商</span><span className="src-url">腾讯证券</span></li>
+              <li id="cite-10"><span className="src-title">[行业报道] 盛路通信: 689项RIS相关发明专利，低轨卫星通信终端天线</span><span className="src-url">搜狐财经</span></li>
+              <li id="cite-11"><span className="src-title">[二级资料] 面向6G的大规模MIMO通信感知一体化: 智能超表面(RIS)被认为是6G关键技术之一</span><span className="src-url">搜狐学术</span></li>
+              <li id="cite-12"><span className="src-title">[学术] Engineering 2026年1月刊: AI与深度学习在太赫兹超大规模MIMO系统中的应用</span><span className="src-url">Engineering期刊</span></li>
+            </ol>
+          </div>
+        </footer>
         </div> {/* /main-area */}
       </div> {/* /layout */}
-
-      {/* Sources Footer */}
-      <footer>
-        <div className="sources">
-          <h2>参考资料</h2>
-          <ol>
-            <li id="cite-1"><span className="src-title">[二级资料] 中国通信天线行业市场规模分析：2023年627亿元&rarr;2024年641.3亿元</span><span className="src-url">豆丁网行业报告</span></li>
-            <li id="cite-2"><span className="src-title">[二级资料] 全球5G天线行业规模及市场占有率分析报告</span><span className="src-url">格隆汇 / QY Research</span></li>
-            <li id="cite-3"><span className="src-title">[二级资料] 全球Massive MIMO 5G AAU有源天线单元市场规模报告</span><span className="src-url">格隆汇</span></li>
-            <li id="cite-4"><span className="src-title">[二级资料] 全球与中国5G相控阵天线市场调查报告2024-2030</span><span className="src-url">QYR恒州博智</span></li>
-            <li id="cite-5"><span className="src-title">[二级资料] Technavio: 2024-2028全球5G设备市场增长1469.5亿美元</span><span className="src-url">Technavio Research</span></li>
-            <li id="cite-6"><span className="src-title">[行业报道] 华为李鹏MWC2024: 2024年是5G-A商用元年，全球5G用户超15亿</span><span className="src-url">华为官方新闻稿</span></li>
-            <li id="cite-7"><span className="src-title">[官方] 2025年中国《政府工作报告》将6G纳入未来产业规划，工信部推进6G研发</span><span className="src-url">中国政府网</span></li>
-            <li id="cite-8"><span className="src-title">[二级资料] 2024年中国天线市场竞争格局：华为29.4%、中兴18.6%、通宇14.2%</span><span className="src-url">豆丁网行业分析</span></li>
-            <li id="cite-9"><span className="src-title">[行业报道] 通宇通讯: 全球基站天线细分领域前五，华为/中兴/爱立信/诺基亚供应商</span><span className="src-url">腾讯证券</span></li>
-            <li id="cite-10"><span className="src-title">[行业报道] 盛路通信: 689项RIS相关发明专利，低轨卫星通信终端天线</span><span className="src-url">搜狐财经</span></li>
-            <li id="cite-11"><span className="src-title">[二级资料] 面向6G的大规模MIMO通信感知一体化: 智能超表面(RIS)被认为是6G关键技术之一</span><span className="src-url">搜狐学术</span></li>
-            <li id="cite-12"><span className="src-title">[学术] Engineering 2026年1月刊: AI与深度学习在太赫兹超大规模MIMO系统中的应用</span><span className="src-url">Engineering期刊</span></li>
-          </ol>
-        </div>
-      </footer>
     </>
   )
 }
@@ -854,10 +852,13 @@ body {
 
 /* ===== SIDEBAR ===== */
 .sidebar {
-  position: fixed;
-  top: 0; left: 0;
+  position: sticky;
+  top: 60px;
+  left: 0;
   width: var(--sidebar-w);
-  height: 100vh;
+  height: calc(100vh - 60px);
+  flex-shrink: 0;
+  align-self: flex-start;
   background: rgba(255,255,255,0.82);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -978,7 +979,9 @@ body {
 /* ===== LAYOUT ===== */
 .layout {
   display: flex;
-  margin-left: var(--sidebar-w);
+  max-width: 1320px;
+  margin: 0 auto;
+  gap: 1.5rem;
   min-height: 100vh;
 }
 .main-area { flex: 1; min-width: 0; }
@@ -1050,8 +1053,8 @@ body {
 
 .cover-inner {
   max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 3rem;
+  margin: 0;
+  padding: 0 2rem 0 0;
   position: relative;
   z-index: 2;
 }
@@ -1133,8 +1136,8 @@ body {
 /* ===== CONTENT ===== */
 .content {
   max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 3rem;
+  margin: 0;
+  padding: 0 2rem 0 0;
 }
 
 /* ===== KPI STRIP ===== */
@@ -1641,8 +1644,8 @@ footer {
 }
 footer .sources {
   max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 3rem;
+  margin: 0;
+  padding: 0 2rem 0 0;
 }
 footer .sources h2 {
   font-size: 0.9rem;
@@ -1701,6 +1704,7 @@ sup a:hover { text-decoration: underline; }
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   :root { --sidebar-w: 200px; }
+  .layout { gap: 1rem; }
   .kpi-strip { grid-template-columns: repeat(2, 1fr); }
   .grid-4 { grid-template-columns: 1fr 1fr; }
   .cover-inner { padding: 0 2rem; }
@@ -1713,8 +1717,13 @@ sup a:hover { text-decoration: underline; }
   .sidebar { display: none; }
   .sidebar.mobile-open {
     display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 75vw;
     max-width: 300px;
+    height: 100vh;
+    z-index: 101;
   }
   .sidebar-overlay {
     display: none;
