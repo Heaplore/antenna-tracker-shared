@@ -426,13 +426,15 @@ export default function KnowledgeGraphPage() {
         .attr('stroke-opacity', 0.2)
 
       // Update nodes with join (preserves existing elements, adds/removes as needed)
-      nodeSel
+      const joinedNodes = nodeSel
         .data(nodes, (d: any) => d.id)
         .join(
           (enter) => enter.append('g').attr('class', 'node').style('cursor', 'pointer'),
           (exit) => exit.remove(),
           (update) => update,
-        )
+        ) as any as d3.Selection<d3.SVGElement, any, any, any>
+      
+      joinedNodes
         .on('mouseover', (_, d) => setHoveredId(d.id))
         .on('mouseout', () => setHoveredId(null))
         .call(d3.drag<SVGGElement, any>()
