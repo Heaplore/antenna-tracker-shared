@@ -955,7 +955,7 @@ body {
 .home-header {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 1.5rem 1.5rem 0;
+  padding: 1.5rem 0 0;
 }
 
 /* ===== LAYOUT ===== */
