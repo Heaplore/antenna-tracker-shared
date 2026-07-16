@@ -108,14 +108,7 @@ export default function KnowledgeGraphPage() {
     if (!q) return []
     return kgData.nodes
       .filter((n) => activeTypes.has(n.type))
-      .filter((n) => {
-        return (
-          n.name.toLowerCase().includes(q) ||
-          (n.nameEn && n.nameEn.toLowerCase().includes(q)) ||
-          n.tags.some((t) => t.toLowerCase().includes(q)) ||
-          n.oneLiner.toLowerCase().includes(q)
-        )
-      })
+      .filter((n) => n.name.toLowerCase().includes(q))
       .slice(0, 10)
   }, [searchQuery, activeTypes])
 
@@ -147,6 +140,11 @@ export default function KnowledgeGraphPage() {
     [selectedId],
   )
 
+  // ===== Refs for incremental updates =====
+  const firstRenderRef = useRef(true)
+  const nodeDataRef = useRef<Map<string, any>>(new Map())
+  const linkDataRef = useRef<any[]>([])
+
   // ===== Obsidian 风格圆形布局渲染 =====
   useEffect(() => {
     const svg = svgRef.current
@@ -158,55 +156,253 @@ export default function KnowledgeGraphPage() {
     const H = rect.height || 800
     setContainerSize({ w: W, h: H })
 
-    // 清理旧图层
-    d3.select(svg).selectAll('*').remove()
-    const g = d3
-      .select(svg)
-      .attr('viewBox', `0 0 ${W} ${H}`)
-      .append('g')
+    const g = d3.select(svg).select('g')
+    const isInitial = firstRenderRef.current
 
-    // zoom/pan：随缩放动态显示/隐藏标签和图标
-    const updateVisibility = () => {
-      const k = zoomScaleRef.current
-      const { selectedId: sel, hoveredId: hov } = focusRef.current
-      const focus = sel || hov
-      g.selectAll('text.node-label').attr('opacity', (d: any) => {
-        // 有 focus 时文字显隐由第二个 useEffect 统一处理，避免闭包旧值覆盖高亮
-        if (focus) return null
-        return k >= LABEL_ZOOM_THRESHOLD ? 0.9 : 0
+    if (isInitial) {
+      firstRenderRef.current = false
+      // 清理旧图层
+      d3.select(svg).selectAll('*').remove()
+      const rootG = d3
+        .select(svg)
+        .attr('viewBox', `0 0 ${W} ${H}`)
+        .append('g')
+
+      // zoom/pan
+      const updateVisibility = () => {
+        const k = zoomScaleRef.current
+        const { selectedId: sel, hoveredId: hov } = focusRef.current
+        const focus = sel || hov
+        rootG.selectAll('text.node-label').attr('opacity', (d: any) => {
+          if (focus) return null
+          return k >= LABEL_ZOOM_THRESHOLD ? 0.9 : 0
+        })
+      }
+
+      const zoom = d3
+        .zoom<SVGSVGElement, unknown>()
+        .scaleExtent([0.3, 5])
+        .on('zoom', (event) => {
+          rootG.attr('transform', event.transform.toString())
+          zoomScaleRef.current = event.transform.k
+          updateVisibility()
+        })
+      zoomRef.current = zoom
+      d3.select(svg).call(zoom)
+
+      // Build node map
+      const nodeMap = new Map<string, any>()
+      filtered.nodes.forEach((n) => {
+        nodeMap.set(n.id, { ...n, degree: 0 })
+      })
+      filtered.links.forEach((l) => {
+        const src = typeof l.source === 'string' ? l.source : (l.source as any).id
+        const tgt = typeof l.target === 'string' ? l.target : (l.target as any).id
+        if (nodeMap.has(src)) nodeMap.get(src).degree++
+        if (nodeMap.has(tgt)) nodeMap.get(tgt).degree++
+      })
+      nodeDataRef.current = nodeMap
+
+      const nodes = Array.from(nodeMap.values())
+      if (nodes.length === 0) return
+
+      const centerNode = nodes.reduce((a, b) => (a.degree > b.degree ? a : b))
+      const maxDegree = Math.max(...nodes.map((n) => n.degree), 1)
+      const minDegree = Math.min(...nodes.map((n) => n.degree), 1)
+      const getNodeRadius = (node: any) => {
+        const normalized =
+          minDegree === maxDegree ? 0.5 : (node.degree - minDegree) / (maxDegree - minDegree)
+        return MIN_NODE_RADIUS + normalized * (MAX_NODE_RADIUS - MIN_NODE_RADIUS)
+      }
+
+      const centerX = W / 2
+      const centerY = H / 2
+      nodes.forEach((n) => {
+        n.x = centerX + (Math.random() - 0.5) * 60
+        n.y = centerY + (Math.random() - 0.5) * 60
+      })
+
+      const simulation = d3
+        .forceSimulation(nodes as any)
+        .force(
+          'link',
+          d3
+            .forceLink(filtered.links as any)
+            .id((d: any) => d.id)
+            .distance(50)
+            .strength(0.6),
+        )
+        .force('charge', d3.forceManyBody().strength(-150).distanceMax(350))
+        .force('center', d3.forceCenter(centerX, centerY))
+        .force(
+          'collide',
+          d3
+            .forceCollide()
+            .radius((d: any) => getNodeRadius(d) + COLLIDE_PADDING)
+            .strength(0.8),
+        )
+        .force(
+          'radial',
+          d3
+            .forceRadial(
+              (d: any) => {
+                const normalized =
+                  minDegree === maxDegree ? 0.5 : (d.degree - minDegree) / (maxDegree - minDegree)
+                return 60 + (1 - normalized) * 220
+              },
+              centerX,
+              centerY,
+            )
+            .strength(0.25),
+        )
+        .alphaDecay(0.02)
+        .velocityDecay(0.25)
+      simulationRef.current = simulation as any
+
+      linkDataRef.current = filtered.links
+
+      // 连线
+      const linkSel = rootG
+        .append('g')
+        .attr('class', 'links')
+        .selectAll('line')
+        .data(filtered.links)
+        .join('line')
+        .attr('stroke', '#94a3b8')
+        .attr('stroke-width', 0.6)
+        .attr('stroke-opacity', 0.2)
+
+      // 节点组
+      const nodeSel = rootG
+        .append('g')
+        .attr('class', 'nodes')
+        .selectAll<SVGGElement, any>('g')
+        .data(nodes, (d: any) => d.id)
+        .join('g')
+        .attr('class', 'node')
+        .style('cursor', 'pointer')
+        .on('mouseover', (_, d) => setHoveredId(d.id))
+        .on('mouseout', () => setHoveredId(null))
+
+      let dragStartX = 0
+      let dragStartY = 0
+      let dragMoved = false
+      const drag = d3
+        .drag<SVGGElement, any>()
+        .clickDistance(4)
+        .on('start', function (event, d) {
+          dragStartX = event.x
+          dragStartY = event.y
+          dragMoved = false
+          d3.select(this).raise()
+          if (!event.active) simulation.alphaTarget(0.3).restart()
+          d.fx = d.x
+          d.fy = d.y
+        })
+        .on('drag', function (event, d) {
+          dragMoved = true
+          d.fx = event.x
+          d.fy = event.y
+        })
+        .on('end', function (event, d) {
+          if (!event.active) simulation.alphaTarget(0)
+          d.fx = null
+          d.fy = null
+          const dx = event.x - dragStartX
+          const dy = event.y - dragStartY
+          if (!dragMoved || Math.sqrt(dx * dx + dy * dy) < 4) {
+            setSelectedId(d.id)
+          }
+        })
+      nodeSel.call(drag as any)
+      nodeSel.on('click', (_, d) => setSelectedId(d.id))
+
+      const isCenter = (node: any) => node.id === centerNode.id
+
+      nodeSel
+        .append('circle')
+        .attr('r', (d) => getNodeRadius(d))
+        .attr('fill', (d) => (isCenter(d) ? '#4f46e5' : TYPE_COLORS[(d as any).type as NodeType]))
+        .attr('stroke', '#fff')
+        .attr('stroke-width', (d) => (isCenter(d) ? 1.5 : 1))
+        .attr('opacity', 0.95)
+
+      nodeSel
+        .append('text')
+        .attr('class', 'node-label')
+        .attr('text-anchor', 'middle')
+        .attr('dy', (d) => getNodeRadius(d) + 8)
+        .attr('font-size', 6.5)
+        .attr('fill', '#374151')
+        .attr('pointer-events', 'none')
+        .attr('font-weight', 400)
+        .attr('opacity', 0)
+        .text((d) => {
+          const name = d.name.length > 14 ? d.name.slice(0, 14) + '…' : d.name
+          return name
+        })
+
+      simulation.on('tick', () => {
+        nodeSel.attr('transform', (d: any) => `translate(${d.x},${d.y})`)
+        linkSel
+          .attr('x1', (d: any) => (d.source as any).x)
+          .attr('y1', (d: any) => (d.source as any).y)
+          .attr('x2', (d: any) => (d.target as any).x)
+          .attr('y2', (d: any) => (d.target as any).y)
+      })
+
+      // Store refs for incremental updates
+      ;(rootG as any)._linkSel = linkSel
+      ;(rootG as any)._nodeSel = nodeSel
+      ;(rootG as any)._getNodeRadius = getNodeRadius
+      ;(rootG as any)._simulation = simulation
+      ;(rootG as any)._centerX = centerX
+      ;(rootG as any)._centerY = centerY
+      ;(rootG as any)._minDegree = minDegree
+      ;(rootG as any)._maxDegree = maxDegree
+      ;(rootG as any)._updateVisibility = updateVisibility
+
+      return
+    }
+
+    // ===== Incremental update (search query changed) =====
+    const existingG = g
+    const linkSel = existingG.select('.links').empty() ? null : existingG.select('.links')
+    const nodeSel = existingG.select('.nodes').empty() ? null : existingG.select('.nodes')
+    if (!linkSel || !nodeSel) return
+
+    const nodeMap = nodeDataRef.current
+    const oldIds = new Set(nodeMap.keys())
+    const newIds = new Set(filtered.nodes.map((n) => n.id))
+
+    // Add new nodes
+    const addedNodes = filtered.nodes.filter((n) => !oldIds.has(n.id))
+    if (addedNodes.length > 0) {
+      const centerX = W / 2
+      const centerY = H / 2
+      addedNodes.forEach((n) => {
+        n.x = centerX + (Math.random() - 0.5) * 60
+        n.y = centerY + (Math.random() - 0.5) * 60
+        nodeMap.set(n.id, { ...n, degree: 0 })
       })
     }
 
-    const zoom = d3
-      .zoom<SVGSVGElement, unknown>()
-      .scaleExtent([0.3, 5])
-      .on('zoom', (event) => {
-        g.attr('transform', event.transform.toString())
-        zoomScaleRef.current = event.transform.k
-        updateVisibility()
-      })
-    zoomRef.current = zoom
-    d3.select(svg).call(zoom)
+    // Remove nodes
+    const removedIds = Array.from(oldIds).filter((id) => !newIds.has(id))
+    removedIds.forEach((id) => nodeMap.delete(id))
 
-    // 复制数据并计算度数
-    const nodeMap = new Map<string, any>()
-    filtered.nodes.forEach((n) => {
-      nodeMap.set(n.id, { ...n, degree: 0 })
-    })
+    // Recalculate degrees
     filtered.links.forEach((l) => {
       const src = typeof l.source === 'string' ? l.source : (l.source as any).id
       const tgt = typeof l.target === 'string' ? l.target : (l.target as any).id
       if (nodeMap.has(src)) nodeMap.get(src).degree++
       if (nodeMap.has(tgt)) nodeMap.get(tgt).degree++
     })
+    nodeDataRef.current = nodeMap
 
     const nodes = Array.from(nodeMap.values())
     if (nodes.length === 0) return
 
-    // 找到中心节点（连接最多的）
-    const centerNode = nodes.reduce((a, b) => (a.degree > b.degree ? a : b))
-
-    // 节点半径映射（小圆点）
     const maxDegree = Math.max(...nodes.map((n) => n.degree), 1)
     const minDegree = Math.min(...nodes.map((n) => n.degree), 1)
     const getNodeRadius = (node: any) => {
@@ -215,154 +411,105 @@ export default function KnowledgeGraphPage() {
       return MIN_NODE_RADIUS + normalized * (MAX_NODE_RADIUS - MIN_NODE_RADIUS)
     }
 
-    // 初始位置：在中心附近随机散开，避免 0 坐标堆叠
-    const centerX = W / 2
-    const centerY = H / 2
-    nodes.forEach((n) => {
-      n.x = centerX + (Math.random() - 0.5) * 60
-      n.y = centerY + (Math.random() - 0.5) * 60
-    })
-
-    // 力导向模拟（Obsidian 风格：斥力把节点推开，不再硬挤同心圆）
-    const simulation = d3
-      .forceSimulation(nodes as any)
-      .force(
+    // Update simulation with new data
+    const sim = (existingG as any)._simulation
+    if (sim) {
+      sim.nodes(nodes as any)
+      sim.force(
         'link',
-        d3
-          .forceLink(filtered.links as any)
-          .id((d: any) => d.id)
-          .distance(50)
-          .strength(0.6),
+        d3.forceLink(filtered.links as any).id((d: any) => d.id).distance(50).strength(0.6),
       )
-      .force('charge', d3.forceManyBody().strength(-150).distanceMax(350))
-      .force('center', d3.forceCenter(centerX, centerY))
-      .force(
+      sim.force(
         'collide',
-        d3
-          .forceCollide()
-          .radius((d: any) => getNodeRadius(d) + COLLIDE_PADDING)
-          .strength(0.8),
+        d3.forceCollide().radius((d: any) => getNodeRadius(d) + COLLIDE_PADDING).strength(0.8),
       )
-      .force(
+      sim.force(
         'radial',
-        d3
-          .forceRadial(
-            (d: any) => {
-              // 度数高的节点更靠近中心，形成"核心-外围"结构
-              const normalized =
-                minDegree === maxDegree ? 0.5 : (d.degree - minDegree) / (maxDegree - minDegree)
-              return 60 + (1 - normalized) * 220
-            },
-            centerX,
-            centerY,
-          )
-          .strength(0.25),
+        d3.forceRadial(
+          (d: any) => {
+            const normalized =
+              minDegree === maxDegree ? 0.5 : (d.degree - minDegree) / (maxDegree - minDegree)
+            return 60 + (1 - normalized) * 220
+          },
+          W / 2,
+          H / 2,
+        ).strength(0.25),
       )
-      .alphaDecay(0.02)
-      .velocityDecay(0.25)
-    simulationRef.current = simulation as any
+      sim.alpha(0.5).restart()
+    }
 
-    // 连线：Obsidian 风格，无箭头、细、淡
-    const linkSel = g
-      .append('g')
-      .attr('class', 'links')
-      .selectAll('line')
+    linkDataRef.current = filtered.links
+
+    // Update links
+    linkSel
       .data(filtered.links)
       .join('line')
       .attr('stroke', '#94a3b8')
       .attr('stroke-width', 0.6)
       .attr('stroke-opacity', 0.2)
 
-    // 节点组
-    const nodeSel = g
-      .append('g')
-      .attr('class', 'nodes')
-      .selectAll<SVGGElement, any>('g')
+    // Update nodes
+    nodeSel
       .data(nodes, (d: any) => d.id)
-      .join('g')
-      .attr('class', 'node')
-      .style('cursor', 'pointer')
+      .join(
+        (enter) => enter.append('g').attr('class', 'node').style('cursor', 'pointer'),
+        (exit) => exit.remove(),
+        (update) => update,
+      )
       .on('mouseover', (_, d) => setHoveredId(d.id))
       .on('mouseout', () => setHoveredId(null))
+      .call(d3.drag<SVGGElement, any>()
+        .clickDistance(4)
+        .on('start', function (event, d) {
+          d3.select(this).raise()
+          if (!event.active) sim?.alphaTarget(0.3).restart()
+          d.fx = d.x
+          d.fy = d.y
+        })
+        .on('drag', function (event, d) {
+          d.fx = event.x
+          d.fy = event.y
+        })
+        .on('end', function (event, d) {
+          if (!event.active) sim?.alphaTarget(0)
+          d.fx = null
+          d.fy = null
+          const dx = event.x - d.x
+          const dy = event.y - d.y
+          if (Math.sqrt(dx * dx + dy * dy) < 4) {
+            setSelectedId(d.id)
+          }
+        })
+      )
+      .on('click', (_, d) => setSelectedId(d.id))
 
-    // 节点拖拽（与力模拟结合）；微移/无位移的单击 = 打开卡片
-    let dragStartX = 0
-    let dragStartY = 0
-    let dragMoved = false
-    const drag = d3
-      .drag<SVGGElement, any>()
-      .clickDistance(4)
-      .on('start', function (event, d) {
-        dragStartX = event.x
-        dragStartY = event.y
-        dragMoved = false
-        d3.select(this).raise()
-        if (!event.active) simulation.alphaTarget(0.3).restart()
-        d.fx = d.x
-        d.fy = d.y
-      })
-      .on('drag', function (event, d) {
-        dragMoved = true
-        d.fx = event.x
-        d.fy = event.y
-      })
-      .on('end', function (event, d) {
-        if (!event.active) simulation.alphaTarget(0)
-        d.fx = null
-        d.fy = null
-        const dx = event.x - dragStartX
-        const dy = event.y - dragStartY
-        if (!dragMoved || Math.sqrt(dx * dx + dy * dy) < 4) {
-          setSelectedId(d.id) // 单击（几乎无拖动）即打开详情
-        }
-      })
-    nodeSel.call(drag as any)
-
-    // click fallback：d3-drag 在发生拖动时会抑制 click，未拖动时允许原生点击直接开卡
-    nodeSel.on('click', (_, d) => setSelectedId(d.id))
-
-    // 中心节点特殊样式
-    const isCenter = (node: any) => node.id === centerNode.id
-
-    nodeSel
-      .append('circle')
-      .attr('r', (d) => getNodeRadius(d))
-      .attr('fill', (d) => (isCenter(d) ? '#4f46e5' : TYPE_COLORS[(d as any).type as NodeType]))
-      .attr('stroke', '#fff')
-      .attr('stroke-width', (d) => (isCenter(d) ? 1.5 : 1))
-      .attr('opacity', 0.95)
-
-    // 节点名称标签：默认隐藏，放大后/悬停/选中显示
-    nodeSel
-      .append('text')
-      .attr('class', 'node-label')
-      .attr('text-anchor', 'middle')
-      .attr('dy', (d) => getNodeRadius(d) + 8)
-      .attr('font-size', 6.5)
-      .attr('fill', '#374151')
-      .attr('pointer-events', 'none')
-      .attr('font-weight', 400)
-      .attr('opacity', 0)
-      .text((d) => {
-        const name = d.name.length > 14 ? d.name.slice(0, 14) + '…' : d.name
-        return name
-      })
-
-    // 力模拟 tick：实时更新节点和连线位置
-    simulation.on('tick', () => {
-      nodeSel.attr('transform', (d: any) => `translate(${d.x},${d.y})`)
-      linkSel
-        .attr('x1', (d: any) => (d.source as any).x)
-        .attr('y1', (d: any) => (d.source as any).y)
-        .attr('x2', (d: any) => (d.target as any).x)
-        .attr('y2', (d: any) => (d.target as any).y)
+    nodeSel.each(function (d: any) {
+      const nodeG = d3.select(this)
+      // Update circle
+      nodeG.select('circle')
+        .transition().duration(200)
+        .attr('r', getNodeRadius(d))
+        .attr('fill', TYPE_COLORS[d.type as NodeType])
+        .attr('opacity', 0.95)
+      // Update label
+      nodeG.select('text.node-label')
+        .transition().duration(200)
+        .attr('dy', getNodeRadius(d) + 8)
+        .text(d.name.length > 14 ? d.name.slice(0, 14) + '…' : d.name)
     })
 
-    updateVisibility()
-
-    return () => {
-      simulation.stop()
+    // Tick handler
+    if (sim) {
+      sim.on('tick', () => {
+        nodeSel.attr('transform', (d: any) => `translate(${d.x},${d.y})`)
+        linkSel
+          .attr('x1', (d: any) => (d.source as any).x)
+          .attr('y1', (d: any) => (d.source as any).y)
+          .attr('x2', (d: any) => (d.target as any).x)
+          .attr('y2', (d: any) => (d.target as any).y)
+      })
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtered])
 
