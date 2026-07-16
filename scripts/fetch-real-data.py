@@ -859,7 +859,9 @@ def fetch_stock_with_fallback(code: str) -> list[float] | None:
 
 def update_companies() -> tuple[int, int]:
     log("section", "更新企业股价数据")
-    path = os.path.join(PUBLIC_DATA_DIR, COMPANIES_FILE)
+    # IMPORTANT: Read/write app/_data/companies.json directly (the canonical full data file)
+    # DO NOT use PUBLIC_DATA_DIR here - that's a stale cache that may be truncated
+    path = os.path.join(APP_DATA_DIR, COMPANIES_FILE)
     data = read_json(path)
     if not data or "supplyChain" not in data:
         log("warn", "companies.json 无 supplyChain, 跳过")
@@ -896,7 +898,10 @@ def update_companies() -> tuple[int, int]:
 # ---------------------------------------------------------------------------
 
 SYNC_FILES = [NEWS_FILE, MARKET_FILE, PRICES_FILE, STANDARDS_FILE,
-              "companies.json", "technology.json"]
+              "technology.json"]
+# NOTE: companies.json is NOT in SYNC_FILES because update_companies()
+# writes directly to app/_data/companies.json. Syncing from public/data/
+# would overwrite the complete data with a truncated cached version.
 
 
 def sync_to_app_data() -> None:
