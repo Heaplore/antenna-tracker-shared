@@ -93,11 +93,31 @@ export default function KnowledgeGraphPage() {
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null)
   const zoomScaleRef = useRef(1)
   const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const [highlightedIdx, setHighlightedIdx] = useState(-1)
   const focusRef = useRef<{ selectedId: string | null; hoveredId: string | null }>({
     selectedId: null,
     hoveredId: null,
   })
   const [containerSize, setContainerSize] = useState({ w: 1200, h: 800 })
+
+  // ===== 搜索建议（下拉候选） =====
+
+  const suggestions = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase()
+    if (!q) return []
+    return kgData.nodes
+      .filter((n) => activeTypes.has(n.type))
+      .filter((n) => {
+        return (
+          n.name.toLowerCase().includes(q) ||
+          (n.nameEn && n.nameEn.toLowerCase().includes(q)) ||
+          n.tags.some((t) => t.toLowerCase().includes(q)) ||
+          n.oneLiner.toLowerCase().includes(q)
+        )
+      })
+      .slice(0, 10)
+  }, [searchQuery, activeTypes])
 
   // ===== 过滤后数据 =====
 
@@ -475,22 +495,100 @@ export default function KnowledgeGraphPage() {
         gap: 16,
         flexWrap: 'wrap',
       }}>
-        {/* 搜索框 */}
-        <input
-          type="text"
-          placeholder="搜索节点 (名称 / 标签 / 内容)"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          style={{
-            flex: 1,
-            minWidth: 220,
-            padding: '6px 12px',
-            border: '1px solid #d1d5db',
-            borderRadius: 6,
-            fontSize: 13,
-            outline: 'none',
-          }}
-        />
+        {/* 搜索框 + 下拉候选 */}
+        <div style={{ position: 'relative', flex: 1, minWidth: 220 }}>
+          <input
+            type="text"
+            placeholder="搜索节点 (名称 / 标签 / 内容)"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value)
+              setShowSuggestions(true)
+              setHighlightedIdx(-1)
+            }}
+            onFocus={() => {
+              if (suggestions.length > 0) setShowSuggestions(true)
+            }}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+            onKeyDown={(e) => {
+              if (!showSuggestions || suggestions.length === 0) return
+              if (e.key === 'ArrowDown') {
+                e.preventDefault()
+                setHighlightedIdx(prev => Math.min(prev + 1, suggestions.length - 1))
+              } else if (e.key === 'ArrowUp') {
+                e.preventDefault()
+                setHighlightedIdx(prev => Math.max(prev - 1, 0))
+              } else if (e.key === 'Enter' && highlightedIdx >= 0) {
+                e.preventDefault()
+                setSelectedId(suggestions[highlightedIdx].id)
+                setShowSuggestions(false)
+              } else if (e.key === 'Escape') {
+                setShowSuggestions(false)
+              }
+            }}
+            style={{
+              flex: 1,
+              padding: '6px 12px',
+              border: '1px solid #d1d5db',
+              borderRadius: 6,
+              fontSize: 13,
+              outline: 'none',
+            }}
+          />
+          {showSuggestions && suggestions.length > 0 && (
+            <div style={{
+              position: 'absolute',
+              top: '100%',
+              left: 0,
+              right: 0,
+              marginTop: 4,
+              background: '#fff',
+              border: '1px solid #e5e7eb',
+              borderRadius: 8,
+              boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+              zIndex: 100,
+              maxHeight: 280,
+              overflowY: 'auto',
+            }}>
+              {suggestions.map((node, idx) => (
+                <button
+                  key={node.id}
+                  onClick={() => {
+                    setSelectedId(node.id)
+                    setShowSuggestions(false)
+                  }}
+                  onMouseEnter={() => setHighlightedIdx(idx)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    width: '100%',
+                    padding: '8px 12px',
+                    background: idx === highlightedIdx ? '#f0f4ff' : '#fff',
+                    border: 'none',
+                    borderBottom: idx < suggestions.length - 1 ? '1px solid #f3f4f6' : 'none',
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    fontSize: 13,
+                    color: '#111827',
+                    transition: 'background 0.1s',
+                  }}
+                >
+                  <span style={{
+                    display: 'inline-block',
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    background: TYPE_COLORS[node.type],
+                    flexShrink: 0,
+                  }} />
+                  <span style={{ fontWeight: 600, flexShrink: 0 }}>{node.name}</span>
+                  {node.nameEn && <span style={{ color: '#9ca3af', fontSize: 11, flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{node.nameEn}</span>}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
         {/* 类型筛选 */}
         <div style={{ display: 'flex', gap: 6 }}>
           {(Object.keys(TYPE_LABELS) as NodeType[]).map((t) => {
