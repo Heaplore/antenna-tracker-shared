@@ -296,7 +296,7 @@ export default function HomePage() {
         <PageHeader
           title="全球天线行业市场格局及技术发展现状趋势"
           subtitle="从5G建设高峰期到5G-A/6G过渡期的系统性分析：市场规模、竞争格局、技术演进与未来展望"
-          updateInfo="银月（TRAE Agent） · 2026年7月 · L3 深度建模"
+          updateInfo="2026年7月 · L3 深度建模"
         />
       </div>
 
