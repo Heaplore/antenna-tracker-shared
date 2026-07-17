@@ -7139,63 +7139,6 @@
           "rank": 16
         },
         {
-          "id": "rf007",
-          "name": "摩比天线",
-          "nameEn": "Mobi Antenna",
-          "stockCode": "00947.HK",
-          "exchange": "港交所",
-          "role": "避雷器",
-          "position": "避雷器为摩比天线射频产品线之一；另有多家小型防雷专业厂商未上市",
-          "marketCap": "约79.7亿港元",
-          "revenue": "约39.5亿元",
-          "netProfit": "亏损",
-          "profitYoY": "亏损",
-          "customers": [
-            "运营商"
-          ],
-          "highlights": [
-            "避雷器产品线"
-          ],
-          "location": "深圳",
-          "isKey": false,
-          "stockPrices": [
-            0.182,
-            0.183,
-            0.198,
-            0.22,
-            0.22,
-            0.21,
-            0.202,
-            0.195,
-            0.182,
-            0.175,
-            0.18,
-            0.181,
-            0.18,
-            0.181,
-            0.18,
-            0.182,
-            0.181,
-            0.181,
-            0.19,
-            0.18,
-            0.18,
-            0.185,
-            0.175,
-            0.178,
-            0.178,
-            0.173,
-            0.17,
-            0.174,
-            0.17,
-            0.174
-          ],
-          "stockCurrent": 0.174,
-          "stock52Low": 0.17,
-          "stock52High": 0.22,
-          "rank": 17
-        },
-        {
           "id": "rf018",
           "name": "波发特（世嘉科技子公司）",
           "nameEn": "Bofate (Shijia subsidiary)",
@@ -7253,65 +7196,6 @@
           "stock52Low": null,
           "stock52High": null,
           "rank": 19
-        },
-        {
-          "id": "rf018",
-          "name": "波发特（世嘉科技子公司）",
-          "nameEn": "Bofate (Shijia subsidiary)",
-          "stockCode": "002796.SZ（并入世嘉科技）",
-          "exchange": "深交所A股",
-          "role": "金属滤波器/双工器",
-          "position": "世嘉科技(002796)旗下子公司，主营金属滤波器/双工器；是中兴通讯/爱立信金属滤波器核心供应商；5G金属腔体滤波器技术领先",
-          "marketCap": "并入世嘉科技（约40亿元）",
-          "revenue": "含于世嘉科技通信板块",
-          "netProfit": "—",
-          "profitYoY": "—",
-          "customers": [
-            "中兴通讯",
-            "爱立信",
-            "日本电业"
-          ],
-          "highlights": [
-            "金属滤波器核心供应商",
-            "中兴/爱立信主力供应商"
-          ],
-          "location": "苏州",
-          "isKey": true,
-          "stockPrices": [],
-          "stockCurrent": null,
-          "stock52Low": null,
-          "stock52High": null,
-          "rank": 20
-        },
-        {
-          "id": "rf019",
-          "name": "科美特（雅克科技子公司）",
-          "nameEn": "Comat (Yake subsidiary)",
-          "stockCode": "002409.SZ（并入雅克科技）",
-          "exchange": "深交所A股",
-          "role": "电子特种气体（清洗用途）",
-          "position": "国内最大六氟化硫生产商，年产能8500吨；四氟化碳年产能1200吨，已进入台积电供应链；六氟化硫/四氟化碳用于滤波器腔体清洗工艺；是覆铜板/滤波器制造的关键工艺材料供应商",
-          "marketCap": "并入雅克科技（约200亿元）",
-          "revenue": "含于雅克科技电子材料板块",
-          "netProfit": "—",
-          "profitYoY": "—",
-          "customers": [
-            "华为",
-            "台积电",
-            "电力设备商"
-          ],
-          "highlights": [
-            "六氟化硫国产最大产能",
-            "四氟化碳已进入台积电",
-            "滤波器腔体清洗气体"
-          ],
-          "location": "成都",
-          "isKey": false,
-          "stockPrices": [],
-          "stockCurrent": null,
-          "stock52Low": null,
-          "stock52High": null,
-          "rank": 21
         }
       ]
     },
