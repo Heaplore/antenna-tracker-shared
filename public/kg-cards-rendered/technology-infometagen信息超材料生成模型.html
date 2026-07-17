@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfoMetaGen信息超材料生成模型 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">InfoMetaGen信息超材料生成模型</h1>
+  <p class="lede">东南大学崔铁军团队提出 InfoMetaGen——首个面向信息超材料的通用生成式 AI 框架，用预训练扩散模型 + 轻量功能适配器实现从元原子到空间编码阵列的一键逆向设计，性能媲美传统方法但速度提升三个数量级。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">信息超材料</span><span class="chip brand">扩散模型</span><span class="chip brand">逆拓扑设计</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>一、基本定义与原理</h2>
+    <p><strong>信息超材料（Information Metamaterials）</strong> 是崔铁军院士团队于 2014 年提出的原创概念：将数字编码思想引入超材料设计，用"0/1"或更多比特描述每个元原子（meta-atom）的电磁响应状态，从而将电磁波控制与信息处理统一起来。信息超材料的核心优势在于可编程性——通过切换元原子状态，同一块物理面板可以实现波束偏转、聚焦、全息成像等多种功能。</p>
+<p><strong>InfoMetaGen</strong> 是为信息超材料逆向设计打造的通用生成模型。传统方法中，每实现一个新功能都需要从头训练一个专用模型；InfoMetaGen 则采用"一个基础模型 + 多个轻量适配器"的架构：</p>
+<ol>
+<li>
+<p><strong>第一阶段</strong>：在无条件的扩散模型上预训练，学习信息超材料元原子和编码阵列的稳定结构模式（structural patterns）。这相当于让模型先"看懂"什么是合格的超材料结构。</p>
+</li>
+<li>
+<p><strong>第二阶段</strong>：针对具体功能（波束偏转角度、聚焦位置、全息图案等）微调条件适配器（conditional adapter），使模型能根据功能需求反向生成对应的结构设计。</p>
+</li>
+</ol>
+<p>这种两阶段范式借鉴了 AlphaFold（蛋白质结构预测）和 MatterGen（晶体结构生成）的思路，但将其扩展到了更复杂的"元原子设计 + 空间分布编排"双重自由度问题。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 扩散模型骨干（Diffusion Backbone）</h2>
+    <p>采用去噪扩散概率模型（DDPM）作为基础架构：</p>
+<ul>
+<li><strong>前向过程</strong>：逐步添加高斯噪声到目标结构表示（元原子几何参数 + 空间编码矩阵），直至纯噪声</li>
+<li><strong>反向过程</strong>：训练神经网络学习从噪声中逐步恢复目标结构</li>
+<li><strong>结构表示</strong>：将元原子几何参数和空间编码模式编码为连续向量空间中的点，使扩散模型可以处理离散编码问题</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 轻量功能适配器（Functional Adapters）</h2>
+    <p>核心创新点。每个新功能只需要训练一个小型适配器模块：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>适配器参数量占比</th>
+<th>训练时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波束偏转</td>
+<td>~5%</td>
+<td>分钟级</td>
+</tr>
+<tr>
+<td>近场聚焦</td>
+<td>~5%</td>
+<td>分钟级</td>
+</tr>
+<tr>
+<td>全息成像</td>
+<td>~5%</td>
+<td>分钟级</td>
+</tr>
+</tbody>
+</table>
+<p>相比传统方法需要从头训练整个网络（数小时至数天），适配器方案实现了<strong>一次预训练、多任务复用</strong>。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 多比特元原子生成</h2>
+    <p>InfoMetaGen 不仅限于传统的 1-bit（0/1 二元）元原子，还支持：</p>
+<ul>
+<li><strong>2-bit 元原子</strong>：4 种离散相位状态（0°, 90°, 180°, 270°）</li>
+<li><strong>3-bit 元原子</strong>：8 种离散相位状态，精度显著提升</li>
+<li>支持自定义比特分辨率，适应不同应用场景的需求</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 远场波束操控</h2>
+    <ul>
+<li><strong>波束偏转（Beam Steering）</strong>：生成指定偏转角度的非均匀编码阵列</li>
+<li><strong>波束成形（Beam Shaping）</strong>：生成特定远场辐射图案的编码分布</li>
+<li>实验验证了 1-bit 和 3-bit 编码阵列在毫米波频段的高性能波束操控</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 近场聚焦</h2>
+    <ul>
+<li><strong>近场电磁聚焦</strong>：生成用于无线能量传输或近场通信的聚焦阵列</li>
+<li>可精确控制焦点位置和焦点尺寸</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 全息成像</h2>
+    <ul>
+<li><strong>电磁全息（Electromagnetic Holography）</strong>：生成任意全息图案的超表面设计</li>
+<li>在保真度上达到经典 Gerchberg-Saxton 算法水平，但运行时间缩短 <strong>超过三个数量级</strong>（从小时级降至秒级）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 东南大学崔铁军团队</h2>
+    <ul>
+<li>2020 年在 iScience 发表《Information Metamaterial Systems》，奠定信息超材料理论基础</li>
+<li>2025 年 10 月 arXiv 预印本发布 InfoMetaGen</li>
+<li><strong>2026 年 7 月 14 日</strong>正式发表于 <em>Nature Computational Science</em></li>
+<li>崔铁军 h-index 130，总引用 75,738，是该领域全球最高影响力学者之一</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 Cadence AlphaGo（2026-07-14 已学）</h2>
+    <ul>
+<li>同样是"AI + 天线逆向设计"方向，但聚焦于传统金属天线的逆拓扑生成</li>
+<li>使用 MCTS + ML 代理模型，评估次数降至 10³ 量级</li>
+<li>InfoMetaGen 的差异化在于：面向信息超材料（可编程编码阵列），而非实体金属结构</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 Metacrystal 超晶体逆拓扑优化（2026-07-10 已学）</h2>
+    <ul>
+<li>同样来自东南大学，使用逆拓扑优化 + 3D 打印制造智能面板</li>
+<li>InfoMetaGen 在生成效率和泛化能力上更进一步——从"单一功能专用模型"跃迁到"通用多任务模型"</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 MatterGen（DeepMind, 2025）</h2>
+    <ul>
+<li>面向无机晶体材料的扩散模型生成</li>
+<li>InfoMetaGen 可视为 MatterGen 思路在人工电磁材料领域的延伸，但问题复杂度更高（需同时设计元原子 + 空间分布）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、趋势判断</h2>
+    <ol>
+<li>
+<p><strong>生成式 AI 正在从"自然材料发现"转向"人工材料创造"</strong>。AlphaFold 解决的是自然界已经存在的蛋白质结构预测，而 InfoMetaGen 和 MatterGen 解决的是"设计自然界不存在的材料"——这是范式级的跃迁。</p>
+</li>
+<li>
+<p><strong>Adapter 范式将成为超材料/AI 设计的标准架构</strong>。未来不会再为每个新场景训练独立模型，而是"一个底座 + N 个适配器"。这与 LLM 的世界观高度一致。</p>
+</li>
+<li>
+<p><strong>信息超材料 + 有源智能超表面（ORIS）的结合是天然方向</strong>。InfoMetaGen 生成的编码阵列可以通过 PIN 二极管 / RF MEMS 等开关实现实时重配置，与老大关注的 ORIS 方向直接呼应。</p>
+</li>
+<li>
+<p><strong>3-bit 及以上多比特元原子将是性能突破的关键</strong>。1-bit 只有 0/1 两种状态，相位分辨率有限；3-bit 提供 8 种相位状态， holographic fidelity 显著提升。这对高质量波束赋形和近场聚焦至关重要。</p>
+</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>六、与老大的关联</h2>
+    <ol>
+<li>
+<p><strong>ORIS 设计的 AI 加速</strong>：中兴的有源智能超表面（ORIS）项目可以从 InfoMetaGen 的生成式逆向设计思路中受益。当前 ORIS 元原子设计和编码阵列排布仍依赖人工经验 + 仿真迭代，引入类似 InfoMetaGen 的框架可将设计周期从周级压缩到小时级。</p>
+</li>
+<li>
+<p><strong>6G 通感一体化</strong>：InfoMetaGen 支持的波束偏转、近场聚焦、全息成像三大功能恰好对应 6G 通感一体化（ISAC）的核心需求——通信波束赋形 + 感知波束聚焦 + 全息定位成像。</p>
+</li>
+<li>
+<p><strong>与 Cadence AlphaGo 形成互补</strong>：Cadence AlphaGo 面向实体天线结构的逆拓扑设计，InfoMetaGen 面向可编程编码超表面的生成式设计。两者结合可覆盖从"无源金属天线"到"有源智能超表面"的完整设计链条。</p>
+</li>
+<li>
+<p><strong>东南大学 = 国内超材料第一梯队</strong>：崔铁军团队的成果值得持续跟踪，其研究路线对中兴天线研究院的技术规划有直接参考价值。</p>
+</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li><a href="https://www.nature.com/articles/s43588-026-01025-6">Nature Computational Science (2026)</a> — InfoMetaGen 正式论文</li>
+<li><a href="https://arxiv.org/pdf/2510.13264">arXiv:2510.13264</a> — InfoMetaGen 预印本</li>
+<li><a href="https://doi.org/10.24433/CO.0515873.v2">Code Ocean Capsule</a> — 可复现代码和数据集</li>
+<li><a href="https://doi.org/10.1016/j.isci.2020.101403">iScience 2020</a> — Information Metamaterial Systems（理论基础）</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

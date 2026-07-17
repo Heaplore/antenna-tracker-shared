@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>流体天线系统Fluid-Antenna-System-FAS · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">流体天线系统Fluid-Antenna-System-FAS</h1>
+  <p class="lede">流体天线系统（FAS）通过软件控制天线辐射单元在预设空间内动态改变位置或形状，引入「位置」这一全新空间自由度（DoF），在不增加额外射频链和固定天线的情况下获得显著的分集增益和复用增益，是 6G 物理层最具颠覆性的候选技术之一。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">6G</span><span class="chip brand">流体天线</span><span class="chip brand">位置灵活性</span><span class="chip brand">空间自由度</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 核心思想</h2>
+    <p>FAS 由 Kai-Kit Wong 等学者于 2022 年首次提出（IEEE WCSP 2022），其灵感来源于李小龙的「水哲学」——不要做刚硬的物体，要做如水般灵活的存在。在无线通信中，FAS 利用液态金属、可重构 RF 像素、步进电机或超材料等可软件控制的导电/介电结构，使天线辐射单元能够在给定空间范围内连续或离散地移动位置。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 位置作为新自由度</h2>
+    <p>传统 MIMO 系统假设天线位置固定（Fixed-Position Antenna, FPA），空间自由度仅来自多根天线的空间分集。FAS 引入了第三个维度——<strong>空间位置</strong>。当信道出现深衰落时，FAS 可以通过移动天线位置来「避开」衰落点，找到信道的局部最优采样位置。这相当于在相同的物理空间内获得了额外的空间分集增益。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 信息论基础</h2>
+    <p>从信息论角度看，FAS 的最大分集阶数与可用空间长度 $L$ 和波长 $\lambda$ 的比值相关。在Rich Scattering环境下，FAS 端口间的空间相关性由零阶贝塞尔函数 $J_0(\cdot)$ 描述，相邻端口的最优间距约为 $\lambda/2$（第一个零点处）。理论分析表明，FAS 可以在不增加 RF 链数量的前提下，将系统容量提升 20%~47%（取决于部署场景）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 位置优化（Position Optimization）</h2>
+    <p>位置优化是 FAS 最核心的算法问题，属于高维非凸混合整数优化：</p>
+<ul>
+<li><strong>单用户场景</strong>：通过最大化接收信噪比（SNR）或最小化中断概率，搜索最优端口位置</li>
+<li><strong>多用户 MU-MIMO 场景</strong>：需联合优化所有用户的端口位置和波束成形矩阵，复杂度急剧上升</li>
+<li><strong>典型算法</strong>：块坐标上升法（BCA）、分数规划（FP）、逐次凸逼近（SCA）、粒子群优化（PSO）</li>
+</ul>
+<p>2026 年最新进展：Tuo Wu 等人（arXiv:2603.07450）揭示了 FAS 空间相关性矩阵受 $J_0(\cdot)$ 支配形成的「贝塞尔景观」（Bessel Landscape），提出了 PSO 和 SCA 两种交替优化算法，在 N=2 时给出了全局最优间距解析解。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 信道建模</h2>
+    <p>FAS 信道建模需考虑位置相关的信道响应：</p>
+<p>$$h(l) = \sum_{p=1}^{P} \alpha_p e^{-j2\pi f_c \tau_p(l)}$$</p>
+<p>其中 $l$ 为天线位置变量。关键特点：</p>
+<ul>
+<li>位置变化导致相位变化，从而改变等效信道增益</li>
+<li>在 Rich Scattering 下，信道响应随位置呈现类正弦变化模式</li>
+<li>信道估计需从部分观测端口 extrapolate 全端口 CSI</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 波束成形与端口选择</h2>
+    <p>FAS 通常采用单 RF 链架构，通过端口选择（Port Selection）实现空间分集：</p>
+<ul>
+<li>扫描所有可用端口，选择 SNR 最高的端口</li>
+<li>结合模拟/数字波束成形，实现多用户复用</li>
+<li>生成式强化学习框架（如 npj Wireless Technology 2026 提出的 PD-Net + GPPO）可同时优化波束成形和端口选择</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 按位置变化维度</h2>
+    <table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+<th>实现方式</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>线性 FAS（LFAS）</td>
+<td>沿一条直线移动</td>
+<td>导轨 + 液态金属 / 步进电机</td>
+<td>最简单，研究最多</td>
+</tr>
+<tr>
+<td>平面 FAS（PFAS）</td>
+<td>在二维平面内移动</td>
+<td>XY 平台 + 柔性电路</td>
+<td>自由度更高，复杂度大</td>
+</tr>
+<tr>
+<td>形状可变 FAS</td>
+<td>改变天线几何形状</td>
+<td>液态天线 / 柔性介质</td>
+<td>可调整谐振频率和极化</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 按实现技术</h2>
+    <table>
+<thead>
+<tr>
+<th>实现技术</th>
+<th>原理</th>
+<th>切换速度</th>
+<th>成熟度</th>
+<th>代表方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>液态金属</td>
+<td>镓基合金在微流控通道中移动</td>
+<td>微秒级</td>
+<td>实验室验证</td>
+<td>UCL / HKUST 方案</td>
+</tr>
+<tr>
+<td>RF 像素</td>
+<td>可切换的导电图元阵列</td>
+<td>纳秒级</td>
+<td>原型阶段</td>
+<td>Meta-material 方案</td>
+</tr>
+<tr>
+<td>步进电机</td>
+<td>机械驱动天线沿导轨移动</td>
+<td>毫秒级</td>
+<td>工程可行</td>
+<td>商用模组原型</td>
+</tr>
+<tr>
+<td>超材料</td>
+<td>可调介电常数改变等效辐射位置</td>
+<td>纳秒级</td>
+<td>早期研究</td>
+<td>电调超表面集成</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 按应用场景</h2>
+    <ul>
+<li><strong>基站侧 FAS</strong>：利用宏基站的大空间部署大型 FAS，获得显著分集增益</li>
+<li><strong>终端侧 FAS</strong>：在手机/物联网设备中集成小型 FAS，解决手持遮挡问题</li>
+<li><strong>ISAC 融合 FAS</strong>：联合通信和感知，利用位置灵活性同时优化两个功能</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 6G 密集城市部署</h2>
+    <p>在城市微小区场景中，多径丰富但用户分布密集，FAS 可通过位置调整避开建筑遮挡引起的深衰落，特别适用于 cell-edge 用户性能改善。Akyildiz 和 Bilen（IEEE Wireless Communications Magazine, 2026）指出 FAS 在网络控制层面的价值远超物理层增益——将天线适配与 RRM 联合管理，可在多小区环境中实现分布式自适应控制。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 无人机 / NTN 通信</h2>
+    <p>低空无人机和卫星链路对信道变化极为敏感。FAS 的快速位置重配置能力使其成为动态链路维护的理想方案，尤其在与 ISAC 融合时，可同时利用位置灵活性增强通信和感知精度。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 室内室分与物联网</h2>
+    <p>在室内场景中，FAS 可部署于天花板或墙壁，覆盖大面积区域而无需密集部署大量固定天线。对于低功耗 IoT 设备，FAS 的单 RF 链设计大幅降低了终端功耗和成本。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 近场 XL-MIMO 通信</h2>
+    <p>FAS 与近场 XL-MIMO 天然互补。XL-MIMO 利用超大孔径产生球面波前实现距离维聚焦，FAS 则通过位置调整进一步精确对准用户。两者结合可突破传统远场平面波假设的局限。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值 / 范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分集增益提升</td>
+<td>20% ~ 47%</td>
+<td>相比固定天线 MU-MIMO 系统</td>
+</tr>
+<tr>
+<td>中断概率降低</td>
+<td>1~2 个数量级</td>
+<td>在中等 SNR 区域效果最明显</td>
+</tr>
+<tr>
+<td>端口密度</td>
+<td>$\lambda/2$ ~ $\lambda$</td>
+<td>受空间相关性约束</td>
+</tr>
+<tr>
+<td>切换延迟</td>
+<td>微秒 ~ 毫秒</td>
+<td>取决于实现技术（液态金属最快）</td>
+</tr>
+<tr>
+<td>可用空间长度</td>
+<td>几 cm ~ 几十 cm</td>
+<td>终端侧受限，基站侧较宽松</td>
+</tr>
+<tr>
+<td>功耗节省</td>
+<td>30% ~ 50%</td>
+<td>相比同等性能的固定多天线系统</td>
+</tr>
+<tr>
+<td>空间相关性函数</td>
+<td>$J_0(2\pi d/\lambda)$</td>
+<td>零阶贝塞尔函数</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 信道估计开销</h2>
+    <p>FAS 需要知道所有可用端口的位置-信道状态才能做出最优选择。在高速移动场景下，CSI 过时会导致性能骤降。<strong>关键坑</strong>：CSI extrapolation 的精度直接决定 FAS 实际增益，而现有稀疏重建方法在端口密度高时误差累积严重。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 优化问题的非凸性</h2>
+    <p>位置优化本质上是高度非凸的混合整数问题。传统凸松弛方法容易陷入局部最优，而深度学习方法虽然推理快但泛化能力有限。2026 年最新方案（如 GNN 两阶段方法、LLM 驱动的 hyper-heuristic）正在尝试解决这一问题，但距离工程部署仍有距离。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 硬件实现瓶颈</h2>
+    <ul>
+<li>液态金属方案需要精密的微流控通道和密封设计，长期可靠性存疑</li>
+<li>RF 像素方案的切换损耗和插入损耗需要严格控制</li>
+<li>机械方案（步进电机）速度慢、噪音大，不适合高频段</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 标准化滞后</h2>
+    <p>3GPP Rel-19 尚未将 FAS 纳入标准讨论范围。FAS 的信道模型、测试方法、信令流程均缺乏统一规范，这直接影响产业化进程。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
+    <ul>
+<li><strong>2022 年</strong>：Wong 等人首次提出 FAS 概念（IEEE WCSP），证明其在单用户场景下的分集增益</li>
+<li><strong>2023 年</strong>：扩展到 MU-MIMO 和多小区场景，提出端口选择和波束成形联合优化框架</li>
+<li><strong>2024 年</strong>：UCL / HKUST / Yonsei 等团队发表全面 Tutorial（IEEE ComSur），涵盖信道建模、信号处理、信息论和硬件设计</li>
+<li><strong>2025 年</strong>：LLM 驱动的 FAS 优化算法（UCL 团队），利用双 LLM 架构自动生成遗传算法算子；GNN 两阶段优化方案（北京交通大学）</li>
+<li><strong>2026 年</strong>：Akyildiz 提出 FAS 网络控制新范式（AI-Native Control）；npj Wireless Technology 发表生成式强化学习框架；Nature Computational Science 报道 FAS 在 ISAC 中的自适应联合优化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>九、未来趋势</h2>
+    <ul>
+<li>
+<p><strong>短期（1-2 年）</strong>：FAS 将与 RIS、XL-MIMO 深度融合，形成「可重构智能空间」概念。LLM 和 GNN 等 AI 方法将在 FAS 优化算法设计中发挥更大作用。</p>
+</li>
+<li>
+<p><strong>中期（3-5 年）</strong>：如果液态金属和 RF 像素硬件成熟度提升，FAS 可能进入 3GPP Rel-22/23 标准讨论。ISAC 融合场景可能是首个商用切入点。</p>
+</li>
+<li>
+<p><strong>长期（5 年以上）</strong>：FAS 有望成为 6G 物理层的标配技术之一，与 ORIS（有源智能超表面）一起构建「可编程无线电环境」。终极形态可能是将 FAS 与 AI-native 网络控制深度融合，实现真正的「自适应无线生态」。</p>
+</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>
