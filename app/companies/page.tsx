@@ -4,16 +4,13 @@ import { useState, useEffect } from 'react'
 import companiesData from '@/app/_data/companies.json'
 import PageHeader from '@/components/PageHeader'
 
-type TierKey = 'tier1_operators' | 'tier2_equipment_vendors' | 'tier3_antenna_oems' | 'tier4_antenna_parts' | 'tier5_rf_parts' | 'tier6_key_materials' | 'tier7_raw_materials'
+type TierKey = 'tier1_operators' | 'tier2_equipment_vendors' | 'tier3_antenna_oems' | 'tier4_components'
 
 const TIER_CONFIG: { key: TierKey; label: string; icon: string; color: string; shortLabel: string }[] = [
   { key: 'tier1_operators', label: '运营商', icon: '📡', color: '#1a73e8', shortLabel: '运营商层' },
   { key: 'tier2_equipment_vendors', label: '主设备商（系统集成）', icon: '🏭', color: '#7b1fa2', shortLabel: '主设备商层' },
   { key: 'tier3_antenna_oems', label: '天线整机厂商', icon: '📶', color: '#0288d1', shortLabel: '天线整机层' },
-  { key: 'tier4_antenna_parts', label: '天线部件供应商', icon: '🔧', color: '#00796b', shortLabel: '部件层' },
-  { key: 'tier5_rf_parts', label: '射频部件供应商', icon: '📻', color: '#e65100', shortLabel: '射频层' },
-  { key: 'tier6_key_materials', label: '关键材料供应商', icon: '🧱', color: '#5d4037', shortLabel: '材料层' },
-  { key: 'tier7_raw_materials', label: '原材料商', icon: '🥇', color: '#37474f', shortLabel: '原材料层' },
+  { key: 'tier4_components', label: '天线零部件', icon: '🔧', color: '#00796b', shortLabel: '零部件层' },
 ]
 
 interface Company {
@@ -467,7 +464,7 @@ export default function CompaniesPage() {
     <div className="container">
       <PageHeader
         title="🏢 企业图谱"
-        subtitle="天线产业链 7 层结构 — 从运营商到原材料，全链条企业追踪与供应链关系分析"
+        subtitle="天线产业链 5 层结构 — 从运营商到零部件，全链条企业追踪与供应链关系分析"
         updateInfo={`数据更新：${(companiesData as any).lastUpdate} · 数据来源：web_search 公开信息`}
       />
 
@@ -508,9 +505,8 @@ export default function CompaniesPage() {
 
         {/* 按层级分别渲染 */}
         {activeTier === 'tier1_operators' && renderRegionalView()}
-        {activeTier === 'tier3_antenna_oems' && renderTier3Subsections()}
-        {activeTier === 'tier7_raw_materials' && renderTier7Instruments()}
-        {!['tier1_operators', 'tier3_antenna_oems', 'tier7_raw_materials'].includes(activeTier) && renderNormalCompanies()}
+        {(activeTier === 'tier3_antenna_oems' || activeTier === 'tier4_components') && renderTier3Subsections()}
+        {!['tier1_operators', 'tier3_antenna_oems', 'tier4_components'].includes(activeTier) && renderNormalCompanies()}
       </div>
 
       {/* 详情弹窗 */}
