@@ -432,7 +432,7 @@ export default function KnowledgeGraphPage() {
           (enter) => enter.append('g').attr('class', 'node').style('cursor', 'pointer'),
           (exit) => exit.remove(),
           (update) => update,
-        ) as any as d3.Selection<d3.SVGElement, any, any, any>
+        ) as any as d3.Selection<SVGSVGElement, any, any, any>
       
       joinedNodes
         .on('mouseover', (_, d) => setHoveredId(d.id))
