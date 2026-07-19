@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STAR-BD-RIS带放大模型与优化 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">STAR-BD-RIS带放大模型与优化</h1>
+  <p class="lede">卢森堡大学 SnT 团队提出首个物理一致的 STAR-BD-RIS 逐元放大信号模型，将放大增益矩阵、反射/透射功率分配、被动跨对角耦合三要素解耦，通过交替优化框架证明单调下降收敛，相比传统被动 BD-RIS 显著提升 sum-rate。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">RIS</span><span class="chip brand">BD-RIS</span><span class="chip brand">STAR-RIS</span><span class="chip brand">波束赋形</span><span class="chip brand">6G</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>从被动到主动：RIS 放大的必然性</h2>
+    <p>传统 RIS 由大量无源可调元件组成，信号经过 RIS 时经历"基站→RIS→用户"两段衰落，称为乘性衰落（multiplicative fading）。当元件数量增大时，信号衰减反而更严重，这限制了 RIS 的实际部署价值。</p>
+<p>Active RIS 通过在部分或全部元件中集成功率放大器来抵消乘性衰落，但现有建模存在两个问题：</p>
+<ol>
+<li><strong>缺乏物理一致性</strong>：很多论文把放大器简化为理想增益，忽略了实际功放的非线性约束和功耗模型</li>
+<li><strong>仅支持单向</strong>：大多数 Active RIS 只考虑反射模式，无法覆盖 RIS 两侧的用户</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>STAR-RIS：全空间覆盖</h2>
+    <p>STAR-RIS（Space-Time-Amplitude-Ranging / Simultaneously Transmitting and Reflecting RIS）在 2021 年提出，每个单元可同时控制反射和透射两端的信号，实现全空间覆盖。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>BD-RIS：跨元互连</h2>
+    <p>BD-RIS（Beyond-Diagonal RIS）打破传统 RIS 各元件独立的假设，通过阻抗网络实现元件间的互连耦合，散射矩阵不再是对角阵，自由度大幅提升。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>STAR-BD-RIS + 放大：三者融合</h2>
+    <p>Sheemar et al.（arXiv 2603.06020 / Open MIND 2026）首次将 STAR-RIS、BD-RIS 和有源放大三者融合，建立了完整的物理一致信号模型和优化框架。</p>
+<p>核心创新：</p>
+<ul>
+<li><strong>逐元放大增益矩阵</strong>：每个 STAR-BD-RIS 单元可独立控制放大倍数</li>
+<li><strong>反射/透射功率分配比</strong>：每个单元决定多少信号反射、多少透射</li>
+<li><strong>被动跨对角耦合矩阵</strong>：元件间的互连耦合结构（非对角散射矩阵）</li>
+<li>三要素解耦建模，使优化问题可分解求解</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 物理一致信号模型</h2>
+    <p>接收信号模型：</p>
+<p>$$\mathbf{y} = \left(\mathbf{H}<em>{dr} \boldsymbol{\Theta}_r + \mathbf{H}</em>{dt} \boldsymbol{\Theta}_t\right) \boldsymbol{\Phi} \mathbf{G} \mathbf{s} + \mathbf{n}$$</p>
+<p>其中：</p>
+<ul>
+<li>$\mathbf{G}$：基站→RIS 的信道</li>
+<li>$\mathbf{H}_{dr}$：RIS→用户的反射信道</li>
+<li>$\mathbf{H}_{dt}$：RIS→用户的透射信道</li>
+<li>$\boldsymbol{\Theta}_r$：反射增益矩阵（对角元素为反射放大系数）</li>
+<li>$\boldsymbol{\Theta}_t$：透射增益矩阵（对角元素为透射放大系数）</li>
+<li>$\boldsymbol{\Phi}$：BD-RIS 跨对角耦合散射矩阵（非对角）</li>
+<li>约束条件：$\boldsymbol{\Theta}<em>r + \boldsymbol{\Theta}_t \leq \boldsymbol{\Theta}</em>{\max}$（总功率分配约束）</li>
+</ul>
+<p>与传统模型的差异：</p>
+<ul>
+<li>传统 Active RIS：$\boldsymbol{\Phi} = \mathbf{I}$（对角阵，无跨元耦合）</li>
+<li>传统 STAR-RIS：无放大（$\boldsymbol{\Theta}_r, \boldsymbol{\Theta}_t$ 仅含相位旋转）</li>
+<li>STAR-BD-RIS with Amplification：三者同时存在，建模复杂度呈指数增长</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 三要素解耦与交替优化</h2>
+    <p>优化目标：最大化系统 sum-rate</p>
+<p>$$\max_{\boldsymbol{\Phi}, \boldsymbol{\Theta}<em>r, \boldsymbol{\Theta}_t} \sum</em>{k=1}^{K} R_k(\boldsymbol{\Phi}, \boldsymbol{\Theta}_r, \boldsymbol{\Theta}_t)$$</p>
+<p>受限于：</p>
+<ul>
+<li>功放功率约束</li>
+<li>反射/透射功率分配约束</li>
+<li>BD-RIS 散射矩阵无源性约束</li>
+</ul>
+<p><strong>交替优化框架（WMMSE 转化）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>优化变量</th>
+<th>固定变量</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>反射增益 $\boldsymbol{\Theta}_r$</td>
+<td>$\boldsymbol{\Phi}, \boldsymbol{\Theta}_t$</td>
+<td>WMMSE 加权最小均方误差转化</td>
+</tr>
+<tr>
+<td>2</td>
+<td>透射增益 $\boldsymbol{\Theta}_t$</td>
+<td>$\boldsymbol{\Phi}, \boldsymbol{\Theta}_r$</td>
+<td>WMMSE 加权最小均方误差转化</td>
+</tr>
+<tr>
+<td>3</td>
+<td>耦合矩阵 $\boldsymbol{\Phi}$</td>
+<td>$\boldsymbol{\Theta}_r, \boldsymbol{\Theta}_t$</td>
+<td>基于循环坐标降级的更新</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 复 Stiefel 流形上的黎曼梯度步</h2>
+    <p>BD-RIS 耦合矩阵 $\boldsymbol{\Phi}$ 需满足无源性约束（散射矩阵的奇异值 ≤ 1），这等价于 $\boldsymbol{\Phi}$ 位于复 Stiefel 流形上。</p>
+<p>优化方法：</p>
+<ul>
+<li>在流形上计算黎曼梯度</li>
+<li>使用 QR 分解或 polar 分解进行重traction（retraction），确保每步迭代后仍满足无源性约束</li>
+<li>结合循环坐标降级（cyclic coordinate descent），每次只更新一个子块</li>
+</ul>
+<p><strong>关键性质</strong>：该算法被严格证明具有单调下降收敛性——每次迭代 sum-rate 不会下降。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 循环坐标降级（CCD）</h2>
+    <p>对于 STAR 功率分配比的更新：</p>
+<ul>
+<li>固定其他参数，逐个单元优化其反射/透射功率分配比</li>
+<li>闭式解或一维搜索即可得到最优分配</li>
+<li>循环遍历所有单元直至收敛</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>三种架构对比</h2>
+    <table>
+<thead>
+<tr>
+<th>架构</th>
+<th>描述</th>
+<th>功放数量</th>
+<th>复杂度</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全连接有源</td>
+<td>所有元件互连 + 每个元件带功放</td>
+<td>N</td>
+<td>最高</td>
+<td>高密度用户、极端覆盖</td>
+</tr>
+<tr>
+<td>分组连接有源</td>
+<td>元件按组互连，每组共享功放</td>
+<td>N/G</td>
+<td>中等</td>
+<td>中等密度用户</td>
+</tr>
+<tr>
+<td>混合有源/无源</td>
+<td>表面分区：一部分被动 BD-RIS + 一部分主动 BD-RIS</td>
+<td>&lt;N</td>
+<td>灵活</td>
+<td>成本敏感场景</td>
+</tr>
+</tbody>
+</table>
+<p>STAR-BD-RIS 的灵活性在于可以在三种架构间切换，通过调整耦合矩阵 $\boldsymbol{\Phi}$ 的结构来适配不同场景。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 6G 基站全空间覆盖增强</h2>
+    <p>STAR-BD-RIS 可同时服务基站两侧的用户（如室内+室外），配合有源放大解决乘性衰落，是 6G 基站的理想覆盖增强方案。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 低空通感一体化</h2>
+    <p>BD-RIS 增强的自由度使其天然适合 ISAC 系统。STAR-BD-RIS 在有源放大的加持下，可同时增强通信链路和感知波束，特别适合无人机通感一体化场景。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 隐蔽通信与安全传输</h2>
+    <p>Mirza et al. (CSNT 2026) 已证明 Meta-DRL 驱动的 BD-RIS 可在 3GPP 合规信道模型下将 Secrecy Rate 提升 25-30%。加入 STAR 和放大后，可进一步利用透射端做安全信号干扰。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 卫星地面协同</h2>
+    <p>STAR-BD-RIS 的透射能力可用于地面-卫星链路的中继增强，特别是在城市峡谷等信号遮挡严重的场景中。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 功放非线性失真</h2>
+    <p>实际功放在接近饱和区工作时会产生非线性失真，影响信号质量。需要在放大增益和线性度之间做权衡。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 硬件实现复杂度</h2>
+    <p>BD-RIS 的跨元耦合需要精密的阻抗网络设计，在毫米波频段实现难度显著增加。有源放大进一步增加了热管理和功耗控制的要求。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 信道估计开销</h2>
+    <p>STAR-BD-RIS 的优化变量包括耦合矩阵 $\boldsymbol{\Phi}$、反射增益 $\boldsymbol{\Theta}_r$、透射增益 $\boldsymbol{\Theta}_t$，维度远超传统对角 RIS。如何高效估计级联信道是部署瓶颈。</p>
+<p><strong>解决方向</strong>：可参考 SORIS 的自组织信道估计思路，减少对外部导频链路的依赖。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 功耗管理</h2>
+    <p>有源放大意味着额外的功耗。在大规模部署场景下，功耗控制直接影响运营成本。需要精细的功率分配策略。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
+    <ul>
+<li><strong>2018</strong>：RIS 概念提出（Di Renzo 团队），被动反射型</li>
+<li><strong>2021</strong>：STAR-RIS 提出，实现同时透射反射</li>
+<li><strong>2023</strong>：BD-RIS 提出，引入跨元互连</li>
+<li><strong>2024</strong>：Active RIS 出现，部分元件集成功放</li>
+<li><strong>2025</strong>：清华 SC-RIS 自控制超表面，中兴 ORIS 原型</li>
+<li><strong>2026.01</strong>：SORIS 自组织架构，消除导频链路</li>
+<li><strong>2026.03</strong>：Active BD-RIS 理论体系建立（Shen/Clerckx 等）</li>
+<li><strong>2026.03</strong>：STAR-BD-RIS 放大模型（Sheemar 等，卢森堡/帕多瓦），本文主题</li>
+<li><strong>2026.04</strong>：Active BD-RIS 收发混合模式（Fu Liu 等），全空间覆盖</li>
+<li><strong>2026.05</strong>：混合有源/无源 BD-RIS 架构族（Ntougias/Krikidis）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>十、与老大的关联</h2>
+    <ol>
+<li>
+<p><strong>中兴动态 RIS 2.0 升级路径</strong>：ZTE 已在动态 RIS 2.0 上积累深厚，STAR-BD-RIS 的有源放大和全空间覆盖能力是下一代产品的自然演进方向。建议在产品规划中将 STAR-BD-RIS 列为重点跟踪技术。</p>
+</li>
+<li>
+<p><strong>6G 标准布局</strong>：3GPP Rel-20/21 已开始研究 RIS 相关特性，STAR-BD-RIS 的理论和优化成果可作为中兴在标准提案中的技术储备。</p>
+</li>
+<li>
+<p><strong>知识图谱完整性</strong>：这篇笔记补充了 Active BD-RIS/SORIS 笔记（20260716）之后 STAR-BD-RIS 这一重要分支的独立成篇，形成了从被动→主动→BD→STAR-BD→SORIS 的完整知识链。</p>
+</li>
+</ol>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>
