@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-07-19",
-  "totalNotes": 200,
+  "lastUpdate": "2026-07-20",
+  "totalNotes": 202,
   "stats": {
-    "technology": 136,
+    "technology": 138,
     "metric": 23,
     "component": 33,
     "material": 8
@@ -30016,6 +30016,403 @@
           "label": "关联"
         }
       ]
+    },
+    {
+      "id": "technology-近场xl-mimo距离-角度解耦波束赋形rad",
+      "name": "近场XL-MIMO距离-角度解耦波束赋形RAD",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-近场XL-MIMO距离-角度解耦波束赋形RAD-20260720.md",
+      "tags": [
+        "天线技术",
+        "技术概念",
+        "近场波束赋形",
+        "XL-MIMO",
+        "6G",
+        "预编码"
+      ],
+      "createdAt": "2026-07-20",
+      "updatedAt": "2026-07-20",
+      "oneLiner": "近场XL-MIMO的信道同时依赖角度和距离，传统远场预编码只按角度设计导致相干增益损失；该研究利用Fresnel三分解将球面波前拆成范围聚焦项和角度项，实现两阶段解耦预编码，把反馈开销从O(N)降到O(1)，同时保持多用户干扰对消能力。",
+      "analogy": "传统方法像用一把量角器去量三维空间里的目标位置——只能告诉你方向，不知道远近。",
+      "sections": [
+        {
+          "level": 2,
+          "title": "一句话版本",
+          "raw": "近场XL-MIMO的信道同时依赖角度和距离，传统远场预编码只按角度设计导致相干增益损失；该研究利用Fresnel三分解将球面波前拆成范围聚焦项和角度项，实现两阶段解耦预编码，把反馈开销从O(N)降到O(1)，同时保持多用户干扰对消能力。",
+          "content": "近场XL-MIMO的信道同时依赖角度和距离，传统远场预编码只按角度设计导致相干增益损失；该研究利用Fresnel三分解将球面波前拆成范围聚焦项和角度项，实现两阶段解耦预编码，把反馈开销从O(N)降到O(1)，同时保持多用户干扰对消能力。"
+        },
+        {
+          "level": 2,
+          "title": "类比入口",
+          "raw": "传统方法像用一把量角器去量三维空间里的目标位置——只能告诉你方向，不知道远近。RAD方法相当于给量角器加了卷尺，先用卷尺确定距离层，再用量角器确定角度层，两个维度分开处理，计算量大幅降低。",
+          "content": "传统方法像用一把量角器去量三维空间里的目标位置——只能告诉你方向，不知道远近。RAD方法相当于给量角器加了卷尺，先用卷尺确定距离层，再用量角器确定角度层，两个维度分开处理，计算量大幅降低。"
+        },
+        {
+          "level": 3,
+          "title": "核心问题",
+          "raw": "6G XL-MIMO系统中，超大规模阵列使Fraunhofer距离扩展到数百米甚至数公里，大量用户落入辐射近场。近场信道具有**联合角度-距离依赖性**：\n\n$$h_n = \\frac{e^{-jk\\|\\mathbf{r} - \\mathbf{r}_n\\|}}{\\|\\mathbf{r} - \\mathbf{r}_n\\|}$$\n\n其中 $\\mathbf{r}$ 为用户三维位置，$\\mathbf{r}_n$ 为第 $n$ 个阵元位置。这与远场平面波近似 $e^{-jkR_0} e^{j\\mathbf{\\hat{s}}\\cdot\\mathbf{r}}$ 有本质区别。\n\n传统预编码（MRT、ZF）基于远场 steering vector 仅依赖角度，存在两个根本性问题：\n\n1. **单用户相干增益损失**：用户越靠近阵列中心，球面波前曲率越大，平面波假设偏差越大，MRT/ZF 的增益损失随深度增加而放大\n2. **多用户干扰不可区分**：角度相同但距离不同的用户在平面波模型下完全重叠，ZF 无法对消这类干扰",
+          "content": "6G XL-MIMO系统中，超大规模阵列使Fraunhofer距离扩展到数百米甚至数公里，大量用户落入辐射近场。近场信道具有联合角度-距离依赖性：\n\n$$h_n = \\frac{e^{-jk\\|\\mathbf{r} - \\mathbf{r}_n\\|}}{\\|\\mathbf{r} - \\mathbf{r}_n\\|}$$\n\n其中 $\\mathbf{r}$ 为用户三维位置，$\\mathbf{r}_n$ 为第 $n$ 个阵元位置。这与远场平面波近似 $e^{-jkR_0} e^{j\\mathbf{\\hat{s}}\\cdot\\mathbf{r}}$ 有本质区别。\n\n传统预编码（MRT、ZF）基于远场 steering vector 仅依赖角度，存在两个根本性问题：\n\n1. 单用户相干增益损失：用户越靠近阵列中心，球面波前曲率越大，平面波假设偏差越大，MRT/ZF 的增益损失随深度增加而放大\n2. 多用户干扰不可区分：角度相同但距离不同的用户在平面波模型下完全重叠，ZF 无法对消这类干扰"
+        },
+        {
+          "level": 3,
+          "title": "解决方案：Range-Angle Decoupled (RAD) Beamforming",
+          "raw": "核心思路是将近场信道的球面波前通过 **Fresnel 三分解** 拆解为三个独立因子：\n\n$$h(\\mathbf{r}) \\approx f_{\\text{range}}(R) \\cdot f_{\\text{coupling}}(R, \\theta) \\cdot f_{\\text{angle}}(\\theta)$$\n\n- $f_{\\text{range}}(R)$：距离相关的二次相位项（球面波曲率补偿）\n- $f_{\\text{coupling}}(R, \\theta)$：距离-角度交叉耦合项（可预补偿）\n- $f_{\\text{angle}}(\\theta)$：纯角度 steering vector（与远场形式一致）\n\n经过分解后，预编码分为两个顺序阶段：\n\n**阶段一：范围聚焦（Range-Focusing）**\n\n对每个用户施加距离相关的相位补偿，抵消球面波曲率，将用户\"拉平\"到等效远场位置。这一步相当于在距离域做准直。\n\n**阶段二：角度域零陷（Angle-Domain Nulling）**\n\n在距离补偿后的域中，使用经典 ZF/MRT 预编码进行角度域多用户干扰对消。此时 steering vector 退化为纯角度依赖，远场算法可直接复用。",
+          "content": "核心思路是将近场信道的球面波前通过 Fresnel 三分解 拆解为三个独立因子：\n\n$$h(\\mathbf{r}) \\approx f_{\\text{range}}(R) \\cdot f_{\\text{coupling}}(R, \\theta) \\cdot f_{\\text{angle}}(\\theta)$$\n\n$f_{\\text{range}}(R)$：距离相关的二次相位项（球面波曲率补偿）\n$f_{\\text{coupling}}(R, \\theta)$：距离-角度交叉耦合项（可预补偿）\n$f_{\\text{angle}}(\\theta)$：纯角度 steering vector（与远场形式一致）\n\n经过分解后，预编码分为两个顺序阶段：\n\n阶段一：范围聚焦（Range-Focusing）\n\n对每个用户施加距离相关的相位补偿，抵消球面波曲率，将用户\"拉平\"到等效远场位置。这一步相当于在距离域做准直。\n\n阶段二：角度域零陷（Angle-Domain Nulling）\n\n在距离补偿后的域中，使用经典 ZF/MRT 预编码进行角度域多用户干扰对消。此时 steering vector 退化为纯角度依赖，远场算法可直接复用。"
+        },
+        {
+          "level": 3,
+          "title": "低反馈机制",
+          "raw": "传统近场预编码需要基站向UE反馈 O(N) 个复系数（N为阵元数）。RAD框架利用Fresnel分解的结构特性，将反馈量压缩为 **O(1) 个实数标量**：\n\n- 用户只需反馈距离 $R$ 和角度 $\\theta$ 两个参数\n- 基站根据这两个参数直接计算聚焦权重，无需逐阵元反馈\n\n这在大规模阵列场景下意义巨大，反馈开销从与阵元数线性相关降为常数级。",
+          "content": "传统近场预编码需要基站向UE反馈 O(N) 个复系数（N为阵元数）。RAD框架利用Fresnel分解的结构特性，将反馈量压缩为 O(1) 个实数标量：\n\n用户只需反馈距离 $R$ 和角度 $\\theta$ 两个参数\n基站根据这两个参数直接计算聚焦权重，无需逐阵元反馈\n\n这在大规模阵列场景下意义巨大，反馈开销从与阵元数线性相关降为常数级。"
+        },
+        {
+          "level": 3,
+          "title": "Fresnel近似下的相位展开",
+          "raw": "对远距用户（$R \\gg D$），阵元到用户的距离可做二阶泰勒展开：\n\n$$\\|\\mathbf{r} - \\mathbf{r}_n\\| \\approx R - \\mathbf{\\hat{r}}\\cdot\\mathbf{r}_n + \\frac{\\|\\mathbf{r}_n\\|^2 - (\\mathbf{\\hat{r}}\\cdot\\mathbf{r}_n)^2}{2R}$$\n\n- 一阶项：对应远场平面波相位，产生角度 steering\n- 二阶项：对应近场球面波曲率，产生距离聚焦效应\n\nRAD方法的关键是将一阶和二阶项分离处理，而非像传统方法那样混在同一个 steering vector 里。",
+          "content": "对远距用户（$R \\gg D$），阵元到用户的距离可做二阶泰勒展开：\n\n$$\\|\\mathbf{r} - \\mathbf{r}_n\\| \\approx R - \\mathbf{\\hat{r}}\\cdot\\mathbf{r}_n + \\frac{\\|\\mathbf{r}_n\\|^2 - (\\mathbf{\\hat{r}}\\cdot\\mathbf{r}_n)^2}{2R}$$\n\n一阶项：对应远场平面波相位，产生角度 steering\n二阶项：对应近场球面波曲率，产生距离聚焦效应\n\nRAD方法的关键是将一阶和二阶项分离处理，而非像传统方法那样混在同一个 steering vector 里。"
+        },
+        {
+          "level": 3,
+          "title": "与已有近场方法的对比",
+          "raw": "| 维度 | MRT/ZF（远场预设） | 全近场优化 | RAD Beamforming |\n|------|-------------------|-----------|-----------------|\n| 信道模型 | 平面波 | 完整球面波 | Fresnel三分解 |\n| 预编码复杂度 | O(N²) | O(N³) | O(N) + O(K²) |\n| 反馈开销 | O(N) 复数 | O(N) 复数 | O(1) 实数 |\n| 距离分辨能力 | 无 | 有 | 有 |\n| 多用户干扰对消 | 角度域仅 | 角度+距离联合 | 先距离补偿再角度对消 |\n| 适用场景 | Sub-6G小规模 | 理论最优但复杂 | 大规模近场多用户 |",
+          "content": "| 维度 | MRT/ZF（远场预设） | 全近场优化 | RAD Beamforming |\n|------|-------------------|-----------|-----------------|\n| 信道模型 | 平面波 | 完整球面波 | Fresnel三分解 |\n| 预编码复杂度 | O(N²) | O(N³) | O(N) + O(K²) |\n| 反馈开销 | O(N) 复数 | O(N) 复数 | O(1) 实数 |\n| 距离分辨能力 | 无 | 有 | 有 |\n| 多用户干扰对消 | 角度域仅 | 角度+距离联合 | 先距离补偿再角度对消 |\n| 适用场景 | Sub-6G小规模 | 理论最优但复杂 | 大规模近场多用户 |"
+        },
+        {
+          "level": 3,
+          "title": "性能优势",
+          "raw": "仿真结果表明：\n\n1. **单用户速率**：相比远场ZF，近场用户可获得显著相干增益，且增益随用户进入近场的深度增加而增大\n2. **多用户调度**：同角度不同距离的用户可以被有效分离，传统ZF无法处理的场景RAD可以解决\n3. **反馈效率**：O(1) 反馈 vs O(N) 反馈，在1024阵元场景下反馈开销降低约两个数量级",
+          "content": "仿真结果表明：\n\n1. 单用户速率：相比远场ZF，近场用户可获得显著相干增益，且增益随用户进入近场的深度增加而增大\n2. 多用户调度：同角度不同距离的用户可以被有效分离，传统ZF无法处理的场景RAD可以解决\n3. 反馈效率：O(1) 反馈 vs O(N) 反馈，在1024阵元场景下反馈开销降低约两个数量级"
+        },
+        {
+          "level": 3,
+          "title": "与硬件架构的配合",
+          "raw": "**全数字波束赋形 + RAD**\n\n每个阵元独立配RF链路，RAD分解后的聚焦权重直接作用于数字预编码矩阵。精度最高，适合原型验证。\n\n**混合波束赋形 + RAD**\n\n模拟域负责距离聚焦（TTD或相移器），数字域负责角度域零陷。工程可实现性强，但TTD的有限分辨率会引入误差。\n\n**子阵列 + RAD**\n\n将XL-MIMO划分为多个子阵列，每个子阵列独立执行范围聚焦，数字域做跨子阵列的角度协调。首尔国立大学2024年的子阵列方案可与RAD结合。",
+          "content": "全数字波束赋形 + RAD\n\n每个阵元独立配RF链路，RAD分解后的聚焦权重直接作用于数字预编码矩阵。精度最高，适合原型验证。\n\n混合波束赋形 + RAD\n\n模拟域负责距离聚焦（TTD或相移器），数字域负责角度域零陷。工程可实现性强，但TTD的有限分辨率会引入误差。\n\n子阵列 + RAD\n\n将XL-MIMO划分为多个子阵列，每个子阵列独立执行范围聚焦，数字域做跨子阵列的角度协调。首尔国立大学2024年的子阵列方案可与RAD结合。"
+        },
+        {
+          "level": 3,
+          "title": "与波束训练的结合",
+          "raw": "RAD框架天然适合低开销波束训练：\n\n1. 先做粗粒度角度扫描（远场codebook即可）\n2. 再在选定角度bin内做距离扫描（一维搜索，复杂度远低于二维联合搜索）\n3. 用户反馈 $(R, \\theta)$ 后，基站直接计算RAD预编码权重\n\n这比传统的二维码本穷举搜索（角度×距离）效率高得多。",
+          "content": "RAD框架天然适合低开销波束训练：\n\n1. 先做粗粒度角度扫描（远场codebook即可）\n2. 再在选定角度bin内做距离扫描（一维搜索，复杂度远低于二维联合搜索）\n3. 用户反馈 $(R, \\theta)$ 后，基站直接计算RAD预编码权重\n\n这比传统的二维码本穷举搜索（角度×距离）效率高得多。"
+        },
+        {
+          "level": 3,
+          "title": "1. 6G密集城区微站",
+          "raw": "小区半径 < 50m 时，大规模天线阵列的近场区域覆盖整个小区。同角度不同距离的用户（如30m vs 45m处）可通过LDMA分离，频谱效率提升显著。",
+          "content": "小区半径 < 50m 时，大规模天线阵列的近场区域覆盖整个小区。同角度不同距离的用户（如30m vs 45m处）可通过LDMA分离，频谱效率提升显著。"
+        },
+        {
+          "level": 3,
+          "title": "2. 室内高精度通信+定位",
+          "raw": "RAD框架的距离维度信息可直接用于定位。同一套预编码系统可同时提供通信和厘米级定位能力，与ISAC方向高度契合。",
+          "content": "RAD框架的距离维度信息可直接用于定位。同一套预编码系统可同时提供通信和厘米级定位能力，与ISAC方向高度契合。"
+        },
+        {
+          "level": 3,
+          "title": "3. 无人机编队通信",
+          "raw": "多架无人机在同一方位角但不同高度/距离，传统SDMA无法区分，RAD的LDMA能力恰好解决此问题。",
+          "content": "多架无人机在同一方位角但不同高度/距离，传统SDMA无法区分，RAD的LDMA能力恰好解决此问题。"
+        },
+        {
+          "level": 3,
+          "title": "4. 无蜂窝Cell-Free网络",
+          "raw": "多个AP协同服务用户时，每个AP的预编码都需考虑近场效应。RAD的低反馈特性使其特别适合AP间协作场景。",
+          "content": "多个AP协同服务用户时，每个AP的预编码都需考虑近场效应。RAD的低反馈特性使其特别适合AP间协作场景。"
+        },
+        {
+          "level": 2,
+          "title": "五、关键技术指标",
+          "raw": "| 指标 | 说明 | 典型值 |\n|------|------|--------|\n| 反馈开销 | 用户需反馈的参数量 | O(1) 实数标量（vs O(N) 复数） |\n| 预编码复杂度 | 主计算量 | O(N) + O(K²)，K为用户数 |\n| 单用户速率增益 | 相比远场ZF | 3-8 dB（近场深度用户） |\n| 距离分辨率 | 可分离的最小距离间隔 | ~λ/2 量级 |\n| 角度分辨力 | 可分离的最小角度间隔 | 取决于阵列孔径 |",
+          "content": "| 指标 | 说明 | 典型值 |\n|------|------|--------|\n| 反馈开销 | 用户需反馈的参数量 | O(1) 实数标量（vs O(N) 复数） |\n| 预编码复杂度 | 主计算量 | O(N) + O(K²)，K为用户数 |\n| 单用户速率增益 | 相比远场ZF | 3-8 dB（近场深度用户） |\n| 距离分辨率 | 可分离的最小距离间隔 | ~λ/2 量级 |\n| 角度分辨力 | 可分离的最小角度间隔 | 取决于阵列孔径 |"
+        },
+        {
+          "level": 3,
+          "title": "1. Fresnel近似的有效范围",
+          "raw": "二阶泰勒展开在 $R \\gg D$ 时成立，但当用户非常靠近阵列（$R \\sim D$）时，高阶项不可忽略。RAD框架在此区域的性能退化需要额外处理。",
+          "content": "二阶泰勒展开在 $R \\gg D$ 时成立，但当用户非常靠近阵列（$R \\sim D$）时，高阶项不可忽略。RAD框架在此区域的性能退化需要额外处理。"
+        },
+        {
+          "level": 3,
+          "title": "2. 宽带信号的距离-角度耦合",
+          "raw": "上述推导基于窄带假设。宽带信号下，不同频点的聚焦距离不同，range-angle耦合更复杂。需要引入延迟-角度联合分解或频域分段处理。",
+          "content": "上述推导基于窄带假设。宽带信号下，不同频点的聚焦距离不同，range-angle耦合更复杂。需要引入延迟-角度联合分解或频域分段处理。"
+        },
+        {
+          "level": 3,
+          "title": "3. 信道估计的精度要求",
+          "raw": "RAD预编码依赖精确的 $(R, \\theta)$ 估计。近场波束训练本身就是一个难题——角度+距离的联合搜索空间随阵元数平方增长。需要与低开销训练方案配合。",
+          "content": "RAD预编码依赖精确的 $(R, \\theta)$ 估计。近场波束训练本身就是一个难题——角度+距离的联合搜索空间随阵元数平方增长。需要与低开销训练方案配合。"
+        },
+        {
+          "level": 3,
+          "title": "4. 用户移动性",
+          "raw": "近场用户对距离变化敏感。沿径向移动会导致聚焦失配，需要快速跟踪机制。与波束倾斜补偿（TTD/DDP）结合是必要方向。",
+          "content": "近场用户对距离变化敏感。沿径向移动会导致聚焦失配，需要快速跟踪机制。与波束倾斜补偿（TTD/DDP）结合是必要方向。"
+        },
+        {
+          "level": 2,
+          "title": "七、技术演进",
+          "raw": "- **2022**：近场XL-MIMO理论奠基，Zhu et al. 系统论证球面波信道模型\n- **2023**：IEEE JSAC 发表近场多址综述，SDMA vs LDMA 成为热点\n- **2024**：首尔国立大学提出子阵列近场波束训练，时延降低99%\n- **2025**：McGill 实测验证近场波束聚焦9.6dB增益\n- **2026.03**：Nature Communications 发表分布式波束整形实验\n- **2026.10（预发表）**：AEU-Journal 发表RAD Beamforming框架，首次建立统一的角度-距离解耦预编码理论",
+          "content": "2022：近场XL-MIMO理论奠基，Zhu et al. 系统论证球面波信道模型\n2023：IEEE JSAC 发表近场多址综述，SDMA vs LDMA 成为热点\n2024：首尔国立大学提出子阵列近场波束训练，时延降低99%\n2025：McGill 实测验证近场波束聚焦9.6dB增益\n2026.03：Nature Communications 发表分布式波束整形实验\n2026.10（预发表）：AEU-Journal 发表RAD Beamforming框架，首次建立统一的角度-距离解耦预编码理论"
+        },
+        {
+          "level": 2,
+          "title": "八、技术成熟度",
+          "raw": "- **成熟度等级**：理论研究 → 仿真验证\n- **判断依据**：该框架目前处于学术论文阶段，仿真验证充分但尚无硬件原型。其核心价值在于提供了可复用的数学分解框架，后续可与各种硬件架构（全数字/混合/子阵列）结合落地。预计2027年前后会有首个RTL（ready-to-launch）级别的标准化提案。",
+          "content": "成熟度等级：理论研究 → 仿真验证\n判断依据：该框架目前处于学术论文阶段，仿真验证充分但尚无硬件原型。其核心价值在于提供了可复用的数学分解框架，后续可与各种硬件架构（全数字/混合/子阵列）结合落地。预计2027年前后会有首个RTL（ready-to-launch）级别的标准化提案。"
+        },
+        {
+          "level": 2,
+          "title": "九、未来趋势",
+          "raw": "- **短期（1-2年）**：RAD框架被纳入3GPP Rel-21近场XL-MIMO研究议题；与子阵列波束训练结合形成完整方案\n- **中期（3-5年）**：首个商用级近场波束管理芯片支持RAD预编码；O(1)反馈机制成为6G标准特性\n- **长期（5年以上）**：近场波束管理成为6G基站标配，LDMA与SDMA联合多址显著提升频谱效率",
+          "content": "短期（1-2年）：RAD框架被纳入3GPP Rel-21近场XL-MIMO研究议题；与子阵列波束训练结合形成完整方案\n中期（3-5年）：首个商用级近场波束管理芯片支持RAD预编码；O(1)反馈机制成为6G标准特性\n长期（5年以上）：近场波束管理成为6G基站标配，LDMA与SDMA联合多址显著提升频谱效率"
+        },
+        {
+          "level": 2,
+          "title": "十、与老大的关联",
+          "raw": "1. **中兴GigaMIMO路线**：中兴已有GigaMIMO空域资源重构技术积累，RAD框架为其下一代近场波束管理提供了清晰的理论路径\n2. **O(1)反馈的工程价值**：当前6G预研中近场信道反馈开销是核心瓶颈之一，RAD的O(1)反馈机制如果标准化，将直接影响AAU/RRU的基带设计\n3. **与近场波束聚焦笔记互补**：已有笔记偏物理层原理，本文偏信号处理层预编码设计，两者构成完整的近场XL-MIMO技术栈",
+          "content": "1. 中兴GigaMIMO路线：中兴已有GigaMIMO空域资源重构技术积累，RAD框架为其下一代近场波束管理提供了清晰的理论路径\n2. O(1)反馈的工程价值：当前6G预研中近场信道反馈开销是核心瓶颈之一，RAD的O(1)反馈机制如果标准化，将直接影响AAU/RRU的基带设计\n3. 与近场波束聚焦笔记互补：已有笔记偏物理层原理，本文偏信号处理层预编码设计，两者构成完整的近场XL-MIMO技术栈"
+        },
+        {
+          "level": 2,
+          "title": "一句话总结",
+          "raw": "RAD Beamforming 通过Fresnel三分解把近场XL-MIMO的二维信道估计-预编码问题拆成\"先聚焦距离、再对消角度\"的两步走策略，在保持性能的同时将反馈开销从O(N)压到O(1)。",
+          "content": "RAD Beamforming 通过Fresnel三分解把近场XL-MIMO的二维信道估计-预编码问题拆成\"先聚焦距离、再对消角度\"的两步走策略，在保持性能的同时将反馈开销从O(N)压到O(1)。"
+        },
+        {
+          "level": 2,
+          "title": "参考资料",
+          "raw": "- Krishna & Choudhary, \"Range-angle decoupled beamforming for near-field XL-MIMO systems with low-feedback precoding,\" *AEU - International Journal of Electronics and Communications*, Oct 2026. [doi:10.1016/j.aeue.2026.156425](https://doi.org/10.1016/j.aeue.2026.156425)",
+          "content": "Krishna & Choudhary, \"Range-angle decoupled beamforming for near-field XL-MIMO systems with low-feedback precoding,\" AEU - International Journal of Electronics and Communications, Oct 2026. doi:10.1016/j.aeue.2026.156425"
+        },
+        {
+          "level": 2,
+          "title": "关联笔记",
+          "raw": "- [[技术概念-近场波束聚焦Near-Field-Beamfocusing-20260719]]\n- [[技术概念-近场波束赋形Near-Field-Beamforming-20260702]]\n- [[技术概念-全息MIMO连续孔径CAPA-20260702]]",
+          "content": "[[技术概念-近场波束聚焦Near-Field-Beamfocusing-20260719]]\n[[技术概念-近场波束赋形Near-Field-Beamforming-20260702]]\n[[技术概念-全息MIMO连续孔径CAPA-20260702]]"
+        }
+      ],
+      "outgoing": [
+        {
+          "targetId": "technology-近场波束聚焦near-field-beamfocusing",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-近场波束赋形near-field-beamforming",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-全息mimo连续孔径capa",
+          "label": "关联"
+        }
+      ]
+    },
+    {
+      "id": "technology-近场信道估计与用户定位",
+      "name": "近场信道估计与用户定位",
+      "nameEn": "",
+      "type": "technology",
+      "filename": "技术概念-近场信道估计与用户定位-20260720.md",
+      "tags": [
+        "天线技术",
+        "技术概念",
+        "近场信道估计",
+        "XL-MIMO",
+        "用户定位"
+      ],
+      "createdAt": "2026-07-20",
+      "updatedAt": "2026-07-20",
+      "oneLiner": "近场信道估计利用球面波前引入的距离维度，将 XL-MIMO 的\"空间分辨率\"升级为\"角度+距离\"双域感知能力，实现厘米级用户定位与高精度 CSI 获取。",
+      "analogy": "远场通信像用手电筒照远处：光束近似平行，你只能知道\"光从哪个方向来\"。",
+      "sections": [
+        {
+          "level": 2,
+          "title": "一句话版本",
+          "raw": "近场信道估计利用球面波前引入的距离维度，将 XL-MIMO 的\"空间分辨率\"升级为\"角度+距离\"双域感知能力，实现厘米级用户定位与高精度 CSI 获取。",
+          "content": "近场信道估计利用球面波前引入的距离维度，将 XL-MIMO 的\"空间分辨率\"升级为\"角度+距离\"双域感知能力，实现厘米级用户定位与高精度 CSI 获取。"
+        },
+        {
+          "level": 2,
+          "title": "类比入口",
+          "raw": "远场通信像用手电筒照远处：光束近似平行，你只能知道\"光从哪个方向来\"。近场 XL-MIMO 则像一个巨大的雷达阵列，不仅知道目标的方向，还能通过波前的弯曲程度判断目标离得多远——就像人双眼通过视差判断距离一样，XL-MIMO 阵列的超大孔径提供了天然的\"深度感知\"。",
+          "content": "远场通信像用手电筒照远处：光束近似平行，你只能知道\"光从哪个方向来\"。近场 XL-MIMO 则像一个巨大的雷达阵列，不仅知道目标的方向，还能通过波前的弯曲程度判断目标离得多远——就像人双眼通过视差判断距离一样，XL-MIMO 阵列的超大孔径提供了天然的\"深度感知\"。"
+        },
+        {
+          "level": 3,
+          "title": "1.1 为什么需要近场信道估计",
+          "raw": "5G 大规模 MIMO 基站通常部署约 64 根天线，用户设备处于远场（平面波前假设成立）。6G 的 XL-MIMO 将天线数量提升一个数量级以上（数百至数千根），阵列孔径急剧增大，瑞利距离 $R = \\frac{2D^2}{\\lambda}$ 随之增长到数十甚至上百米。这意味着大量实际通信链路落入辐射近场区，平面波近似不再适用，必须采用球面波前模型。",
+          "content": "5G 大规模 MIMO 基站通常部署约 64 根天线，用户设备处于远场（平面波前假设成立）。6G 的 XL-MIMO 将天线数量提升一个数量级以上（数百至数千根），阵列孔径急剧增大，瑞利距离 $R = \\frac{2D^2}{\\lambda}$ 随之增长到数十甚至上百米。这意味着大量实际通信链路落入辐射近场区，平面波近似不再适用，必须采用球面波前模型。"
+        },
+        {
+          "level": 3,
+          "title": "1.2 球面波前 vs 平面波前",
+          "raw": "远场信道矩阵中，每个天线的相位差仅由到达角（AoA）决定，信道估计只需在角度域搜索。近场信道中，不同天线收到的信号不仅角度不同，传播距离也不同，导致：\n\n- **非均匀路径损耗**：边缘天线与中心天线的路径损耗差异不可忽略\n- **非线性相位变化**：相位随天线位置呈二次方关系，而非线性关系\n- **额外自由度**：信道响应同时依赖角度和距离两个参数",
+          "content": "远场信道矩阵中，每个天线的相位差仅由到达角（AoA）决定，信道估计只需在角度域搜索。近场信道中，不同天线收到的信号不仅角度不同，传播距离也不同，导致：\n\n非均匀路径损耗：边缘天线与中心天线的路径损耗差异不可忽略\n非线性相位变化：相位随天线位置呈二次方关系，而非线性关系\n额外自由度：信道响应同时依赖角度和距离两个参数"
+        },
+        {
+          "level": 3,
+          "title": "1.3 核心数学模型",
+          "raw": "均匀线阵（ULA）近场第 $n$ 个天线的导向矢量为：\n\n$$\\mathbf{a}(\\theta, r) = \\left[ e^{-j\\frac{2\\pi}{\\lambda}(r_{1}-r)}, e^{-j\\frac{2\\pi}{\\lambda}(r_{2}-r)}, \\cdots, e^{-j\\frac{2\\pi}{\\lambda}(r_{N}-r)} \\right]^T$$\n\n其中 $r_n = \\sqrt{r^2 - 2(n-\\frac{N+1}{2})d \\cdot r \\sin\\theta + ((n-\\frac{N+1}{2})d)^2}$ 为第 $n$ 个天线到用户的距离。\n\n多径近场信道可表示为：\n\n$$\\mathbf{h} = \\sum_{l=1}^{L} \\alpha_l \\cdot \\mathbf{a}(\\theta_l, r_l)$$\n\n这与远场模型 $\\mathbf{h} = \\sum_{l=1}^{L} \\alpha_l \\cdot \\mathbf{a}(\\theta_l)$ 的关键区别在于增加了距离参数 $r_l$。",
+          "content": "均匀线阵（ULA）近场第 $n$ 个天线的导向矢量为：\n\n$$\\mathbf{a}(\\theta, r) = \\left[ e^{-j\\frac{2\\pi}{\\lambda}(r_{1}-r)}, e^{-j\\frac{2\\pi}{\\lambda}(r_{2}-r)}, \\cdots, e^{-j\\frac{2\\pi}{\\lambda}(r_{N}-r)} \\right]^T$$\n\n其中 $r_n = \\sqrt{r^2 - 2(n-\\frac{N+1}{2})d \\cdot r \\sin\\theta + ((n-\\frac{N+1}{2})d)^2}$ 为第 $n$ 个天线到用户的距离。\n\n多径近场信道可表示为：\n\n$$\\mathbf{h} = \\sum_{l=1}^{L} \\alpha_l \\cdot \\mathbf{a}(\\theta_l, r_l)$$\n\n这与远场模型 $\\mathbf{h} = \\sum_{l=1}^{L} \\alpha_l \\cdot \\mathbf{a}(\\theta_l)$ 的关键区别在于增加了距离参数 $r_l$。"
+        },
+        {
+          "level": 3,
+          "title": "2.1 网格化方法（Grid-Based）",
+          "raw": "最直观的方法是在角度-距离二维极坐标域构建码本字典，将信道估计转化为稀疏恢复问题。主要算法包括：\n\n| 方法 | 核心思路 | 优势 | 局限 |\n|---|---|---|---|\n| 正交匹配追踪（OMP） | 贪婪迭代选择最相关列向量 | 实现简单，低复杂度 | 依赖网格分辨率，存在基失配 |\n| 压缩感知（CS） | 利用信道稀疏性重建 | 导频开销低 | 码本过大时计算复杂 |\n| N-NOMP | 牛顿化正交匹配追踪，迭代精化 | 突破网格限制，精度高 | 初始值敏感 |\n| 混合场检测 | 先区分远场/近场分量再分别估计 | 兼容混合场景 | 分类阈值需调优 |",
+          "content": "最直观的方法是在角度-距离二维极坐标域构建码本字典，将信道估计转化为稀疏恢复问题。主要算法包括：\n\n| 方法 | 核心思路 | 优势 | 局限 |\n|---|---|---|---|\n| 正交匹配追踪（OMP） | 贪婪迭代选择最相关列向量 | 实现简单，低复杂度 | 依赖网格分辨率，存在基失配 |\n| 压缩感知（CS） | 利用信道稀疏性重建 | 导频开销低 | 码本过大时计算复杂 |\n| N-NOMP | 牛顿化正交匹配追踪，迭代精化 | 突破网格限制，精度高 | 初始值敏感 |\n| 混合场检测 | 先区分远场/近场分量再分别估计 | 兼容混合场景 | 分类阈值需调优 |"
+        },
+        {
+          "level": 3,
+          "title": "2.2 无网格超分辨率方法（Gridless / Super-Resolution）",
+          "raw": "针对网格化方法的基失配问题，近年涌现出多种无网格方案：\n\n- **原子范数最小化（Atomic Norm Minimization）**：将角度和距离视为连续变量，通过半定规划求解，避免二维网格搜索。南京理工大学 2025 年提出的方法利用球形波导向矢量二阶近似，将问题转化为离散啁啾率（DCR）子空间上的凸优化，导频开销随阵列规模亚线性增长。\n- **变分贝叶斯（Variational Bayes）**：SDU 团队 2026 年提出半无网格 VB 方法，角度估计采用 von Mises 分布做无网格处理，距离估计采用粗到细网格搜索，在 ULA 和 UPA 上均取得良好性能。",
+          "content": "针对网格化方法的基失配问题，近年涌现出多种无网格方案：\n\n原子范数最小化（Atomic Norm Minimization）：将角度和距离视为连续变量，通过半定规划求解，避免二维网格搜索。南京理工大学 2025 年提出的方法利用球形波导向矢量二阶近似，将问题转化为离散啁啾率（DCR）子空间上的凸优化，导频开销随阵列规模亚线性增长。\n变分贝叶斯（Variational Bayes）：SDU 团队 2026 年提出半无网格 VB 方法，角度估计采用 von Mises 分布做无网格处理，距离估计采用粗到细网格搜索，在 ULA 和 UPA 上均取得良好性能。"
+        },
+        {
+          "level": 3,
+          "title": "2.3 AI 辅助信道估计",
+          "raw": "生成式 AI 和深度学习在近场 CE 中展现强劲潜力：\n\n- **东南大学（2025）**：提出基于条件扩散模型（GDM）的近场信道估计，先用压缩感知获得初步估计作为侧信息，再用非马尔可夫扩散模型（NM-GDM）精化，采样效率提升约 10 倍。\n- **上海大学（2026）**：针对均匀圆阵（UCA）近场定位，提出注意力增强深度学习方法，利用协方差矩阵作为输入，定位精度优于传统 CNN、MLP 及现有注意力定位网络。\n- **北交/中兴（2024）**：结合可控波束偏移（CBS）与 ConvNeXt 进行宽带近场用户定位，实现厘米级精度。",
+          "content": "生成式 AI 和深度学习在近场 CE 中展现强劲潜力：\n\n东南大学（2025）：提出基于条件扩散模型（GDM）的近场信道估计，先用压缩感知获得初步估计作为侧信息，再用非马尔可夫扩散模型（NM-GDM）精化，采样效率提升约 10 倍。\n上海大学（2026）：针对均匀圆阵（UCA）近场定位，提出注意力增强深度学习方法，利用协方差矩阵作为输入，定位精度优于传统 CNN、MLP 及现有注意力定位网络。\n北交/中兴（2024）：结合可控波束偏移（CBS）与 ConvNeXt 进行宽带近场用户定位，实现厘米级精度。"
+        },
+        {
+          "level": 3,
+          "title": "2.4 感知增强信道估计",
+          "raw": "感知与通信融合是 6G ISAC 的核心范式。港城大团队（2025，IEEE JSAC，27 引用）提出单时隙感知方法：在 antenna element 中嵌入功率传感器，仅通过接收功率图案而非基带采样即可估计用户和散射体位置，再基于近场传输模型的特征问题构造紧凑字典，基带采样量减少高达 66%。",
+          "content": "感知与通信融合是 6G ISAC 的核心范式。港城大团队（2025，IEEE JSAC，27 引用）提出单时隙感知方法：在 antenna element 中嵌入功率传感器，仅通过接收功率图案而非基带采样即可估计用户和散射体位置，再基于近场传输模型的特征问题构造紧凑字典，基带采样量减少高达 66%。"
+        },
+        {
+          "level": 3,
+          "title": "2.5 用户定位原理",
+          "raw": "近场定位利用波前曲率直接获取用户角度和距离，无需传统 TOA 所需的精确时钟同步或多 AP 协作：\n\n- **LoS 场景**：直接从波前曲率估计用户坐标，精度可达厘米级\n- **NLoS 场景**：利用多散射体联合感知，通过几何关系反推 UE 位置（东南大学 2025）\n- **混合远近场**：实际场景中可能同时存在远场和近场路径，需联合检测与分类（西安交通大学-Liverpool 2025）",
+          "content": "近场定位利用波前曲率直接获取用户角度和距离，无需传统 TOA 所需的精确时钟同步或多 AP 协作：\n\nLoS 场景：直接从波前曲率估计用户坐标，精度可达厘米级\nNLoS 场景：利用多散射体联合感知，通过几何关系反推 UE 位置（东南大学 2025）\n混合远近场：实际场景中可能同时存在远场和近场路径，需联合检测与分类（西安交通大学-Liverpool 2025）"
+        },
+        {
+          "level": 3,
+          "title": "3.1 按阵列架构分类",
+          "raw": "| 架构 | 特点 | 适用场景 |\n|---|---|---|\n| 均匀线阵（ULA） | 理论分析最成熟，CRB 闭式表达完整 | 单用户/简单多用户定位 |\n| 均匀平面阵（UPA） | 二维角度+距离估计，更贴近实际基站 | 宏基站 XL-MIMO |\n| 均匀圆阵（UCA） | 角度分辨率恒定，无扫描盲区 | 全向覆盖场景 |\n| 子阵列混合波束成形 | 降低 RF 链数量需求，工程可行 | 大规模商用部署 |\n| 动态超表面天线（DMA） | 连续孔径近似，成本低于全数字 | 6G 前沿探索 |",
+          "content": "| 架构 | 特点 | 适用场景 |\n|---|---|---|\n| 均匀线阵（ULA） | 理论分析最成熟，CRB 闭式表达完整 | 单用户/简单多用户定位 |\n| 均匀平面阵（UPA） | 二维角度+距离估计，更贴近实际基站 | 宏基站 XL-MIMO |\n| 均匀圆阵（UCA） | 角度分辨率恒定，无扫描盲区 | 全向覆盖场景 |\n| 子阵列混合波束成形 | 降低 RF 链数量需求，工程可行 | 大规模商用部署 |\n| 动态超表面天线（DMA） | 连续孔径近似，成本低于全数字 | 6G 前沿探索 |"
+        },
+        {
+          "level": 3,
+          "title": "3.2 按信道模型分类",
+          "raw": "- **纯近场模型**：所有路径均处于近场区\n- **混合远近场模型**：同时包含远场平面波路径和近场球面波路径\n- **空间非平稳模型**：考虑 XL-MIMO 大孔径下各子阵列看到的不同散射簇",
+          "content": "纯近场模型：所有路径均处于近场区\n混合远近场模型：同时包含远场平面波路径和近场球面波路径\n空间非平稳模型：考虑 XL-MIMO 大孔径下各子阵列看到的不同散射簇"
+        },
+        {
+          "level": 3,
+          "title": "3.3 按估计策略分类",
+          "raw": "- **直接估计**：在角度-距离联合域直接估计信道参数\n- **级联估计**：先感知定位，再利用定位结果构造紧凑字典进行信道估计\n- **AI 驱动估计**：用深度学习/生成模型替代传统迭代算法\n- **RIS 辅助级联估计**：通过智能反射面扩展近场覆盖并降低估计复杂度",
+          "content": "直接估计：在角度-距离联合域直接估计信道参数\n级联估计：先感知定位，再利用定位结果构造紧凑字典进行信道估计\nAI 驱动估计：用深度学习/生成模型替代传统迭代算法\nRIS 辅助级联估计：通过智能反射面扩展近场覆盖并降低估计复杂度"
+        },
+        {
+          "level": 3,
+          "title": "4.1 6G 高精度定位",
+          "raw": "近场 XL-MIMO 的定位精度可达厘米级，适用于：\n\n- 自动驾驶车辆精确定位\n- 无人机轨迹跟踪\n- AR/VR 空间锚定\n- 工业物联网设备定位",
+          "content": "近场 XL-MIMO 的定位精度可达厘米级，适用于：\n\n自动驾驶车辆精确定位\n无人机轨迹跟踪\nAR/VR 空间锚定\n工业物联网设备定位"
+        },
+        {
+          "level": 3,
+          "title": "4.2 通感一体化（ISAC）",
+          "raw": "通信与感知共享硬件和频谱资源。近场波束聚焦可同时服务于通信链路和雷达感知，实现\"一发多用\"。",
+          "content": "通信与感知共享硬件和频谱资源。近场波束聚焦可同时服务于通信链路和雷达感知，实现\"一发多用\"。"
+        },
+        {
+          "level": 3,
+          "title": "4.3 非视距定位",
+          "raw": "利用多散射体的近场分量进行 NLoS 用户定位，东南大学 2025 年在 U6G 宽带 XL-MIMO 系统中验证了该方法的有效性。",
+          "content": "利用多散射体的近场分量进行 NLoS 用户定位，东南大学 2025 年在 U6G 宽带 XL-MIMO 系统中验证了该方法的有效性。"
+        },
+        {
+          "level": 3,
+          "title": "4.4 大规模连接管理",
+          "raw": "在免授权大规模接入场景中，近场 XL-MIMO 可同时完成用户活动检测、信道估计和定位，大幅降低信令开销。",
+          "content": "在免授权大规模接入场景中，近场 XL-MIMO 可同时完成用户活动检测、信道估计和定位，大幅降低信令开销。"
+        },
+        {
+          "level": 2,
+          "title": "五、关键技术指标",
+          "raw": "| 指标 | 典型值/范围 | 说明 |\n|---|---|---|\n| 定位精度（LoS） | 厘米级（1-10 cm） | 取决于阵列孔径、SNR、带宽 |\n| 定位精度（NLoS） | 分米级 | 多散射体几何约束影响 |\n| CRB 下界 | 理论极限 | 角度和距离估计误差的下界 |\n| 导频开销 | 亚线性于阵列规模 | 稀疏多径场景下尤为关键 |\n| 近场区域范围 | 数十至数百米 | 由瑞利距离决定，$R = 2D^2/\\lambda$ |\n| 基带采样减少 | 最高 66% | 感知增强方法相比传统方案 |",
+          "content": "| 指标 | 典型值/范围 | 说明 |\n|---|---|---|\n| 定位精度（LoS） | 厘米级（1-10 cm） | 取决于阵列孔径、SNR、带宽 |\n| 定位精度（NLoS） | 分米级 | 多散射体几何约束影响 |\n| CRB 下界 | 理论极限 | 角度和距离估计误差的下界 |\n| 导频开销 | 亚线性于阵列规模 | 稀疏多径场景下尤为关键 |\n| 近场区域范围 | 数十至数百米 | 由瑞利距离决定，$R = 2D^2/\\lambda$ |\n| 基带采样减少 | 最高 66% | 感知增强方法相比传统方案 |"
+        },
+        {
+          "level": 3,
+          "title": "6.1 码本维度爆炸",
+          "raw": "角度-距离二维联合网格的码本大小随阵列规模平方级增长。1024 元阵列若角度和距离各取 256 个网格点，字典矩阵维度巨大，存储和计算压力极高。",
+          "content": "角度-距离二维联合网格的码本大小随阵列规模平方级增长。1024 元阵列若角度和距离各取 256 个网格点，字典矩阵维度巨大，存储和计算压力极高。"
+        },
+        {
+          "level": 3,
+          "title": "6.2 波束倾斜（Beam Squint）",
+          "raw": "宽带 XL-MIMO 系统中，不同子载波的波束聚焦位置不同。近场可控波束偏移（CBS）既是挑战也是机遇——可以利用它辅助定位，但需要精确建模。",
+          "content": "宽带 XL-MIMO 系统中，不同子载波的波束聚焦位置不同。近场可控波束偏移（CBS）既是挑战也是机遇——可以利用它辅助定位，但需要精确建模。"
+        },
+        {
+          "level": 3,
+          "title": "6.3 空间非平稳性",
+          "raw": "超大阵列下，不同子阵列看到的散射环境可能完全不同。传统稳态信道模型失效，需要引入可见性概率和物理遮挡模型。",
+          "content": "超大阵列下，不同子阵列看到的散射环境可能完全不同。传统稳态信道模型失效，需要引入可见性概率和物理遮挡模型。"
+        },
+        {
+          "level": 3,
+          "title": "6.4 混合远近场处理",
+          "raw": "实际部署中，部分路径可能处于远场、部分处于近场。混合场检测和分类算法的可靠性直接影响整体性能。",
+          "content": "实际部署中，部分路径可能处于远场、部分处于近场。混合场检测和分类算法的可靠性直接影响整体性能。"
+        },
+        {
+          "level": 3,
+          "title": "6.5 RF 链数量受限",
+          "raw": "全数字架构下每根天线配一个 RF 链不现实。混合波束成形架构下，RF 链数量限制使得信道估计问题高度非凸。",
+          "content": "全数字架构下每根天线配一个 RF 链不现实。混合波束成形架构下，RF 链数量限制使得信道估计问题高度非凸。"
+        },
+        {
+          "level": 2,
+          "title": "七、技术演进",
+          "raw": "- **2019-2021**：XL-MIMO 概念提出，近场效应被识别为 6G 关键新现象，基础信道模型建立\n- **2022**：Cui & Dai 发表里程碑论文《Channel Estimation for Extremely Large-Scale MIMO: Far-Field or Near-Field?》，系统论证近场信道估计的必要性\n- **2023**：东南大学团队发表近场 XL-MIMO 通信 Tutorial，建立统一建模框架；3GPP TR 38.901 Rel-18 开始纳入近场信道模型\n- **2024**：IEEE ComSoc 发布近场 MIMO 最佳阅读合集；混合场信道估计、波束聚焦定位等方向快速进展\n- **2025**：多个方向爆发——原子范数无网格方法、感知增强 CE、生成式 AI 辅助 CE、U6G NLoS 定位、3GPP 正式采纳 FR3 频段近场+空间非平稳信道模型\n- **2026**：变分贝叶斯半无网格方法、注意力增强深度学习定位、分布式近场 CE 等持续涌现",
+          "content": "2019-2021：XL-MIMO 概念提出，近场效应被识别为 6G 关键新现象，基础信道模型建立\n2022：Cui & Dai 发表里程碑论文《Channel Estimation for Extremely Large-Scale MIMO: Far-Field or Near-Field?》，系统论证近场信道估计的必要性\n2023：东南大学团队发表近场 XL-MIMO 通信 Tutorial，建立统一建模框架；3GPP TR 38.901 Rel-18 开始纳入近场信道模型\n2024：IEEE ComSoc 发布近场 MIMO 最佳阅读合集；混合场信道估计、波束聚焦定位等方向快速进展\n2025：多个方向爆发——原子范数无网格方法、感知增强 CE、生成式 AI 辅助 CE、U6G NLoS 定位、3GPP 正式采纳 FR3 频段近场+空间非平稳信道模型\n2026：变分贝叶斯半无网格方法、注意力增强深度学习定位、分布式近场 CE 等持续涌现"
+        },
+        {
+          "level": 2,
+          "title": "八、技术成熟度",
+          "raw": "- **成熟度等级**：原型验证 → 标准预研\n- **说明**：近场 XL-MIMO 信道估计和用户定位在学术层面已有充分理论验证和多篇 IEEE JSAC/TWC/COMST 论文支撑，3GPP TR 38.901 Rel-18/19 已纳入近场信道模型元素。但尚无商用系统部署，核心挑战在于大规模阵列的混合波束成形实现、AI 算法的实时性和泛化能力、以及标准层面的统一建模。预计 2027-2028 年在 6G 试验网中进入外场验证阶段。",
+          "content": "成熟度等级：原型验证 → 标准预研\n说明：近场 XL-MIMO 信道估计和用户定位在学术层面已有充分理论验证和多篇 IEEE JSAC/TWC/COMST 论文支撑，3GPP TR 38.901 Rel-18/19 已纳入近场信道模型元素。但尚无商用系统部署，核心挑战在于大规模阵列的混合波束成形实现、AI 算法的实时性和泛化能力、以及标准层面的统一建模。预计 2027-2028 年在 6G 试验网中进入外场验证阶段。"
+        },
+        {
+          "level": 2,
+          "title": "九、未来趋势",
+          "raw": "- **短期（1-2 年）**：混合远近场统一信道模型标准化；基于 AI 的轻量级近场 CE 算法进入 3GPP 评估；U6G（6.425-7.125 GHz）频段近场特性成为研究热点\n- **中期（3-5 年）**：6G 初期标准（Release 21+）明确近场 MIMO 为 Day-1 多天线技术；感知增强 CE 方案在 ISAC 系统中得到验证；无网格超分辨率方法工程化落地\n- **长期（5 年以上）**：全息 MIMO / 连续孔径天线实现真正的近场波束聚焦通信；通信-感知-定位一体化成为 6G 原生能力；近场信道估计与数字孪生信道深度融合",
+          "content": "短期（1-2 年）：混合远近场统一信道模型标准化；基于 AI 的轻量级近场 CE 算法进入 3GPP 评估；U6G（6.425-7.125 GHz）频段近场特性成为研究热点\n中期（3-5 年）：6G 初期标准（Release 21+）明确近场 MIMO 为 Day-1 多天线技术；感知增强 CE 方案在 ISAC 系统中得到验证；无网格超分辨率方法工程化落地\n长期（5 年以上）：全息 MIMO / 连续孔径天线实现真正的近场波束聚焦通信；通信-感知-定位一体化成为 6G 原生能力；近场信道估计与数字孪生信道深度融合"
+        },
+        {
+          "level": 2,
+          "title": "十、一句话总结",
+          "raw": "近场信道估计是 XL-MIMO 从\"角度域通信\"迈向\"角度+距离双域感知\"的关键使能技术，它将波前曲率从需要克服的难题转化为厘米级定位和高效 CSI 获取的新自由度。",
+          "content": "近场信道估计是 XL-MIMO 从\"角度域通信\"迈向\"角度+距离双域感知\"的关键使能技术，它将波前曲率从需要克服的难题转化为厘米级定位和高效 CSI 获取的新自由度。"
+        },
+        {
+          "level": 2,
+          "title": "参考资料",
+          "raw": "- [1] H. Lei et al., \"Near-Field User Localization and Channel Estimation for XL-MIMO Systems,\" IEEE Wireless Communications, 2025.\n- [2] F. Xi and D. Yang, \"Near-Field Channel Estimation and Joint Angle-Range Recovery in XL-MIMO Systems: A Gridless Super-Resolution Approach,\" arXiv:2511.23187, 2025.\n- [3] Z. Jin et al., \"Near-Field Channel Estimation for XL-MIMO: A Deep Generative Model Guided by Side Information,\" IEEE TCCN, 2025.\n- [4] S. Liu et al., \"Sensing-Enhanced Channel Estimation for Near-Field XL-MIMO Systems,\" IEEE JSAC, 2025.\n- [5] H. Lu et al., \"A Tutorial on Near-Field XL-MIMO Communications Towards 6G,\" IEEE ComSoc Best Readings.\n- [6] M. Zeng et al., \"Recent Advances in Near-Field Beam Training and Channel Estimation for XL-MIMO Systems,\" 2026.\n- [7] V.-C. Luu et al., \"Semi-Gridless Variational Bayes Channel Estimation in XL-MIMO,\" arXiv:2602.21449, 2026.\n- [8] 3GPP TR 38.901 Section 7.6.13, Near-Field Channel Model.\n- [9] Z. Wang et al., \"A Tutorial on Extremely Large-Scale MIMO for 6G,\" IEEE ComS&T, 2024.",
+          "content": "[1] H. Lei et al., \"Near-Field User Localization and Channel Estimation for XL-MIMO Systems,\" IEEE Wireless Communications, 2025.\n[2] F. Xi and D. Yang, \"Near-Field Channel Estimation and Joint Angle-Range Recovery in XL-MIMO Systems: A Gridless Super-Resolution Approach,\" arXiv:2511.23187, 2025.\n[3] Z. Jin et al., \"Near-Field Channel Estimation for XL-MIMO: A Deep Generative Model Guided by Side Information,\" IEEE TCCN, 2025.\n[4] S. Liu et al., \"Sensing-Enhanced Channel Estimation for Near-Field XL-MIMO Systems,\" IEEE JSAC, 2025.\n[5] H. Lu et al., \"A Tutorial on Near-Field XL-MIMO Communications Towards 6G,\" IEEE ComSoc Best Readings.\n[6] M. Zeng et al., \"Recent Advances in Near-Field Beam Training and Channel Estimation for XL-MIMO Systems,\" 2026.\n[7] V.-C. Luu et al., \"Semi-Gridless Variational Bayes Channel Estimation in XL-MIMO,\" arXiv:2602.21449, 2026.\n[8] 3GPP TR 38.901 Section 7.6.13, Near-Field Channel Model.\n[9] Z. Wang et al., \"A Tutorial on Extremely Large-Scale MIMO for 6G,\" IEEE ComS&T, 2024."
+        }
+      ],
+      "outgoing": [
+        {
+          "targetId": "technology-近场波束聚焦near-field-beamfocusing",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-近场波束赋形near-field-beamforming",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-3gpp-tr38901信道模型",
+          "label": "关联"
+        },
+        {
+          "targetId": "technology-近场xl-mimo距离-角度解耦波束赋形rad",
+          "label": "关联"
+        }
+      ]
     }
   ],
   "links": [
@@ -33632,6 +34029,41 @@
     {
       "source": "technology-近场波束聚焦near-field-beamfocusing",
       "target": "technology-子阵列可编程太赫兹超表面通感算一体化",
+      "type": "related"
+    },
+    {
+      "source": "technology-近场xl-mimo距离-角度解耦波束赋形rad",
+      "target": "technology-近场波束聚焦near-field-beamfocusing",
+      "type": "related"
+    },
+    {
+      "source": "technology-近场xl-mimo距离-角度解耦波束赋形rad",
+      "target": "technology-近场波束赋形near-field-beamforming",
+      "type": "related"
+    },
+    {
+      "source": "technology-近场xl-mimo距离-角度解耦波束赋形rad",
+      "target": "technology-全息mimo连续孔径capa",
+      "type": "related"
+    },
+    {
+      "source": "technology-近场信道估计与用户定位",
+      "target": "technology-近场波束聚焦near-field-beamfocusing",
+      "type": "related"
+    },
+    {
+      "source": "technology-近场信道估计与用户定位",
+      "target": "technology-近场波束赋形near-field-beamforming",
+      "type": "related"
+    },
+    {
+      "source": "technology-近场信道估计与用户定位",
+      "target": "technology-3gpp-tr38901信道模型",
+      "type": "related"
+    },
+    {
+      "source": "technology-近场信道估计与用户定位",
+      "target": "technology-近场xl-mimo距离-角度解耦波束赋形rad",
       "type": "related"
     }
   ]
