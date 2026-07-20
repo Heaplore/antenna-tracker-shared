@@ -6010,7 +6010,7 @@
           "highlights": [
             "中兴电调模块供应商"
           ],
-          "location": "待查",
+          "location": "东莞",
           "isKey": false
         },
         {
@@ -6031,7 +6031,7 @@
           "highlights": [
             "中兴电调模块供应商"
           ],
-          "location": "待查",
+          "location": "深圳",
           "isKey": false
         },
         {
@@ -6052,7 +6052,7 @@
           "highlights": [
             "中兴电调电机供应商"
           ],
-          "location": "待查",
+          "location": "安徽",
           "isKey": false
         },
         {
@@ -6073,7 +6073,7 @@
           "highlights": [
             "中兴电调电机供应商"
           ],
-          "location": "待查",
+          "location": "广州",
           "isKey": false
         },
         {
@@ -6094,7 +6094,7 @@
           "highlights": [
             "中兴电调电机供应商"
           ],
-          "location": "待查",
+          "location": "深圳",
           "isKey": false
         },
         {
@@ -6517,7 +6517,7 @@
           "highlights": [
             "中兴连接器供应商"
           ],
-          "location": "待查",
+          "location": "苏州",
           "isKey": false
         },
         {
@@ -6596,7 +6596,7 @@
           "highlights": [
             "中兴连接器供应商"
           ],
-          "location": "待查",
+          "location": "深圳",
           "isKey": false
         },
         {
@@ -6617,7 +6617,7 @@
           "highlights": [
             "中兴连接器供应商"
           ],
-          "location": "待查",
+          "location": "苏州",
           "isKey": false
         },
         {
@@ -6752,7 +6752,7 @@
           "highlights": [
             "中兴连接器供应商"
           ],
-          "location": "待查",
+          "location": "陕西",
           "isKey": false
         },
         {
@@ -6773,7 +6773,7 @@
           "highlights": [
             "中兴连接器供应商"
           ],
-          "location": "待查",
+          "location": "上海",
           "isKey": false
         },
         {
@@ -6794,7 +6794,7 @@
           "highlights": [
             "中兴连接器供应商"
           ],
-          "location": "待查",
+          "location": "四川",
           "isKey": false
         },
         {
@@ -6815,7 +6815,7 @@
           "highlights": [
             "中兴连接器供应商"
           ],
-          "location": "待查",
+          "location": "龙南",
           "isKey": false
         },
         {
@@ -6952,7 +6952,7 @@
           "highlights": [
             "中兴天线罩供应商"
           ],
-          "location": "待查",
+          "location": "深圳",
           "isKey": false
         },
         {
@@ -7204,49 +7204,7 @@
           "highlights": [
             "中兴滤波器/双工器供应商"
           ],
-          "location": "待查",
-          "isKey": false
-        },
-        {
-          "id": "fd005",
-          "name": "艾肯通信",
-          "nameEn": "Ikanos Communications",
-          "stockCode": "未上市",
-          "exchange": "—",
-          "role": "滤波器/双工器",
-          "position": "滤波器与双工器制造商，专注于通信基站射频前端器件研发",
-          "marketCap": null,
-          "revenue": null,
-          "netProfit": null,
-          "profitYoY": null,
-          "customers": [
-            "中兴"
-          ],
-          "highlights": [
-            "中兴滤波器/双工器供应商"
-          ],
-          "location": "待查",
-          "isKey": false
-        },
-        {
-          "id": "fd006",
-          "name": "诺思微系统",
-          "nameEn": "Noisemicro Systems",
-          "stockCode": "未上市",
-          "exchange": "—",
-          "role": "滤波器/双工器",
-          "position": "滤波器/FBAR/BAW",
-          "marketCap": null,
-          "revenue": null,
-          "netProfit": null,
-          "profitYoY": null,
-          "customers": [
-            "中兴"
-          ],
-          "highlights": [
-            "中兴滤波器供应商"
-          ],
-          "location": "待查",
+          "location": "深圳",
           "isKey": false
         },
         {
@@ -7459,7 +7417,7 @@
           "highlights": [
             "中兴滤波器供应商"
           ],
-          "location": "待查",
+          "location": "西安",
           "isKey": false
         },
         {
@@ -7480,7 +7438,7 @@
           "highlights": [
             "中兴滤波器供应商"
           ],
-          "location": "待查",
+          "location": "广东",
           "isKey": false
         },
         {
@@ -7501,7 +7459,7 @@
           "highlights": [
             "中兴滤波器供应商"
           ],
-          "location": "待查",
+          "location": "浙江",
           "isKey": false
         },
         {
@@ -7522,7 +7480,7 @@
           "highlights": [
             "中兴滤波器供应商"
           ],
-          "location": "待查",
+          "location": "苏州",
           "isKey": false
         },
         {
