@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-07-19",
+  "lastUpdate": "2026-07-20",
   "summary": "中国天线产业已形成完整5层供应链体系。上游运营商集采主导需求侧；主设备商整合天线+射频一体化；天线整机厂商竞争激烈；零部件层涵盖馈电网络、电调模块、电机、连接器、天线罩、滤波器/双工器、PCB等核心品类。2026年行业整体呈现需求强劲、竞争加剧、利润承压的态势。",
   "supplyChain": {
     "tier1_operators": {
@@ -27,7 +27,6 @@
           "location": "北京",
           "isKey": true,
           "stockPrices": [
-            97.33,
             96.6,
             95.86,
             97.27,
@@ -56,11 +55,12 @@
             91.8,
             92.8,
             93.05,
-            93.4
+            93.4,
+            95.8
           ],
-          "stockCurrent": 93.4,
+          "stockCurrent": 95.8,
           "stock52Low": 86.13,
-          "stock52High": 97.33,
+          "stock52High": 97.27,
           "rank": 1
         },
         {
@@ -83,7 +83,6 @@
           "location": "北京",
           "isKey": true,
           "stockPrices": [
-            6.019,
             6.119,
             6.099,
             6.28,
@@ -112,9 +111,10 @@
             5.75,
             5.88,
             5.89,
-            6.01
+            6.01,
+            6.24
           ],
-          "stockCurrent": 6.01,
+          "stockCurrent": 6.24,
           "stock52Low": 5.19,
           "stock52High": 6.28,
           "rank": 2
@@ -139,7 +139,6 @@
           "location": "北京",
           "isKey": true,
           "stockPrices": [
-            4.288,
             4.258,
             4.258,
             4.328,
@@ -168,11 +167,12 @@
             4.21,
             4.27,
             4.28,
-            4.26
+            4.26,
+            4.4
           ],
-          "stockCurrent": 4.26,
+          "stockCurrent": 4.4,
           "stock52Low": 4.0,
-          "stock52High": 4.348,
+          "stock52High": 4.4,
           "rank": 3
         },
         {
@@ -2348,7 +2348,6 @@
           "location": "深圳",
           "isKey": true,
           "stockPrices": [
-            39.13,
             36.81,
             39.14,
             38.42,
@@ -2377,10 +2376,11 @@
             39.91,
             39.45,
             40.0,
-            36.0
+            36.0,
+            33.73
           ],
-          "stockCurrent": 36.0,
-          "stock52Low": 35.2,
+          "stockCurrent": 33.73,
+          "stock52Low": 33.73,
           "stock52High": 40.53,
           "rank": 2
         },
