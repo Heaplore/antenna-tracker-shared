@@ -87,8 +87,22 @@ function extractSearchableText(data: unknown, module: string): string[] {
 function parseModuleData(data: unknown, moduleKey: string, moduleName: string, modulePath: string): SearchItem[] {
   const items: SearchItem[] = []
 
-  // news: JSON 是 object { "10001": {...}, "10002": {...} }
-  if (moduleKey === 'news' && typeof data === 'object' && data !== null && !Array.isArray(data)) {
+  // news: JSON 是数组 [{id, title, summary, tags, source, date}, ...]
+  if (moduleKey === 'news' && Array.isArray(data)) {
+    data.forEach((item) => {
+      if (item.title) {
+        items.push({
+          id: `${moduleKey}-${item.id}`,
+          title: item.title,
+          summary: item.summary || '',
+          module: moduleKey,
+          moduleName,
+          path: modulePath,
+          extra: item.tags?.join(', ') || item.source || ''
+        })
+      }
+    })
+  } else if (moduleKey === 'news' && typeof data === 'object' && data !== null && !Array.isArray(data)) {
     Object.values(data as Record<string, { id?: number; title?: string; summary?: string; tags?: string[] }>).forEach((item) => {
       if (item.title) {
         items.push({
@@ -146,10 +160,7 @@ function parseModuleData(data: unknown, moduleKey: string, moduleName: string, m
         }>;
       }>;
     }
-    const tierOrder = [
-      'tier1_operators', 'tier2_equipment_vendors', 'tier3_antenna_oems',
-      'tier4_antenna_parts', 'tier5_rf_parts', 'tier6_key_materials', 'tier7_raw_materials'
-    ]
+    const tierOrder = Object.keys(companiesData.supplyChain || {})
     tierOrder.forEach(tierKey => {
       const tier = companiesData.supplyChain?.[tierKey]
       if (tier?.companies) {
