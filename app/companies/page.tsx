@@ -505,8 +505,8 @@ export default function CompaniesPage() {
 
         {/* 按层级分别渲染 */}
         {activeTier === 'tier1_operators' && renderRegionalView()}
-        {(activeTier === 'tier3_antenna_oems' || activeTier === 'tier4_components') && renderTier3Subsections()}
-        {!['tier1_operators', 'tier3_antenna_oems', 'tier4_components'].includes(activeTier) && renderNormalCompanies()}
+        {(activeTier === 'tier3_antenna_oems') && renderTier3Subsections()}
+        {!['tier1_operators', 'tier3_antenna_oems'].includes(activeTier) && renderNormalCompanies()}
       </div>
 
       {/* 详情弹窗 */}
