@@ -57,8 +57,13 @@ jobs:
           echo "Copying public/kg-cards-rendered/ to out/kg-cards-rendered/..."
           mkdir -p out/kg-cards-rendered
           cp -r public/kg-cards-rendered/* out/kg-cards-rendered/
+          echo "Copying public/data/ to out/data/..."
+          mkdir -p out/data
+          cp -r public/data/* out/data/
           echo "Copied $(ls out/kg-cards-rendered/ | wc -l) HTML files"
+          echo "Copied $(ls out/data/ | wc -l) data files"
           ls out/kg-cards-rendered/ | head -5
+          ls out/data/
 
       - name: Verify output
         run: |
