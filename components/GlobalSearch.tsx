@@ -267,7 +267,7 @@ export default function GlobalSearch() {
       await Promise.all(
         dataFiles.map(async (moduleKey) => {
           try {
-            const response = await fetch(`data/${moduleKey}.json`)
+            const response = await fetch(`/antenna-tracker/data/${moduleKey}.json`)
             if (response.ok) {
               const data = await response.json()
               const module = MODULES.find(m => m.key === moduleKey)
