@@ -19,7 +19,9 @@
 ```
 老大发布任务
   ↓
-hermes（本地）判断类型，分配开发
+openclaw 判断类型，分配开发
+  ↓
+hermes（本地）主力开发 + 本地 build 验证
   ↓
 openclaw review / 补充
   ↓
@@ -38,6 +40,12 @@ openclaw review / 补充
 2. **无法判断时** → 群里问老大决定
 3. **云端 hermes 不主动覆盖本地文件**，只负责推远端和部署验证
 4. 本地开发统一改 `E:/shared/antenna-tracker`，避免各写各的分支
+
+## 配置文件管理边界
+
+- CI/CD 配置文件（`.github/workflows/*.yml`、`_config.yml`、部署脚本）由云端 hermes 统一管理
+- 本地 hermes / openclaw 不直接改这些文件
+- 需要调整时群里 @ 云端 hermes，通过 PR 合并
 
 ## 推送信号格式
 
