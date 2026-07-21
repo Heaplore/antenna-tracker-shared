@@ -83,6 +83,10 @@ jobs:
         run: python scripts/update_prices_metals.py || echo "update_prices_metals failed, continue"
         shell: bash
 
+      - name: Run update_all_prices.py (实时铜/铝/钢价采集)
+        run: timeout ${{ env.FETCH_TIMEOUT }} python scripts/update_all_prices.py || echo "update_all_prices failed, continue"
+        shell: bash
+
       - name: Run bump_technology.py (技术时间线)
         run: python scripts/bump_technology.py || echo "bump_technology failed, continue"
         shell: bash
