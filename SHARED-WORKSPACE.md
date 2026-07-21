@@ -39,7 +39,7 @@ openclaw review / 补充
 1. **同文件冲突** → 谁先改的先保留，后改的 rebase 对齐
 2. **无法判断时** → 群里问老大决定
 3. **云端 hermes 不主动覆盖本地文件**，只负责推远端和部署验证
-4. 本地开发统一改 `E:/shared/antenna-tracker`，避免各写各的分支
+4. **本地开发统一改** `E:/shared/antenna-tracker`，避免各写各的分支
 
 ## 配置文件管理边界
 
