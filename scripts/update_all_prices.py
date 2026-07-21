@@ -354,6 +354,12 @@ def main():
     # ====== 写回 JSON ======
     data["lastUpdate"] = datetime.now().strftime("%Y-%m-%d %H:%M")
 
+    # 统一刷新所有材料的 date 字段为当天
+    today = "2026-07-21"
+    for cat in data["categories"]:
+        for mat in cat["materials"]:
+            mat["date"] = today
+
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
