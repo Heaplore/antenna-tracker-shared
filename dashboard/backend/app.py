@@ -101,9 +101,8 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/data/freshness":
             freshness = {}
             urls = [
-                ("prices", f"{PAGES_URL}/app/_data/prices.json"),
-                ("knowledge_graph", f"{PAGES_URL}/app/_data/knowledge-graph.json"),
-                ("news", f"{PAGES_URL}/app/_data/news.json"),
+                ("prices", f"{PAGES_URL}/data/prices.json"),
+                ("news", f"{PAGES_URL}/data/news.json"),
             ]
             for name, url in urls:
                 d = fetch_json(url)
@@ -111,15 +110,13 @@ class Handler(BaseHTTPRequestHandler):
                     continue
                 
                 size = len(json.dumps(d).encode("utf-8"))
-                info = {"path": f"app/_data/{name}.json", "size": size, "last_check": datetime.now().isoformat()}
+                info = {"path": f"data/{name}.json", "size": size, "last_check": datetime.now().isoformat()}
                 
                 if name == "prices":
                     cats = d.get("categories", []) if isinstance(d, dict) else []
                     info["categories"] = len(cats)
                     if isinstance(cats, list):
                         info["materials"] = sum(len(c.get("materials", [])) for c in cats)
-                elif name == "knowledge_graph":
-                    info["size_mb"] = round(size / 1024 / 1024, 2)
                 elif name == "news":
                     items = d if isinstance(d, list) else d.get("items", [])
                     info["items"] = len(items)
@@ -181,7 +178,7 @@ class Handler(BaseHTTPRequestHandler):
                 "updated_at": datetime.now().isoformat(),
             }
             # Write to shared directory (local mode) or return for remote sync
-            shared_dir = os.environ.get("SHARED_DIR", r"E:\shared\antenna-tracker")
+            shared_dir = os.environ.get("SHARED_DIR", "/opt/data/dashboard/data")
             p = os.path.join(shared_dir, "tasks.json")
             tasks = []
             if os.path.exists(p):
@@ -202,7 +199,7 @@ class Handler(BaseHTTPRequestHandler):
                 "detail": body.get("detail", ""),
                 "timestamp": datetime.now().isoformat(),
             }
-            shared_dir = os.environ.get("SHARED_DIR", r"E:\shared\antenna-tracker")
+            shared_dir = os.environ.get("SHARED_DIR", "/opt/data/dashboard/data")
             p = os.path.join(shared_dir, "logs.json")
             logs = []
             if os.path.exists(p):
@@ -228,7 +225,7 @@ class Handler(BaseHTTPRequestHandler):
             body = self._body()
             status = body.get("status", "")
             
-            shared_dir = os.environ.get("SHARED_DIR", r"E:\shared\antenna-tracker")
+            shared_dir = os.environ.get("SHARED_DIR", "/opt/data/dashboard/data")
             p = os.path.join(shared_dir, "tasks.json")
             if not os.path.exists(p):
                 self._json({"error": "not found"}, 404)
@@ -251,10 +248,11 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
 if __name__ == "__main__":
+    HTTPServer.allow_reuse_address = True
     server = HTTPServer(("0.0.0.0", PORT), Handler)
     print(f"Antenna Tracker Dashboard running on http://0.0.0.0:{PORT}")
     print(f"  PAGES_URL={PAGES_URL}")
     print(f"  GITHUB_REPO={GITHUB_REPO}")
-    default_dir = os.environ.get("SHARED_DIR", r"E:\shared\antenna-tracker")
+    default_dir = os.environ.get("SHARED_DIR", "/opt/data/dashboard/data")
     print(f"  SHARED_DIR={default_dir}")
     server.serve_forever()
