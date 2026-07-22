@@ -355,12 +355,17 @@ def main():
     data["lastUpdate"] = datetime.now().strftime("%Y-%m-%d %H:%M")
 
     # 统一刷新所有材料的 date 字段为当天
-    today = "2026-07-21"
+    today = datetime.now().strftime("%Y-%m-%d")
     for cat in data["categories"]:
         for mat in cat["materials"]:
             mat["date"] = today
 
     with open(DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+    # 同步到 public/data/ 供部署使用
+    PUBLIC_FILE = os.path.join(os.path.dirname(DATA_FILE), "..", "..", "public", "data", "prices.json")
+    with open(PUBLIC_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
     print(f"\n{'=' * 60}")
