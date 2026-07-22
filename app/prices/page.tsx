@@ -492,7 +492,7 @@ function MaterialCard({ mat, catName, fmtYAxis }: { mat: any; catName: string; f
             tick={{ fontSize: 9, fill: '#999' }}
             tickLine={false}
             axisLine={{ stroke: '#e0e0e0' }}
-            tickFormatter={(v) => fmtYAxis(v, mat.unit)}
+            tickFormatter={(v: number) => fmtYAxis(v, mat.unit)}
             width={45}
             domain={yDomain}
           />

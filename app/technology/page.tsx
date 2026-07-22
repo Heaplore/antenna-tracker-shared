@@ -90,7 +90,7 @@ function ChartContent({ techPlotData, hypeCurveData, phaseColors, phaseNames, on
         <ZAxis range={[80, 600]} />
         <Tooltip
           cursor={{ strokeDasharray: '3 3' }}
-          content={({ active, payload }) => {
+          content={({ active, payload }: any) => {
             if (!active || !payload || !payload.length) return null
             const d = payload[0]?.payload
             if (!d || !d.name) return null
