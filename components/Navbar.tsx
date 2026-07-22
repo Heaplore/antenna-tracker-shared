@@ -6,10 +6,10 @@ import SearchTrigger from '@/components/SearchTrigger'
 
 export default function Navbar() {
   const pathname = usePathname()
-  // Static export with basePath: '/antenna-tracker' means pathname includes the base path
-  // e.g. '/antenna-tracker/news/' not '/news'
+  // Static export with basePath: '/antenna-tracker-shared' means pathname includes the base path
+  // e.g. '/antenna-tracker-shared/news/' not '/news'
   const isActive = (path: string) => {
-    const normalized = pathname?.replace(/^\/antenna-tracker/, '') || '/'
+    const normalized = pathname?.replace(/^\/antenna-tracker-shared/, '') || '/'
     const target = path === '/' ? '/' : `/${path.replace(/^\//, '')}`
     return normalized === target || normalized.startsWith(target + '/')
   }
