@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天线项目管理系统</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0e27; color: #e0e6ed; min-height: 100vh; }
+        
+        .header { background: linear-gradient(135deg, #1a1f4e 0%, #0d1235 100%); padding: 20px 30px; border-bottom: 1px solid #2a3070; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 24px; color: #fff; display: flex; align-items: center; gap: 10px; }
+        .header h1::before { content: "📡"; }
+        
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; padding: 20px 30px; }
+        
+        .card { background: #111638; border: 1px solid #2a3070; border-radius: 12px; overflow: hidden; }
+        .card-header { padding: 15px 20px; background: #161b45; border-bottom: 1px solid #2a3070; display: flex; justify-content: space-between; align-items: center; }
+        .card-header h3 { font-size: 16px; color: #a8b4ff; }
+        .card-body { padding: 15px 20px; }
+        
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+        .status-good { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+        .status-warn { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+        .status-bad { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        
+        .metric { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #1e2550; }
+        .metric:last-child { border-bottom: none; }
+        .metric-label { color: #8892b0; }
+        .metric-value { color: #e0e6ed; font-weight: 500; }
+        
+        .commit-item { padding: 10px 0; border-bottom: 1px solid #1e2550; font-size: 14px; }
+        .commit-hash { color: #60a5fa; font-family: monospace; }
+        .commit-msg { color: #a8b4ff; }
+        .commit-time { color: #6b7280; font-size: 12px; }
+        
+        .action-run { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #1e2550; }
+        .action-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .action-success { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .action-fail { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .action-cancel { background: rgba(107, 114, 128, 0.2); color: #6b7280; }
+        
+        .task-list { max-height: 300px; overflow-y: auto; }
+        .task-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #1e2550; }
+        .task-status { padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+        .task-todo { background: rgba(107, 114, 128, 0.2); color: #6b7280; }
+        .task-progress { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .task-done { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .task-title { flex: 1; font-size: 14px; }
+        .task-assignee { color: #8892b0; font-size: 12px; }
+        
+        .log-item { padding: 8px 0; border-bottom: 1px solid #1e2550; font-size: 13px; }
+        .log-agent { color: #60a5fa; font-weight: 500; }
+        .log-action { color: #a8b4ff; }
+        .log-detail { color: #8892b0; }
+        .log-time { color: #6b7280; font-size: 11px; }
+        
+        .refresh-btn { background: #2a3070; color: #a8b4ff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+        .refresh-btn:hover { background: #3a4090; }
+        
+        .loading { text-align: center; padding: 40px; color: #6b7280; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111638; }
+        ::-webkit-scrollbar-thumb { background: #2a3070; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>天线项目管理系统</h1>
+        <button class="refresh-btn" onclick="loadAll()">🔄 刷新</button>
+    </div>
+    
+    <div class="dashboard">
+        <!-- 仓库状态 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>📦 仓库状态</h3>
+            </div>
+            <div class="card-body" id="git-status">
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+        
+        <!-- 数据新鲜度 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>📊 数据新鲜度</h3>
+            </div>
+            <div class="card-body" id="data-freshness">
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+        
+        <!-- Actions 运行 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>⚙️ GitHub Actions</h3>
+            </div>
+            <div class="card-body" id="actions-runs">
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+        
+        <!-- 任务看板 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>✅ 任务看板</h3>
+            </div>
+            <div class="card-body task-list" id="task-list">
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+        
+        <!-- 操作日志 -->
+        <div class="card" style="grid-column: span 2;">
+            <div class="card-header">
+                <h3>📝 操作日志</h3>
+            </div>
+            <div class="card-body" id="logs-list">
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API = '/api';
+        
+        async function loadGitStatus() {
+            try {
+                const res = await fetch(`${API}/git/status`);
+                const data = await res.json();
+                document.getElementById('git-status').innerHTML = `
+                    <div class="metric">
+                        <span class="metric-label">分支</span>
+                        <span class="metric-value">${data.branch}</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">领先远端</span>
+                        <span class="metric-value">${data.ahead_by} commits</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">落后远端</span>
+                        <span class="metric-value">${data.behind_by} commits</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">最新提交</span>
+                        <span class="metric-value"><span class="commit-hash">${data.latest_commit.split(' ')[0]}</span> ${data.latest_commit.split(' ').slice(1).join(' ')}</span>
+                    </div>
+                `;
+            } catch (e) {
+                document.getElementById('git-status').innerHTML = `<div class="loading">加载失败: ${e.message}</div>`;
+            }
+        }
+        
+        async function loadDataFreshness() {
+            try {
+                const res = await fetch(`${API}/data/freshness`);
+                const data = await res.json();
+                let html = '';
+                
+                for (const [key, info] of Object.entries(data)) {
+                    const label = key === 'prices' ? '价格数据' : key === 'knowledge_graph' ? '知识图谱' : key === 'news' ? '新闻数据' : key;
+                    html += `<div class="metric">
+                        <span class="metric-label">${label}</span>
+                        <span class="metric-value status-badge status-good">✓ 正常</span>
+                    </div>`;
+                }
+                
+                if (!html) {
+                    html = '<div class="loading">暂无数据</div>';
+                }
+                
+                document.getElementById('data-freshness').innerHTML = html;
+            } catch (e) {
+                document.getElementById('data-freshness').innerHTML = `<div class="loading">加载失败: ${e.message}</div>`;
+            }
+        }
+        
+        async function loadActionsRuns() {
+            try {
+                const res = await fetch(`${API}/actions/runs?limit=5`);
+                const data = await res.json();
+                let html = '';
+                
+                for (const run of data.runs || []) {
+                    const iconClass = run.conclusion === 'success' ? 'action-success' : 
+                                     run.conclusion === 'failure' ? 'action-fail' : 'action-cancel';
+                    const icon = run.conclusion === 'success' ? '✓' : 
+                                run.conclusion === 'failure' ? '✗' : '⊘';
+                    html += `<div class="action-run">
+                        <div class="action-icon ${iconClass}">${icon}</div>
+                        <div>
+                            <div style="font-size: 14px; color: #a8b4ff;">${run.name}</div>
+                            <div class="commit-time">${new Date(run.created_at).toLocaleString('zh-CN')}</div>
+                        </div>
+                    </div>`;
+                }
+                
+                document.getElementById('actions-runs').innerHTML = html || '<div class="loading">暂无记录</div>';
+            } catch (e) {
+                document.getElementById('actions-runs').innerHTML = `<div class="loading">加载失败: ${e.message}</div>`;
+            }
+        }
+        
+        async function loadTasks() {
+            try {
+                const res = await fetch(`${API}/tasks`);
+                const data = await res.json();
+                let html = '';
+                
+                for (const task of data.tasks || []) {
+                    const statusClass = task.status === 'done' ? 'task-done' : 
+                                       task.status === 'in_progress' ? 'task-progress' : 'task-todo';
+                    const statusText = task.status === 'done' ? '已完成' : 
+                                      task.status === 'in_progress' ? '进行中' : '待办';
+                    html += `<div class="task-item">
+                        <span class="task-status ${statusClass}">${statusText}</span>
+                        <span class="task-title">${task.title}</span>
+                        <span class="task-assignee">@${task.assignee}</span>
+                    </div>`;
+                }
+                
+                document.getElementById('task-list').innerHTML = html || '<div class="loading">暂无任务</div>';
+            } catch (e) {
+                document.getElementById('task-list').innerHTML = `<div class="loading">加载失败: ${e.message}</div>`;
+            }
+        }
+        
+        async function loadLogs() {
+            try {
+                const res = await fetch(`${API}/logs?limit=20`);
+                const data = await res.json();
+                let html = '';
+                
+                for (const log of data.logs || []) {
+                    html += `<div class="log-item">
+                        <span class="log-agent">[${log.agent}]</span>
+                        <span class="log-action">${log.action}</span>
+                        <span class="log-detail">${log.detail}</span>
+                        <span class="log-time">${new Date(log.timestamp).toLocaleString('zh-CN')}</span>
+                    </div>`;
+                }
+                
+                document.getElementById('logs-list').innerHTML = html || '<div class="loading">暂无日志</div>';
+            } catch (e) {
+                document.getElementById('logs-list').innerHTML = `<div class="loading">加载失败: ${e.message}</div>`;
+            }
+        }
+        
+        async function loadAll() {
+            await Promise.all([loadGitStatus(), loadDataFreshness(), loadActionsRuns(), loadTasks(), loadLogs()]);
+        }
+        
+        // 初始加载
+        loadAll();
+        // 每 60 秒自动刷新
+        setInterval(loadAll, 60000);
+    </script>
+</body>
+</html>
