@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T17:08:05+08:00",
+  "generatedAt": "2026-07-23T17:07:11+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -102,7 +102,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 51 条新闻入库（2026-07-15 ~ 2026-07-22）。",
+          "summary": "过去 7 天共 53 条新闻入库（2026-07-16 ~ 2026-07-23）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -113,7 +113,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×233；射频/微波×67；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×240；射频/微波×68；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -124,7 +124,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "WAIC：中国移动展示了AI-全栈能力 | 低轨卫星商用在即，5G-ATG能否抢抓“窗口期”？ | 信号满格 河北联通5G-A护航草原音浪！",
+          "summary": "任正非谈华为与τ定律 | 国资委央企考核喜获A级，中国联通名次实现显著提升 | IDC：二季度中国智能手机市场出货量同比下降 4.3%，华为、苹果、一加逆势增长",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -135,7 +135,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "C114通信网×83；通信世界网×82；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×87；C114通信网×84；与非网RF社区×28；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
