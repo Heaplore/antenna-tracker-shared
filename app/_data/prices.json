@@ -207,10 +207,10 @@
         {
           "name": "银",
           "unit": "元/克",
-          "currentPrice": 15.68,
+          "currentPrice": 14.28,
           "change": "-17.5%",
           "trend": "下跌",
-          "date": "2026-08-04",
+          "date": "2026-08-05",
           "impact": "银浆用于天线PCB线路板导电镀层，用量较小影响有限",
           "dataSource": "金投网 / 网易财经",
           "dataUrl": "https://www.163.com/dy/article/KTRL83HL055655OW.html",
@@ -245,7 +245,7 @@
             },
             {
               "month": "2026-07",
-              "price": 15.68
+              "price": 14.28
             },
             {
               "month": "2026-08",
@@ -1221,10 +1221,10 @@
         {
           "name": "导电银浆",
           "unit": "元/公斤",
-          "currentPrice": 5350,
-          "change": "+2.5%",
-          "trend": "上涨",
-          "date": "2026-08-04",
+          "currentPrice": 4872,
+          "change": "-8.9%",
+          "trend": "下跌",
+          "date": "2026-08-05",
           "impact": "天线振子金属化镀膜（LDS工艺）主材料，银价上涨直接推高LDS振子成本",
           "dataSource": "长江有色金属网 / 行业研究机构",
           "dataUrl": "https://www.cnmn.com.cn/",
@@ -1259,7 +1259,7 @@
             },
             {
               "month": "2026-07",
-              "price": 5350
+              "price": 4872
             },
             {
               "month": "2026-08",
